@@ -49,7 +49,7 @@ from util import global_variables, strFunctions
 directories = []
 
 
-def generate_code_for(filename, overwrite=True):
+def generate_code_for(filename,language = 'sbml', overwrite=True):
     global_variables.running_tests = False
     parser = ParseXML.ParseXML(filename)
     ob = []
@@ -64,7 +64,7 @@ def generate_code_for(filename, overwrite=True):
     if global_variables.code_returned == \
             global_variables.return_codes['success']:
         name = ob['name'.lower()]
-        language = global_variables.language
+        #language = global_variables.language
         # REMEMBER TO REMOVE
         # try:
         if global_variables.is_package:
@@ -94,9 +94,12 @@ def generate_package_code(name, language, overwrite, ob):
         print('re run with overwrite=True')
         return False
     global_variables.populate_error_list(ob)
-    generate_code_files(name, ob)
-    generate_bindings_files(name, ob)
-    generate_cmake_files(name, ob)
+    if language == 'sbml':
+        generate_code_files(name, ob)
+        generate_bindings_files(name, ob)
+        generate_cmake_files(name, ob)
+    elif language == 'jsbml':
+        print('JSBML not implemented yet')
 
 
 def generate_cmake_files(name, ob):

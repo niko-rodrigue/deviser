@@ -49,9 +49,9 @@ except:
 #from legacy import run
 
 
-def generatePackageFor(filename):
+def generatePackageFor(filename, language = 'sbml'):
     """This function generates a libSBML extension for the given filename"""
-    generateCode.generate_code_for(filename, True)
+    generateCode.generate_code_for(filename, language,True)
 
 
 #def generateLegacyPackageFor(filename):
@@ -89,7 +89,11 @@ def main(args):
 #        if operation == '--legacy' or operation == '-gl':
 #            generateLegacyPackageFor(filename)
         if operation == '--generate' or operation == '-g':
-            generatePackageFor(filename)
+            language = 'sbml'
+            generatePackageFor(filename,language)
+        elif operation == '--generatejsbml' or operation == '-gj':
+            language = 'jsbml'
+            generatePackageFor(filename,language)
         elif operation == '--latex' or operation == '-l':
             generateLaTeXFor(filename)
         else:
@@ -100,6 +104,7 @@ def main(args):
     return global_variables.code_returned
   
 if __name__ == '__main__':
+    print('Main activated')
     if global_variables.code_returned == \
             global_variables.return_codes['success']:
         try:
