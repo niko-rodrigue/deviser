@@ -281,12 +281,18 @@ def populate_package_directories(name, lang):
 def populate_jsbml_package_directories(name, lang):
     global directories
     sep = os.sep
+    print('sep is ',sep)
     directories = ['{0}'.format(name),
                    '{0}{1}lib'.format(name, sep),
                    '{0}{1}doc'.format(name, sep),
                    '{0}{1}doc{1}{2}'.format(name, sep,'img'),
                    '{0}{1}test'.format(name, sep),
                    '{0}{1}resources'.format(name, sep),
+                   '{0}{1}resources{1}org'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources'.format(name, sep), 
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources{1}cfg'.format(name, sep),
                    '{0}{1}src'.format(name, sep),
                    '{0}{1}src{1}{2}'.format(name, sep, lang),
                    '{0}{1}src{1}{2}{1}packages'.format(name, sep, lang),
