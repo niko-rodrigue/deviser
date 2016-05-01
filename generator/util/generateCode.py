@@ -88,12 +88,12 @@ def generate_other_library_code(name, language, overwrite, ob):
 
 
 def generate_package_code(name, language, overwrite, ob):
+    if not create_dir_structure(name, language, overwrite):
+        print('Problem encountered creating directories')
+        print('Either delete what directory structure is there or')
+        print('re run with overwrite=True')
+        return False
     if language == 'sbml':
-        if not create_dir_structure(name, language, overwrite):
-            print('Problem encountered creating directories')
-            print('Either delete what directory structure is there or')
-            print('re run with overwrite=True')
-            return False
         global_variables.populate_error_list(ob)
         generate_code_files(name, ob)
         generate_bindings_files(name, ob)
@@ -278,6 +278,28 @@ def populate_package_directories(name, lang):
                    'constraints'.format(name, sep, lang)]
 
 
+def populate_jsbml_package_directories(name, lang):
+    global directories
+    sep = os.sep
+    directories = ['{0}'.format(name),
+                   '{0}{1}lib'.format(name, sep),
+                   '{0}{1}doc'.format(name, sep),
+                   '{0}{1}doc{1}{2}'.format(name, sep,'img'),
+                   '{0}{1}test'.format(name, sep),
+                   '{0}{1}resources'.format(name, sep),
+                   '{0}{1}src'.format(name, sep),
+                   '{0}{1}src{1}{2}'.format(name, sep, lang),
+                   '{0}{1}src{1}{2}{1}packages'.format(name, sep, lang),
+                   '{0}{1}src{1}{2}{1}packages{1}{0}'.format(name, sep, lang),
+                   '{0}{1}src{1}{2}{1}packages{1}{0}{1}common'.format(name,
+                                                                      sep,
+                                                                      lang),
+                   '{0}{1}src{1}{2}{1}packages{1}{0}{1}extension'.format(name,
+                                                                         sep,
+                                                                         lang),
+                   '{0}{1}src{1}{2}{1}packages{1}{0}{1}{2}'.format(name, sep,
+                                                                   lang)]
+
 def populate_other_library_directories(name, lang):
     global directories
     sep = os.sep
@@ -300,7 +322,10 @@ def populate_other_library_directories(name, lang):
 
 def create_dir_structure(pkgname, lang, overwrite):
     if global_variables.is_package:
-        populate_package_directories(pkgname, lang)
+        if lang == 'sbml':
+            populate_package_directories(pkgname, lang)
+        elif lang == 'jsbml':
+            populate_jsbml_package_directories(pkgname, lang)
     else:
         populate_other_library_directories(pkgname, lang)
     print('creating directory structure for {0}'.format(pkgname))

@@ -76,6 +76,12 @@ package_prefix = ''
 global package_full_name
 package_full_name = ''
 
+global javaLanguage
+javaLanguage = 'jsbml'
+global java_library_name
+java_library_name = 'JSBML'
+
+
 global return_codes
 return_codes= dict({'success': 0,
                     'failed to read file': 1,
