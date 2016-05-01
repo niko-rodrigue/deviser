@@ -88,13 +88,13 @@ def generate_other_library_code(name, language, overwrite, ob):
 
 
 def generate_package_code(name, language, overwrite, ob):
-    if not create_dir_structure(name, language, overwrite):
-        print('Problem encountered creating directories')
-        print('Either delete what directory structure is there or')
-        print('re run with overwrite=True')
-        return False
-    global_variables.populate_error_list(ob)
     if language == 'sbml':
+        if not create_dir_structure(name, language, overwrite):
+            print('Problem encountered creating directories')
+            print('Either delete what directory structure is there or')
+            print('re run with overwrite=True')
+            return False
+        global_variables.populate_error_list(ob)
         generate_code_files(name, ob)
         generate_bindings_files(name, ob)
         generate_cmake_files(name, ob)
