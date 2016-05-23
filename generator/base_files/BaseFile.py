@@ -45,7 +45,7 @@ class BaseFile:
 
     def __init__(self, name, extension):
         self.name = name
-        self.extension = extension
+        self.extension = extension #For C++ example 'h'
 
         # derived members for file
         self.filename = name + '.' + extension

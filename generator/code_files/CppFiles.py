@@ -46,7 +46,7 @@ from util import strFunctions, query, global_variables
 class CppFiles():
     """Class for all Cpp files"""
 
-    def __init__(self, class_object, verbose=False):
+    def __init__(self, class_object, verbose=False): #Class_object info about sbml model
         # members from object
         self.class_object = class_object
         self.class_object['is_list_of'] = False

@@ -57,7 +57,7 @@ def generate_code_for(filename,language = 'sbml', overwrite=True):
             global_variables.return_codes['success']:
         # catch a problem in the parsing
         try:
-            ob = parser.parse_deviser_xml()
+            ob = parser.parse_deviser_xml()  #What to do with 'pkg_version' values?
         except:
             global_variables.code_returned \
                 = global_variables.return_codes['parsing error']
@@ -94,7 +94,7 @@ def generate_package_code(name, language, overwrite, ob):
         print('re run with overwrite=True')
         return False
     if language == 'sbml':
-        global_variables.populate_error_list(ob)
+        global_variables.populate_error_list(ob) #Maybe tricky?
         generate_code_files(name, ob)
         generate_bindings_files(name, ob)
         generate_cmake_files(name, ob)
@@ -187,7 +187,7 @@ def generate_code_files(name, ob):
     os.chdir(common_dir)
     ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
     ext.write_files()
-    ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True)
+    ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True) #fwd? Type VIP
     ext.write_files()
     os.chdir(this_dir)
 
