@@ -37,19 +37,19 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from base_files import BaseCppFile
-from . cpp_functions import *
+from base_files import BaseJavaFile
+from . java_functions import *
 from util import query, strFunctions, global_variables
 
 
-class CppCodeFile(BaseCppFile.BaseCppFile):
+class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     """Class for all Cpp Code files"""
 
     def __init__(self, class_object, represents_class=True):
 
         self.brief_description = \
             'Implementation  of the {0} class.'.format(class_object['name'])
-        BaseCppFile.BaseCppFile.__init__(self, class_object['name'], 'cpp',
+        BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'cpp',
                                          class_object['attribs'])
 
         # members from object
@@ -744,7 +744,7 @@ class CppCodeFile(BaseCppFile.BaseCppFile):
     # Write file
 
     def write_file(self):
-        BaseCppFile.BaseCppFile.write_file(self)
+        BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_general_includes()
         self.write_cppns_begin()
         self.write_cpp_begin()

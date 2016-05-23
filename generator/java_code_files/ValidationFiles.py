@@ -37,7 +37,7 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from . import CppHeaderFile
+from . import JavaHeaderFile
 from base_files import BaseCppFile, BaseTexFile
 from util import strFunctions, global_variables
 from validation import ValidationRulesForPlugin, ValidationRulesForClass
@@ -214,7 +214,7 @@ class ValidationFiles():
         class_desc['name'] = '{0}{1}Error'.format(self.up_package,
                                                   self.cap_language)
         class_desc['attribs'] = []
-        self.error_file = CppHeaderFile.CppHeaderFile(class_desc, False)
+        self.error_file = JavaHeaderFile.CppHeaderFile(class_desc, False)
         if self.verbose:
             print('Writing file {0}'.format(self.error_file.filename))
         self.write_error_file()
@@ -228,7 +228,7 @@ class ValidationFiles():
         else:
             class_desc['name'] = '{0}ErrorTable'.format(global_variables.prefix)
         class_desc['attribs'] = []
-        self.error_file = CppHeaderFile.CppHeaderFile(class_desc, False)
+        self.error_file = JavaHeaderFile.CppHeaderFile(class_desc, False)
         if self.verbose:
             print('Writing file {0}'.format(self.error_file.filename))
         if global_variables.is_package:

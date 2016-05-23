@@ -214,8 +214,7 @@ ListOfInputs::addInput(const Input* i)
   }
   else
   {
-    append(i);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(i);
   }
 }
 

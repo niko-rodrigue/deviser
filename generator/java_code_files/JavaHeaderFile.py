@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# @file    CppHeaderFile.py
+# @file    JavaHeaderFile.py
 # @brief   class for generating header file for the given class
 # @author  Frank Bergmann
 # @author  Sarah Keating
@@ -37,19 +37,19 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from base_files import BaseCppFile
-from . cpp_functions import *
+from base_files import BaseJavaFile
+from . java_functions import *
 from util import query, global_variables
 
 
-class CppHeaderFile(BaseCppFile.BaseCppFile):
+class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
     """Class for all Cpp Header files"""
 
     def __init__(self, class_object, represents_class=True):
 
         self.brief_description = \
             'Definition of the {0} class.'.format(class_object['name'])
-        BaseCppFile.BaseCppFile.__init__(self, class_object['name'], 'h',
+        BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'h',
                                          class_object['attribs'])
 
         # members from object

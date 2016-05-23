@@ -40,7 +40,7 @@
 import re
 import os
 
-from . import CppHeaderFile
+from . import JavaHeaderFile
 from . import CppCodeFile
 from . import ValidationFiles
 from util import strFunctions, global_variables
@@ -89,7 +89,7 @@ class BaseClassFiles():
 
     def write_header(self, name, common=False):
         base_descrip = self.create_base_description(name, common)
-        fileout = CppHeaderFile.CppHeaderFile(base_descrip, False)
+        fileout = JavaHeaderFile.CppHeaderFile(base_descrip, False)
         filein = '{0}.h'.format(name)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))

@@ -37,13 +37,13 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from base_files import BaseCppFile
-from . cpp_functions import *
+from base_files import BaseJavaFile
+from . java_functions import *
 from util import query, strFunctions
 
 
-class ExtensionCodeFile(BaseCppFile.BaseCppFile):
-    """Class for all Cpp Code files"""
+class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
+    """Class for all Java Code files"""
 
     def __init__(self, package):
 
@@ -51,7 +51,7 @@ class ExtensionCodeFile(BaseCppFile.BaseCppFile):
         self.name = '{0}Extension'.format(self.up_package)
         self.brief_description = \
             'Implementation  of {0}.'.format(self.name)
-        BaseCppFile.BaseCppFile.__init__(self, self.name, 'cpp',
+        BaseJavaFile.BaseJavaFile.__init__(self, self.name, 'cpp',
                                          None)
 
         # members from object
@@ -317,7 +317,7 @@ class ExtensionCodeFile(BaseCppFile.BaseCppFile):
     # Write file
 
     def write_file(self):
-        BaseCppFile.BaseCppFile.write_file(self)
+        BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_general_includes()
         self.write_cppns_begin()
         self.write_cpp_begin()

@@ -224,8 +224,7 @@ ListOfQualitativeSpecies::addQualitativeSpecies(const QualitativeSpecies* qs)
   }
   else
   {
-    append(qs);
-    return LIBSBML_OPERATION_SUCCESS;
+    return append(qs);
   }
 }
 

@@ -42,6 +42,11 @@ import os
 
 from parseXML import ParseXML
 from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles
+
+#:-> JSML imports
+from java_code_files import ExtensionFiles, JavaFiles, ValidationFiles #Need to fix this part
+
+
 from bindings_files import BindingsFiles
 from cmake_files import CMakeFiles
 from base_files import BaseFile, BaseTemplateFile
@@ -300,6 +305,56 @@ def generate_code_files(name, ob):
         all_files = CppFiles.CppFiles(working_class, True)
         all_files.write_files()
     os.chdir(this_dir)
+
+
+
+
+def generate_jsbml_code_files(name, ob):
+    this_dir = os.getcwd()
+    language = global_variables.javaLanguage
+    common_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}common'.format(name,
+                                                                    os.sep,
+                                                                    language)
+    extension_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}' \
+                    'extension'.format(name, os.sep, language)
+    valid_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}validator'.format(name,
+                                                                      os.sep,
+                                                                      language)
+    constraints_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}validator{1}' \
+                      'constraints'.format(name, os.sep, language)
+    sbml_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}{2}'.format(name, os.sep,
+                                                               language)
+    # os.chdir(common_dir)
+    # ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
+    # ext.write_files()
+    # ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True) #fwd? Type VIP
+    # ext.write_files()
+    # os.chdir(this_dir)
+    #
+    # os.chdir(extension_dir)
+    # ext = ExtensionFiles.ExtensionFiles(ob, '', True)
+    # ext.write_files()
+    # for i in range(0, len(ob['plugins'])+1):
+    #     ext.write_plugin_files(i)
+    # os.chdir(this_dir)
+    #
+    # os.chdir(valid_dir)
+    # all_files = ValidationFiles.ValidationFiles(ob, True)
+    # all_files.write_files()
+    # os.chdir(this_dir)
+    #
+    # os.chdir(constraints_dir)
+    # all_files = ValidationFiles.ValidationFiles(ob, True)
+    # all_files.write_constraint_files()
+    # os.chdir(this_dir)
+
+    # need to do this last so that the error table is populated
+    os.chdir(sbml_dir)
+    for working_class in ob['baseElements']:
+        all_files = JavaFiles.JavaFiles(working_class, True)
+        all_files.write_files()
+    os.chdir(this_dir)
+
 
 
 def generate_other_library_code_files(name, ob):

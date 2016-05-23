@@ -40,7 +40,7 @@
 from . import ExtensionCodeFile
 from . import ExtensionHeaderFile
 from . import CppCodeFile
-from . import CppHeaderFile
+from . import JavaHeaderFile
 from util import strFunctions, global_variables
 
 
@@ -79,7 +79,7 @@ class ExtensionFiles():
         types_fileout.close_file()
 
     def write_plugin_header(self, class_descrip):
-        fileout = CppHeaderFile.CppHeaderFile(class_descrip)
+        fileout = JavaHeaderFile.CppHeaderFile(class_descrip)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
         fileout.write_file()
