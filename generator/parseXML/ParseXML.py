@@ -54,6 +54,7 @@ class ParseXML():
         if not os.path.isfile(filename):
             global_variables.code_returned = \
                 global_variables.return_codes['failed to read file']
+            print('{0} not found'.format(filename))
 
         if global_variables.code_returned == \
                 global_variables.return_codes['success']:
@@ -574,6 +575,12 @@ class ParseXML():
                      'namespace': namespace})
 
 
+    def get_dependency_information(self, node):
+        library = self.get_value(node, 'library_name')
+        prefix = self.get_value(node, 'prefix')
+        return dict({'library': library,
+                     'prefix': prefix})
+
     def read_language_element(self, node):
         language = self.get_value(node, 'name')
         base_class = self.get_value(node, 'baseClass')
@@ -592,13 +599,35 @@ class ParseXML():
             for version in versions[0].getElementsByTagName('version'):
                 specification.append(self.get_version_information(version))
 
+        dependencies = node.getElementsByTagName('dependencies')
+        dependency = []
+        if dependencies:
+            for depend in dependencies[0].getElementsByTagName('dependency'):
+                dependency.append(self.get_dependency_information(depend))
+
+        library = node.getElementsByTagName('library_version')
+        if library:
+            major = self.get_int_value(self, library[0], 'major')
+            minor = self.get_int_value(self, library[0], 'minor')
+            rev = self.get_int_value(self, library[0], 'revision')
+        else:
+            major = 0
+            minor = 0
+            rev = 0
+
+        library_version = dict({'major': major,
+                                'minor': minor,
+                                'revision': rev})
+
+
         # some sanity checking
         if not language or language == '':
             language = 'sbml'
         # set the globals
         global_variables.set_globals(language.lower(), base_class,
                                      document_class, prefix, library_name,
-                                     is_package, pkg_prefix, '', specification)
+                                     is_package, pkg_prefix, specification,
+                                     dependency, library_version)
 
     #####################################################################
 

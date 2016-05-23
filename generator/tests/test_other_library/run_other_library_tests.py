@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../')
 
 from code_files import CppFiles, BaseClassFiles, ValidationFiles, ExtensionFiles
+from cmake_files import CMakeFiles
 from bindings_files import BindingsFiles
 from parseXML import ParseXML
-from util import strFunctions, global_variables
+from util import strFunctions, global_variables, generateCode
 
 from tests import test_functions
 
@@ -73,8 +77,35 @@ def generate_binding(filename, binding):
         os.makedirs(binding)
         os.chdir(binding)
     all_files = BindingsFiles.BindingFiles(ob, binding, True)
-    all_files.write_swig_library_files()
+    all_files.write_files()
     os.chdir('../.')
+    os.chdir('../.')
+
+def generate_cmake(filename, binding):
+    parser = ParseXML.ParseXML(filename)
+    ob = parser.parse_deviser_xml()
+    os.chdir('./temp')
+    if os.path.isdir(binding):
+        os.chdir(binding)
+    else:
+        os.makedirs(binding)
+        os.chdir(binding)
+    this_dir = os.getcwd()
+    os.mkdir('src')
+    os.chdir('src')
+    os.mkdir('bindings')
+    os.mkdir('{0}'.format(global_variables.language))
+    os.chdir(this_dir)
+    bind = CMakeFiles.CMakeFiles(ob, this_dir, True)
+    bind.write_other_library_files()
+    os.chdir('../.')
+    os.chdir('../.')
+
+def generate_global(filename):
+    parser = ParseXML.ParseXML(filename)
+    ob = parser.parse_deviser_xml()
+    os.chdir('./temp')
+    generateCode.generate_global_files()
     os.chdir('../.')
 
 #############################################################################
@@ -102,9 +133,9 @@ def compare_code_cmake(class_name):
     temp_file = '.\\temp\\{0}.cmake'.format(class_name)
     return compare_files(correct_file, temp_file)
 
-def compare_code_txt(class_name):
-    correct_file = '.\\test-code\\{0}.txt'.format(class_name)
-    temp_file = '.\\temp\\{0}.txt'.format(class_name)
+def compare_code_txt(class_name, ext='txt'):
+    correct_file = '.\\test-code\\{0}.{1}'.format(class_name, ext)
+    temp_file = '.\\temp\\{0}.{1}'.format(class_name, ext)
     return compare_files(correct_file, temp_file)
 
 def compare_binding_headers(class_name, binding):
@@ -112,7 +143,29 @@ def compare_binding_headers(class_name, binding):
     temp_file = '.\\temp\\{0}\\{1}.h'.format(binding, class_name)
     return compare_files(correct_file, temp_file)
 
+def compare_binding_impl(class_name, binding):
+    correct_file = '.\\test-code\\{0}\\{1}.cpp'.format(binding, class_name)
+    temp_file = '.\\temp\\{0}\\{1}.cpp'.format(binding, class_name)
+    return compare_files(correct_file, temp_file)
 
+def compare_binding_interface(class_name, binding):
+    correct_file = '.\\test-code\\{0}\\{1}.i'.format(binding, class_name)
+    temp_file = '.\\temp\\{0}\\{1}.i'.format(binding, class_name)
+    return compare_files(correct_file, temp_file)
+
+def compare_binding_file(class_name, binding):
+    correct_file = '.\\test-code\\{0}\\{1}'.format(binding, class_name)
+    temp_file = '.\\temp\\{0}\\{1}'.format(binding, class_name)
+    return compare_files(correct_file, temp_file)
+
+def compare_cmake_file(this_dir):
+    if this_dir == 'top-level':
+        correct_file = '.\\test-code\\cmake\\CMakeLists.txt'
+        temp_file = '.\\temp\\cmake\\CMakeLists.txt'
+    else:
+        correct_file = '.\\test-code\\cmake\\{0}\\CMakeLists.txt'.format(this_dir)
+        temp_file = '.\\temp\\cmake\\{0}\\CMakeLists.txt'.format(this_dir)
+    return compare_files(correct_file, temp_file)
 
 #############################################################################
 # Specific test functions
@@ -159,7 +212,6 @@ def test_other_templates():
     fail += compare_code_headers('SedVisitor')
     fail += compare_code_impl('SedVisitor')
     fail += compare_code_headers('SedErrorTable')
-    fail += compare_code_txt('CMakeLists')
     print('')
     return fail
 
@@ -188,7 +240,42 @@ def run_forward(name, class_name, test_case):
 def test_bindings(name, class_name, test_case, binding):
     filename = test_functions.set_up_test(name, class_name, test_case)
     generate_binding(filename, binding)
-    fail = compare_binding_headers(class_name, binding)
+    fail = 0
+    if binding == 'swig':
+        fail += compare_binding_headers('ListWrapper', binding)
+        fail += compare_binding_headers('OStream', binding)
+        fail += compare_binding_impl('OStream', binding)
+        fail += compare_binding_interface('std_set', binding)
+        fail += compare_binding_headers('libsedml', binding)
+        fail += compare_binding_interface('libsedml', binding)
+        fail += compare_binding_interface('ASTNodes', binding)
+    elif binding == 'csharp':
+        fail += compare_binding_impl('local', binding)
+        fail += compare_binding_interface('local', binding)
+        fail += compare_binding_interface('libsedml', binding)
+        fail += compare_binding_file('CMakeLists.txt', binding)
+        fail += compare_binding_file('compile-native-files.cmake', binding)
+        fail += compare_binding_file('AssemblyInfo.cs.in', binding)
+    print('')
+    return fail
+
+def test_cmake(name, class_name, test_case, binding):
+    filename = test_functions.set_up_test(name, class_name, test_case)
+    generate_cmake(filename, binding)
+    fail = 0
+    fail += compare_cmake_file('top-level')
+    fail += compare_cmake_file('src')
+    fail += compare_cmake_file('src/bindings')
+    fail += compare_cmake_file('src/{0}'.format(global_variables.language))
+    print('')
+    return fail
+
+def test_global(name, class_name, test_case):
+    filename = test_functions.set_up_test(name, class_name, test_case)
+    generate_global(filename)
+    fail = 0
+    fail += compare_code_txt('VERSION')
+    fail += compare_code_txt('README', 'md')
     print('')
     return fail
 
@@ -199,7 +286,7 @@ def test_bindings(name, class_name, test_case, binding):
 def main():
 
     # set up the enivornment
-    this_dir = os.getcwd()
+    this_dir = os.path.dirname(os.path.abspath(__file__))
     (path_to_tests, other) = os.path.split(this_dir)
     test_functions.set_path_to_tests(path_to_tests)
     if not os.path.isdir('temp'):
@@ -285,6 +372,23 @@ def main():
     test_case = 'swig dir'
     binding = 'swig'
     fail += test_bindings(name, class_name, test_case, binding)
+
+    name = 'test_sedml'
+    class_name = 'libsedml'
+    test_case = 'csharp dir'
+    binding = 'csharp'
+    fail += test_bindings(name, class_name, test_case, binding)
+
+    name = 'test_sedml'
+    class_name = 'libsedml'
+    test_case = 'cmake'
+    binding = 'cmake'
+    fail += test_cmake(name, class_name, test_case, binding)
+
+    name = 'test_sedml'
+    class_name = 'libsedml'
+    test_case = 'global files'
+    fail += test_global(name, class_name, test_case)
 
     test_functions.report('OTHER LIBRARY', fail, fails, not_tested)
     return fail

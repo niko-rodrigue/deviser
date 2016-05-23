@@ -43,6 +43,7 @@ from . import DowncastNamespaceFile
 from . import DowncastPackagesFile
 from . import DowncastPluginsFile
 from . import NativeSwigFile
+from . import BaseBindingsFiles
 
 
 class BindingFiles():
@@ -58,8 +59,11 @@ class BindingFiles():
         self.plugins = pkg_object['plugins']
 
     #########################################################################
+    # package files
 
     def write_downcast_extension(self):
+        if not global_variables.is_package:
+            return
         name = 'local-downcast-extension-{0}'.format(self.package)
         ext = DowncastExtensionFile.DowncastExtensionFile(name,
                                                           self.package,
@@ -70,6 +74,8 @@ class BindingFiles():
         ext.close_file()
 
     def write_downcast_namespace(self):
+        if not global_variables.is_package:
+            return
         name = 'local-downcast-namespaces-{0}'.format(self.package)
         ext = DowncastNamespaceFile.DowncastNamespaceFile(name,
                                                           self.package,
@@ -80,6 +86,8 @@ class BindingFiles():
         ext.close_file()
 
     def write_downcast_packages(self):
+        if not global_variables.is_package:
+            return
         if self.binding == 'csharp' or self.binding == 'java':
             name = 'local-packages-{0}'.format(self.package)
         else:
@@ -95,6 +103,8 @@ class BindingFiles():
         ext.close_file()
 
     def write_downcast_plugins(self):
+        if not global_variables.is_package:
+            return
         name = 'local-downcast-plugins-{0}'.format(self.package)
         ext = DowncastPluginsFile.DowncastPluginsFile(name,
                                                       self.package,
@@ -105,7 +115,16 @@ class BindingFiles():
         ext.write_file()
         ext.close_file()
 
+    #########################################################################
+    # local files
+
     def write_local(self):
+        if global_variables.is_package:
+            self.write_local_package_files()
+        else:
+            self.write_local_library_files()
+
+    def write_local_package_files(self):
         if self.binding == 'csharp' or self.binding == 'java':
             return
         else:
@@ -120,6 +139,14 @@ class BindingFiles():
             print('Writing file {0}'.format(ext.fileout.filename))
         ext.write_file()
         ext.close_file()
+
+    def write_local_library_files(self):
+        base_files = BaseBindingsFiles.BaseBindingsFiles(self.elements,
+                                                         self.binding, True)
+        base_files.write_files()
+
+    ########################################################################
+    # write files in the swig directory
 
     def write_swig_files(self):
         if global_variables.is_package:
@@ -145,13 +172,18 @@ class BindingFiles():
         ext.close_file()
 
     def write_swig_library_files(self):
-        name = '{0}'.format(global_variables.library_name.lower())
-        ext = NativeSwigFile.NativeSwigFile(name, self.package, self.elements,
-                                            self.plugins, is_header=True)
-        if self.verbose and ext.fileout:
-            print('Writing file {0}'.format(ext.fileout.filename))
-        ext.write_file()
-        ext.close_file()
+        base_files = BaseBindingsFiles.BaseBindingsFiles(self.elements,
+                                                         'swig', True)
+        base_files.write_files()
+
+    ########################################################################
+    # other library files
+    def write_cmake_file(self):
+        if global_variables.is_package:
+            return
+        base_files = BaseBindingsFiles.BaseBindingsFiles(self.elements,
+                                                         self.binding, True)
+        base_files.write_files()
 
     ########################################################################
 

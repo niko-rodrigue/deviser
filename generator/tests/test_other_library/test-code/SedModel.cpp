@@ -377,8 +377,7 @@ SedModel::addChange(const SedChange* sc)
   }
   else
   {
-    mChanges.append(sc);
-    return LIBSEDML_OPERATION_SUCCESS;
+    return mChanges.append(sc);
   }
 }
 
@@ -706,7 +705,7 @@ SedModel::readAttributes(
   {
     std::string message = "Sedml attribute 'id' is missing from the <SedModel> "
       "element.";
-    log->logError(SedmlSedModelAllowedAttributes, level, version, message);
+    log->logError(SedmlModelAllowedAttributes, level, version, message);
   }
 
   // 
@@ -754,7 +753,7 @@ SedModel::readAttributes(
   {
     std::string message = "Sedml attribute 'source' is missing from the "
       "<SedModel> element.";
-    log->logError(SedmlSedModelAllowedAttributes, level, version, message);
+    log->logError(SedmlModelAllowedAttributes, level, version, message);
   }
 }
 

@@ -126,14 +126,16 @@ global ret_att_unex
 #ret_att_unex = '{0}_UNEXPECTED_ATTRIBUTE'.format(library_name.upper())
 
 global namespaces
+global dependency
+global library_version
 
 def set_global_fullname(fullname):
     global package_full_name
     package_full_name = fullname
 
 
-def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix, fullname='',
-                specifications=[]):
+def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix,
+                specifications=[], depend=[], library_vers=[]):
     global language
     language = lang
 
@@ -143,6 +145,16 @@ def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix, fullname='',
         namespaces = specifications
     else:
         namespaces.append(dict({'namespace': 'not defined'}))
+
+    global dependency
+    dependency = []
+    if len(specifications) > 0:
+        dependency = depend
+
+    global library_version
+    library_version = []
+    if library_vers:
+        library_version = library_vers
 
     if base:
         global baseClass
@@ -161,10 +173,6 @@ def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix, fullname='',
     if pkg_prefix:
         global package_prefix
         package_prefix = pkg_prefix
-
-    if fullname:
-        global package_full_name
-        package_full_name = fullname
 
     global library_name
     if lib:
@@ -227,7 +235,7 @@ def get_return_code(index):
 
 def reset():
     set_globals('sbml', 'SBase', 'SBMLDocument', 'SBML', 'Libsbml',
-                True, '', '')
+                True, '')
     global error_list
     error_list = []
     global class_rules
