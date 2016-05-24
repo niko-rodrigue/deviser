@@ -38,13 +38,13 @@
 # ------------------------------------------------------------------------ -->
 
 import copy
-from . import JavaHeaderFile
-from . import CppCodeFile
+# from . import JavaHeaderFile # No need for header files
+from . import JavaCodeFile
 from util import strFunctions, query, global_variables
 
 
-class CppFiles():
-    """Class for all Cpp files"""
+class JavaFiles():
+    """Class for all Java files"""
 
     def __init__(self, class_object, verbose=False):
         # members from object
@@ -65,15 +65,15 @@ class CppFiles():
             self.write_header(lo_working_class)
             self.write_code(lo_working_class)
 
-    def write_header(self, class_desc):
-        fileout = JavaHeaderFile.CppHeaderFile(class_desc)
-        if self.verbose:
-            print('Writing file {0}'.format(fileout.filename))
-        fileout.write_file()
-        fileout.close_file()
+    # def write_header(self, class_desc):
+    #     fileout = JavaHeaderFile.JavaHeaderFile(class_desc)
+    #     if self.verbose:
+    #         print('Writing file {0}'.format(fileout.filename))
+    #     fileout.write_file()
+    #     fileout.close_file()
 
     def write_code(self, class_desc):
-        fileout = CppCodeFile.CppCodeFile(class_desc)
+        fileout = JavaCodeFile.JavaCodeFile(class_desc)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
         fileout.write_file()

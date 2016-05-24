@@ -40,11 +40,15 @@
 import sys
 import os
 
+from pandas.hashtable import na_sentinel
+
 from parseXML import ParseXML
 from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles
 
-#:-> JSML imports
-from java_code_files import ExtensionFiles, JavaFiles, ValidationFiles #Need to fix this part
+# JSBML imports --> need to fix this part
+# from java_code_files import ExtensionFiles
+from java_code_files import JavaFiles
+# from java_code_files import ValidationFiles #Need to fix this part
 
 
 from bindings_files import BindingsFiles
@@ -123,8 +127,9 @@ def generate_package_code(name, language, overwrite, ob):
         generate_bindings_files(name, ob)
         generate_cmake_files(name, ob)
     elif language == 'jsbml':
-        print('JSBML not implemented yet')
-
+        print('JSBML not fully implemented yet')
+        print('In testing')
+        generate_jsbml_code_files(name, ob)
 
 def generate_cmake_files(name, ob):
     os.chdir('{0}'.format(name))
@@ -312,18 +317,14 @@ def generate_code_files(name, ob):
 def generate_jsbml_code_files(name, ob):
     this_dir = os.getcwd()
     language = global_variables.javaLanguage
-    common_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}common'.format(name,
-                                                                    os.sep,
-                                                                    language)
-    extension_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}' \
-                    'extension'.format(name, os.sep, language)
-    valid_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}validator'.format(name,
-                                                                      os.sep,
-                                                                      language)
-    constraints_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}validator{1}' \
-                      'constraints'.format(name, os.sep, language)
-    sbml_dir = '{0}{1}src{1}{2}{1}packages{1}{0}{1}{2}'.format(name, os.sep,
+    extension_dir = '{0}{1}src{1}org{1}sbml{1}{2}{1}ext{1}{0}'.format(name, os.sep, language)
+
+    parser_dir = '{0}{1}src{1}org{1}sbml{1}{2}{1}xml{1}parsers'.format(name, os.sep,
                                                                language)
+
+    print('extension_dir ', extension_dir)
+    print('parser_dir ',parser_dir)
+
     # os.chdir(common_dir)
     # ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
     # ext.write_files()
@@ -349,11 +350,11 @@ def generate_jsbml_code_files(name, ob):
     # os.chdir(this_dir)
 
     # need to do this last so that the error table is populated
-    os.chdir(sbml_dir)
-    for working_class in ob['baseElements']:
-        all_files = JavaFiles.JavaFiles(working_class, True)
-        all_files.write_files()
-    os.chdir(this_dir)
+    # os.chdir(sbml_dir)
+    # for working_class in ob['baseElements']:
+    #     all_files = JavaFiles.JavaFiles(working_class, True)
+    #     all_files.write_files()
+    # os.chdir(this_dir)
 
 
 
