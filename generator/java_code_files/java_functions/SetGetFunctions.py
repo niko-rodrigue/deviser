@@ -41,7 +41,7 @@ from util import strFunctions, query, global_variables
 
 
 class SetGetFunctions():
-    """Class for all functions for set/get/isset/unset"""
+    """Class for all java  functions for set/get/isset/unset"""
 
     def __init__(self, language, is_cpp_api, is_list_of, class_object):
         self.language = language

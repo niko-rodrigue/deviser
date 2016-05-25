@@ -350,11 +350,17 @@ def generate_jsbml_code_files(name, ob):
     # os.chdir(this_dir)
 
     # need to do this last so that the error table is populated
-    # os.chdir(sbml_dir)
-    # for working_class in ob['baseElements']:
-    #     all_files = JavaFiles.JavaFiles(working_class, True)
-    #     all_files.write_files()
-    # os.chdir(this_dir)
+
+    try:
+        os.chdir(extension_dir)
+        print("Saving files")
+        for working_class in ob['baseElements']:
+            all_files = JavaFiles.JavaFiles(working_class, True)
+            all_files.write_files()
+        os.chdir(this_dir)
+    except Exception as error:
+        print("Error is ",error)
+
 
 
 

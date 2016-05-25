@@ -43,13 +43,13 @@ from util import query, strFunctions, global_variables
 
 
 class JavaCodeFile(BaseJavaFile.BaseJavaFile):
-    """Class for all Cpp Code files"""
+    """Class for all Java Code files"""
 
     def __init__(self, class_object, represents_class=True):
 
         self.brief_description = \
             'Implementation  of the {0} class.'.format(class_object['name'])
-        BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'cpp',
+        BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'java',
                                          class_object['attribs'])
 
         # members from object
@@ -106,16 +106,28 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 lo_name = strFunctions.list_of_name(self.class_name)
         if global_variables.is_package:
             folder = self.language if not self.is_plugin else 'extension'
-            self.write_line_verbatim('#include <{0}/packages/{1}/{2}/{3}'
-                                     '.h>'.format(self.language,
+            print('folder', folder)
+            try:
+                curr_include_line = '#include <{0}/packages/{1}/{2}/{3}.h>'.format(self.language,
                                                   self.package.lower(),
-                                                  folder, self.class_name))
+                                                  folder, self.class_name)
+                print('curr_include_line is ',curr_include_line)
+                self.write_line_verbatim(curr_include_line)
+            except Exception as error:
+                print("Error is ",error)
             if self.has_parent_list_of and not self.is_list_of:
-                self.write_line_verbatim('#include <{0}/packages/{1}/{0}/'
-                                         '{2}'
-                                         '.h>'.format(self.language,
-                                                      self.package.lower(),
-                                                      lo_name))
+                try:
+                    curr_include_line ='#include <{0}/packages/{1}/{0}/{2}.h>'.format(self.language,
+                                                                                      self.package.lower(),
+                                                                                      lo_name)
+                    print('curr_include_line Parent ',curr_include_line)
+                    self.write_line_verbatim(curr_include_line)
+                except Exception as error:
+                    print("error in ",error)
+
+
+
+
             self.write_line_verbatim('#include <{0}/packages/{1}/validator/'
                                      '{2}{3}Error'
                                      '.h>'.format(self.language,

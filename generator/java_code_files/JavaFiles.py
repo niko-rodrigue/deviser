@@ -58,11 +58,11 @@ class JavaFiles():
         self.verbose = verbose
 
     def write_files(self):
-        self.write_header(self.class_object)
+        #self.write_header(self.class_object)
         self.write_code(self.class_object)
         if self.class_object['hasListOf']:
             lo_working_class = self.create_list_of_description()
-            self.write_header(lo_working_class)
+            #self.write_header(lo_working_class)
             self.write_code(lo_working_class)
 
     # def write_header(self, class_desc):
@@ -76,6 +76,7 @@ class JavaFiles():
         fileout = JavaCodeFile.JavaCodeFile(class_desc)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
+            print('---'*10)
         fileout.write_file()
         fileout.close_file()
 
