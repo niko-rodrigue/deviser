@@ -229,20 +229,20 @@ class BaseJavaFile(BaseFile.BaseFile):
             att_type = attributes[i]['type']
             if att_type == 'SId' or att_type == 'SIdRef' or att_type == 'IDREF':
                 attributes[i]['attType'] = 'string'
-                attributes[i]['attTypeCode'] = 'std::string&'
-                attributes[i]['CType'] = 'const char *'
+                attributes[i]['attTypeCode'] = 'String'
+                attributes[i]['CType'] = 'String'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = '""'
             elif att_type == 'UnitSId' or att_type == 'UnitSIdRef':
                 attributes[i]['attType'] = 'string'
-                attributes[i]['attTypeCode'] = 'std::string&'
-                attributes[i]['CType'] = 'const char *'
+                attributes[i]['attTypeCode'] = 'String'
+                attributes[i]['CType'] = 'String'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = '""'
             elif att_type == 'string':
-                attributes[i]['attType'] = 'string'
-                attributes[i]['attTypeCode'] = 'std::string&'
-                attributes[i]['CType'] = 'const char *'
+                attributes[i]['attType'] = 'String'
+                attributes[i]['attTypeCode'] = 'String'
+                attributes[i]['CType'] = 'String'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = '""'
             elif att_type == 'double':
@@ -250,32 +250,32 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attTypeCode'] = 'double'
                 attributes[i]['CType'] = 'double'
                 attributes[i]['isNumber'] = True
-                attributes[i]['default'] = 'util_NaN()'
+                attributes[i]['default'] = 'util_NaN()' #?
             elif att_type == 'int':
                 attributes[i]['attType'] = 'integer'
                 attributes[i]['attTypeCode'] = 'int'
                 attributes[i]['CType'] = 'int'
                 attributes[i]['isNumber'] = True
                 attributes[i]['default'] = '{0}_INT_' \
-                                           'MAX'.format(self.cap_language)
+                                           'MAX'.format(self.cap_language) #?
             elif att_type == 'uint':
                 attributes[i]['attType'] = 'unsigned integer'
-                attributes[i]['attTypeCode'] = 'unsigned int'
-                attributes[i]['CType'] = 'unsigned int'
+                attributes[i]['attTypeCode'] = 'int'
+                attributes[i]['CType'] = 'int'
                 attributes[i]['isNumber'] = True
                 attributes[i]['default'] = '{0}_INT_' \
                                            'MAX'.format(self.cap_language)
             elif att_type == 'bool' or att_type == 'boolean':
                 attributes[i]['attType'] = 'boolean'
-                attributes[i]['attTypeCode'] = 'bool'
-                attributes[i]['CType'] = 'int'
+                attributes[i]['attTypeCode'] = 'boolean'
+                attributes[i]['CType'] = 'boolean'
                 attributes[i]['isNumber'] = False
-                attributes[i]['default'] = 'false'
-            elif att_type == 'enum':
+                attributes[i]['default'] = 'False'
+            elif att_type == 'enum': #This is tricky
                 attributes[i]['isEnum'] = True
                 attributes[i]['attType'] = 'enum'
-                attributes[i]['attTypeCode'] = attributes[i]['element'] + '_t'
-                attributes[i]['CType'] = attributes[i]['element'] + '_t'
+                attributes[i]['attTypeCode'] = attributes[i]['element'] #+ '_t'
+                attributes[i]['CType'] =  attributes[i]['element'] # + '_t'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = \
                     query.get_default_enum_value(attributes[i])
@@ -285,11 +285,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'element'
                 if attributes[i]['name'] == 'math':
                     if global_variables.is_package:
-                        attributes[i]['attTypeCode'] = 'ASTNode*'
-                        attributes[i]['CType'] = 'ASTNode_t*'
-                    else:
-                        attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
-                        attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
+                        attributes[i]['attTypeCode'] = 'ASTNode' # 'ASTNode*'
+                        attributes[i]['CType'] =  'ASTNode'  #'ASTNode_t*'
+                    # else:
+                    #     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
+                    #     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
                 else:
                     attributes[i]['attTypeCode'] = attributes[i]['element']+'*'
                     attributes[i]['CType'] = attributes[i]['element']+'_t*'
@@ -308,7 +308,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 plural = strFunctions.plural_no_prefix(attributes[i]['element'])
                 attributes[i]['attType'] = 'lo_element'
                 attributes[i]['attTypeCode'] = name
-                attributes[i]['CType'] = 'ListOf_t'
+                attributes[i]['CType'] = 'ListOf'# _t'
                 attributes[i]['memberName'] = 'm' + plural
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
@@ -317,7 +317,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['element'] = \
                     strFunctions.lower_first(attributes[i]['element'])
                 attributes[i]['attType'] = 'array'
-                attributes[i]['attTypeCode'] = attributes[i]['element'] + '*'
+                attributes[i]['attTypeCode'] = attributes[i]['element'] # + '*'
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
@@ -326,7 +326,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['element'] = \
                     strFunctions.lower_first(attributes[i]['element'])
                 attributes[i]['attType'] = 'vector'
-                attributes[i]['attTypeCode'] = 'std::vector<{0}>'.format(attributes[i]['element'])
+                attributes[i]['attTypeCode'] = 'ArrayList<{0}>'.format(attributes[i]['element'])
+                print("YOLUS ",attributes[i]['attTypeCode'] )
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
@@ -340,12 +341,13 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['default'] = 'FIXME_{0}'.format(att_type)
         return attributes
 
-    def create_lo_other_child_element_class(self, name, parent):
+    def create_lo_other_child_element_class(self, name, parent): #Critical becareful with it
         capname = strFunctions.upper_first(name)
+        print('Yolo capname ',capname)
         element = dict({'isArray': False,
                         'name': strFunctions.lower_first(capname),
-                        'attTypeCode': capname + '*',
-                        'CType': capname + '_t *',
+                        'attTypeCode': capname,
+                        'CType': capname ,
                         'capAttName': capname,
                         'attType': 'element',
                         'memberName': 'm' + capname,
@@ -663,13 +665,15 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if not code['object_name']:
                     function_name = code['function']
                 else:
-                    function_name = code['object_name'] + '::' \
+                    function_name = code['object_name'] + ' ' \
                                     + code['function']
             if 'args_no_defaults' in code:
                 arguments = code['args_no_defaults']
             else:
                 arguments = code['arguments']
             constructor_args = None
+            print('function_name ', function_name)
+            print('->-'*10)
             if self.is_cpp_api:
                 if 'constructor_args' in code:
                     constructor_args = code['constructor_args']

@@ -51,9 +51,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new Input using the given SBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-Input::Input(unsigned int level,
-             unsigned int version,
-             unsigned int pkgVersion)
+Input Input(unsigned int level, unsigned int version, unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
   , mName ("")
@@ -70,7 +68,7 @@ Input::Input(unsigned int level,
 /*
  * Creates a new Input using the given QualPkgNamespaces object.
  */
-Input::Input(QualPkgNamespaces *qualns)
+Input Input(QualPkgNamespaces *qualns)
   : SBase(qualns)
   , mId ("")
   , mName ("")
@@ -88,7 +86,7 @@ Input::Input(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for Input.
  */
-Input::Input(const Input& orig)
+Input Input(const Input& orig)
   : SBase( orig )
   , mId ( orig.mId )
   , mName ( orig.mName )
@@ -105,7 +103,7 @@ Input::Input(const Input& orig)
  * Assignment operator for Input.
  */
 Input&
-Input::operator=(const Input& rhs)
+Input operator=(const Input& rhs)
 {
   if (&rhs != this)
   {
@@ -127,7 +125,7 @@ Input::operator=(const Input& rhs)
  * Creates and returns a deep copy of this Input object.
  */
 Input*
-Input::clone() const
+Input clone() const
 {
   return new Input(*this);
 }
@@ -136,7 +134,7 @@ Input::clone() const
 /*
  * Destructor for Input.
  */
-Input::~Input()
+Input ~Input()
 {
 }
 
@@ -144,8 +142,8 @@ Input::~Input()
 /*
  * Returns the value of the "id" attribute of this Input.
  */
-const std::string&
-Input::getId() const
+const String
+Input getId() const
 {
   return mId;
 }
@@ -154,8 +152,8 @@ Input::getId() const
 /*
  * Returns the value of the "name" attribute of this Input.
  */
-const std::string&
-Input::getName() const
+String
+Input getName() const
 {
   return mName;
 }
@@ -164,8 +162,8 @@ Input::getName() const
 /*
  * Returns the value of the "sign" attribute of this Input.
  */
-Sign_t
-Input::getSign() const
+Sign
+Input getSign() const
 {
   return mSign;
 }
@@ -175,7 +173,7 @@ Input::getSign() const
  * Returns the value of the "sign" attribute of this Input.
  */
 const std::string&
-Input::getSignAsString() const
+Input getSignAsString() const
 {
   static const std::string code_str = Sign_toString(mSign);
   return code_str;
@@ -185,8 +183,8 @@ Input::getSignAsString() const
 /*
  * Returns the value of the "qualitativeSpecies" attribute of this Input.
  */
-const std::string&
-Input::getQualitativeSpecies() const
+const String
+Input getQualitativeSpecies() const
 {
   return mQualitativeSpecies;
 }
@@ -195,8 +193,8 @@ Input::getQualitativeSpecies() const
 /*
  * Returns the value of the "transitionEffect" attribute of this Input.
  */
-TransitionInputEffect_t
-Input::getTransitionEffect() const
+TransitionInputEffect
+Input getTransitionEffect() const
 {
   return mTransitionEffect;
 }
@@ -206,7 +204,7 @@ Input::getTransitionEffect() const
  * Returns the value of the "transitionEffect" attribute of this Input.
  */
 const std::string&
-Input::getTransitionEffectAsString() const
+Input getTransitionEffectAsString() const
 {
   static const std::string code_str =
     TransitionInputEffect_toString(mTransitionEffect);
@@ -217,8 +215,8 @@ Input::getTransitionEffectAsString() const
 /*
  * Returns the value of the "thresholdLevel" attribute of this Input.
  */
-unsigned int
-Input::getThresholdLevel() const
+int
+Input getThresholdLevel() const
 {
   return mThresholdLevel;
 }
@@ -228,7 +226,7 @@ Input::getThresholdLevel() const
  * Predicate returning @c true if this Input's "id" attribute is set.
  */
 bool
-Input::isSetId() const
+Input isSetId() const
 {
   return (mId.empty() == false);
 }
@@ -238,9 +236,9 @@ Input::isSetId() const
  * Predicate returning @c true if this Input's "name" attribute is set.
  */
 bool
-Input::isSetName() const
+Input isSetName() const
 {
-  return (mName.empty() == false);
+  ;
 }
 
 
@@ -248,7 +246,7 @@ Input::isSetName() const
  * Predicate returning @c true if this Input's "sign" attribute is set.
  */
 bool
-Input::isSetSign() const
+Input isSetSign() const
 {
   return (mSign != SIGN_INVALID);
 }
@@ -259,7 +257,7 @@ Input::isSetSign() const
  * is set.
  */
 bool
-Input::isSetQualitativeSpecies() const
+Input isSetQualitativeSpecies() const
 {
   return (mQualitativeSpecies.empty() == false);
 }
@@ -270,7 +268,7 @@ Input::isSetQualitativeSpecies() const
  * set.
  */
 bool
-Input::isSetTransitionEffect() const
+Input isSetTransitionEffect() const
 {
   return (mTransitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
 }
@@ -281,7 +279,7 @@ Input::isSetTransitionEffect() const
  * set.
  */
 bool
-Input::isSetThresholdLevel() const
+Input isSetThresholdLevel() const
 {
   return mIsSetThresholdLevel;
 }
@@ -291,7 +289,7 @@ Input::isSetThresholdLevel() const
  * Sets the value of the "id" attribute of this Input.
  */
 int
-Input::setId(const std::string& id)
+Input setId(const String id)
 {
   return SyntaxChecker::checkAndSetSId(id, mId);
 }
@@ -301,7 +299,7 @@ Input::setId(const std::string& id)
  * Sets the value of the "name" attribute of this Input.
  */
 int
-Input::setName(const std::string& name)
+Input setName(String name)
 {
   mName = name;
   return LIBSBML_OPERATION_SUCCESS;
@@ -312,7 +310,7 @@ Input::setName(const std::string& name)
  * Sets the value of the "sign" attribute of this Input.
  */
 int
-Input::setSign(const Sign_t sign)
+Input setSign(const Sign sign)
 {
   if (Sign_isValid(sign) == 0)
   {
@@ -331,7 +329,7 @@ Input::setSign(const Sign_t sign)
  * Sets the value of the "sign" attribute of this Input.
  */
 int
-Input::setSign(const std::string& sign)
+Input setSign(const std::string& sign)
 {
   if (Sign_isValidString(sign.c_str()) == 0)
   {
@@ -350,7 +348,7 @@ Input::setSign(const std::string& sign)
  * Sets the value of the "qualitativeSpecies" attribute of this Input.
  */
 int
-Input::setQualitativeSpecies(const std::string& qualitativeSpecies)
+Input setQualitativeSpecies(const String qualitativeSpecies)
 {
   if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
   {
@@ -368,7 +366,7 @@ Input::setQualitativeSpecies(const std::string& qualitativeSpecies)
  * Sets the value of the "transitionEffect" attribute of this Input.
  */
 int
-Input::setTransitionEffect(const TransitionInputEffect_t transitionEffect)
+Input setTransitionEffect(const TransitionInputEffect transitionEffect)
 {
   if (TransitionInputEffect_isValid(transitionEffect) == 0)
   {
@@ -387,7 +385,7 @@ Input::setTransitionEffect(const TransitionInputEffect_t transitionEffect)
  * Sets the value of the "transitionEffect" attribute of this Input.
  */
 int
-Input::setTransitionEffect(const std::string& transitionEffect)
+Input setTransitionEffect(const std::string& transitionEffect)
 {
   if (TransitionInputEffect_isValidString(transitionEffect.c_str()) == 0)
   {
@@ -407,7 +405,7 @@ Input::setTransitionEffect(const std::string& transitionEffect)
  * Sets the value of the "thresholdLevel" attribute of this Input.
  */
 int
-Input::setThresholdLevel(unsigned int thresholdLevel)
+Input setThresholdLevel(int thresholdLevel)
 {
   mThresholdLevel = thresholdLevel;
   mIsSetThresholdLevel = true;
@@ -419,7 +417,7 @@ Input::setThresholdLevel(unsigned int thresholdLevel)
  * Unsets the value of the "id" attribute of this Input.
  */
 int
-Input::unsetId()
+Input unsetId()
 {
   mId.erase();
 
@@ -438,18 +436,9 @@ Input::unsetId()
  * Unsets the value of the "name" attribute of this Input.
  */
 int
-Input::unsetName()
+Input unsetName()
 {
-  mName.erase();
-
-  if (mName.empty() == true)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else
-  {
-    return LIBSBML_OPERATION_FAILED;
-  }
+  TO DO;
 }
 
 
@@ -457,7 +446,7 @@ Input::unsetName()
  * Unsets the value of the "sign" attribute of this Input.
  */
 int
-Input::unsetSign()
+Input unsetSign()
 {
   mSign = SIGN_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
@@ -468,7 +457,7 @@ Input::unsetSign()
  * Unsets the value of the "qualitativeSpecies" attribute of this Input.
  */
 int
-Input::unsetQualitativeSpecies()
+Input unsetQualitativeSpecies()
 {
   mQualitativeSpecies.erase();
 
@@ -487,7 +476,7 @@ Input::unsetQualitativeSpecies()
  * Unsets the value of the "transitionEffect" attribute of this Input.
  */
 int
-Input::unsetTransitionEffect()
+Input unsetTransitionEffect()
 {
   mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
@@ -498,7 +487,7 @@ Input::unsetTransitionEffect()
  * Unsets the value of the "thresholdLevel" attribute of this Input.
  */
 int
-Input::unsetThresholdLevel()
+Input unsetThresholdLevel()
 {
   mThresholdLevel = SBML_INT_MAX;
   mIsSetThresholdLevel = false;
@@ -518,7 +507,7 @@ Input::unsetThresholdLevel()
  * @copydoc doc_renamesidref_common
  */
 void
-Input::renameSIdRefs(const std::string& oldid, const std::string& newid)
+Input renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetQualitativeSpecies() && mQualitativeSpecies == oldid)
   {
@@ -531,7 +520,7 @@ Input::renameSIdRefs(const std::string& oldid, const std::string& newid)
  * Returns the XML element name of this Input object.
  */
 const std::string&
-Input::getElementName() const
+Input getElementName() const
 {
   static const string name = "input";
   return name;
@@ -542,7 +531,7 @@ Input::getElementName() const
  * Returns the libSBML type code for this Input object.
  */
 int
-Input::getTypeCode() const
+Input getTypeCode() const
 {
   return SBML_QUAL_INPUT;
 }
@@ -553,7 +542,7 @@ Input::getTypeCode() const
  * object have been set.
  */
 bool
-Input::hasRequiredAttributes() const
+Input hasRequiredAttributes() const
 {
   bool allPresent = true;
 
@@ -573,7 +562,7 @@ Input::hasRequiredAttributes() const
  * Write any contained elements
  */
 void
-Input::writeElements(XMLOutputStream& stream) const
+Input writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
@@ -590,7 +579,7 @@ Input::writeElements(XMLOutputStream& stream) const
  * Accepts the given SBMLVisitor
  */
 bool
-Input::accept(SBMLVisitor& v) const
+Input accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
@@ -605,7 +594,7 @@ Input::accept(SBMLVisitor& v) const
  * Sets the parent SBMLDocument
  */
 void
-Input::setSBMLDocument(SBMLDocument* d)
+Input setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -620,9 +609,9 @@ Input::setSBMLDocument(SBMLDocument* d)
  * Enables/disables the given package with this element
  */
 void
-Input::enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix,
-                             bool flag)
+Input enablePackageInternal(const std::string& pkgURI,
+                            const std::string& pkgPrefix,
+                            bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
@@ -637,7 +626,7 @@ Input::enablePackageInternal(const std::string& pkgURI,
  * Adds the expected attributes for this element
  */
 void
-Input::addExpectedAttributes(ExpectedAttributes& attributes)
+Input addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -664,8 +653,8 @@ Input::addExpectedAttributes(ExpectedAttributes& attributes)
  * Reads the expected attributes into the member data variables
  */
 void
-Input::readAttributes(const XMLAttributes& attributes,
-                      const ExpectedAttributes& expectedAttributes)
+Input readAttributes(const XMLAttributes& attributes,
+                     const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -878,7 +867,7 @@ Input::readAttributes(const XMLAttributes& attributes,
  * Writes the attributes to the stream
  */
 void
-Input::writeAttributes(XMLOutputStream& stream) const
+Input writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -972,11 +961,11 @@ Input_free(Input_t* i)
 
 
 /*
- * Returns the value of the "id" attribute of this Input_t.
+ * Returns the value of the "id" attribute of this Input.
  */
 LIBSBML_EXTERN
-const char *
-Input_getId(const Input_t * i)
+String
+Input_getId(const Input * i)
 {
   if (i == NULL)
   {
@@ -988,11 +977,11 @@ Input_getId(const Input_t * i)
 
 
 /*
- * Returns the value of the "name" attribute of this Input_t.
+ * Returns the value of the "name" attribute of this Input.
  */
 LIBSBML_EXTERN
-const char *
-Input_getName(const Input_t * i)
+String
+Input_getName(const Input * i)
 {
   if (i == NULL)
   {
@@ -1004,11 +993,11 @@ Input_getName(const Input_t * i)
 
 
 /*
- * Returns the value of the "sign" attribute of this Input_t.
+ * Returns the value of the "sign" attribute of this Input.
  */
 LIBSBML_EXTERN
-Sign_t
-Input_getSign(const Input_t * i)
+Sign
+Input_getSign(const Input * i)
 {
   if (i == NULL)
   {
@@ -1020,22 +1009,22 @@ Input_getSign(const Input_t * i)
 
 
 /*
- * Returns the value of the "sign" attribute of this Input_t.
+ * Returns the value of the "sign" attribute of this Input.
  */
 LIBSBML_EXTERN
 const char *
-Input_getSignAsString(const Input_t * i)
+Input_getSignAsString(const Input * i)
 {
   return Sign_toString(i->getSign());
 }
 
 
 /*
- * Returns the value of the "qualitativeSpecies" attribute of this Input_t.
+ * Returns the value of the "qualitativeSpecies" attribute of this Input.
  */
 LIBSBML_EXTERN
-const char *
-Input_getQualitativeSpecies(const Input_t * i)
+String
+Input_getQualitativeSpecies(const Input * i)
 {
   if (i == NULL)
   {
@@ -1048,11 +1037,11 @@ Input_getQualitativeSpecies(const Input_t * i)
 
 
 /*
- * Returns the value of the "transitionEffect" attribute of this Input_t.
+ * Returns the value of the "transitionEffect" attribute of this Input.
  */
 LIBSBML_EXTERN
-TransitionInputEffect_t
-Input_getTransitionEffect(const Input_t * i)
+TransitionInputEffect
+Input_getTransitionEffect(const Input * i)
 {
   if (i == NULL)
   {
@@ -1064,146 +1053,145 @@ Input_getTransitionEffect(const Input_t * i)
 
 
 /*
- * Returns the value of the "transitionEffect" attribute of this Input_t.
+ * Returns the value of the "transitionEffect" attribute of this Input.
  */
 LIBSBML_EXTERN
 const char *
-Input_getTransitionEffectAsString(const Input_t * i)
+Input_getTransitionEffectAsString(const Input * i)
 {
   return TransitionInputEffect_toString(i->getTransitionEffect());
 }
 
 
 /*
- * Returns the value of the "thresholdLevel" attribute of this Input_t.
+ * Returns the value of the "thresholdLevel" attribute of this Input.
  */
 LIBSBML_EXTERN
-unsigned int
-Input_getThresholdLevel(const Input_t * i)
+int
+Input_getThresholdLevel(const Input * i)
 {
   return (i != NULL) ? i->getThresholdLevel() : SBML_INT_MAX;
 }
 
 
 /*
- * Predicate returning @c 1 if this Input_t's "id" attribute is set.
+ * Predicate returning @c 1 if this Input's "id" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Input_isSetId(const Input_t * i)
+Input_isSetId(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetId()) : 0;
 }
 
 
 /*
- * Predicate returning @c 1 if this Input_t's "name" attribute is set.
+ * Predicate returning @c 1 if this Input's "name" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Input_isSetName(const Input_t * i)
+Input_isSetName(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetName()) : 0;
 }
 
 
 /*
- * Predicate returning @c 1 if this Input_t's "sign" attribute is set.
+ * Predicate returning @c 1 if this Input's "sign" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Input_isSetSign(const Input_t * i)
+Input_isSetSign(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetSign()) : 0;
 }
 
 
 /*
- * Predicate returning @c 1 if this Input_t's "qualitativeSpecies" attribute is
+ * Predicate returning @c 1 if this Input's "qualitativeSpecies" attribute is
  * set.
  */
 LIBSBML_EXTERN
 int
-Input_isSetQualitativeSpecies(const Input_t * i)
+Input_isSetQualitativeSpecies(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetQualitativeSpecies()) : 0;
 }
 
 
 /*
- * Predicate returning @c 1 if this Input_t's "transitionEffect" attribute is
+ * Predicate returning @c 1 if this Input's "transitionEffect" attribute is
  * set.
  */
 LIBSBML_EXTERN
 int
-Input_isSetTransitionEffect(const Input_t * i)
+Input_isSetTransitionEffect(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetTransitionEffect()) : 0;
 }
 
 
 /*
- * Predicate returning @c 1 if this Input_t's "thresholdLevel" attribute is
- * set.
+ * Predicate returning @c 1 if this Input's "thresholdLevel" attribute is set.
  */
 LIBSBML_EXTERN
 int
-Input_isSetThresholdLevel(const Input_t * i)
+Input_isSetThresholdLevel(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetThresholdLevel()) : 0;
 }
 
 
 /*
- * Sets the value of the "id" attribute of this Input_t.
+ * Sets the value of the "id" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setId(Input_t * i, const char * id)
+Input_setId(Input * i, String id)
 {
   return (i != NULL) ? i->setId(id) : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Sets the value of the "name" attribute of this Input_t.
+ * Sets the value of the "name" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setName(Input_t * i, const char * name)
+Input_setName(Input * i, String name)
 {
   return (i != NULL) ? i->setName(name) : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Sets the value of the "sign" attribute of this Input_t.
+ * Sets the value of the "sign" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setSign(Input_t * i, Sign_t sign)
+Input_setSign(Input * i, Sign sign)
 {
   return (i != NULL) ? i->setSign(sign) : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Sets the value of the "sign" attribute of this Input_t.
+ * Sets the value of the "sign" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setSignAsString(Input_t * i, const char * sign)
+Input_setSignAsString(Input * i, const char * sign)
 {
   return (i != NULL) ? i->setSign(sign): LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Sets the value of the "qualitativeSpecies" attribute of this Input_t.
+ * Sets the value of the "qualitativeSpecies" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies)
+Input_setQualitativeSpecies(Input * i, String qualitativeSpecies)
 {
   return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) :
     LIBSBML_INVALID_OBJECT;
@@ -1211,12 +1199,11 @@ Input_setQualitativeSpecies(Input_t * i, const char * qualitativeSpecies)
 
 
 /*
- * Sets the value of the "transitionEffect" attribute of this Input_t.
+ * Sets the value of the "transitionEffect" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setTransitionEffect(Input_t * i,
-                          TransitionInputEffect_t transitionEffect)
+Input_setTransitionEffect(Input * i, TransitionInputEffect transitionEffect)
 {
   return (i != NULL) ? i->setTransitionEffect(transitionEffect) :
     LIBSBML_INVALID_OBJECT;
@@ -1224,11 +1211,11 @@ Input_setTransitionEffect(Input_t * i,
 
 
 /*
- * Sets the value of the "transitionEffect" attribute of this Input_t.
+ * Sets the value of the "transitionEffect" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setTransitionEffectAsString(Input_t * i, const char * transitionEffect)
+Input_setTransitionEffectAsString(Input * i, const char * transitionEffect)
 {
   return (i != NULL) ? i->setTransitionEffect(transitionEffect):
     LIBSBML_INVALID_OBJECT;
@@ -1236,11 +1223,11 @@ Input_setTransitionEffectAsString(Input_t * i, const char * transitionEffect)
 
 
 /*
- * Sets the value of the "thresholdLevel" attribute of this Input_t.
+ * Sets the value of the "thresholdLevel" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_setThresholdLevel(Input_t * i, unsigned int thresholdLevel)
+Input_setThresholdLevel(Input * i, int thresholdLevel)
 {
   return (i != NULL) ? i->setThresholdLevel(thresholdLevel) :
     LIBSBML_INVALID_OBJECT;
@@ -1248,66 +1235,66 @@ Input_setThresholdLevel(Input_t * i, unsigned int thresholdLevel)
 
 
 /*
- * Unsets the value of the "id" attribute of this Input_t.
+ * Unsets the value of the "id" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_unsetId(Input_t * i)
+Input_unsetId(Input * i)
 {
   return (i != NULL) ? i->unsetId() : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Unsets the value of the "name" attribute of this Input_t.
+ * Unsets the value of the "name" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_unsetName(Input_t * i)
+Input_unsetName(Input * i)
 {
   return (i != NULL) ? i->unsetName() : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Unsets the value of the "sign" attribute of this Input_t.
+ * Unsets the value of the "sign" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_unsetSign(Input_t * i)
+Input_unsetSign(Input * i)
 {
   return (i != NULL) ? i->unsetSign() : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Unsets the value of the "qualitativeSpecies" attribute of this Input_t.
+ * Unsets the value of the "qualitativeSpecies" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_unsetQualitativeSpecies(Input_t * i)
+Input_unsetQualitativeSpecies(Input * i)
 {
   return (i != NULL) ? i->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Unsets the value of the "transitionEffect" attribute of this Input_t.
+ * Unsets the value of the "transitionEffect" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_unsetTransitionEffect(Input_t * i)
+Input_unsetTransitionEffect(Input * i)
 {
   return (i != NULL) ? i->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Unsets the value of the "thresholdLevel" attribute of this Input_t.
+ * Unsets the value of the "thresholdLevel" attribute of this Input.
  */
 LIBSBML_EXTERN
 int
-Input_unsetThresholdLevel(Input_t * i)
+Input_unsetThresholdLevel(Input * i)
 {
   return (i != NULL) ? i->unsetThresholdLevel() : LIBSBML_INVALID_OBJECT;
 }

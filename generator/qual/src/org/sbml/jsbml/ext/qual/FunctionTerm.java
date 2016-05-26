@@ -52,9 +52,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new FunctionTerm using the given SBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-FunctionTerm::FunctionTerm(unsigned int level,
-                           unsigned int version,
-                           unsigned int pkgVersion)
+FunctionTerm FunctionTerm(unsigned int level,
+                          unsigned int version,
+                          unsigned int pkgVersion)
   : SBase(level, version)
   , mResultLevel (SBML_INT_MAX)
   , mIsSetResultLevel (false)
@@ -68,7 +68,7 @@ FunctionTerm::FunctionTerm(unsigned int level,
 /*
  * Creates a new FunctionTerm using the given QualPkgNamespaces object.
  */
-FunctionTerm::FunctionTerm(QualPkgNamespaces *qualns)
+FunctionTerm FunctionTerm(QualPkgNamespaces *qualns)
   : SBase(qualns)
   , mResultLevel (SBML_INT_MAX)
   , mIsSetResultLevel (false)
@@ -83,7 +83,7 @@ FunctionTerm::FunctionTerm(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for FunctionTerm.
  */
-FunctionTerm::FunctionTerm(const FunctionTerm& orig)
+FunctionTerm FunctionTerm(const FunctionTerm& orig)
   : SBase( orig )
   , mResultLevel ( orig.mResultLevel )
   , mIsSetResultLevel ( orig.mIsSetResultLevel )
@@ -102,7 +102,7 @@ FunctionTerm::FunctionTerm(const FunctionTerm& orig)
  * Assignment operator for FunctionTerm.
  */
 FunctionTerm&
-FunctionTerm::operator=(const FunctionTerm& rhs)
+FunctionTerm operator=(const FunctionTerm& rhs)
 {
   if (&rhs != this)
   {
@@ -130,7 +130,7 @@ FunctionTerm::operator=(const FunctionTerm& rhs)
  * Creates and returns a deep copy of this FunctionTerm object.
  */
 FunctionTerm*
-FunctionTerm::clone() const
+FunctionTerm clone() const
 {
   return new FunctionTerm(*this);
 }
@@ -139,7 +139,7 @@ FunctionTerm::clone() const
 /*
  * Destructor for FunctionTerm.
  */
-FunctionTerm::~FunctionTerm()
+FunctionTerm ~FunctionTerm()
 {
   delete mMath;
   mMath = NULL;
@@ -149,8 +149,8 @@ FunctionTerm::~FunctionTerm()
 /*
  * Returns the value of the "resultLevel" attribute of this FunctionTerm.
  */
-unsigned int
-FunctionTerm::getResultLevel() const
+int
+FunctionTerm getResultLevel() const
 {
   return mResultLevel;
 }
@@ -161,7 +161,7 @@ FunctionTerm::getResultLevel() const
  * is set.
  */
 bool
-FunctionTerm::isSetResultLevel() const
+FunctionTerm isSetResultLevel() const
 {
   return mIsSetResultLevel;
 }
@@ -171,7 +171,7 @@ FunctionTerm::isSetResultLevel() const
  * Sets the value of the "resultLevel" attribute of this FunctionTerm.
  */
 int
-FunctionTerm::setResultLevel(unsigned int resultLevel)
+FunctionTerm setResultLevel(int resultLevel)
 {
   mResultLevel = resultLevel;
   mIsSetResultLevel = true;
@@ -183,7 +183,7 @@ FunctionTerm::setResultLevel(unsigned int resultLevel)
  * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
  */
 int
-FunctionTerm::unsetResultLevel()
+FunctionTerm unsetResultLevel()
 {
   mResultLevel = SBML_INT_MAX;
   mIsSetResultLevel = false;
@@ -202,8 +202,8 @@ FunctionTerm::unsetResultLevel()
 /*
  * Returns the value of the "math" element of this FunctionTerm.
  */
-const ASTNode*
-FunctionTerm::getMath() const
+const ASTNode
+FunctionTerm getMath() const
 {
   return mMath;
 }
@@ -212,8 +212,8 @@ FunctionTerm::getMath() const
 /*
  * Returns the value of the "math" element of this FunctionTerm.
  */
-ASTNode*
-FunctionTerm::getMath()
+ASTNode
+FunctionTerm getMath()
 {
   return mMath;
 }
@@ -223,7 +223,7 @@ FunctionTerm::getMath()
  * Predicate returning @c true if this FunctionTerm's "math" element is set.
  */
 bool
-FunctionTerm::isSetMath() const
+FunctionTerm isSetMath() const
 {
   return (mMath != NULL);
 }
@@ -233,7 +233,7 @@ FunctionTerm::isSetMath() const
  * Sets the value of the "math" element of this FunctionTerm.
  */
 int
-FunctionTerm::setMath(const ASTNode* math)
+FunctionTerm setMath(const ASTNode math)
 {
   if (mMath == math)
   {
@@ -267,7 +267,7 @@ FunctionTerm::setMath(const ASTNode* math)
  * Unsets the value of the "math" element of this FunctionTerm.
  */
 int
-FunctionTerm::unsetMath()
+FunctionTerm unsetMath()
 {
   delete mMath;
   mMath = NULL;
@@ -279,8 +279,7 @@ FunctionTerm::unsetMath()
  * @copydoc doc_renamesidref_common
  */
 void
-FunctionTerm::renameSIdRefs(const std::string& oldid,
-                            const std::string& newid)
+FunctionTerm renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath())
   {
@@ -293,7 +292,7 @@ FunctionTerm::renameSIdRefs(const std::string& oldid,
  * Returns the XML element name of this FunctionTerm object.
  */
 const std::string&
-FunctionTerm::getElementName() const
+FunctionTerm getElementName() const
 {
   static const string name = "functionTerm";
   return name;
@@ -304,7 +303,7 @@ FunctionTerm::getElementName() const
  * Returns the libSBML type code for this FunctionTerm object.
  */
 int
-FunctionTerm::getTypeCode() const
+FunctionTerm getTypeCode() const
 {
   return SBML_QUAL_FUNCTION_TERM;
 }
@@ -315,7 +314,7 @@ FunctionTerm::getTypeCode() const
  * FunctionTerm object have been set.
  */
 bool
-FunctionTerm::hasRequiredAttributes() const
+FunctionTerm hasRequiredAttributes() const
 {
   bool allPresent = true;
 
@@ -333,7 +332,7 @@ FunctionTerm::hasRequiredAttributes() const
  * FunctionTerm object have been set.
  */
 bool
-FunctionTerm::hasRequiredElements() const
+FunctionTerm hasRequiredElements() const
 {
   bool allPresent = true;
 
@@ -353,7 +352,7 @@ FunctionTerm::hasRequiredElements() const
  * Write any contained elements
  */
 void
-FunctionTerm::writeElements(XMLOutputStream& stream) const
+FunctionTerm writeElements(XMLOutputStream& stream) const
 {
   SBase::writeElements(stream);
 
@@ -375,7 +374,7 @@ FunctionTerm::writeElements(XMLOutputStream& stream) const
  * Accepts the given SBMLVisitor
  */
 bool
-FunctionTerm::accept(SBMLVisitor& v) const
+FunctionTerm accept(SBMLVisitor& v) const
 {
   return v.visit(*this);
 }
@@ -390,7 +389,7 @@ FunctionTerm::accept(SBMLVisitor& v) const
  * Sets the parent SBMLDocument
  */
 void
-FunctionTerm::setSBMLDocument(SBMLDocument* d)
+FunctionTerm setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -405,7 +404,7 @@ FunctionTerm::setSBMLDocument(SBMLDocument* d)
  * Connects to child elements
  */
 void
-FunctionTerm::connectToChild()
+FunctionTerm connectToChild()
 {
   SBase::connectToChild();
 }
@@ -420,9 +419,9 @@ FunctionTerm::connectToChild()
  * Enables/disables the given package with this element
  */
 void
-FunctionTerm::enablePackageInternal(const std::string& pkgURI,
-                                    const std::string& pkgPrefix,
-                                    bool flag)
+FunctionTerm enablePackageInternal(const std::string& pkgURI,
+                                   const std::string& pkgPrefix,
+                                   bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
@@ -437,7 +436,7 @@ FunctionTerm::enablePackageInternal(const std::string& pkgURI,
  * Adds the expected attributes for this element
  */
 void
-FunctionTerm::addExpectedAttributes(ExpectedAttributes& attributes)
+FunctionTerm addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -454,8 +453,8 @@ FunctionTerm::addExpectedAttributes(ExpectedAttributes& attributes)
  * Reads the expected attributes into the member data variables
  */
 void
-FunctionTerm::readAttributes(const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
+FunctionTerm readAttributes(const XMLAttributes& attributes,
+                            const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -545,7 +544,7 @@ FunctionTerm::readAttributes(const XMLAttributes& attributes,
  * Reads other XML such as math/notes etc.
  */
 bool
-FunctionTerm::readOtherXML(XMLInputStream& stream)
+FunctionTerm readOtherXML(XMLInputStream& stream)
 {
   bool read = false;
   const string& name = stream.peek().getName();
@@ -582,7 +581,7 @@ FunctionTerm::readOtherXML(XMLInputStream& stream)
  * Writes the attributes to the stream
  */
 void
-FunctionTerm::writeAttributes(XMLOutputStream& stream) const
+FunctionTerm writeAttributes(XMLOutputStream& stream) const
 {
   SBase::writeAttributes(stream);
 
@@ -649,34 +648,34 @@ FunctionTerm_free(FunctionTerm_t* ft)
 
 
 /*
- * Returns the value of the "resultLevel" attribute of this FunctionTerm_t.
+ * Returns the value of the "resultLevel" attribute of this FunctionTerm.
  */
 LIBSBML_EXTERN
-unsigned int
-FunctionTerm_getResultLevel(const FunctionTerm_t * ft)
+int
+FunctionTerm_getResultLevel(const FunctionTerm * ft)
 {
   return (ft != NULL) ? ft->getResultLevel() : SBML_INT_MAX;
 }
 
 
 /*
- * Predicate returning @c 1 if this FunctionTerm_t's "resultLevel" attribute is
+ * Predicate returning @c 1 if this FunctionTerm's "resultLevel" attribute is
  * set.
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_isSetResultLevel(const FunctionTerm_t * ft)
+FunctionTerm_isSetResultLevel(const FunctionTerm * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->isSetResultLevel()) : 0;
 }
 
 
 /*
- * Sets the value of the "resultLevel" attribute of this FunctionTerm_t.
+ * Sets the value of the "resultLevel" attribute of this FunctionTerm.
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_setResultLevel(FunctionTerm_t * ft, unsigned int resultLevel)
+FunctionTerm_setResultLevel(FunctionTerm * ft, int resultLevel)
 {
   return (ft != NULL) ? ft->setResultLevel(resultLevel) :
     LIBSBML_INVALID_OBJECT;
@@ -684,60 +683,60 @@ FunctionTerm_setResultLevel(FunctionTerm_t * ft, unsigned int resultLevel)
 
 
 /*
- * Unsets the value of the "resultLevel" attribute of this FunctionTerm_t.
+ * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_unsetResultLevel(FunctionTerm_t * ft)
+FunctionTerm_unsetResultLevel(FunctionTerm * ft)
 {
   return (ft != NULL) ? ft->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Returns the value of the "math" element of this FunctionTerm_t.
+ * Returns the value of the "math" element of this FunctionTerm.
  */
 LIBSBML_EXTERN
-const ASTNode_t*
-FunctionTerm_getMath(const FunctionTerm_t * ft)
+const ASTNode
+FunctionTerm_getMath(const FunctionTerm * ft)
 {
   if (ft == NULL)
   {
     return NULL;
   }
 
-  return (ASTNode_t*)(ft->getMath());
+  return (ASTNode)(ft->getMath());
 }
 
 
 /*
- * Predicate returning @c 1 if this FunctionTerm_t's "math" element is set.
+ * Predicate returning @c 1 if this FunctionTerm's "math" element is set.
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_isSetMath(const FunctionTerm_t * ft)
+FunctionTerm_isSetMath(const FunctionTerm * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->isSetMath()) : 0;
 }
 
 
 /*
- * Sets the value of the "math" element of this FunctionTerm_t.
+ * Sets the value of the "math" element of this FunctionTerm.
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_setMath(FunctionTerm_t * ft, const ASTNode_t* math)
+FunctionTerm_setMath(FunctionTerm * ft, const ASTNode math)
 {
   return (ft != NULL) ? ft->setMath(math) : LIBSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Unsets the value of the "math" element of this FunctionTerm_t.
+ * Unsets the value of the "math" element of this FunctionTerm.
  */
 LIBSBML_EXTERN
 int
-FunctionTerm_unsetMath(FunctionTerm_t * ft)
+FunctionTerm_unsetMath(FunctionTerm * ft)
 {
   return (ft != NULL) ? ft->unsetMath() : LIBSBML_INVALID_OBJECT;
 }

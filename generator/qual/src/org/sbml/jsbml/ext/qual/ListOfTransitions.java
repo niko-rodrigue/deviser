@@ -50,9 +50,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ListOfTransitions using the given SBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfTransitions::ListOfTransitions(unsigned int level,
-                                     unsigned int version,
-                                     unsigned int pkgVersion)
+ListOfTransitions ListOfTransitions(unsigned int level,
+                                    unsigned int version,
+                                    unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -62,7 +62,7 @@ ListOfTransitions::ListOfTransitions(unsigned int level,
 /*
  * Creates a new ListOfTransitions using the given QualPkgNamespaces object.
  */
-ListOfTransitions::ListOfTransitions(QualPkgNamespaces *qualns)
+ListOfTransitions ListOfTransitions(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -72,7 +72,7 @@ ListOfTransitions::ListOfTransitions(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfTransitions.
  */
-ListOfTransitions::ListOfTransitions(const ListOfTransitions& orig)
+ListOfTransitions ListOfTransitions(const ListOfTransitions& orig)
   : ListOf( orig )
 {
 }
@@ -82,7 +82,7 @@ ListOfTransitions::ListOfTransitions(const ListOfTransitions& orig)
  * Assignment operator for ListOfTransitions.
  */
 ListOfTransitions&
-ListOfTransitions::operator=(const ListOfTransitions& rhs)
+ListOfTransitions operator=(const ListOfTransitions& rhs)
 {
   if (&rhs != this)
   {
@@ -97,7 +97,7 @@ ListOfTransitions::operator=(const ListOfTransitions& rhs)
  * Creates and returns a deep copy of this ListOfTransitions object.
  */
 ListOfTransitions*
-ListOfTransitions::clone() const
+ListOfTransitions clone() const
 {
   return new ListOfTransitions(*this);
 }
@@ -106,7 +106,7 @@ ListOfTransitions::clone() const
 /*
  * Destructor for ListOfTransitions.
  */
-ListOfTransitions::~ListOfTransitions()
+ListOfTransitions ~ListOfTransitions()
 {
 }
 
@@ -115,7 +115,7 @@ ListOfTransitions::~ListOfTransitions()
  * Get a Transition from the ListOfTransitions.
  */
 Transition*
-ListOfTransitions::get(unsigned int n)
+ListOfTransitions get(unsigned int n)
 {
   return static_cast<Transition*>(ListOf::get(n));
 }
@@ -125,7 +125,7 @@ ListOfTransitions::get(unsigned int n)
  * Get a Transition from the ListOfTransitions.
  */
 const Transition*
-ListOfTransitions::get(unsigned int n) const
+ListOfTransitions get(unsigned int n) const
 {
   return static_cast<const Transition*>(ListOf::get(n));
 }
@@ -135,7 +135,7 @@ ListOfTransitions::get(unsigned int n) const
  * Get a Transition from the ListOfTransitions based on its identifier.
  */
 Transition*
-ListOfTransitions::get(const std::string& sid)
+ListOfTransitions get(const std::string& sid)
 {
   return const_cast<Transition*>(static_cast<const
     ListOfTransitions&>(*this).get(sid));
@@ -146,7 +146,7 @@ ListOfTransitions::get(const std::string& sid)
  * Get a Transition from the ListOfTransitions based on its identifier.
  */
 const Transition*
-ListOfTransitions::get(const std::string& sid) const
+ListOfTransitions get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<Transition>(sid));
@@ -160,7 +160,7 @@ ListOfTransitions::get(const std::string& sid) const
  * to it.
  */
 Transition*
-ListOfTransitions::remove(unsigned int n)
+ListOfTransitions remove(unsigned int n)
 {
   return static_cast<Transition*>(ListOf::remove(n));
 }
@@ -171,7 +171,7 @@ ListOfTransitions::remove(unsigned int n)
  * and returns a pointer to it.
  */
 Transition*
-ListOfTransitions::remove(const std::string& sid)
+ListOfTransitions remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -192,7 +192,7 @@ ListOfTransitions::remove(const std::string& sid)
  * Adds a copy of the given Transition to this ListOfTransitions.
  */
 int
-ListOfTransitions::addTransition(const Transition* t)
+ListOfTransitions addTransition(const Transition* t)
 {
   if (t == NULL)
   {
@@ -227,7 +227,7 @@ ListOfTransitions::addTransition(const Transition* t)
  * Get the number of Transition objects in this ListOfTransitions.
  */
 unsigned int
-ListOfTransitions::getNumTransitions() const
+ListOfTransitions getNumTransitions() const
 {
   return size();
 }
@@ -238,7 +238,7 @@ ListOfTransitions::getNumTransitions() const
  * and returns the Transition object created.
  */
 Transition*
-ListOfTransitions::createTransition()
+ListOfTransitions createTransition()
 {
   Transition* t = NULL;
 
@@ -265,7 +265,7 @@ ListOfTransitions::createTransition()
  * Returns the XML element name of this ListOfTransitions object.
  */
 const std::string&
-ListOfTransitions::getElementName() const
+ListOfTransitions getElementName() const
 {
   static const string name = "listOfTransitions";
   return name;
@@ -276,7 +276,7 @@ ListOfTransitions::getElementName() const
  * Returns the libSBML type code for this ListOfTransitions object.
  */
 int
-ListOfTransitions::getTypeCode() const
+ListOfTransitions getTypeCode() const
 {
   return SBML_LIST_OF;
 }
@@ -287,7 +287,7 @@ ListOfTransitions::getTypeCode() const
  * ListOfTransitions object.
  */
 int
-ListOfTransitions::getItemTypeCode() const
+ListOfTransitions getItemTypeCode() const
 {
   return SBML_QUAL_TRANSITION;
 }
@@ -300,7 +300,7 @@ ListOfTransitions::getItemTypeCode() const
  * Creates a new Transition in this ListOfTransitions
  */
 SBase*
-ListOfTransitions::createObject(XMLInputStream& stream)
+ListOfTransitions createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -326,7 +326,7 @@ ListOfTransitions::createObject(XMLInputStream& stream)
  * Writes the namespace for the Qual package
  */
 void
-ListOfTransitions::writeXMLNS(XMLOutputStream& stream) const
+ListOfTransitions writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();

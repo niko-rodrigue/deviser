@@ -51,9 +51,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ListOfFunctionTerms using the given SBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfFunctionTerms::ListOfFunctionTerms(unsigned int level,
-                                         unsigned int version,
-                                         unsigned int pkgVersion)
+ListOfFunctionTerms ListOfFunctionTerms(unsigned int level,
+                                        unsigned int version,
+                                        unsigned int pkgVersion)
   : ListOf(level, version)
   , mDefaultTerm (NULL)
 {
@@ -65,7 +65,7 @@ ListOfFunctionTerms::ListOfFunctionTerms(unsigned int level,
 /*
  * Creates a new ListOfFunctionTerms using the given QualPkgNamespaces object.
  */
-ListOfFunctionTerms::ListOfFunctionTerms(QualPkgNamespaces *qualns)
+ListOfFunctionTerms ListOfFunctionTerms(QualPkgNamespaces *qualns)
   : ListOf(qualns)
   , mDefaultTerm (NULL)
 {
@@ -77,7 +77,7 @@ ListOfFunctionTerms::ListOfFunctionTerms(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfFunctionTerms.
  */
-ListOfFunctionTerms::ListOfFunctionTerms(const ListOfFunctionTerms& orig)
+ListOfFunctionTerms ListOfFunctionTerms(const ListOfFunctionTerms& orig)
   : ListOf( orig )
   , mDefaultTerm ( NULL )
 {
@@ -94,7 +94,7 @@ ListOfFunctionTerms::ListOfFunctionTerms(const ListOfFunctionTerms& orig)
  * Assignment operator for ListOfFunctionTerms.
  */
 ListOfFunctionTerms&
-ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
+ListOfFunctionTerms operator=(const ListOfFunctionTerms& rhs)
 {
   if (&rhs != this)
   {
@@ -120,7 +120,7 @@ ListOfFunctionTerms::operator=(const ListOfFunctionTerms& rhs)
  * Creates and returns a deep copy of this ListOfFunctionTerms object.
  */
 ListOfFunctionTerms*
-ListOfFunctionTerms::clone() const
+ListOfFunctionTerms clone() const
 {
   return new ListOfFunctionTerms(*this);
 }
@@ -129,7 +129,7 @@ ListOfFunctionTerms::clone() const
 /*
  * Destructor for ListOfFunctionTerms.
  */
-ListOfFunctionTerms::~ListOfFunctionTerms()
+ListOfFunctionTerms ~ListOfFunctionTerms()
 {
   delete mDefaultTerm;
   mDefaultTerm = NULL;
@@ -140,7 +140,7 @@ ListOfFunctionTerms::~ListOfFunctionTerms()
  * Returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
 const DefaultTerm*
-ListOfFunctionTerms::getDefaultTerm() const
+ListOfFunctionTerms getDefaultTerm() const
 {
   return mDefaultTerm;
 }
@@ -150,7 +150,7 @@ ListOfFunctionTerms::getDefaultTerm() const
  * Returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
 DefaultTerm*
-ListOfFunctionTerms::getDefaultTerm()
+ListOfFunctionTerms getDefaultTerm()
 {
   return mDefaultTerm;
 }
@@ -161,7 +161,7 @@ ListOfFunctionTerms::getDefaultTerm()
  * element is set.
  */
 bool
-ListOfFunctionTerms::isSetDefaultTerm() const
+ListOfFunctionTerms isSetDefaultTerm() const
 {
   return (mDefaultTerm != NULL);
 }
@@ -171,7 +171,7 @@ ListOfFunctionTerms::isSetDefaultTerm() const
  * Sets the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
 int
-ListOfFunctionTerms::setDefaultTerm(const DefaultTerm* defaultTerm)
+ListOfFunctionTerms setDefaultTerm(const DefaultTerm* defaultTerm)
 {
   if (mDefaultTerm == defaultTerm)
   {
@@ -202,7 +202,7 @@ ListOfFunctionTerms::setDefaultTerm(const DefaultTerm* defaultTerm)
  * and returns the DefaultTerm object created.
  */
 DefaultTerm*
-ListOfFunctionTerms::createDefaultTerm()
+ListOfFunctionTerms createDefaultTerm()
 {
   if (mDefaultTerm != NULL)
   {
@@ -224,7 +224,7 @@ ListOfFunctionTerms::createDefaultTerm()
  * Unsets the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
 int
-ListOfFunctionTerms::unsetDefaultTerm()
+ListOfFunctionTerms unsetDefaultTerm()
 {
   delete mDefaultTerm;
   mDefaultTerm = NULL;
@@ -236,7 +236,7 @@ ListOfFunctionTerms::unsetDefaultTerm()
  * Get a FunctionTerm from the ListOfFunctionTerms.
  */
 FunctionTerm*
-ListOfFunctionTerms::get(unsigned int n)
+ListOfFunctionTerms get(unsigned int n)
 {
   return static_cast<FunctionTerm*>(ListOf::get(n));
 }
@@ -246,7 +246,7 @@ ListOfFunctionTerms::get(unsigned int n)
  * Get a FunctionTerm from the ListOfFunctionTerms.
  */
 const FunctionTerm*
-ListOfFunctionTerms::get(unsigned int n) const
+ListOfFunctionTerms get(unsigned int n) const
 {
   return static_cast<const FunctionTerm*>(ListOf::get(n));
 }
@@ -256,7 +256,7 @@ ListOfFunctionTerms::get(unsigned int n) const
  * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
  */
 FunctionTerm*
-ListOfFunctionTerms::get(const std::string& sid)
+ListOfFunctionTerms get(const std::string& sid)
 {
   return const_cast<FunctionTerm*>(static_cast<const
     ListOfFunctionTerms&>(*this).get(sid));
@@ -267,7 +267,7 @@ ListOfFunctionTerms::get(const std::string& sid)
  * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
  */
 const FunctionTerm*
-ListOfFunctionTerms::get(const std::string& sid) const
+ListOfFunctionTerms get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid));
@@ -281,7 +281,7 @@ ListOfFunctionTerms::get(const std::string& sid) const
  * pointer to it.
  */
 FunctionTerm*
-ListOfFunctionTerms::remove(unsigned int n)
+ListOfFunctionTerms remove(unsigned int n)
 {
   return static_cast<FunctionTerm*>(ListOf::remove(n));
 }
@@ -292,7 +292,7 @@ ListOfFunctionTerms::remove(unsigned int n)
  * identifier and returns a pointer to it.
  */
 FunctionTerm*
-ListOfFunctionTerms::remove(const std::string& sid)
+ListOfFunctionTerms remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -313,7 +313,7 @@ ListOfFunctionTerms::remove(const std::string& sid)
  * Adds a copy of the given FunctionTerm to this ListOfFunctionTerms.
  */
 int
-ListOfFunctionTerms::addFunctionTerm(const FunctionTerm* ft)
+ListOfFunctionTerms addFunctionTerm(const FunctionTerm* ft)
 {
   if (ft == NULL)
   {
@@ -348,7 +348,7 @@ ListOfFunctionTerms::addFunctionTerm(const FunctionTerm* ft)
  * Get the number of FunctionTerm objects in this ListOfFunctionTerms.
  */
 unsigned int
-ListOfFunctionTerms::getNumFunctionTerms() const
+ListOfFunctionTerms getNumFunctionTerms() const
 {
   return size();
 }
@@ -359,7 +359,7 @@ ListOfFunctionTerms::getNumFunctionTerms() const
  * object and returns the FunctionTerm object created.
  */
 FunctionTerm*
-ListOfFunctionTerms::createFunctionTerm()
+ListOfFunctionTerms createFunctionTerm()
 {
   FunctionTerm* ft = NULL;
 
@@ -386,7 +386,7 @@ ListOfFunctionTerms::createFunctionTerm()
  * Returns the XML element name of this ListOfFunctionTerms object.
  */
 const std::string&
-ListOfFunctionTerms::getElementName() const
+ListOfFunctionTerms getElementName() const
 {
   static const string name = "listOfFunctionTerms";
   return name;
@@ -397,7 +397,7 @@ ListOfFunctionTerms::getElementName() const
  * Returns the libSBML type code for this ListOfFunctionTerms object.
  */
 int
-ListOfFunctionTerms::getTypeCode() const
+ListOfFunctionTerms getTypeCode() const
 {
   return SBML_LIST_OF;
 }
@@ -408,7 +408,7 @@ ListOfFunctionTerms::getTypeCode() const
  * ListOfFunctionTerms object.
  */
 int
-ListOfFunctionTerms::getItemTypeCode() const
+ListOfFunctionTerms getItemTypeCode() const
 {
   return SBML_QUAL_FUNCTION_TERM;
 }
@@ -419,7 +419,7 @@ ListOfFunctionTerms::getItemTypeCode() const
  * ListOfFunctionTerms object have been set.
  */
 bool
-ListOfFunctionTerms::hasRequiredElements() const
+ListOfFunctionTerms hasRequiredElements() const
 {
   bool allPresent = true;
 
@@ -439,7 +439,7 @@ ListOfFunctionTerms::hasRequiredElements() const
  * Write any contained elements
  */
 void
-ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
+ListOfFunctionTerms writeElements(XMLOutputStream& stream) const
 {
   ListOf::writeElements(stream);
 
@@ -461,7 +461,7 @@ ListOfFunctionTerms::writeElements(XMLOutputStream& stream) const
  * Connects to child elements
  */
 void
-ListOfFunctionTerms::connectToChild()
+ListOfFunctionTerms connectToChild()
 {
   ListOf::connectToChild();
 
@@ -479,7 +479,7 @@ ListOfFunctionTerms::connectToChild()
  * SId namespace, or @c NULL if no such object is found.
  */
 SBase*
-ListOfFunctionTerms::getElementBySId(const std::string& id)
+ListOfFunctionTerms getElementBySId(const std::string& id)
 {
   if (id.empty())
   {
@@ -511,7 +511,7 @@ ListOfFunctionTerms::getElementBySId(const std::string& id)
  * no such object is found.
  */
 SBase*
-ListOfFunctionTerms::getElementByMetaId(const std::string& metaid)
+ListOfFunctionTerms getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty())
   {
@@ -543,7 +543,7 @@ ListOfFunctionTerms::getElementByMetaId(const std::string& metaid)
  * arbitrary depth.
  */
 List*
-ListOfFunctionTerms::getAllElements(ElementFilter* filter)
+ListOfFunctionTerms getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = ListOf::getAllElements(filter);
@@ -564,7 +564,7 @@ ListOfFunctionTerms::getAllElements(ElementFilter* filter)
  * Creates a new FunctionTerm in this ListOfFunctionTerms
  */
 SBase*
-ListOfFunctionTerms::createObject(XMLInputStream& stream)
+ListOfFunctionTerms createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -597,7 +597,7 @@ ListOfFunctionTerms::createObject(XMLInputStream& stream)
  * Writes the namespace for the Qual package
  */
 void
-ListOfFunctionTerms::writeXMLNS(XMLOutputStream& stream) const
+ListOfFunctionTerms writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();

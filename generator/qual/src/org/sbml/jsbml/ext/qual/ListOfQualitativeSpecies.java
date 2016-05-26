@@ -50,9 +50,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ListOfQualitativeSpecies using the given SBML Level, Version
  * and &ldquo;qual&rdquo; package version.
  */
-ListOfQualitativeSpecies::ListOfQualitativeSpecies(unsigned int level,
-                                                   unsigned int version,
-                                                   unsigned int pkgVersion)
+ListOfQualitativeSpecies ListOfQualitativeSpecies(unsigned int level,
+                                                  unsigned int version,
+                                                  unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -63,7 +63,7 @@ ListOfQualitativeSpecies::ListOfQualitativeSpecies(unsigned int level,
  * Creates a new ListOfQualitativeSpecies using the given QualPkgNamespaces
  * object.
  */
-ListOfQualitativeSpecies::ListOfQualitativeSpecies(QualPkgNamespaces *qualns)
+ListOfQualitativeSpecies ListOfQualitativeSpecies(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -73,7 +73,7 @@ ListOfQualitativeSpecies::ListOfQualitativeSpecies(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfQualitativeSpecies.
  */
-ListOfQualitativeSpecies::ListOfQualitativeSpecies(const
+ListOfQualitativeSpecies ListOfQualitativeSpecies(const
   ListOfQualitativeSpecies& orig)
   : ListOf( orig )
 {
@@ -84,7 +84,7 @@ ListOfQualitativeSpecies::ListOfQualitativeSpecies(const
  * Assignment operator for ListOfQualitativeSpecies.
  */
 ListOfQualitativeSpecies&
-ListOfQualitativeSpecies::operator=(const ListOfQualitativeSpecies& rhs)
+ListOfQualitativeSpecies operator=(const ListOfQualitativeSpecies& rhs)
 {
   if (&rhs != this)
   {
@@ -99,7 +99,7 @@ ListOfQualitativeSpecies::operator=(const ListOfQualitativeSpecies& rhs)
  * Creates and returns a deep copy of this ListOfQualitativeSpecies object.
  */
 ListOfQualitativeSpecies*
-ListOfQualitativeSpecies::clone() const
+ListOfQualitativeSpecies clone() const
 {
   return new ListOfQualitativeSpecies(*this);
 }
@@ -108,7 +108,7 @@ ListOfQualitativeSpecies::clone() const
 /*
  * Destructor for ListOfQualitativeSpecies.
  */
-ListOfQualitativeSpecies::~ListOfQualitativeSpecies()
+ListOfQualitativeSpecies ~ListOfQualitativeSpecies()
 {
 }
 
@@ -117,7 +117,7 @@ ListOfQualitativeSpecies::~ListOfQualitativeSpecies()
  * Get a QualitativeSpecies from the ListOfQualitativeSpecies.
  */
 QualitativeSpecies*
-ListOfQualitativeSpecies::get(unsigned int n)
+ListOfQualitativeSpecies get(unsigned int n)
 {
   return static_cast<QualitativeSpecies*>(ListOf::get(n));
 }
@@ -127,7 +127,7 @@ ListOfQualitativeSpecies::get(unsigned int n)
  * Get a QualitativeSpecies from the ListOfQualitativeSpecies.
  */
 const QualitativeSpecies*
-ListOfQualitativeSpecies::get(unsigned int n) const
+ListOfQualitativeSpecies get(unsigned int n) const
 {
   return static_cast<const QualitativeSpecies*>(ListOf::get(n));
 }
@@ -138,7 +138,7 @@ ListOfQualitativeSpecies::get(unsigned int n) const
  * identifier.
  */
 QualitativeSpecies*
-ListOfQualitativeSpecies::get(const std::string& sid)
+ListOfQualitativeSpecies get(const std::string& sid)
 {
   return const_cast<QualitativeSpecies*>(static_cast<const
     ListOfQualitativeSpecies&>(*this).get(sid));
@@ -150,7 +150,7 @@ ListOfQualitativeSpecies::get(const std::string& sid)
  * identifier.
  */
 const QualitativeSpecies*
-ListOfQualitativeSpecies::get(const std::string& sid) const
+ListOfQualitativeSpecies get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(),
@@ -165,7 +165,7 @@ ListOfQualitativeSpecies::get(const std::string& sid) const
  * returns a pointer to it.
  */
 QualitativeSpecies*
-ListOfQualitativeSpecies::remove(unsigned int n)
+ListOfQualitativeSpecies remove(unsigned int n)
 {
   return static_cast<QualitativeSpecies*>(ListOf::remove(n));
 }
@@ -176,7 +176,7 @@ ListOfQualitativeSpecies::remove(unsigned int n)
  * its identifier and returns a pointer to it.
  */
 QualitativeSpecies*
-ListOfQualitativeSpecies::remove(const std::string& sid)
+ListOfQualitativeSpecies remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -199,7 +199,7 @@ ListOfQualitativeSpecies::remove(const std::string& sid)
  * ListOfQualitativeSpecies.
  */
 int
-ListOfQualitativeSpecies::addQualitativeSpecies(const QualitativeSpecies* qs)
+ListOfQualitativeSpecies addQualitativeSpecies(const QualitativeSpecies* qs)
 {
   if (qs == NULL)
   {
@@ -235,7 +235,7 @@ ListOfQualitativeSpecies::addQualitativeSpecies(const QualitativeSpecies* qs)
  * ListOfQualitativeSpecies.
  */
 unsigned int
-ListOfQualitativeSpecies::getNumQualitativeSpecies() const
+ListOfQualitativeSpecies getNumQualitativeSpecies() const
 {
   return size();
 }
@@ -247,7 +247,7 @@ ListOfQualitativeSpecies::getNumQualitativeSpecies() const
  * created.
  */
 QualitativeSpecies*
-ListOfQualitativeSpecies::createQualitativeSpecies()
+ListOfQualitativeSpecies createQualitativeSpecies()
 {
   QualitativeSpecies* qs = NULL;
 
@@ -291,7 +291,7 @@ struct IdEqC : public std::unary_function<SBase*, bool>
  * Compartment to which it refers.
  */
 const QualitativeSpecies*
-ListOfQualitativeSpecies::getByCompartment(const std::string& sid) const
+ListOfQualitativeSpecies getByCompartment(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEqC(sid));
@@ -305,7 +305,7 @@ ListOfQualitativeSpecies::getByCompartment(const std::string& sid) const
  * Compartment to which it refers.
  */
 QualitativeSpecies*
-ListOfQualitativeSpecies::getByCompartment(const std::string& sid)
+ListOfQualitativeSpecies getByCompartment(const std::string& sid)
 {
   return const_cast<QualitativeSpecies*>(static_cast<const
     ListOfQualitativeSpecies&>(*this).getByCompartment(sid));
@@ -316,7 +316,7 @@ ListOfQualitativeSpecies::getByCompartment(const std::string& sid)
  * Returns the XML element name of this ListOfQualitativeSpecies object.
  */
 const std::string&
-ListOfQualitativeSpecies::getElementName() const
+ListOfQualitativeSpecies getElementName() const
 {
   static const string name = "listOfQualitativeSpecies";
   return name;
@@ -327,7 +327,7 @@ ListOfQualitativeSpecies::getElementName() const
  * Returns the libSBML type code for this ListOfQualitativeSpecies object.
  */
 int
-ListOfQualitativeSpecies::getTypeCode() const
+ListOfQualitativeSpecies getTypeCode() const
 {
   return SBML_LIST_OF;
 }
@@ -338,7 +338,7 @@ ListOfQualitativeSpecies::getTypeCode() const
  * ListOfQualitativeSpecies object.
  */
 int
-ListOfQualitativeSpecies::getItemTypeCode() const
+ListOfQualitativeSpecies getItemTypeCode() const
 {
   return SBML_QUAL_QUALITATIVE_SPECIES;
 }
@@ -351,7 +351,7 @@ ListOfQualitativeSpecies::getItemTypeCode() const
  * Creates a new QualitativeSpecies in this ListOfQualitativeSpecies
  */
 SBase*
-ListOfQualitativeSpecies::createObject(XMLInputStream& stream)
+ListOfQualitativeSpecies createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -377,7 +377,7 @@ ListOfQualitativeSpecies::createObject(XMLInputStream& stream)
  * Writes the namespace for the Qual package
  */
 void
-ListOfQualitativeSpecies::writeXMLNS(XMLOutputStream& stream) const
+ListOfQualitativeSpecies writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();

@@ -50,9 +50,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ListOfOutputs using the given SBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfOutputs::ListOfOutputs(unsigned int level,
-                             unsigned int version,
-                             unsigned int pkgVersion)
+ListOfOutputs ListOfOutputs(unsigned int level,
+                            unsigned int version,
+                            unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -62,7 +62,7 @@ ListOfOutputs::ListOfOutputs(unsigned int level,
 /*
  * Creates a new ListOfOutputs using the given QualPkgNamespaces object.
  */
-ListOfOutputs::ListOfOutputs(QualPkgNamespaces *qualns)
+ListOfOutputs ListOfOutputs(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -72,7 +72,7 @@ ListOfOutputs::ListOfOutputs(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfOutputs.
  */
-ListOfOutputs::ListOfOutputs(const ListOfOutputs& orig)
+ListOfOutputs ListOfOutputs(const ListOfOutputs& orig)
   : ListOf( orig )
 {
 }
@@ -82,7 +82,7 @@ ListOfOutputs::ListOfOutputs(const ListOfOutputs& orig)
  * Assignment operator for ListOfOutputs.
  */
 ListOfOutputs&
-ListOfOutputs::operator=(const ListOfOutputs& rhs)
+ListOfOutputs operator=(const ListOfOutputs& rhs)
 {
   if (&rhs != this)
   {
@@ -97,7 +97,7 @@ ListOfOutputs::operator=(const ListOfOutputs& rhs)
  * Creates and returns a deep copy of this ListOfOutputs object.
  */
 ListOfOutputs*
-ListOfOutputs::clone() const
+ListOfOutputs clone() const
 {
   return new ListOfOutputs(*this);
 }
@@ -106,7 +106,7 @@ ListOfOutputs::clone() const
 /*
  * Destructor for ListOfOutputs.
  */
-ListOfOutputs::~ListOfOutputs()
+ListOfOutputs ~ListOfOutputs()
 {
 }
 
@@ -115,7 +115,7 @@ ListOfOutputs::~ListOfOutputs()
  * Get an Output from the ListOfOutputs.
  */
 Output*
-ListOfOutputs::get(unsigned int n)
+ListOfOutputs get(unsigned int n)
 {
   return static_cast<Output*>(ListOf::get(n));
 }
@@ -125,7 +125,7 @@ ListOfOutputs::get(unsigned int n)
  * Get an Output from the ListOfOutputs.
  */
 const Output*
-ListOfOutputs::get(unsigned int n) const
+ListOfOutputs get(unsigned int n) const
 {
   return static_cast<const Output*>(ListOf::get(n));
 }
@@ -135,7 +135,7 @@ ListOfOutputs::get(unsigned int n) const
  * Get an Output from the ListOfOutputs based on its identifier.
  */
 Output*
-ListOfOutputs::get(const std::string& sid)
+ListOfOutputs get(const std::string& sid)
 {
   return const_cast<Output*>(static_cast<const
     ListOfOutputs&>(*this).get(sid));
@@ -146,7 +146,7 @@ ListOfOutputs::get(const std::string& sid)
  * Get an Output from the ListOfOutputs based on its identifier.
  */
 const Output*
-ListOfOutputs::get(const std::string& sid) const
+ListOfOutputs get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<Output>(sid));
@@ -158,7 +158,7 @@ ListOfOutputs::get(const std::string& sid) const
  * Removes the nth Output from this ListOfOutputs and returns a pointer to it.
  */
 Output*
-ListOfOutputs::remove(unsigned int n)
+ListOfOutputs remove(unsigned int n)
 {
   return static_cast<Output*>(ListOf::remove(n));
 }
@@ -169,7 +169,7 @@ ListOfOutputs::remove(unsigned int n)
  * returns a pointer to it.
  */
 Output*
-ListOfOutputs::remove(const std::string& sid)
+ListOfOutputs remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -190,7 +190,7 @@ ListOfOutputs::remove(const std::string& sid)
  * Adds a copy of the given Output to this ListOfOutputs.
  */
 int
-ListOfOutputs::addOutput(const Output* o)
+ListOfOutputs addOutput(const Output* o)
 {
   if (o == NULL)
   {
@@ -225,7 +225,7 @@ ListOfOutputs::addOutput(const Output* o)
  * Get the number of Output objects in this ListOfOutputs.
  */
 unsigned int
-ListOfOutputs::getNumOutputs() const
+ListOfOutputs getNumOutputs() const
 {
   return size();
 }
@@ -236,7 +236,7 @@ ListOfOutputs::getNumOutputs() const
  * returns the Output object created.
  */
 Output*
-ListOfOutputs::createOutput()
+ListOfOutputs createOutput()
 {
   Output* o = NULL;
 
@@ -280,7 +280,7 @@ struct IdEqQS : public std::unary_function<SBase*, bool>
  * which it refers.
  */
 const Output*
-ListOfOutputs::getByQualitativeSpecies(const std::string& sid) const
+ListOfOutputs getByQualitativeSpecies(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEqQS(sid));
@@ -293,7 +293,7 @@ ListOfOutputs::getByQualitativeSpecies(const std::string& sid) const
  * which it refers.
  */
 Output*
-ListOfOutputs::getByQualitativeSpecies(const std::string& sid)
+ListOfOutputs getByQualitativeSpecies(const std::string& sid)
 {
   return const_cast<Output*>(static_cast<const
     ListOfOutputs&>(*this).getByQualitativeSpecies(sid));
@@ -304,7 +304,7 @@ ListOfOutputs::getByQualitativeSpecies(const std::string& sid)
  * Returns the XML element name of this ListOfOutputs object.
  */
 const std::string&
-ListOfOutputs::getElementName() const
+ListOfOutputs getElementName() const
 {
   static const string name = "listOfOutputs";
   return name;
@@ -315,7 +315,7 @@ ListOfOutputs::getElementName() const
  * Returns the libSBML type code for this ListOfOutputs object.
  */
 int
-ListOfOutputs::getTypeCode() const
+ListOfOutputs getTypeCode() const
 {
   return SBML_LIST_OF;
 }
@@ -326,7 +326,7 @@ ListOfOutputs::getTypeCode() const
  * ListOfOutputs object.
  */
 int
-ListOfOutputs::getItemTypeCode() const
+ListOfOutputs getItemTypeCode() const
 {
   return SBML_QUAL_OUTPUT;
 }
@@ -339,7 +339,7 @@ ListOfOutputs::getItemTypeCode() const
  * Creates a new Output in this ListOfOutputs
  */
 SBase*
-ListOfOutputs::createObject(XMLInputStream& stream)
+ListOfOutputs createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -365,7 +365,7 @@ ListOfOutputs::createObject(XMLInputStream& stream)
  * Writes the namespace for the Qual package
  */
 void
-ListOfOutputs::writeXMLNS(XMLOutputStream& stream) const
+ListOfOutputs writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();

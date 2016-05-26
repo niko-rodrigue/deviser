@@ -50,9 +50,9 @@ LIBSBML_CPP_NAMESPACE_BEGIN
  * Creates a new ListOfInputs using the given SBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfInputs::ListOfInputs(unsigned int level,
-                           unsigned int version,
-                           unsigned int pkgVersion)
+ListOfInputs ListOfInputs(unsigned int level,
+                          unsigned int version,
+                          unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -62,7 +62,7 @@ ListOfInputs::ListOfInputs(unsigned int level,
 /*
  * Creates a new ListOfInputs using the given QualPkgNamespaces object.
  */
-ListOfInputs::ListOfInputs(QualPkgNamespaces *qualns)
+ListOfInputs ListOfInputs(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -72,7 +72,7 @@ ListOfInputs::ListOfInputs(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfInputs.
  */
-ListOfInputs::ListOfInputs(const ListOfInputs& orig)
+ListOfInputs ListOfInputs(const ListOfInputs& orig)
   : ListOf( orig )
 {
 }
@@ -82,7 +82,7 @@ ListOfInputs::ListOfInputs(const ListOfInputs& orig)
  * Assignment operator for ListOfInputs.
  */
 ListOfInputs&
-ListOfInputs::operator=(const ListOfInputs& rhs)
+ListOfInputs operator=(const ListOfInputs& rhs)
 {
   if (&rhs != this)
   {
@@ -97,7 +97,7 @@ ListOfInputs::operator=(const ListOfInputs& rhs)
  * Creates and returns a deep copy of this ListOfInputs object.
  */
 ListOfInputs*
-ListOfInputs::clone() const
+ListOfInputs clone() const
 {
   return new ListOfInputs(*this);
 }
@@ -106,7 +106,7 @@ ListOfInputs::clone() const
 /*
  * Destructor for ListOfInputs.
  */
-ListOfInputs::~ListOfInputs()
+ListOfInputs ~ListOfInputs()
 {
 }
 
@@ -115,7 +115,7 @@ ListOfInputs::~ListOfInputs()
  * Get an Input from the ListOfInputs.
  */
 Input*
-ListOfInputs::get(unsigned int n)
+ListOfInputs get(unsigned int n)
 {
   return static_cast<Input*>(ListOf::get(n));
 }
@@ -125,7 +125,7 @@ ListOfInputs::get(unsigned int n)
  * Get an Input from the ListOfInputs.
  */
 const Input*
-ListOfInputs::get(unsigned int n) const
+ListOfInputs get(unsigned int n) const
 {
   return static_cast<const Input*>(ListOf::get(n));
 }
@@ -135,7 +135,7 @@ ListOfInputs::get(unsigned int n) const
  * Get an Input from the ListOfInputs based on its identifier.
  */
 Input*
-ListOfInputs::get(const std::string& sid)
+ListOfInputs get(const std::string& sid)
 {
   return const_cast<Input*>(static_cast<const ListOfInputs&>(*this).get(sid));
 }
@@ -145,7 +145,7 @@ ListOfInputs::get(const std::string& sid)
  * Get an Input from the ListOfInputs based on its identifier.
  */
 const Input*
-ListOfInputs::get(const std::string& sid) const
+ListOfInputs get(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<Input>(sid));
@@ -157,7 +157,7 @@ ListOfInputs::get(const std::string& sid) const
  * Removes the nth Input from this ListOfInputs and returns a pointer to it.
  */
 Input*
-ListOfInputs::remove(unsigned int n)
+ListOfInputs remove(unsigned int n)
 {
   return static_cast<Input*>(ListOf::remove(n));
 }
@@ -168,7 +168,7 @@ ListOfInputs::remove(unsigned int n)
  * a pointer to it.
  */
 Input*
-ListOfInputs::remove(const std::string& sid)
+ListOfInputs remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -189,7 +189,7 @@ ListOfInputs::remove(const std::string& sid)
  * Adds a copy of the given Input to this ListOfInputs.
  */
 int
-ListOfInputs::addInput(const Input* i)
+ListOfInputs addInput(const Input* i)
 {
   if (i == NULL)
   {
@@ -224,7 +224,7 @@ ListOfInputs::addInput(const Input* i)
  * Get the number of Input objects in this ListOfInputs.
  */
 unsigned int
-ListOfInputs::getNumInputs() const
+ListOfInputs getNumInputs() const
 {
   return size();
 }
@@ -235,7 +235,7 @@ ListOfInputs::getNumInputs() const
  * the Input object created.
  */
 Input*
-ListOfInputs::createInput()
+ListOfInputs createInput()
 {
   Input* i = NULL;
 
@@ -279,7 +279,7 @@ struct IdEqQS : public std::unary_function<SBase*, bool>
  * it refers.
  */
 const Input*
-ListOfInputs::getByQualitativeSpecies(const std::string& sid) const
+ListOfInputs getByQualitativeSpecies(const std::string& sid) const
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEqQS(sid));
@@ -292,7 +292,7 @@ ListOfInputs::getByQualitativeSpecies(const std::string& sid) const
  * it refers.
  */
 Input*
-ListOfInputs::getByQualitativeSpecies(const std::string& sid)
+ListOfInputs getByQualitativeSpecies(const std::string& sid)
 {
   return const_cast<Input*>(static_cast<const
     ListOfInputs&>(*this).getByQualitativeSpecies(sid));
@@ -303,7 +303,7 @@ ListOfInputs::getByQualitativeSpecies(const std::string& sid)
  * Returns the XML element name of this ListOfInputs object.
  */
 const std::string&
-ListOfInputs::getElementName() const
+ListOfInputs getElementName() const
 {
   static const string name = "listOfInputs";
   return name;
@@ -314,7 +314,7 @@ ListOfInputs::getElementName() const
  * Returns the libSBML type code for this ListOfInputs object.
  */
 int
-ListOfInputs::getTypeCode() const
+ListOfInputs getTypeCode() const
 {
   return SBML_LIST_OF;
 }
@@ -325,7 +325,7 @@ ListOfInputs::getTypeCode() const
  * ListOfInputs object.
  */
 int
-ListOfInputs::getItemTypeCode() const
+ListOfInputs getItemTypeCode() const
 {
   return SBML_QUAL_INPUT;
 }
@@ -338,7 +338,7 @@ ListOfInputs::getItemTypeCode() const
  * Creates a new Input in this ListOfInputs
  */
 SBase*
-ListOfInputs::createObject(XMLInputStream& stream)
+ListOfInputs createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -364,7 +364,7 @@ ListOfInputs::createObject(XMLInputStream& stream)
  * Writes the namespace for the Qual package
  */
 void
-ListOfInputs::writeXMLNS(XMLOutputStream& stream) const
+ListOfInputs writeXMLNS(XMLOutputStream& stream) const
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();

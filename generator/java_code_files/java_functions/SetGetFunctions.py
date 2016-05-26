@@ -43,26 +43,26 @@ from util import strFunctions, query, global_variables
 class SetGetFunctions():
     """Class for all java  functions for set/get/isset/unset"""
 
-    def __init__(self, language, is_cpp_api, is_list_of, class_object):
+    def __init__(self, language, is_java_api, is_list_of, class_object):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
         self.class_name = class_object['name']
-        self.is_cpp_api = is_cpp_api
+        self.is_java_api = is_java_api
         self.is_list_of = is_list_of
         if is_list_of:
             self.child_name = class_object['lo_child']
         else:
             self.child_name = ''
-        if is_cpp_api:
+        if is_java_api:
             self.object_name = self.class_name
             self.object_child_name = self.child_name
         else:
             if is_list_of:
-                self.object_name = 'ListOf_t'
+                self.object_name = 'ListOf' #_t'
             else:
-                self.object_name = self.class_name + '_t'
-            self.object_child_name = self.child_name + '_t'
+                self.object_name = self.class_name #+ '_t'
+            self.object_child_name = self.child_name # + '_t'
 
         self.attributes = class_object['class_attributes']
         self.child_elements = class_object['child_elements']
@@ -76,11 +76,11 @@ class SetGetFunctions():
             self.document = class_object['document']
 
         # useful variables
-        if not self.is_cpp_api and self.is_list_of:
+        if not self.is_java_api and self.is_list_of:
             self.struct_name = self.object_child_name
         else:
             self.struct_name = self.object_name
-        if self.is_cpp_api is False:
+        if self.is_java_api is False:
             self.true = '@c 1'
             self.false = '@c 0'
         else:
@@ -110,7 +110,7 @@ class SetGetFunctions():
 
     # function to write get functions
     def write_get(self, is_attribute, index, const=True, virtual=False):
-        if not self.is_cpp_api and not const:
+        if not self.is_java_api and not const:
             return
         if is_attribute:
             if index < len(self.attributes):
@@ -118,14 +118,14 @@ class SetGetFunctions():
             else:
                 return
             # dont write a get for c
-            if not self.is_cpp_api and (attribute['isArray'] or attribute['isVector']):
+            if not self.is_java_api and (attribute['isArray'] or attribute['isVector']):
                 return
         else:
             if index < len(self.child_elements):
                 attribute = self.child_elements[index]
             else:
                 return
-        if attribute['isArray'] and self.is_cpp_api:
+        if attribute['isArray'] and self.is_java_api:
             return self.write_get_array(index, const)
         # create comment parts
         params = []
@@ -134,14 +134,14 @@ class SetGetFunctions():
         title_line = 'Returns the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'],
                     ('attribute' if is_attribute else 'element'),
-                    (self.class_name if self.is_cpp_api else self.object_name))
+                    (self.class_name if self.is_java_api else self.object_name))
 
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure whose {2} is sought.'
                           .format(self.abbrev_parent, self.object_name,
                                   attribute['name']))
 
-        if self.is_cpp_api:
+        if self.is_java_api:
             return_lines.append('@return the value of the \"{0}\" {1} of '
                                 'this {2} as a {3}.'
                                 .format(attribute['name'],
@@ -169,7 +169,7 @@ class SetGetFunctions():
                                          else attribute['attTypeCode'])))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'get{0}'.format(attribute['capAttName'])
             if attribute['attType'] == 'string' \
                     or attribute['attType'] == 'element':
@@ -190,12 +190,12 @@ class SetGetFunctions():
                 return_type = '{0}'.format(attribute['CType'])
 
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
 
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             if not self.document:
                 implementation = ['return {0}'.format(attribute['memberName'])]
             else:
@@ -244,14 +244,14 @@ class SetGetFunctions():
         additional = []
         title_line = 'Returns the value of the \"{0}\" attribute of this {1}.' \
             .format(attribute['name'],
-                    (self.class_name if self.is_cpp_api else self.object_name))
+                    (self.class_name if self.is_java_api else self.object_name))
 
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure whose {2} is sought.'
                           .format(self.abbrev_parent, self.object_name,
                                   attribute['name']))
 
-        if self.is_cpp_api:
+        if self.is_java_api:
             return_lines.append('@return the value of the \"{0}\" attribute '
                                 'of this {1} as a string.'
                                 .format(attribute['name'], self.class_name))
@@ -261,7 +261,7 @@ class SetGetFunctions():
                                 .format(attribute['name'], self.object_name))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'get{0}AsString'.format(attribute['capAttName'])
             return_type = 'const std::string&'
         else:
@@ -270,10 +270,10 @@ class SetGetFunctions():
             return_type = 'const char *'
 
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
-        if self.is_cpp_api:
+        if self.is_java_api:
             implementation = ['static const std::string code_str =  {0}_'
                               'toString({1})'.format(attribute['element'],
                                                      attribute['memberName']),
@@ -454,7 +454,7 @@ class SetGetFunctions():
                 attribute = self.child_elements[index]
             else:
                 return
-        if not self.is_cpp_api and ('isVector' in attribute and attribute['isVector']):
+        if not self.is_java_api and ('isVector' in attribute and attribute['isVector']):
             return
         if is_attribute:
             ob_type = 'attribute'
@@ -469,7 +469,7 @@ class SetGetFunctions():
                      'this {1}\'s \"{2}\" {3} is set.' \
             .format(self.true, self.object_name, attribute['name'],
                     ob_type)
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
 
@@ -480,7 +480,7 @@ class SetGetFunctions():
                                     ob_type, self.false))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             if 'isVector' in attribute and attribute['isVector']:
                 function = 'has{0}'.format(strFunctions.plural(attribute['capAttName']))
             else:
@@ -492,12 +492,12 @@ class SetGetFunctions():
             return_type = 'int'
 
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
 
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             if query.is_string(attribute):
                 implementation = ['return ({0}.empty() == false)'.format(
                     attribute['memberName'])]
@@ -546,7 +546,7 @@ class SetGetFunctions():
 
     # function for writing getNum for a vector type attribute
     def write_get_num_for_vector(self, is_attribute, index):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
         if is_attribute:
             if index < len(self.attributes):
@@ -610,7 +610,7 @@ class SetGetFunctions():
             else:
                 return
         if attribute['isArray']:
-            if self.is_cpp_api:
+            if self.is_java_api:
                 return self.write_cpp_set_array(index)
             else:
                 return self.write_c_set_array(index)
@@ -618,7 +618,7 @@ class SetGetFunctions():
             ob_type = 'attribute'
         else:
             ob_type = 'element'
-        if self.is_cpp_api:
+        if self.is_java_api:
             att_type = attribute['attTypeCode']
         else:
             if 'isVector' in attribute and attribute['isVector']:
@@ -632,7 +632,7 @@ class SetGetFunctions():
         title_line = 'Sets the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'], ob_type, self.object_name)
 
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param {0} {1} value of the \"{0}\" {2} to be set.'
@@ -651,7 +651,7 @@ class SetGetFunctions():
                                           self.invalid_att, self.close_br))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'set{0}'.format(attribute['capAttName'])
             return_type = 'int'
         else:
@@ -660,7 +660,7 @@ class SetGetFunctions():
             return_type = 'int'
 
         arguments = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             if 'isVector' in attribute and attribute['isVector']:
                 arguments.append('const {0}& {1}'
                                  .format(attribute['attTypeCode'],
@@ -686,7 +686,7 @@ class SetGetFunctions():
                                          attribute['name']))
 
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             code = self.set_cpp_attribute(attribute)
         else:
             if not self.is_list_of:
@@ -724,7 +724,7 @@ class SetGetFunctions():
             return
         if not attribute['isEnum']:
             return
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             att_type = 'const char *'
         else:
             att_type = 'std::string&'
@@ -736,7 +736,7 @@ class SetGetFunctions():
         title_line = 'Sets the value of the \"{0}\" attribute of this {1}.' \
             .format(attribute['name'], self.object_name)
 
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param {0} {1} of the \"{0}\" attribute to be set.'
@@ -753,7 +753,7 @@ class SetGetFunctions():
                                           self.invalid_att, self.close_br))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'set{0}'.format(attribute['capAttName'])
             return_type = 'int'
         else:
@@ -762,7 +762,7 @@ class SetGetFunctions():
             return_type = 'int'
 
         arguments = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             arguments.append('{0} {1}'.format('const std::string&',
                                               attribute['name']))
         else:
@@ -770,7 +770,7 @@ class SetGetFunctions():
                              .format(self.object_name, self.abbrev_parent))
             arguments.append('const char * {0}'.format(attribute['name']))
 
-        if self.is_cpp_api:
+        if self.is_java_api:
             implementation = ['{0}_isValidString({1}.c_str()) == '
                               '0'.format(attribute['element'],
                                          attribute['name']),
@@ -935,7 +935,7 @@ class SetGetFunctions():
 
     # function to write set functions
     def write_add_element_for_vector(self, is_attribute, index):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
         if is_attribute and index < len(self.attributes):
             attribute = self.attributes[index]
@@ -1022,7 +1022,7 @@ class SetGetFunctions():
         title_line = 'Unsets the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'], ob_type, self.object_name)
 
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
 
@@ -1037,7 +1037,7 @@ class SetGetFunctions():
                                           self.failed, self.close_br))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'unset{0}'.format(attribute['capAttName'])
             return_type = 'int'
         else:
@@ -1046,12 +1046,12 @@ class SetGetFunctions():
             return_type = 'int'
 
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('{0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
 
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             code = self.unset_cpp_attribute(attribute)
         else:
             if not self.is_list_of:
@@ -1080,7 +1080,7 @@ class SetGetFunctions():
 
 
     def write_clear(self, attribute):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return None
         # create comment parts
         params = []
@@ -1145,7 +1145,7 @@ class SetGetFunctions():
 
         # useful variables
         name = strFunctions.upper_first(attribute['name'])
-        if self.is_cpp_api:
+        if self.is_java_api:
             att_type = attribute['attTypeCode']
             att_name = attribute['element']
         else:
@@ -1157,7 +1157,7 @@ class SetGetFunctions():
                      'and returns the {0} object ' \
                      'created.'.format(att_name, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure '
                           'to which the {2} should be '
                           'added.'.format(self.abbrev_parent, self.object_name,
@@ -1168,7 +1168,7 @@ class SetGetFunctions():
 
         # create the function declaration
         arguments = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'create{0}'.format(name)
         else:
             function = '{0}_create{1}'.format(self.class_name, name)
@@ -1177,7 +1177,7 @@ class SetGetFunctions():
         return_type = '{0}'.format(att_type)
 
         code = []
-        if not self.is_header and self.is_cpp_api:
+        if not self.is_header and self.is_java_api:
             member = attribute['memberName']
             up_pack = self.package.upper()
             low_pack = self.package.lower()
@@ -1235,7 +1235,7 @@ class SetGetFunctions():
     def write_create_concrete_child(self, attribute, member=''):
         # useful variables
         name = strFunctions.upper_first(attribute['element'])
-        if self.is_cpp_api:
+        if self.is_java_api:
             att_type = attribute['element'] + '*'
             att_name = attribute['element']
         else:
@@ -1247,7 +1247,7 @@ class SetGetFunctions():
                      'and returns the {0} object ' \
                      'created.'.format(att_name, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure '
                           'to which the {2} should be '
                           'added.'.format(self.abbrev_parent, self.object_name,
@@ -1258,7 +1258,7 @@ class SetGetFunctions():
 
         # create the function declaration
         arguments = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'create{0}'.format(name)
         else:
             function = '{0}_create{1}'.format(self.class_name, name)
@@ -1268,7 +1268,7 @@ class SetGetFunctions():
 
         up_pack = self.package.upper()
         low_pack = self.package.lower()
-        if self.is_cpp_api:
+        if self.is_java_api:
             implementation = ['{0} != NULL'.format(member),
                               'delete {0}'.format(member)]
             code = [self.create_code_block('if', implementation)]

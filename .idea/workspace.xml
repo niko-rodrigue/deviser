@@ -5,94 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b28d12fe-8b83-4199-8b01-bf9015623b98" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/qual-package.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/csharp/local-downcast-extension-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/csharp/local-downcast-namespaces-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/csharp/local-packages-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/java/local-downcast-extension-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/java/local-downcast-namespaces-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/java/local-packages-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/javascript/local-downcast-extension-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/javascript/local-downcast-namespaces-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/javascript/local-downcast-packages-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/javascript/local-downcast-plugins-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/javascript/local-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/perl/local-downcast-extension-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/perl/local-downcast-namespaces-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/perl/local-downcast-packages-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/perl/local-downcast-plugins-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/perl/local-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/php/local-downcast-extension-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/php/local-downcast-namespaces-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/php/local-downcast-packages-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/php/local-downcast-plugins-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/php/local-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/python/local-downcast-extension-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/python/local-downcast-namespaces-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/python/local-downcast-packages-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/python/local-downcast-plugins-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/python/local-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/r/local-downcast-extension-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/r/local-downcast-namespaces-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/r/local-downcast-packages-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/r/local-downcast-plugins-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/r/local-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/ruby/local-downcast-extension-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/ruby/local-downcast-namespaces-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/ruby/local-downcast-packages-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/ruby/local-downcast-plugins-qual.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/ruby/local-qual.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/swig/qual-package.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/bindings/swig/qual-package.i" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/qual-package.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual-register.cxx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual-register.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/common/QualExtensionTypes.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/common/qualfwd.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/extension/QualExtension.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/extension/QualExtension.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/extension/QualModelPlugin.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/extension/QualModelPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/extension/QualSBMLDocumentPlugin.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/extension/QualSBMLDocumentPlugin.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/DefaultTerm.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/DefaultTerm.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/FunctionTerm.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/FunctionTerm.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/Input.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/Input.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfFunctionTerms.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfFunctionTerms.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfInputs.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfInputs.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfOutputs.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfOutputs.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfQualitativeSpecies.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfQualitativeSpecies.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfTransitions.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/ListOfTransitions.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/Output.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/Output.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/QualitativeSpecies.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/QualitativeSpecies.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/Transition.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/sbml/Transition.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualConsistencyValidator.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualConsistencyValidator.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualIdentifierConsistencyValidator.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualIdentifierConsistencyValidator.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualSBMLError.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualSBMLErrorTable.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualValidator.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/QualValidator.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/constraints/QualConsistencyConstraints.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/constraints/QualConsistencyConstraintsDeclared.cxx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/constraints/QualIdentifierConsistencyConstraints.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/qual/src/sbml/packages/qual/validator/constraints/QualIdentifierConsistencyConstraintsDeclared.cxx" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" afterPath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/JavaFiles.py" afterPath="$PROJECT_DIR$/generator/java_code_files/JavaFiles.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" afterPath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py" afterPath="$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/util/generateCode.py" afterPath="$PROJECT_DIR$/generator/util/generateCode.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/DefaultTerm.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/DefaultTerm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/FunctionTerm.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/FunctionTerm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Input.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Input.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfFunctionTerms.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfFunctionTerms.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfInputs.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfInputs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfOutputs.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfOutputs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfQualitativeSpecies.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfQualitativeSpecies.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfTransitions.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/ListOfTransitions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Output.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Output.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/QualitativeSpecies.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/QualitativeSpecies.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Transition.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Transition.java" />
     </list>
     <ignored path="deviser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -116,8 +42,8 @@
       <file leaf-file-name="generateCode.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/util/generateCode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="356" column="0" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
+            <state relative-caret-position="196">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding>
                 <element signature="e#1991#2001#0" expanded="true" />
                 <marker date="1464170909666" expanded="true" signature="1991:2444" placeholder="import ..." />
@@ -129,7 +55,7 @@
       <file leaf-file-name="deviser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/deviser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
+            <state relative-caret-position="554">
               <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
@@ -139,28 +65,18 @@
       <file leaf-file-name="JavaFiles.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaFiles.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
+            <state relative-caret-position="-683">
               <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseFile.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator/base_files/BaseFile.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JavaCodeFile.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JavaCodeFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="295" column="36" selection-start-line="295" selection-start-column="36" selection-end-line="295" selection-end-column="36" />
+            <state relative-caret-position="-786">
+              <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
               <folding>
                 <element signature="e#2002#2037#0" expanded="true" />
               </folding>
@@ -168,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BaseJavaFile.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BaseJavaFile.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="678" column="53" selection-start-line="678" selection-start-column="53" selection-end-line="678" selection-end-column="53" />
+            <state relative-caret-position="258">
+              <caret line="675" column="26" selection-start-line="675" selection-start-column="26" selection-end-line="675" selection-end-column="26" />
               <folding>
                 <element signature="e#1993#2015#0" expanded="true" />
               </folding>
@@ -183,33 +99,9 @@
       <file leaf-file-name="SetGetFunctions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-92">
-              <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
+            <state relative-caret-position="250">
+              <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExtensionFiles.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator/java_code_files/ExtensionFiles.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding>
-                <element signature="e#1992#2023#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ExtensionCodeFile.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator/java_code_files/ExtensionCodeFile.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding>
-                <element signature="e#2012#2047#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -235,17 +127,17 @@
         <option value="$PROJECT_DIR$/generator/java_code_files/ExtensionCodeFile.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/ExtensionFiles.py" />
         <option value="$PROJECT_DIR$/generator/util/generateCode.py" />
-        <option value="$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/JavaFiles.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" />
+        <option value="$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py" />
         <option value="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1024" />
-    <option name="height" value="772" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -275,7 +167,78 @@
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
-        <subPane />
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java_code_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="deviser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java_code_files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java_functions" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
       </pane>
     </panes>
   </component>
@@ -493,27 +456,46 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-4" width="1024" height="772" extended-state="6" />
+    <frame x="0" y="24" width="1024" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3126873" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2747253" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="0" y="151" width="1024" height="504" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="1903" y="80" width="487" height="716" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="1059" y="24" width="487" height="716" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.3983871" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1070" y="24" width="1116" height="744" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.3983871" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1024" y="-4" width="1366" height="772" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39940387" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.24940239" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" x="335" y="24" width="313" height="620" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="0" y="24" width="1024" height="744" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39940387" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935917" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32741934" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22277722" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.24940239" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" x="335" y="24" width="313" height="620" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="0" y="123" width="1024" height="504" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="1903" y="80" width="487" height="716" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.3983871" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1024" y="-4" width="1366" height="772" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -552,11 +534,6 @@
           <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
           <line>310</line>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/deviser.py</url>
-          <line>67</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/parseXML/ParseXML.py</url>
@@ -1190,38 +1167,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
-          <line>267</line>
-          <option name="timeStamp" value="169" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
-          <line>482</line>
-          <option name="timeStamp" value="170" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
           <line>125</line>
           <option name="timeStamp" value="171" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
-          <line>117</line>
-          <option name="timeStamp" value="172" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
           <line>129</line>
           <option name="timeStamp" value="173" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
-          <line>316</line>
-          <option name="timeStamp" value="174" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
-          <line>428</line>
-          <option name="timeStamp" value="175" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
@@ -1259,24 +1211,9 @@
           <option name="timeStamp" value="185" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>99</line>
-          <option name="timeStamp" value="186" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>48</line>
-          <option name="timeStamp" value="187" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
           <line>52</line>
           <option name="timeStamp" value="189" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>45</line>
-          <option name="timeStamp" value="190" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
@@ -1287,16 +1224,6 @@
           <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
           <line>355</line>
           <option name="timeStamp" value="193" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>216</line>
-          <option name="timeStamp" value="194" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>51</line>
-          <option name="timeStamp" value="195" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
@@ -1370,11 +1297,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>60</line>
-          <option name="timeStamp" value="210" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
           <line>110</line>
           <option name="timeStamp" value="212" />
         </line-breakpoint>
@@ -1395,48 +1317,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>660</line>
+          <line>662</line>
           <option name="timeStamp" value="217" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>663</line>
+          <line>665</line>
           <option name="timeStamp" value="218" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>665</line>
+          <line>667</line>
           <option name="timeStamp" value="219" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>668</line>
+          <line>670</line>
           <option name="timeStamp" value="220" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>675</line>
+          <line>679</line>
           <option name="timeStamp" value="221" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="222" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
-          <line>89</line>
-          <option name="timeStamp" value="223" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
-          <line>90</line>
-          <option name="timeStamp" value="224" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
-          <line>91</line>
-          <option name="timeStamp" value="225" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
@@ -1465,11 +1367,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>314</line>
-          <option name="timeStamp" value="232" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
           <line>317</line>
           <option name="timeStamp" value="233" />
         </line-breakpoint>
@@ -1477,6 +1374,206 @@
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
           <line>321</line>
           <option name="timeStamp" value="234" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>53</line>
+          <option name="timeStamp" value="236" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>112</line>
+          <option name="timeStamp" value="237" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>139</line>
+          <option name="timeStamp" value="239" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>155</line>
+          <option name="timeStamp" value="240" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>144</line>
+          <option name="timeStamp" value="241" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="242" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/util/generateCode.py</url>
+          <line>69</line>
+          <option name="timeStamp" value="243" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>344</line>
+          <option name="timeStamp" value="247" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="248" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="249" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>341</line>
+          <option name="timeStamp" value="251" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>267</line>
+          <option name="timeStamp" value="255" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>273</line>
+          <option name="timeStamp" value="257" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>281</line>
+          <option name="timeStamp" value="258" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>265</line>
+          <option name="timeStamp" value="259" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>229</line>
+          <option name="timeStamp" value="260" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>241</line>
+          <option name="timeStamp" value="262" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>235</line>
+          <option name="timeStamp" value="263" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>253</line>
+          <option name="timeStamp" value="265" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>260</line>
+          <option name="timeStamp" value="266" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>247</line>
+          <option name="timeStamp" value="267" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>308</line>
+          <option name="timeStamp" value="268" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>321</line>
+          <option name="timeStamp" value="269" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>278</line>
+          <option name="timeStamp" value="270" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>310</line>
+          <option name="timeStamp" value="271" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>288</line>
+          <option name="timeStamp" value="273" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>293</line>
+          <option name="timeStamp" value="274" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>294</line>
+          <option name="timeStamp" value="275" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>295</line>
+          <option name="timeStamp" value="276" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>276</line>
+          <option name="timeStamp" value="278" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>319</line>
+          <option name="timeStamp" value="279" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>328</line>
+          <option name="timeStamp" value="282" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>348</line>
+          <option name="timeStamp" value="283" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>349</line>
+          <option name="timeStamp" value="284" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>86</line>
+          <option name="timeStamp" value="285" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>87</line>
+          <option name="timeStamp" value="286" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="287" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="289" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py</url>
+          <line>81</line>
+          <option name="timeStamp" value="290" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
+          <line>235</line>
+          <option name="timeStamp" value="292" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1486,35 +1583,18 @@
           </selected-grouping-rules>
         </breakpoints-dialog>
       </breakpoints-dialog>
-      <option name="time" value="235" />
+      <option name="time" value="293" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="self" />
-        <watch expression="line" />
-        <watch expression="this_impl" />
-        <watch expression="code" />
-        <watch expression="function_name" />
-        <watch expression="return_type" />
-        <watch expression="line" />
-        <watch expression="name" />
-        <watch expression="extension" />
         <watch expression="ob" />
+        <watch expression="attributes" />
+        <watch expression="class_object" />
+        <watch expression="self.attributes" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/generator/util/generateCode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
-          <folding>
-            <element signature="e#1991#2001#0" expanded="true" />
-            <marker date="1464170909666" expanded="true" signature="1991:2444" placeholder="import ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/deviser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1751,13 +1831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3200">
-          <caret line="1522" column="40" selection-start-line="1522" selection-start-column="40" selection-end-line="1522" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/base_files/BaseCppFile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="554">
@@ -1791,20 +1864,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/ExtensionCodeFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
+        <state relative-caret-position="702">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
-            <element signature="e#2012#2047#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/java_code_files/ExtensionFiles.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#1992#2023#0" expanded="true" />
+            <element signature="e#2012#2047#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1813,15 +1876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/parseXML/ParseXML.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1829,9 +1883,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#1981#2017#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1839,23 +1890,53 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3417">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="1530" column="0" selection-start-line="1530" selection-start-column="0" selection-end-line="1530" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/parseXML/ParseXML.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12726">
+          <caret line="712" column="0" selection-start-line="712" selection-start-column="0" selection-end-line="712" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/GeneralFunctions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3314">
+          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/java_code_files/ExtensionFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
-            <element signature="e#2007#2042#0" expanded="false" />
+            <element signature="e#1992#2023#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaFiles.py">
+    <entry file="file://$PROJECT_DIR$/generator/util/strFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/deviser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
+        <state relative-caret-position="554">
           <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
@@ -1863,8 +1944,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/util/generateCode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="356" column="0" selection-start-line="356" selection-start-column="0" selection-end-line="356" selection-end-column="0" />
+        <state relative-caret-position="196">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding>
             <element signature="e#1991#2001#0" expanded="true" />
             <marker date="1464170909666" expanded="true" signature="1991:2444" placeholder="import ..." />
@@ -1872,46 +1953,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-786">
+          <caret line="65" column="26" selection-start-line="65" selection-start-column="26" selection-end-line="65" selection-end-column="26" />
+          <folding>
+            <element signature="e#2002#2037#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/generator/base_files/BaseFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
+        <state relative-caret-position="-4900">
           <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/util/strFunctions.py">
+    <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaFiles.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="142" column="4" selection-start-line="142" selection-start-column="4" selection-end-line="142" selection-end-column="4" />
+        <state relative-caret-position="-683">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-92">
-          <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
+        <state relative-caret-position="250">
+          <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="678" column="53" selection-start-line="678" selection-start-column="53" selection-end-line="678" selection-end-column="53" />
+        <state relative-caret-position="258">
+          <caret line="675" column="26" selection-start-line="675" selection-start-column="26" selection-end-line="675" selection-end-column="26" />
           <folding>
             <element signature="e#1993#2015#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="295" column="36" selection-start-line="295" selection-start-column="36" selection-end-line="295" selection-end-column="36" />
-          <folding>
-            <element signature="e#2002#2037#0" expanded="true" />
           </folding>
         </state>
       </provider>
