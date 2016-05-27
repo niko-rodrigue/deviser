@@ -84,7 +84,7 @@ class SetGetFunctions():
             self.true = '@c 1'
             self.false = '@c 0'
         else:
-            self.true = '@c true'
+            self.true = '@c true' #For comments
             self.false = '@c false'
         self.plural = strFunctions.plural(self.child_name)
         self.indef_name = strFunctions.get_indefinite(self.object_child_name)
@@ -131,7 +131,7 @@ class SetGetFunctions():
         params = []
         return_lines = []
         additional = []
-        title_line = 'Returns the value of the \"{0}\" {1} of this {2}.' \
+        title_line = '@returns the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'],
                     ('attribute' if is_attribute else 'element'),
                     (self.class_name if self.is_java_api else self.object_name))
@@ -194,13 +194,33 @@ class SetGetFunctions():
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
 
+
+
+        #GSOC 2016 modification
+        #Need PackageName for Constants, such as QualConstants.initialLevel
+        #Also need to add info about the type of Data (boolean or int, or etc)
+        #need to use this self.package
+
+        #implementation2 wrong example Output.java -> return transitionEffect;
+        capAttName = attribute['capAttName']
+        currAttType = attribute['attTypeCode']
+
         # create the function implementation
         if self.is_java_api:
             if not self.document:
-                implementation = ['return {0}'.format(attribute['memberName'])]
+                if  currAttType in global_variables.javaTypeAttributes:
+                    implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'],currAttType)
+                else:
+                    implement_part2 = 'return {0}'.format(attribute['memberName'])
+
+
+                implementation2 = ['isSet{0}()'.format(attribute['capAttName']),implement_part2]
+                implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute['memberName'])]
+                code = [dict({'code_type': 'if', 'code': implementation2}),
+                        dict({'code_type': 'line', 'code': implementation})]
             else:
                 implementation = self.write_get_for_doc_functions(attribute)
-            code = [self.create_code_block('line', implementation)]
+                code = [self.create_code_block('line', implementation)] #tricky
         else:
             code = self.get_c_attribute(attribute)
 

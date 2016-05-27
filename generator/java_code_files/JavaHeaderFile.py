@@ -105,7 +105,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
         self.write_line('};\n')
 
     def write_c_header(self):
-        self.is_cpp_api = False
+        self.is_java_api = False
         if not self.is_list_of:
             self.write_constructors()
             self.write_attribute_functions()
@@ -260,9 +260,9 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
     # function to write the constructors
     def write_constructors(self):
         constructor = Constructors.Constructors(self.language,
-                                                self.is_cpp_api,
+                                                self.is_java_api,
                                                 self.class_object)
-        if self.is_cpp_api and not self.is_plugin:
+        if self.is_java_api and not self.is_plugin:
             code = constructor.write_level_version_constructor()
             self.write_function_declaration(code)
 
@@ -299,7 +299,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
     # function to write the get/set/isSet/unset functions for attributes
     def write_attribute_functions(self):
         attrib_functions = SetGetFunctions.SetGetFunctions(self.language,
-                                                           self.is_cpp_api,
+                                                           self.is_java_api,
                                                            self.is_list_of,
                                                            self.class_object)
         num_attributes = len(self.class_attributes)
@@ -339,12 +339,12 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
                 return
 
             attrib_functions = SetGetFunctions.\
-                SetGetFunctions(self.language, self.is_cpp_api,
+                SetGetFunctions(self.language, self.is_java_api,
                                 self.is_list_of, self.class_object)
             num_elements = len(self.child_elements)
         else:
             attrib_functions = SetGetFunctions.SetGetFunctions(self.language,
-                                                               self.is_cpp_api,
+                                                               self.is_java_api,
                                                                self.is_list_of,
                                                                override)
             num_elements = 1
@@ -389,7 +389,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
 
     def write_general_functions(self):
         gen_functions = GeneralFunctions.GeneralFunctions(self.language,
-                                                          self.is_cpp_api,
+                                                          self.is_java_api,
                                                           self.is_list_of,
                                                           self.class_object)
         code = gen_functions.write_rename_sidrefs()
@@ -460,7 +460,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
 
         gen_functions = \
             GlobalQueryFunctions.GlobalQueryFunctions(self.language,
-                                                      self.is_cpp_api,
+                                                      self.is_java_api,
                                                       self.is_list_of,
                                                       self.class_object)
         code = gen_functions.write_get_by_sid()
@@ -485,7 +485,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
     def write_document_error_log_functions(self):
 
         attrib_functions = SetGetFunctions.\
-            SetGetFunctions(self.language, self.is_cpp_api,
+            SetGetFunctions(self.language, self.is_java_api,
                             self.is_list_of, self.class_object)
         num_elements = len(self.child_elements)
         # add error log and ns to child elements
@@ -530,7 +530,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
         self.class_object['parent'] = dict({'name': '{0}Document'.format(global_variables.prefix)})
         self.class_object['memberName'] = 'mErrorLog'
         lo_functions = ListOfQueryFunctions\
-            .ListOfQueryFunctions(self.language, self.is_cpp_api,
+            .ListOfQueryFunctions(self.language, self.is_java_api,
                                   self.is_list_of,
                                   self.class_object)
 
@@ -555,7 +555,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
     def write_concrete_functions(self):
         conc_functions = \
             ConcreteClassFunctions.ConcreteClassFunctions(self.language,
-                                                          self.is_cpp_api,
+                                                          self.is_java_api,
                                                           self.is_list_of,
                                                           self.class_object)
         for i in range(0, len(self.concretes)):
@@ -569,7 +569,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
     def write_protected_functions(self):
         protect_functions = \
             ProtectedFunctions.ProtectedFunctions(self.language,
-                                                  self.is_cpp_api,
+                                                  self.is_java_api,
                                                   self.is_list_of,
                                                   self.class_object)
         exclude = True
@@ -616,7 +616,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
             return
 
         lo_functions = ListOfQueryFunctions\
-            .ListOfQueryFunctions(self.language, self.is_cpp_api,
+            .ListOfQueryFunctions(self.language, self.is_java_api,
                                   self.is_list_of,
                                   self.class_object)
 
@@ -638,7 +638,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
         code = lo_functions.write_remove_element_by_id()
         self.write_function_declaration(code)
 
-        if self.is_cpp_api:
+        if self.is_java_api:
             code = lo_functions.write_add_element_function()
             self.write_function_declaration(code)
 
@@ -675,7 +675,7 @@ class JavaHeaderFile(BaseJavaFile.BaseJavaFile):
                 element['concretes'] = query.get_concretes(
                     self.class_object['root'], element['concrete'])
             lo_functions = ListOfQueryFunctions\
-                .ListOfQueryFunctions(self.language, self.is_cpp_api,
+                .ListOfQueryFunctions(self.language, self.is_java_api,
                                       self.is_list_of,
                                       element)
             code = lo_functions.write_get_list_of_function(is_const=True)

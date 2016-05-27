@@ -2,43 +2,16 @@
  * @file DefaultTerm.java
  * @brief Implementation of the DefaultTerm class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/DefaultTerm.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/DefaultTerm.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -47,14 +20,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new DefaultTerm using the given SBML Level, Version and
+ * Creates a new DefaultTerm using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-DefaultTerm DefaultTerm(unsigned int level,
-                        unsigned int version,
-                        unsigned int pkgVersion)
+public DefaultTerm(unsigned int level,
+                    unsigned int version,
+                    unsigned int pkgVersion)
   : SBase(level, version)
-  , mResultLevel (SBML_INT_MAX)
+  , mResultLevel (JSBML_INT_MAX)
   , mIsSetResultLevel (false)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -64,9 +37,9 @@ DefaultTerm DefaultTerm(unsigned int level,
 /*
  * Creates a new DefaultTerm using the given QualPkgNamespaces object.
  */
-DefaultTerm DefaultTerm(QualPkgNamespaces *qualns)
+public DefaultTerm(QualPkgNamespaces *qualns)
   : SBase(qualns)
-  , mResultLevel (SBML_INT_MAX)
+  , mResultLevel (JSBML_INT_MAX)
   , mIsSetResultLevel (false)
 {
   setElementNamespace(qualns->getURI());
@@ -77,7 +50,7 @@ DefaultTerm DefaultTerm(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for DefaultTerm.
  */
-DefaultTerm DefaultTerm(const DefaultTerm& orig)
+public DefaultTerm(const DefaultTerm& orig)
   : SBase( orig )
   , mResultLevel ( orig.mResultLevel )
   , mIsSetResultLevel ( orig.mIsSetResultLevel )
@@ -88,8 +61,7 @@ DefaultTerm DefaultTerm(const DefaultTerm& orig)
 /*
  * Assignment operator for DefaultTerm.
  */
-DefaultTerm&
-DefaultTerm operator=(const DefaultTerm& rhs)
+public DefaultTerm& operator=(const DefaultTerm& rhs)
 {
   if (&rhs != this)
   {
@@ -105,8 +77,7 @@ DefaultTerm operator=(const DefaultTerm& rhs)
 /*
  * Creates and returns a deep copy of this DefaultTerm object.
  */
-DefaultTerm*
-DefaultTerm clone() const
+public DefaultTerm* clone()
 {
   return new DefaultTerm(*this);
 }
@@ -115,18 +86,22 @@ DefaultTerm clone() const
 /*
  * Destructor for DefaultTerm.
  */
-DefaultTerm ~DefaultTerm()
+public ~DefaultTerm()
 {
 }
 
 
 /*
- * Returns the value of the "resultLevel" attribute of this DefaultTerm.
+ * @returns the value of the "resultLevel" attribute of this DefaultTerm.
  */
-int
-DefaultTerm getResultLevel() const
+public int getResultLevel()
 {
-  return mResultLevel;
+  if (isSetResultLevel())
+  {
+    return mResultLevel.intValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mResultLevel, this);
 }
 
 
@@ -134,8 +109,7 @@ DefaultTerm getResultLevel() const
  * Predicate returning @c true if this DefaultTerm's "resultLevel" attribute is
  * set.
  */
-bool
-DefaultTerm isSetResultLevel() const
+public bool isSetResultLevel()
 {
   return mIsSetResultLevel;
 }
@@ -144,8 +118,7 @@ DefaultTerm isSetResultLevel() const
 /*
  * Sets the value of the "resultLevel" attribute of this DefaultTerm.
  */
-int
-DefaultTerm setResultLevel(int resultLevel)
+public int setResultLevel(int resultLevel)
 {
   mResultLevel = resultLevel;
   mIsSetResultLevel = true;
@@ -156,10 +129,9 @@ DefaultTerm setResultLevel(int resultLevel)
 /*
  * Unsets the value of the "resultLevel" attribute of this DefaultTerm.
  */
-int
-DefaultTerm unsetResultLevel()
+public int unsetResultLevel()
 {
-  mResultLevel = SBML_INT_MAX;
+  mResultLevel = JSBML_INT_MAX;
   mIsSetResultLevel = false;
 
   if (isSetResultLevel() == false)
@@ -176,8 +148,7 @@ DefaultTerm unsetResultLevel()
 /*
  * Returns the XML element name of this DefaultTerm object.
  */
-const std::string&
-DefaultTerm getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "defaultTerm";
   return name;
@@ -185,10 +156,9 @@ DefaultTerm getElementName() const
 
 
 /*
- * Returns the libSBML type code for this DefaultTerm object.
+ * Returns the libJSBML type code for this DefaultTerm object.
  */
-int
-DefaultTerm getTypeCode() const
+public int getTypeCode()
 {
   return SBML_QUAL_DEFAULT_TERM;
 }
@@ -198,10 +168,9 @@ DefaultTerm getTypeCode() const
  * Predicate returning @c true if all the required attributes for this
  * DefaultTerm object have been set.
  */
-bool
-DefaultTerm hasRequiredAttributes() const
+public bool hasRequiredAttributes()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredAttributes();
 
   if (isSetResultLevel() == false)
   {
@@ -213,13 +182,12 @@ DefaultTerm hasRequiredAttributes() const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Write any contained elements
  */
-void
-DefaultTerm writeElements(XMLOutputStream& stream) const
+public void writeElements(XMLOutputStream& stream)
 {
   SBase::writeElements(stream);
 
@@ -230,13 +198,12 @@ DefaultTerm writeElements(XMLOutputStream& stream) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Accepts the given SBMLVisitor
  */
-bool
-DefaultTerm accept(SBMLVisitor& v) const
+public bool accept(SBMLVisitor& v)
 {
   return v.visit(*this);
 }
@@ -245,13 +212,12 @@ DefaultTerm accept(SBMLVisitor& v) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Sets the parent SBMLDocument
  */
-void
-DefaultTerm setSBMLDocument(SBMLDocument* d)
+public void setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -260,13 +226,12 @@ DefaultTerm setSBMLDocument(SBMLDocument* d)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Enables/disables the given package with this element
  */
-void
-DefaultTerm enablePackageInternal(const std::string& pkgURI,
+public void enablePackageInternal(const std::string& pkgURI,
                                   const std::string& pkgPrefix,
                                   bool flag)
 {
@@ -277,13 +242,30 @@ DefaultTerm enablePackageInternal(const std::string& pkgURI,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+public SBase* createObject(XMLInputStream& stream)
+{
+  SBase* obj = SBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Adds the expected attributes for this element
  */
-void
-DefaultTerm addExpectedAttributes(ExpectedAttributes& attributes)
+public void addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -294,13 +276,12 @@ DefaultTerm addExpectedAttributes(ExpectedAttributes& attributes)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Reads the expected attributes into the member data variables
  */
-void
-DefaultTerm readAttributes(const XMLAttributes& attributes,
+public void readAttributes(const XMLAttributes& attributes,
                            const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
@@ -363,13 +344,12 @@ DefaultTerm readAttributes(const XMLAttributes& attributes,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the attributes to the stream
  */
-void
-DefaultTerm writeAttributes(XMLOutputStream& stream) const
+public void writeAttributes(XMLOutputStream& stream)
 {
   SBase::writeAttributes(stream);
 
@@ -390,14 +370,13 @@ DefaultTerm writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new DefaultTerm_t using the given SBML Level, Version and
+ * Creates a new DefaultTerm_t using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-LIBSBML_EXTERN
-DefaultTerm_t *
-DefaultTerm_create(unsigned int level,
-                   unsigned int version,
-                   unsigned int pkgVersion)
+JSBML_EXTERN
+public DefaultTerm_t * DefaultTerm_create(unsigned int level,
+                                          unsigned int version,
+                                          unsigned int pkgVersion)
 {
   return new DefaultTerm(level, version, pkgVersion);
 }
@@ -406,9 +385,8 @@ DefaultTerm_create(unsigned int level,
 /*
  * Creates and returns a deep copy of this DefaultTerm_t object.
  */
-LIBSBML_EXTERN
-DefaultTerm_t*
-DefaultTerm_clone(const DefaultTerm_t* dt)
+JSBML_EXTERN
+public DefaultTerm_t* DefaultTerm_clone(const DefaultTerm_t* dt)
 {
   if (dt != NULL)
   {
@@ -424,9 +402,8 @@ DefaultTerm_clone(const DefaultTerm_t* dt)
 /*
  * Frees this DefaultTerm_t object.
  */
-LIBSBML_EXTERN
-void
-DefaultTerm_free(DefaultTerm_t* dt)
+JSBML_EXTERN
+public void DefaultTerm_free(DefaultTerm_t* dt)
 {
   if (dt != NULL)
   {
@@ -436,13 +413,12 @@ DefaultTerm_free(DefaultTerm_t* dt)
 
 
 /*
- * Returns the value of the "resultLevel" attribute of this DefaultTerm.
+ * @returns the value of the "resultLevel" attribute of this DefaultTerm.
  */
-LIBSBML_EXTERN
-int
-DefaultTerm_getResultLevel(const DefaultTerm * dt)
+JSBML_EXTERN
+public int DefaultTerm_getResultLevel(const DefaultTerm * dt)
 {
-  return (dt != NULL) ? dt->getResultLevel() : SBML_INT_MAX;
+  return (dt != NULL) ? dt->getResultLevel() : JSBML_INT_MAX;
 }
 
 
@@ -450,9 +426,8 @@ DefaultTerm_getResultLevel(const DefaultTerm * dt)
  * Predicate returning @c 1 if this DefaultTerm's "resultLevel" attribute is
  * set.
  */
-LIBSBML_EXTERN
-int
-DefaultTerm_isSetResultLevel(const DefaultTerm * dt)
+JSBML_EXTERN
+public int DefaultTerm_isSetResultLevel(const DefaultTerm * dt)
 {
   return (dt != NULL) ? static_cast<int>(dt->isSetResultLevel()) : 0;
 }
@@ -461,23 +436,21 @@ DefaultTerm_isSetResultLevel(const DefaultTerm * dt)
 /*
  * Sets the value of the "resultLevel" attribute of this DefaultTerm.
  */
-LIBSBML_EXTERN
-int
-DefaultTerm_setResultLevel(DefaultTerm * dt, int resultLevel)
+JSBML_EXTERN
+public int DefaultTerm_setResultLevel(DefaultTerm * dt, int resultLevel)
 {
   return (dt != NULL) ? dt->setResultLevel(resultLevel) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "resultLevel" attribute of this DefaultTerm.
  */
-LIBSBML_EXTERN
-int
-DefaultTerm_unsetResultLevel(DefaultTerm * dt)
+JSBML_EXTERN
+public int DefaultTerm_unsetResultLevel(DefaultTerm * dt)
 {
-  return (dt != NULL) ? dt->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
+  return (dt != NULL) ? dt->unsetResultLevel() : LIBJSBML_INVALID_OBJECT;
 }
 
 
@@ -485,9 +458,8 @@ DefaultTerm_unsetResultLevel(DefaultTerm * dt)
  * Predicate returning @c 1 if all the required attributes for this
  * DefaultTerm_t object have been set.
  */
-LIBSBML_EXTERN
-int
-DefaultTerm_hasRequiredAttributes(const DefaultTerm_t * dt)
+JSBML_EXTERN
+public int DefaultTerm_hasRequiredAttributes(const DefaultTerm_t * dt)
 {
   return (dt != NULL) ? static_cast<int>(dt->hasRequiredAttributes()) : 0;
 }
@@ -495,6 +467,6 @@ DefaultTerm_hasRequiredAttributes(const DefaultTerm_t * dt)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

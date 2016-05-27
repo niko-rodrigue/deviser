@@ -2,44 +2,17 @@
  * @file Input.java
  * @brief Implementation of the Input class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/Input.h>
-#include <sbml/packages/qual/sbml/ListOfInputs.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/Input.h>
+#include <jsbml/packages/qual/jsbml/ListOfInputs.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -48,17 +21,19 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new Input using the given SBML Level, Version and
+ * Creates a new Input using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-Input Input(unsigned int level, unsigned int version, unsigned int pkgVersion)
+public Input(unsigned int level,
+              unsigned int version,
+              unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
   , mName ("")
   , mSign (SIGN_INVALID)
   , mQualitativeSpecies ("")
   , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID)
-  , mThresholdLevel (SBML_INT_MAX)
+  , mThresholdLevel (JSBML_INT_MAX)
   , mIsSetThresholdLevel (false)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -68,14 +43,14 @@ Input Input(unsigned int level, unsigned int version, unsigned int pkgVersion)
 /*
  * Creates a new Input using the given QualPkgNamespaces object.
  */
-Input Input(QualPkgNamespaces *qualns)
+public Input(QualPkgNamespaces *qualns)
   : SBase(qualns)
   , mId ("")
   , mName ("")
   , mSign (SIGN_INVALID)
   , mQualitativeSpecies ("")
   , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID)
-  , mThresholdLevel (SBML_INT_MAX)
+  , mThresholdLevel (JSBML_INT_MAX)
   , mIsSetThresholdLevel (false)
 {
   setElementNamespace(qualns->getURI());
@@ -86,7 +61,7 @@ Input Input(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for Input.
  */
-Input Input(const Input& orig)
+public Input(const Input& orig)
   : SBase( orig )
   , mId ( orig.mId )
   , mName ( orig.mName )
@@ -102,8 +77,7 @@ Input Input(const Input& orig)
 /*
  * Assignment operator for Input.
  */
-Input&
-Input operator=(const Input& rhs)
+public Input& operator=(const Input& rhs)
 {
   if (&rhs != this)
   {
@@ -124,8 +98,7 @@ Input operator=(const Input& rhs)
 /*
  * Creates and returns a deep copy of this Input object.
  */
-Input*
-Input clone() const
+public Input* clone()
 {
   return new Input(*this);
 }
@@ -134,46 +107,57 @@ Input clone() const
 /*
  * Destructor for Input.
  */
-Input ~Input()
+public ~Input()
 {
 }
 
 
 /*
- * Returns the value of the "id" attribute of this Input.
+ * @returns the value of the "id" attribute of this Input.
  */
-const String
-Input getId() const
+public const String getId()
 {
-  return mId;
+  if (isSetId())
+  {
+    return mId.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mId, this);
 }
 
 
 /*
- * Returns the value of the "name" attribute of this Input.
+ * @returns the value of the "name" attribute of this Input.
  */
-String
-Input getName() const
+public String getName()
 {
-  return mName;
+  if (isSetName())
+  {
+    return mName.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mName, this);
+}
+
+
+/*
+ * @returns the value of the "sign" attribute of this Input.
+ */
+public Sign getSign()
+{
+  if (isSetSign())
+  {
+    return mSign;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mSign, this);
 }
 
 
 /*
  * Returns the value of the "sign" attribute of this Input.
  */
-Sign
-Input getSign() const
-{
-  return mSign;
-}
-
-
-/*
- * Returns the value of the "sign" attribute of this Input.
- */
-const std::string&
-Input getSignAsString() const
+public const std::string& getSignAsString()
 {
   static const std::string code_str = Sign_toString(mSign);
   return code_str;
@@ -181,30 +165,37 @@ Input getSignAsString() const
 
 
 /*
- * Returns the value of the "qualitativeSpecies" attribute of this Input.
+ * @returns the value of the "qualitativeSpecies" attribute of this Input.
  */
-const String
-Input getQualitativeSpecies() const
+public const String getQualitativeSpecies()
 {
-  return mQualitativeSpecies;
+  if (isSetQualitativeSpecies())
+  {
+    return mQualitativeSpecies.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mQualitativeSpecies, this);
+}
+
+
+/*
+ * @returns the value of the "transitionEffect" attribute of this Input.
+ */
+public TransitionInputEffect getTransitionEffect()
+{
+  if (isSetTransitionEffect())
+  {
+    return mTransitionEffect;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
 }
 
 
 /*
  * Returns the value of the "transitionEffect" attribute of this Input.
  */
-TransitionInputEffect
-Input getTransitionEffect() const
-{
-  return mTransitionEffect;
-}
-
-
-/*
- * Returns the value of the "transitionEffect" attribute of this Input.
- */
-const std::string&
-Input getTransitionEffectAsString() const
+public const std::string& getTransitionEffectAsString()
 {
   static const std::string code_str =
     TransitionInputEffect_toString(mTransitionEffect);
@@ -213,20 +204,23 @@ Input getTransitionEffectAsString() const
 
 
 /*
- * Returns the value of the "thresholdLevel" attribute of this Input.
+ * @returns the value of the "thresholdLevel" attribute of this Input.
  */
-int
-Input getThresholdLevel() const
+public int getThresholdLevel()
 {
-  return mThresholdLevel;
+  if (isSetThresholdLevel())
+  {
+    return mThresholdLevel.intValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mThresholdLevel, this);
 }
 
 
 /*
  * Predicate returning @c true if this Input's "id" attribute is set.
  */
-bool
-Input isSetId() const
+public bool isSetId()
 {
   return (mId.empty() == false);
 }
@@ -235,8 +229,7 @@ Input isSetId() const
 /*
  * Predicate returning @c true if this Input's "name" attribute is set.
  */
-bool
-Input isSetName() const
+public bool isSetName()
 {
   ;
 }
@@ -245,8 +238,7 @@ Input isSetName() const
 /*
  * Predicate returning @c true if this Input's "sign" attribute is set.
  */
-bool
-Input isSetSign() const
+public bool isSetSign()
 {
   return (mSign != SIGN_INVALID);
 }
@@ -256,8 +248,7 @@ Input isSetSign() const
  * Predicate returning @c true if this Input's "qualitativeSpecies" attribute
  * is set.
  */
-bool
-Input isSetQualitativeSpecies() const
+public bool isSetQualitativeSpecies()
 {
   return (mQualitativeSpecies.empty() == false);
 }
@@ -267,8 +258,7 @@ Input isSetQualitativeSpecies() const
  * Predicate returning @c true if this Input's "transitionEffect" attribute is
  * set.
  */
-bool
-Input isSetTransitionEffect() const
+public bool isSetTransitionEffect()
 {
   return (mTransitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
 }
@@ -278,8 +268,7 @@ Input isSetTransitionEffect() const
  * Predicate returning @c true if this Input's "thresholdLevel" attribute is
  * set.
  */
-bool
-Input isSetThresholdLevel() const
+public bool isSetThresholdLevel()
 {
   return mIsSetThresholdLevel;
 }
@@ -288,18 +277,17 @@ Input isSetThresholdLevel() const
 /*
  * Sets the value of the "id" attribute of this Input.
  */
-int
-Input setId(const String id)
+public int setId(const String id)
 {
-  return SyntaxChecker::checkAndSetSId(id, mId);
+  mId = id;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the value of the "name" attribute of this Input.
  */
-int
-Input setName(String name)
+public int setName(String name)
 {
   mName = name;
   return LIBSBML_OPERATION_SUCCESS;
@@ -309,8 +297,7 @@ Input setName(String name)
 /*
  * Sets the value of the "sign" attribute of this Input.
  */
-int
-Input setSign(const Sign sign)
+public int setSign(const Sign sign)
 {
   if (Sign_isValid(sign) == 0)
   {
@@ -328,8 +315,7 @@ Input setSign(const Sign sign)
 /*
  * Sets the value of the "sign" attribute of this Input.
  */
-int
-Input setSign(const std::string& sign)
+public int setSign(const std::string& sign)
 {
   if (Sign_isValidString(sign.c_str()) == 0)
   {
@@ -347,8 +333,7 @@ Input setSign(const std::string& sign)
 /*
  * Sets the value of the "qualitativeSpecies" attribute of this Input.
  */
-int
-Input setQualitativeSpecies(const String qualitativeSpecies)
+public int setQualitativeSpecies(const String qualitativeSpecies)
 {
   if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
   {
@@ -365,8 +350,7 @@ Input setQualitativeSpecies(const String qualitativeSpecies)
 /*
  * Sets the value of the "transitionEffect" attribute of this Input.
  */
-int
-Input setTransitionEffect(const TransitionInputEffect transitionEffect)
+public int setTransitionEffect(const TransitionInputEffect transitionEffect)
 {
   if (TransitionInputEffect_isValid(transitionEffect) == 0)
   {
@@ -384,8 +368,7 @@ Input setTransitionEffect(const TransitionInputEffect transitionEffect)
 /*
  * Sets the value of the "transitionEffect" attribute of this Input.
  */
-int
-Input setTransitionEffect(const std::string& transitionEffect)
+public int setTransitionEffect(const std::string& transitionEffect)
 {
   if (TransitionInputEffect_isValidString(transitionEffect.c_str()) == 0)
   {
@@ -404,8 +387,7 @@ Input setTransitionEffect(const std::string& transitionEffect)
 /*
  * Sets the value of the "thresholdLevel" attribute of this Input.
  */
-int
-Input setThresholdLevel(int thresholdLevel)
+public int setThresholdLevel(int thresholdLevel)
 {
   mThresholdLevel = thresholdLevel;
   mIsSetThresholdLevel = true;
@@ -416,8 +398,7 @@ Input setThresholdLevel(int thresholdLevel)
 /*
  * Unsets the value of the "id" attribute of this Input.
  */
-int
-Input unsetId()
+public int unsetId()
 {
   mId.erase();
 
@@ -435,8 +416,7 @@ Input unsetId()
 /*
  * Unsets the value of the "name" attribute of this Input.
  */
-int
-Input unsetName()
+public int unsetName()
 {
   TO DO;
 }
@@ -445,8 +425,7 @@ Input unsetName()
 /*
  * Unsets the value of the "sign" attribute of this Input.
  */
-int
-Input unsetSign()
+public int unsetSign()
 {
   mSign = SIGN_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
@@ -456,8 +435,7 @@ Input unsetSign()
 /*
  * Unsets the value of the "qualitativeSpecies" attribute of this Input.
  */
-int
-Input unsetQualitativeSpecies()
+public int unsetQualitativeSpecies()
 {
   mQualitativeSpecies.erase();
 
@@ -475,8 +453,7 @@ Input unsetQualitativeSpecies()
 /*
  * Unsets the value of the "transitionEffect" attribute of this Input.
  */
-int
-Input unsetTransitionEffect()
+public int unsetTransitionEffect()
 {
   mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
@@ -486,10 +463,9 @@ Input unsetTransitionEffect()
 /*
  * Unsets the value of the "thresholdLevel" attribute of this Input.
  */
-int
-Input unsetThresholdLevel()
+public int unsetThresholdLevel()
 {
-  mThresholdLevel = SBML_INT_MAX;
+  mThresholdLevel = JSBML_INT_MAX;
   mIsSetThresholdLevel = false;
 
   if (isSetThresholdLevel() == false)
@@ -506,8 +482,7 @@ Input unsetThresholdLevel()
 /*
  * @copydoc doc_renamesidref_common
  */
-void
-Input renameSIdRefs(const std::string& oldid, const std::string& newid)
+public void renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetQualitativeSpecies() && mQualitativeSpecies == oldid)
   {
@@ -519,8 +494,7 @@ Input renameSIdRefs(const std::string& oldid, const std::string& newid)
 /*
  * Returns the XML element name of this Input object.
  */
-const std::string&
-Input getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "input";
   return name;
@@ -528,10 +502,9 @@ Input getElementName() const
 
 
 /*
- * Returns the libSBML type code for this Input object.
+ * Returns the libJSBML type code for this Input object.
  */
-int
-Input getTypeCode() const
+public int getTypeCode()
 {
   return SBML_QUAL_INPUT;
 }
@@ -541,10 +514,9 @@ Input getTypeCode() const
  * Predicate returning @c true if all the required attributes for this Input
  * object have been set.
  */
-bool
-Input hasRequiredAttributes() const
+public bool hasRequiredAttributes()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredAttributes();
 
   if (isSetQualitativeSpecies() == false)
   {
@@ -556,13 +528,12 @@ Input hasRequiredAttributes() const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Write any contained elements
  */
-void
-Input writeElements(XMLOutputStream& stream) const
+public void writeElements(XMLOutputStream& stream)
 {
   SBase::writeElements(stream);
 
@@ -573,13 +544,12 @@ Input writeElements(XMLOutputStream& stream) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Accepts the given SBMLVisitor
  */
-bool
-Input accept(SBMLVisitor& v) const
+public bool accept(SBMLVisitor& v)
 {
   return v.visit(*this);
 }
@@ -588,13 +558,12 @@ Input accept(SBMLVisitor& v) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Sets the parent SBMLDocument
  */
-void
-Input setSBMLDocument(SBMLDocument* d)
+public void setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -603,15 +572,14 @@ Input setSBMLDocument(SBMLDocument* d)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Enables/disables the given package with this element
  */
-void
-Input enablePackageInternal(const std::string& pkgURI,
-                            const std::string& pkgPrefix,
-                            bool flag)
+public void enablePackageInternal(const std::string& pkgURI,
+                                  const std::string& pkgPrefix,
+                                  bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
@@ -620,13 +588,30 @@ Input enablePackageInternal(const std::string& pkgURI,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+public SBase* createObject(XMLInputStream& stream)
+{
+  SBase* obj = SBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Adds the expected attributes for this element
  */
-void
-Input addExpectedAttributes(ExpectedAttributes& attributes)
+public void addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -647,14 +632,13 @@ Input addExpectedAttributes(ExpectedAttributes& attributes)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Reads the expected attributes into the member data variables
  */
-void
-Input readAttributes(const XMLAttributes& attributes,
-                     const ExpectedAttributes& expectedAttributes)
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -663,7 +647,7 @@ Input readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfInputs*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfInputs*>(getParentJSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -861,13 +845,12 @@ Input readAttributes(const XMLAttributes& attributes,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the attributes to the stream
  */
-void
-Input writeAttributes(XMLOutputStream& stream) const
+public void writeAttributes(XMLOutputStream& stream)
 {
   SBase::writeAttributes(stream);
 
@@ -915,14 +898,13 @@ Input writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new Input_t using the given SBML Level, Version and
+ * Creates a new Input_t using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-LIBSBML_EXTERN
-Input_t *
-Input_create(unsigned int level,
-             unsigned int version,
-             unsigned int pkgVersion)
+JSBML_EXTERN
+public Input_t * Input_create(unsigned int level,
+                              unsigned int version,
+                              unsigned int pkgVersion)
 {
   return new Input(level, version, pkgVersion);
 }
@@ -931,9 +913,8 @@ Input_create(unsigned int level,
 /*
  * Creates and returns a deep copy of this Input_t object.
  */
-LIBSBML_EXTERN
-Input_t*
-Input_clone(const Input_t* i)
+JSBML_EXTERN
+public Input_t* Input_clone(const Input_t* i)
 {
   if (i != NULL)
   {
@@ -949,9 +930,8 @@ Input_clone(const Input_t* i)
 /*
  * Frees this Input_t object.
  */
-LIBSBML_EXTERN
-void
-Input_free(Input_t* i)
+JSBML_EXTERN
+public void Input_free(Input_t* i)
 {
   if (i != NULL)
   {
@@ -961,11 +941,10 @@ Input_free(Input_t* i)
 
 
 /*
- * Returns the value of the "id" attribute of this Input.
+ * @returns the value of the "id" attribute of this Input.
  */
-LIBSBML_EXTERN
-String
-Input_getId(const Input * i)
+JSBML_EXTERN
+public String Input_getId(const Input * i)
 {
   if (i == NULL)
   {
@@ -977,11 +956,10 @@ Input_getId(const Input * i)
 
 
 /*
- * Returns the value of the "name" attribute of this Input.
+ * @returns the value of the "name" attribute of this Input.
  */
-LIBSBML_EXTERN
-String
-Input_getName(const Input * i)
+JSBML_EXTERN
+public String Input_getName(const Input * i)
 {
   if (i == NULL)
   {
@@ -993,11 +971,10 @@ Input_getName(const Input * i)
 
 
 /*
- * Returns the value of the "sign" attribute of this Input.
+ * @returns the value of the "sign" attribute of this Input.
  */
-LIBSBML_EXTERN
-Sign
-Input_getSign(const Input * i)
+JSBML_EXTERN
+public Sign Input_getSign(const Input * i)
 {
   if (i == NULL)
   {
@@ -1011,20 +988,18 @@ Input_getSign(const Input * i)
 /*
  * Returns the value of the "sign" attribute of this Input.
  */
-LIBSBML_EXTERN
-const char *
-Input_getSignAsString(const Input * i)
+JSBML_EXTERN
+public const char * Input_getSignAsString(const Input * i)
 {
   return Sign_toString(i->getSign());
 }
 
 
 /*
- * Returns the value of the "qualitativeSpecies" attribute of this Input.
+ * @returns the value of the "qualitativeSpecies" attribute of this Input.
  */
-LIBSBML_EXTERN
-String
-Input_getQualitativeSpecies(const Input * i)
+JSBML_EXTERN
+public String Input_getQualitativeSpecies(const Input * i)
 {
   if (i == NULL)
   {
@@ -1037,11 +1012,10 @@ Input_getQualitativeSpecies(const Input * i)
 
 
 /*
- * Returns the value of the "transitionEffect" attribute of this Input.
+ * @returns the value of the "transitionEffect" attribute of this Input.
  */
-LIBSBML_EXTERN
-TransitionInputEffect
-Input_getTransitionEffect(const Input * i)
+JSBML_EXTERN
+public TransitionInputEffect Input_getTransitionEffect(const Input * i)
 {
   if (i == NULL)
   {
@@ -1055,31 +1029,28 @@ Input_getTransitionEffect(const Input * i)
 /*
  * Returns the value of the "transitionEffect" attribute of this Input.
  */
-LIBSBML_EXTERN
-const char *
-Input_getTransitionEffectAsString(const Input * i)
+JSBML_EXTERN
+public const char * Input_getTransitionEffectAsString(const Input * i)
 {
   return TransitionInputEffect_toString(i->getTransitionEffect());
 }
 
 
 /*
- * Returns the value of the "thresholdLevel" attribute of this Input.
+ * @returns the value of the "thresholdLevel" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_getThresholdLevel(const Input * i)
+JSBML_EXTERN
+public int Input_getThresholdLevel(const Input * i)
 {
-  return (i != NULL) ? i->getThresholdLevel() : SBML_INT_MAX;
+  return (i != NULL) ? i->getThresholdLevel() : JSBML_INT_MAX;
 }
 
 
 /*
  * Predicate returning @c 1 if this Input's "id" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Input_isSetId(const Input * i)
+JSBML_EXTERN
+public int Input_isSetId(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetId()) : 0;
 }
@@ -1088,9 +1059,8 @@ Input_isSetId(const Input * i)
 /*
  * Predicate returning @c 1 if this Input's "name" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Input_isSetName(const Input * i)
+JSBML_EXTERN
+public int Input_isSetName(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetName()) : 0;
 }
@@ -1099,9 +1069,8 @@ Input_isSetName(const Input * i)
 /*
  * Predicate returning @c 1 if this Input's "sign" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Input_isSetSign(const Input * i)
+JSBML_EXTERN
+public int Input_isSetSign(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetSign()) : 0;
 }
@@ -1111,9 +1080,8 @@ Input_isSetSign(const Input * i)
  * Predicate returning @c 1 if this Input's "qualitativeSpecies" attribute is
  * set.
  */
-LIBSBML_EXTERN
-int
-Input_isSetQualitativeSpecies(const Input * i)
+JSBML_EXTERN
+public int Input_isSetQualitativeSpecies(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetQualitativeSpecies()) : 0;
 }
@@ -1123,9 +1091,8 @@ Input_isSetQualitativeSpecies(const Input * i)
  * Predicate returning @c 1 if this Input's "transitionEffect" attribute is
  * set.
  */
-LIBSBML_EXTERN
-int
-Input_isSetTransitionEffect(const Input * i)
+JSBML_EXTERN
+public int Input_isSetTransitionEffect(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetTransitionEffect()) : 0;
 }
@@ -1134,9 +1101,8 @@ Input_isSetTransitionEffect(const Input * i)
 /*
  * Predicate returning @c 1 if this Input's "thresholdLevel" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Input_isSetThresholdLevel(const Input * i)
+JSBML_EXTERN
+public int Input_isSetThresholdLevel(const Input * i)
 {
   return (i != NULL) ? static_cast<int>(i->isSetThresholdLevel()) : 0;
 }
@@ -1145,42 +1111,38 @@ Input_isSetThresholdLevel(const Input * i)
 /*
  * Sets the value of the "id" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setId(Input * i, String id)
+JSBML_EXTERN
+public int Input_setId(Input * i, String id)
 {
-  return (i != NULL) ? i->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setId(id) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "name" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setName(Input * i, String name)
+JSBML_EXTERN
+public int Input_setName(Input * i, String name)
 {
-  return (i != NULL) ? i->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setName(name) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "sign" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setSign(Input * i, Sign sign)
+JSBML_EXTERN
+public int Input_setSign(Input * i, Sign sign)
 {
-  return (i != NULL) ? i->setSign(sign) : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->setSign(sign) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "sign" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setSignAsString(Input * i, const char * sign)
+JSBML_EXTERN
+public int Input_setSignAsString(Input * i, const char * sign)
 {
   return (i != NULL) ? i->setSign(sign): LIBSBML_INVALID_OBJECT;
 }
@@ -1189,33 +1151,32 @@ Input_setSignAsString(Input * i, const char * sign)
 /*
  * Sets the value of the "qualitativeSpecies" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setQualitativeSpecies(Input * i, String qualitativeSpecies)
+JSBML_EXTERN
+public int Input_setQualitativeSpecies(Input * i, String qualitativeSpecies)
 {
   return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "transitionEffect" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setTransitionEffect(Input * i, TransitionInputEffect transitionEffect)
+JSBML_EXTERN
+public int Input_setTransitionEffect(Input * i,
+                                     TransitionInputEffect transitionEffect)
 {
   return (i != NULL) ? i->setTransitionEffect(transitionEffect) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "transitionEffect" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setTransitionEffectAsString(Input * i, const char * transitionEffect)
+JSBML_EXTERN
+public int Input_setTransitionEffectAsString(Input * i,
+                                             const char * transitionEffect)
 {
   return (i != NULL) ? i->setTransitionEffect(transitionEffect):
     LIBSBML_INVALID_OBJECT;
@@ -1225,78 +1186,71 @@ Input_setTransitionEffectAsString(Input * i, const char * transitionEffect)
 /*
  * Sets the value of the "thresholdLevel" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_setThresholdLevel(Input * i, int thresholdLevel)
+JSBML_EXTERN
+public int Input_setThresholdLevel(Input * i, int thresholdLevel)
 {
   return (i != NULL) ? i->setThresholdLevel(thresholdLevel) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "id" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_unsetId(Input * i)
+JSBML_EXTERN
+public int Input_unsetId(Input * i)
 {
-  return (i != NULL) ? i->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetId() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "name" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_unsetName(Input * i)
+JSBML_EXTERN
+public int Input_unsetName(Input * i)
 {
-  return (i != NULL) ? i->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetName() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "sign" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_unsetSign(Input * i)
+JSBML_EXTERN
+public int Input_unsetSign(Input * i)
 {
-  return (i != NULL) ? i->unsetSign() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetSign() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "qualitativeSpecies" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_unsetQualitativeSpecies(Input * i)
+JSBML_EXTERN
+public int Input_unsetQualitativeSpecies(Input * i)
 {
-  return (i != NULL) ? i->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetQualitativeSpecies() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "transitionEffect" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_unsetTransitionEffect(Input * i)
+JSBML_EXTERN
+public int Input_unsetTransitionEffect(Input * i)
 {
-  return (i != NULL) ? i->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetTransitionEffect() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "thresholdLevel" attribute of this Input.
  */
-LIBSBML_EXTERN
-int
-Input_unsetThresholdLevel(Input * i)
+JSBML_EXTERN
+public int Input_unsetThresholdLevel(Input * i)
 {
-  return (i != NULL) ? i->unsetThresholdLevel() : LIBSBML_INVALID_OBJECT;
+  return (i != NULL) ? i->unsetThresholdLevel() : LIBJSBML_INVALID_OBJECT;
 }
 
 
@@ -1304,9 +1258,8 @@ Input_unsetThresholdLevel(Input * i)
  * Predicate returning @c 1 if all the required attributes for this Input_t
  * object have been set.
  */
-LIBSBML_EXTERN
-int
-Input_hasRequiredAttributes(const Input_t * i)
+JSBML_EXTERN
+public int Input_hasRequiredAttributes(const Input_t * i)
 {
   return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
 }
@@ -1314,6 +1267,6 @@ Input_hasRequiredAttributes(const Input_t * i)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

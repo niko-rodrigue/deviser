@@ -141,7 +141,7 @@ class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
     # function to write the constructors
     def write_constructors(self):
         constructor = Constructors.Constructors(self.language,
-                                                self.is_cpp_api,
+                                                self.is_java_api,
                                                 self.class_object)
         code = constructor.write_constructor()
         self.write_function_implementation(code)
@@ -165,7 +165,7 @@ class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.class_object['class_attributes'] \
             = query.get_static_extension_attribs(self.num_versions)
         attrib_functions = SetGetFunctions.SetGetFunctions(self.language,
-                                                           self.is_cpp_api,
+                                                           self.is_java_api,
                                                            self.is_list_of,
                                                            self.class_object)
         num_attributes = len(self.class_object['class_attributes'])
@@ -293,7 +293,7 @@ class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.std_base,
                                                           self.enums,
                                                           [])
-        self.is_cpp_api = False
+        self.is_java_api = False
         for i in range(0, len(self.enums)):
             name = query.get_typecode_format(self.enums[i]['name'],
                                              self.language) + '_STRINGS'

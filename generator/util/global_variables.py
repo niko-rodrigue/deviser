@@ -76,8 +76,23 @@ package_prefix = ''
 global package_full_name
 package_full_name = ''
 
+
+# GSOC 2016 modification
 global javaLanguage
 javaLanguage = 'jsbml'
+
+global javaBaseClass
+javaBaseClass = 'SBase'
+global java_std_base
+java_std_base = 'SBase'
+global java_document_class
+java_document_class = 'SBMLDocument'
+global java_prefix
+java_prefix = 'JSBML'
+
+global javaTypeAttributes
+javaTypeAttributes = ['int', 'boolean', 'String', 'double']
+
 global java_library_name
 java_library_name = 'JSBML'
 

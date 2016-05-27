@@ -2,43 +2,16 @@
  * @file ListOfOutputs.java
  * @brief Implementation of the ListOfOutputs class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/ListOfOutputs.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/ListOfOutputs.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -47,12 +20,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new ListOfOutputs using the given SBML Level, Version and
+ * Creates a new ListOfOutputs using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfOutputs ListOfOutputs(unsigned int level,
-                            unsigned int version,
-                            unsigned int pkgVersion)
+public ListOfOutputs(unsigned int level,
+                      unsigned int version,
+                      unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -62,7 +35,7 @@ ListOfOutputs ListOfOutputs(unsigned int level,
 /*
  * Creates a new ListOfOutputs using the given QualPkgNamespaces object.
  */
-ListOfOutputs ListOfOutputs(QualPkgNamespaces *qualns)
+public ListOfOutputs(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -72,7 +45,7 @@ ListOfOutputs ListOfOutputs(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfOutputs.
  */
-ListOfOutputs ListOfOutputs(const ListOfOutputs& orig)
+public ListOfOutputs(const ListOfOutputs& orig)
   : ListOf( orig )
 {
 }
@@ -81,8 +54,7 @@ ListOfOutputs ListOfOutputs(const ListOfOutputs& orig)
 /*
  * Assignment operator for ListOfOutputs.
  */
-ListOfOutputs&
-ListOfOutputs operator=(const ListOfOutputs& rhs)
+public ListOfOutputs& operator=(const ListOfOutputs& rhs)
 {
   if (&rhs != this)
   {
@@ -96,8 +68,7 @@ ListOfOutputs operator=(const ListOfOutputs& rhs)
 /*
  * Creates and returns a deep copy of this ListOfOutputs object.
  */
-ListOfOutputs*
-ListOfOutputs clone() const
+public ListOfOutputs* clone()
 {
   return new ListOfOutputs(*this);
 }
@@ -106,7 +77,7 @@ ListOfOutputs clone() const
 /*
  * Destructor for ListOfOutputs.
  */
-ListOfOutputs ~ListOfOutputs()
+public ~ListOfOutputs()
 {
 }
 
@@ -114,8 +85,7 @@ ListOfOutputs ~ListOfOutputs()
 /*
  * Get an Output from the ListOfOutputs.
  */
-Output*
-ListOfOutputs get(unsigned int n)
+public Output* get(unsigned int n)
 {
   return static_cast<Output*>(ListOf::get(n));
 }
@@ -124,8 +94,7 @@ ListOfOutputs get(unsigned int n)
 /*
  * Get an Output from the ListOfOutputs.
  */
-const Output*
-ListOfOutputs get(unsigned int n) const
+public const Output* get(unsigned int n)
 {
   return static_cast<const Output*>(ListOf::get(n));
 }
@@ -134,8 +103,7 @@ ListOfOutputs get(unsigned int n) const
 /*
  * Get an Output from the ListOfOutputs based on its identifier.
  */
-Output*
-ListOfOutputs get(const std::string& sid)
+public Output* get(const std::string& sid)
 {
   return const_cast<Output*>(static_cast<const
     ListOfOutputs&>(*this).get(sid));
@@ -145,8 +113,7 @@ ListOfOutputs get(const std::string& sid)
 /*
  * Get an Output from the ListOfOutputs based on its identifier.
  */
-const Output*
-ListOfOutputs get(const std::string& sid) const
+public const Output* get(const std::string& sid)
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<Output>(sid));
@@ -157,8 +124,7 @@ ListOfOutputs get(const std::string& sid) const
 /*
  * Removes the nth Output from this ListOfOutputs and returns a pointer to it.
  */
-Output*
-ListOfOutputs remove(unsigned int n)
+public Output* remove(unsigned int n)
 {
   return static_cast<Output*>(ListOf::remove(n));
 }
@@ -168,8 +134,7 @@ ListOfOutputs remove(unsigned int n)
  * Removes the Output from this ListOfOutputs based on its identifier and
  * returns a pointer to it.
  */
-Output*
-ListOfOutputs remove(const std::string& sid)
+public Output* remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -189,8 +154,7 @@ ListOfOutputs remove(const std::string& sid)
 /*
  * Adds a copy of the given Output to this ListOfOutputs.
  */
-int
-ListOfOutputs addOutput(const Output* o)
+public int addOutput(const Output* o)
 {
   if (o == NULL)
   {
@@ -224,8 +188,7 @@ ListOfOutputs addOutput(const Output* o)
 /*
  * Get the number of Output objects in this ListOfOutputs.
  */
-unsigned int
-ListOfOutputs getNumOutputs() const
+public unsigned int getNumOutputs()
 {
   return size();
 }
@@ -235,8 +198,7 @@ ListOfOutputs getNumOutputs() const
  * Creates a new Output object, adds it to this ListOfOutputs object and
  * returns the Output object created.
  */
-Output*
-ListOfOutputs createOutput()
+public Output* createOutput()
 {
   Output* o = NULL;
 
@@ -279,8 +241,7 @@ struct IdEqQS : public std::unary_function<SBase*, bool>
  * Get an Output from the ListOfOutputs based on the QualitativeSpecies to
  * which it refers.
  */
-const Output*
-ListOfOutputs getByQualitativeSpecies(const std::string& sid) const
+public const Output* getByQualitativeSpecies(const std::string& sid)
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEqQS(sid));
@@ -292,8 +253,7 @@ ListOfOutputs getByQualitativeSpecies(const std::string& sid) const
  * Get an Output from the ListOfOutputs based on the QualitativeSpecies to
  * which it refers.
  */
-Output*
-ListOfOutputs getByQualitativeSpecies(const std::string& sid)
+public Output* getByQualitativeSpecies(const std::string& sid)
 {
   return const_cast<Output*>(static_cast<const
     ListOfOutputs&>(*this).getByQualitativeSpecies(sid));
@@ -303,8 +263,7 @@ ListOfOutputs getByQualitativeSpecies(const std::string& sid)
 /*
  * Returns the XML element name of this ListOfOutputs object.
  */
-const std::string&
-ListOfOutputs getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "listOfOutputs";
   return name;
@@ -312,34 +271,43 @@ ListOfOutputs getElementName() const
 
 
 /*
- * Returns the libSBML type code for this ListOfOutputs object.
+ * Returns the libJSBML type code for this ListOfOutputs object.
  */
-int
-ListOfOutputs getTypeCode() const
+public int getTypeCode()
 {
-  return SBML_LIST_OF;
+  return JSBML_LIST_OF;
 }
 
 
 /*
- * Returns the libSBML type code for the SBML objects contained in this
+ * Returns the libJSBML type code for the JSBML objects contained in this
  * ListOfOutputs object.
  */
-int
-ListOfOutputs getItemTypeCode() const
+public int getItemTypeCode()
 {
   return SBML_QUAL_OUTPUT;
 }
 
 
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * ListOfOutputs object have been set.
+ */
+public bool hasRequiredAttributes()
+{
+  bool allPresent = ListOf::hasRequiredAttributes();
 
-/** @cond doxygenLibsbmlInternal */
+  return allPresent;
+}
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Creates a new Output in this ListOfOutputs
  */
-SBase*
-ListOfOutputs createObject(XMLInputStream& stream)
+public SBase* createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -359,13 +327,83 @@ ListOfOutputs createObject(XMLInputStream& stream)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+public void addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  ListOf::addExpectedAttributes(attributes);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  ListOf::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
+
+  for (int n = numErrs-1; n >= 0; n--)
+  {
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+public void writeAttributes(XMLOutputStream& stream)
+{
+  ListOf::writeAttributes(stream);
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the namespace for the Qual package
  */
-void
-ListOfOutputs writeXMLNS(XMLOutputStream& stream) const
+public void writeXMLNS(XMLOutputStream& stream)
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();
@@ -393,9 +431,8 @@ ListOfOutputs writeXMLNS(XMLOutputStream& stream) const
 /*
  * Get an Output_t from the ListOf_t.
  */
-LIBSBML_EXTERN
-const Output_t*
-ListOfOutputs_getOutput(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public const Output_t* ListOfOutputs_getOutput(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
@@ -409,9 +446,8 @@ ListOfOutputs_getOutput(ListOf_t* lo, unsigned int n)
 /*
  * Get an Output_t from the ListOf_t based on its identifier.
  */
-LIBSBML_EXTERN
-const Output_t*
-ListOfOutputs_getById(ListOf_t* lo, const char *sid)
+JSBML_EXTERN
+public const Output_t* ListOfOutputs_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)
   {
@@ -425,9 +461,8 @@ ListOfOutputs_getById(ListOf_t* lo, const char *sid)
 /*
  * Removes the nth Output_t from this ListOf_t and returns a pointer to it.
  */
-LIBSBML_EXTERN
-Output_t*
-ListOfOutputs_remove(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public Output_t* ListOfOutputs_remove(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
@@ -442,9 +477,8 @@ ListOfOutputs_remove(ListOf_t* lo, unsigned int n)
  * Removes the Output_t from this ListOf_t based on its identifier and returns
  * a pointer to it.
  */
-LIBSBML_EXTERN
-Output_t*
-ListOfOutputs_removeById(ListOf_t* lo, const char* sid)
+JSBML_EXTERN
+public Output_t* ListOfOutputs_removeById(ListOf_t* lo, const char* sid)
 {
   if (lo == NULL)
   {
@@ -457,6 +491,6 @@ ListOfOutputs_removeById(ListOf_t* lo, const char* sid)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

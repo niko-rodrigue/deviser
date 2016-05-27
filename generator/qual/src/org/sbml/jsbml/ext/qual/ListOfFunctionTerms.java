@@ -2,36 +2,9 @@
  * @file ListOfFunctionTerms.java
  * @brief Implementation of the ListOfFunctionTerms class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/ListOfFunctionTerms.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/ListOfFunctionTerms.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 #include <sbml/math/MathML.h>
 
 
@@ -39,7 +12,7 @@ using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -48,12 +21,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new ListOfFunctionTerms using the given SBML Level, Version and
+ * Creates a new ListOfFunctionTerms using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfFunctionTerms ListOfFunctionTerms(unsigned int level,
-                                        unsigned int version,
-                                        unsigned int pkgVersion)
+public ListOfFunctionTerms(unsigned int level,
+                            unsigned int version,
+                            unsigned int pkgVersion)
   : ListOf(level, version)
   , mDefaultTerm (NULL)
 {
@@ -65,7 +38,7 @@ ListOfFunctionTerms ListOfFunctionTerms(unsigned int level,
 /*
  * Creates a new ListOfFunctionTerms using the given QualPkgNamespaces object.
  */
-ListOfFunctionTerms ListOfFunctionTerms(QualPkgNamespaces *qualns)
+public ListOfFunctionTerms(QualPkgNamespaces *qualns)
   : ListOf(qualns)
   , mDefaultTerm (NULL)
 {
@@ -77,7 +50,7 @@ ListOfFunctionTerms ListOfFunctionTerms(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfFunctionTerms.
  */
-ListOfFunctionTerms ListOfFunctionTerms(const ListOfFunctionTerms& orig)
+public ListOfFunctionTerms(const ListOfFunctionTerms& orig)
   : ListOf( orig )
   , mDefaultTerm ( NULL )
 {
@@ -93,8 +66,7 @@ ListOfFunctionTerms ListOfFunctionTerms(const ListOfFunctionTerms& orig)
 /*
  * Assignment operator for ListOfFunctionTerms.
  */
-ListOfFunctionTerms&
-ListOfFunctionTerms operator=(const ListOfFunctionTerms& rhs)
+public ListOfFunctionTerms& operator=(const ListOfFunctionTerms& rhs)
 {
   if (&rhs != this)
   {
@@ -119,8 +91,7 @@ ListOfFunctionTerms operator=(const ListOfFunctionTerms& rhs)
 /*
  * Creates and returns a deep copy of this ListOfFunctionTerms object.
  */
-ListOfFunctionTerms*
-ListOfFunctionTerms clone() const
+public ListOfFunctionTerms* clone()
 {
   return new ListOfFunctionTerms(*this);
 }
@@ -129,7 +100,7 @@ ListOfFunctionTerms clone() const
 /*
  * Destructor for ListOfFunctionTerms.
  */
-ListOfFunctionTerms ~ListOfFunctionTerms()
+public ~ListOfFunctionTerms()
 {
   delete mDefaultTerm;
   mDefaultTerm = NULL;
@@ -137,22 +108,30 @@ ListOfFunctionTerms ~ListOfFunctionTerms()
 
 
 /*
- * Returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
+ * @returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
-const DefaultTerm*
-ListOfFunctionTerms getDefaultTerm() const
+public const DefaultTerm* getDefaultTerm()
 {
-  return mDefaultTerm;
+  if (isSetDefaultTerm())
+  {
+    return mDefaultTerm;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
 }
 
 
 /*
- * Returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
+ * @returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
-DefaultTerm*
-ListOfFunctionTerms getDefaultTerm()
+public DefaultTerm* getDefaultTerm()
 {
-  return mDefaultTerm;
+  if (isSetDefaultTerm())
+  {
+    return mDefaultTerm;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
 }
 
 
@@ -160,8 +139,7 @@ ListOfFunctionTerms getDefaultTerm()
  * Predicate returning @c true if this ListOfFunctionTerms's "defaultTerm"
  * element is set.
  */
-bool
-ListOfFunctionTerms isSetDefaultTerm() const
+public bool isSetDefaultTerm()
 {
   return (mDefaultTerm != NULL);
 }
@@ -170,8 +148,7 @@ ListOfFunctionTerms isSetDefaultTerm() const
 /*
  * Sets the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
-int
-ListOfFunctionTerms setDefaultTerm(const DefaultTerm* defaultTerm)
+public int setDefaultTerm(const DefaultTerm* defaultTerm)
 {
   if (mDefaultTerm == defaultTerm)
   {
@@ -201,8 +178,7 @@ ListOfFunctionTerms setDefaultTerm(const DefaultTerm* defaultTerm)
  * Creates a new DefaultTerm object, adds it to this ListOfFunctionTerms object
  * and returns the DefaultTerm object created.
  */
-DefaultTerm*
-ListOfFunctionTerms createDefaultTerm()
+public DefaultTerm* createDefaultTerm()
 {
   if (mDefaultTerm != NULL)
   {
@@ -223,8 +199,7 @@ ListOfFunctionTerms createDefaultTerm()
 /*
  * Unsets the value of the "defaultTerm" element of this ListOfFunctionTerms.
  */
-int
-ListOfFunctionTerms unsetDefaultTerm()
+public int unsetDefaultTerm()
 {
   delete mDefaultTerm;
   mDefaultTerm = NULL;
@@ -235,8 +210,7 @@ ListOfFunctionTerms unsetDefaultTerm()
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms.
  */
-FunctionTerm*
-ListOfFunctionTerms get(unsigned int n)
+public FunctionTerm* get(unsigned int n)
 {
   return static_cast<FunctionTerm*>(ListOf::get(n));
 }
@@ -245,8 +219,7 @@ ListOfFunctionTerms get(unsigned int n)
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms.
  */
-const FunctionTerm*
-ListOfFunctionTerms get(unsigned int n) const
+public const FunctionTerm* get(unsigned int n)
 {
   return static_cast<const FunctionTerm*>(ListOf::get(n));
 }
@@ -255,8 +228,7 @@ ListOfFunctionTerms get(unsigned int n) const
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
  */
-FunctionTerm*
-ListOfFunctionTerms get(const std::string& sid)
+public FunctionTerm* get(const std::string& sid)
 {
   return const_cast<FunctionTerm*>(static_cast<const
     ListOfFunctionTerms&>(*this).get(sid));
@@ -266,8 +238,7 @@ ListOfFunctionTerms get(const std::string& sid)
 /*
  * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
  */
-const FunctionTerm*
-ListOfFunctionTerms get(const std::string& sid) const
+public const FunctionTerm* get(const std::string& sid)
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid));
@@ -280,8 +251,7 @@ ListOfFunctionTerms get(const std::string& sid) const
  * Removes the nth FunctionTerm from this ListOfFunctionTerms and returns a
  * pointer to it.
  */
-FunctionTerm*
-ListOfFunctionTerms remove(unsigned int n)
+public FunctionTerm* remove(unsigned int n)
 {
   return static_cast<FunctionTerm*>(ListOf::remove(n));
 }
@@ -291,8 +261,7 @@ ListOfFunctionTerms remove(unsigned int n)
  * Removes the FunctionTerm from this ListOfFunctionTerms based on its
  * identifier and returns a pointer to it.
  */
-FunctionTerm*
-ListOfFunctionTerms remove(const std::string& sid)
+public FunctionTerm* remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -312,8 +281,7 @@ ListOfFunctionTerms remove(const std::string& sid)
 /*
  * Adds a copy of the given FunctionTerm to this ListOfFunctionTerms.
  */
-int
-ListOfFunctionTerms addFunctionTerm(const FunctionTerm* ft)
+public int addFunctionTerm(const FunctionTerm* ft)
 {
   if (ft == NULL)
   {
@@ -347,8 +315,7 @@ ListOfFunctionTerms addFunctionTerm(const FunctionTerm* ft)
 /*
  * Get the number of FunctionTerm objects in this ListOfFunctionTerms.
  */
-unsigned int
-ListOfFunctionTerms getNumFunctionTerms() const
+public unsigned int getNumFunctionTerms()
 {
   return size();
 }
@@ -358,8 +325,7 @@ ListOfFunctionTerms getNumFunctionTerms() const
  * Creates a new FunctionTerm object, adds it to this ListOfFunctionTerms
  * object and returns the FunctionTerm object created.
  */
-FunctionTerm*
-ListOfFunctionTerms createFunctionTerm()
+public FunctionTerm* createFunctionTerm()
 {
   FunctionTerm* ft = NULL;
 
@@ -385,8 +351,7 @@ ListOfFunctionTerms createFunctionTerm()
 /*
  * Returns the XML element name of this ListOfFunctionTerms object.
  */
-const std::string&
-ListOfFunctionTerms getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "listOfFunctionTerms";
   return name;
@@ -394,23 +359,33 @@ ListOfFunctionTerms getElementName() const
 
 
 /*
- * Returns the libSBML type code for this ListOfFunctionTerms object.
+ * Returns the libJSBML type code for this ListOfFunctionTerms object.
  */
-int
-ListOfFunctionTerms getTypeCode() const
+public int getTypeCode()
 {
-  return SBML_LIST_OF;
+  return JSBML_LIST_OF;
 }
 
 
 /*
- * Returns the libSBML type code for the SBML objects contained in this
+ * Returns the libJSBML type code for the JSBML objects contained in this
  * ListOfFunctionTerms object.
  */
-int
-ListOfFunctionTerms getItemTypeCode() const
+public int getItemTypeCode()
 {
   return SBML_QUAL_FUNCTION_TERM;
+}
+
+
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * ListOfFunctionTerms object have been set.
+ */
+public bool hasRequiredAttributes()
+{
+  bool allPresent = ListOf::hasRequiredAttributes();
+
+  return allPresent;
 }
 
 
@@ -418,10 +393,9 @@ ListOfFunctionTerms getItemTypeCode() const
  * Predicate returning @c true if all the required elements for this
  * ListOfFunctionTerms object have been set.
  */
-bool
-ListOfFunctionTerms hasRequiredElements() const
+public bool hasRequiredElements()
 {
-  bool allPresent = true;
+  bool allPresent = ListOf::hasRequiredElements();
 
   if (isSetDefaultTerm() == false)
   {
@@ -433,13 +407,12 @@ ListOfFunctionTerms hasRequiredElements() const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Write any contained elements
  */
-void
-ListOfFunctionTerms writeElements(XMLOutputStream& stream) const
+public void writeElements(XMLOutputStream& stream)
 {
   ListOf::writeElements(stream);
 
@@ -455,13 +428,12 @@ ListOfFunctionTerms writeElements(XMLOutputStream& stream) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Connects to child elements
  */
-void
-ListOfFunctionTerms connectToChild()
+public void connectToChild()
 {
   ListOf::connectToChild();
 
@@ -478,8 +450,7 @@ ListOfFunctionTerms connectToChild()
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.
  */
-SBase*
-ListOfFunctionTerms getElementBySId(const std::string& id)
+public SBase* getElementBySId(const std::string& id)
 {
   if (id.empty())
   {
@@ -510,8 +481,7 @@ ListOfFunctionTerms getElementBySId(const std::string& id)
  * Returns the first child element that has the given @p metaid, or @c NULL if
  * no such object is found.
  */
-SBase*
-ListOfFunctionTerms getElementByMetaId(const std::string& metaid)
+public SBase* getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty())
   {
@@ -542,8 +512,7 @@ ListOfFunctionTerms getElementByMetaId(const std::string& metaid)
  * Returns a List of all child SBase objects, including those nested to an
  * arbitrary depth.
  */
-List*
-ListOfFunctionTerms getAllElements(ElementFilter* filter)
+public List* getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = ListOf::getAllElements(filter);
@@ -558,13 +527,12 @@ ListOfFunctionTerms getAllElements(ElementFilter* filter)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Creates a new FunctionTerm in this ListOfFunctionTerms
  */
-SBase*
-ListOfFunctionTerms createObject(XMLInputStream& stream)
+public SBase* createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -591,13 +559,83 @@ ListOfFunctionTerms createObject(XMLInputStream& stream)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+public void addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  ListOf::addExpectedAttributes(attributes);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  ListOf::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
+
+  for (int n = numErrs-1; n >= 0; n--)
+  {
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+public void writeAttributes(XMLOutputStream& stream)
+{
+  ListOf::writeAttributes(stream);
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the namespace for the Qual package
  */
-void
-ListOfFunctionTerms writeXMLNS(XMLOutputStream& stream) const
+public void writeXMLNS(XMLOutputStream& stream)
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();
@@ -625,9 +663,10 @@ ListOfFunctionTerms writeXMLNS(XMLOutputStream& stream) const
 /*
  * Get a FunctionTerm_t from the ListOf_t.
  */
-LIBSBML_EXTERN
-const FunctionTerm_t*
-ListOfFunctionTerms_getFunctionTerm(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public const FunctionTerm_t* ListOfFunctionTerms_getFunctionTerm(ListOf_t* lo,
+                                                                 unsigned int
+                                                                   n)
 {
   if (lo == NULL)
   {
@@ -641,9 +680,9 @@ ListOfFunctionTerms_getFunctionTerm(ListOf_t* lo, unsigned int n)
 /*
  * Get a FunctionTerm_t from the ListOf_t based on its identifier.
  */
-LIBSBML_EXTERN
-const FunctionTerm_t*
-ListOfFunctionTerms_getById(ListOf_t* lo, const char *sid)
+JSBML_EXTERN
+public const FunctionTerm_t* ListOfFunctionTerms_getById(ListOf_t* lo,
+                                                         const char *sid)
 {
   if (lo == NULL)
   {
@@ -659,9 +698,9 @@ ListOfFunctionTerms_getById(ListOf_t* lo, const char *sid)
  * Removes the nth FunctionTerm_t from this ListOf_t and returns a pointer to
  * it.
  */
-LIBSBML_EXTERN
-FunctionTerm_t*
-ListOfFunctionTerms_remove(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public FunctionTerm_t* ListOfFunctionTerms_remove(ListOf_t* lo,
+                                                  unsigned int n)
 {
   if (lo == NULL)
   {
@@ -676,9 +715,9 @@ ListOfFunctionTerms_remove(ListOf_t* lo, unsigned int n)
  * Removes the FunctionTerm_t from this ListOf_t based on its identifier and
  * returns a pointer to it.
  */
-LIBSBML_EXTERN
-FunctionTerm_t*
-ListOfFunctionTerms_removeById(ListOf_t* lo, const char* sid)
+JSBML_EXTERN
+public FunctionTerm_t* ListOfFunctionTerms_removeById(ListOf_t* lo,
+                                                      const char* sid)
 {
   if (lo == NULL)
   {
@@ -692,6 +731,6 @@ ListOfFunctionTerms_removeById(ListOf_t* lo, const char* sid)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

@@ -2,44 +2,17 @@
  * @file Output.java
  * @brief Implementation of the Output class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/Output.h>
-#include <sbml/packages/qual/sbml/ListOfOutputs.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/Output.h>
+#include <jsbml/packages/qual/jsbml/ListOfOutputs.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -48,18 +21,18 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new Output using the given SBML Level, Version and
+ * Creates a new Output using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-Output Output(unsigned int level,
-              unsigned int version,
-              unsigned int pkgVersion)
+public Output(unsigned int level,
+               unsigned int version,
+               unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
   , mQualitativeSpecies ("")
   , mTransitionEffect (TRANSITION_OUTPUT_EFFECT_INVALID)
   , mName ("")
-  , mOutputLevel (SBML_INT_MAX)
+  , mOutputLevel (JSBML_INT_MAX)
   , mIsSetOutputLevel (false)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -69,13 +42,13 @@ Output Output(unsigned int level,
 /*
  * Creates a new Output using the given QualPkgNamespaces object.
  */
-Output Output(QualPkgNamespaces *qualns)
+public Output(QualPkgNamespaces *qualns)
   : SBase(qualns)
   , mId ("")
   , mQualitativeSpecies ("")
   , mTransitionEffect (TRANSITION_OUTPUT_EFFECT_INVALID)
   , mName ("")
-  , mOutputLevel (SBML_INT_MAX)
+  , mOutputLevel (JSBML_INT_MAX)
   , mIsSetOutputLevel (false)
 {
   setElementNamespace(qualns->getURI());
@@ -86,7 +59,7 @@ Output Output(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for Output.
  */
-Output Output(const Output& orig)
+public Output(const Output& orig)
   : SBase( orig )
   , mId ( orig.mId )
   , mQualitativeSpecies ( orig.mQualitativeSpecies )
@@ -101,8 +74,7 @@ Output Output(const Output& orig)
 /*
  * Assignment operator for Output.
  */
-Output&
-Output operator=(const Output& rhs)
+public Output& operator=(const Output& rhs)
 {
   if (&rhs != this)
   {
@@ -122,8 +94,7 @@ Output operator=(const Output& rhs)
 /*
  * Creates and returns a deep copy of this Output object.
  */
-Output*
-Output clone() const
+public Output* clone()
 {
   return new Output(*this);
 }
@@ -132,46 +103,57 @@ Output clone() const
 /*
  * Destructor for Output.
  */
-Output ~Output()
+public ~Output()
 {
 }
 
 
 /*
- * Returns the value of the "id" attribute of this Output.
+ * @returns the value of the "id" attribute of this Output.
  */
-const String
-Output getId() const
+public const String getId()
 {
-  return mId;
+  if (isSetId())
+  {
+    return mId.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mId, this);
 }
 
 
 /*
- * Returns the value of the "qualitativeSpecies" attribute of this Output.
+ * @returns the value of the "qualitativeSpecies" attribute of this Output.
  */
-const String
-Output getQualitativeSpecies() const
+public const String getQualitativeSpecies()
 {
-  return mQualitativeSpecies;
+  if (isSetQualitativeSpecies())
+  {
+    return mQualitativeSpecies.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mQualitativeSpecies, this);
+}
+
+
+/*
+ * @returns the value of the "transitionEffect" attribute of this Output.
+ */
+public TransitionOutputEffect getTransitionEffect()
+{
+  if (isSetTransitionEffect())
+  {
+    return mTransitionEffect;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
 }
 
 
 /*
  * Returns the value of the "transitionEffect" attribute of this Output.
  */
-TransitionOutputEffect
-Output getTransitionEffect() const
-{
-  return mTransitionEffect;
-}
-
-
-/*
- * Returns the value of the "transitionEffect" attribute of this Output.
- */
-const std::string&
-Output getTransitionEffectAsString() const
+public const std::string& getTransitionEffectAsString()
 {
   static const std::string code_str =
     TransitionOutputEffect_toString(mTransitionEffect);
@@ -180,30 +162,37 @@ Output getTransitionEffectAsString() const
 
 
 /*
- * Returns the value of the "name" attribute of this Output.
+ * @returns the value of the "name" attribute of this Output.
  */
-String
-Output getName() const
+public String getName()
 {
-  return mName;
+  if (isSetName())
+  {
+    return mName.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mName, this);
 }
 
 
 /*
- * Returns the value of the "outputLevel" attribute of this Output.
+ * @returns the value of the "outputLevel" attribute of this Output.
  */
-int
-Output getOutputLevel() const
+public int getOutputLevel()
 {
-  return mOutputLevel;
+  if (isSetOutputLevel())
+  {
+    return mOutputLevel.intValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mOutputLevel, this);
 }
 
 
 /*
  * Predicate returning @c true if this Output's "id" attribute is set.
  */
-bool
-Output isSetId() const
+public bool isSetId()
 {
   return (mId.empty() == false);
 }
@@ -213,8 +202,7 @@ Output isSetId() const
  * Predicate returning @c true if this Output's "qualitativeSpecies" attribute
  * is set.
  */
-bool
-Output isSetQualitativeSpecies() const
+public bool isSetQualitativeSpecies()
 {
   return (mQualitativeSpecies.empty() == false);
 }
@@ -224,8 +212,7 @@ Output isSetQualitativeSpecies() const
  * Predicate returning @c true if this Output's "transitionEffect" attribute is
  * set.
  */
-bool
-Output isSetTransitionEffect() const
+public bool isSetTransitionEffect()
 {
   return (mTransitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
 }
@@ -234,8 +221,7 @@ Output isSetTransitionEffect() const
 /*
  * Predicate returning @c true if this Output's "name" attribute is set.
  */
-bool
-Output isSetName() const
+public bool isSetName()
 {
   ;
 }
@@ -244,8 +230,7 @@ Output isSetName() const
 /*
  * Predicate returning @c true if this Output's "outputLevel" attribute is set.
  */
-bool
-Output isSetOutputLevel() const
+public bool isSetOutputLevel()
 {
   return mIsSetOutputLevel;
 }
@@ -254,18 +239,17 @@ Output isSetOutputLevel() const
 /*
  * Sets the value of the "id" attribute of this Output.
  */
-int
-Output setId(const String id)
+public int setId(const String id)
 {
-  return SyntaxChecker::checkAndSetSId(id, mId);
+  mId = id;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the value of the "qualitativeSpecies" attribute of this Output.
  */
-int
-Output setQualitativeSpecies(const String qualitativeSpecies)
+public int setQualitativeSpecies(const String qualitativeSpecies)
 {
   if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
   {
@@ -282,8 +266,7 @@ Output setQualitativeSpecies(const String qualitativeSpecies)
 /*
  * Sets the value of the "transitionEffect" attribute of this Output.
  */
-int
-Output setTransitionEffect(const TransitionOutputEffect transitionEffect)
+public int setTransitionEffect(const TransitionOutputEffect transitionEffect)
 {
   if (TransitionOutputEffect_isValid(transitionEffect) == 0)
   {
@@ -301,8 +284,7 @@ Output setTransitionEffect(const TransitionOutputEffect transitionEffect)
 /*
  * Sets the value of the "transitionEffect" attribute of this Output.
  */
-int
-Output setTransitionEffect(const std::string& transitionEffect)
+public int setTransitionEffect(const std::string& transitionEffect)
 {
   if (TransitionOutputEffect_isValidString(transitionEffect.c_str()) == 0)
   {
@@ -321,8 +303,7 @@ Output setTransitionEffect(const std::string& transitionEffect)
 /*
  * Sets the value of the "name" attribute of this Output.
  */
-int
-Output setName(String name)
+public int setName(String name)
 {
   mName = name;
   return LIBSBML_OPERATION_SUCCESS;
@@ -332,8 +313,7 @@ Output setName(String name)
 /*
  * Sets the value of the "outputLevel" attribute of this Output.
  */
-int
-Output setOutputLevel(int outputLevel)
+public int setOutputLevel(int outputLevel)
 {
   mOutputLevel = outputLevel;
   mIsSetOutputLevel = true;
@@ -344,8 +324,7 @@ Output setOutputLevel(int outputLevel)
 /*
  * Unsets the value of the "id" attribute of this Output.
  */
-int
-Output unsetId()
+public int unsetId()
 {
   mId.erase();
 
@@ -363,8 +342,7 @@ Output unsetId()
 /*
  * Unsets the value of the "qualitativeSpecies" attribute of this Output.
  */
-int
-Output unsetQualitativeSpecies()
+public int unsetQualitativeSpecies()
 {
   mQualitativeSpecies.erase();
 
@@ -382,8 +360,7 @@ Output unsetQualitativeSpecies()
 /*
  * Unsets the value of the "transitionEffect" attribute of this Output.
  */
-int
-Output unsetTransitionEffect()
+public int unsetTransitionEffect()
 {
   mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
   return LIBSBML_OPERATION_SUCCESS;
@@ -393,8 +370,7 @@ Output unsetTransitionEffect()
 /*
  * Unsets the value of the "name" attribute of this Output.
  */
-int
-Output unsetName()
+public int unsetName()
 {
   TO DO;
 }
@@ -403,10 +379,9 @@ Output unsetName()
 /*
  * Unsets the value of the "outputLevel" attribute of this Output.
  */
-int
-Output unsetOutputLevel()
+public int unsetOutputLevel()
 {
-  mOutputLevel = SBML_INT_MAX;
+  mOutputLevel = JSBML_INT_MAX;
   mIsSetOutputLevel = false;
 
   if (isSetOutputLevel() == false)
@@ -423,8 +398,7 @@ Output unsetOutputLevel()
 /*
  * @copydoc doc_renamesidref_common
  */
-void
-Output renameSIdRefs(const std::string& oldid, const std::string& newid)
+public void renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetQualitativeSpecies() && mQualitativeSpecies == oldid)
   {
@@ -436,8 +410,7 @@ Output renameSIdRefs(const std::string& oldid, const std::string& newid)
 /*
  * Returns the XML element name of this Output object.
  */
-const std::string&
-Output getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "output";
   return name;
@@ -445,10 +418,9 @@ Output getElementName() const
 
 
 /*
- * Returns the libSBML type code for this Output object.
+ * Returns the libJSBML type code for this Output object.
  */
-int
-Output getTypeCode() const
+public int getTypeCode()
 {
   return SBML_QUAL_OUTPUT;
 }
@@ -458,23 +430,21 @@ Output getTypeCode() const
  * Predicate returning @c true if all the required attributes for this Output
  * object have been set.
  */
-bool
-Output hasRequiredAttributes() const
+public bool hasRequiredAttributes()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredAttributes();
 
   return allPresent;
 }
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Write any contained elements
  */
-void
-Output writeElements(XMLOutputStream& stream) const
+public void writeElements(XMLOutputStream& stream)
 {
   SBase::writeElements(stream);
 
@@ -485,13 +455,12 @@ Output writeElements(XMLOutputStream& stream) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Accepts the given SBMLVisitor
  */
-bool
-Output accept(SBMLVisitor& v) const
+public bool accept(SBMLVisitor& v)
 {
   return v.visit(*this);
 }
@@ -500,13 +469,12 @@ Output accept(SBMLVisitor& v) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Sets the parent SBMLDocument
  */
-void
-Output setSBMLDocument(SBMLDocument* d)
+public void setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -515,15 +483,14 @@ Output setSBMLDocument(SBMLDocument* d)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Enables/disables the given package with this element
  */
-void
-Output enablePackageInternal(const std::string& pkgURI,
-                             const std::string& pkgPrefix,
-                             bool flag)
+public void enablePackageInternal(const std::string& pkgURI,
+                                  const std::string& pkgPrefix,
+                                  bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
@@ -532,13 +499,30 @@ Output enablePackageInternal(const std::string& pkgURI,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+public SBase* createObject(XMLInputStream& stream)
+{
+  SBase* obj = SBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Adds the expected attributes for this element
  */
-void
-Output addExpectedAttributes(ExpectedAttributes& attributes)
+public void addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -557,14 +541,13 @@ Output addExpectedAttributes(ExpectedAttributes& attributes)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Reads the expected attributes into the member data variables
  */
-void
-Output readAttributes(const XMLAttributes& attributes,
-                      const ExpectedAttributes& expectedAttributes)
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -573,7 +556,7 @@ Output readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfOutputs*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfOutputs*>(getParentJSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -729,13 +712,12 @@ Output readAttributes(const XMLAttributes& attributes,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the attributes to the stream
  */
-void
-Output writeAttributes(XMLOutputStream& stream) const
+public void writeAttributes(XMLOutputStream& stream)
 {
   SBase::writeAttributes(stream);
 
@@ -778,14 +760,13 @@ Output writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new Output_t using the given SBML Level, Version and
+ * Creates a new Output_t using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-LIBSBML_EXTERN
-Output_t *
-Output_create(unsigned int level,
-              unsigned int version,
-              unsigned int pkgVersion)
+JSBML_EXTERN
+public Output_t * Output_create(unsigned int level,
+                                unsigned int version,
+                                unsigned int pkgVersion)
 {
   return new Output(level, version, pkgVersion);
 }
@@ -794,9 +775,8 @@ Output_create(unsigned int level,
 /*
  * Creates and returns a deep copy of this Output_t object.
  */
-LIBSBML_EXTERN
-Output_t*
-Output_clone(const Output_t* o)
+JSBML_EXTERN
+public Output_t* Output_clone(const Output_t* o)
 {
   if (o != NULL)
   {
@@ -812,9 +792,8 @@ Output_clone(const Output_t* o)
 /*
  * Frees this Output_t object.
  */
-LIBSBML_EXTERN
-void
-Output_free(Output_t* o)
+JSBML_EXTERN
+public void Output_free(Output_t* o)
 {
   if (o != NULL)
   {
@@ -824,11 +803,10 @@ Output_free(Output_t* o)
 
 
 /*
- * Returns the value of the "id" attribute of this Output.
+ * @returns the value of the "id" attribute of this Output.
  */
-LIBSBML_EXTERN
-String
-Output_getId(const Output * o)
+JSBML_EXTERN
+public String Output_getId(const Output * o)
 {
   if (o == NULL)
   {
@@ -840,11 +818,10 @@ Output_getId(const Output * o)
 
 
 /*
- * Returns the value of the "qualitativeSpecies" attribute of this Output.
+ * @returns the value of the "qualitativeSpecies" attribute of this Output.
  */
-LIBSBML_EXTERN
-String
-Output_getQualitativeSpecies(const Output * o)
+JSBML_EXTERN
+public String Output_getQualitativeSpecies(const Output * o)
 {
   if (o == NULL)
   {
@@ -857,11 +834,10 @@ Output_getQualitativeSpecies(const Output * o)
 
 
 /*
- * Returns the value of the "transitionEffect" attribute of this Output.
+ * @returns the value of the "transitionEffect" attribute of this Output.
  */
-LIBSBML_EXTERN
-TransitionOutputEffect
-Output_getTransitionEffect(const Output * o)
+JSBML_EXTERN
+public TransitionOutputEffect Output_getTransitionEffect(const Output * o)
 {
   if (o == NULL)
   {
@@ -875,20 +851,18 @@ Output_getTransitionEffect(const Output * o)
 /*
  * Returns the value of the "transitionEffect" attribute of this Output.
  */
-LIBSBML_EXTERN
-const char *
-Output_getTransitionEffectAsString(const Output * o)
+JSBML_EXTERN
+public const char * Output_getTransitionEffectAsString(const Output * o)
 {
   return TransitionOutputEffect_toString(o->getTransitionEffect());
 }
 
 
 /*
- * Returns the value of the "name" attribute of this Output.
+ * @returns the value of the "name" attribute of this Output.
  */
-LIBSBML_EXTERN
-String
-Output_getName(const Output * o)
+JSBML_EXTERN
+public String Output_getName(const Output * o)
 {
   if (o == NULL)
   {
@@ -900,22 +874,20 @@ Output_getName(const Output * o)
 
 
 /*
- * Returns the value of the "outputLevel" attribute of this Output.
+ * @returns the value of the "outputLevel" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_getOutputLevel(const Output * o)
+JSBML_EXTERN
+public int Output_getOutputLevel(const Output * o)
 {
-  return (o != NULL) ? o->getOutputLevel() : SBML_INT_MAX;
+  return (o != NULL) ? o->getOutputLevel() : JSBML_INT_MAX;
 }
 
 
 /*
  * Predicate returning @c 1 if this Output's "id" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Output_isSetId(const Output * o)
+JSBML_EXTERN
+public int Output_isSetId(const Output * o)
 {
   return (o != NULL) ? static_cast<int>(o->isSetId()) : 0;
 }
@@ -925,9 +897,8 @@ Output_isSetId(const Output * o)
  * Predicate returning @c 1 if this Output's "qualitativeSpecies" attribute is
  * set.
  */
-LIBSBML_EXTERN
-int
-Output_isSetQualitativeSpecies(const Output * o)
+JSBML_EXTERN
+public int Output_isSetQualitativeSpecies(const Output * o)
 {
   return (o != NULL) ? static_cast<int>(o->isSetQualitativeSpecies()) : 0;
 }
@@ -937,9 +908,8 @@ Output_isSetQualitativeSpecies(const Output * o)
  * Predicate returning @c 1 if this Output's "transitionEffect" attribute is
  * set.
  */
-LIBSBML_EXTERN
-int
-Output_isSetTransitionEffect(const Output * o)
+JSBML_EXTERN
+public int Output_isSetTransitionEffect(const Output * o)
 {
   return (o != NULL) ? static_cast<int>(o->isSetTransitionEffect()) : 0;
 }
@@ -948,9 +918,8 @@ Output_isSetTransitionEffect(const Output * o)
 /*
  * Predicate returning @c 1 if this Output's "name" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Output_isSetName(const Output * o)
+JSBML_EXTERN
+public int Output_isSetName(const Output * o)
 {
   return (o != NULL) ? static_cast<int>(o->isSetName()) : 0;
 }
@@ -959,9 +928,8 @@ Output_isSetName(const Output * o)
 /*
  * Predicate returning @c 1 if this Output's "outputLevel" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Output_isSetOutputLevel(const Output * o)
+JSBML_EXTERN
+public int Output_isSetOutputLevel(const Output * o)
 {
   return (o != NULL) ? static_cast<int>(o->isSetOutputLevel()) : 0;
 }
@@ -970,45 +938,42 @@ Output_isSetOutputLevel(const Output * o)
 /*
  * Sets the value of the "id" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_setId(Output * o, String id)
+JSBML_EXTERN
+public int Output_setId(Output * o, String id)
 {
-  return (o != NULL) ? o->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setId(id) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "qualitativeSpecies" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_setQualitativeSpecies(Output * o, String qualitativeSpecies)
+JSBML_EXTERN
+public int Output_setQualitativeSpecies(Output * o, String qualitativeSpecies)
 {
   return (o != NULL) ? o->setQualitativeSpecies(qualitativeSpecies) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "transitionEffect" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_setTransitionEffect(Output * o,
-                           TransitionOutputEffect transitionEffect)
+JSBML_EXTERN
+public int Output_setTransitionEffect(Output * o,
+                                      TransitionOutputEffect transitionEffect)
 {
   return (o != NULL) ? o->setTransitionEffect(transitionEffect) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "transitionEffect" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_setTransitionEffectAsString(Output * o, const char * transitionEffect)
+JSBML_EXTERN
+public int Output_setTransitionEffectAsString(Output * o,
+                                              const char * transitionEffect)
 {
   return (o != NULL) ? o->setTransitionEffect(transitionEffect):
     LIBSBML_INVALID_OBJECT;
@@ -1018,77 +983,71 @@ Output_setTransitionEffectAsString(Output * o, const char * transitionEffect)
 /*
  * Sets the value of the "name" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_setName(Output * o, String name)
+JSBML_EXTERN
+public int Output_setName(Output * o, String name)
 {
-  return (o != NULL) ? o->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setName(name) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "outputLevel" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_setOutputLevel(Output * o, int outputLevel)
+JSBML_EXTERN
+public int Output_setOutputLevel(Output * o, int outputLevel)
 {
-  return (o != NULL) ? o->setOutputLevel(outputLevel) : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->setOutputLevel(outputLevel) :
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "id" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_unsetId(Output * o)
+JSBML_EXTERN
+public int Output_unsetId(Output * o)
 {
-  return (o != NULL) ? o->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetId() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "qualitativeSpecies" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_unsetQualitativeSpecies(Output * o)
+JSBML_EXTERN
+public int Output_unsetQualitativeSpecies(Output * o)
 {
-  return (o != NULL) ? o->unsetQualitativeSpecies() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetQualitativeSpecies() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "transitionEffect" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_unsetTransitionEffect(Output * o)
+JSBML_EXTERN
+public int Output_unsetTransitionEffect(Output * o)
 {
-  return (o != NULL) ? o->unsetTransitionEffect() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetTransitionEffect() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "name" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_unsetName(Output * o)
+JSBML_EXTERN
+public int Output_unsetName(Output * o)
 {
-  return (o != NULL) ? o->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetName() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "outputLevel" attribute of this Output.
  */
-LIBSBML_EXTERN
-int
-Output_unsetOutputLevel(Output * o)
+JSBML_EXTERN
+public int Output_unsetOutputLevel(Output * o)
 {
-  return (o != NULL) ? o->unsetOutputLevel() : LIBSBML_INVALID_OBJECT;
+  return (o != NULL) ? o->unsetOutputLevel() : LIBJSBML_INVALID_OBJECT;
 }
 
 
@@ -1096,9 +1055,8 @@ Output_unsetOutputLevel(Output * o)
  * Predicate returning @c 1 if all the required attributes for this Output_t
  * object have been set.
  */
-LIBSBML_EXTERN
-int
-Output_hasRequiredAttributes(const Output_t * o)
+JSBML_EXTERN
+public int Output_hasRequiredAttributes(const Output_t * o)
 {
   return (o != NULL) ? static_cast<int>(o->hasRequiredAttributes()) : 0;
 }
@@ -1106,6 +1064,6 @@ Output_hasRequiredAttributes(const Output_t * o)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

@@ -2,37 +2,10 @@
  * @file FunctionTerm.java
  * @brief Implementation of the FunctionTerm class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/FunctionTerm.h>
-#include <sbml/packages/qual/sbml/ListOfFunctionTerms.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/FunctionTerm.h>
+#include <jsbml/packages/qual/jsbml/ListOfFunctionTerms.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 #include <sbml/math/MathML.h>
 
 
@@ -40,7 +13,7 @@ using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -49,14 +22,14 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new FunctionTerm using the given SBML Level, Version and
+ * Creates a new FunctionTerm using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-FunctionTerm FunctionTerm(unsigned int level,
-                          unsigned int version,
-                          unsigned int pkgVersion)
+public FunctionTerm(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion)
   : SBase(level, version)
-  , mResultLevel (SBML_INT_MAX)
+  , mResultLevel (JSBML_INT_MAX)
   , mIsSetResultLevel (false)
   , mMath (NULL)
 {
@@ -68,9 +41,9 @@ FunctionTerm FunctionTerm(unsigned int level,
 /*
  * Creates a new FunctionTerm using the given QualPkgNamespaces object.
  */
-FunctionTerm FunctionTerm(QualPkgNamespaces *qualns)
+public FunctionTerm(QualPkgNamespaces *qualns)
   : SBase(qualns)
-  , mResultLevel (SBML_INT_MAX)
+  , mResultLevel (JSBML_INT_MAX)
   , mIsSetResultLevel (false)
   , mMath (NULL)
 {
@@ -83,7 +56,7 @@ FunctionTerm FunctionTerm(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for FunctionTerm.
  */
-FunctionTerm FunctionTerm(const FunctionTerm& orig)
+public FunctionTerm(const FunctionTerm& orig)
   : SBase( orig )
   , mResultLevel ( orig.mResultLevel )
   , mIsSetResultLevel ( orig.mIsSetResultLevel )
@@ -101,8 +74,7 @@ FunctionTerm FunctionTerm(const FunctionTerm& orig)
 /*
  * Assignment operator for FunctionTerm.
  */
-FunctionTerm&
-FunctionTerm operator=(const FunctionTerm& rhs)
+public FunctionTerm& operator=(const FunctionTerm& rhs)
 {
   if (&rhs != this)
   {
@@ -129,8 +101,7 @@ FunctionTerm operator=(const FunctionTerm& rhs)
 /*
  * Creates and returns a deep copy of this FunctionTerm object.
  */
-FunctionTerm*
-FunctionTerm clone() const
+public FunctionTerm* clone()
 {
   return new FunctionTerm(*this);
 }
@@ -139,7 +110,7 @@ FunctionTerm clone() const
 /*
  * Destructor for FunctionTerm.
  */
-FunctionTerm ~FunctionTerm()
+public ~FunctionTerm()
 {
   delete mMath;
   mMath = NULL;
@@ -147,12 +118,16 @@ FunctionTerm ~FunctionTerm()
 
 
 /*
- * Returns the value of the "resultLevel" attribute of this FunctionTerm.
+ * @returns the value of the "resultLevel" attribute of this FunctionTerm.
  */
-int
-FunctionTerm getResultLevel() const
+public int getResultLevel()
 {
-  return mResultLevel;
+  if (isSetResultLevel())
+  {
+    return mResultLevel.intValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mResultLevel, this);
 }
 
 
@@ -160,8 +135,7 @@ FunctionTerm getResultLevel() const
  * Predicate returning @c true if this FunctionTerm's "resultLevel" attribute
  * is set.
  */
-bool
-FunctionTerm isSetResultLevel() const
+public bool isSetResultLevel()
 {
   return mIsSetResultLevel;
 }
@@ -170,8 +144,7 @@ FunctionTerm isSetResultLevel() const
 /*
  * Sets the value of the "resultLevel" attribute of this FunctionTerm.
  */
-int
-FunctionTerm setResultLevel(int resultLevel)
+public int setResultLevel(int resultLevel)
 {
   mResultLevel = resultLevel;
   mIsSetResultLevel = true;
@@ -182,10 +155,9 @@ FunctionTerm setResultLevel(int resultLevel)
 /*
  * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
  */
-int
-FunctionTerm unsetResultLevel()
+public int unsetResultLevel()
 {
-  mResultLevel = SBML_INT_MAX;
+  mResultLevel = JSBML_INT_MAX;
   mIsSetResultLevel = false;
 
   if (isSetResultLevel() == false)
@@ -200,30 +172,37 @@ FunctionTerm unsetResultLevel()
 
 
 /*
- * Returns the value of the "math" element of this FunctionTerm.
+ * @returns the value of the "math" element of this FunctionTerm.
  */
-const ASTNode
-FunctionTerm getMath() const
+public const ASTNode getMath()
 {
-  return mMath;
+  if (isSetMath())
+  {
+    return mMath;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mMath, this);
 }
 
 
 /*
- * Returns the value of the "math" element of this FunctionTerm.
+ * @returns the value of the "math" element of this FunctionTerm.
  */
-ASTNode
-FunctionTerm getMath()
+public ASTNode getMath()
 {
-  return mMath;
+  if (isSetMath())
+  {
+    return mMath;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mMath, this);
 }
 
 
 /*
  * Predicate returning @c true if this FunctionTerm's "math" element is set.
  */
-bool
-FunctionTerm isSetMath() const
+public bool isSetMath()
 {
   return (mMath != NULL);
 }
@@ -232,8 +211,7 @@ FunctionTerm isSetMath() const
 /*
  * Sets the value of the "math" element of this FunctionTerm.
  */
-int
-FunctionTerm setMath(const ASTNode math)
+public int setMath(const ASTNode math)
 {
   if (mMath == math)
   {
@@ -255,7 +233,7 @@ FunctionTerm setMath(const ASTNode math)
     mMath = (math != NULL) ? math->deepCopy() : NULL;
     if (mMath != NULL)
     {
-      mMath->setParentSBMLObject(this);
+      mMath->setParentJSBMLObject(this);
     }
 
     return LIBSBML_OPERATION_SUCCESS;
@@ -266,8 +244,7 @@ FunctionTerm setMath(const ASTNode math)
 /*
  * Unsets the value of the "math" element of this FunctionTerm.
  */
-int
-FunctionTerm unsetMath()
+public int unsetMath()
 {
   delete mMath;
   mMath = NULL;
@@ -278,8 +255,7 @@ FunctionTerm unsetMath()
 /*
  * @copydoc doc_renamesidref_common
  */
-void
-FunctionTerm renameSIdRefs(const std::string& oldid, const std::string& newid)
+public void renameSIdRefs(const std::string& oldid, const std::string& newid)
 {
   if (isSetMath())
   {
@@ -291,8 +267,7 @@ FunctionTerm renameSIdRefs(const std::string& oldid, const std::string& newid)
 /*
  * Returns the XML element name of this FunctionTerm object.
  */
-const std::string&
-FunctionTerm getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "functionTerm";
   return name;
@@ -300,10 +275,9 @@ FunctionTerm getElementName() const
 
 
 /*
- * Returns the libSBML type code for this FunctionTerm object.
+ * Returns the libJSBML type code for this FunctionTerm object.
  */
-int
-FunctionTerm getTypeCode() const
+public int getTypeCode()
 {
   return SBML_QUAL_FUNCTION_TERM;
 }
@@ -313,10 +287,9 @@ FunctionTerm getTypeCode() const
  * Predicate returning @c true if all the required attributes for this
  * FunctionTerm object have been set.
  */
-bool
-FunctionTerm hasRequiredAttributes() const
+public bool hasRequiredAttributes()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredAttributes();
 
   if (isSetResultLevel() == false)
   {
@@ -331,10 +304,9 @@ FunctionTerm hasRequiredAttributes() const
  * Predicate returning @c true if all the required elements for this
  * FunctionTerm object have been set.
  */
-bool
-FunctionTerm hasRequiredElements() const
+public bool hasRequiredElements()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredElements();
 
   if (isSetMath() == false)
   {
@@ -346,13 +318,12 @@ FunctionTerm hasRequiredElements() const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Write any contained elements
  */
-void
-FunctionTerm writeElements(XMLOutputStream& stream) const
+public void writeElements(XMLOutputStream& stream)
 {
   SBase::writeElements(stream);
 
@@ -368,13 +339,12 @@ FunctionTerm writeElements(XMLOutputStream& stream) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Accepts the given SBMLVisitor
  */
-bool
-FunctionTerm accept(SBMLVisitor& v) const
+public bool accept(SBMLVisitor& v)
 {
   return v.visit(*this);
 }
@@ -383,13 +353,12 @@ FunctionTerm accept(SBMLVisitor& v) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Sets the parent SBMLDocument
  */
-void
-FunctionTerm setSBMLDocument(SBMLDocument* d)
+public void setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 }
@@ -398,13 +367,12 @@ FunctionTerm setSBMLDocument(SBMLDocument* d)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Connects to child elements
  */
-void
-FunctionTerm connectToChild()
+public void connectToChild()
 {
   SBase::connectToChild();
 }
@@ -413,15 +381,14 @@ FunctionTerm connectToChild()
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Enables/disables the given package with this element
  */
-void
-FunctionTerm enablePackageInternal(const std::string& pkgURI,
-                                   const std::string& pkgPrefix,
-                                   bool flag)
+public void enablePackageInternal(const std::string& pkgURI,
+                                  const std::string& pkgPrefix,
+                                  bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 }
@@ -430,13 +397,30 @@ FunctionTerm enablePackageInternal(const std::string& pkgURI,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Creates a new object from the next XMLToken on the XMLInputStream
+ */
+public SBase* createObject(XMLInputStream& stream)
+{
+  SBase* obj = SBase::createObject(stream);
+
+  connectToChild();
+
+  return obj;
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Adds the expected attributes for this element
  */
-void
-FunctionTerm addExpectedAttributes(ExpectedAttributes& attributes)
+public void addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -447,14 +431,13 @@ FunctionTerm addExpectedAttributes(ExpectedAttributes& attributes)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Reads the expected attributes into the member data variables
  */
-void
-FunctionTerm readAttributes(const XMLAttributes& attributes,
-                            const ExpectedAttributes& expectedAttributes)
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -463,7 +446,7 @@ FunctionTerm readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfFunctionTerms*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfFunctionTerms*>(getParentJSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -538,13 +521,12 @@ FunctionTerm readAttributes(const XMLAttributes& attributes,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Reads other XML such as math/notes etc.
  */
-bool
-FunctionTerm readOtherXML(XMLInputStream& stream)
+public bool readOtherXML(XMLInputStream& stream)
 {
   bool read = false;
   const string& name = stream.peek().getName();
@@ -575,13 +557,12 @@ FunctionTerm readOtherXML(XMLInputStream& stream)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the attributes to the stream
  */
-void
-FunctionTerm writeAttributes(XMLOutputStream& stream) const
+public void writeAttributes(XMLOutputStream& stream)
 {
   SBase::writeAttributes(stream);
 
@@ -602,14 +583,13 @@ FunctionTerm writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new FunctionTerm_t using the given SBML Level, Version and
+ * Creates a new FunctionTerm_t using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-LIBSBML_EXTERN
-FunctionTerm_t *
-FunctionTerm_create(unsigned int level,
-                    unsigned int version,
-                    unsigned int pkgVersion)
+JSBML_EXTERN
+public FunctionTerm_t * FunctionTerm_create(unsigned int level,
+                                            unsigned int version,
+                                            unsigned int pkgVersion)
 {
   return new FunctionTerm(level, version, pkgVersion);
 }
@@ -618,9 +598,8 @@ FunctionTerm_create(unsigned int level,
 /*
  * Creates and returns a deep copy of this FunctionTerm_t object.
  */
-LIBSBML_EXTERN
-FunctionTerm_t*
-FunctionTerm_clone(const FunctionTerm_t* ft)
+JSBML_EXTERN
+public FunctionTerm_t* FunctionTerm_clone(const FunctionTerm_t* ft)
 {
   if (ft != NULL)
   {
@@ -636,9 +615,8 @@ FunctionTerm_clone(const FunctionTerm_t* ft)
 /*
  * Frees this FunctionTerm_t object.
  */
-LIBSBML_EXTERN
-void
-FunctionTerm_free(FunctionTerm_t* ft)
+JSBML_EXTERN
+public void FunctionTerm_free(FunctionTerm_t* ft)
 {
   if (ft != NULL)
   {
@@ -648,13 +626,12 @@ FunctionTerm_free(FunctionTerm_t* ft)
 
 
 /*
- * Returns the value of the "resultLevel" attribute of this FunctionTerm.
+ * @returns the value of the "resultLevel" attribute of this FunctionTerm.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_getResultLevel(const FunctionTerm * ft)
+JSBML_EXTERN
+public int FunctionTerm_getResultLevel(const FunctionTerm * ft)
 {
-  return (ft != NULL) ? ft->getResultLevel() : SBML_INT_MAX;
+  return (ft != NULL) ? ft->getResultLevel() : JSBML_INT_MAX;
 }
 
 
@@ -662,9 +639,8 @@ FunctionTerm_getResultLevel(const FunctionTerm * ft)
  * Predicate returning @c 1 if this FunctionTerm's "resultLevel" attribute is
  * set.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_isSetResultLevel(const FunctionTerm * ft)
+JSBML_EXTERN
+public int FunctionTerm_isSetResultLevel(const FunctionTerm * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->isSetResultLevel()) : 0;
 }
@@ -673,32 +649,29 @@ FunctionTerm_isSetResultLevel(const FunctionTerm * ft)
 /*
  * Sets the value of the "resultLevel" attribute of this FunctionTerm.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_setResultLevel(FunctionTerm * ft, int resultLevel)
+JSBML_EXTERN
+public int FunctionTerm_setResultLevel(FunctionTerm * ft, int resultLevel)
 {
   return (ft != NULL) ? ft->setResultLevel(resultLevel) :
-    LIBSBML_INVALID_OBJECT;
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_unsetResultLevel(FunctionTerm * ft)
+JSBML_EXTERN
+public int FunctionTerm_unsetResultLevel(FunctionTerm * ft)
 {
-  return (ft != NULL) ? ft->unsetResultLevel() : LIBSBML_INVALID_OBJECT;
+  return (ft != NULL) ? ft->unsetResultLevel() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
- * Returns the value of the "math" element of this FunctionTerm.
+ * @returns the value of the "math" element of this FunctionTerm.
  */
-LIBSBML_EXTERN
-const ASTNode
-FunctionTerm_getMath(const FunctionTerm * ft)
+JSBML_EXTERN
+public const ASTNode FunctionTerm_getMath(const FunctionTerm * ft)
 {
   if (ft == NULL)
   {
@@ -712,9 +685,8 @@ FunctionTerm_getMath(const FunctionTerm * ft)
 /*
  * Predicate returning @c 1 if this FunctionTerm's "math" element is set.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_isSetMath(const FunctionTerm * ft)
+JSBML_EXTERN
+public int FunctionTerm_isSetMath(const FunctionTerm * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->isSetMath()) : 0;
 }
@@ -723,22 +695,20 @@ FunctionTerm_isSetMath(const FunctionTerm * ft)
 /*
  * Sets the value of the "math" element of this FunctionTerm.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_setMath(FunctionTerm * ft, const ASTNode math)
+JSBML_EXTERN
+public int FunctionTerm_setMath(FunctionTerm * ft, const ASTNode math)
 {
-  return (ft != NULL) ? ft->setMath(math) : LIBSBML_INVALID_OBJECT;
+  return (ft != NULL) ? ft->setMath(math) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "math" element of this FunctionTerm.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_unsetMath(FunctionTerm * ft)
+JSBML_EXTERN
+public int FunctionTerm_unsetMath(FunctionTerm * ft)
 {
-  return (ft != NULL) ? ft->unsetMath() : LIBSBML_INVALID_OBJECT;
+  return (ft != NULL) ? ft->unsetMath() : LIBJSBML_INVALID_OBJECT;
 }
 
 
@@ -746,9 +716,8 @@ FunctionTerm_unsetMath(FunctionTerm * ft)
  * Predicate returning @c 1 if all the required attributes for this
  * FunctionTerm_t object have been set.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft)
+JSBML_EXTERN
+public int FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->hasRequiredAttributes()) : 0;
 }
@@ -758,9 +727,8 @@ FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft)
  * Predicate returning @c 1 if all the required elements for this
  * FunctionTerm_t object have been set.
  */
-LIBSBML_EXTERN
-int
-FunctionTerm_hasRequiredElements(const FunctionTerm_t * ft)
+JSBML_EXTERN
+public int FunctionTerm_hasRequiredElements(const FunctionTerm_t * ft)
 {
   return (ft != NULL) ? static_cast<int>(ft->hasRequiredElements()) : 0;
 }
@@ -768,6 +736,6 @@ FunctionTerm_hasRequiredElements(const FunctionTerm_t * ft)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

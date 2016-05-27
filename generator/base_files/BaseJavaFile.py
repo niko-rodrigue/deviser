@@ -50,7 +50,14 @@ class BaseJavaFile(BaseFile.BaseFile):
         BaseFile.BaseFile.__init__(self, name, extension)
 
         # members that might get overridden if creating another library
-        self.baseClass = global_variables.baseClass
+        self.baseClass = global_variables.javaBaseClass
+
+        # GSOC 2016 modifications
+        # members that might get overridden if creating another library
+        self.language = global_variables.javaLanguage
+        self.library_name = global_variables.java_library_name
+        self.cap_language = self.language.upper()
+
 
         # expand the information for the attributes
         if attributes:
@@ -68,7 +75,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.concretes = []
 
         # default values
-        self.is_cpp_api = True
+        self.is_java_api = True
 
         self.class_object = {}
 
@@ -466,9 +473,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                               function_name, arguments, return_type,
                               is_const=False, is_virtual=False,
                               is_abstract=False):
-        is_cpp = self.is_cpp_api
+        is_java = self.is_java_api
         num_arguments = len(arguments)
-        if not is_cpp:
+        if not is_java:
             self.write_extern_decl()
             self.write_line(return_type)
             line = function_name + '('
@@ -485,7 +492,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                     line = function_name + '('
 
         if num_arguments == 0:
-            if is_cpp and is_const:
+            if is_java and is_const:
                 line += ') const;'
             elif is_abstract:
                 line += ') = 0;'
@@ -493,7 +500,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 line += ');'
             self.write_line(line)
         elif num_arguments == 1:
-            if is_cpp and is_const:
+            if is_java and is_const:
                 line = line + arguments[0] + ') const;'
             elif is_abstract:
                 line = line + arguments[0] + ') = 0;'
@@ -506,7 +513,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             # create the full line
             for n in range(1, num_arguments-1):
                 line = line + arguments[n] + ', '
-            if is_cpp and is_const:
+            if is_java and is_const:
                 line = line + arguments[num_arguments-1] + '); const'
             else:
                 line = line + arguments[num_arguments-1] + ');'
@@ -526,8 +533,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 for i in range(1, num_arguments - 1):
                     line = arguments[i] + ','
                     self.write_line(line, att_start)
-                if is_cpp and is_const:
-                    line = arguments[num_arguments - 1] + ') const;'
+                if is_java and is_const:
+                    line = arguments[num_arguments - 1] + ');' # const
                 else:
                     line = arguments[num_arguments - 1] + ');'
                 self.write_line(line, att_start)
@@ -537,21 +544,23 @@ class BaseJavaFile(BaseFile.BaseFile):
     def write_class_function_header(self, function_name, arguments,
                                     return_type, is_const=False,
                                     constructor_args=None):
-        is_cpp = self.is_cpp_api
+        is_java = self.is_java_api
         num_arguments = len(arguments)
-        if not is_cpp:
+        if not is_java:
             self.write_extern_decl()
-        self.write_line(return_type)
-        line = function_name + '('
+        #self.write_line(return_type) #Need to remove this part
+
+        #GSOC 2016 change
+        line = 'public' + ' ' + return_type + ' ' + function_name + '('
         if num_arguments == 0:
-            if is_cpp and is_const:
-                line += ') const'
+            if is_java and is_const:
+                line += ')' # const
             else:
                 line += ')'
             self.write_line(line)
         elif num_arguments == 1:
-            if is_cpp and is_const:
-                line = line + arguments[0] + ') const'
+            if is_java and is_const:
+                line = line + arguments[0] + ')' # const
             else:
                 line = line + arguments[0] + ')'
             self.write_line(line)
@@ -561,8 +570,8 @@ class BaseJavaFile(BaseFile.BaseFile):
             # create the full line
             for n in range(1, num_arguments-1):
                 line = line + arguments[n] + ', '
-            if is_cpp and is_const:
-                line = line + arguments[num_arguments-1] + ') const'
+            if is_java and is_const:
+                line = line + arguments[num_arguments-1] + ')' # const
             else:
                 line = line + arguments[num_arguments-1] + ')'
             # look at length and adjust
@@ -581,8 +590,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 for i in range(1, num_arguments - 1):
                     line = arguments[i] + ','
                     self.write_line(line, att_start)
-                if is_cpp and is_const:
-                    line = arguments[num_arguments - 1] + ') const'
+                if is_java and is_const:
+                    line = arguments[num_arguments - 1] + ')' # const
                 else:
                     line = arguments[num_arguments - 1] + ')'
                 self.write_line(line, att_start)
@@ -661,20 +670,23 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_doxygen_start()
             self.write_brief_header(code['title_line'])
             function_name = code['function']
-            if self.is_cpp_api:
+
+
+            #GSOC 2016 function name changes necessary -> u'QualitativeSpecies getId' Wrong
+
+            if self.is_java_api:
                 if not code['object_name']:
                     function_name = code['function']
                 else:
-                    function_name = code['object_name'] + ' ' \
-                                    + code['function']
+                    function_name =  code['function'] #code['object_name'] + ' ' \  +
             if 'args_no_defaults' in code:
                 arguments = code['args_no_defaults']
             else:
                 arguments = code['arguments']
             constructor_args = None
-            print('function_name ', function_name)
-            print('->-'*10)
-            if self.is_cpp_api:
+            print('function_name ', function_name) #both for constructors and functions, not suitable for JSBML
+            print('->-')
+            if self.is_java_api:
                 if 'constructor_args' in code:
                     constructor_args = code['constructor_args']
             self.write_class_function_header(function_name, arguments,
@@ -684,6 +696,9 @@ class BaseJavaFile(BaseFile.BaseFile):
 
             if 'implementation' in code and code['implementation'] is not None:
                 self.write_implementation(code['implementation'])
+                print("code implementation ",code['implementation'])
+                print('---------------->')
+
             if exclude:
                 self.write_doxygen_end()
                 self.skip_line()
@@ -698,14 +713,14 @@ class BaseJavaFile(BaseFile.BaseFile):
             if len(code['title_line']) > 0:
                 self.write_brief_header(code['title_line'])
             function_name = code['function']
-            if self.is_cpp_api:
+            if self.is_java_api:
                 function_name = code['function']
             if 'args_no_defaults' in code:
                 arguments = code['args_no_defaults']
             else:
                 arguments = code['arguments']
             constructor_args = None
-            if self.is_cpp_api:
+            if self.is_java_api:
                 if 'constructor_args' in code:
                     constructor_args = code['constructor_args']
             self.write_class_function_header(function_name, arguments,

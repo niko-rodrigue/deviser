@@ -2,43 +2,16 @@
  * @file ListOfInputs.java
  * @brief Implementation of the ListOfInputs class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/ListOfInputs.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/ListOfInputs.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -47,12 +20,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new ListOfInputs using the given SBML Level, Version and
+ * Creates a new ListOfInputs using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfInputs ListOfInputs(unsigned int level,
-                          unsigned int version,
-                          unsigned int pkgVersion)
+public ListOfInputs(unsigned int level,
+                     unsigned int version,
+                     unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -62,7 +35,7 @@ ListOfInputs ListOfInputs(unsigned int level,
 /*
  * Creates a new ListOfInputs using the given QualPkgNamespaces object.
  */
-ListOfInputs ListOfInputs(QualPkgNamespaces *qualns)
+public ListOfInputs(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -72,7 +45,7 @@ ListOfInputs ListOfInputs(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfInputs.
  */
-ListOfInputs ListOfInputs(const ListOfInputs& orig)
+public ListOfInputs(const ListOfInputs& orig)
   : ListOf( orig )
 {
 }
@@ -81,8 +54,7 @@ ListOfInputs ListOfInputs(const ListOfInputs& orig)
 /*
  * Assignment operator for ListOfInputs.
  */
-ListOfInputs&
-ListOfInputs operator=(const ListOfInputs& rhs)
+public ListOfInputs& operator=(const ListOfInputs& rhs)
 {
   if (&rhs != this)
   {
@@ -96,8 +68,7 @@ ListOfInputs operator=(const ListOfInputs& rhs)
 /*
  * Creates and returns a deep copy of this ListOfInputs object.
  */
-ListOfInputs*
-ListOfInputs clone() const
+public ListOfInputs* clone()
 {
   return new ListOfInputs(*this);
 }
@@ -106,7 +77,7 @@ ListOfInputs clone() const
 /*
  * Destructor for ListOfInputs.
  */
-ListOfInputs ~ListOfInputs()
+public ~ListOfInputs()
 {
 }
 
@@ -114,8 +85,7 @@ ListOfInputs ~ListOfInputs()
 /*
  * Get an Input from the ListOfInputs.
  */
-Input*
-ListOfInputs get(unsigned int n)
+public Input* get(unsigned int n)
 {
   return static_cast<Input*>(ListOf::get(n));
 }
@@ -124,8 +94,7 @@ ListOfInputs get(unsigned int n)
 /*
  * Get an Input from the ListOfInputs.
  */
-const Input*
-ListOfInputs get(unsigned int n) const
+public const Input* get(unsigned int n)
 {
   return static_cast<const Input*>(ListOf::get(n));
 }
@@ -134,8 +103,7 @@ ListOfInputs get(unsigned int n) const
 /*
  * Get an Input from the ListOfInputs based on its identifier.
  */
-Input*
-ListOfInputs get(const std::string& sid)
+public Input* get(const std::string& sid)
 {
   return const_cast<Input*>(static_cast<const ListOfInputs&>(*this).get(sid));
 }
@@ -144,8 +112,7 @@ ListOfInputs get(const std::string& sid)
 /*
  * Get an Input from the ListOfInputs based on its identifier.
  */
-const Input*
-ListOfInputs get(const std::string& sid) const
+public const Input* get(const std::string& sid)
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<Input>(sid));
@@ -156,8 +123,7 @@ ListOfInputs get(const std::string& sid) const
 /*
  * Removes the nth Input from this ListOfInputs and returns a pointer to it.
  */
-Input*
-ListOfInputs remove(unsigned int n)
+public Input* remove(unsigned int n)
 {
   return static_cast<Input*>(ListOf::remove(n));
 }
@@ -167,8 +133,7 @@ ListOfInputs remove(unsigned int n)
  * Removes the Input from this ListOfInputs based on its identifier and returns
  * a pointer to it.
  */
-Input*
-ListOfInputs remove(const std::string& sid)
+public Input* remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -188,8 +153,7 @@ ListOfInputs remove(const std::string& sid)
 /*
  * Adds a copy of the given Input to this ListOfInputs.
  */
-int
-ListOfInputs addInput(const Input* i)
+public int addInput(const Input* i)
 {
   if (i == NULL)
   {
@@ -223,8 +187,7 @@ ListOfInputs addInput(const Input* i)
 /*
  * Get the number of Input objects in this ListOfInputs.
  */
-unsigned int
-ListOfInputs getNumInputs() const
+public unsigned int getNumInputs()
 {
   return size();
 }
@@ -234,8 +197,7 @@ ListOfInputs getNumInputs() const
  * Creates a new Input object, adds it to this ListOfInputs object and returns
  * the Input object created.
  */
-Input*
-ListOfInputs createInput()
+public Input* createInput()
 {
   Input* i = NULL;
 
@@ -278,8 +240,7 @@ struct IdEqQS : public std::unary_function<SBase*, bool>
  * Get an Input from the ListOfInputs based on the QualitativeSpecies to which
  * it refers.
  */
-const Input*
-ListOfInputs getByQualitativeSpecies(const std::string& sid) const
+public const Input* getByQualitativeSpecies(const std::string& sid)
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEqQS(sid));
@@ -291,8 +252,7 @@ ListOfInputs getByQualitativeSpecies(const std::string& sid) const
  * Get an Input from the ListOfInputs based on the QualitativeSpecies to which
  * it refers.
  */
-Input*
-ListOfInputs getByQualitativeSpecies(const std::string& sid)
+public Input* getByQualitativeSpecies(const std::string& sid)
 {
   return const_cast<Input*>(static_cast<const
     ListOfInputs&>(*this).getByQualitativeSpecies(sid));
@@ -302,8 +262,7 @@ ListOfInputs getByQualitativeSpecies(const std::string& sid)
 /*
  * Returns the XML element name of this ListOfInputs object.
  */
-const std::string&
-ListOfInputs getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "listOfInputs";
   return name;
@@ -311,34 +270,43 @@ ListOfInputs getElementName() const
 
 
 /*
- * Returns the libSBML type code for this ListOfInputs object.
+ * Returns the libJSBML type code for this ListOfInputs object.
  */
-int
-ListOfInputs getTypeCode() const
+public int getTypeCode()
 {
-  return SBML_LIST_OF;
+  return JSBML_LIST_OF;
 }
 
 
 /*
- * Returns the libSBML type code for the SBML objects contained in this
+ * Returns the libJSBML type code for the JSBML objects contained in this
  * ListOfInputs object.
  */
-int
-ListOfInputs getItemTypeCode() const
+public int getItemTypeCode()
 {
   return SBML_QUAL_INPUT;
 }
 
 
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * ListOfInputs object have been set.
+ */
+public bool hasRequiredAttributes()
+{
+  bool allPresent = ListOf::hasRequiredAttributes();
 
-/** @cond doxygenLibsbmlInternal */
+  return allPresent;
+}
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Creates a new Input in this ListOfInputs
  */
-SBase*
-ListOfInputs createObject(XMLInputStream& stream)
+public SBase* createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -358,13 +326,83 @@ ListOfInputs createObject(XMLInputStream& stream)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+public void addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  ListOf::addExpectedAttributes(attributes);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  ListOf::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
+
+  for (int n = numErrs-1; n >= 0; n--)
+  {
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+public void writeAttributes(XMLOutputStream& stream)
+{
+  ListOf::writeAttributes(stream);
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the namespace for the Qual package
  */
-void
-ListOfInputs writeXMLNS(XMLOutputStream& stream) const
+public void writeXMLNS(XMLOutputStream& stream)
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();
@@ -392,9 +430,8 @@ ListOfInputs writeXMLNS(XMLOutputStream& stream) const
 /*
  * Get an Input_t from the ListOf_t.
  */
-LIBSBML_EXTERN
-const Input_t*
-ListOfInputs_getInput(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public const Input_t* ListOfInputs_getInput(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
@@ -408,9 +445,8 @@ ListOfInputs_getInput(ListOf_t* lo, unsigned int n)
 /*
  * Get an Input_t from the ListOf_t based on its identifier.
  */
-LIBSBML_EXTERN
-const Input_t*
-ListOfInputs_getById(ListOf_t* lo, const char *sid)
+JSBML_EXTERN
+public const Input_t* ListOfInputs_getById(ListOf_t* lo, const char *sid)
 {
   if (lo == NULL)
   {
@@ -424,9 +460,8 @@ ListOfInputs_getById(ListOf_t* lo, const char *sid)
 /*
  * Removes the nth Input_t from this ListOf_t and returns a pointer to it.
  */
-LIBSBML_EXTERN
-Input_t*
-ListOfInputs_remove(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public Input_t* ListOfInputs_remove(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
@@ -441,9 +476,8 @@ ListOfInputs_remove(ListOf_t* lo, unsigned int n)
  * Removes the Input_t from this ListOf_t based on its identifier and returns a
  * pointer to it.
  */
-LIBSBML_EXTERN
-Input_t*
-ListOfInputs_removeById(ListOf_t* lo, const char* sid)
+JSBML_EXTERN
+public Input_t* ListOfInputs_removeById(ListOf_t* lo, const char* sid)
 {
   if (lo == NULL)
   {
@@ -456,6 +490,6 @@ ListOfInputs_removeById(ListOf_t* lo, const char* sid)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

@@ -2,43 +2,16 @@
  * @file ListOfTransitions.java
  * @brief Implementation of the ListOfTransitions class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/ListOfTransitions.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
+#include <jsbml/packages/qual/jsbml/ListOfTransitions.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -47,12 +20,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new ListOfTransitions using the given SBML Level, Version and
+ * Creates a new ListOfTransitions using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-ListOfTransitions ListOfTransitions(unsigned int level,
-                                    unsigned int version,
-                                    unsigned int pkgVersion)
+public ListOfTransitions(unsigned int level,
+                          unsigned int version,
+                          unsigned int pkgVersion)
   : ListOf(level, version)
 {
   setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
@@ -62,7 +35,7 @@ ListOfTransitions ListOfTransitions(unsigned int level,
 /*
  * Creates a new ListOfTransitions using the given QualPkgNamespaces object.
  */
-ListOfTransitions ListOfTransitions(QualPkgNamespaces *qualns)
+public ListOfTransitions(QualPkgNamespaces *qualns)
   : ListOf(qualns)
 {
   setElementNamespace(qualns->getURI());
@@ -72,7 +45,7 @@ ListOfTransitions ListOfTransitions(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for ListOfTransitions.
  */
-ListOfTransitions ListOfTransitions(const ListOfTransitions& orig)
+public ListOfTransitions(const ListOfTransitions& orig)
   : ListOf( orig )
 {
 }
@@ -81,8 +54,7 @@ ListOfTransitions ListOfTransitions(const ListOfTransitions& orig)
 /*
  * Assignment operator for ListOfTransitions.
  */
-ListOfTransitions&
-ListOfTransitions operator=(const ListOfTransitions& rhs)
+public ListOfTransitions& operator=(const ListOfTransitions& rhs)
 {
   if (&rhs != this)
   {
@@ -96,8 +68,7 @@ ListOfTransitions operator=(const ListOfTransitions& rhs)
 /*
  * Creates and returns a deep copy of this ListOfTransitions object.
  */
-ListOfTransitions*
-ListOfTransitions clone() const
+public ListOfTransitions* clone()
 {
   return new ListOfTransitions(*this);
 }
@@ -106,7 +77,7 @@ ListOfTransitions clone() const
 /*
  * Destructor for ListOfTransitions.
  */
-ListOfTransitions ~ListOfTransitions()
+public ~ListOfTransitions()
 {
 }
 
@@ -114,8 +85,7 @@ ListOfTransitions ~ListOfTransitions()
 /*
  * Get a Transition from the ListOfTransitions.
  */
-Transition*
-ListOfTransitions get(unsigned int n)
+public Transition* get(unsigned int n)
 {
   return static_cast<Transition*>(ListOf::get(n));
 }
@@ -124,8 +94,7 @@ ListOfTransitions get(unsigned int n)
 /*
  * Get a Transition from the ListOfTransitions.
  */
-const Transition*
-ListOfTransitions get(unsigned int n) const
+public const Transition* get(unsigned int n)
 {
   return static_cast<const Transition*>(ListOf::get(n));
 }
@@ -134,8 +103,7 @@ ListOfTransitions get(unsigned int n) const
 /*
  * Get a Transition from the ListOfTransitions based on its identifier.
  */
-Transition*
-ListOfTransitions get(const std::string& sid)
+public Transition* get(const std::string& sid)
 {
   return const_cast<Transition*>(static_cast<const
     ListOfTransitions&>(*this).get(sid));
@@ -145,8 +113,7 @@ ListOfTransitions get(const std::string& sid)
 /*
  * Get a Transition from the ListOfTransitions based on its identifier.
  */
-const Transition*
-ListOfTransitions get(const std::string& sid) const
+public const Transition* get(const std::string& sid)
 {
   vector<SBase*>::const_iterator result;
   result = find_if(mItems.begin(), mItems.end(), IdEq<Transition>(sid));
@@ -159,8 +126,7 @@ ListOfTransitions get(const std::string& sid) const
  * Removes the nth Transition from this ListOfTransitions and returns a pointer
  * to it.
  */
-Transition*
-ListOfTransitions remove(unsigned int n)
+public Transition* remove(unsigned int n)
 {
   return static_cast<Transition*>(ListOf::remove(n));
 }
@@ -170,8 +136,7 @@ ListOfTransitions remove(unsigned int n)
  * Removes the Transition from this ListOfTransitions based on its identifier
  * and returns a pointer to it.
  */
-Transition*
-ListOfTransitions remove(const std::string& sid)
+public Transition* remove(const std::string& sid)
 {
   SBase* item = NULL;
   vector<SBase*>::iterator result;
@@ -191,8 +156,7 @@ ListOfTransitions remove(const std::string& sid)
 /*
  * Adds a copy of the given Transition to this ListOfTransitions.
  */
-int
-ListOfTransitions addTransition(const Transition* t)
+public int addTransition(const Transition* t)
 {
   if (t == NULL)
   {
@@ -226,8 +190,7 @@ ListOfTransitions addTransition(const Transition* t)
 /*
  * Get the number of Transition objects in this ListOfTransitions.
  */
-unsigned int
-ListOfTransitions getNumTransitions() const
+public unsigned int getNumTransitions()
 {
   return size();
 }
@@ -237,8 +200,7 @@ ListOfTransitions getNumTransitions() const
  * Creates a new Transition object, adds it to this ListOfTransitions object
  * and returns the Transition object created.
  */
-Transition*
-ListOfTransitions createTransition()
+public Transition* createTransition()
 {
   Transition* t = NULL;
 
@@ -264,8 +226,7 @@ ListOfTransitions createTransition()
 /*
  * Returns the XML element name of this ListOfTransitions object.
  */
-const std::string&
-ListOfTransitions getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "listOfTransitions";
   return name;
@@ -273,34 +234,43 @@ ListOfTransitions getElementName() const
 
 
 /*
- * Returns the libSBML type code for this ListOfTransitions object.
+ * Returns the libJSBML type code for this ListOfTransitions object.
  */
-int
-ListOfTransitions getTypeCode() const
+public int getTypeCode()
 {
-  return SBML_LIST_OF;
+  return JSBML_LIST_OF;
 }
 
 
 /*
- * Returns the libSBML type code for the SBML objects contained in this
+ * Returns the libJSBML type code for the JSBML objects contained in this
  * ListOfTransitions object.
  */
-int
-ListOfTransitions getItemTypeCode() const
+public int getItemTypeCode()
 {
   return SBML_QUAL_TRANSITION;
 }
 
 
+/*
+ * Predicate returning @c true if all the required attributes for this
+ * ListOfTransitions object have been set.
+ */
+public bool hasRequiredAttributes()
+{
+  bool allPresent = ListOf::hasRequiredAttributes();
 
-/** @cond doxygenLibsbmlInternal */
+  return allPresent;
+}
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Creates a new Transition in this ListOfTransitions
  */
-SBase*
-ListOfTransitions createObject(XMLInputStream& stream)
+public SBase* createObject(XMLInputStream& stream)
 {
   const std::string& name = stream.peek().getName();
   SBase* object = NULL;
@@ -320,13 +290,83 @@ ListOfTransitions createObject(XMLInputStream& stream)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Adds the expected attributes for this element
+ */
+public void addExpectedAttributes(ExpectedAttributes& attributes)
+{
+  ListOf::addExpectedAttributes(attributes);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Reads the expected attributes into the member data variables
+ */
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
+{
+  unsigned int level = getLevel();
+  unsigned int version = getVersion();
+  unsigned int pkgVersion = getPackageVersion();
+  unsigned int numErrs;
+  bool assigned = false;
+  SBMLErrorLog* log = getErrorLog();
+
+  ListOf::readAttributes(attributes, expectedAttributes);
+  numErrs = log->getNumErrors();
+
+  for (int n = numErrs-1; n >= 0; n--)
+  {
+    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownPackageAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    {
+      const std::string details = log->getError(n)->getMessage();
+      log->remove(UnknownCoreAttribute);
+      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+        details);
+    }
+  }
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
+
+/*
+ * Writes the attributes to the stream
+ */
+public void writeAttributes(XMLOutputStream& stream)
+{
+  ListOf::writeAttributes(stream);
+
+  SBase::writeExtensionAttributes(stream);
+}
+
+/** @endcond */
+
+
+
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the namespace for the Qual package
  */
-void
-ListOfTransitions writeXMLNS(XMLOutputStream& stream) const
+public void writeXMLNS(XMLOutputStream& stream)
 {
   XMLNamespaces xmlns;
   std::string prefix = getPrefix();
@@ -354,9 +394,9 @@ ListOfTransitions writeXMLNS(XMLOutputStream& stream) const
 /*
  * Get a Transition_t from the ListOf_t.
  */
-LIBSBML_EXTERN
-const Transition_t*
-ListOfTransitions_getTransition(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public const Transition_t* ListOfTransitions_getTransition(ListOf_t* lo,
+                                                           unsigned int n)
 {
   if (lo == NULL)
   {
@@ -370,9 +410,9 @@ ListOfTransitions_getTransition(ListOf_t* lo, unsigned int n)
 /*
  * Get a Transition_t from the ListOf_t based on its identifier.
  */
-LIBSBML_EXTERN
-const Transition_t*
-ListOfTransitions_getById(ListOf_t* lo, const char *sid)
+JSBML_EXTERN
+public const Transition_t* ListOfTransitions_getById(ListOf_t* lo,
+                                                     const char *sid)
 {
   if (lo == NULL)
   {
@@ -386,9 +426,8 @@ ListOfTransitions_getById(ListOf_t* lo, const char *sid)
 /*
  * Removes the nth Transition_t from this ListOf_t and returns a pointer to it.
  */
-LIBSBML_EXTERN
-Transition_t*
-ListOfTransitions_remove(ListOf_t* lo, unsigned int n)
+JSBML_EXTERN
+public Transition_t* ListOfTransitions_remove(ListOf_t* lo, unsigned int n)
 {
   if (lo == NULL)
   {
@@ -403,9 +442,9 @@ ListOfTransitions_remove(ListOf_t* lo, unsigned int n)
  * Removes the Transition_t from this ListOf_t based on its identifier and
  * returns a pointer to it.
  */
-LIBSBML_EXTERN
-Transition_t*
-ListOfTransitions_removeById(ListOf_t* lo, const char* sid)
+JSBML_EXTERN
+public Transition_t* ListOfTransitions_removeById(ListOf_t* lo,
+                                                  const char* sid)
 {
   if (lo == NULL)
   {
@@ -419,6 +458,6 @@ ListOfTransitions_removeById(ListOf_t* lo, const char* sid)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 

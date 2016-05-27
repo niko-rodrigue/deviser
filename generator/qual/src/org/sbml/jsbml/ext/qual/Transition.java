@@ -2,45 +2,18 @@
  * @file Transition.java
  * @brief Implementation of the Transition class.
  * @author SBMLTeam
- *
- * <!--------------------------------------------------------------------------
- * This file is part of libSBML. Please visit http://sbml.org for more
- * information about SBML, and the latest version of libSBML.
- *
- * Copyright (C) 2013-2016 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- * 3. University of Heidelberg, Heidelberg, Germany
- *
- * Copyright (C) 2009-2013 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. EMBL European Bioinformatics Institute (EMBL-EBI), Hinxton, UK
- *
- * Copyright (C) 2006-2008 by the California Institute of Technology,
- * Pasadena, CA, USA
- *
- * Copyright (C) 2002-2005 jointly by the following organizations:
- * 1. California Institute of Technology, Pasadena, CA, USA
- * 2. Japan Science and Technology Agency, Japan
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation. A copy of the license agreement is provided in the
- * file named "LICENSE.txt" included with this software distribution and also
- * available online as http://sbml.org/software/libsbml/license.html
- * ------------------------------------------------------------------------ -->
  */
-#include <sbml/packages/qual/sbml/Transition.h>
-#include <sbml/packages/qual/sbml/ListOfTransitions.h>
-#include <sbml/packages/qual/validator/QualSBMLError.h>
-#include <sbml/util/ElementFilter.h>
+#include <jsbml/packages/qual/jsbml/Transition.h>
+#include <jsbml/packages/qual/jsbml/ListOfTransitions.h>
+#include <jsbml/packages/qual/validator/QualJSBMLError.h>
+#include <jsbml/util/ElementFilter.h>
 
 
 using namespace std;
 
 
 
-LIBSBML_CPP_NAMESPACE_BEGIN
+JSBML_CPP_NAMESPACE_BEGIN
 
 
 
@@ -49,12 +22,12 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 
 /*
- * Creates a new Transition using the given SBML Level, Version and
+ * Creates a new Transition using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-Transition Transition(unsigned int level,
-                      unsigned int version,
-                      unsigned int pkgVersion)
+public Transition(unsigned int level,
+                   unsigned int version,
+                   unsigned int pkgVersion)
   : SBase(level, version)
   , mId ("")
   , mName ("")
@@ -70,7 +43,7 @@ Transition Transition(unsigned int level,
 /*
  * Creates a new Transition using the given QualPkgNamespaces object.
  */
-Transition Transition(QualPkgNamespaces *qualns)
+public Transition(QualPkgNamespaces *qualns)
   : SBase(qualns)
   , mId ("")
   , mName ("")
@@ -87,7 +60,7 @@ Transition Transition(QualPkgNamespaces *qualns)
 /*
  * Copy constructor for Transition.
  */
-Transition Transition(const Transition& orig)
+public Transition(const Transition& orig)
   : SBase( orig )
   , mId ( orig.mId )
   , mName ( orig.mName )
@@ -102,8 +75,7 @@ Transition Transition(const Transition& orig)
 /*
  * Assignment operator for Transition.
  */
-Transition&
-Transition operator=(const Transition& rhs)
+public Transition& operator=(const Transition& rhs)
 {
   if (&rhs != this)
   {
@@ -123,8 +95,7 @@ Transition operator=(const Transition& rhs)
 /*
  * Creates and returns a deep copy of this Transition object.
  */
-Transition*
-Transition clone() const
+public Transition* clone()
 {
   return new Transition(*this);
 }
@@ -133,36 +104,43 @@ Transition clone() const
 /*
  * Destructor for Transition.
  */
-Transition ~Transition()
+public ~Transition()
 {
 }
 
 
 /*
- * Returns the value of the "id" attribute of this Transition.
+ * @returns the value of the "id" attribute of this Transition.
  */
-const String
-Transition getId() const
+public const String getId()
 {
-  return mId;
+  if (isSetId())
+  {
+    return mId.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mId, this);
 }
 
 
 /*
- * Returns the value of the "name" attribute of this Transition.
+ * @returns the value of the "name" attribute of this Transition.
  */
-String
-Transition getName() const
+public String getName()
 {
-  return mName;
+  if (isSetName())
+  {
+    return mName.StringValue();
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mName, this);
 }
 
 
 /*
  * Predicate returning @c true if this Transition's "id" attribute is set.
  */
-bool
-Transition isSetId() const
+public bool isSetId()
 {
   return (mId.empty() == false);
 }
@@ -171,8 +149,7 @@ Transition isSetId() const
 /*
  * Predicate returning @c true if this Transition's "name" attribute is set.
  */
-bool
-Transition isSetName() const
+public bool isSetName()
 {
   ;
 }
@@ -181,18 +158,17 @@ Transition isSetName() const
 /*
  * Sets the value of the "id" attribute of this Transition.
  */
-int
-Transition setId(const String id)
+public int setId(const String id)
 {
-  return SyntaxChecker::checkAndSetSId(id, mId);
+  mId = id;
+  return LIBSBML_OPERATION_SUCCESS;
 }
 
 
 /*
  * Sets the value of the "name" attribute of this Transition.
  */
-int
-Transition setName(String name)
+public int setName(String name)
 {
   mName = name;
   return LIBSBML_OPERATION_SUCCESS;
@@ -202,8 +178,7 @@ Transition setName(String name)
 /*
  * Unsets the value of the "id" attribute of this Transition.
  */
-int
-Transition unsetId()
+public int unsetId()
 {
   mId.erase();
 
@@ -221,8 +196,7 @@ Transition unsetId()
 /*
  * Unsets the value of the "name" attribute of this Transition.
  */
-int
-Transition unsetName()
+public int unsetName()
 {
   TO DO;
 }
@@ -231,8 +205,7 @@ Transition unsetName()
 /*
  * Returns the ListOfInputs from this Transition.
  */
-const ListOfInputs*
-Transition getListOfInputs() const
+public const ListOfInputs* getListOfInputs()
 {
   return &mInputs;
 }
@@ -241,8 +214,7 @@ Transition getListOfInputs() const
 /*
  * Returns the ListOfInputs from this Transition.
  */
-ListOfInputs*
-Transition getListOfInputs()
+public ListOfInputs* getListOfInputs()
 {
   return &mInputs;
 }
@@ -251,8 +223,7 @@ Transition getListOfInputs()
 /*
  * Get an Input from the Transition.
  */
-Input*
-Transition getInput(unsigned int n)
+public Input* getInput(unsigned int n)
 {
   return mInputs.get(n);
 }
@@ -261,8 +232,7 @@ Transition getInput(unsigned int n)
 /*
  * Get an Input from the Transition.
  */
-const Input*
-Transition getInput(unsigned int n) const
+public const Input* getInput(unsigned int n)
 {
   return mInputs.get(n);
 }
@@ -271,8 +241,7 @@ Transition getInput(unsigned int n) const
 /*
  * Get an Input from the Transition based on its identifier.
  */
-Input*
-Transition getInput(const std::string& sid)
+public Input* getInput(const std::string& sid)
 {
   return mInputs.get(sid);
 }
@@ -281,8 +250,7 @@ Transition getInput(const std::string& sid)
 /*
  * Get an Input from the Transition based on its identifier.
  */
-const Input*
-Transition getInput(const std::string& sid) const
+public const Input* getInput(const std::string& sid)
 {
   return mInputs.get(sid);
 }
@@ -292,8 +260,7 @@ Transition getInput(const std::string& sid) const
  * Get an Input from the Transition based on the QualitativeSpecies to which it
  * refers.
  */
-const Input*
-Transition getInputByQualitativeSpecies(const std::string& sid) const
+public const Input* getInputByQualitativeSpecies(const std::string& sid)
 {
   return mInputs.getByQualitativeSpecies(sid);
 }
@@ -303,8 +270,7 @@ Transition getInputByQualitativeSpecies(const std::string& sid) const
  * Get an Input from the Transition based on the QualitativeSpecies to which it
  * refers.
  */
-Input*
-Transition getInputByQualitativeSpecies(const std::string& sid)
+public Input* getInputByQualitativeSpecies(const std::string& sid)
 {
   return mInputs.getByQualitativeSpecies(sid);
 }
@@ -313,8 +279,7 @@ Transition getInputByQualitativeSpecies(const std::string& sid)
 /*
  * Adds a copy of the given Input to this Transition.
  */
-int
-Transition addInput(const Input* i)
+public int addInput(const Input* i)
 {
   if (i == NULL)
   {
@@ -352,8 +317,7 @@ Transition addInput(const Input* i)
 /*
  * Get the number of Input objects in this Transition.
  */
-unsigned int
-Transition getNumInputs() const
+public unsigned int getNumInputs()
 {
   return mInputs.size();
 }
@@ -363,8 +327,7 @@ Transition getNumInputs() const
  * Creates a new Input object, adds it to this Transition object and returns
  * the Input object created.
  */
-Input*
-Transition createInput()
+public Input* createInput()
 {
   Input* i = NULL;
 
@@ -390,8 +353,7 @@ Transition createInput()
 /*
  * Removes the nth Input from this Transition and returns a pointer to it.
  */
-Input*
-Transition removeInput(unsigned int n)
+public Input* removeInput(unsigned int n)
 {
   return mInputs.remove(n);
 }
@@ -401,8 +363,7 @@ Transition removeInput(unsigned int n)
  * Removes the Input from this Transition based on its identifier and returns a
  * pointer to it.
  */
-Input*
-Transition removeInput(const std::string& sid)
+public Input* removeInput(const std::string& sid)
 {
   return mInputs.remove(sid);
 }
@@ -411,8 +372,7 @@ Transition removeInput(const std::string& sid)
 /*
  * Returns the ListOfOutputs from this Transition.
  */
-const ListOfOutputs*
-Transition getListOfOutputs() const
+public const ListOfOutputs* getListOfOutputs()
 {
   return &mOutputs;
 }
@@ -421,8 +381,7 @@ Transition getListOfOutputs() const
 /*
  * Returns the ListOfOutputs from this Transition.
  */
-ListOfOutputs*
-Transition getListOfOutputs()
+public ListOfOutputs* getListOfOutputs()
 {
   return &mOutputs;
 }
@@ -431,8 +390,7 @@ Transition getListOfOutputs()
 /*
  * Get an Output from the Transition.
  */
-Output*
-Transition getOutput(unsigned int n)
+public Output* getOutput(unsigned int n)
 {
   return mOutputs.get(n);
 }
@@ -441,8 +399,7 @@ Transition getOutput(unsigned int n)
 /*
  * Get an Output from the Transition.
  */
-const Output*
-Transition getOutput(unsigned int n) const
+public const Output* getOutput(unsigned int n)
 {
   return mOutputs.get(n);
 }
@@ -451,8 +408,7 @@ Transition getOutput(unsigned int n) const
 /*
  * Get an Output from the Transition based on its identifier.
  */
-Output*
-Transition getOutput(const std::string& sid)
+public Output* getOutput(const std::string& sid)
 {
   return mOutputs.get(sid);
 }
@@ -461,8 +417,7 @@ Transition getOutput(const std::string& sid)
 /*
  * Get an Output from the Transition based on its identifier.
  */
-const Output*
-Transition getOutput(const std::string& sid) const
+public const Output* getOutput(const std::string& sid)
 {
   return mOutputs.get(sid);
 }
@@ -472,8 +427,7 @@ Transition getOutput(const std::string& sid) const
  * Get an Output from the Transition based on the QualitativeSpecies to which
  * it refers.
  */
-const Output*
-Transition getOutputByQualitativeSpecies(const std::string& sid) const
+public const Output* getOutputByQualitativeSpecies(const std::string& sid)
 {
   return mOutputs.getByQualitativeSpecies(sid);
 }
@@ -483,8 +437,7 @@ Transition getOutputByQualitativeSpecies(const std::string& sid) const
  * Get an Output from the Transition based on the QualitativeSpecies to which
  * it refers.
  */
-Output*
-Transition getOutputByQualitativeSpecies(const std::string& sid)
+public Output* getOutputByQualitativeSpecies(const std::string& sid)
 {
   return mOutputs.getByQualitativeSpecies(sid);
 }
@@ -493,8 +446,7 @@ Transition getOutputByQualitativeSpecies(const std::string& sid)
 /*
  * Adds a copy of the given Output to this Transition.
  */
-int
-Transition addOutput(const Output* o)
+public int addOutput(const Output* o)
 {
   if (o == NULL)
   {
@@ -532,8 +484,7 @@ Transition addOutput(const Output* o)
 /*
  * Get the number of Output objects in this Transition.
  */
-unsigned int
-Transition getNumOutputs() const
+public unsigned int getNumOutputs()
 {
   return mOutputs.size();
 }
@@ -543,8 +494,7 @@ Transition getNumOutputs() const
  * Creates a new Output object, adds it to this Transition object and returns
  * the Output object created.
  */
-Output*
-Transition createOutput()
+public Output* createOutput()
 {
   Output* o = NULL;
 
@@ -570,8 +520,7 @@ Transition createOutput()
 /*
  * Removes the nth Output from this Transition and returns a pointer to it.
  */
-Output*
-Transition removeOutput(unsigned int n)
+public Output* removeOutput(unsigned int n)
 {
   return mOutputs.remove(n);
 }
@@ -581,8 +530,7 @@ Transition removeOutput(unsigned int n)
  * Removes the Output from this Transition based on its identifier and returns
  * a pointer to it.
  */
-Output*
-Transition removeOutput(const std::string& sid)
+public Output* removeOutput(const std::string& sid)
 {
   return mOutputs.remove(sid);
 }
@@ -591,8 +539,7 @@ Transition removeOutput(const std::string& sid)
 /*
  * Returns the ListOfFunctionTerms from this Transition.
  */
-const ListOfFunctionTerms*
-Transition getListOfFunctionTerms() const
+public const ListOfFunctionTerms* getListOfFunctionTerms()
 {
   return &mFunctionTerms;
 }
@@ -601,8 +548,7 @@ Transition getListOfFunctionTerms() const
 /*
  * Returns the ListOfFunctionTerms from this Transition.
  */
-ListOfFunctionTerms*
-Transition getListOfFunctionTerms()
+public ListOfFunctionTerms* getListOfFunctionTerms()
 {
   return &mFunctionTerms;
 }
@@ -611,8 +557,7 @@ Transition getListOfFunctionTerms()
 /*
  * Get a FunctionTerm from the Transition.
  */
-FunctionTerm*
-Transition getFunctionTerm(unsigned int n)
+public FunctionTerm* getFunctionTerm(unsigned int n)
 {
   return mFunctionTerms.get(n);
 }
@@ -621,8 +566,7 @@ Transition getFunctionTerm(unsigned int n)
 /*
  * Get a FunctionTerm from the Transition.
  */
-const FunctionTerm*
-Transition getFunctionTerm(unsigned int n) const
+public const FunctionTerm* getFunctionTerm(unsigned int n)
 {
   return mFunctionTerms.get(n);
 }
@@ -631,8 +575,7 @@ Transition getFunctionTerm(unsigned int n) const
 /*
  * Adds a copy of the given FunctionTerm to this Transition.
  */
-int
-Transition addFunctionTerm(const FunctionTerm* ft)
+public int addFunctionTerm(const FunctionTerm* ft)
 {
   if (ft == NULL)
   {
@@ -670,8 +613,7 @@ Transition addFunctionTerm(const FunctionTerm* ft)
 /*
  * Get the number of FunctionTerm objects in this Transition.
  */
-unsigned int
-Transition getNumFunctionTerms() const
+public unsigned int getNumFunctionTerms()
 {
   return mFunctionTerms.size();
 }
@@ -681,8 +623,7 @@ Transition getNumFunctionTerms() const
  * Creates a new FunctionTerm object, adds it to this Transition object and
  * returns the FunctionTerm object created.
  */
-FunctionTerm*
-Transition createFunctionTerm()
+public FunctionTerm* createFunctionTerm()
 {
   FunctionTerm* ft = NULL;
 
@@ -709,30 +650,37 @@ Transition createFunctionTerm()
  * Removes the nth FunctionTerm from this Transition and returns a pointer to
  * it.
  */
-FunctionTerm*
-Transition removeFunctionTerm(unsigned int n)
+public FunctionTerm* removeFunctionTerm(unsigned int n)
 {
   return mFunctionTerms.remove(n);
 }
 
 
 /*
- * Returns the value of the "defaultTerm" element of this Transition.
+ * @returns the value of the "defaultTerm" element of this Transition.
  */
-const DefaultTerm
-Transition getDefaultTerm() const
+public const DefaultTerm getDefaultTerm()
 {
-  return mDefaultTerm;
+  if (isSetDefaultTerm())
+  {
+    return mDefaultTerm;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
 }
 
 
 /*
- * Returns the value of the "defaultTerm" element of this Transition.
+ * @returns the value of the "defaultTerm" element of this Transition.
  */
-DefaultTerm
-Transition getDefaultTerm()
+public DefaultTerm getDefaultTerm()
 {
-  return mDefaultTerm;
+  if (isSetDefaultTerm())
+  {
+    return mDefaultTerm;
+  }
+
+  throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
 }
 
 
@@ -740,8 +688,7 @@ Transition getDefaultTerm()
  * Predicate returning @c true if this Transition's "defaultTerm" element is
  * set.
  */
-bool
-Transition isSetDefaultTerm() const
+public bool isSetDefaultTerm()
 {
   return (mDefaultTerm != NULL);
 }
@@ -750,8 +697,7 @@ Transition isSetDefaultTerm() const
 /*
  * Sets the value of the "defaultTerm" element of this Transition.
  */
-int
-Transition setDefaultTerm(const DefaultTerm defaultTerm)
+public int setDefaultTerm(const DefaultTerm defaultTerm)
 {
   if (mDefaultTerm == defaultTerm)
   {
@@ -781,8 +727,7 @@ Transition setDefaultTerm(const DefaultTerm defaultTerm)
  * Creates a new DefaultTerm object, adds it to this Transition object and
  * returns the DefaultTerm object created.
  */
-DefaultTerm
-Transition createDefaultTerm()
+public DefaultTerm createDefaultTerm()
 {
 }
 
@@ -790,8 +735,7 @@ Transition createDefaultTerm()
 /*
  * Unsets the value of the "defaultTerm" element of this Transition.
  */
-int
-Transition unsetDefaultTerm()
+public int unsetDefaultTerm()
 {
   delete mDefaultTerm;
   mDefaultTerm = NULL;
@@ -802,8 +746,7 @@ Transition unsetDefaultTerm()
 /*
  * Returns the XML element name of this Transition object.
  */
-const std::string&
-Transition getElementName() const
+public const std::string& getElementName()
 {
   static const string name = "transition";
   return name;
@@ -811,10 +754,9 @@ Transition getElementName() const
 
 
 /*
- * Returns the libSBML type code for this Transition object.
+ * Returns the libJSBML type code for this Transition object.
  */
-int
-Transition getTypeCode() const
+public int getTypeCode()
 {
   return SBML_QUAL_TRANSITION;
 }
@@ -824,10 +766,9 @@ Transition getTypeCode() const
  * Predicate returning @c true if all the required attributes for this
  * Transition object have been set.
  */
-bool
-Transition hasRequiredAttributes() const
+public bool hasRequiredAttributes()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredAttributes();
 
   return allPresent;
 }
@@ -837,10 +778,9 @@ Transition hasRequiredAttributes() const
  * Predicate returning @c true if all the required elements for this Transition
  * object have been set.
  */
-bool
-Transition hasRequiredElements() const
+public bool hasRequiredElements()
 {
-  bool allPresent = true;
+  bool allPresent = SBase::hasRequiredElements();
 
   if (getNumFunctionTerms() == 0)
   {
@@ -852,13 +792,12 @@ Transition hasRequiredElements() const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Write any contained elements
  */
-void
-Transition writeElements(XMLOutputStream& stream) const
+public void writeElements(XMLOutputStream& stream)
 {
   SBase::writeElements(stream);
 
@@ -884,13 +823,12 @@ Transition writeElements(XMLOutputStream& stream) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Accepts the given SBMLVisitor
  */
-bool
-Transition accept(SBMLVisitor& v) const
+public bool accept(SBMLVisitor& v)
 {
   v.visit(*this);
 
@@ -908,13 +846,12 @@ Transition accept(SBMLVisitor& v) const
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Sets the parent SBMLDocument
  */
-void
-Transition setSBMLDocument(SBMLDocument* d)
+public void setSBMLDocument(SBMLDocument* d)
 {
   SBase::setSBMLDocument(d);
 
@@ -929,13 +866,12 @@ Transition setSBMLDocument(SBMLDocument* d)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Connects to child elements
  */
-void
-Transition connectToChild()
+public void connectToChild()
 {
   SBase::connectToChild();
 
@@ -950,15 +886,14 @@ Transition connectToChild()
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Enables/disables the given package with this element
  */
-void
-Transition enablePackageInternal(const std::string& pkgURI,
-                                 const std::string& pkgPrefix,
-                                 bool flag)
+public void enablePackageInternal(const std::string& pkgURI,
+                                  const std::string& pkgPrefix,
+                                  bool flag)
 {
   SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
 
@@ -976,8 +911,7 @@ Transition enablePackageInternal(const std::string& pkgURI,
  * Returns the first child element that has the given @p id in the model-wide
  * SId namespace, or @c NULL if no such object is found.
  */
-SBase*
-Transition getElementBySId(const std::string& id)
+public SBase* getElementBySId(const std::string& id)
 {
   if (id.empty())
   {
@@ -1015,8 +949,7 @@ Transition getElementBySId(const std::string& id)
  * Returns the first child element that has the given @p metaid, or @c NULL if
  * no such object is found.
  */
-SBase*
-Transition getElementByMetaId(const std::string& metaid)
+public SBase* getElementByMetaId(const std::string& metaid)
 {
   if (metaid.empty())
   {
@@ -1069,8 +1002,7 @@ Transition getElementByMetaId(const std::string& metaid)
  * Returns a List of all child SBase objects, including those nested to an
  * arbitrary depth.
  */
-List*
-Transition getAllElements(ElementFilter* filter)
+public List* getAllElements(ElementFilter* filter)
 {
   List* ret = new List();
   List* sublist = NULL;
@@ -1087,15 +1019,14 @@ Transition getAllElements(ElementFilter* filter)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Creates a new object from the next XMLToken on the XMLInputStream
  */
-SBase*
-Transition createObject(XMLInputStream& stream)
+public SBase* createObject(XMLInputStream& stream)
 {
-  SBase* obj = NULL;
+  SBase* obj = SBase::createObject(stream);
 
   const std::string& name = stream.peek().getName();
 
@@ -1139,13 +1070,12 @@ Transition createObject(XMLInputStream& stream)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Adds the expected attributes for this element
  */
-void
-Transition addExpectedAttributes(ExpectedAttributes& attributes)
+public void addExpectedAttributes(ExpectedAttributes& attributes)
 {
   SBase::addExpectedAttributes(attributes);
 
@@ -1158,14 +1088,13 @@ Transition addExpectedAttributes(ExpectedAttributes& attributes)
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Reads the expected attributes into the member data variables
  */
-void
-Transition readAttributes(const XMLAttributes& attributes,
-                          const ExpectedAttributes& expectedAttributes)
+public void readAttributes(const XMLAttributes& attributes,
+                           const ExpectedAttributes& expectedAttributes)
 {
   unsigned int level = getLevel();
   unsigned int version = getVersion();
@@ -1174,7 +1103,7 @@ Transition readAttributes(const XMLAttributes& attributes,
   bool assigned = false;
   SBMLErrorLog* log = getErrorLog();
 
-  if (static_cast<ListOfTransitions*>(getParentSBMLObject())->size() < 2)
+  if (static_cast<ListOfTransitions*>(getParentJSBMLObject())->size() < 2)
   {
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
@@ -1255,13 +1184,12 @@ Transition readAttributes(const XMLAttributes& attributes,
 
 
 
-/** @cond doxygenLibsbmlInternal */
+/** @cond doxygenJSBMLInternal */
 
 /*
  * Writes the attributes to the stream
  */
-void
-Transition writeAttributes(XMLOutputStream& stream) const
+public void writeAttributes(XMLOutputStream& stream)
 {
   SBase::writeAttributes(stream);
 
@@ -1287,14 +1215,13 @@ Transition writeAttributes(XMLOutputStream& stream) const
 
 
 /*
- * Creates a new Transition_t using the given SBML Level, Version and
+ * Creates a new Transition_t using the given JSBML Level, Version and
  * &ldquo;qual&rdquo; package version.
  */
-LIBSBML_EXTERN
-Transition_t *
-Transition_create(unsigned int level,
-                  unsigned int version,
-                  unsigned int pkgVersion)
+JSBML_EXTERN
+public Transition_t * Transition_create(unsigned int level,
+                                        unsigned int version,
+                                        unsigned int pkgVersion)
 {
   return new Transition(level, version, pkgVersion);
 }
@@ -1303,9 +1230,8 @@ Transition_create(unsigned int level,
 /*
  * Creates and returns a deep copy of this Transition_t object.
  */
-LIBSBML_EXTERN
-Transition_t*
-Transition_clone(const Transition_t* t)
+JSBML_EXTERN
+public Transition_t* Transition_clone(const Transition_t* t)
 {
   if (t != NULL)
   {
@@ -1321,9 +1247,8 @@ Transition_clone(const Transition_t* t)
 /*
  * Frees this Transition_t object.
  */
-LIBSBML_EXTERN
-void
-Transition_free(Transition_t* t)
+JSBML_EXTERN
+public void Transition_free(Transition_t* t)
 {
   if (t != NULL)
   {
@@ -1333,11 +1258,10 @@ Transition_free(Transition_t* t)
 
 
 /*
- * Returns the value of the "id" attribute of this Transition.
+ * @returns the value of the "id" attribute of this Transition.
  */
-LIBSBML_EXTERN
-String
-Transition_getId(const Transition * t)
+JSBML_EXTERN
+public String Transition_getId(const Transition * t)
 {
   if (t == NULL)
   {
@@ -1349,11 +1273,10 @@ Transition_getId(const Transition * t)
 
 
 /*
- * Returns the value of the "name" attribute of this Transition.
+ * @returns the value of the "name" attribute of this Transition.
  */
-LIBSBML_EXTERN
-String
-Transition_getName(const Transition * t)
+JSBML_EXTERN
+public String Transition_getName(const Transition * t)
 {
   if (t == NULL)
   {
@@ -1367,9 +1290,8 @@ Transition_getName(const Transition * t)
 /*
  * Predicate returning @c 1 if this Transition's "id" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Transition_isSetId(const Transition * t)
+JSBML_EXTERN
+public int Transition_isSetId(const Transition * t)
 {
   return (t != NULL) ? static_cast<int>(t->isSetId()) : 0;
 }
@@ -1378,9 +1300,8 @@ Transition_isSetId(const Transition * t)
 /*
  * Predicate returning @c 1 if this Transition's "name" attribute is set.
  */
-LIBSBML_EXTERN
-int
-Transition_isSetName(const Transition * t)
+JSBML_EXTERN
+public int Transition_isSetName(const Transition * t)
 {
   return (t != NULL) ? static_cast<int>(t->isSetName()) : 0;
 }
@@ -1389,53 +1310,48 @@ Transition_isSetName(const Transition * t)
 /*
  * Sets the value of the "id" attribute of this Transition.
  */
-LIBSBML_EXTERN
-int
-Transition_setId(Transition * t, String id)
+JSBML_EXTERN
+public int Transition_setId(Transition * t, String id)
 {
-  return (t != NULL) ? t->setId(id) : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->setId(id) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Sets the value of the "name" attribute of this Transition.
  */
-LIBSBML_EXTERN
-int
-Transition_setName(Transition * t, String name)
+JSBML_EXTERN
+public int Transition_setName(Transition * t, String name)
 {
-  return (t != NULL) ? t->setName(name) : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->setName(name) : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "id" attribute of this Transition.
  */
-LIBSBML_EXTERN
-int
-Transition_unsetId(Transition * t)
+JSBML_EXTERN
+public int Transition_unsetId(Transition * t)
 {
-  return (t != NULL) ? t->unsetId() : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->unsetId() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Unsets the value of the "name" attribute of this Transition.
  */
-LIBSBML_EXTERN
-int
-Transition_unsetName(Transition * t)
+JSBML_EXTERN
+public int Transition_unsetName(Transition * t)
 {
-  return (t != NULL) ? t->unsetName() : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->unsetName() : LIBJSBML_INVALID_OBJECT;
 }
 
 
 /*
  * Returns a ListOf_t* containing Input_t objects from this Transition_t.
  */
-LIBSBML_EXTERN
-ListOf_t*
-Transition_getListOfInputs(Transition_t* t)
+JSBML_EXTERN
+public ListOf_t* Transition_getListOfInputs(Transition_t* t)
 {
   return (t != NULL) ? t->getListOfInputs() : NULL;
 }
@@ -1444,9 +1360,8 @@ Transition_getListOfInputs(Transition_t* t)
 /*
  * Get an Input_t from the Transition_t.
  */
-LIBSBML_EXTERN
-const Input_t*
-Transition_getInput(Transition_t* t, unsigned int n)
+JSBML_EXTERN
+public const Input_t* Transition_getInput(Transition_t* t, unsigned int n)
 {
   return (t != NULL) ? t->getInput(n) : NULL;
 }
@@ -1455,9 +1370,9 @@ Transition_getInput(Transition_t* t, unsigned int n)
 /*
  * Get an Input_t from the Transition_t based on its identifier.
  */
-LIBSBML_EXTERN
-const Input_t*
-Transition_getInputById(Transition_t* t, const char *sid)
+JSBML_EXTERN
+public const Input_t* Transition_getInputById(Transition_t* t,
+                                              const char *sid)
 {
   return (t != NULL && sid != NULL) ? t->getInput(sid) : NULL;
 }
@@ -1467,9 +1382,9 @@ Transition_getInputById(Transition_t* t, const char *sid)
  * Get an Input_t from the Transition_t based on the QualitativeSpecies to
  * which it refers.
  */
-LIBSBML_EXTERN
-const Input_t*
-Transition_getInputByQualitativeSpecies(Transition_t* t, const char *sid)
+JSBML_EXTERN
+public const Input_t* Transition_getInputByQualitativeSpecies(Transition_t* t,
+                                                              const char *sid)
 {
   return (t != NULL && sid != NULL) ? t->getInputByQualitativeSpecies(sid) :
     NULL;
@@ -1479,9 +1394,8 @@ Transition_getInputByQualitativeSpecies(Transition_t* t, const char *sid)
 /*
  * Adds a copy of the given Input_t to this Transition_t.
  */
-LIBSBML_EXTERN
-int
-Transition_addInput(Transition_t* t, const Input_t* i)
+JSBML_EXTERN
+public int Transition_addInput(Transition_t* t, const Input_t* i)
 {
   return (t != NULL) ? t->addInput(i) : LIBSBML_INVALID_OBJECT;
 }
@@ -1490,11 +1404,10 @@ Transition_addInput(Transition_t* t, const Input_t* i)
 /*
  * Get the number of Input_t objects in this Transition_t.
  */
-LIBSBML_EXTERN
-unsigned int
-Transition_getNumInputs(Transition_t* t)
+JSBML_EXTERN
+public unsigned int Transition_getNumInputs(Transition_t* t)
 {
-  return (t != NULL) ? t->getNumInputs() : SBML_INT_MAX;
+  return (t != NULL) ? t->getNumInputs() : JSBML_INT_MAX;
 }
 
 
@@ -1502,9 +1415,8 @@ Transition_getNumInputs(Transition_t* t)
  * Creates a new Input_t object, adds it to this Transition_t object and
  * returns the Input_t object created.
  */
-LIBSBML_EXTERN
-Input_t*
-Transition_createInput(Transition_t* t)
+JSBML_EXTERN
+public Input_t* Transition_createInput(Transition_t* t)
 {
   return (t != NULL) ? t->createInput() : NULL;
 }
@@ -1513,9 +1425,8 @@ Transition_createInput(Transition_t* t)
 /*
  * Removes the nth Input_t from this Transition_t and returns a pointer to it.
  */
-LIBSBML_EXTERN
-Input_t*
-Transition_removeInput(Transition_t* t, unsigned int n)
+JSBML_EXTERN
+public Input_t* Transition_removeInput(Transition_t* t, unsigned int n)
 {
   return (t != NULL) ? t->removeInput(n) : NULL;
 }
@@ -1525,9 +1436,8 @@ Transition_removeInput(Transition_t* t, unsigned int n)
  * Removes the Input_t from this Transition_t based on its identifier and
  * returns a pointer to it.
  */
-LIBSBML_EXTERN
-Input_t*
-Transition_removeInputById(Transition_t* t, const char* sid)
+JSBML_EXTERN
+public Input_t* Transition_removeInputById(Transition_t* t, const char* sid)
 {
   return (t != NULL && sid != NULL) ? t->removeInput(sid) : NULL;
 }
@@ -1536,9 +1446,8 @@ Transition_removeInputById(Transition_t* t, const char* sid)
 /*
  * Returns a ListOf_t* containing Output_t objects from this Transition_t.
  */
-LIBSBML_EXTERN
-ListOf_t*
-Transition_getListOfOutputs(Transition_t* t)
+JSBML_EXTERN
+public ListOf_t* Transition_getListOfOutputs(Transition_t* t)
 {
   return (t != NULL) ? t->getListOfOutputs() : NULL;
 }
@@ -1547,9 +1456,8 @@ Transition_getListOfOutputs(Transition_t* t)
 /*
  * Get an Output_t from the Transition_t.
  */
-LIBSBML_EXTERN
-const Output_t*
-Transition_getOutput(Transition_t* t, unsigned int n)
+JSBML_EXTERN
+public const Output_t* Transition_getOutput(Transition_t* t, unsigned int n)
 {
   return (t != NULL) ? t->getOutput(n) : NULL;
 }
@@ -1558,9 +1466,9 @@ Transition_getOutput(Transition_t* t, unsigned int n)
 /*
  * Get an Output_t from the Transition_t based on its identifier.
  */
-LIBSBML_EXTERN
-const Output_t*
-Transition_getOutputById(Transition_t* t, const char *sid)
+JSBML_EXTERN
+public const Output_t* Transition_getOutputById(Transition_t* t,
+                                                const char *sid)
 {
   return (t != NULL && sid != NULL) ? t->getOutput(sid) : NULL;
 }
@@ -1570,9 +1478,12 @@ Transition_getOutputById(Transition_t* t, const char *sid)
  * Get an Output_t from the Transition_t based on the QualitativeSpecies to
  * which it refers.
  */
-LIBSBML_EXTERN
-const Output_t*
-Transition_getOutputByQualitativeSpecies(Transition_t* t, const char *sid)
+JSBML_EXTERN
+public const Output_t* Transition_getOutputByQualitativeSpecies(
+                                                                Transition_t*
+                                                                  t,
+                                                                const char
+                                                                  *sid)
 {
   return (t != NULL && sid != NULL) ? t->getOutputByQualitativeSpecies(sid) :
     NULL;
@@ -1582,9 +1493,8 @@ Transition_getOutputByQualitativeSpecies(Transition_t* t, const char *sid)
 /*
  * Adds a copy of the given Output_t to this Transition_t.
  */
-LIBSBML_EXTERN
-int
-Transition_addOutput(Transition_t* t, const Output_t* o)
+JSBML_EXTERN
+public int Transition_addOutput(Transition_t* t, const Output_t* o)
 {
   return (t != NULL) ? t->addOutput(o) : LIBSBML_INVALID_OBJECT;
 }
@@ -1593,11 +1503,10 @@ Transition_addOutput(Transition_t* t, const Output_t* o)
 /*
  * Get the number of Output_t objects in this Transition_t.
  */
-LIBSBML_EXTERN
-unsigned int
-Transition_getNumOutputs(Transition_t* t)
+JSBML_EXTERN
+public unsigned int Transition_getNumOutputs(Transition_t* t)
 {
-  return (t != NULL) ? t->getNumOutputs() : SBML_INT_MAX;
+  return (t != NULL) ? t->getNumOutputs() : JSBML_INT_MAX;
 }
 
 
@@ -1605,9 +1514,8 @@ Transition_getNumOutputs(Transition_t* t)
  * Creates a new Output_t object, adds it to this Transition_t object and
  * returns the Output_t object created.
  */
-LIBSBML_EXTERN
-Output_t*
-Transition_createOutput(Transition_t* t)
+JSBML_EXTERN
+public Output_t* Transition_createOutput(Transition_t* t)
 {
   return (t != NULL) ? t->createOutput() : NULL;
 }
@@ -1616,9 +1524,8 @@ Transition_createOutput(Transition_t* t)
 /*
  * Removes the nth Output_t from this Transition_t and returns a pointer to it.
  */
-LIBSBML_EXTERN
-Output_t*
-Transition_removeOutput(Transition_t* t, unsigned int n)
+JSBML_EXTERN
+public Output_t* Transition_removeOutput(Transition_t* t, unsigned int n)
 {
   return (t != NULL) ? t->removeOutput(n) : NULL;
 }
@@ -1628,9 +1535,8 @@ Transition_removeOutput(Transition_t* t, unsigned int n)
  * Removes the Output_t from this Transition_t based on its identifier and
  * returns a pointer to it.
  */
-LIBSBML_EXTERN
-Output_t*
-Transition_removeOutputById(Transition_t* t, const char* sid)
+JSBML_EXTERN
+public Output_t* Transition_removeOutputById(Transition_t* t, const char* sid)
 {
   return (t != NULL && sid != NULL) ? t->removeOutput(sid) : NULL;
 }
@@ -1640,9 +1546,8 @@ Transition_removeOutputById(Transition_t* t, const char* sid)
  * Returns a ListOf_t* containing FunctionTerm_t objects from this
  * Transition_t.
  */
-LIBSBML_EXTERN
-ListOf_t*
-Transition_getListOfFunctionTerms(Transition_t* t)
+JSBML_EXTERN
+public ListOf_t* Transition_getListOfFunctionTerms(Transition_t* t)
 {
   return (t != NULL) ? t->getListOfFunctionTerms() : NULL;
 }
@@ -1651,9 +1556,9 @@ Transition_getListOfFunctionTerms(Transition_t* t)
 /*
  * Get a FunctionTerm_t from the Transition_t.
  */
-LIBSBML_EXTERN
-const FunctionTerm_t*
-Transition_getFunctionTerm(Transition_t* t, unsigned int n)
+JSBML_EXTERN
+public const FunctionTerm_t* Transition_getFunctionTerm(Transition_t* t,
+                                                        unsigned int n)
 {
   return (t != NULL) ? t->getFunctionTerm(n) : NULL;
 }
@@ -1662,9 +1567,9 @@ Transition_getFunctionTerm(Transition_t* t, unsigned int n)
 /*
  * Adds a copy of the given FunctionTerm_t to this Transition_t.
  */
-LIBSBML_EXTERN
-int
-Transition_addFunctionTerm(Transition_t* t, const FunctionTerm_t* ft)
+JSBML_EXTERN
+public int Transition_addFunctionTerm(Transition_t* t,
+                                      const FunctionTerm_t* ft)
 {
   return (t != NULL) ? t->addFunctionTerm(ft) : LIBSBML_INVALID_OBJECT;
 }
@@ -1673,11 +1578,10 @@ Transition_addFunctionTerm(Transition_t* t, const FunctionTerm_t* ft)
 /*
  * Get the number of FunctionTerm_t objects in this Transition_t.
  */
-LIBSBML_EXTERN
-unsigned int
-Transition_getNumFunctionTerms(Transition_t* t)
+JSBML_EXTERN
+public unsigned int Transition_getNumFunctionTerms(Transition_t* t)
 {
-  return (t != NULL) ? t->getNumFunctionTerms() : SBML_INT_MAX;
+  return (t != NULL) ? t->getNumFunctionTerms() : JSBML_INT_MAX;
 }
 
 
@@ -1685,9 +1589,8 @@ Transition_getNumFunctionTerms(Transition_t* t)
  * Creates a new FunctionTerm_t object, adds it to this Transition_t object and
  * returns the FunctionTerm_t object created.
  */
-LIBSBML_EXTERN
-FunctionTerm_t*
-Transition_createFunctionTerm(Transition_t* t)
+JSBML_EXTERN
+public FunctionTerm_t* Transition_createFunctionTerm(Transition_t* t)
 {
   return (t != NULL) ? t->createFunctionTerm() : NULL;
 }
@@ -1697,20 +1600,19 @@ Transition_createFunctionTerm(Transition_t* t)
  * Removes the nth FunctionTerm_t from this Transition_t and returns a pointer
  * to it.
  */
-LIBSBML_EXTERN
-FunctionTerm_t*
-Transition_removeFunctionTerm(Transition_t* t, unsigned int n)
+JSBML_EXTERN
+public FunctionTerm_t* Transition_removeFunctionTerm(Transition_t* t,
+                                                     unsigned int n)
 {
   return (t != NULL) ? t->removeFunctionTerm(n) : NULL;
 }
 
 
 /*
- * Returns the value of the "defaultTerm" element of this Transition.
+ * @returns the value of the "defaultTerm" element of this Transition.
  */
-LIBSBML_EXTERN
-const DefaultTerm
-Transition_getDefaultTerm(const Transition * t)
+JSBML_EXTERN
+public const DefaultTerm Transition_getDefaultTerm(const Transition * t)
 {
   if (t == NULL)
   {
@@ -1724,9 +1626,8 @@ Transition_getDefaultTerm(const Transition * t)
 /*
  * Predicate returning @c 1 if this Transition's "defaultTerm" element is set.
  */
-LIBSBML_EXTERN
-int
-Transition_isSetDefaultTerm(const Transition * t)
+JSBML_EXTERN
+public int Transition_isSetDefaultTerm(const Transition * t)
 {
   return (t != NULL) ? static_cast<int>(t->isSetDefaultTerm()) : 0;
 }
@@ -1735,11 +1636,12 @@ Transition_isSetDefaultTerm(const Transition * t)
 /*
  * Sets the value of the "defaultTerm" element of this Transition.
  */
-LIBSBML_EXTERN
-int
-Transition_setDefaultTerm(Transition * t, const DefaultTerm defaultTerm)
+JSBML_EXTERN
+public int Transition_setDefaultTerm(Transition * t,
+                                     const DefaultTerm defaultTerm)
 {
-  return (t != NULL) ? t->setDefaultTerm(defaultTerm) : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->setDefaultTerm(defaultTerm) :
+    LIBJSBML_INVALID_OBJECT;
 }
 
 
@@ -1747,9 +1649,8 @@ Transition_setDefaultTerm(Transition * t, const DefaultTerm defaultTerm)
  * Creates a new DefaultTerm_t object, adds it to this Transition object and
  * returns the DefaultTerm_t object created.
  */
-LIBSBML_EXTERN
-DefaultTerm
-Transition_createDefaultTerm(Transition* t)
+JSBML_EXTERN
+public DefaultTerm Transition_createDefaultTerm(Transition* t)
 {
 }
 
@@ -1757,11 +1658,10 @@ Transition_createDefaultTerm(Transition* t)
 /*
  * Unsets the value of the "defaultTerm" element of this Transition.
  */
-LIBSBML_EXTERN
-int
-Transition_unsetDefaultTerm(Transition * t)
+JSBML_EXTERN
+public int Transition_unsetDefaultTerm(Transition * t)
 {
-  return (t != NULL) ? t->unsetDefaultTerm() : LIBSBML_INVALID_OBJECT;
+  return (t != NULL) ? t->unsetDefaultTerm() : LIBJSBML_INVALID_OBJECT;
 }
 
 
@@ -1769,9 +1669,8 @@ Transition_unsetDefaultTerm(Transition * t)
  * Predicate returning @c 1 if all the required attributes for this
  * Transition_t object have been set.
  */
-LIBSBML_EXTERN
-int
-Transition_hasRequiredAttributes(const Transition_t * t)
+JSBML_EXTERN
+public int Transition_hasRequiredAttributes(const Transition_t * t)
 {
   return (t != NULL) ? static_cast<int>(t->hasRequiredAttributes()) : 0;
 }
@@ -1781,9 +1680,8 @@ Transition_hasRequiredAttributes(const Transition_t * t)
  * Predicate returning @c 1 if all the required elements for this Transition_t
  * object have been set.
  */
-LIBSBML_EXTERN
-int
-Transition_hasRequiredElements(const Transition_t * t)
+JSBML_EXTERN
+public int Transition_hasRequiredElements(const Transition_t * t)
 {
   return (t != NULL) ? static_cast<int>(t->hasRequiredElements()) : 0;
 }
@@ -1791,6 +1689,6 @@ Transition_hasRequiredElements(const Transition_t * t)
 
 
 
-LIBSBML_CPP_NAMESPACE_END
+JSBML_CPP_NAMESPACE_END
 
 
