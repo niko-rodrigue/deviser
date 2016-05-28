@@ -91,7 +91,7 @@ global java_prefix
 java_prefix = 'JSBML'
 
 global javaTypeAttributes
-javaTypeAttributes = ['int', 'boolean', 'String', 'double']
+javaTypeAttributes = ['int', 'boolean', 'double'] # 'String'
 
 global java_library_name
 java_library_name = 'JSBML'

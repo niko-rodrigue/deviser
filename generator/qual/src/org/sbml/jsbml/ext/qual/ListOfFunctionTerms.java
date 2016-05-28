@@ -20,639 +20,642 @@ JSBML_CPP_NAMESPACE_BEGIN
 #ifdef __cplusplus
 
 
-/*
- * Creates a new ListOfFunctionTerms using the given JSBML Level, Version and
- * &ldquo;qual&rdquo; package version.
- */
-public ListOfFunctionTerms(unsigned int level,
-                            unsigned int version,
-                            unsigned int pkgVersion)
-  : ListOf(level, version)
-  , mDefaultTerm (NULL)
-{
-  setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
-  connectToChild();
-}
-
-
-/*
- * Creates a new ListOfFunctionTerms using the given QualPkgNamespaces object.
- */
-public ListOfFunctionTerms(QualPkgNamespaces *qualns)
-  : ListOf(qualns)
-  , mDefaultTerm (NULL)
-{
-  setElementNamespace(qualns->getURI());
-  connectToChild();
-}
-
-
-/*
- * Copy constructor for ListOfFunctionTerms.
- */
-public ListOfFunctionTerms(const ListOfFunctionTerms& orig)
-  : ListOf( orig )
-  , mDefaultTerm ( NULL )
-{
-  if (orig.mDefaultTerm != NULL)
+  /**
+   * Creates a new ListOfFunctionTerms using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public ListOfFunctionTerms(unsigned int level,
+                              unsigned int version,
+                              unsigned int pkgVersion)
+    : ListOf(level, version)
+    , mDefaultTerm (NULL)
   {
-    mDefaultTerm = orig.mDefaultTerm->clone();
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+    connectToChild();
   }
 
-  connectToChild();
-}
 
-
-/*
- * Assignment operator for ListOfFunctionTerms.
- */
-public ListOfFunctionTerms& operator=(const ListOfFunctionTerms& rhs)
-{
-  if (&rhs != this)
+  /**
+   * Creates a new ListOfFunctionTerms using the given QualPkgNamespaces
+   * object.
+   */
+  public ListOfFunctionTerms(QualPkgNamespaces *qualns)
+    : ListOf(qualns)
+    , mDefaultTerm (NULL)
   {
-    ListOf::operator=(rhs);
-    delete mDefaultTerm;
-    if (rhs.mDefaultTerm != NULL)
+    setElementNamespace(qualns->getURI());
+    connectToChild();
+  }
+
+
+  /**
+   * Copy constructor for ListOfFunctionTerms.
+   */
+  public ListOfFunctionTerms(const ListOfFunctionTerms& orig)
+    : ListOf( orig )
+    , mDefaultTerm ( NULL )
+  {
+    if (orig.mDefaultTerm != NULL)
     {
-      mDefaultTerm = rhs.mDefaultTerm->clone();
-    }
-    else
-    {
-      mDefaultTerm = NULL;
+      mDefaultTerm = orig.mDefaultTerm->clone();
     }
 
     connectToChild();
   }
 
-  return *this;
-}
 
-
-/*
- * Creates and returns a deep copy of this ListOfFunctionTerms object.
- */
-public ListOfFunctionTerms* clone()
-{
-  return new ListOfFunctionTerms(*this);
-}
-
-
-/*
- * Destructor for ListOfFunctionTerms.
- */
-public ~ListOfFunctionTerms()
-{
-  delete mDefaultTerm;
-  mDefaultTerm = NULL;
-}
-
-
-/*
- * @returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
- */
-public const DefaultTerm* getDefaultTerm()
-{
-  if (isSetDefaultTerm())
+  /**
+   * Assignment operator for ListOfFunctionTerms.
+   */
+  public ListOfFunctionTerms& operator=(const ListOfFunctionTerms& rhs)
   {
+    if (&rhs != this)
+    {
+      ListOf::operator=(rhs);
+      delete mDefaultTerm;
+      if (rhs.mDefaultTerm != NULL)
+      {
+        mDefaultTerm = rhs.mDefaultTerm->clone();
+      }
+      else
+      {
+        mDefaultTerm = NULL;
+      }
+
+      connectToChild();
+    }
+
+    return *this;
+  }
+
+
+  /**
+   * Creates and returns a deep copy of this ListOfFunctionTerms object.
+   */
+  public ListOfFunctionTerms* clone()
+  {
+    return new ListOfFunctionTerms(*this);
+  }
+
+
+  /**
+   * Destructor for ListOfFunctionTerms.
+   */
+  public ~ListOfFunctionTerms()
+  {
+    delete mDefaultTerm;
+    mDefaultTerm = NULL;
+  }
+
+
+  /**
+   * @return the value of the "defaultTerm" element of this
+   * ListOfFunctionTerms.
+   */
+  public DefaultTerm* getDefaultTerm()
+  {
+    if (isSetDefaultTerm())
+    {
+      return mDefaultTerm;
+    }
+
+    throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
+  }
+
+
+  /**
+   * @return the value of the "defaultTerm" element of this
+   * ListOfFunctionTerms.
+   */
+  public DefaultTerm* getDefaultTerm()
+  {
+    if (isSetDefaultTerm())
+    {
+      return mDefaultTerm;
+    }
+
+    throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
+  }
+
+
+  /**
+   * Predicate returning @c true if this ListOfFunctionTerms's "defaultTerm"
+   * element is set.
+   */
+  public bool isSetDefaultTerm()
+  {
+    return (mDefaultTerm != NULL);
+  }
+
+
+  /**
+   * Sets the value of the "defaultTerm" element of this ListOfFunctionTerms.
+   */
+  public int setDefaultTerm(const DefaultTerm* defaultTerm)
+  {
+    if (mDefaultTerm == defaultTerm)
+    {
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else if (defaultTerm == NULL)
+    {
+      delete mDefaultTerm;
+      mDefaultTerm = NULL;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+    else
+    {
+      delete mDefaultTerm;
+      mDefaultTerm = (defaultTerm != NULL) ? defaultTerm->clone() : NULL;
+      if (mDefaultTerm != NULL)
+      {
+        mDefaultTerm->connectToParent(this);
+      }
+
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+
+  /**
+   * Creates a new DefaultTerm object, adds it to this ListOfFunctionTerms
+   * object and returns the DefaultTerm object created.
+   */
+  public DefaultTerm* createDefaultTerm()
+  {
+    if (mDefaultTerm != NULL)
+    {
+      delete mDefaultTerm;
+    }
+
+    QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+    mDefaultTerm = new DefaultTerm(qualns);
+
+    delete qualns;
+
+    connectToChild();
+
     return mDefaultTerm;
   }
 
-  throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
-}
 
-
-/*
- * @returns the value of the "defaultTerm" element of this ListOfFunctionTerms.
- */
-public DefaultTerm* getDefaultTerm()
-{
-  if (isSetDefaultTerm())
-  {
-    return mDefaultTerm;
-  }
-
-  throw new PropertyUndefinedError(QualConstants.mDefaultTerm, this);
-}
-
-
-/*
- * Predicate returning @c true if this ListOfFunctionTerms's "defaultTerm"
- * element is set.
- */
-public bool isSetDefaultTerm()
-{
-  return (mDefaultTerm != NULL);
-}
-
-
-/*
- * Sets the value of the "defaultTerm" element of this ListOfFunctionTerms.
- */
-public int setDefaultTerm(const DefaultTerm* defaultTerm)
-{
-  if (mDefaultTerm == defaultTerm)
-  {
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-  else if (defaultTerm == NULL)
+  /**
+   * Unsets the value of the "defaultTerm" element of this ListOfFunctionTerms.
+   */
+  public int unsetDefaultTerm()
   {
     delete mDefaultTerm;
     mDefaultTerm = NULL;
     return LIBSBML_OPERATION_SUCCESS;
   }
-  else
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms.
+   */
+  public FunctionTerm* get(unsigned int n)
   {
-    delete mDefaultTerm;
-    mDefaultTerm = (defaultTerm != NULL) ? defaultTerm->clone() : NULL;
+    return static_cast<FunctionTerm*>(ListOf::get(n));
+  }
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms.
+   */
+  public const FunctionTerm* get(unsigned int n)
+  {
+    return static_cast<const FunctionTerm*>(ListOf::get(n));
+  }
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
+   */
+  public FunctionTerm* get(const std::string& sid)
+  {
+    return const_cast<FunctionTerm*>(static_cast<const
+      ListOfFunctionTerms&>(*this).get(sid));
+  }
+
+
+  /**
+   * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
+   */
+  public const FunctionTerm* get(const std::string& sid)
+  {
+    vector<SBase*>::const_iterator result;
+    result = find_if(mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid));
+    return (result == mItems.end()) ? 0 : static_cast <const FunctionTerm*>
+      (*result);
+  }
+
+
+  /**
+   * Removes the nth FunctionTerm from this ListOfFunctionTerms and returns a
+   * pointer to it.
+   */
+  public FunctionTerm* remove(unsigned int n)
+  {
+    return static_cast<FunctionTerm*>(ListOf::remove(n));
+  }
+
+
+  /**
+   * Removes the FunctionTerm from this ListOfFunctionTerms based on its
+   * identifier and returns a pointer to it.
+   */
+  public FunctionTerm* remove(const std::string& sid)
+  {
+    SBase* item = NULL;
+    vector<SBase*>::iterator result;
+
+    result = find_if(mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid));
+
+    if (result != mItems.end())
+    {
+      item = *result;
+      mItems.erase(result);
+    }
+
+    return static_cast <FunctionTerm*> (item);
+  }
+
+
+  /**
+   * Adds a copy of the given FunctionTerm to this ListOfFunctionTerms.
+   */
+  public int addFunctionTerm(const FunctionTerm* ft)
+  {
+    if (ft == NULL)
+    {
+      return LIBSBML_OPERATION_FAILED;
+    }
+    else if (ft->hasRequiredAttributes() == false)
+    {
+      return LIBSBML_INVALID_OBJECT;
+    }
+    else if (getLevel() != ft->getLevel())
+    {
+      return LIBSBML_LEVEL_MISMATCH;
+    }
+    else if (getVersion() != ft->getVersion())
+    {
+      return LIBSBML_VERSION_MISMATCH;
+    }
+    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
+      SBase*>(ft)) == false)
+    {
+      return LIBSBML_NAMESPACES_MISMATCH;
+    }
+    else
+    {
+      append(ft);
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+
+  /**
+   * Get the number of FunctionTerm objects in this ListOfFunctionTerms.
+   */
+  public unsigned int getNumFunctionTerms()
+  {
+    return size();
+  }
+
+
+  /**
+   * Creates a new FunctionTerm object, adds it to this ListOfFunctionTerms
+   * object and returns the FunctionTerm object created.
+   */
+  public FunctionTerm* createFunctionTerm()
+  {
+    FunctionTerm* ft = NULL;
+
+    try
+    {
+      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+      ft = new FunctionTerm(qualns);
+      delete qualns;
+    }
+    catch (...)
+    {
+    }
+
+    if (ft != NULL)
+    {
+      appendAndOwn(ft);
+    }
+
+    return ft;
+  }
+
+
+  /**
+   * Returns the XML element name of this ListOfFunctionTerms object.
+   */
+  public const std::string& getElementName()
+  {
+    static const string name = "listOfFunctionTerms";
+    return name;
+  }
+
+
+  /**
+   * Returns the libJSBML type code for this ListOfFunctionTerms object.
+   */
+  public int getTypeCode()
+  {
+    return JSBML_LIST_OF;
+  }
+
+
+  /**
+   * Returns the libJSBML type code for the JSBML objects contained in this
+   * ListOfFunctionTerms object.
+   */
+  public int getItemTypeCode()
+  {
+    return SBML_QUAL_FUNCTION_TERM;
+  }
+
+
+  /**
+   * Predicate returning @c true if all the required attributes for this
+   * ListOfFunctionTerms object have been set.
+   */
+  public bool hasRequiredAttributes()
+  {
+    bool allPresent = ListOf::hasRequiredAttributes();
+
+    return allPresent;
+  }
+
+
+  /**
+   * Predicate returning @c true if all the required elements for this
+   * ListOfFunctionTerms object have been set.
+   */
+  public bool hasRequiredElements()
+  {
+    bool allPresent = ListOf::hasRequiredElements();
+
+    if (isSetDefaultTerm() == false)
+    {
+      allPresent = false;
+    }
+
+    return allPresent;
+  }
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Write any contained elements
+   */
+  public void writeElements(XMLOutputStream& stream)
+  {
+    ListOf::writeElements(stream);
+
+    if (isSetDefaultTerm() == true)
+    {
+      mDefaultTerm->write(stream);
+    }
+
+    SBase::writeExtensionElements(stream);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Connects to child elements
+   */
+  public void connectToChild()
+  {
+    ListOf::connectToChild();
+
     if (mDefaultTerm != NULL)
     {
       mDefaultTerm->connectToParent(this);
     }
-
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
-
-
-/*
- * Creates a new DefaultTerm object, adds it to this ListOfFunctionTerms object
- * and returns the DefaultTerm object created.
- */
-public DefaultTerm* createDefaultTerm()
-{
-  if (mDefaultTerm != NULL)
-  {
-    delete mDefaultTerm;
   }
 
-  QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-  mDefaultTerm = new DefaultTerm(qualns);
-
-  delete qualns;
-
-  connectToChild();
-
-  return mDefaultTerm;
-}
+  /** @endcond */
 
 
-/*
- * Unsets the value of the "defaultTerm" element of this ListOfFunctionTerms.
- */
-public int unsetDefaultTerm()
-{
-  delete mDefaultTerm;
-  mDefaultTerm = NULL;
-  return LIBSBML_OPERATION_SUCCESS;
-}
-
-
-/*
- * Get a FunctionTerm from the ListOfFunctionTerms.
- */
-public FunctionTerm* get(unsigned int n)
-{
-  return static_cast<FunctionTerm*>(ListOf::get(n));
-}
-
-
-/*
- * Get a FunctionTerm from the ListOfFunctionTerms.
- */
-public const FunctionTerm* get(unsigned int n)
-{
-  return static_cast<const FunctionTerm*>(ListOf::get(n));
-}
-
-
-/*
- * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
- */
-public FunctionTerm* get(const std::string& sid)
-{
-  return const_cast<FunctionTerm*>(static_cast<const
-    ListOfFunctionTerms&>(*this).get(sid));
-}
-
-
-/*
- * Get a FunctionTerm from the ListOfFunctionTerms based on its identifier.
- */
-public const FunctionTerm* get(const std::string& sid)
-{
-  vector<SBase*>::const_iterator result;
-  result = find_if(mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid));
-  return (result == mItems.end()) ? 0 : static_cast <const FunctionTerm*>
-    (*result);
-}
-
-
-/*
- * Removes the nth FunctionTerm from this ListOfFunctionTerms and returns a
- * pointer to it.
- */
-public FunctionTerm* remove(unsigned int n)
-{
-  return static_cast<FunctionTerm*>(ListOf::remove(n));
-}
-
-
-/*
- * Removes the FunctionTerm from this ListOfFunctionTerms based on its
- * identifier and returns a pointer to it.
- */
-public FunctionTerm* remove(const std::string& sid)
-{
-  SBase* item = NULL;
-  vector<SBase*>::iterator result;
-
-  result = find_if(mItems.begin(), mItems.end(), IdEq<FunctionTerm>(sid));
-
-  if (result != mItems.end())
+  /**
+   * Returns the first child element that has the given @p id in the model-wide
+   * SId namespace, or @c NULL if no such object is found.
+   */
+  public SBase* getElementBySId(const std::string& id)
   {
-    item = *result;
-    mItems.erase(result);
+    if (id.empty())
+    {
+      return NULL;
+    }
+
+    SBase* obj = NULL;
+
+    if (mDefaultTerm != NULL)
+    {
+      if (mDefaultTerm->getId() == id)
+      {
+        return mDefaultTerm;
+      }
+
+      obj = mDefaultTerm->getElementBySId(id);
+      if (obj != NULL)
+      {
+        return obj;
+      }
+    }
+
+    return ListOf::getElementBySId(id);
   }
 
-  return static_cast <FunctionTerm*> (item);
-}
 
-
-/*
- * Adds a copy of the given FunctionTerm to this ListOfFunctionTerms.
- */
-public int addFunctionTerm(const FunctionTerm* ft)
-{
-  if (ft == NULL)
+  /**
+   * Returns the first child element that has the given @p metaid, or @c NULL
+   * if no such object is found.
+   */
+  public SBase* getElementByMetaId(const std::string& metaid)
   {
-    return LIBSBML_OPERATION_FAILED;
+    if (metaid.empty())
+    {
+      return NULL;
+    }
+
+    SBase* obj = NULL;
+
+    if (mDefaultTerm != NULL)
+    {
+      if (mDefaultTerm->getMetaId() == metaid)
+      {
+        return mDefaultTerm;
+      }
+
+      obj = mDefaultTerm->getElementByMetaId(metaid);
+      if (obj != NULL)
+      {
+        return obj;
+      }
+    }
+
+    return ListOf::getElementByMetaId(metaid);
   }
-  else if (ft->hasRequiredAttributes() == false)
-  {
-    return LIBSBML_INVALID_OBJECT;
-  }
-  else if (getLevel() != ft->getLevel())
-  {
-    return LIBSBML_LEVEL_MISMATCH;
-  }
-  else if (getVersion() != ft->getVersion())
-  {
-    return LIBSBML_VERSION_MISMATCH;
-  }
-  else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const
-    SBase*>(ft)) == false)
-  {
-    return LIBSBML_NAMESPACES_MISMATCH;
-  }
-  else
-  {
-    append(ft);
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-}
 
 
-/*
- * Get the number of FunctionTerm objects in this ListOfFunctionTerms.
- */
-public unsigned int getNumFunctionTerms()
-{
-  return size();
-}
-
-
-/*
- * Creates a new FunctionTerm object, adds it to this ListOfFunctionTerms
- * object and returns the FunctionTerm object created.
- */
-public FunctionTerm* createFunctionTerm()
-{
-  FunctionTerm* ft = NULL;
-
-  try
+  /**
+   * Returns a List of all child SBase objects, including those nested to an
+   * arbitrary depth.
+   */
+  public List* getAllElements(ElementFilter* filter)
   {
+    List* ret = new List();
+    List* sublist = ListOf::getAllElements(filter);
+
+    ADD_FILTERED_POINTER(ret, sublist, mDefaultTerm, filter);
+
+
+    ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
+
+    return ret;
+  }
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Creates a new FunctionTerm in this ListOfFunctionTerms
+   */
+  public SBase* createObject(XMLInputStream& stream)
+  {
+    const std::string& name = stream.peek().getName();
+    SBase* object = NULL;
     QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-    ft = new FunctionTerm(qualns);
+
+    if (name == "functionTerm")
+    {
+      object = new FunctionTerm(qualns);
+      appendAndOwn(object);
+    }
+
+    if (name == "defaultTerm")
+    {
+      DefaultTerm newDT(qualns);
+      setDefaultTerm(&newDT);
+      object = getDefaultTerm();
+    }
+
     delete qualns;
-  }
-  catch (...)
-  {
+    return object;
   }
 
-  if (ft != NULL)
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Adds the expected attributes for this element
+   */
+  public void addExpectedAttributes(ExpectedAttributes& attributes)
   {
-    appendAndOwn(ft);
+    ListOf::addExpectedAttributes(attributes);
   }
 
-  return ft;
-}
+  /** @endcond */
 
 
-/*
- * Returns the XML element name of this ListOfFunctionTerms object.
- */
-public const std::string& getElementName()
-{
-  static const string name = "listOfFunctionTerms";
-  return name;
-}
 
+  /** @cond doxygenJSBMLInternal */
 
-/*
- * Returns the libJSBML type code for this ListOfFunctionTerms object.
- */
-public int getTypeCode()
-{
-  return JSBML_LIST_OF;
-}
-
-
-/*
- * Returns the libJSBML type code for the JSBML objects contained in this
- * ListOfFunctionTerms object.
- */
-public int getItemTypeCode()
-{
-  return SBML_QUAL_FUNCTION_TERM;
-}
-
-
-/*
- * Predicate returning @c true if all the required attributes for this
- * ListOfFunctionTerms object have been set.
- */
-public bool hasRequiredAttributes()
-{
-  bool allPresent = ListOf::hasRequiredAttributes();
-
-  return allPresent;
-}
-
-
-/*
- * Predicate returning @c true if all the required elements for this
- * ListOfFunctionTerms object have been set.
- */
-public bool hasRequiredElements()
-{
-  bool allPresent = ListOf::hasRequiredElements();
-
-  if (isSetDefaultTerm() == false)
+  /**
+   * Reads the expected attributes into the member data variables
+   */
+  public void readAttributes(const XMLAttributes& attributes,
+                             const ExpectedAttributes& expectedAttributes)
   {
-    allPresent = false;
-  }
+    unsigned int level = getLevel();
+    unsigned int version = getVersion();
+    unsigned int pkgVersion = getPackageVersion();
+    unsigned int numErrs;
+    bool assigned = false;
+    SBMLErrorLog* log = getErrorLog();
 
-  return allPresent;
-}
+    ListOf::readAttributes(attributes, expectedAttributes);
+    numErrs = log->getNumErrors();
 
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Write any contained elements
- */
-public void writeElements(XMLOutputStream& stream)
-{
-  ListOf::writeElements(stream);
-
-  if (isSetDefaultTerm() == true)
-  {
-    mDefaultTerm->write(stream);
-  }
-
-  SBase::writeExtensionElements(stream);
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Connects to child elements
- */
-public void connectToChild()
-{
-  ListOf::connectToChild();
-
-  if (mDefaultTerm != NULL)
-  {
-    mDefaultTerm->connectToParent(this);
-  }
-}
-
-/** @endcond */
-
-
-/*
- * Returns the first child element that has the given @p id in the model-wide
- * SId namespace, or @c NULL if no such object is found.
- */
-public SBase* getElementBySId(const std::string& id)
-{
-  if (id.empty())
-  {
-    return NULL;
-  }
-
-  SBase* obj = NULL;
-
-  if (mDefaultTerm != NULL)
-  {
-    if (mDefaultTerm->getId() == id)
+    for (int n = numErrs-1; n >= 0; n--)
     {
-      return mDefaultTerm;
-    }
-
-    obj = mDefaultTerm->getElementBySId(id);
-    if (obj != NULL)
-    {
-      return obj;
+      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownPackageAttribute);
+        log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+          details);
+      }
+      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      {
+        const std::string details = log->getError(n)->getMessage();
+        log->remove(UnknownCoreAttribute);
+        log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
+          details);
+      }
     }
   }
 
-  return ListOf::getElementBySId(id);
-}
+  /** @endcond */
 
 
-/*
- * Returns the first child element that has the given @p metaid, or @c NULL if
- * no such object is found.
- */
-public SBase* getElementByMetaId(const std::string& metaid)
-{
-  if (metaid.empty())
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Writes the attributes to the stream
+   */
+  public void writeAttributes(XMLOutputStream& stream)
   {
-    return NULL;
+    ListOf::writeAttributes(stream);
+
+    SBase::writeExtensionAttributes(stream);
   }
 
-  SBase* obj = NULL;
+  /** @endcond */
 
-  if (mDefaultTerm != NULL)
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Writes the namespace for the Qual package
+   */
+  public void writeXMLNS(XMLOutputStream& stream)
   {
-    if (mDefaultTerm->getMetaId() == metaid)
+    XMLNamespaces xmlns;
+    std::string prefix = getPrefix();
+
+    if (prefix.empty())
     {
-      return mDefaultTerm;
+      const XMLNamespaces* thisxmlns = getNamespaces();
+      if (thisxmlns && thisxmlns->hasURI(QualExtension::getXmlnsL3V1V1()))
+      {
+        xmlns.add(QualExtension::getXmlnsL3V1V1(), prefix);
+      }
     }
 
-    obj = mDefaultTerm->getElementByMetaId(metaid);
-    if (obj != NULL)
-    {
-      return obj;
-    }
+    stream << xmlns;
   }
 
-  return ListOf::getElementByMetaId(metaid);
-}
-
-
-/*
- * Returns a List of all child SBase objects, including those nested to an
- * arbitrary depth.
- */
-public List* getAllElements(ElementFilter* filter)
-{
-  List* ret = new List();
-  List* sublist = ListOf::getAllElements(filter);
-
-  ADD_FILTERED_POINTER(ret, sublist, mDefaultTerm, filter);
-
-
-  ADD_FILTERED_FROM_PLUGIN(ret, sublist, filter);
-
-  return ret;
-}
-
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Creates a new FunctionTerm in this ListOfFunctionTerms
- */
-public SBase* createObject(XMLInputStream& stream)
-{
-  const std::string& name = stream.peek().getName();
-  SBase* object = NULL;
-  QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-
-  if (name == "functionTerm")
-  {
-    object = new FunctionTerm(qualns);
-    appendAndOwn(object);
-  }
-
-  if (name == "defaultTerm")
-  {
-    DefaultTerm newDT(qualns);
-    setDefaultTerm(&newDT);
-    object = getDefaultTerm();
-  }
-
-  delete qualns;
-  return object;
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Adds the expected attributes for this element
- */
-public void addExpectedAttributes(ExpectedAttributes& attributes)
-{
-  ListOf::addExpectedAttributes(attributes);
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Reads the expected attributes into the member data variables
- */
-public void readAttributes(const XMLAttributes& attributes,
-                           const ExpectedAttributes& expectedAttributes)
-{
-  unsigned int level = getLevel();
-  unsigned int version = getVersion();
-  unsigned int pkgVersion = getPackageVersion();
-  unsigned int numErrs;
-  bool assigned = false;
-  SBMLErrorLog* log = getErrorLog();
-
-  ListOf::readAttributes(attributes, expectedAttributes);
-  numErrs = log->getNumErrors();
-
-  for (int n = numErrs-1; n >= 0; n--)
-  {
-    if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownPackageAttribute);
-      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-        details);
-    }
-    else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-    {
-      const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
-      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-        details);
-    }
-  }
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Writes the attributes to the stream
- */
-public void writeAttributes(XMLOutputStream& stream)
-{
-  ListOf::writeAttributes(stream);
-
-  SBase::writeExtensionAttributes(stream);
-}
-
-/** @endcond */
-
-
-
-/** @cond doxygenJSBMLInternal */
-
-/*
- * Writes the namespace for the Qual package
- */
-public void writeXMLNS(XMLOutputStream& stream)
-{
-  XMLNamespaces xmlns;
-  std::string prefix = getPrefix();
-
-  if (prefix.empty())
-  {
-    const XMLNamespaces* thisxmlns = getNamespaces();
-    if (thisxmlns && thisxmlns->hasURI(QualExtension::getXmlnsL3V1V1()))
-    {
-      xmlns.add(QualExtension::getXmlnsL3V1V1(), prefix);
-    }
-  }
-
-  stream << xmlns;
-}
-
-/** @endcond */
+  /** @endcond */
 
 
 
@@ -660,73 +663,74 @@ public void writeXMLNS(XMLOutputStream& stream)
 #endif /* __cplusplus */
 
 
-/*
- * Get a FunctionTerm_t from the ListOf_t.
- */
-JSBML_EXTERN
-public const FunctionTerm_t* ListOfFunctionTerms_getFunctionTerm(ListOf_t* lo,
-                                                                 unsigned int
-                                                                   n)
-{
-  if (lo == NULL)
+  /**
+   * Get a FunctionTerm_t from the ListOf_t.
+   */
+  JSBML_EXTERN
+  public const FunctionTerm_t* ListOfFunctionTerms_getFunctionTerm(ListOf_t*
+    lo,
+                                                                   unsigned int
+                                                                     n)
   {
-    return NULL;
+    if (lo == NULL)
+    {
+      return NULL;
+    }
+
+    return static_cast <ListOfFunctionTerms*>(lo)->get(n);
   }
 
-  return static_cast <ListOfFunctionTerms*>(lo)->get(n);
-}
 
-
-/*
- * Get a FunctionTerm_t from the ListOf_t based on its identifier.
- */
-JSBML_EXTERN
-public const FunctionTerm_t* ListOfFunctionTerms_getById(ListOf_t* lo,
-                                                         const char *sid)
-{
-  if (lo == NULL)
+  /**
+   * Get a FunctionTerm_t from the ListOf_t based on its identifier.
+   */
+  JSBML_EXTERN
+  public const FunctionTerm_t* ListOfFunctionTerms_getById(ListOf_t* lo,
+                                                           const char *sid)
   {
-    return NULL;
+    if (lo == NULL)
+    {
+      return NULL;
+    }
+
+    return (sid != NULL) ? static_cast <ListOfFunctionTerms*>(lo)->get(sid) :
+      NULL;
   }
 
-  return (sid != NULL) ? static_cast <ListOfFunctionTerms*>(lo)->get(sid) :
-    NULL;
-}
 
-
-/*
- * Removes the nth FunctionTerm_t from this ListOf_t and returns a pointer to
- * it.
- */
-JSBML_EXTERN
-public FunctionTerm_t* ListOfFunctionTerms_remove(ListOf_t* lo,
-                                                  unsigned int n)
-{
-  if (lo == NULL)
+  /**
+   * Removes the nth FunctionTerm_t from this ListOf_t and returns a pointer to
+   * it.
+   */
+  JSBML_EXTERN
+  public FunctionTerm_t* ListOfFunctionTerms_remove(ListOf_t* lo,
+                                                    unsigned int n)
   {
-    return NULL;
+    if (lo == NULL)
+    {
+      return NULL;
+    }
+
+    return static_cast <ListOfFunctionTerms*>(lo)->remove(n);
   }
 
-  return static_cast <ListOfFunctionTerms*>(lo)->remove(n);
-}
 
-
-/*
- * Removes the FunctionTerm_t from this ListOf_t based on its identifier and
- * returns a pointer to it.
- */
-JSBML_EXTERN
-public FunctionTerm_t* ListOfFunctionTerms_removeById(ListOf_t* lo,
-                                                      const char* sid)
-{
-  if (lo == NULL)
+  /**
+   * Removes the FunctionTerm_t from this ListOf_t based on its identifier and
+   * returns a pointer to it.
+   */
+  JSBML_EXTERN
+  public FunctionTerm_t* ListOfFunctionTerms_removeById(ListOf_t* lo,
+                                                        const char* sid)
   {
-    return NULL;
-  }
+    if (lo == NULL)
+    {
+      return NULL;
+    }
 
-  return (sid != NULL) ? static_cast <ListOfFunctionTerms*>(lo)->remove(sid) :
-    NULL;
-}
+    return (sid != NULL) ? static_cast <ListOfFunctionTerms*>(lo)->remove(sid)
+      : NULL;
+  }
 
 
 

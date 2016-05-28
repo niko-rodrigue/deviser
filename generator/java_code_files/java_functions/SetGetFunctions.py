@@ -131,7 +131,7 @@ class SetGetFunctions():
         params = []
         return_lines = []
         additional = []
-        title_line = '@returns the value of the \"{0}\" {1} of this {2}.' \
+        title_line = '@return the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'],
                     ('attribute' if is_attribute else 'element'),
                     (self.class_name if self.is_java_api else self.object_name))
@@ -174,7 +174,7 @@ class SetGetFunctions():
             if attribute['attType'] == 'string' \
                     or attribute['attType'] == 'element':
                 if const:
-                    return_type = 'const ' + attribute['attTypeCode']
+                    return_type = attribute['attTypeCode'] # 'const ' +
                 else:
                     return_type = attribute['attTypeCode']
             elif attribute['attType'] == 'vector':
@@ -205,19 +205,27 @@ class SetGetFunctions():
         capAttName = attribute['capAttName']
         currAttType = attribute['attTypeCode']
 
+
+        #code = [dict({'code_type': 'line', 'code': implementation})]
+
+        print('type ',currAttType)
         # create the function implementation
         if self.is_java_api:
             if not self.document:
-                if  currAttType in global_variables.javaTypeAttributes:
-                    implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'],currAttType)
+                if currAttType == 'String':
+                    implement_String = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'], attribute['name'])]
+                    code = [self.create_code_block('line', implement_String)]
                 else:
-                    implement_part2 = 'return {0}'.format(attribute['memberName'])
+                    if currAttType in global_variables.javaTypeAttributes:
+                        implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'],currAttType)
+                    else:
+                        implement_part2 = 'return {0}'.format(attribute['memberName'])
 
 
-                implementation2 = ['isSet{0}()'.format(attribute['capAttName']),implement_part2]
-                implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute['memberName'])]
-                code = [dict({'code_type': 'if', 'code': implementation2}),
-                        dict({'code_type': 'line', 'code': implementation})]
+                    implementation2 = ['isSet{0}()'.format(attribute['capAttName']),implement_part2]
+                    implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute['memberName'])]
+                    code = [dict({'code_type': 'if', 'code': implementation2}),
+                            dict({'code_type': 'line', 'code': implementation})]
             else:
                 implementation = self.write_get_for_doc_functions(attribute)
                 code = [self.create_code_block('line', implementation)] #tricky
@@ -462,6 +470,9 @@ class SetGetFunctions():
 
     # Functions for writing is set functions
 
+
+
+    # GSOC 2016 modifications
     # function to write is set functions
     def write_is_set(self, is_attribute, index):
         if is_attribute:

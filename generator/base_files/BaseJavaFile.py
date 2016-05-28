@@ -53,6 +53,14 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.baseClass = global_variables.javaBaseClass
 
         # GSOC 2016 modifications
+
+
+        # derived members for comments
+        self.comment_start = '/**'
+        self.comment = ' *'
+        self.comment_end = '*/'
+
+
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage
         self.library_name = global_variables.java_library_name
@@ -633,8 +641,11 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_comment_line('@memberof {0}'.format(object_name))
         self.close_comment()
 
+
+
+    # Need to add tabs
     def write_brief_header(self, title_line):
-        self.open_single_comment(self)
+        self.open_double_comment(self)
         self.write_comment_line(title_line)
         self.close_comment()
 
@@ -666,6 +677,8 @@ class BaseJavaFile(BaseFile.BaseFile):
     # Function for writing a function implementation
     def write_function_implementation(self, code, exclude=False):
         if code is not None:
+            self.up_indent() #This is a problem
+
             if exclude:
                 self.write_doxygen_start()
             self.write_brief_header(code['title_line'])
@@ -699,11 +712,14 @@ class BaseJavaFile(BaseFile.BaseFile):
                 print("code implementation ",code['implementation'])
                 print('---------------->')
 
+
+
             if exclude:
                 self.write_doxygen_end()
                 self.skip_line()
             else:
                 self.skip_line(2)
+            self.down_indent()
 
     # Function for writing a function implementation
     def write_inline_function_implementation(self, code, exclude=False):
@@ -922,3 +938,11 @@ class BaseJavaFile(BaseFile.BaseFile):
         for i in range(0, int(self.num_tabs)):
             tabs += '  '
         self.file_out.write('{0}{1}\n'.format(tabs, '/*'))
+
+
+    @staticmethod
+    def open_double_comment(self):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        self.file_out.write('{0}{1}\n'.format(tabs, '/**'))
