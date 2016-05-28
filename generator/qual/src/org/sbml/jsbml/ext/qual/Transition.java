@@ -130,16 +130,16 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Predicate returning @c true if this Transition's "id" attribute is set.
    */
-  public bool isSetId()
+  public boolean isSetId()
   {
-    return (mId.empty() == false);
+    return id != null;
   }
 
 
   /**
    * Predicate returning @c true if this Transition's "name" attribute is set.
    */
-  public bool isSetName()
+  public boolean isSetName()
   {
     ;
   }
@@ -148,7 +148,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "id" attribute of this Transition.
    */
-  public int setId(const String id)
+  public int setId(String id)
   {
     mId = id;
     return LIBSBML_OPERATION_SUCCESS;
@@ -678,7 +678,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Transition's "defaultTerm" element is
    * set.
    */
-  public bool isSetDefaultTerm()
+  public boolean isSetDefaultTerm()
   {
     return (mDefaultTerm != NULL);
   }
@@ -687,7 +687,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "defaultTerm" element of this Transition.
    */
-  public int setDefaultTerm(const DefaultTerm defaultTerm)
+  public int setDefaultTerm(DefaultTerm defaultTerm)
   {
     if (mDefaultTerm == defaultTerm)
     {
@@ -1633,8 +1633,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "defaultTerm" element of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_setDefaultTerm(Transition * t,
-                                       const DefaultTerm defaultTerm)
+  public int Transition_setDefaultTerm(Transition * t, DefaultTerm defaultTerm)
   {
     return (t != NULL) ? t->setDefaultTerm(defaultTerm) :
       LIBJSBML_INVALID_OBJECT;

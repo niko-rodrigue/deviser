@@ -135,9 +135,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this FunctionTerm's "resultLevel" attribute
    * is set.
    */
-  public bool isSetResultLevel()
+  public boolean isSetResultLevel()
   {
-    return mIsSetResultLevel;
+    return resultLevel != null;
   }
 
 
@@ -202,7 +202,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Predicate returning @c true if this FunctionTerm's "math" element is set.
    */
-  public bool isSetMath()
+  public boolean isSetMath()
   {
     return (mMath != NULL);
   }
@@ -211,7 +211,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "math" element of this FunctionTerm.
    */
-  public int setMath(const ASTNode math)
+  public int setMath(ASTNode math)
   {
     if (mMath == math)
     {
@@ -696,7 +696,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "math" element of this FunctionTerm.
    */
   JSBML_EXTERN
-  public int FunctionTerm_setMath(FunctionTerm * ft, const ASTNode math)
+  public int FunctionTerm_setMath(FunctionTerm * ft, ASTNode math)
   {
     return (ft != NULL) ? ft->setMath(math) : LIBJSBML_INVALID_OBJECT;
   }

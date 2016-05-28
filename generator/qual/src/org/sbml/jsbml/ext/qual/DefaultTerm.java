@@ -109,9 +109,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this DefaultTerm's "resultLevel" attribute
    * is set.
    */
-  public bool isSetResultLevel()
+  public boolean isSetResultLevel()
   {
-    return mIsSetResultLevel;
+    return resultLevel != null;
   }
 
 

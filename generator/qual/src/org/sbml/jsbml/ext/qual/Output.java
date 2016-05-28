@@ -177,9 +177,9 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Predicate returning @c true if this Output's "id" attribute is set.
    */
-  public bool isSetId()
+  public boolean isSetId()
   {
-    return (mId.empty() == false);
+    return id != null;
   }
 
 
@@ -187,9 +187,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Output's "qualitativeSpecies"
    * attribute is set.
    */
-  public bool isSetQualitativeSpecies()
+  public boolean isSetQualitativeSpecies()
   {
-    return (mQualitativeSpecies.empty() == false);
+    return qualitativeSpecies != null;
   }
 
 
@@ -197,7 +197,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Output's "transitionEffect" attribute
    * is set.
    */
-  public bool isSetTransitionEffect()
+  public boolean isSetTransitionEffect()
   {
     return (mTransitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
   }
@@ -206,7 +206,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Predicate returning @c true if this Output's "name" attribute is set.
    */
-  public bool isSetName()
+  public boolean isSetName()
   {
     ;
   }
@@ -216,16 +216,16 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Output's "outputLevel" attribute is
    * set.
    */
-  public bool isSetOutputLevel()
+  public boolean isSetOutputLevel()
   {
-    return mIsSetOutputLevel;
+    return outputLevel != null;
   }
 
 
   /**
    * Sets the value of the "id" attribute of this Output.
    */
-  public int setId(const String id)
+  public int setId(String id)
   {
     mId = id;
     return LIBSBML_OPERATION_SUCCESS;
@@ -235,7 +235,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Output.
    */
-  public int setQualitativeSpecies(const String qualitativeSpecies)
+  public int setQualitativeSpecies(String qualitativeSpecies)
   {
     if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
     {
@@ -252,7 +252,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "transitionEffect" attribute of this Output.
    */
-  public int setTransitionEffect(const TransitionOutputEffect transitionEffect)
+  public int setTransitionEffect(TransitionOutputEffect transitionEffect)
   {
     if (TransitionOutputEffect_isValid(transitionEffect) == 0)
     {

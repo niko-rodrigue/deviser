@@ -142,7 +142,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this ListOfFunctionTerms's "defaultTerm"
    * element is set.
    */
-  public bool isSetDefaultTerm()
+  public boolean isSetDefaultTerm()
   {
     return (mDefaultTerm != NULL);
   }
@@ -151,7 +151,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "defaultTerm" element of this ListOfFunctionTerms.
    */
-  public int setDefaultTerm(const DefaultTerm* defaultTerm)
+  public int setDefaultTerm(DefaultTerm* defaultTerm)
   {
     if (mDefaultTerm == defaultTerm)
     {

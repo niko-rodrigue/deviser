@@ -205,16 +205,16 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Predicate returning @c true if this Input's "id" attribute is set.
    */
-  public bool isSetId()
+  public boolean isSetId()
   {
-    return (mId.empty() == false);
+    return id != null;
   }
 
 
   /**
    * Predicate returning @c true if this Input's "name" attribute is set.
    */
-  public bool isSetName()
+  public boolean isSetName()
   {
     ;
   }
@@ -223,7 +223,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Predicate returning @c true if this Input's "sign" attribute is set.
    */
-  public bool isSetSign()
+  public boolean isSetSign()
   {
     return (mSign != SIGN_INVALID);
   }
@@ -233,9 +233,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Input's "qualitativeSpecies" attribute
    * is set.
    */
-  public bool isSetQualitativeSpecies()
+  public boolean isSetQualitativeSpecies()
   {
-    return (mQualitativeSpecies.empty() == false);
+    return qualitativeSpecies != null;
   }
 
 
@@ -243,7 +243,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Input's "transitionEffect" attribute
    * is set.
    */
-  public bool isSetTransitionEffect()
+  public boolean isSetTransitionEffect()
   {
     return (mTransitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
   }
@@ -253,16 +253,16 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this Input's "thresholdLevel" attribute is
    * set.
    */
-  public bool isSetThresholdLevel()
+  public boolean isSetThresholdLevel()
   {
-    return mIsSetThresholdLevel;
+    return thresholdLevel != null;
   }
 
 
   /**
    * Sets the value of the "id" attribute of this Input.
    */
-  public int setId(const String id)
+  public int setId(String id)
   {
     mId = id;
     return LIBSBML_OPERATION_SUCCESS;
@@ -282,7 +282,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "sign" attribute of this Input.
    */
-  public int setSign(const Sign sign)
+  public int setSign(Sign sign)
   {
     if (Sign_isValid(sign) == 0)
     {
@@ -318,7 +318,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public int setQualitativeSpecies(const String qualitativeSpecies)
+  public int setQualitativeSpecies(String qualitativeSpecies)
   {
     if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
     {
@@ -335,7 +335,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "transitionEffect" attribute of this Input.
    */
-  public int setTransitionEffect(const TransitionInputEffect transitionEffect)
+  public int setTransitionEffect(TransitionInputEffect transitionEffect)
   {
     if (TransitionInputEffect_isValid(transitionEffect) == 0)
     {

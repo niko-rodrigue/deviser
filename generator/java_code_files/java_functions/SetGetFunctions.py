@@ -59,10 +59,10 @@ class SetGetFunctions():
             self.object_child_name = self.child_name
         else:
             if is_list_of:
-                self.object_name = 'ListOf' #_t'
+                self.object_name = 'ListOf'  #_t'
             else:
-                self.object_name = self.class_name #+ '_t'
-            self.object_child_name = self.child_name # + '_t'
+                self.object_name = self.class_name  #+ '_t'
+            self.object_child_name = self.child_name  # + '_t'
 
         self.attributes = class_object['class_attributes']
         self.child_elements = class_object['child_elements']
@@ -84,7 +84,7 @@ class SetGetFunctions():
             self.true = '@c 1'
             self.false = '@c 0'
         else:
-            self.true = '@c true' #For comments
+            self.true = '@c true'  #For comments
             self.false = '@c false'
         self.plural = strFunctions.plural(self.child_name)
         self.indef_name = strFunctions.get_indefinite(self.object_child_name)
@@ -108,6 +108,8 @@ class SetGetFunctions():
 
     # Functions for writing get functions
 
+
+    # GSOC 2016 write_get prototype v0.1
     # function to write get functions
     def write_get(self, is_attribute, index, const=True, virtual=False):
         if not self.is_java_api and not const:
@@ -196,39 +198,38 @@ class SetGetFunctions():
 
 
 
-        #GSOC 2016 modification
-        #Need PackageName for Constants, such as QualConstants.initialLevel
-        #Also need to add info about the type of Data (boolean or int, or etc)
-        #need to use this self.package
+        # GSOC 2016 modification
+        # Need PackageName for Constants, such as QualConstants.initialLevel
+        # Also need to add info about the type of Data (boolean or int, or etc)
+        # need to use this self.package
 
-        #implementation2 wrong example Output.java -> return transitionEffect;
-        capAttName = attribute['capAttName']
-        currAttType = attribute['attTypeCode']
+        # implementation2 wrong example Output.java -> return transitionEffect;
+        # cap_att_name = attribute['capAttName']
+        curr_att_type = attribute['attTypeCode']
 
 
         #code = [dict({'code_type': 'line', 'code': implementation})]
 
-        print('type ',currAttType)
+        print('type ',curr_att_type)
         # create the function implementation
         if self.is_java_api:
             if not self.document:
-                if currAttType == 'String':
-                    implement_String = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'], attribute['name'])]
-                    code = [self.create_code_block('line', implement_String)]
+                if curr_att_type == 'String':
+                    implement_string = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'],
+                                                                              attribute['name'])]
+                    code = [self.create_code_block('line', implement_string)]
                 else:
-                    if currAttType in global_variables.javaTypeAttributes:
-                        implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'],currAttType)
+                    if curr_att_type in global_variables.javaTypeAttributes:
+                        implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
                     else:
                         implement_part2 = 'return {0}'.format(attribute['memberName'])
-
-
-                    implementation2 = ['isSet{0}()'.format(attribute['capAttName']),implement_part2]
+                    implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
                     implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute['memberName'])]
                     code = [dict({'code_type': 'if', 'code': implementation2}),
                             dict({'code_type': 'line', 'code': implementation})]
             else:
                 implementation = self.write_get_for_doc_functions(attribute)
-                code = [self.create_code_block('line', implementation)] #tricky
+                code = [self.create_code_block('line', implementation)]  # tricky
         else:
             code = self.get_c_attribute(attribute)
 
@@ -245,7 +246,7 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-    # function to write the correct get for doc elements in other libraries
+    # function to write the correct get for doc elements in other libraries, not necessary for JSBML?
     def write_get_for_doc_functions(self, attribute):
         if attribute['memberName'] == 'mErrorLog':
             implementation = ['return &{0}'.format(attribute['memberName'])]
@@ -472,7 +473,7 @@ class SetGetFunctions():
 
 
 
-    # GSOC 2016 modifications
+    # GSOC 2016 modifications, prototype not ready yet
     # function to write is set functions
     def write_is_set(self, is_attribute, index):
         if is_attribute:
@@ -516,7 +517,7 @@ class SetGetFunctions():
                 function = 'has{0}'.format(strFunctions.plural(attribute['capAttName']))
             else:
                 function = 'isSet{0}'.format(attribute['capAttName'])
-            return_type = 'bool'
+            return_type = 'boolean'
         else:
             function = '{0}_isSet{1}'.format(self.class_name,
                                              attribute['capAttName'])
@@ -527,18 +528,21 @@ class SetGetFunctions():
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
 
+        # GSOC 2016 modification
         # create the function implementation
         if self.is_java_api:
             if query.is_string(attribute):
-                implementation = ['return ({0}.empty() == false)'.format(
-                    attribute['memberName'])]
+                implementation = ['return {0} != null'.format(
+                    attribute['name'])]
             elif attribute['attType'] == 'enum' or attribute['isArray']:
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['memberName'],
                                                 attribute['default'])]
             elif query.has_is_set_member(attribute):
-                implementation = ['return '
-                                  'mIsSet{0}'.format(attribute['capAttName'])]
+                # implementation = ['return '
+                #                   'mIsSet{0}'.format(attribute['capAttName'])]
+                implementation = ['return {0} != null'.format(
+                    attribute['name'])]
             elif attribute['type'] == 'element':
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['memberName'],
@@ -698,7 +702,7 @@ class SetGetFunctions():
                                          attribute['name']))
             else:
                 arguments.append('{0} {1}'
-                                 .format(('const ' + attribute['attTypeCode']
+                                 .format((attribute['attTypeCode']
                                           if (attribute['attType'] == 'string' or
                                               attribute['attType'] == 'enum' or
                                               attribute['attType'] == 'element')
@@ -708,7 +712,7 @@ class SetGetFunctions():
             arguments.append('{0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
             if attribute['attType'] == 'element':
-                arguments.append('const {0} {1}'
+                arguments.append('{0} {1}'
                                  .format(attribute['CType'],
                                          attribute['name']))
             else:
@@ -718,7 +722,7 @@ class SetGetFunctions():
 
         # create the function implementation
         if self.is_java_api:
-            code = self.set_cpp_attribute(attribute)
+            code = self.set_java_attribute(attribute)
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent
@@ -1083,7 +1087,7 @@ class SetGetFunctions():
 
         # create the function implementation
         if self.is_java_api:
-            code = self.unset_cpp_attribute(attribute)
+            code = self.unset_java_attribute(attribute)
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent
@@ -1267,11 +1271,11 @@ class SetGetFunctions():
         # useful variables
         name = strFunctions.upper_first(attribute['element'])
         if self.is_java_api:
-            att_type = attribute['element'] + '*'
+            att_type = attribute['element']  # + '*'
             att_name = attribute['element']
         else:
-            att_type = attribute['element'] + '_t*'
-            att_name = attribute['element'] + '_t'
+            att_type = attribute['element']  # + '_t*'
+            att_name = attribute['element']  # + '_t'
 
         # create comment parts
         title_line = 'Creates a new {0} object, adds it to this {1} object ' \
@@ -1392,7 +1396,9 @@ class SetGetFunctions():
         code.append(self.create_code_block('line', line))
         return code
 
-    def set_cpp_attribute(self, attribute):
+
+    # TODO for write_set  absolutely important
+    def set_java_attribute(self, attribute):
         member = attribute['memberName']
         name = attribute['name']
         if 'version_info' in attribute and False in attribute['version_info']:
@@ -1542,7 +1548,7 @@ class SetGetFunctions():
                               ''.format(global_variables.ret_att_unex)]
         return implementation
 
-    def unset_cpp_attribute(self, attribute):
+    def unset_java_attribute(self, attribute):
         if attribute['attType'] == 'string':
             implementation = ['{0}.erase()'.format(attribute['memberName'])]
             implementation2 = ['{0}.empty() == '

@@ -195,9 +195,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this QualitativeSpecies's "id" attribute is
    * set.
    */
-  public bool isSetId()
+  public boolean isSetId()
   {
-    return (mId.empty() == false);
+    return id != null;
   }
 
 
@@ -205,7 +205,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this QualitativeSpecies's "name" attribute
    * is set.
    */
-  public bool isSetName()
+  public boolean isSetName()
   {
     ;
   }
@@ -215,9 +215,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this QualitativeSpecies's "compartment"
    * attribute is set.
    */
-  public bool isSetCompartment()
+  public boolean isSetCompartment()
   {
-    return (mCompartment.empty() == false);
+    return compartment != null;
   }
 
 
@@ -225,9 +225,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this QualitativeSpecies's "constant"
    * attribute is set.
    */
-  public bool isSetConstant()
+  public boolean isSetConstant()
   {
-    return mIsSetConstant;
+    return constant != null;
   }
 
 
@@ -235,9 +235,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this QualitativeSpecies's "initialLevel"
    * attribute is set.
    */
-  public bool isSetInitialLevel()
+  public boolean isSetInitialLevel()
   {
-    return mIsSetInitialLevel;
+    return initialLevel != null;
   }
 
 
@@ -245,16 +245,16 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Predicate returning @c true if this QualitativeSpecies's "maxLevel"
    * attribute is set.
    */
-  public bool isSetMaxLevel()
+  public boolean isSetMaxLevel()
   {
-    return mIsSetMaxLevel;
+    return maxLevel != null;
   }
 
 
   /**
    * Sets the value of the "id" attribute of this QualitativeSpecies.
    */
-  public int setId(const String id)
+  public int setId(String id)
   {
     mId = id;
     return LIBSBML_OPERATION_SUCCESS;
@@ -274,7 +274,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "compartment" attribute of this QualitativeSpecies.
    */
-  public int setCompartment(const String compartment)
+  public int setCompartment(String compartment)
   {
     if (!(SyntaxChecker::isValidInternalSId(compartment)))
     {
