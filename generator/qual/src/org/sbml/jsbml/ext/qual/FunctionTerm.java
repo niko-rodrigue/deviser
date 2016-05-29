@@ -158,18 +158,19 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
    */
-  public int unsetResultLevel()
+  public boolean unsetResultLevel()
   {
-    mResultLevel = JSBML_INT_MAX;
-    mIsSetResultLevel = false;
-
-    if (isSetResultLevel() == false)
+    if ((isSetResultLevel()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Integer oldmResultLevel = mResultLevel;
+      resultLevel = null;
+      firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
+        mResultLevel);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -248,7 +249,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "math" element of this FunctionTerm.
    */
-  public int unsetMath()
+  public boolean unsetMath()
   {
     delete mMath;
     mMath = NULL;
@@ -665,7 +666,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
    */
   JSBML_EXTERN
-  public int FunctionTerm_unsetResultLevel(FunctionTerm * ft)
+  public boolean FunctionTerm_unsetResultLevel(FunctionTerm * ft)
   {
     return (ft != NULL) ? ft->unsetResultLevel() : LIBJSBML_INVALID_OBJECT;
   }
@@ -710,7 +711,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "math" element of this FunctionTerm.
    */
   JSBML_EXTERN
-  public int FunctionTerm_unsetMath(FunctionTerm * ft)
+  public boolean FunctionTerm_unsetMath(FunctionTerm * ft)
   {
     return (ft != NULL) ? ft->unsetMath() : LIBJSBML_INVALID_OBJECT;
   }

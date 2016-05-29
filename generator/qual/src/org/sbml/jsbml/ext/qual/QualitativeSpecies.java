@@ -332,7 +332,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "id" attribute of this QualitativeSpecies.
    */
-  public int unsetId()
+  public boolean unsetId()
   {
     TO DO;
   }
@@ -341,7 +341,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "name" attribute of this QualitativeSpecies.
    */
-  public int unsetName()
+  public boolean unsetName()
   {
     TO DO;
   }
@@ -351,7 +351,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "compartment" attribute of this
    * QualitativeSpecies.
    */
-  public int unsetCompartment()
+  public boolean unsetCompartment()
   {
     TO DO;
   }
@@ -360,18 +360,18 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "constant" attribute of this QualitativeSpecies.
    */
-  public int unsetConstant()
+  public boolean unsetConstant()
   {
-    mConstant = False;
-    mIsSetConstant = false;
-
-    if (isSetConstant() == false)
+    if ((isSetConstant()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Boolean oldmConstant = mConstant;
+      constant = null;
+      firePropertyChange(QualConstants.mConstant, oldmConstant, mConstant);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -380,18 +380,19 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "initialLevel" attribute of this
    * QualitativeSpecies.
    */
-  public int unsetInitialLevel()
+  public boolean unsetInitialLevel()
   {
-    mInitialLevel = JSBML_INT_MAX;
-    mIsSetInitialLevel = false;
-
-    if (isSetInitialLevel() == false)
+    if ((isSetInitialLevel()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Integer oldmInitialLevel = mInitialLevel;
+      initialLevel = null;
+      firePropertyChange(QualConstants.mInitialLevel, oldmInitialLevel,
+        mInitialLevel);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -399,18 +400,18 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "maxLevel" attribute of this QualitativeSpecies.
    */
-  public int unsetMaxLevel()
+  public boolean unsetMaxLevel()
   {
-    mMaxLevel = JSBML_INT_MAX;
-    mIsSetMaxLevel = false;
-
-    if (isSetMaxLevel() == false)
+    if ((isSetMaxLevel()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Integer oldmMaxLevel = mMaxLevel;
+      maxLevel = null;
+      firePropertyChange(QualConstants.mMaxLevel, oldmMaxLevel, mMaxLevel);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -1074,7 +1075,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "id" attribute of this QualitativeSpecies.
    */
   JSBML_EXTERN
-  public int QualitativeSpecies_unsetId(QualitativeSpecies * qs)
+  public boolean QualitativeSpecies_unsetId(QualitativeSpecies * qs)
   {
     return (qs != NULL) ? qs->unsetId() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1084,7 +1085,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "name" attribute of this QualitativeSpecies.
    */
   JSBML_EXTERN
-  public int QualitativeSpecies_unsetName(QualitativeSpecies * qs)
+  public boolean QualitativeSpecies_unsetName(QualitativeSpecies * qs)
   {
     return (qs != NULL) ? qs->unsetName() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1095,7 +1096,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * QualitativeSpecies.
    */
   JSBML_EXTERN
-  public int QualitativeSpecies_unsetCompartment(QualitativeSpecies * qs)
+  public boolean QualitativeSpecies_unsetCompartment(QualitativeSpecies * qs)
   {
     return (qs != NULL) ? qs->unsetCompartment() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1105,7 +1106,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "constant" attribute of this QualitativeSpecies.
    */
   JSBML_EXTERN
-  public int QualitativeSpecies_unsetConstant(QualitativeSpecies * qs)
+  public boolean QualitativeSpecies_unsetConstant(QualitativeSpecies * qs)
   {
     return (qs != NULL) ? qs->unsetConstant() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1116,7 +1117,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * QualitativeSpecies.
    */
   JSBML_EXTERN
-  public int QualitativeSpecies_unsetInitialLevel(QualitativeSpecies * qs)
+  public boolean QualitativeSpecies_unsetInitialLevel(QualitativeSpecies * qs)
   {
     return (qs != NULL) ? qs->unsetInitialLevel() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1126,7 +1127,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "maxLevel" attribute of this QualitativeSpecies.
    */
   JSBML_EXTERN
-  public int QualitativeSpecies_unsetMaxLevel(QualitativeSpecies * qs)
+  public boolean QualitativeSpecies_unsetMaxLevel(QualitativeSpecies * qs)
   {
     return (qs != NULL) ? qs->unsetMaxLevel() : LIBJSBML_INVALID_OBJECT;
   }

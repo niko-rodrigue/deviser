@@ -202,7 +202,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "defaultTerm" element of this ListOfFunctionTerms.
    */
-  public int unsetDefaultTerm()
+  public boolean unsetDefaultTerm()
   {
     delete mDefaultTerm;
     mDefaultTerm = NULL;

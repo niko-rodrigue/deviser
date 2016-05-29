@@ -282,7 +282,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "id" attribute of this Output.
    */
-  public int unsetId()
+  public boolean unsetId()
   {
     TO DO;
   }
@@ -291,7 +291,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "qualitativeSpecies" attribute of this Output.
    */
-  public int unsetQualitativeSpecies()
+  public boolean unsetQualitativeSpecies()
   {
     TO DO;
   }
@@ -300,7 +300,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "transitionEffect" attribute of this Output.
    */
-  public int unsetTransitionEffect()
+  public boolean unsetTransitionEffect()
   {
     mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
@@ -310,7 +310,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "name" attribute of this Output.
    */
-  public int unsetName()
+  public boolean unsetName()
   {
     TO DO;
   }
@@ -319,18 +319,19 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "outputLevel" attribute of this Output.
    */
-  public int unsetOutputLevel()
+  public boolean unsetOutputLevel()
   {
-    mOutputLevel = JSBML_INT_MAX;
-    mIsSetOutputLevel = false;
-
-    if (isSetOutputLevel() == false)
+    if ((isSetOutputLevel()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Integer oldmOutputLevel = mOutputLevel;
+      outputLevel = null;
+      firePropertyChange(QualConstants.mOutputLevel, oldmOutputLevel,
+        mOutputLevel);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -925,7 +926,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "id" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_unsetId(Output * o)
+  public boolean Output_unsetId(Output * o)
   {
     return (o != NULL) ? o->unsetId() : LIBJSBML_INVALID_OBJECT;
   }
@@ -935,7 +936,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "qualitativeSpecies" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_unsetQualitativeSpecies(Output * o)
+  public boolean Output_unsetQualitativeSpecies(Output * o)
   {
     return (o != NULL) ? o->unsetQualitativeSpecies() :
       LIBJSBML_INVALID_OBJECT;
@@ -946,7 +947,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "transitionEffect" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_unsetTransitionEffect(Output * o)
+  public boolean Output_unsetTransitionEffect(Output * o)
   {
     return (o != NULL) ? o->unsetTransitionEffect() : LIBJSBML_INVALID_OBJECT;
   }
@@ -956,7 +957,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "name" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_unsetName(Output * o)
+  public boolean Output_unsetName(Output * o)
   {
     return (o != NULL) ? o->unsetName() : LIBJSBML_INVALID_OBJECT;
   }
@@ -966,7 +967,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "outputLevel" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_unsetOutputLevel(Output * o)
+  public boolean Output_unsetOutputLevel(Output * o)
   {
     return (o != NULL) ? o->unsetOutputLevel() : LIBJSBML_INVALID_OBJECT;
   }

@@ -327,7 +327,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "id" attribute of this Input.
    */
-  public int unsetId()
+  public boolean unsetId()
   {
     TO DO;
   }
@@ -336,7 +336,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "name" attribute of this Input.
    */
-  public int unsetName()
+  public boolean unsetName()
   {
     TO DO;
   }
@@ -345,7 +345,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "sign" attribute of this Input.
    */
-  public int unsetSign()
+  public boolean unsetSign()
   {
     mSign = SIGN_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
@@ -355,7 +355,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public int unsetQualitativeSpecies()
+  public boolean unsetQualitativeSpecies()
   {
     TO DO;
   }
@@ -364,7 +364,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "transitionEffect" attribute of this Input.
    */
-  public int unsetTransitionEffect()
+  public boolean unsetTransitionEffect()
   {
     mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
@@ -374,18 +374,19 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "thresholdLevel" attribute of this Input.
    */
-  public int unsetThresholdLevel()
+  public boolean unsetThresholdLevel()
   {
-    mThresholdLevel = JSBML_INT_MAX;
-    mIsSetThresholdLevel = false;
-
-    if (isSetThresholdLevel() == false)
+    if ((isSetThresholdLevel()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Integer oldmThresholdLevel = mThresholdLevel;
+      thresholdLevel = null;
+      firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
+        mThresholdLevel);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -1068,7 +1069,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "id" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_unsetId(Input * i)
+  public boolean Input_unsetId(Input * i)
   {
     return (i != NULL) ? i->unsetId() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1078,7 +1079,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "name" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_unsetName(Input * i)
+  public boolean Input_unsetName(Input * i)
   {
     return (i != NULL) ? i->unsetName() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1088,7 +1089,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "sign" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_unsetSign(Input * i)
+  public boolean Input_unsetSign(Input * i)
   {
     return (i != NULL) ? i->unsetSign() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1098,7 +1099,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "qualitativeSpecies" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_unsetQualitativeSpecies(Input * i)
+  public boolean Input_unsetQualitativeSpecies(Input * i)
   {
     return (i != NULL) ? i->unsetQualitativeSpecies() :
       LIBJSBML_INVALID_OBJECT;
@@ -1109,7 +1110,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "transitionEffect" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_unsetTransitionEffect(Input * i)
+  public boolean Input_unsetTransitionEffect(Input * i)
   {
     return (i != NULL) ? i->unsetTransitionEffect() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1119,7 +1120,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "thresholdLevel" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_unsetThresholdLevel(Input * i)
+  public boolean Input_unsetThresholdLevel(Input * i)
   {
     return (i != NULL) ? i->unsetThresholdLevel() : LIBJSBML_INVALID_OBJECT;
   }

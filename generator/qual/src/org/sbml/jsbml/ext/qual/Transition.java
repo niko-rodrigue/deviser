@@ -169,7 +169,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "id" attribute of this Transition.
    */
-  public int unsetId()
+  public boolean unsetId()
   {
     TO DO;
   }
@@ -178,7 +178,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "name" attribute of this Transition.
    */
-  public int unsetName()
+  public boolean unsetName()
   {
     TO DO;
   }
@@ -717,7 +717,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "defaultTerm" element of this Transition.
    */
-  public int unsetDefaultTerm()
+  public boolean unsetDefaultTerm()
   {
     delete mDefaultTerm;
     mDefaultTerm = NULL;
@@ -1313,7 +1313,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "id" attribute of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_unsetId(Transition * t)
+  public boolean Transition_unsetId(Transition * t)
   {
     return (t != NULL) ? t->unsetId() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1323,7 +1323,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "name" attribute of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_unsetName(Transition * t)
+  public boolean Transition_unsetName(Transition * t)
   {
     return (t != NULL) ? t->unsetName() : LIBJSBML_INVALID_OBJECT;
   }
@@ -1647,7 +1647,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "defaultTerm" element of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_unsetDefaultTerm(Transition * t)
+  public boolean Transition_unsetDefaultTerm(Transition * t)
   {
     return (t != NULL) ? t->unsetDefaultTerm() : LIBJSBML_INVALID_OBJECT;
   }

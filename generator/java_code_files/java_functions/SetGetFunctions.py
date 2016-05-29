@@ -1032,6 +1032,9 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
+
+
+    # TODO GSOC 2016 write_unset changes
     #########################################################################
     # function to write unset functions
     def write_unset(self, is_attribute, index):
@@ -1087,6 +1090,8 @@ class SetGetFunctions():
                                              attribute['capAttName'])
             return_type = 'int'
 
+        # TODO GSOC 2016 modification
+        return_type = 'boolean'
         arguments = []
         if not self.is_java_api:
             arguments.append('{0} * {1}'
@@ -1438,6 +1443,7 @@ class SetGetFunctions():
                 implementation = ['{0} = {1}'.format(member, name),
                                   'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
+        # TODO VERY IMPORTANT 2 fuctions with the same name, how to deal with them?
         elif attribute['type'] == 'SIdRef':  # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
             implementation = ['!(SyntaxChecker::isValidInternalSId({0})'
                               ')'.format(name),
@@ -1619,17 +1625,35 @@ class SetGetFunctions():
                                                  attribute['default']),
                               'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
+
+        # TODO GSOC 2016 modification unset query
         elif query.has_is_set_member(attribute):
-            implementation = ['{0} = {1}'.format(attribute['memberName'],
-                                                 attribute['default']),
-                              'mIsSet{0} = '
-                              'false'.format(attribute['capAttName'])]
-            implementation2 = ['isSet{0}() == '
-                               'false'.format(attribute['capAttName']),
-                               'return {0}'.format(self.success), 'else',
-                               'return {0}'.format(self.failed)]
-            code = [dict({'code_type': 'line', 'code': implementation}),
-                    dict({'code_type': 'if_else', 'code': implementation2})]
+            # implementation = ['{0} = {1}'.format(attribute['memberName'],
+            #                                      attribute['default']),
+            #                   'mIsSet{0} = '
+            #                   'false'.format(attribute['capAttName'])]
+            # implementation2 = ['isSet{0}() == '
+            #                    'false'.format(attribute['capAttName']),
+            #                    'return {0}'.format(self.success), 'else',
+            #                    'return {0}'.format(self.failed)]
+            # code = [dict({'code_type': 'line', 'code': implementation}),
+            #         dict({'code_type': 'if_else', 'code': implementation2})]
+
+            curr_att_type = attribute['JClassType']
+            oldValue = 'old{0}'.format(attribute['memberName'])
+            currValue = 'this.old{0}'.format(attribute['memberName'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['memberName'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['memberName'],
+                                                                                       oldValue,
+                                                                                       attribute['memberName'])
+            implementation = ['(isSet{0}())'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                               'return true', 'else',
+                               'return false']
+            code = [dict({'code_type': 'if_else', 'code': implementation})]
+
         elif attribute['type'] == 'element':
             implementation = ['delete {0}'.format(attribute['memberName']),
                               '{0} = NULL'.format(attribute['memberName']),
@@ -1644,6 +1668,7 @@ class SetGetFunctions():
                     self.create_code_block('line', [
                         'return unset{0}Length()'.format(
                             strFunctions.upper_first(attribute['name']))])]
+        # TODO unsetCompartment
         else:
             implementation = ['TO DO']
             code = [dict({'code_type': 'line', 'code': implementation})]

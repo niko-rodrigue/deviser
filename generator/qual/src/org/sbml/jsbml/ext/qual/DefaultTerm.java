@@ -132,18 +132,19 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Unsets the value of the "resultLevel" attribute of this DefaultTerm.
    */
-  public int unsetResultLevel()
+  public boolean unsetResultLevel()
   {
-    mResultLevel = JSBML_INT_MAX;
-    mIsSetResultLevel = false;
-
-    if (isSetResultLevel() == false)
+    if ((isSetResultLevel()))
     {
-      return LIBSBML_OPERATION_SUCCESS;
+      Integer oldmResultLevel = mResultLevel;
+      resultLevel = null;
+      firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
+        mResultLevel);
+      return true;
     }
     else
     {
-      return LIBSBML_OPERATION_FAILED;
+      return false;
     }
   }
 
@@ -451,7 +452,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Unsets the value of the "resultLevel" attribute of this DefaultTerm.
    */
   JSBML_EXTERN
-  public int DefaultTerm_unsetResultLevel(DefaultTerm * dt)
+  public boolean DefaultTerm_unsetResultLevel(DefaultTerm * dt)
   {
     return (dt != NULL) ? dt->unsetResultLevel() : LIBJSBML_INVALID_OBJECT;
   }
