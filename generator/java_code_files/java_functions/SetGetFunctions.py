@@ -38,7 +38,7 @@
 # ------------------------------------------------------------------------ -->
 
 from util import strFunctions, query, global_variables
-
+import sys
 
 class SetGetFunctions():
     """Class for all java  functions for set/get/isset/unset"""
@@ -533,7 +533,7 @@ class SetGetFunctions():
         if self.is_java_api:
             if query.is_string(attribute):
                 implementation = ['return {0} != null'.format(
-                    attribute['memberName'])]
+                    attribute['memberName'])] # USED
             elif attribute['attType'] == 'enum' or attribute['isArray']:
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['memberName'],
@@ -542,7 +542,7 @@ class SetGetFunctions():
                 # implementation = ['return '
                 #                   'mIsSet{0}'.format(attribute['capAttName'])]
                 implementation = ['return {0} != null'.format(
-                    attribute['memberName'])]
+                    attribute['memberName'])]   # Used
             elif attribute['type'] == 'element':
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['memberName'],
@@ -699,6 +699,8 @@ class SetGetFunctions():
                                            attribute['capAttName'])
             return_type = 'int'
 
+
+        return_type ='void'
         arguments = []
         if self.is_java_api:
             if 'isVector' in attribute and attribute['isVector']:
@@ -708,7 +710,7 @@ class SetGetFunctions():
             else:
                 arguments.append('{0} {1}'
                                  .format((attribute['attTypeCode']
-                                          if (attribute['attType'] == 'string' or
+                                          if (attribute['attType'] == 'String' or
                                               attribute['attType'] == 'enum' or
                                               attribute['attType'] == 'element')
                                           else attribute['attTypeCode']),
@@ -1416,14 +1418,27 @@ class SetGetFunctions():
             deal_with_versions = False
 
         if attribute['type'] == 'SId':
-            if self.language == 'sbml':
+            if self.language == 'jsbml':
                 implementation = ['return SyntaxChecker::'
                                   'checkAndSetSId(id, mId)']
+                # TODO MYTEST
+                # if curr_att_type in global_variables.javaTypeAttributes:
+                #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
+                # else:
+                #     implement_part2 = 'return {0}'.format(attribute['memberName'])
+                # implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
+                # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute[
+                #     'memberName'])]
+                # code = [dict({'code_type': 'if', 'code': implementation2}),
+                #         dict({'code_type': 'line', 'code': implementation})]
+
+
+
             else:
                 implementation = ['{0} = {1}'.format(member, name),
                                   'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
-        elif attribute['type'] == 'SIdRef':
+        elif attribute['type'] == 'SIdRef':  # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
             implementation = ['!(SyntaxChecker::isValidInternalSId({0})'
                               ')'.format(name),
                               'return {0}'.format(self.invalid_att), 'else',
@@ -1431,7 +1446,7 @@ class SetGetFunctions():
                               'return {0}'.format(self.success)]
             code = [dict({'code_type': 'if_else', 'code': implementation})]
         elif attribute['type'] == 'UnitSId' \
-                or attribute['type'] == 'UnitSIdRef':
+                or attribute['type'] == 'UnitSIdRef':  # TODO Spatial coordinatecomponent setUnit
             implementation = ['!(SyntaxChecker::isValidInternalUnitSId({0})'
                               ')'.format(name),
                               'return {0}'.format(self.invalid_att), 'else',
@@ -1442,7 +1457,7 @@ class SetGetFunctions():
             implementation = ['{0} = {1}'.format(member, name),
                               'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
-        elif attribute['type'] == 'enum':
+        elif attribute['type'] == 'enum': # TODO setType setOperaton setSig
             implementation = ['{0}_isValid({1}) == '
                               '0'.format(attribute['element'], name),
                               '{0} = {1}'.format(member,
@@ -1452,21 +1467,24 @@ class SetGetFunctions():
                               'return {0}'.format(self.success)]
             code = [dict({'code_type': 'if_else', 'code': implementation})]
         elif query.has_is_set_member(attribute):
-            if not deal_with_versions:
-                implementation = self.write_set_att_with_member(attribute, True)
-                code.append(self.create_code_block('line', implementation))
-            else:
-                if attribute['num_versions'] == 2:
-                    implementation = ['pkgVersion == 1']
-                    atts = attribute['version_info'][0]
-                    implementation += self.write_set_att_with_member(attribute,
-                                                                     atts)
-                    implementation.append('else')
-                    atts = attribute['version_info'][1]
-                    implementation += self.write_set_att_with_member(attribute,
-                                                                     atts)
-                    code.append(self.create_code_block('if_else',
-                                                       implementation))
+            code = self.write_set_att_with_member(attribute, True)
+
+            # if not deal_with_versions:
+            #     implementation = self.write_set_att_with_member(attribute, True)
+            #     code.append(self.create_code_block('line', implementation))
+            #     # code = self.write_set_att_with_member(attribute, True)
+            # else:
+            #     if attribute['num_versions'] == 2:
+            #         implementation = ['pkgVersion == 1']
+            #         atts = attribute['version_info'][0]
+            #         implementation += self.write_set_att_with_member(attribute,
+            #                                                          atts)
+            #         implementation.append('else')
+            #         atts = attribute['version_info'][1]
+            #         implementation += self.write_set_att_with_member(attribute,
+            #                                                          atts)
+            #         code.append(self.create_code_block('if_else',
+            #                                            implementation))
         elif 'isVector' in attribute and attribute['isVector']:
             implementation = ['{0} = {1}'.format(member, name),
                               'return {0}'.format(self.success)]
@@ -1537,21 +1555,53 @@ class SetGetFunctions():
             code = [dict({'code_type': 'blank', 'code': []})]
         return code
 
+
+
+    # TODO GSOC 2016 write_set important
     def write_set_att_with_member(self, attribute, in_version):
-        if in_version:
-            implementation = ['{0} = {1}'.format(attribute['memberName'],
-                                                 attribute['name']),
-                              'mIsSet{0} = true'
-                              ''.format(attribute['capAttName']),
-                              'return {0}'.format(self.success)]
-        else:
-            implementation = ['{0} = {1}'.format(attribute['memberName'],
-                                                 attribute['name']),
-                              'mIsSet{0} = '
-                              'false'.format(attribute['capAttName']),
-                              'return {0}'
-                              ''.format(global_variables.ret_att_unex)]
-        return implementation
+        # TODO in_version  what is it? how to deal with
+
+        # if curr_att_type in global_variables.javaTypeAttributes:
+        #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
+        # else:
+        #     implement_part2 = 'return {0}'.format(attribute['memberName'])
+        # implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
+
+
+        # Here's the problem
+
+        try:
+            curr_att_type = attribute['JClassType']
+            oldValue =  'old{0}'.format(attribute['memberName'])
+            currValue =  'this.old{0}'.format(attribute['memberName'])
+            implementation1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['memberName'])]
+            implementation2 = ['{0} = {1}'.format(currValue, attribute['name'])]
+            implementation3 = ['firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['memberName'],
+                                                                                       oldValue,
+                                                                                       currValue)]
+            code = [dict({'code_type': 'line', 'code': implementation1}),
+                    dict({'code_type': 'line', 'code': implementation2}),
+                    dict({'code_type': 'line', 'code': implementation3})]
+            return code  # implementation  #
+        except Exception as error:
+            print("write_set_att_with_member ", error)
+            sys.exit(0)
+
+        # if in_version:
+        #     implementation = ['{0} = {1}'.format(attribute['memberName'],
+        #                                          attribute['name']),
+        #                       'mIsSet{0} = true'
+        #                       ''.format(attribute['capAttName']),
+        #                       'return {0}'.format(self.success)]
+        # else:
+        #     implementation = ['{0} = {1}'.format(attribute['memberName'],
+        #                                          attribute['name']),
+        #                       'mIsSet{0} = '
+        #                       'false'.format(attribute['capAttName']),
+        #                       'return {0}'
+        #                       ''.format(global_variables.ret_att_unex)]
+
 
 
     # TODO GSOC 2016 unset

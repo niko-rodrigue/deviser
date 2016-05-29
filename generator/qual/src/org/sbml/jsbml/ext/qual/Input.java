@@ -186,7 +186,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean isSetId()
   {
-    return mId != null;
+    ;
   }
 
 
@@ -214,7 +214,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean isSetQualitativeSpecies()
   {
-    return mQualitativeSpecies != null;
+    ;
   }
 
 
@@ -241,17 +241,16 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "id" attribute of this Input.
    */
-  public int setId(String id)
+  public void setId(String id)
   {
-    mId = id;
-    return LIBSBML_OPERATION_SUCCESS;
+    return SyntaxChecker::checkAndSetSId(id, mId);
   }
 
 
   /**
    * Sets the value of the "name" attribute of this Input.
    */
-  public int setName(String name)
+  public void setName(String name)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -261,7 +260,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "sign" attribute of this Input.
    */
-  public int setSign(Sign sign)
+  public void setSign(Sign sign)
   {
     if (Sign_isValid(sign) == 0)
     {
@@ -279,7 +278,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public int setQualitativeSpecies(String qualitativeSpecies)
+  public void setQualitativeSpecies(String qualitativeSpecies)
   {
     if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
     {
@@ -296,7 +295,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "transitionEffect" attribute of this Input.
    */
-  public int setTransitionEffect(TransitionInputEffect transitionEffect)
+  public void setTransitionEffect(TransitionInputEffect transitionEffect)
   {
     if (TransitionInputEffect_isValid(transitionEffect) == 0)
     {
@@ -314,11 +313,14 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "thresholdLevel" attribute of this Input.
    */
-  public int setThresholdLevel(int thresholdLevel)
+  public void setThresholdLevel(int thresholdLevel)
   {
-    mThresholdLevel = thresholdLevel;
-    mIsSetThresholdLevel = true;
-    return LIBSBML_OPERATION_SUCCESS;
+    Integer oldmThresholdLevel = this.mThresholdLevel;
+
+    this.oldmThresholdLevel = thresholdLevel;
+
+    firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
+      this.oldmThresholdLevel);
   }
 
 
@@ -327,16 +329,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public int unsetId()
   {
-    mId.erase();
-
-    if (mId.empty() == true)
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
+    TO DO;
   }
 
 
@@ -364,16 +357,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public int unsetQualitativeSpecies()
   {
-    mQualitativeSpecies.erase();
-
-    if (mQualitativeSpecies.empty() == true)
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
+    TO DO;
   }
 
 
@@ -1020,7 +1004,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "id" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_setId(Input * i, String id)
+  public void Input_setId(Input * i, String id)
   {
     return (i != NULL) ? i->setId(id) : LIBJSBML_INVALID_OBJECT;
   }
@@ -1030,7 +1014,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "name" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_setName(Input * i, String name)
+  public void Input_setName(Input * i, String name)
   {
     return (i != NULL) ? i->setName(name) : LIBJSBML_INVALID_OBJECT;
   }
@@ -1040,7 +1024,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "sign" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_setSign(Input * i, Sign sign)
+  public void Input_setSign(Input * i, Sign sign)
   {
     return (i != NULL) ? i->setSign(sign) : LIBJSBML_INVALID_OBJECT;
   }
@@ -1050,7 +1034,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_setQualitativeSpecies(Input * i, String qualitativeSpecies)
+  public void Input_setQualitativeSpecies(Input * i, String qualitativeSpecies)
   {
     return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) :
       LIBJSBML_INVALID_OBJECT;
@@ -1061,8 +1045,8 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "transitionEffect" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_setTransitionEffect(Input * i,
-                                       TransitionInputEffect transitionEffect)
+  public void Input_setTransitionEffect(Input * i,
+                                        TransitionInputEffect transitionEffect)
   {
     return (i != NULL) ? i->setTransitionEffect(transitionEffect) :
       LIBJSBML_INVALID_OBJECT;
@@ -1073,7 +1057,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "thresholdLevel" attribute of this Input.
    */
   JSBML_EXTERN
-  public int Input_setThresholdLevel(Input * i, int thresholdLevel)
+  public void Input_setThresholdLevel(Input * i, int thresholdLevel)
   {
     return (i != NULL) ? i->setThresholdLevel(thresholdLevel) :
       LIBJSBML_INVALID_OBJECT;

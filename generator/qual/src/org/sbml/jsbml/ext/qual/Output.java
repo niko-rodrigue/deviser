@@ -168,7 +168,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean isSetId()
   {
-    return mId != null;
+    ;
   }
 
 
@@ -178,7 +178,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean isSetQualitativeSpecies()
   {
-    return mQualitativeSpecies != null;
+    ;
   }
 
 
@@ -214,17 +214,16 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "id" attribute of this Output.
    */
-  public int setId(String id)
+  public void setId(String id)
   {
-    mId = id;
-    return LIBSBML_OPERATION_SUCCESS;
+    return SyntaxChecker::checkAndSetSId(id, mId);
   }
 
 
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Output.
    */
-  public int setQualitativeSpecies(String qualitativeSpecies)
+  public void setQualitativeSpecies(String qualitativeSpecies)
   {
     if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
     {
@@ -241,7 +240,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "transitionEffect" attribute of this Output.
    */
-  public int setTransitionEffect(TransitionOutputEffect transitionEffect)
+  public void setTransitionEffect(TransitionOutputEffect transitionEffect)
   {
     if (TransitionOutputEffect_isValid(transitionEffect) == 0)
     {
@@ -259,7 +258,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "name" attribute of this Output.
    */
-  public int setName(String name)
+  public void setName(String name)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -269,11 +268,14 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "outputLevel" attribute of this Output.
    */
-  public int setOutputLevel(int outputLevel)
+  public void setOutputLevel(int outputLevel)
   {
-    mOutputLevel = outputLevel;
-    mIsSetOutputLevel = true;
-    return LIBSBML_OPERATION_SUCCESS;
+    Integer oldmOutputLevel = this.mOutputLevel;
+
+    this.oldmOutputLevel = outputLevel;
+
+    firePropertyChange(QualConstants.mOutputLevel, oldmOutputLevel,
+      this.oldmOutputLevel);
   }
 
 
@@ -282,16 +284,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public int unsetId()
   {
-    mId.erase();
-
-    if (mId.empty() == true)
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
+    TO DO;
   }
 
 
@@ -300,16 +293,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public int unsetQualitativeSpecies()
   {
-    mQualitativeSpecies.erase();
-
-    if (mQualitativeSpecies.empty() == true)
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
+    TO DO;
   }
 
 
@@ -885,7 +869,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "id" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_setId(Output * o, String id)
+  public void Output_setId(Output * o, String id)
   {
     return (o != NULL) ? o->setId(id) : LIBJSBML_INVALID_OBJECT;
   }
@@ -895,8 +879,8 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "qualitativeSpecies" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_setQualitativeSpecies(Output * o, String
-    qualitativeSpecies)
+  public void Output_setQualitativeSpecies(Output * o,
+                                           String qualitativeSpecies)
   {
     return (o != NULL) ? o->setQualitativeSpecies(qualitativeSpecies) :
       LIBJSBML_INVALID_OBJECT;
@@ -907,9 +891,9 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "transitionEffect" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_setTransitionEffect(Output * o,
-                                        TransitionOutputEffect
-                                          transitionEffect)
+  public void Output_setTransitionEffect(Output * o,
+                                         TransitionOutputEffect
+                                           transitionEffect)
   {
     return (o != NULL) ? o->setTransitionEffect(transitionEffect) :
       LIBJSBML_INVALID_OBJECT;
@@ -920,7 +904,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "name" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_setName(Output * o, String name)
+  public void Output_setName(Output * o, String name)
   {
     return (o != NULL) ? o->setName(name) : LIBJSBML_INVALID_OBJECT;
   }
@@ -930,7 +914,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "outputLevel" attribute of this Output.
    */
   JSBML_EXTERN
-  public int Output_setOutputLevel(Output * o, int outputLevel)
+  public void Output_setOutputLevel(Output * o, int outputLevel)
   {
     return (o != NULL) ? o->setOutputLevel(outputLevel) :
       LIBJSBML_INVALID_OBJECT;

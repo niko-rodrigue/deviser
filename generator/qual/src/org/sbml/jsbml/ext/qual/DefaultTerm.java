@@ -118,11 +118,14 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "resultLevel" attribute of this DefaultTerm.
    */
-  public int setResultLevel(int resultLevel)
+  public void setResultLevel(int resultLevel)
   {
-    mResultLevel = resultLevel;
-    mIsSetResultLevel = true;
-    return LIBSBML_OPERATION_SUCCESS;
+    Integer oldmResultLevel = this.mResultLevel;
+
+    this.oldmResultLevel = resultLevel;
+
+    firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
+      this.oldmResultLevel);
   }
 
 
@@ -437,7 +440,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "resultLevel" attribute of this DefaultTerm.
    */
   JSBML_EXTERN
-  public int DefaultTerm_setResultLevel(DefaultTerm * dt, int resultLevel)
+  public void DefaultTerm_setResultLevel(DefaultTerm * dt, int resultLevel)
   {
     return (dt != NULL) ? dt->setResultLevel(resultLevel) :
       LIBJSBML_INVALID_OBJECT;

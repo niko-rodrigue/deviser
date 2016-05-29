@@ -243,13 +243,14 @@ class BaseJavaFile(BaseFile.BaseFile):
             attributes[i]['children_overwrite'] = False
             att_type = attributes[i]['type']
             if att_type == 'SId' or att_type == 'SIdRef' or att_type == 'IDREF':
-                attributes[i]['attType'] = 'string'
+                attributes[i]['attType'] = 'String'
                 attributes[i]['attTypeCode'] = 'String'
                 attributes[i]['CType'] = 'String'
+                attributes[i]["JClassType"] = 'String'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = '""'
             elif att_type == 'UnitSId' or att_type == 'UnitSIdRef':
-                attributes[i]['attType'] = 'string'
+                attributes[i]['attType'] = 'String'
                 attributes[i]['attTypeCode'] = 'String'
                 attributes[i]['CType'] = 'String'
                 attributes[i]['isNumber'] = False
@@ -258,18 +259,21 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'String'
                 attributes[i]['attTypeCode'] = 'String'
                 attributes[i]['CType'] = 'String'
+                attributes[i]["JClassType"] = 'String'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = '""'
             elif att_type == 'double':
                 attributes[i]['attType'] = 'double'
                 attributes[i]['attTypeCode'] = 'double'
                 attributes[i]['CType'] = 'double'
+                attributes[i]["JClassType"] = 'Double'
                 attributes[i]['isNumber'] = True
                 attributes[i]['default'] = 'util_NaN()' #?
             elif att_type == 'int':
                 attributes[i]['attType'] = 'integer'
                 attributes[i]['attTypeCode'] = 'int'
                 attributes[i]['CType'] = 'int'
+                attributes[i]["JClassType"] = 'Integer'
                 attributes[i]['isNumber'] = True
                 attributes[i]['default'] = '{0}_INT_' \
                                            'MAX'.format(self.cap_language) #?
@@ -277,6 +281,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'unsigned integer'
                 attributes[i]['attTypeCode'] = 'int'
                 attributes[i]['CType'] = 'int'
+                attributes[i]["JClassType"] = 'Integer'
                 attributes[i]['isNumber'] = True
                 attributes[i]['default'] = '{0}_INT_' \
                                            'MAX'.format(self.cap_language)
@@ -284,13 +289,15 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'boolean'
                 attributes[i]['attTypeCode'] = 'boolean'
                 attributes[i]['CType'] = 'boolean'
+                attributes[i]["JClassType"] = 'Boolean'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'False'
             elif att_type == 'enum': #This is tricky
                 attributes[i]['isEnum'] = True
                 attributes[i]['attType'] = 'enum'
                 attributes[i]['attTypeCode'] = attributes[i]['element'] #+ '_t'
-                attributes[i]['CType'] =  attributes[i]['element'] # + '_t'
+                attributes[i]['CType'] = attributes[i]['element'] # + '_t'
+                attributes[i]["JClassType"] = attributes[i]['element']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = \
                     query.get_default_enum_value(attributes[i])
@@ -301,16 +308,19 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if attributes[i]['name'] == 'math':
                     if global_variables.is_package:
                         attributes[i]['attTypeCode'] = 'ASTNode' # 'ASTNode*'
-                        attributes[i]['CType'] =  'ASTNode'  #'ASTNode_t*'
+                        attributes[i]['CType'] = 'ASTNode'  #'ASTNode_t*'
+                        attributes[i]["JClassType"] = 'ASTNode'
                     # else:
                     #     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
                     #     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
                 else:
                     attributes[i]['attTypeCode'] = attributes[i]['element']+'*'
                     attributes[i]['CType'] = attributes[i]['element']+'_t*'
+                    attributes[i]["JClassType"] = attributes[i]['element']
                 if attributes[i]['attTypeCode'] == 'XMLNode*' and not global_variables.is_package:
                     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}*'.format(attributes[i]['element'])
                     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])
+                    attributes[i]['JClassType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])
 
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
@@ -324,6 +334,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'lo_element'
                 attributes[i]['attTypeCode'] = name
                 attributes[i]['CType'] = 'ListOf'# _t'
+                attributes[i]['JClassType'] = 'ListOf'  # _t'
                 attributes[i]['memberName'] = 'm' + plural
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
@@ -334,6 +345,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'array'
                 attributes[i]['attTypeCode'] = attributes[i]['element'] # + '*'
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
+                attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
             elif att_type == 'vector':
@@ -344,6 +356,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attTypeCode'] = 'ArrayList<{0}>'.format(attributes[i]['element'])
                 print("YOLUS ",attributes[i]['attTypeCode'] )
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
+                ttributes[i]['JClassType'] = ttributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
             else:
@@ -352,6 +365,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'FIXME_{0}'.format(att_type)
                 attributes[i]['attTypeCode'] = 'FIXME_{0}'.format(att_type)
                 attributes[i]['CType'] = 'FIXME_{0}'.format(att_type)
+                attributes[i]['JClassType'] = 'FIXME_{0}'.format(att_type)
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'FIXME_{0}'.format(att_type)
         return attributes

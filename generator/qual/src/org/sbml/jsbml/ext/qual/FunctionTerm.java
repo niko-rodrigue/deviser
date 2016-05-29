@@ -144,11 +144,14 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "resultLevel" attribute of this FunctionTerm.
    */
-  public int setResultLevel(int resultLevel)
+  public void setResultLevel(int resultLevel)
   {
-    mResultLevel = resultLevel;
-    mIsSetResultLevel = true;
-    return LIBSBML_OPERATION_SUCCESS;
+    Integer oldmResultLevel = this.mResultLevel;
+
+    this.oldmResultLevel = resultLevel;
+
+    firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
+      this.oldmResultLevel);
   }
 
 
@@ -212,7 +215,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "math" element of this FunctionTerm.
    */
-  public int setMath(ASTNode math)
+  public void setMath(ASTNode math)
   {
     if (mMath == math)
     {
@@ -651,7 +654,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "resultLevel" attribute of this FunctionTerm.
    */
   JSBML_EXTERN
-  public int FunctionTerm_setResultLevel(FunctionTerm * ft, int resultLevel)
+  public void FunctionTerm_setResultLevel(FunctionTerm * ft, int resultLevel)
   {
     return (ft != NULL) ? ft->setResultLevel(resultLevel) :
       LIBJSBML_INVALID_OBJECT;
@@ -697,7 +700,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "math" element of this FunctionTerm.
    */
   JSBML_EXTERN
-  public int FunctionTerm_setMath(FunctionTerm * ft, ASTNode math)
+  public void FunctionTerm_setMath(FunctionTerm * ft, ASTNode math)
   {
     return (ft != NULL) ? ft->setMath(math) : LIBJSBML_INVALID_OBJECT;
   }

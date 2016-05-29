@@ -151,7 +151,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "defaultTerm" element of this ListOfFunctionTerms.
    */
-  public int setDefaultTerm(DefaultTerm* defaultTerm)
+  public void setDefaultTerm(DefaultTerm* defaultTerm)
   {
     if (mDefaultTerm == defaultTerm)
     {

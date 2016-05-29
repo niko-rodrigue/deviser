@@ -133,7 +133,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean isSetId()
   {
-    return mId != null;
+    ;
   }
 
 
@@ -150,17 +150,16 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "id" attribute of this Transition.
    */
-  public int setId(String id)
+  public void setId(String id)
   {
-    mId = id;
-    return LIBSBML_OPERATION_SUCCESS;
+    return SyntaxChecker::checkAndSetSId(id, mId);
   }
 
 
   /**
    * Sets the value of the "name" attribute of this Transition.
    */
-  public int setName(String name)
+  public void setName(String name)
   {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
@@ -172,16 +171,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public int unsetId()
   {
-    mId.erase();
-
-    if (mId.empty() == true)
-    {
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-    else
-    {
-      return LIBSBML_OPERATION_FAILED;
-    }
+    TO DO;
   }
 
 
@@ -689,7 +679,7 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "defaultTerm" element of this Transition.
    */
-  public int setDefaultTerm(DefaultTerm defaultTerm)
+  public void setDefaultTerm(DefaultTerm defaultTerm)
   {
     if (mDefaultTerm == defaultTerm)
     {
@@ -1303,7 +1293,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "id" attribute of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_setId(Transition * t, String id)
+  public void Transition_setId(Transition * t, String id)
   {
     return (t != NULL) ? t->setId(id) : LIBJSBML_INVALID_OBJECT;
   }
@@ -1313,7 +1303,7 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "name" attribute of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_setName(Transition * t, String name)
+  public void Transition_setName(Transition * t, String name)
   {
     return (t != NULL) ? t->setName(name) : LIBJSBML_INVALID_OBJECT;
   }
@@ -1635,7 +1625,8 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "defaultTerm" element of this Transition.
    */
   JSBML_EXTERN
-  public int Transition_setDefaultTerm(Transition * t, DefaultTerm defaultTerm)
+  public void Transition_setDefaultTerm(Transition * t, DefaultTerm
+    defaultTerm)
   {
     return (t != NULL) ? t->setDefaultTerm(defaultTerm) :
       LIBJSBML_INVALID_OBJECT;
