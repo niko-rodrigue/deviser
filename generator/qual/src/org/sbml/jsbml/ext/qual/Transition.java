@@ -128,16 +128,18 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Transition's "id" attribute is set.
+   * Predicate returning {@code true} if this Transition's "id" attribute is
+   * set.
    */
   public boolean isSetId()
   {
-    return id != null;
+    return mId != null;
   }
 
 
   /**
-   * Predicate returning @c true if this Transition's "name" attribute is set.
+   * Predicate returning {@code true} if this Transition's "name" attribute is
+   * set.
    */
   public boolean isSetName()
   {
@@ -675,8 +677,8 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Transition's "defaultTerm" element is
-   * set.
+   * Predicate returning {@code true} if this Transition's "defaultTerm"
+   * element is set.
    */
   public boolean isSetDefaultTerm()
   {

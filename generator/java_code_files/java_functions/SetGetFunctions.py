@@ -84,8 +84,8 @@ class SetGetFunctions():
             self.true = '@c 1'
             self.false = '@c 0'
         else:
-            self.true = '@c true'  #For comments
-            self.false = '@c false'
+            self.true = '{@code true}'  #For comments
+            self.false = '{@code false}'
         self.plural = strFunctions.plural(self.child_name)
         self.indef_name = strFunctions.get_indefinite(self.object_child_name)
         self.abbrev_parent = strFunctions.abbrev_name(self.object_name)
@@ -533,7 +533,7 @@ class SetGetFunctions():
         if self.is_java_api:
             if query.is_string(attribute):
                 implementation = ['return {0} != null'.format(
-                    attribute['name'])]
+                    attribute['memberName'])]
             elif attribute['attType'] == 'enum' or attribute['isArray']:
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['memberName'],
@@ -542,7 +542,7 @@ class SetGetFunctions():
                 # implementation = ['return '
                 #                   'mIsSet{0}'.format(attribute['capAttName'])]
                 implementation = ['return {0} != null'.format(
-                    attribute['name'])]
+                    attribute['memberName'])]
             elif attribute['type'] == 'element':
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['memberName'],
@@ -632,6 +632,8 @@ class SetGetFunctions():
 
     # Functions for writing is set/unset functions
 
+
+    # TODO GSOC 2016 modify
     # function to write set functions
     def write_set(self, is_attribute, index):
         if is_attribute:
@@ -646,7 +648,7 @@ class SetGetFunctions():
                 return
         if attribute['isArray']:
             if self.is_java_api:
-                return self.write_cpp_set_array(index)
+                return self.write_java_set_array(index)
             else:
                 return self.write_c_set_array(index)
         if is_attribute:
@@ -685,6 +687,9 @@ class SetGetFunctions():
                             't{3}'.format(self.language, self.open_br,
                                           self.invalid_att, self.close_br))
 
+
+
+        # TODO JSBML return_type = 'void'
         # create the function declaration
         if self.is_java_api:
             function = 'set{0}'.format(attribute['capAttName'])
@@ -697,7 +702,7 @@ class SetGetFunctions():
         arguments = []
         if self.is_java_api:
             if 'isVector' in attribute and attribute['isVector']:
-                arguments.append('const {0}& {1}'
+                arguments.append('{0}& {1}'
                                  .format(attribute['attTypeCode'],
                                          attribute['name']))
             else:
@@ -841,7 +846,7 @@ class SetGetFunctions():
     # function to write set function for an array
     # specialised c++ function to use an array pointer
     # as an argument to be read into
-    def write_cpp_set_array(self, index):
+    def write_java_set_array(self, index):
         if index < len(self.attributes):
             attribute = self.attributes[index]
         else:
@@ -1548,6 +1553,8 @@ class SetGetFunctions():
                               ''.format(global_variables.ret_att_unex)]
         return implementation
 
+
+    # TODO GSOC 2016 unset
     def unset_java_attribute(self, attribute):
         if attribute['attType'] == 'string':
             implementation = ['{0}.erase()'.format(attribute['memberName'])]

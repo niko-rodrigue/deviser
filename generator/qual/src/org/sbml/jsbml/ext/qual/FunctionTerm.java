@@ -132,12 +132,12 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this FunctionTerm's "resultLevel" attribute
-   * is set.
+   * Predicate returning {@code true} if this FunctionTerm's "resultLevel"
+   * attribute is set.
    */
   public boolean isSetResultLevel()
   {
-    return resultLevel != null;
+    return mResultLevel != null;
   }
 
 
@@ -200,7 +200,8 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this FunctionTerm's "math" element is set.
+   * Predicate returning {@code true} if this FunctionTerm's "math" element is
+   * set.
    */
   public boolean isSetMath()
   {

@@ -192,18 +192,18 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this QualitativeSpecies's "id" attribute is
-   * set.
+   * Predicate returning {@code true} if this QualitativeSpecies's "id"
+   * attribute is set.
    */
   public boolean isSetId()
   {
-    return id != null;
+    return mId != null;
   }
 
 
   /**
-   * Predicate returning @c true if this QualitativeSpecies's "name" attribute
-   * is set.
+   * Predicate returning {@code true} if this QualitativeSpecies's "name"
+   * attribute is set.
    */
   public boolean isSetName()
   {
@@ -212,42 +212,42 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this QualitativeSpecies's "compartment"
-   * attribute is set.
+   * Predicate returning {@code true} if this QualitativeSpecies's
+   * "compartment" attribute is set.
    */
   public boolean isSetCompartment()
   {
-    return compartment != null;
+    return mCompartment != null;
   }
 
 
   /**
-   * Predicate returning @c true if this QualitativeSpecies's "constant"
+   * Predicate returning {@code true} if this QualitativeSpecies's "constant"
    * attribute is set.
    */
   public boolean isSetConstant()
   {
-    return constant != null;
+    return mConstant != null;
   }
 
 
   /**
-   * Predicate returning @c true if this QualitativeSpecies's "initialLevel"
-   * attribute is set.
+   * Predicate returning {@code true} if this QualitativeSpecies's
+   * "initialLevel" attribute is set.
    */
   public boolean isSetInitialLevel()
   {
-    return initialLevel != null;
+    return mInitialLevel != null;
   }
 
 
   /**
-   * Predicate returning @c true if this QualitativeSpecies's "maxLevel"
+   * Predicate returning {@code true} if this QualitativeSpecies's "maxLevel"
    * attribute is set.
    */
   public boolean isSetMaxLevel()
   {
-    return maxLevel != null;
+    return mMaxLevel != null;
   }
 
 

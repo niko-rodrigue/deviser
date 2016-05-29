@@ -558,7 +558,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_extern_decl()
         #self.write_line(return_type) #Need to remove this part
 
-        #GSOC 2016 change
+        # TODO GSOC 2016 change
         line = 'public' + ' ' + return_type + ' ' + function_name + '('
         if num_arguments == 0:
             if is_java and is_const:

@@ -145,16 +145,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Returns the value of the "sign" attribute of this Input.
-   */
-  public const std::string& getSignAsString()
-  {
-    static const std::string code_str = Sign_toString(mSign);
-    return code_str;
-  }
-
-
-  /**
    * @return the value of the "qualitativeSpecies" attribute of this Input.
    */
   public String getQualitativeSpecies()
@@ -178,17 +168,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Returns the value of the "transitionEffect" attribute of this Input.
-   */
-  public const std::string& getTransitionEffectAsString()
-  {
-    static const std::string code_str =
-      TransitionInputEffect_toString(mTransitionEffect);
-    return code_str;
-  }
-
-
-  /**
    * @return the value of the "thresholdLevel" attribute of this Input.
    */
   public int getThresholdLevel()
@@ -203,16 +182,16 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Input's "id" attribute is set.
+   * Predicate returning {@code true} if this Input's "id" attribute is set.
    */
   public boolean isSetId()
   {
-    return id != null;
+    return mId != null;
   }
 
 
   /**
-   * Predicate returning @c true if this Input's "name" attribute is set.
+   * Predicate returning {@code true} if this Input's "name" attribute is set.
    */
   public boolean isSetName()
   {
@@ -221,7 +200,7 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Input's "sign" attribute is set.
+   * Predicate returning {@code true} if this Input's "sign" attribute is set.
    */
   public boolean isSetSign()
   {
@@ -230,18 +209,18 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Input's "qualitativeSpecies" attribute
-   * is set.
+   * Predicate returning {@code true} if this Input's "qualitativeSpecies"
+   * attribute is set.
    */
   public boolean isSetQualitativeSpecies()
   {
-    return qualitativeSpecies != null;
+    return mQualitativeSpecies != null;
   }
 
 
   /**
-   * Predicate returning @c true if this Input's "transitionEffect" attribute
-   * is set.
+   * Predicate returning {@code true} if this Input's "transitionEffect"
+   * attribute is set.
    */
   public boolean isSetTransitionEffect()
   {
@@ -250,12 +229,12 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Input's "thresholdLevel" attribute is
-   * set.
+   * Predicate returning {@code true} if this Input's "thresholdLevel"
+   * attribute is set.
    */
   public boolean isSetThresholdLevel()
   {
-    return thresholdLevel != null;
+    return mThresholdLevel != null;
   }
 
 
@@ -298,24 +277,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Sets the value of the "sign" attribute of this Input.
-   */
-  public int setSign(const std::string& sign)
-  {
-    if (Sign_isValidString(sign.c_str()) == 0)
-    {
-      mSign = SIGN_INVALID;
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-      mSign = Sign_fromString(sign.c_str());
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-  }
-
-
-  /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
   public int setQualitativeSpecies(String qualitativeSpecies)
@@ -345,25 +306,6 @@ JSBML_CPP_NAMESPACE_BEGIN
     else
     {
       mTransitionEffect = transitionEffect;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-  }
-
-
-  /**
-   * Sets the value of the "transitionEffect" attribute of this Input.
-   */
-  public int setTransitionEffect(const std::string& transitionEffect)
-  {
-    if (TransitionInputEffect_isValidString(transitionEffect.c_str()) == 0)
-    {
-      mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-      mTransitionEffect =
-        TransitionInputEffect_fromString(transitionEffect.c_str());
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
@@ -971,16 +913,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Returns the value of the "sign" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public const char * Input_getSignAsString(const Input * i)
-  {
-    return Sign_toString(i->getSign());
-  }
-
-
-  /**
    * @return the value of the "qualitativeSpecies" attribute of this Input.
    */
   JSBML_EXTERN
@@ -1008,16 +940,6 @@ JSBML_CPP_NAMESPACE_BEGIN
     }
 
     return i->getTransitionEffect();
-  }
-
-
-  /**
-   * Returns the value of the "transitionEffect" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public const char * Input_getTransitionEffectAsString(const Input * i)
-  {
-    return TransitionInputEffect_toString(i->getTransitionEffect());
   }
 
 
@@ -1125,16 +1047,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Sets the value of the "sign" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public int Input_setSignAsString(Input * i, const char * sign)
-  {
-    return (i != NULL) ? i->setSign(sign): LIBSBML_INVALID_OBJECT;
-  }
-
-
-  /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
   JSBML_EXTERN
@@ -1154,18 +1066,6 @@ JSBML_CPP_NAMESPACE_BEGIN
   {
     return (i != NULL) ? i->setTransitionEffect(transitionEffect) :
       LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "transitionEffect" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public int Input_setTransitionEffectAsString(Input * i,
-                                               const char * transitionEffect)
-  {
-    return (i != NULL) ? i->setTransitionEffect(transitionEffect):
-      LIBSBML_INVALID_OBJECT;
   }
 
 

@@ -141,17 +141,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Returns the value of the "transitionEffect" attribute of this Output.
-   */
-  public const std::string& getTransitionEffectAsString()
-  {
-    static const std::string code_str =
-      TransitionOutputEffect_toString(mTransitionEffect);
-    return code_str;
-  }
-
-
-  /**
    * @return the value of the "name" attribute of this Output.
    */
   public String getName()
@@ -175,27 +164,27 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Output's "id" attribute is set.
+   * Predicate returning {@code true} if this Output's "id" attribute is set.
    */
   public boolean isSetId()
   {
-    return id != null;
+    return mId != null;
   }
 
 
   /**
-   * Predicate returning @c true if this Output's "qualitativeSpecies"
+   * Predicate returning {@code true} if this Output's "qualitativeSpecies"
    * attribute is set.
    */
   public boolean isSetQualitativeSpecies()
   {
-    return qualitativeSpecies != null;
+    return mQualitativeSpecies != null;
   }
 
 
   /**
-   * Predicate returning @c true if this Output's "transitionEffect" attribute
-   * is set.
+   * Predicate returning {@code true} if this Output's "transitionEffect"
+   * attribute is set.
    */
   public boolean isSetTransitionEffect()
   {
@@ -204,7 +193,7 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Output's "name" attribute is set.
+   * Predicate returning {@code true} if this Output's "name" attribute is set.
    */
   public boolean isSetName()
   {
@@ -213,12 +202,12 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Predicate returning @c true if this Output's "outputLevel" attribute is
-   * set.
+   * Predicate returning {@code true} if this Output's "outputLevel" attribute
+   * is set.
    */
   public boolean isSetOutputLevel()
   {
-    return outputLevel != null;
+    return mOutputLevel != null;
   }
 
 
@@ -262,25 +251,6 @@ JSBML_CPP_NAMESPACE_BEGIN
     else
     {
       mTransitionEffect = transitionEffect;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
-  }
-
-
-  /**
-   * Sets the value of the "transitionEffect" attribute of this Output.
-   */
-  public int setTransitionEffect(const std::string& transitionEffect)
-  {
-    if (TransitionOutputEffect_isValidString(transitionEffect.c_str()) == 0)
-    {
-      mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
-      mTransitionEffect =
-        TransitionOutputEffect_fromString(transitionEffect.c_str());
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
@@ -835,16 +805,6 @@ JSBML_CPP_NAMESPACE_BEGIN
 
 
   /**
-   * Returns the value of the "transitionEffect" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public const char * Output_getTransitionEffectAsString(const Output * o)
-  {
-    return TransitionOutputEffect_toString(o->getTransitionEffect());
-  }
-
-
-  /**
    * @return the value of the "name" attribute of this Output.
    */
   JSBML_EXTERN
@@ -953,18 +913,6 @@ JSBML_CPP_NAMESPACE_BEGIN
   {
     return (o != NULL) ? o->setTransitionEffect(transitionEffect) :
       LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "transitionEffect" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public int Output_setTransitionEffectAsString(Output * o,
-                                                const char * transitionEffect)
-  {
-    return (o != NULL) ? o->setTransitionEffect(transitionEffect):
-      LIBSBML_INVALID_OBJECT;
   }
 
 

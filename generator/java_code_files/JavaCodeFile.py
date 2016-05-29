@@ -300,25 +300,25 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = attrib_functions.write_get(True, i)
             self.write_function_implementation(code)
 
-            code = attrib_functions.write_get_string_for_enum(True, i)
-            self.write_function_implementation(code)
+            # code = attrib_functions.write_get_string_for_enum(True, i)
+            # self.write_function_implementation(code)
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_is_set(True, i)
             self.write_function_implementation(code)
 
-            code = attrib_functions.write_get_num_for_vector(True, i)
-            self.write_function_implementation(code)
+            # code = attrib_functions.write_get_num_for_vector(True, i) # IsSetID for JSBML not neccessary
+            # self.write_function_implementation(code)
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_set(True, i)
             self.write_function_implementation(code)
 
-            code = attrib_functions.write_set_string_for_enum(True, i)
-            self.write_function_implementation(code)
-
-            code = attrib_functions.write_add_element_for_vector(True, i)
-            self.write_function_implementation(code)
+            # code = attrib_functions.write_set_string_for_enum(True, i)
+            # self.write_function_implementation(code)
+            #
+            # code = attrib_functions.write_add_element_for_vector(True, i)
+            # self.write_function_implementation(code)
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_unset(True, i)
