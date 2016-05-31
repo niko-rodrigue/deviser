@@ -1470,7 +1470,7 @@ class SetGetFunctions():
         elif attribute['type'] == 'SIdRef':
             pass
             # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
-            # TODO nested nested if 
+            # TODO nested nested if
             # implementation = ['!(SyntaxChecker::isValidInternalSId({0})'
             #                   ')'.format(name),
             #                   'return {0}'.format(self.invalid_att), 'else',
