@@ -273,17 +273,26 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "compartment" attribute of this QualitativeSpecies.
    */
-  public void setCompartment(String compartment)
+  public boolean setCompartment(String compartment)
   {
-    if (!(SyntaxChecker::isValidInternalSId(compartment)))
+    if (compartment != this.mCompartment)
     {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      String oldmCompartment = this.mCompartment;
+      if ((compartment == null) || (compartment.length() == 0)
+      {
+        this.mCompartment = null;
+      }
+      else
+      {
+        this.mCompartment = compartment;
+      }
+
+      firePropertyChange(QualConstants.mCompartment, oldmCompartment,
+        this.oldmCompartment);
+      return true;
     }
-    else
-    {
-      mCompartment = compartment;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+
+    return false;
   }
 
 
@@ -334,7 +343,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetId()
   {
-    TO DO;
+    if (isSetId())
+    {
+      mId = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -343,7 +360,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetName()
   {
-    TO DO;
+    if (isSetName())
+    {
+      mName = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -353,7 +378,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetCompartment()
   {
-    TO DO;
+    if (isSetCompartment())
+    {
+      mCompartment = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -362,10 +395,10 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetConstant()
   {
-    if ((isSetConstant()))
+    if (isSetConstant())
     {
       Boolean oldmConstant = mConstant;
-      constant = null;
+      mConstant = null;
       firePropertyChange(QualConstants.mConstant, oldmConstant, mConstant);
       return true;
     }
@@ -382,10 +415,10 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetInitialLevel()
   {
-    if ((isSetInitialLevel()))
+    if (isSetInitialLevel())
     {
       Integer oldmInitialLevel = mInitialLevel;
-      initialLevel = null;
+      mInitialLevel = null;
       firePropertyChange(QualConstants.mInitialLevel, oldmInitialLevel,
         mInitialLevel);
       return true;
@@ -402,10 +435,10 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetMaxLevel()
   {
-    if ((isSetMaxLevel()))
+    if (isSetMaxLevel())
     {
       Integer oldmMaxLevel = mMaxLevel;
-      maxLevel = null;
+      mMaxLevel = null;
       firePropertyChange(QualConstants.mMaxLevel, oldmMaxLevel, mMaxLevel);
       return true;
     }
@@ -1029,8 +1062,8 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "compartment" attribute of this QualitativeSpecies.
    */
   JSBML_EXTERN
-  public void QualitativeSpecies_setCompartment(QualitativeSpecies * qs,
-                                                String compartment)
+  public boolean QualitativeSpecies_setCompartment(QualitativeSpecies * qs,
+                                                   String compartment)
   {
     return (qs != NULL) ? qs->setCompartment(compartment) :
       LIBJSBML_INVALID_OBJECT;

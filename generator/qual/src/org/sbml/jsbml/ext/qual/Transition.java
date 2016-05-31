@@ -171,7 +171,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetId()
   {
-    TO DO;
+    if (isSetId())
+    {
+      mId = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -180,7 +188,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetName()
   {
-    TO DO;
+    if (isSetName())
+    {
+      mName = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 

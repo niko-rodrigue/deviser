@@ -645,6 +645,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_comment_line((return_line[i]))
         if len(additional) > 0:
             self.write_blank_comment_line()
+        # TODO maybe this part could be used for writing @Overrides?
         for i in range(0, len(additional)):
             if additional[i] == ' ':
                 self.write_blank_comment_line()

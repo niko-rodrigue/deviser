@@ -278,17 +278,26 @@ JSBML_CPP_NAMESPACE_BEGIN
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public void setQualitativeSpecies(String qualitativeSpecies)
+  public boolean setQualitativeSpecies(String qualitativeSpecies)
   {
-    if (!(SyntaxChecker::isValidInternalSId(qualitativeSpecies)))
+    if (qualitativeSpecies != this.mQualitativeSpecies)
     {
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+      String oldmQualitativeSpecies = this.mQualitativeSpecies;
+      if ((qualitativeSpecies == null) || (qualitativeSpecies.length() == 0)
+      {
+        this.mQualitativeSpecies = null;
+      }
+      else
+      {
+        this.mQualitativeSpecies = qualitativeSpecies;
+      }
+
+      firePropertyChange(QualConstants.mQualitativeSpecies,
+        oldmQualitativeSpecies, this.oldmQualitativeSpecies);
+      return true;
     }
-    else
-    {
-      mQualitativeSpecies = qualitativeSpecies;
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+
+    return false;
   }
 
 
@@ -329,7 +338,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetId()
   {
-    TO DO;
+    if (isSetId())
+    {
+      mId = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -338,7 +355,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetName()
   {
-    TO DO;
+    if (isSetName())
+    {
+      mName = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -357,7 +382,15 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetQualitativeSpecies()
   {
-    TO DO;
+    if (isSetQualitativeSpecies())
+    {
+      mQualitativeSpecies = null;
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -376,10 +409,10 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetThresholdLevel()
   {
-    if ((isSetThresholdLevel()))
+    if (isSetThresholdLevel())
     {
       Integer oldmThresholdLevel = mThresholdLevel;
-      thresholdLevel = null;
+      mThresholdLevel = null;
       firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
         mThresholdLevel);
       return true;
@@ -1035,7 +1068,8 @@ JSBML_CPP_NAMESPACE_BEGIN
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
   JSBML_EXTERN
-  public void Input_setQualitativeSpecies(Input * i, String qualitativeSpecies)
+  public boolean Input_setQualitativeSpecies(Input * i,
+                                             String qualitativeSpecies)
   {
     return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) :
       LIBJSBML_INVALID_OBJECT;

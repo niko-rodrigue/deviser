@@ -632,10 +632,18 @@ class SetGetFunctions():
 
     # Functions for writing is set/unset functions
 
+    def get_attribute(self, is_attribute, index):
+        if is_attribute:
+            if index < len(self.attributes):
+                attribute = self.attributes[index]
+                return attribute
+            else:
+                return
 
-    # TODO GSOC 2016 modify
+
+    # TODO Add changes to write SIdRef multiple times
     # function to write set functions
-    def write_set(self, is_attribute, index):
+    def write_set(self, is_attribute, index, write_for = "String"):
         if is_attribute:
             if index < len(self.attributes):
                 attribute = self.attributes[index]
@@ -665,6 +673,8 @@ class SetGetFunctions():
         # create comment parts
         params = []
         return_lines = []
+
+        # TODO could this be used for overrides?
         additional = []
         title_line = 'Sets the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'], ob_type, self.object_name)
@@ -700,7 +710,17 @@ class SetGetFunctions():
             return_type = 'int'
 
 
-        return_type ='void'
+
+        # TODO write_set  implementation of return_type definition DONE
+        if attribute['type'] == 'SIdRef':
+            return_type = 'boolean'
+            additional.append(['@Override'])
+        else:
+            return_type ='void'
+            # additional.append(['@YOLOALOHA'])
+
+
+
         arguments = []
         if self.is_java_api:
             if 'isVector' in attribute and attribute['isVector']:
@@ -1053,6 +1073,8 @@ class SetGetFunctions():
         else:
             ob_type = 'element'
 
+
+        # TODO When does it get used?
         if 'isVector' in attribute and attribute['isVector']:
             code = self.write_clear(attribute)
         else:
@@ -1090,7 +1112,7 @@ class SetGetFunctions():
                                              attribute['capAttName'])
             return_type = 'int'
 
-        # TODO GSOC 2016 modification
+        # TODO GSOC 2016 write_unset return type definition
         return_type = 'boolean'
         arguments = []
         if not self.is_java_api:
@@ -1410,7 +1432,7 @@ class SetGetFunctions():
 
 
     # TODO for write_set  absolutely important
-    def set_java_attribute(self, attribute):
+    def set_java_attribute(self, attribute, write_for = 'String'):
         member = attribute['memberName']
         name = attribute['name']
         if 'version_info' in attribute and False in attribute['version_info']:
@@ -1426,7 +1448,7 @@ class SetGetFunctions():
             if self.language == 'jsbml':
                 implementation = ['return SyntaxChecker::'
                                   'checkAndSetSId(id, mId)']
-                # TODO MYTEST
+                # TODO set
                 # if curr_att_type in global_variables.javaTypeAttributes:
                 #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
                 # else:
@@ -1443,14 +1465,49 @@ class SetGetFunctions():
                 implementation = ['{0} = {1}'.format(member, name),
                                   'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
+
         # TODO VERY IMPORTANT 2 fuctions with the same name, how to deal with them?
-        elif attribute['type'] == 'SIdRef':  # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
-            implementation = ['!(SyntaxChecker::isValidInternalSId({0})'
-                              ')'.format(name),
-                              'return {0}'.format(self.invalid_att), 'else',
-                              '{0} = {1}'.format(member, name),
-                              'return {0}'.format(self.success)]
-            code = [dict({'code_type': 'if_else', 'code': implementation})]
+        elif attribute['type'] == 'SIdRef':
+            pass
+            # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
+            # TODO nested nested if 
+            # implementation = ['!(SyntaxChecker::isValidInternalSId({0})'
+            #                   ')'.format(name),
+            #                   'return {0}'.format(self.invalid_att), 'else',
+            #                   '{0} = {1}'.format(member, name),
+            #                   'return {0}'.format(self.success)]
+            # code = [dict({'code_type': 'if_else', 'code': implementation})]
+
+            curr_att_type = attribute['JClassType']
+            oldValue = 'old{0}'.format(attribute['memberName'])
+            currValue = 'this.old{0}'.format(attribute['memberName'])
+
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['memberName'])
+            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['memberName'],
+                                                                                       oldValue,
+                                                                                       currValue)
+
+            code = [dict({'code_type': 'line', 'code': 'TADA'})]
+            implementation = ['({0} == null) || ({1}.length() == 0'.format(attribute['name'],attribute['name']),
+                                  'this.{0} = null'.format(attribute['memberName']), 'else',
+                                  'this.{0} = {1}'.format(attribute['memberName'], attribute['name'])]  # 3rd line
+
+
+            nested_if = self.create_code_block('if_else', implementation)
+            implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['memberName']),
+                              implement_part1,
+                              nested_if, implement_part3, 'return true']  # 2nd line
+            #print('implementation ',implementation)
+            #code.append(self.create_code_block('if', implementation))
+            code = [self.create_code_block('if', implementation)]
+
+            implementationNext = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementationNext))
+
+
+
         elif attribute['type'] == 'UnitSId' \
                 or attribute['type'] == 'UnitSIdRef':  # TODO Spatial coordinatecomponent setUnit
             implementation = ['!(SyntaxChecker::isValidInternalUnitSId({0})'
@@ -1563,9 +1620,8 @@ class SetGetFunctions():
 
 
 
-    # TODO GSOC 2016 write_set important
     def write_set_att_with_member(self, attribute, in_version):
-        # TODO in_version  what is it? how to deal with
+        # TODO in_version  what is it? how to deal with  GSOC 2016 write_set important
 
         # if curr_att_type in global_variables.javaTypeAttributes:
         #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
@@ -1610,7 +1666,7 @@ class SetGetFunctions():
 
 
 
-    # TODO GSOC 2016 unset
+    # TODO GSOC 2016 unset Done
     def unset_java_attribute(self, attribute):
         if attribute['attType'] == 'string':
             implementation = ['{0}.erase()'.format(attribute['memberName'])]
@@ -1643,12 +1699,12 @@ class SetGetFunctions():
             oldValue = 'old{0}'.format(attribute['memberName'])
             currValue = 'this.old{0}'.format(attribute['memberName'])
             part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['memberName'])
-            part2 = '{0} = null'.format(attribute['name'])
+            part2 = '{0} = null'.format(attribute['memberName'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                        attribute['memberName'],
                                                                                        oldValue,
                                                                                        attribute['memberName'])
-            implementation = ['(isSet{0}())'.format(attribute['capAttName']),
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
                                'return true', 'else',
                                'return false']
@@ -1668,10 +1724,26 @@ class SetGetFunctions():
                     self.create_code_block('line', [
                         'return unset{0}Length()'.format(
                             strFunctions.upper_first(attribute['name']))])]
-        # TODO unsetCompartment
+        # TODO unsetCompartment @Override problem? ALMOST DONE
         else:
-            implementation = ['TO DO']
-            code = [dict({'code_type': 'line', 'code': implementation})]
+            # implementation = ['TO DO']
+            # code = [dict({'code_type': 'line', 'code': implementation})]
+            curr_att_type = attribute['JClassType']
+            oldValue = 'old{0}'.format(attribute['memberName'])
+            currValue = 'this.old{0}'.format(attribute['memberName'])
+            #part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['memberName'])
+            part2 = '{0} = null'.format(attribute['memberName'])
+            # part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+            #                                                                            attribute['memberName'],
+            #                                                                            oldValue,
+            #                                                                            attribute['memberName'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                               part2,
+                               'return true', 'else',
+                               'return false']
+            code = [dict({'code_type': 'if_else', 'code': implementation})]
+
+
         return code
 
     @staticmethod

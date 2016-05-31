@@ -160,10 +160,10 @@ JSBML_CPP_NAMESPACE_BEGIN
    */
   public boolean unsetResultLevel()
   {
-    if ((isSetResultLevel()))
+    if (isSetResultLevel())
     {
       Integer oldmResultLevel = mResultLevel;
-      resultLevel = null;
+      mResultLevel = null;
       firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
         mResultLevel);
       return true;

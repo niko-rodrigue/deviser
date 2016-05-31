@@ -310,7 +310,16 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # code = attrib_functions.write_get_num_for_vector(True, i) # IsSetID for JSBML not neccessary
             # self.write_function_implementation(code)
 
+
+
+        # TODO SIdRef write function 2 times (String, OriginalType)
         for i in range(0, num_attributes):
+
+            curr_attribute = attrib_functions.get_attribute(True, i)
+            #print('Curr_attribute ', curr_attribute)
+
+
+
             code = attrib_functions.write_set(True, i)
             self.write_function_implementation(code)
 

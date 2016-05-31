@@ -910,6 +910,7 @@ class ProtectedFunctions():
             arguments = ['LIBSBML_CPP_NAMESPACE_QUALIFIER XMLOutputStream& stream']
             xmlns = 'LIBSBML_CPP_NAMESPACE_QUALIFIER XMLNamespaces'
 
+        # TODO nested_if example as well as writeXMLNS
         # create the function implementation
         implementation = ['{0} xmlns'.format(xmlns),
                           'std::string prefix = getPrefix()']
