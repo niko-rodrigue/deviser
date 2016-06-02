@@ -1,8 +1,28 @@
-/**
- * @file FunctionTerm.java
- * @brief Implementation of the FunctionTerm class.
- * @author SBMLTeam
+/*
+ * $Id: FunctionTerm.java 2465 2016-06-02 13:40:03Z deviser $
+ * $URL:
+ * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualFunctionTerm.java
+ * $
+ * ----------------------------------------------------------------------------
+ * This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>
+ * for the latest version of JSBML and more information about SBML.
+ *
+ * Copyright (C) 2009-2016 jointly by the following organizations:
+ * 1. The University of Tuebingen, Germany
+ * 2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ * 3. The California Institute of Technology, Pasadena, CA, USA
+ * 4. The University of California, San Diego, La Jolla, CA, USA
+ * 5. The Babraham Institute, Cambridge, UK
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published b
+ * the Free Software Foundation. A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as <http://sbml.org/Software/JSBML/License>.
+ * ----------------------------------------------------------------------------
  */
+package org.sbml.jsbml.ext.qual
+
 #include <jsbml/packages/qual/jsbml/FunctionTerm.h>
 #include <jsbml/packages/qual/jsbml/ListOfFunctionTerms.h>
 #include <jsbml/packages/qual/validator/QualJSBMLError.h>
@@ -10,16 +30,6 @@
 
 
 using namespace std;
-
-
-
-JSBML_CPP_NAMESPACE_BEGIN
-
-
-
-
-#ifdef __cplusplus
-
 
   /**
    * Creates a new FunctionTerm using the given JSBML Level, Version and
@@ -580,167 +590,5 @@ JSBML_CPP_NAMESPACE_BEGIN
   }
 
   /** @endcond */
-
-
-
-
-#endif /* __cplusplus */
-
-
-  /**
-   * Creates a new FunctionTerm_t using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
-   */
-  JSBML_EXTERN
-  public FunctionTerm_t * FunctionTerm_create(unsigned int level,
-                                              unsigned int version,
-                                              unsigned int pkgVersion)
-  {
-    return new FunctionTerm(level, version, pkgVersion);
-  }
-
-
-  /**
-   * Creates and returns a deep copy of this FunctionTerm_t object.
-   */
-  JSBML_EXTERN
-  public FunctionTerm_t* FunctionTerm_clone(const FunctionTerm_t* ft)
-  {
-    if (ft != NULL)
-    {
-      return static_cast<FunctionTerm_t*>(ft->clone());
-    }
-    else
-    {
-      return NULL;
-    }
-  }
-
-
-  /**
-   * Frees this FunctionTerm_t object.
-   */
-  JSBML_EXTERN
-  public void FunctionTerm_free(FunctionTerm_t* ft)
-  {
-    if (ft != NULL)
-    {
-      delete ft;
-    }
-  }
-
-
-  /**
-   * @return the value of the "resultLevel" attribute of this FunctionTerm.
-   */
-  JSBML_EXTERN
-  public int FunctionTerm_getResultLevel(const FunctionTerm * ft)
-  {
-    return (ft != NULL) ? ft->getResultLevel() : JSBML_INT_MAX;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this FunctionTerm's "resultLevel" attribute is
-   * set.
-   */
-  JSBML_EXTERN
-  public int FunctionTerm_isSetResultLevel(const FunctionTerm * ft)
-  {
-    return (ft != NULL) ? static_cast<int>(ft->isSetResultLevel()) : 0;
-  }
-
-
-  /**
-   * Sets the value of the "resultLevel" attribute of this FunctionTerm.
-   */
-  JSBML_EXTERN
-  public void FunctionTerm_setResultLevel(FunctionTerm * ft, int resultLevel)
-  {
-    return (ft != NULL) ? ft->setResultLevel(resultLevel) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
-   */
-  JSBML_EXTERN
-  public boolean FunctionTerm_unsetResultLevel(FunctionTerm * ft)
-  {
-    return (ft != NULL) ? ft->unsetResultLevel() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * @return the value of the "math" element of this FunctionTerm.
-   */
-  JSBML_EXTERN
-  public const ASTNode FunctionTerm_getMath(const FunctionTerm * ft)
-  {
-    if (ft == NULL)
-    {
-      return NULL;
-    }
-
-    return (ASTNode)(ft->getMath());
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this FunctionTerm's "math" element is set.
-   */
-  JSBML_EXTERN
-  public int FunctionTerm_isSetMath(const FunctionTerm * ft)
-  {
-    return (ft != NULL) ? static_cast<int>(ft->isSetMath()) : 0;
-  }
-
-
-  /**
-   * Sets the value of the "math" element of this FunctionTerm.
-   */
-  JSBML_EXTERN
-  public void FunctionTerm_setMath(FunctionTerm * ft, ASTNode math)
-  {
-    return (ft != NULL) ? ft->setMath(math) : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "math" element of this FunctionTerm.
-   */
-  JSBML_EXTERN
-  public boolean FunctionTerm_unsetMath(FunctionTerm * ft)
-  {
-    return (ft != NULL) ? ft->unsetMath() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if all the required attributes for this
-   * FunctionTerm_t object have been set.
-   */
-  JSBML_EXTERN
-  public int FunctionTerm_hasRequiredAttributes(const FunctionTerm_t * ft)
-  {
-    return (ft != NULL) ? static_cast<int>(ft->hasRequiredAttributes()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if all the required elements for this
-   * FunctionTerm_t object have been set.
-   */
-  JSBML_EXTERN
-  public int FunctionTerm_hasRequiredElements(const FunctionTerm_t * ft)
-  {
-    return (ft != NULL) ? static_cast<int>(ft->hasRequiredElements()) : 0;
-  }
-
-
-
-
-JSBML_CPP_NAMESPACE_END
 
 

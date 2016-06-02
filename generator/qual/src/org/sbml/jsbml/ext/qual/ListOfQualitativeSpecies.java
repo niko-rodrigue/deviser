@@ -1,23 +1,33 @@
-/**
- * @file ListOfQualitativeSpecies.java
- * @brief Implementation of the ListOfQualitativeSpecies class.
- * @author SBMLTeam
+/*
+ * $Id: ListOfQualitativeSpecies.java 2465 2016-06-02 13:40:03Z deviser $
+ * $URL:
+ * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualListOfQualitativeSpecies.java
+ * $
+ * ----------------------------------------------------------------------------
+ * This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>
+ * for the latest version of JSBML and more information about SBML.
+ *
+ * Copyright (C) 2009-2016 jointly by the following organizations:
+ * 1. The University of Tuebingen, Germany
+ * 2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ * 3. The California Institute of Technology, Pasadena, CA, USA
+ * 4. The University of California, San Diego, La Jolla, CA, USA
+ * 5. The Babraham Institute, Cambridge, UK
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published b
+ * the Free Software Foundation. A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as <http://sbml.org/Software/JSBML/License>.
+ * ----------------------------------------------------------------------------
  */
+package org.sbml.jsbml.ext.qual
+
 #include <jsbml/packages/qual/jsbml/ListOfQualitativeSpecies.h>
 #include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
-
-
-
-JSBML_CPP_NAMESPACE_BEGIN
-
-
-
-
-#ifdef __cplusplus
-
 
   /**
    * Creates a new ListOfQualitativeSpecies using the given JSBML Level,
@@ -433,91 +443,5 @@ struct IdEqC : public std::unary_function<SBase*, bool>
   }
 
   /** @endcond */
-
-
-
-
-#endif /* __cplusplus */
-
-
-  /**
-   * Get a QualitativeSpecies_t from the ListOf_t.
-   */
-  JSBML_EXTERN
-  public const QualitativeSpecies_t*
-    ListOfQualitativeSpecies_getQualitativeSpecies(
-                                                                                    ListOf_t* lo,
-                                                                                    unsigned int n)
-  {
-    if (lo == NULL)
-    {
-      return NULL;
-    }
-
-    return static_cast <ListOfQualitativeSpecies*>(lo)->get(n);
-  }
-
-
-  /**
-   * Get a QualitativeSpecies_t from the ListOf_t based on its identifier.
-   */
-  JSBML_EXTERN
-  public const QualitativeSpecies_t* ListOfQualitativeSpecies_getById(
-                                                                      ListOf_t*
-                                                                        lo,
-                                                                      const
-                                                                        char
-                                                                          *sid)
-  {
-    if (lo == NULL)
-    {
-      return NULL;
-    }
-
-    return (sid != NULL) ? static_cast
-      <ListOfQualitativeSpecies*>(lo)->get(sid) : NULL;
-  }
-
-
-  /**
-   * Removes the nth QualitativeSpecies_t from this ListOf_t and returns a
-   * pointer to it.
-   */
-  JSBML_EXTERN
-  public QualitativeSpecies_t* ListOfQualitativeSpecies_remove(ListOf_t* lo,
-                                                               unsigned int n)
-  {
-    if (lo == NULL)
-    {
-      return NULL;
-    }
-
-    return static_cast <ListOfQualitativeSpecies*>(lo)->remove(n);
-  }
-
-
-  /**
-   * Removes the QualitativeSpecies_t from this ListOf_t based on its
-   * identifier and returns a pointer to it.
-   */
-  JSBML_EXTERN
-  public QualitativeSpecies_t* ListOfQualitativeSpecies_removeById(ListOf_t*
-    lo,
-                                                                   const char*
-                                                                     sid)
-  {
-    if (lo == NULL)
-    {
-      return NULL;
-    }
-
-    return (sid != NULL) ? static_cast
-      <ListOfQualitativeSpecies*>(lo)->remove(sid) : NULL;
-  }
-
-
-
-
-JSBML_CPP_NAMESPACE_END
 
 

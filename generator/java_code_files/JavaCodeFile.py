@@ -765,14 +765,23 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     ########################################################################
 
     # Write file
+    # TODO add variable whether extension or parser
+    def write_package_include(self):
+        if global_variables.is_package:
+            curr_include_line = 'package org.sbml.{0}.ext.{1}\n'.format(self.language, self.package.lower())
+            #print('curr_include_line is ', curr_include_line)
+            self.write_line_verbatim(curr_include_line)
 
+    # TODO need to ad jsbml license
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
+        self.write_package_include()
         self.write_general_includes()
-        self.write_cppns_begin()
-        self.write_cpp_begin()
+
+        #self.write_cppns_begin()
+        #self.write_cpp_begin()
         self.write_class()
-        self.write_cpp_end()
-        if not self.is_plugin:
-            self.write_c_code()
-        self.write_cppns_end()
+        # self.write_cpp_end()
+        # if not self.is_plugin:
+        #     self.write_c_code()
+        # self.write_cppns_end()

@@ -1,24 +1,34 @@
-/**
- * @file Output.java
- * @brief Implementation of the Output class.
- * @author SBMLTeam
+/*
+ * $Id: Output.java 2465 2016-06-02 13:40:03Z deviser $
+ * $URL:
+ * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualOutput.java
+ * $
+ * ----------------------------------------------------------------------------
+ * This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>
+ * for the latest version of JSBML and more information about SBML.
+ *
+ * Copyright (C) 2009-2016 jointly by the following organizations:
+ * 1. The University of Tuebingen, Germany
+ * 2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ * 3. The California Institute of Technology, Pasadena, CA, USA
+ * 4. The University of California, San Diego, La Jolla, CA, USA
+ * 5. The Babraham Institute, Cambridge, UK
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published b
+ * the Free Software Foundation. A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as <http://sbml.org/Software/JSBML/License>.
+ * ----------------------------------------------------------------------------
  */
+package org.sbml.jsbml.ext.qual
+
 #include <jsbml/packages/qual/jsbml/Output.h>
 #include <jsbml/packages/qual/jsbml/ListOfOutputs.h>
 #include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
-
-
-
-JSBML_CPP_NAMESPACE_BEGIN
-
-
-
-
-#ifdef __cplusplus
-
 
   /**
    * Creates a new Output using the given JSBML Level, Version and
@@ -726,299 +736,5 @@ JSBML_CPP_NAMESPACE_BEGIN
   }
 
   /** @endcond */
-
-
-
-
-#endif /* __cplusplus */
-
-
-  /**
-   * Creates a new Output_t using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
-   */
-  JSBML_EXTERN
-  public Output_t * Output_create(unsigned int level,
-                                  unsigned int version,
-                                  unsigned int pkgVersion)
-  {
-    return new Output(level, version, pkgVersion);
-  }
-
-
-  /**
-   * Creates and returns a deep copy of this Output_t object.
-   */
-  JSBML_EXTERN
-  public Output_t* Output_clone(const Output_t* o)
-  {
-    if (o != NULL)
-    {
-      return static_cast<Output_t*>(o->clone());
-    }
-    else
-    {
-      return NULL;
-    }
-  }
-
-
-  /**
-   * Frees this Output_t object.
-   */
-  JSBML_EXTERN
-  public void Output_free(Output_t* o)
-  {
-    if (o != NULL)
-    {
-      delete o;
-    }
-  }
-
-
-  /**
-   * @return the value of the "id" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public String Output_getId(const Output * o)
-  {
-    if (o == NULL)
-    {
-      return NULL;
-    }
-
-    return o->getId().empty() ? NULL : safe_strdup(o->getId().c_str());
-  }
-
-
-  /**
-   * @return the value of the "qualitativeSpecies" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public String Output_getQualitativeSpecies(const Output * o)
-  {
-    if (o == NULL)
-    {
-      return NULL;
-    }
-
-    return o->getQualitativeSpecies().empty() ? NULL :
-      safe_strdup(o->getQualitativeSpecies().c_str());
-  }
-
-
-  /**
-   * @return the value of the "transitionEffect" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public TransitionOutputEffect Output_getTransitionEffect(const Output * o)
-  {
-    if (o == NULL)
-    {
-      return TRANSITION_OUTPUT_EFFECT_INVALID;
-    }
-
-    return o->getTransitionEffect();
-  }
-
-
-  /**
-   * @return the value of the "name" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public String Output_getName(const Output * o)
-  {
-    if (o == NULL)
-    {
-      return NULL;
-    }
-
-    return o->getName().empty() ? NULL : safe_strdup(o->getName().c_str());
-  }
-
-
-  /**
-   * @return the value of the "outputLevel" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public int Output_getOutputLevel(const Output * o)
-  {
-    return (o != NULL) ? o->getOutputLevel() : JSBML_INT_MAX;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Output's "id" attribute is set.
-   */
-  JSBML_EXTERN
-  public int Output_isSetId(const Output * o)
-  {
-    return (o != NULL) ? static_cast<int>(o->isSetId()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Output's "qualitativeSpecies" attribute
-   * is set.
-   */
-  JSBML_EXTERN
-  public int Output_isSetQualitativeSpecies(const Output * o)
-  {
-    return (o != NULL) ? static_cast<int>(o->isSetQualitativeSpecies()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Output's "transitionEffect" attribute is
-   * set.
-   */
-  JSBML_EXTERN
-  public int Output_isSetTransitionEffect(const Output * o)
-  {
-    return (o != NULL) ? static_cast<int>(o->isSetTransitionEffect()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Output's "name" attribute is set.
-   */
-  JSBML_EXTERN
-  public int Output_isSetName(const Output * o)
-  {
-    return (o != NULL) ? static_cast<int>(o->isSetName()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Output's "outputLevel" attribute is set.
-   */
-  JSBML_EXTERN
-  public int Output_isSetOutputLevel(const Output * o)
-  {
-    return (o != NULL) ? static_cast<int>(o->isSetOutputLevel()) : 0;
-  }
-
-
-  /**
-   * Sets the value of the "id" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public void Output_setId(Output * o, String id)
-  {
-    return (o != NULL) ? o->setId(id) : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "qualitativeSpecies" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public boolean Output_setQualitativeSpecies(Output * o,
-                                              String qualitativeSpecies)
-  {
-    return (o != NULL) ? o->setQualitativeSpecies(qualitativeSpecies) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "transitionEffect" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public void Output_setTransitionEffect(Output * o,
-                                         TransitionOutputEffect
-                                           transitionEffect)
-  {
-    return (o != NULL) ? o->setTransitionEffect(transitionEffect) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "name" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public void Output_setName(Output * o, String name)
-  {
-    return (o != NULL) ? o->setName(name) : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "outputLevel" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public void Output_setOutputLevel(Output * o, int outputLevel)
-  {
-    return (o != NULL) ? o->setOutputLevel(outputLevel) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "id" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public boolean Output_unsetId(Output * o)
-  {
-    return (o != NULL) ? o->unsetId() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "qualitativeSpecies" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public boolean Output_unsetQualitativeSpecies(Output * o)
-  {
-    return (o != NULL) ? o->unsetQualitativeSpecies() :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "transitionEffect" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public boolean Output_unsetTransitionEffect(Output * o)
-  {
-    return (o != NULL) ? o->unsetTransitionEffect() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "name" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public boolean Output_unsetName(Output * o)
-  {
-    return (o != NULL) ? o->unsetName() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "outputLevel" attribute of this Output.
-   */
-  JSBML_EXTERN
-  public boolean Output_unsetOutputLevel(Output * o)
-  {
-    return (o != NULL) ? o->unsetOutputLevel() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if all the required attributes for this Output_t
-   * object have been set.
-   */
-  JSBML_EXTERN
-  public int Output_hasRequiredAttributes(const Output_t * o)
-  {
-    return (o != NULL) ? static_cast<int>(o->hasRequiredAttributes()) : 0;
-  }
-
-
-
-
-JSBML_CPP_NAMESPACE_END
 
 

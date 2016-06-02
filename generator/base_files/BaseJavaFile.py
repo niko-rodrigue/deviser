@@ -37,7 +37,8 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-
+import time
+import os
 from . import BaseFile
 from util import strFunctions, query, global_variables
 
@@ -59,7 +60,14 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.comment_start = '/**'
         self.comment = ' *'
         self.comment_end = '*/'
+        self.license_comment_start = '/*'
 
+
+        # TODO GSOC license variables
+        self.file_version = 2465
+        self.file_creation_time = ''
+        self.file_link = ''
+        self.folder_and_filename = os.getcwd() + self.filename
 
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage
@@ -115,6 +123,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     ########################################################################
 
+    # TODO will be needed for interfaces
     def expand_class(self, class_object):
         self.class_object = class_object
         self.is_list_of = class_object['is_list_of']
@@ -354,9 +363,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                     strFunctions.lower_first(attributes[i]['element'])
                 attributes[i]['attType'] = 'vector'
                 attributes[i]['attTypeCode'] = 'ArrayList<{0}>'.format(attributes[i]['element'])
-                print("YOLUS ",attributes[i]['attTypeCode'] )
+                # print("YOLUS ",attributes[i]['attTypeCode'])
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
-                ttributes[i]['JClassType'] = ttributes[i]['attTypeCode']
+                attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'NULL'
             else:
@@ -563,6 +572,8 @@ class BaseJavaFile(BaseFile.BaseFile):
             else:
                 self.write_line(line)
 
+
+    # TODO write open braces
     def write_class_function_header(self, function_name, arguments,
                                     return_type, is_const=False,
                                     constructor_args=None):
@@ -942,6 +953,153 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_line('{')
             self.write_nested_implementation(code)
             self.write_line('}')
+
+
+    def write_file(self):
+        self.add_file_header()
+
+    def write_jsbml_licence(self):
+        # self.write_blank_comment_line()
+        # self.write_comment_line('<!-----------------------------------------'
+        #                         '---------------------------------')
+        self.write_comment_line('----------------------------------------------------------------------------')
+        #self.write_blank_comment_line()
+        self.write_comment_line('This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>')
+        self.write_comment_line('for the latest version of JSBML and more information about SBML.')
+        self.write_blank_comment_line()
+        self.write_comment_line('Copyright (C) 2009-2016 jointly by the following organizations:')
+        self.write_comment_line('1. The University of Tuebingen, Germany')
+        self.write_comment_line('2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK')
+        self.write_comment_line('3. The California Institute of Technology, Pasadena, CA, USA')
+        self.write_comment_line('4. The University of California, San Diego, La Jolla, CA, USA')
+        self.write_comment_line('5. The Babraham Institute, Cambridge, UK')
+        self.write_blank_comment_line()
+        self.write_comment_line('This library is free software; you can redistribute it and/or modify it')
+        self.write_comment_line('under the terms of the GNU Lesser General Public License as published b')
+        self.write_comment_line('the Free Software Foundation. A copy of the license agreement is provided')
+        self.write_comment_line('in the file named "LICENSE.txt" included with this software distribution')
+        self.write_comment_line('and also available online as <http://sbml.org/Software/JSBML/License>.')
+        self.write_comment_line('----------------------------------------------------------------------------')
+        # self.write_comment_line('    1. California Institute of Technology, '
+        #                         'Pasadena, CA, USA')
+        # self.write_comment_line('    2. Japan Science and Technology Agency, '
+        #                         'Japan')
+        # self.write_blank_comment_line()
+        # self.write_comment_line('This library is free software; you can '
+        #                         'redistribute it and/or modify it under the '
+        #                         'terms of the GNU Lesser General Public '
+        #                         'License as published by the Free Software '
+        #                         'Foundation.  A copy of the license agreement'
+        #                         ' is provided in the file named "LICENSE.txt"'
+        #                         ' included with this software distribution '
+        #                         'and also available online as http://sbml.org'
+        #                         '/software/libsbml/license.html')
+        # self.write_comment_line('--------------------------------------------'
+        #                         '---------------------------- -->')
+
+    def open_license_comment(self):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        self.file_out.write('{0}{1}\n'.format(tabs, self.license_comment_start))
+
+    def get_time_and_date(self):
+        self.file_creation_time = time.strftime('%Y-%m-%d %H:%M:%S')
+
+    def write_file_header_information(self):
+        self.get_time_and_date()
+        self.write_comment_line('$Id: {0} {1} {2}Z deviser $'.format(self.filename, self.file_version,
+                                                          self.file_creation_time))
+        # TODO need to ask on Slack about URL
+        self.write_comment_line('$URL: {0} $'.format(self.folder_and_filename))
+
+    def add_file_header(self):
+        self.open_license_comment() #TODO here need to add one star
+        self.write_file_header_information()
+        # self.write_comment_line('@file   {0}'.format(self.filename))
+        # self.write_comment_line('@brief  {0}'.format(self.brief_description))
+        # if global_variables.is_package:
+        #     self.write_comment_line('@author JSBMLTeam')
+        # else:
+        #     self.write_comment_line('@author DEVISER')
+        if self.library_name == 'JSBML' and (self.extension != 'xml'
+                                               and self.extension != 'rng'):
+            self.write_jsbml_licence()
+        if self.is_header and not self.is_excluded(self.name):
+            if self.name.endswith('Extension'):
+                self.write_class_comments(True, False, False)
+            elif self.name.endswith('Plugin'):
+                self.write_class_comments(False, True, False)
+            elif self.name.endswith('Validator'):
+                self.write_class_comments(False, False, True)
+            else:
+                self.write_class_comments(False, False, False)
+
+        self.close_comment()
+
+    def write_class_comments(self, extension, plugin, validator):
+        fullname = global_variables.package_full_name
+        up_package = strFunctions.upper_first(self.package)
+        validator_class_comment = 'The {0} class extends the ' \
+                                  'Validator class from core libSBML to ' \
+                                  'apply validation to the constructs ' \
+                                  'introduced by the SBML Level&nbsp;3 ' \
+                                  '{1} package. This class then acts as a ' \
+                                  'base class for any validators that ' \
+                                  'apply rules to the &ldquo;{2}&rdquo; ' \
+                                  'package specification constructs or to ' \
+                                  'entire models that use the &ldquo;{2}' \
+                                  '&rdquo; package, and may therefore be ' \
+                                  'subject to other global restrictions ' \
+                                  'introduced.'.format(self.name,
+                                                       fullname,
+                                                       self.package.lower())
+        self.write_blank_comment_line()
+        self.write_comment_line('@class {0}'.format(self.class_name))
+        if extension:
+            self.write_comment_line('@sbmlbrief{0}{1}{2} Base extension class'
+                                    '.'.format(self.open_br,
+                                               self.package.lower(),
+                                               self.close_br))
+            self.write_blank_comment_line()
+            self.write_comment_line('@class {0}PkgNamespaces'
+                                    ''.format(up_package))
+            self.write_comment_line('@sbmlbrief{0}{1}{2} SBMLNamespaces '
+                                    'extension.'
+                                    ''.format(self.open_br,
+                                              self.package.lower(),
+                                              self.close_br))
+        elif plugin:
+            self.write_comment_line('@sbmlbrief{0}{1}{2} Extension of '
+                                    '{3}.'.format(self.open_br,
+                                                  self.package.lower(),
+                                                  self.close_br,
+                                                  self.class_object['sbase']))
+        elif validator:
+            self.write_comment_line('@sbmlbrief{0}{1}{2} Entry point for '
+                                    '&ldquo;{1}&rdquo package validation'
+                                    '.'.format(self.open_br,
+                                               self.package.lower(),
+                                               self.close_br))
+            self.write_blank_comment_line()
+            self.write_comment_line('@htmlinclude not-sbml-warning.html')
+            self.write_blank_comment_line()
+            self.write_comment_line('@copydetails doc_common_intro_'
+                                    'package_validators')
+            self.write_blank_comment_line()
+            self.write_comment_line('{0}'.format(validator_class_comment))
+            self.write_blank_comment_line()
+            self.write_comment_line('@copydetails doc_section_package_'
+                                    'validators_general_info')
+        else:
+            self.write_comment_line('@sbmlbrief{0}{1}{2} TODO:'
+                                    '{3}'.format(self.open_br,
+                                                 self.package.lower(),
+                                                 self.close_br,
+                                                 self.brief_description))
+
+
+
 
     ######################################################################
 

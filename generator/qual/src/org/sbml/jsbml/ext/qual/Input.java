@@ -1,24 +1,34 @@
-/**
- * @file Input.java
- * @brief Implementation of the Input class.
- * @author SBMLTeam
+/*
+ * $Id: Input.java 2465 2016-06-02 13:40:03Z deviser $
+ * $URL:
+ * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualInput.java
+ * $
+ * ----------------------------------------------------------------------------
+ * This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>
+ * for the latest version of JSBML and more information about SBML.
+ *
+ * Copyright (C) 2009-2016 jointly by the following organizations:
+ * 1. The University of Tuebingen, Germany
+ * 2. EMBL European Bioinformatics Institute (EBML-EBI), Hinxton, UK
+ * 3. The California Institute of Technology, Pasadena, CA, USA
+ * 4. The University of California, San Diego, La Jolla, CA, USA
+ * 5. The Babraham Institute, Cambridge, UK
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published b
+ * the Free Software Foundation. A copy of the license agreement is provided
+ * in the file named "LICENSE.txt" included with this software distribution
+ * and also available online as <http://sbml.org/Software/JSBML/License>.
+ * ----------------------------------------------------------------------------
  */
+package org.sbml.jsbml.ext.qual
+
 #include <jsbml/packages/qual/jsbml/Input.h>
 #include <jsbml/packages/qual/jsbml/ListOfInputs.h>
 #include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
 using namespace std;
-
-
-
-JSBML_CPP_NAMESPACE_BEGIN
-
-
-
-
-#ifdef __cplusplus
-
 
   /**
    * Creates a new Input using the given JSBML Level, Version and
@@ -835,344 +845,5 @@ JSBML_CPP_NAMESPACE_BEGIN
   }
 
   /** @endcond */
-
-
-
-
-#endif /* __cplusplus */
-
-
-  /**
-   * Creates a new Input_t using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
-   */
-  JSBML_EXTERN
-  public Input_t * Input_create(unsigned int level,
-                                unsigned int version,
-                                unsigned int pkgVersion)
-  {
-    return new Input(level, version, pkgVersion);
-  }
-
-
-  /**
-   * Creates and returns a deep copy of this Input_t object.
-   */
-  JSBML_EXTERN
-  public Input_t* Input_clone(const Input_t* i)
-  {
-    if (i != NULL)
-    {
-      return static_cast<Input_t*>(i->clone());
-    }
-    else
-    {
-      return NULL;
-    }
-  }
-
-
-  /**
-   * Frees this Input_t object.
-   */
-  JSBML_EXTERN
-  public void Input_free(Input_t* i)
-  {
-    if (i != NULL)
-    {
-      delete i;
-    }
-  }
-
-
-  /**
-   * @return the value of the "id" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public String Input_getId(const Input * i)
-  {
-    if (i == NULL)
-    {
-      return NULL;
-    }
-
-    return i->getId().empty() ? NULL : safe_strdup(i->getId().c_str());
-  }
-
-
-  /**
-   * @return the value of the "name" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public String Input_getName(const Input * i)
-  {
-    if (i == NULL)
-    {
-      return NULL;
-    }
-
-    return i->getName().empty() ? NULL : safe_strdup(i->getName().c_str());
-  }
-
-
-  /**
-   * @return the value of the "sign" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public Sign Input_getSign(const Input * i)
-  {
-    if (i == NULL)
-    {
-      return SIGN_INVALID;
-    }
-
-    return i->getSign();
-  }
-
-
-  /**
-   * @return the value of the "qualitativeSpecies" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public String Input_getQualitativeSpecies(const Input * i)
-  {
-    if (i == NULL)
-    {
-      return NULL;
-    }
-
-    return i->getQualitativeSpecies().empty() ? NULL :
-      safe_strdup(i->getQualitativeSpecies().c_str());
-  }
-
-
-  /**
-   * @return the value of the "transitionEffect" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public TransitionInputEffect Input_getTransitionEffect(const Input * i)
-  {
-    if (i == NULL)
-    {
-      return TRANSITION_INPUT_EFFECT_INVALID;
-    }
-
-    return i->getTransitionEffect();
-  }
-
-
-  /**
-   * @return the value of the "thresholdLevel" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public int Input_getThresholdLevel(const Input * i)
-  {
-    return (i != NULL) ? i->getThresholdLevel() : JSBML_INT_MAX;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Input's "id" attribute is set.
-   */
-  JSBML_EXTERN
-  public int Input_isSetId(const Input * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->isSetId()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Input's "name" attribute is set.
-   */
-  JSBML_EXTERN
-  public int Input_isSetName(const Input * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->isSetName()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Input's "sign" attribute is set.
-   */
-  JSBML_EXTERN
-  public int Input_isSetSign(const Input * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->isSetSign()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Input's "qualitativeSpecies" attribute is
-   * set.
-   */
-  JSBML_EXTERN
-  public int Input_isSetQualitativeSpecies(const Input * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->isSetQualitativeSpecies()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Input's "transitionEffect" attribute is
-   * set.
-   */
-  JSBML_EXTERN
-  public int Input_isSetTransitionEffect(const Input * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->isSetTransitionEffect()) : 0;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if this Input's "thresholdLevel" attribute is
-   * set.
-   */
-  JSBML_EXTERN
-  public int Input_isSetThresholdLevel(const Input * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->isSetThresholdLevel()) : 0;
-  }
-
-
-  /**
-   * Sets the value of the "id" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public void Input_setId(Input * i, String id)
-  {
-    return (i != NULL) ? i->setId(id) : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "name" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public void Input_setName(Input * i, String name)
-  {
-    return (i != NULL) ? i->setName(name) : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "sign" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public void Input_setSign(Input * i, Sign sign)
-  {
-    return (i != NULL) ? i->setSign(sign) : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "qualitativeSpecies" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_setQualitativeSpecies(Input * i,
-                                             String qualitativeSpecies)
-  {
-    return (i != NULL) ? i->setQualitativeSpecies(qualitativeSpecies) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "transitionEffect" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public void Input_setTransitionEffect(Input * i,
-                                        TransitionInputEffect transitionEffect)
-  {
-    return (i != NULL) ? i->setTransitionEffect(transitionEffect) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Sets the value of the "thresholdLevel" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public void Input_setThresholdLevel(Input * i, int thresholdLevel)
-  {
-    return (i != NULL) ? i->setThresholdLevel(thresholdLevel) :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "id" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_unsetId(Input * i)
-  {
-    return (i != NULL) ? i->unsetId() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "name" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_unsetName(Input * i)
-  {
-    return (i != NULL) ? i->unsetName() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "sign" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_unsetSign(Input * i)
-  {
-    return (i != NULL) ? i->unsetSign() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "qualitativeSpecies" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_unsetQualitativeSpecies(Input * i)
-  {
-    return (i != NULL) ? i->unsetQualitativeSpecies() :
-      LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "transitionEffect" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_unsetTransitionEffect(Input * i)
-  {
-    return (i != NULL) ? i->unsetTransitionEffect() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Unsets the value of the "thresholdLevel" attribute of this Input.
-   */
-  JSBML_EXTERN
-  public boolean Input_unsetThresholdLevel(Input * i)
-  {
-    return (i != NULL) ? i->unsetThresholdLevel() : LIBJSBML_INVALID_OBJECT;
-  }
-
-
-  /**
-   * Predicate returning @c 1 if all the required attributes for this Input_t
-   * object have been set.
-   */
-  JSBML_EXTERN
-  public int Input_hasRequiredAttributes(const Input_t * i)
-  {
-    return (i != NULL) ? static_cast<int>(i->hasRequiredAttributes()) : 0;
-  }
-
-
-
-
-JSBML_CPP_NAMESPACE_END
 
 
