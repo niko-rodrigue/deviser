@@ -5,38 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b28d12fe-8b83-4199-8b01-bf9015623b98" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/CMakeLists.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ConstructorException.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ConstructorException.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Error.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Error.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ErrorLog.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ErrorLog.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ErrorTable.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ListOf.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/ListOf.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Namespaces.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Namespaces.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/OperationReturnValues.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/OperationReturnValues.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Reader.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Reader.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/SBase.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/SBase.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/TypeCodes.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/TypeCodes.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Types.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Visitor.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Visitor.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Writer.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/Writer.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/common.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/extern.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/lib-config-common.h.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/lib-config.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/lib-namespace.h.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/lib-version.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/generator/java_code_files/templates/lib-version.h.cmake" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" afterPath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" afterPath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" />
@@ -81,21 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="query.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator/util/query.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4122">
-              <caret line="229" column="0" selection-start-line="229" selection-start-column="0" selection-end-line="229" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="JavaCodeFile.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="767" column="51" selection-start-line="767" selection-start-column="51" selection-end-line="767" selection-end-column="51" />
+            <state relative-caret-position="365">
+              <caret line="779" column="36" selection-start-line="779" selection-start-column="36" selection-end-line="779" selection-end-column="36" />
               <folding>
                 <element signature="e#2002#2037#0" expanded="true" />
               </folding>
@@ -106,8 +64,8 @@
       <file leaf-file-name="BaseJavaFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="1012" column="33" selection-start-line="1012" selection-start-column="33" selection-end-line="1012" selection-end-column="33" />
+            <state relative-caret-position="247">
+              <caret line="1028" column="29" selection-start-line="1028" selection-start-column="29" selection-end-line="1028" selection-end-column="29" />
               <folding>
                 <element signature="e#1992#2003#0" expanded="true" />
               </folding>
@@ -1303,42 +1261,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>462</line>
+          <line>464</line>
           <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>487</line>
+          <line>489</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>532</line>
+          <line>534</line>
           <option name="timeStamp" value="198" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>556</line>
+          <line>558</line>
           <option name="timeStamp" value="199" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>570</line>
+          <line>572</line>
           <option name="timeStamp" value="200" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>618</line>
+          <line>620</line>
           <option name="timeStamp" value="201" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>641</line>
+          <line>643</line>
           <option name="timeStamp" value="202" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>680</line>
+          <line>682</line>
           <option name="timeStamp" value="203" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1348,17 +1306,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>252</line>
+          <line>254</line>
           <option name="timeStamp" value="205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>342</line>
+          <line>344</line>
           <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>348</line>
+          <line>350</line>
           <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1383,12 +1341,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>322</line>
+          <line>324</line>
           <option name="timeStamp" value="231" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>332</line>
+          <line>334</line>
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1408,12 +1366,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>382</line>
+          <line>384</line>
           <option name="timeStamp" value="247" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>79</line>
+          <line>81</line>
           <option name="timeStamp" value="248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1423,117 +1381,117 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>379</line>
+          <line>381</line>
           <option name="timeStamp" value="251" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>296</line>
+          <line>298</line>
           <option name="timeStamp" value="255" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>303</line>
+          <line>305</line>
           <option name="timeStamp" value="257" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>312</line>
+          <line>314</line>
           <option name="timeStamp" value="258" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>294</line>
+          <line>296</line>
           <option name="timeStamp" value="259" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>266</line>
+          <line>268</line>
           <option name="timeStamp" value="262" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>260</line>
+          <line>262</line>
           <option name="timeStamp" value="263" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>280</line>
+          <line>282</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>288</line>
+          <line>290</line>
           <option name="timeStamp" value="266" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>273</line>
+          <line>275</line>
           <option name="timeStamp" value="267" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>342</line>
+          <line>344</line>
           <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>357</line>
+          <line>359</line>
           <option name="timeStamp" value="269" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>309</line>
+          <line>311</line>
           <option name="timeStamp" value="270" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>344</line>
+          <line>346</line>
           <option name="timeStamp" value="271" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>319</line>
+          <line>321</line>
           <option name="timeStamp" value="273" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>325</line>
+          <line>327</line>
           <option name="timeStamp" value="274" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>326</line>
+          <line>328</line>
           <option name="timeStamp" value="275" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>328</line>
+          <line>330</line>
           <option name="timeStamp" value="276" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>306</line>
+          <line>308</line>
           <option name="timeStamp" value="278" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>354</line>
+          <line>356</line>
           <option name="timeStamp" value="279" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>364</line>
+          <line>366</line>
           <option name="timeStamp" value="282" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>386</line>
+          <line>388</line>
           <option name="timeStamp" value="283" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>387</line>
+          <line>389</line>
           <option name="timeStamp" value="284" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1563,7 +1521,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>235</line>
+          <line>237</line>
           <option name="timeStamp" value="292" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1648,7 +1606,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>74</line>
+          <line>76</line>
           <option name="timeStamp" value="315" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
@@ -1703,32 +1661,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>506</line>
+          <line>508</line>
           <option name="timeStamp" value="347" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>681</line>
+          <line>683</line>
           <option name="timeStamp" value="348" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>534</line>
+          <line>536</line>
           <option name="timeStamp" value="355" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>507</line>
+          <line>509</line>
           <option name="timeStamp" value="356" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>586</line>
+          <line>588</line>
           <option name="timeStamp" value="361" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>567</line>
+          <line>569</line>
           <option name="timeStamp" value="363" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
@@ -1738,17 +1696,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>816</line>
+          <line>818</line>
           <option name="timeStamp" value="373" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>837</line>
+          <line>839</line>
           <option name="timeStamp" value="374" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>253</line>
+          <line>255</line>
           <option name="timeStamp" value="383" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1823,7 +1781,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>715</line>
+          <line>717</line>
           <option name="timeStamp" value="402" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1838,7 +1796,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>323</line>
+          <line>325</line>
           <option name="timeStamp" value="405" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1908,7 +1866,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>257</line>
+          <line>259</line>
           <option name="timeStamp" value="425" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1948,7 +1906,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>663</line>
+          <line>665</line>
           <option name="timeStamp" value="436" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1988,27 +1946,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>589</line>
+          <line>591</line>
           <option name="timeStamp" value="445" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>598</line>
+          <line>600</line>
           <option name="timeStamp" value="446" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>619</line>
+          <line>621</line>
           <option name="timeStamp" value="447" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>241</line>
+          <line>243</line>
           <option name="timeStamp" value="448" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>127</line>
+          <line>129</line>
           <option name="timeStamp" value="449" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -2018,7 +1976,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>776</line>
+          <line>778</line>
           <option name="timeStamp" value="451" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -2028,18 +1986,38 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>1016</line>
+          <line>1003</line>
           <option name="timeStamp" value="453" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>974</line>
+          <line>976</line>
           <option name="timeStamp" value="454" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>1010</line>
+          <line>997</line>
           <option name="timeStamp" value="455" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
+          <line>229</line>
+          <option name="timeStamp" value="456" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
+          <line>228</line>
+          <option name="timeStamp" value="457" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
+          <line>781</line>
+          <option name="timeStamp" value="458" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
+          <line>993</line>
+          <option name="timeStamp" value="459" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -2049,7 +2027,7 @@
           </selected-grouping-rules>
         </breakpoints-dialog>
       </breakpoints-dialog>
-      <option name="time" value="456" />
+      <option name="time" value="460" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -2446,8 +2424,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="1012" column="33" selection-start-line="1012" selection-start-column="33" selection-end-line="1012" selection-end-column="33" />
+        <state relative-caret-position="247">
+          <caret line="1028" column="29" selection-start-line="1028" selection-start-column="29" selection-end-line="1028" selection-end-column="29" />
           <folding>
             <element signature="e#1992#2003#0" expanded="true" />
           </folding>
@@ -2456,8 +2434,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="767" column="51" selection-start-line="767" selection-start-column="51" selection-end-line="767" selection-end-column="51" />
+        <state relative-caret-position="365">
+          <caret line="779" column="36" selection-start-line="779" selection-start-column="36" selection-end-line="779" selection-end-column="36" />
           <folding>
             <element signature="e#2002#2037#0" expanded="true" />
           </folding>

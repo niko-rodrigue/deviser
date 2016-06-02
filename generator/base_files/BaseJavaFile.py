@@ -66,8 +66,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         # TODO GSOC license variables
         self.file_version = 2465
         self.file_creation_time = ''
+        self.file_creation_time_jsbml_types = ''
         self.file_link = ''
         self.folder_and_filename = os.getcwd() + self.filename
+        self.jsbml_version = 1.2
 
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage
@@ -980,22 +982,6 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_comment_line('in the file named "LICENSE.txt" included with this software distribution')
         self.write_comment_line('and also available online as <http://sbml.org/Software/JSBML/License>.')
         self.write_comment_line('----------------------------------------------------------------------------')
-        # self.write_comment_line('    1. California Institute of Technology, '
-        #                         'Pasadena, CA, USA')
-        # self.write_comment_line('    2. Japan Science and Technology Agency, '
-        #                         'Japan')
-        # self.write_blank_comment_line()
-        # self.write_comment_line('This library is free software; you can '
-        #                         'redistribute it and/or modify it under the '
-        #                         'terms of the GNU Lesser General Public '
-        #                         'License as published by the Free Software '
-        #                         'Foundation.  A copy of the license agreement'
-        #                         ' is provided in the file named "LICENSE.txt"'
-        #                         ' included with this software distribution '
-        #                         'and also available online as http://sbml.org'
-        #                         '/software/libsbml/license.html')
-        # self.write_comment_line('--------------------------------------------'
-        #                         '---------------------------- -->')
 
     def open_license_comment(self):
         tabs = ''
@@ -1005,6 +991,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     def get_time_and_date(self):
         self.file_creation_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        self.file_creation_time_jsbml_types = time.strftime('%Y-%m-%d %H:%M:%S %z (%a, %d %b %Y)')
 
     def write_file_header_information(self):
         self.get_time_and_date()
@@ -1035,6 +1022,16 @@ class BaseJavaFile(BaseFile.BaseFile):
             else:
                 self.write_class_comments(False, False, False)
 
+        self.close_comment()
+
+
+    # TODO how to deal with deprecated methods @deprecated use {@link QualModelPlugin} instead.
+    def write_jsbml_types_doc(self):
+        self.open_comment()
+        self.write_comment_line('@author Deviser')
+        self.write_comment_line('@version $Rev: {0} $'.format(self.file_version))
+        self.write_comment_line('@since {0}'.format(self.jsbml_version))
+        self.write_comment_line('@date $Date: {0} $'.format(self.file_creation_time_jsbml_types))
         self.close_comment()
 
     def write_class_comments(self, extension, plugin, validator):

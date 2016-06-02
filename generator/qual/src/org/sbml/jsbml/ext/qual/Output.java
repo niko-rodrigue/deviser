@@ -1,5 +1,5 @@
 /*
- * $Id: Output.java 2465 2016-06-02 13:40:03Z deviser $
+ * $Id: Output.java 2465 2016-06-02 14:29:07Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualOutput.java
  * $
@@ -28,8 +28,13 @@ package org.sbml.jsbml.ext.qual
 #include <jsbml/packages/qual/validator/QualJSBMLError.h>
 
 
-using namespace std;
 
+/**
+ * @author Deviser
+ * @version $Rev: 2465 $
+ * @since 1.2
+ * @date $Date: 2016-06-02 14:29:07 +0400 (Thu, 02 Jun 2016) $
+ */
   /**
    * Creates a new Output using the given JSBML Level, Version and
    * &ldquo;qual&rdquo; package version.

@@ -223,9 +223,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                       element))
             else:
                 self.write_line_verbatim('#include <{0}/{1}.h>'
-                                         ''.format(self.language, element))
+                                      ''.format(self.language, element))
+
+        # TODO for skipping lines
         self.skip_line(2)
-        self.write_line('using namespace std;')
+        # self.write_line('using namespace std;')
         self.skip_line()
 
     ########################################################################
@@ -777,7 +779,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
         self.write_general_includes()
-
+        BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         #self.write_cppns_begin()
         #self.write_cpp_begin()
         self.write_class()
