@@ -1,5 +1,5 @@
 /*
- * $Id: Input.java 2465 2016-06-02 14:29:07Z deviser $
+ * $Id: Input.java 2465 2016-06-03 00:41:22Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualInput.java
  * $
@@ -23,115 +23,16 @@
  */
 package org.sbml.jsbml.ext.qual
 
-#include <jsbml/packages/qual/jsbml/Input.h>
-#include <jsbml/packages/qual/jsbml/ListOfInputs.h>
-#include <jsbml/packages/qual/validator/QualJSBMLError.h>
-
-
-
 /**
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-02 14:29:07 +0400 (Thu, 02 Jun 2016) $
+ * @date $Date: 2016-06-03 00:41:22 +0400 (Fri, 03 Jun 2016) $
  */
-  /**
-   * Creates a new Input using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
-   */
-  public Input(unsigned int level,
-                unsigned int version,
-                unsigned int pkgVersion)
-    : SBase(level, version)
-    , mId ("")
-    , mName ("")
-    , mSign (SIGN_INVALID)
-    , mQualitativeSpecies ("")
-    , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID)
-    , mThresholdLevel (JSBML_INT_MAX)
-    , mIsSetThresholdLevel (false)
-  {
-    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
-  }
-
-
-  /**
-   * Creates a new Input using the given QualPkgNamespaces object.
-   */
-  public Input(QualPkgNamespaces *qualns)
-    : SBase(qualns)
-    , mId ("")
-    , mName ("")
-    , mSign (SIGN_INVALID)
-    , mQualitativeSpecies ("")
-    , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID)
-    , mThresholdLevel (JSBML_INT_MAX)
-    , mIsSetThresholdLevel (false)
-  {
-    setElementNamespace(qualns->getURI());
-    loadPlugins(qualns);
-  }
-
-
-  /**
-   * Copy constructor for Input.
-   */
-  public Input(const Input& orig)
-    : SBase( orig )
-    , mId ( orig.mId )
-    , mName ( orig.mName )
-    , mSign ( orig.mSign )
-    , mQualitativeSpecies ( orig.mQualitativeSpecies )
-    , mTransitionEffect ( orig.mTransitionEffect )
-    , mThresholdLevel ( orig.mThresholdLevel )
-    , mIsSetThresholdLevel ( orig.mIsSetThresholdLevel )
-  {
-  }
-
-
-  /**
-   * Assignment operator for Input.
-   */
-  public Input& operator=(const Input& rhs)
-  {
-    if (&rhs != this)
-    {
-      SBase::operator=(rhs);
-      mId = rhs.mId;
-      mName = rhs.mName;
-      mSign = rhs.mSign;
-      mQualitativeSpecies = rhs.mQualitativeSpecies;
-      mTransitionEffect = rhs.mTransitionEffect;
-      mThresholdLevel = rhs.mThresholdLevel;
-      mIsSetThresholdLevel = rhs.mIsSetThresholdLevel;
-    }
-
-    return *this;
-  }
-
-
-  /**
-   * Creates and returns a deep copy of this Input object.
-   */
-  public Input* clone()
-  {
-    return new Input(*this);
-  }
-
-
-  /**
-   * Destructor for Input.
-   */
-  public ~Input()
-  {
-  }
-
-
   /**
    * @return the value of the "id" attribute of this Input.
    */
-  public String getId()
-  {
+  public String getId() {
     return isSetId() ? id : "";
   }
 
@@ -139,8 +40,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * @return the value of the "name" attribute of this Input.
    */
-  public String getName()
-  {
+  public String getName() {
     return isSetName() ? name : "";
   }
 
@@ -148,13 +48,10 @@ package org.sbml.jsbml.ext.qual
   /**
    * @return the value of the "sign" attribute of this Input.
    */
-  public Sign getSign()
-  {
-    if (isSetSign())
-    {
+  public Sign getSign() {
+    if (isSetSign()) {
       return mSign;
     }
-
     throw new PropertyUndefinedError(QualConstants.mSign, this);
   }
 
@@ -162,8 +59,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * @return the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public String getQualitativeSpecies()
-  {
+  public String getQualitativeSpecies() {
     return isSetQualitativeSpecies() ? qualitativeSpecies : "";
   }
 
@@ -171,13 +67,10 @@ package org.sbml.jsbml.ext.qual
   /**
    * @return the value of the "transitionEffect" attribute of this Input.
    */
-  public TransitionInputEffect getTransitionEffect()
-  {
-    if (isSetTransitionEffect())
-    {
+  public TransitionInputEffect getTransitionEffect() {
+    if (isSetTransitionEffect()) {
       return mTransitionEffect;
     }
-
     throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
   }
 
@@ -185,13 +78,10 @@ package org.sbml.jsbml.ext.qual
   /**
    * @return the value of the "thresholdLevel" attribute of this Input.
    */
-  public int getThresholdLevel()
-  {
-    if (isSetThresholdLevel())
-    {
+  public int getThresholdLevel() {
+    if (isSetThresholdLevel()) {
       return mThresholdLevel.intValue();
     }
-
     throw new PropertyUndefinedError(QualConstants.mThresholdLevel, this);
   }
 
@@ -199,8 +89,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Predicate returning {@code true} if this Input's "id" attribute is set.
    */
-  public boolean isSetId()
-  {
+  public boolean isSetId() {
     ;
   }
 
@@ -208,8 +97,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Predicate returning {@code true} if this Input's "name" attribute is set.
    */
-  public boolean isSetName()
-  {
+  public boolean isSetName() {
     ;
   }
 
@@ -217,8 +105,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Predicate returning {@code true} if this Input's "sign" attribute is set.
    */
-  public boolean isSetSign()
-  {
+  public boolean isSetSign() {
     return (mSign != SIGN_INVALID);
   }
 
@@ -227,8 +114,7 @@ package org.sbml.jsbml.ext.qual
    * Predicate returning {@code true} if this Input's "qualitativeSpecies"
    * attribute is set.
    */
-  public boolean isSetQualitativeSpecies()
-  {
+  public boolean isSetQualitativeSpecies() {
     ;
   }
 
@@ -237,8 +123,7 @@ package org.sbml.jsbml.ext.qual
    * Predicate returning {@code true} if this Input's "transitionEffect"
    * attribute is set.
    */
-  public boolean isSetTransitionEffect()
-  {
+  public boolean isSetTransitionEffect() {
     return (mTransitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
   }
 
@@ -247,8 +132,7 @@ package org.sbml.jsbml.ext.qual
    * Predicate returning {@code true} if this Input's "thresholdLevel"
    * attribute is set.
    */
-  public boolean isSetThresholdLevel()
-  {
+  public boolean isSetThresholdLevel() {
     return mThresholdLevel != null;
   }
 
@@ -256,8 +140,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Sets the value of the "id" attribute of this Input.
    */
-  public void setId(String id)
-  {
+  public void setId(String id) {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
 
@@ -265,8 +148,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Sets the value of the "name" attribute of this Input.
    */
-  public void setName(String name)
-  {
+  public void setName(String name) {
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -275,15 +157,11 @@ package org.sbml.jsbml.ext.qual
   /**
    * Sets the value of the "sign" attribute of this Input.
    */
-  public void setSign(Sign sign)
-  {
-    if (Sign_isValid(sign) == 0)
-    {
+  public void setSign(Sign sign) {
+    if (Sign_isValid(sign) == 0) {
       mSign = SIGN_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
+    } else {
       mSign = sign;
       return LIBSBML_OPERATION_SUCCESS;
     }
@@ -293,17 +171,12 @@ package org.sbml.jsbml.ext.qual
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public boolean setQualitativeSpecies(String qualitativeSpecies)
-  {
-    if (qualitativeSpecies != this.mQualitativeSpecies)
-    {
+  public boolean setQualitativeSpecies(String qualitativeSpecies) {
+    if (qualitativeSpecies != this.mQualitativeSpecies) {
       String oldmQualitativeSpecies = this.mQualitativeSpecies;
-      if ((qualitativeSpecies == null) || (qualitativeSpecies.length() == 0)
-      {
+      if ((qualitativeSpecies == null) || (qualitativeSpecies.length() == 0) {
         this.mQualitativeSpecies = null;
-      }
-      else
-      {
+      } else {
         this.mQualitativeSpecies = qualitativeSpecies;
       }
 
@@ -311,7 +184,6 @@ package org.sbml.jsbml.ext.qual
         oldmQualitativeSpecies, this.oldmQualitativeSpecies);
       return true;
     }
-
     return false;
   }
 
@@ -319,15 +191,11 @@ package org.sbml.jsbml.ext.qual
   /**
    * Sets the value of the "transitionEffect" attribute of this Input.
    */
-  public void setTransitionEffect(TransitionInputEffect transitionEffect)
-  {
-    if (TransitionInputEffect_isValid(transitionEffect) == 0)
-    {
+  public void setTransitionEffect(TransitionInputEffect transitionEffect) {
+    if (TransitionInputEffect_isValid(transitionEffect) == 0) {
       mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    }
-    else
-    {
+    } else {
       mTransitionEffect = transitionEffect;
       return LIBSBML_OPERATION_SUCCESS;
     }
@@ -337,8 +205,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Sets the value of the "thresholdLevel" attribute of this Input.
    */
-  public void setThresholdLevel(int thresholdLevel)
-  {
+  public void setThresholdLevel(int thresholdLevel) {
     Integer oldmThresholdLevel = this.mThresholdLevel;
 
     this.oldmThresholdLevel = thresholdLevel;
@@ -351,15 +218,11 @@ package org.sbml.jsbml.ext.qual
   /**
    * Unsets the value of the "id" attribute of this Input.
    */
-  public boolean unsetId()
-  {
-    if (isSetId())
-    {
+  public boolean unsetId() {
+    if (isSetId()) {
       mId = null;
       return true;
-    }
-    else
-    {
+    } else {
       return false;
     }
   }
@@ -368,15 +231,11 @@ package org.sbml.jsbml.ext.qual
   /**
    * Unsets the value of the "name" attribute of this Input.
    */
-  public boolean unsetName()
-  {
-    if (isSetName())
-    {
+  public boolean unsetName() {
+    if (isSetName()) {
       mName = null;
       return true;
-    }
-    else
-    {
+    } else {
       return false;
     }
   }
@@ -385,8 +244,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Unsets the value of the "sign" attribute of this Input.
    */
-  public boolean unsetSign()
-  {
+  public boolean unsetSign() {
     mSign = SIGN_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -395,15 +253,11 @@ package org.sbml.jsbml.ext.qual
   /**
    * Unsets the value of the "qualitativeSpecies" attribute of this Input.
    */
-  public boolean unsetQualitativeSpecies()
-  {
-    if (isSetQualitativeSpecies())
-    {
+  public boolean unsetQualitativeSpecies() {
+    if (isSetQualitativeSpecies()) {
       mQualitativeSpecies = null;
       return true;
-    }
-    else
-    {
+    } else {
       return false;
     }
   }
@@ -412,8 +266,7 @@ package org.sbml.jsbml.ext.qual
   /**
    * Unsets the value of the "transitionEffect" attribute of this Input.
    */
-  public boolean unsetTransitionEffect()
-  {
+  public boolean unsetTransitionEffect() {
     mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
@@ -422,433 +275,16 @@ package org.sbml.jsbml.ext.qual
   /**
    * Unsets the value of the "thresholdLevel" attribute of this Input.
    */
-  public boolean unsetThresholdLevel()
-  {
-    if (isSetThresholdLevel())
-    {
+  public boolean unsetThresholdLevel() {
+    if (isSetThresholdLevel()) {
       Integer oldmThresholdLevel = mThresholdLevel;
       mThresholdLevel = null;
       firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
         mThresholdLevel);
       return true;
-    }
-    else
-    {
+    } else {
       return false;
     }
   }
-
-
-  /**
-   * @copydoc doc_renamesidref_common
-   */
-  public void renameSIdRefs(const std::string& oldid, const std::string& newid)
-  {
-    if (isSetQualitativeSpecies() && mQualitativeSpecies == oldid)
-    {
-      setQualitativeSpecies(newid);
-    }
-  }
-
-
-  /**
-   * Returns the XML element name of this Input object.
-   */
-  public const std::string& getElementName()
-  {
-    static const string name = "input";
-    return name;
-  }
-
-
-  /**
-   * Returns the libJSBML type code for this Input object.
-   */
-  public int getTypeCode()
-  {
-    return SBML_QUAL_INPUT;
-  }
-
-
-  /**
-   * Predicate returning @c true if all the required attributes for this Input
-   * object have been set.
-   */
-  public bool hasRequiredAttributes()
-  {
-    bool allPresent = SBase::hasRequiredAttributes();
-
-    if (isSetQualitativeSpecies() == false)
-    {
-      allPresent = false;
-    }
-
-    return allPresent;
-  }
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Write any contained elements
-   */
-  public void writeElements(XMLOutputStream& stream)
-  {
-    SBase::writeElements(stream);
-
-    SBase::writeExtensionElements(stream);
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Accepts the given SBMLVisitor
-   */
-  public bool accept(SBMLVisitor& v)
-  {
-    return v.visit(*this);
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Sets the parent SBMLDocument
-   */
-  public void setSBMLDocument(SBMLDocument* d)
-  {
-    SBase::setSBMLDocument(d);
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Enables/disables the given package with this element
-   */
-  public void enablePackageInternal(const std::string& pkgURI,
-                                    const std::string& pkgPrefix,
-                                    bool flag)
-  {
-    SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Creates a new object from the next XMLToken on the XMLInputStream
-   */
-  public SBase* createObject(XMLInputStream& stream)
-  {
-    SBase* obj = SBase::createObject(stream);
-
-    connectToChild();
-
-    return obj;
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Adds the expected attributes for this element
-   */
-  public void addExpectedAttributes(ExpectedAttributes& attributes)
-  {
-    SBase::addExpectedAttributes(attributes);
-
-    attributes.add("id");
-
-    attributes.add("name");
-
-    attributes.add("sign");
-
-    attributes.add("qualitativeSpecies");
-
-    attributes.add("transitionEffect");
-
-    attributes.add("thresholdLevel");
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Reads the expected attributes into the member data variables
-   */
-  public void readAttributes(const XMLAttributes& attributes,
-                             const ExpectedAttributes& expectedAttributes)
-  {
-    unsigned int level = getLevel();
-    unsigned int version = getVersion();
-    unsigned int pkgVersion = getPackageVersion();
-    unsigned int numErrs;
-    bool assigned = false;
-    SBMLErrorLog* log = getErrorLog();
-
-    if (static_cast<ListOfInputs*>(getParentJSBMLObject())->size() < 2)
-    {
-      numErrs = log->getNumErrors();
-      for (int n = numErrs-1; n >= 0; n--)
-      {
-        if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-        {
-          const std::string details = log->getError(n)->getMessage();
-          log->remove(UnknownPackageAttribute);
-          log->logPackageError("qual", QualUnknownError, pkgVersion, level,
-            version, details);
-        }
-        else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-        {
-          const std::string details = log->getError(n)->getMessage();
-          log->remove(UnknownCoreAttribute);
-          log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-            details);
-        }
-      }
-    }
-
-    SBase::readAttributes(attributes, expectedAttributes);
-    numErrs = log->getNumErrors();
-
-    for (int n = numErrs-1; n >= 0; n--)
-    {
-      if (log->getError(n)->getErrorId() == UnknownPackageAttribute)
-      {
-        const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownPackageAttribute);
-        log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-          details);
-      }
-      else if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
-      {
-        const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownCoreAttribute);
-        log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-          details);
-      }
-    }
-
-    // 
-    // id SId (use = "optional" )
-    // 
-
-    assigned = attributes.readInto("id", mId);
-
-    if (assigned == true)
-    {
-      if (mId.empty() == true)
-      {
-        logEmptyString(mId, level, version, "<Input>");
-      }
-      else if (SyntaxChecker::isValidSBMLSId(mId) == false)
-      {
-        logError(QualIdSyntaxRule, level, version, "The id '" + mId + "' does "
-          "not conform to the syntax.");
-      }
-    }
-
-    // 
-    // name string (use = "optional" )
-    // 
-
-    assigned = attributes.readInto("name", mName);
-
-    if (assigned == true)
-    {
-      if (mName.empty() == true)
-      {
-        logEmptyString(mName, level, version, "<Input>");
-      }
-    }
-
-    // 
-    // sign enum (use = "optional" )
-    // 
-
-    std::string sign;
-    assigned = attributes.readInto("sign", sign);
-
-    if (assigned == true)
-    {
-      if (sign.empty() == true)
-      {
-        logEmptyString(sign, level, version, "<Input>");
-      }
-      else
-      {
-        mSign = Sign_fromString(sign.c_str());
-
-        if (Sign_isValid(mSign) == 0)
-        {
-          std::string msg = "The sign on the <Input> ";
-
-          if (isSetId())
-          {
-            msg += "with id '" + getId() + "'";
-          }
-
-          msg += "is '" + sign + "', which is not a valid option.";
-
-          log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-            msg);
-        }
-      }
-    }
-
-    // 
-    // qualitativeSpecies SIdRef (use = "required" )
-    // 
-
-    assigned = attributes.readInto("qualitativeSpecies", mQualitativeSpecies);
-
-    if (assigned == true)
-    {
-      if (mQualitativeSpecies.empty() == true)
-      {
-        logEmptyString(mQualitativeSpecies, level, version, "<Input>");
-      }
-      else if (SyntaxChecker::isValidSBMLSId(mQualitativeSpecies) == false)
-      {
-        logError(QualInputQualitativeSpeciesMustBeQualitativeSpecies, level,
-          version, "The attribute qualitativeSpecies='" + mQualitativeSpecies +
-            "' does not conform to the syntax.");
-      }
-    }
-    else
-    {
-      std::string message = "Qual attribute 'qualitativeSpecies' is missing "
-        "from the <Input> element.";
-      log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-        message);
-    }
-
-    // 
-    // transitionEffect enum (use = "optional" )
-    // 
-
-    std::string transitioneffect;
-    assigned = attributes.readInto("transitionEffect", transitioneffect);
-
-    if (assigned == true)
-    {
-      if (transitioneffect.empty() == true)
-      {
-        logEmptyString(transitioneffect, level, version, "<Input>");
-      }
-      else
-      {
-        mTransitionEffect =
-          TransitionInputEffect_fromString(transitioneffect.c_str());
-
-        if (TransitionInputEffect_isValid(mTransitionEffect) == 0)
-        {
-          std::string msg = "The transitionEffect on the <Input> ";
-
-          if (isSetId())
-          {
-            msg += "with id '" + getId() + "'";
-          }
-
-          msg += "is '" + transitioneffect + "', which is not a valid option.";
-
-          log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-            msg);
-        }
-      }
-    }
-
-    // 
-    // thresholdLevel uint (use = "optional" )
-    // 
-
-    numErrs = log->getNumErrors();
-    mIsSetThresholdLevel = attributes.readInto("thresholdLevel",
-      mThresholdLevel);
-
-    if ( mIsSetThresholdLevel == false)
-    {
-      if (log->getNumErrors() == numErrs + 1 &&
-        log->contains(XMLAttributeTypeMismatch))
-      {
-        log->remove(XMLAttributeTypeMismatch);
-        std::string message = "Qual attribute 'thresholdLevel' from the <Input> "
-          "element must be an integer.";
-        log->logPackageError("qual", QualUnknown, pkgVersion, level, version,
-          message);
-      }
-    }
-  }
-
-  /** @endcond */
-
-
-
-  /** @cond doxygenJSBMLInternal */
-
-  /**
-   * Writes the attributes to the stream
-   */
-  public void writeAttributes(XMLOutputStream& stream)
-  {
-    SBase::writeAttributes(stream);
-
-    if (isSetId() == true)
-    {
-      stream.writeAttribute("id", getPrefix(), mId);
-    }
-
-    if (isSetName() == true)
-    {
-      stream.writeAttribute("name", getPrefix(), mName);
-    }
-
-    if (isSetSign() == true)
-    {
-      stream.writeAttribute("sign", getPrefix(), Sign_toString(mSign));
-    }
-
-    if (isSetQualitativeSpecies() == true)
-    {
-      stream.writeAttribute("qualitativeSpecies", getPrefix(),
-        mQualitativeSpecies);
-    }
-
-    if (isSetTransitionEffect() == true)
-    {
-      stream.writeAttribute("transitionEffect", getPrefix(),
-        TransitionInputEffect_toString(mTransitionEffect));
-    }
-
-    if (isSetThresholdLevel() == true)
-    {
-      stream.writeAttribute("thresholdLevel", getPrefix(), mThresholdLevel);
-    }
-
-    SBase::writeExtensionAttributes(stream);
-  }
-
-  /** @endcond */
 
 

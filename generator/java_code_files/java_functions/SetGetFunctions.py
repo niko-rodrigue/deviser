@@ -1520,7 +1520,7 @@ class SetGetFunctions():
             implementation = ['{0} = {1}'.format(member, name),
                               'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
-        elif attribute['type'] == 'enum': # TODO setType setOperaton setSig
+        elif attribute['type'] == 'enum': # TODO setType setOperation setSig
             implementation = ['{0}_isValid({1}) == '
                               '0'.format(attribute['element'], name),
                               '{0} = {1}'.format(member,

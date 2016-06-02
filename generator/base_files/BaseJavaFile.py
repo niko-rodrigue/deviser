@@ -63,7 +63,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.license_comment_start = '/*'
 
 
-        # TODO GSOC license variables
+        # TODO GSOC license variables Almost Done
         self.file_version = 2465
         self.file_creation_time = ''
         self.file_creation_time_jsbml_types = ''
@@ -76,7 +76,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.library_name = global_variables.java_library_name
         self.cap_language = self.language.upper()
 
-
+        # TODO will need something similar for importing modules, but how?
         # expand the information for the attributes
         if attributes:
             self.attributes = self.expand_attributes(attributes)
@@ -125,7 +125,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     ########################################################################
 
-    # TODO will be needed for interfaces
+    # TODO will be needed for interfaces create a modified copy of it
     def expand_class(self, class_object):
         self.class_object = class_object
         self.is_list_of = class_object['is_list_of']
@@ -212,7 +212,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         if 'concrete' in class_object:
             self.concretes = query.get_concretes(class_object['root'],
                                                  class_object['concrete'])
-
+        # TODO I think it will be critical for import statements
         self.class_attributes = query.separate_attributes(self.attributes)
 
         # document class for other libraries
@@ -575,7 +575,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line(line)
 
 
-    # TODO write open braces
+    # TODO write open braces Done
     def write_class_function_header(self, function_name, arguments,
                                     return_type, is_const=False,
                                     constructor_args=None):
@@ -585,20 +585,20 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_extern_decl()
         #self.write_line(return_type) #Need to remove this part
 
-        # TODO GSOC 2016 change
+        # TODO GSOC 2016 change modified brackets
         line = 'public' + ' ' + return_type + ' ' + function_name + '('
         if num_arguments == 0:
             if is_java and is_const:
                 line += ')' # const
             else:
                 line += ')'
-            self.write_line(line)
+            self.write_line_jsbml(line)
         elif num_arguments == 1:
             if is_java and is_const:
                 line = line + arguments[0] + ')' # const
             else:
                 line = line + arguments[0] + ')'
-            self.write_line(line)
+            self.write_line_jsbml(line)
         else:
             saved_line = line
             line = line + arguments[0] + ', '
@@ -617,25 +617,25 @@ class BaseJavaFile(BaseFile.BaseFile):
                 line += arguments[0]
                 line += ','
                 if len(line) > self.line_length:
-                    self.write_line(saved_line)
+                    self.write_line_jsbml(saved_line)
                     line = '' + arguments[0] + ','
-                    self.write_line(line, att_start)
+                    self.write_line_jsbml(line, att_start)
                 else:
-                    self.write_line(line)
+                    self.write_line_jsbml(line)
                 for i in range(1, num_arguments - 1):
                     line = arguments[i] + ','
-                    self.write_line(line, att_start)
+                    self.write_line_jsbml(line, att_start)
                 if is_java and is_const:
                     line = arguments[num_arguments - 1] + ')' # const
                 else:
                     line = arguments[num_arguments - 1] + ')'
-                self.write_line(line, att_start)
+                self.write_line_jsbml(line, att_start)
             else:
-                self.write_line(line)
+                self.write_line_jsbml(line)
         if constructor_args is not None:
             self.up_indent()
             for i in range(0, len(constructor_args)):
-                self.write_line(constructor_args[i])
+                self.write_line_jsbml(constructor_args[i])
             self.down_indent()
 
 
@@ -851,7 +851,7 @@ class BaseJavaFile(BaseFile.BaseFile):
     # FUNCTIONS FOR WRITING STANDARD FUNCTION Implementation
 
     def write_implementation(self, implementation):
-        self.write_line('{')
+        #self.write_line('{') #TODO this one has to be moved
         self.write_nested_implementation(implementation)
         self.write_line('}')
 
@@ -946,15 +946,48 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     def write_block(self, block_start, code, condition):
         if condition:
-            self.write_line('{0} ({1})'.format(block_start, code[0]))
-            self.write_line('{')
+            self.write_line_jsbml('{0} ({1})'.format(block_start, code[0]))
+            #self.write_line('{')
             self.write_nested_implementation(code[1:len(code)])
-            self.write_line('}')
+            self.write_line_jsbml_block_end('}')
+            #self.write_line('}') # TODO almost but not yet there, crap!!!
         else:
-            self.write_line('{0}'.format(block_start))
-            self.write_line('{')
+            self.write_line_jsbml_else(block_start)
+            #self.write_line('{')
             self.write_nested_implementation(code)
             self.write_line('}')
+
+    def write_line_jsbml_else(self, line, space = 0):
+        self.file_out.write(' {0} '.format(line))
+        self.file_out.write('{\n')
+
+
+    def write_line_jsbml_block_end(self, line = '}', space=0):
+        tabs = ''
+        # self.num_tabs -= 1 Dont use this it works fine
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        for i in range(0, space):
+            tabs += ' '
+        # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
+        lines = self.create_lines(line, len(tabs))
+        for i in range(0, len(lines)):
+            self.file_out.write('{0}{1}'.format(tabs, lines[i]))
+            #tabs += '  '
+        #self.file_out.write('} ')
+
+    def write_line_jsbml(self, line, space=0):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        for i in range(0, space):
+            tabs += ' '
+        # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
+        lines = self.create_lines(line, len(tabs))
+        for i in range(0, len(lines)):
+            self.file_out.write('{0}{1}'.format(tabs, lines[i]))
+            tabs += '  '
+        self.file_out.write(' {\n')
 
 
     def write_file(self):
@@ -1001,7 +1034,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_comment_line('$URL: {0} $'.format(self.folder_and_filename))
 
     def add_file_header(self):
-        self.open_license_comment() #TODO here need to add one star
+        self.open_license_comment()
         self.write_file_header_information()
         # self.write_comment_line('@file   {0}'.format(self.filename))
         # self.write_comment_line('@brief  {0}'.format(self.brief_description))

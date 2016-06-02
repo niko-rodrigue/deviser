@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
-# @file    CppCodeFile.py
+# @file    JavaCodeFile.py
 # @brief   class for generating code file for the given class
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #
@@ -53,6 +52,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                          class_object['attribs'])
 
         # members from object
+        # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
     ########################################################################
@@ -60,19 +60,20 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     # Functions for writing the class
     def write_class(self):
         # self.write_forward_class()
-        self.write_constructors()
+        # TODO for now only generate attribute functions
+        # self.write_constructors()
         self.write_attribute_functions()
-        self.write_child_element_functions()
-        self.write_listof_functions()
-        self.write_child_lo_element_functions()
-        self.write_concrete_functions()
-        self.write_general_functions()
-        self.write_functions_to_retrieve()
-        if self.document:
-            self.write_document_error_log_functions()
-        self.write_protected_functions()
-        if self.add_impl is not None and not self.is_list_of:
-            self.copy_additional_file(self.add_impl)
+        # self.write_child_element_functions()
+        # self.write_listof_functions()
+        # self.write_child_lo_element_functions()
+        # self.write_concrete_functions()
+        # self.write_general_functions()
+        # self.write_functions_to_retrieve()
+        # if self.document:
+        #     self.write_document_error_log_functions()
+        # self.write_protected_functions()
+        # if self.add_impl is not None and not self.is_list_of:
+        #     self.copy_additional_file(self.add_impl)
 
     def write_c_code(self):
         self.is_java_api = False
@@ -778,7 +779,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
-        self.write_general_includes()
+        #self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         #self.write_cppns_begin()
         #self.write_cpp_begin()
