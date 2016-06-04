@@ -210,7 +210,7 @@ class SetGetFunctions():
 
         #code = [dict({'code_type': 'line', 'code': implementation})]
 
-        print('type ',curr_att_type)
+        # print('type ',curr_att_type)
         # create the function implementation
         if self.is_java_api:
             if not self.document:

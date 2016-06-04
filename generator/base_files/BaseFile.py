@@ -206,6 +206,12 @@ class BaseFile:
             tabs += '  '
         self.file_out.write('{0}{1}\n'.format(tabs, line))
 
+    def write_jsbml_line_verbatim(self, line):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        self.file_out.write('{0}{1};\n'.format(tabs, line))
+
     # write line without worrying about size
     def copy_line_verbatim(self, line):
         tabs = ''

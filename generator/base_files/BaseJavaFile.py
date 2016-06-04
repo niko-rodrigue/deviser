@@ -77,6 +77,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.cap_language = self.language.upper()
 
         # TODO will need something similar for importing modules, but how?
+        self.class_is_abstract = False
         # expand the information for the attributes
         if attributes:
             self.attributes = self.expand_attributes(attributes)
@@ -123,6 +124,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.is_plugin = False
         self.is_doc_plugin = False
 
+
     ########################################################################
 
     # TODO will be needed for interfaces create a modified copy of it
@@ -152,7 +154,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         # information about the base class
         self.baseClass = class_object['baseClass']
-        if self.language != 'sbml':
+        if self.language != 'jsbml':
             if not self.is_list_of:
                 base = '{0}Base'.format(global_variables.prefix)
             else:
@@ -238,6 +240,40 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.class_object['document'] = self.document
 
     ########################################################################
+
+    # Function to expand import modules and extension
+    def expand_import_modules(self):
+        self.extends_modules = []
+        self.implements_modules = []
+        self.import_from_java_modules = []
+        self.import_from_jsbml_modules = []
+        #self.import_from_jsbml_utils_modules = []
+        if str(self.package).lower() == 'qual':
+            if self.name == 'QualitativeSpecies':
+                self.class_is_abstract = False
+                self.extends_modules.append('AbstractNamedSBase')
+                self.implements_modules.append('UniqueNamedSBase')
+                self.implements_modules.append('CallableSBase')
+                self.import_from_java_modules.append('util.Map')
+                self.import_from_jsbml_modules.append('AbstractNamedSBase')
+                self.import_from_jsbml_modules.append('CompartmentalizedSBase')
+                self.import_from_jsbml_modules.append('LevelVersionError')
+                self.import_from_jsbml_modules.append('Model')
+                self.import_from_jsbml_modules.append('PropertyUndefinedError')
+                self.import_from_jsbml_modules.append('Species')
+                self.import_from_jsbml_modules.append('UniqueNamedSBase')
+                self.import_from_jsbml_modules.append('util.StringTools')
+        self.jsbml_class_header_and_import = dict({'abstract': self.class_is_abstract,
+                                                   'extends': self.extends_modules,
+                                                   'implements': self.implements_modules,
+                                                   'javaModules': self.import_from_java_modules,
+                                                   'jsbmlModules': self.import_from_jsbml_modules})
+
+
+
+
+
+
 
     # Function to expand the attribute information
     def expand_attributes(self, attributes):
@@ -534,9 +570,9 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_line(line)
         elif num_arguments == 1:
             if is_java and is_const:
-                line = line + arguments[0] + ') const;'
+                line = line + arguments[0] # + ') const;'
             elif is_abstract:
-                line = line + arguments[0] + ') = 0;'
+                line = line + arguments[0] # + ') = 0;'
             else:
                 line = line + arguments[0] + ');'
             self.write_line(line)
@@ -547,7 +583,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             for n in range(1, num_arguments-1):
                 line = line + arguments[n] + ', '
             if is_java and is_const:
-                line = line + arguments[num_arguments-1] + '); const'
+                line = line + arguments[num_arguments-1] + ');' #  const'
             else:
                 line = line + arguments[num_arguments-1] + ');'
             # look at length and adjust
@@ -737,8 +773,8 @@ class BaseJavaFile(BaseFile.BaseFile):
 
             if 'implementation' in code and code['implementation'] is not None:
                 self.write_implementation(code['implementation'])
-                print("code implementation ",code['implementation'])
-                print('---------------->')
+                # print("code implementation ",code['implementation'])
+                # print('---------------->')
 
 
 
@@ -774,11 +810,11 @@ class BaseJavaFile(BaseFile.BaseFile):
 
             if 'implementation' in code and code['implementation'] is not None:
                 self.write_implementation(code['implementation'])
-            if exclude:
-                self.write_doxygen_end()
-                self.skip_line()
-            else:
-                self.skip_line(2)
+            # if exclude:
+            #     self.write_doxygen_end()
+            #     self.skip_line()
+            # else:
+            #     self.skip_line(2)
 
     # Function for writing a function implementation
     def write_function_verbatim(self, code):

@@ -55,6 +55,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
+
+
+        # TODO mockup function
+        self.expand_import_modules()
     ########################################################################
 
     # Functions for writing the class
@@ -62,6 +66,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_forward_class()
         # TODO for now only generate attribute functions
         # self.write_constructors()
+
         self.write_attribute_functions()
         # self.write_child_element_functions()
         # self.write_listof_functions()
@@ -97,6 +102,31 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         for element in self.concretes:
             self.write_line('class {0};'.format(element['element']))
         self.skip_line()
+
+    # TODO for writing imports
+    def write_java_imports(self):
+        self.skip_line()
+        java_modules = self.jsbml_class_header_and_import['javaModules']
+        if len(java_modules) > 0:
+            for module in java_modules:
+                javaModuleLine = 'import java.{0}'.format(module)
+                self.write_jsbml_line_verbatim(javaModuleLine)
+            self.skip_line()
+
+
+        jsbml_modules = self.jsbml_class_header_and_import['jsbmlModules']
+        if len(jsbml_modules) > 0:
+            for module in jsbml_modules:
+                jsbmlModuleLine = 'import org.sbml.jsbml.{0}'.format(module)
+                self.write_jsbml_line_verbatim(jsbmlModuleLine)
+            self.skip_line()
+
+
+    def write_jsbml_class_header(self):
+        abstract = self.jsbml_class_header_and_import['abstract']
+        extends = self.jsbml_class_header_and_import['extends']
+        implement_modules = self.jsbml_class_header_and_import['implements']
+
 
     def write_general_includes(self):
         lo_name = ''
@@ -775,10 +805,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             #print('curr_include_line is ', curr_include_line)
             self.write_line_verbatim(curr_include_line)
 
-    # TODO need to ad jsbml license
+    # TODO need to add import
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
+        self.write_java_imports()
         #self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         #self.write_cppns_begin()

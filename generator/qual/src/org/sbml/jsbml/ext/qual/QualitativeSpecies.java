@@ -1,5 +1,5 @@
 /*
- * $Id: QualitativeSpecies.java 2465 2016-06-03 00:41:22Z deviser $
+ * $Id: QualitativeSpecies.java 2465 2016-06-04 21:00:07Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualQualitativeSpecies.java
  * $
@@ -23,11 +23,23 @@
  */
 package org.sbml.jsbml.ext.qual
 
+
+import java.util.Map;
+
+import org.sbml.jsbml.AbstractNamedSBase;
+import org.sbml.jsbml.CompartmentalizedSBase;
+import org.sbml.jsbml.LevelVersionError;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.PropertyUndefinedError;
+import org.sbml.jsbml.Species;
+import org.sbml.jsbml.UniqueNamedSBase;
+import org.sbml.jsbml.util.StringTools;
+
 /**
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-03 00:41:22 +0400 (Fri, 03 Jun 2016) $
+ * @date $Date: 2016-06-04 21:00:07 +0400 (Sat, 04 Jun 2016) $
  */
   /**
    * @return the value of the "id" attribute of this QualitativeSpecies.

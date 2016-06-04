@@ -60,10 +60,12 @@ class JavaFiles():
     def write_files(self):
         #self.write_header(self.class_object)
         self.write_code(self.class_object)
-        if self.class_object['hasListOf']:
-            lo_working_class = self.create_list_of_description()
-            #self.write_header(lo_working_class)
-            self.write_code(lo_working_class)
+
+        # TODO what to do with listOf stuff
+        # if self.class_object['hasListOf']:
+        #     lo_working_class = self.create_list_of_description()
+        #     #self.write_header(lo_working_class)
+        #     self.write_code(lo_working_class)
 
     # def write_header(self, class_desc):
     #     fileout = JavaHeaderFile.JavaHeaderFile(class_desc)
