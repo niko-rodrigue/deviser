@@ -263,7 +263,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.import_from_jsbml_modules.append('Species')
                 self.import_from_jsbml_modules.append('UniqueNamedSBase')
                 self.import_from_jsbml_modules.append('util.StringTools')
-        self.jsbml_class_header_and_import = dict({'abstract': self.class_is_abstract,
+        self.jsbml_class_header_and_import = dict({'className': self.name,
+                                                   'abstract': self.class_is_abstract,
                                                    'extends': self.extends_modules,
                                                    'implements': self.implements_modules,
                                                    'javaModules': self.import_from_java_modules,
@@ -782,7 +783,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_doxygen_end()
                 self.skip_line()
             else:
-                self.skip_line(2)
+                self.skip_line()
             self.down_indent()
 
     # Function for writing a function implementation

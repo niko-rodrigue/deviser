@@ -1,5 +1,5 @@
 /*
- * $Id: QualitativeSpecies.java 2465 2016-06-04 21:00:07Z deviser $
+ * $Id: QualitativeSpecies.java 2465 2016-06-04 23:07:05Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualQualitativeSpecies.java
  * $
@@ -39,15 +39,15 @@ import org.sbml.jsbml.util.StringTools;
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-04 21:00:07 +0400 (Sat, 04 Jun 2016) $
+ * @date $Date: 2016-06-04 23:07:05 +0400 (Sat, 04 Jun 2016) $
  */
+public class QualitativeSpecies AbstractNamedSBase implements UniqueNamedSBase,  CallableSBase {
   /**
    * @return the value of the "id" attribute of this QualitativeSpecies.
    */
   public String getId() {
     return isSetId() ? id : "";
   }
-
 
   /**
    * @return the value of the "name" attribute of this QualitativeSpecies.
@@ -56,7 +56,6 @@ import org.sbml.jsbml.util.StringTools;
     return isSetName() ? name : "";
   }
 
-
   /**
    * @return the value of the "compartment" attribute of this
    * QualitativeSpecies.
@@ -64,7 +63,6 @@ import org.sbml.jsbml.util.StringTools;
   public String getCompartment() {
     return isSetCompartment() ? compartment : "";
   }
-
 
   /**
    * @return the value of the "constant" attribute of this QualitativeSpecies.
@@ -75,7 +73,6 @@ import org.sbml.jsbml.util.StringTools;
     }
     throw new PropertyUndefinedError(QualConstants.mConstant, this);
   }
-
 
   /**
    * @return the value of the "initialLevel" attribute of this
@@ -88,7 +85,6 @@ import org.sbml.jsbml.util.StringTools;
     throw new PropertyUndefinedError(QualConstants.mInitialLevel, this);
   }
 
-
   /**
    * @return the value of the "maxLevel" attribute of this QualitativeSpecies.
    */
@@ -99,7 +95,6 @@ import org.sbml.jsbml.util.StringTools;
     throw new PropertyUndefinedError(QualConstants.mMaxLevel, this);
   }
 
-
   /**
    * Predicate returning {@code true} if this QualitativeSpecies's "id"
    * attribute is set.
@@ -107,7 +102,6 @@ import org.sbml.jsbml.util.StringTools;
   public boolean isSetId() {
     ;
   }
-
 
   /**
    * Predicate returning {@code true} if this QualitativeSpecies's "name"
@@ -117,7 +111,6 @@ import org.sbml.jsbml.util.StringTools;
     ;
   }
 
-
   /**
    * Predicate returning {@code true} if this QualitativeSpecies's
    * "compartment" attribute is set.
@@ -125,7 +118,6 @@ import org.sbml.jsbml.util.StringTools;
   public boolean isSetCompartment() {
     ;
   }
-
 
   /**
    * Predicate returning {@code true} if this QualitativeSpecies's "constant"
@@ -135,7 +127,6 @@ import org.sbml.jsbml.util.StringTools;
     return mConstant != null;
   }
 
-
   /**
    * Predicate returning {@code true} if this QualitativeSpecies's
    * "initialLevel" attribute is set.
@@ -143,7 +134,6 @@ import org.sbml.jsbml.util.StringTools;
   public boolean isSetInitialLevel() {
     return mInitialLevel != null;
   }
-
 
   /**
    * Predicate returning {@code true} if this QualitativeSpecies's "maxLevel"
@@ -153,14 +143,12 @@ import org.sbml.jsbml.util.StringTools;
     return mMaxLevel != null;
   }
 
-
   /**
    * Sets the value of the "id" attribute of this QualitativeSpecies.
    */
   public void setId(String id) {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
-
 
   /**
    * Sets the value of the "name" attribute of this QualitativeSpecies.
@@ -169,7 +157,6 @@ import org.sbml.jsbml.util.StringTools;
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
   }
-
 
   /**
    * Sets the value of the "compartment" attribute of this QualitativeSpecies.
@@ -190,7 +177,6 @@ import org.sbml.jsbml.util.StringTools;
     return false;
   }
 
-
   /**
    * Sets the value of the "constant" attribute of this QualitativeSpecies.
    */
@@ -202,7 +188,6 @@ import org.sbml.jsbml.util.StringTools;
     firePropertyChange(QualConstants.mConstant, oldmConstant,
       this.oldmConstant);
   }
-
 
   /**
    * Sets the value of the "initialLevel" attribute of this QualitativeSpecies.
@@ -216,7 +201,6 @@ import org.sbml.jsbml.util.StringTools;
       this.oldmInitialLevel);
   }
 
-
   /**
    * Sets the value of the "maxLevel" attribute of this QualitativeSpecies.
    */
@@ -228,7 +212,6 @@ import org.sbml.jsbml.util.StringTools;
     firePropertyChange(QualConstants.mMaxLevel, oldmMaxLevel,
       this.oldmMaxLevel);
   }
-
 
   /**
    * Unsets the value of the "id" attribute of this QualitativeSpecies.
@@ -242,7 +225,6 @@ import org.sbml.jsbml.util.StringTools;
     }
   }
 
-
   /**
    * Unsets the value of the "name" attribute of this QualitativeSpecies.
    */
@@ -254,7 +236,6 @@ import org.sbml.jsbml.util.StringTools;
       return false;
     }
   }
-
 
   /**
    * Unsets the value of the "compartment" attribute of this
@@ -269,7 +250,6 @@ import org.sbml.jsbml.util.StringTools;
     }
   }
 
-
   /**
    * Unsets the value of the "constant" attribute of this QualitativeSpecies.
    */
@@ -283,7 +263,6 @@ import org.sbml.jsbml.util.StringTools;
       return false;
     }
   }
-
 
   /**
    * Unsets the value of the "initialLevel" attribute of this
@@ -301,7 +280,6 @@ import org.sbml.jsbml.util.StringTools;
     }
   }
 
-
   /**
    * Unsets the value of the "maxLevel" attribute of this QualitativeSpecies.
    */
@@ -316,4 +294,4 @@ import org.sbml.jsbml.util.StringTools;
     }
   }
 
-
+}

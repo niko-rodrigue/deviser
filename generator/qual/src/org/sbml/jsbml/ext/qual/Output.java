@@ -1,5 +1,5 @@
 /*
- * $Id: Output.java 2465 2016-06-04 21:00:07Z deviser $
+ * $Id: Output.java 2465 2016-06-04 23:07:05Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualOutput.java
  * $
@@ -28,8 +28,9 @@ package org.sbml.jsbml.ext.qual
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-04 21:00:07 +0400 (Sat, 04 Jun 2016) $
+ * @date $Date: 2016-06-04 23:07:05 +0400 (Sat, 04 Jun 2016) $
  */
+public class Output {
   /**
    * @return the value of the "id" attribute of this Output.
    */
@@ -37,14 +38,12 @@ package org.sbml.jsbml.ext.qual
     return isSetId() ? id : "";
   }
 
-
   /**
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */
   public String getQualitativeSpecies() {
     return isSetQualitativeSpecies() ? qualitativeSpecies : "";
   }
-
 
   /**
    * @return the value of the "transitionEffect" attribute of this Output.
@@ -56,14 +55,12 @@ package org.sbml.jsbml.ext.qual
     throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
   }
 
-
   /**
    * @return the value of the "name" attribute of this Output.
    */
   public String getName() {
     return isSetName() ? name : "";
   }
-
 
   /**
    * @return the value of the "outputLevel" attribute of this Output.
@@ -75,14 +72,12 @@ package org.sbml.jsbml.ext.qual
     throw new PropertyUndefinedError(QualConstants.mOutputLevel, this);
   }
 
-
   /**
    * Predicate returning {@code true} if this Output's "id" attribute is set.
    */
   public boolean isSetId() {
     ;
   }
-
 
   /**
    * Predicate returning {@code true} if this Output's "qualitativeSpecies"
@@ -92,7 +87,6 @@ package org.sbml.jsbml.ext.qual
     ;
   }
 
-
   /**
    * Predicate returning {@code true} if this Output's "transitionEffect"
    * attribute is set.
@@ -101,14 +95,12 @@ package org.sbml.jsbml.ext.qual
     return (mTransitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
   }
 
-
   /**
    * Predicate returning {@code true} if this Output's "name" attribute is set.
    */
   public boolean isSetName() {
     ;
   }
-
 
   /**
    * Predicate returning {@code true} if this Output's "outputLevel" attribute
@@ -118,14 +110,12 @@ package org.sbml.jsbml.ext.qual
     return mOutputLevel != null;
   }
 
-
   /**
    * Sets the value of the "id" attribute of this Output.
    */
   public void setId(String id) {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
-
 
   /**
    * Sets the value of the "qualitativeSpecies" attribute of this Output.
@@ -146,7 +136,6 @@ package org.sbml.jsbml.ext.qual
     return false;
   }
 
-
   /**
    * Sets the value of the "transitionEffect" attribute of this Output.
    */
@@ -160,7 +149,6 @@ package org.sbml.jsbml.ext.qual
     }
   }
 
-
   /**
    * Sets the value of the "name" attribute of this Output.
    */
@@ -168,7 +156,6 @@ package org.sbml.jsbml.ext.qual
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
   }
-
 
   /**
    * Sets the value of the "outputLevel" attribute of this Output.
@@ -182,7 +169,6 @@ package org.sbml.jsbml.ext.qual
       this.oldmOutputLevel);
   }
 
-
   /**
    * Unsets the value of the "id" attribute of this Output.
    */
@@ -194,7 +180,6 @@ package org.sbml.jsbml.ext.qual
       return false;
     }
   }
-
 
   /**
    * Unsets the value of the "qualitativeSpecies" attribute of this Output.
@@ -208,7 +193,6 @@ package org.sbml.jsbml.ext.qual
     }
   }
 
-
   /**
    * Unsets the value of the "transitionEffect" attribute of this Output.
    */
@@ -216,7 +200,6 @@ package org.sbml.jsbml.ext.qual
     mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
-
 
   /**
    * Unsets the value of the "name" attribute of this Output.
@@ -229,7 +212,6 @@ package org.sbml.jsbml.ext.qual
       return false;
     }
   }
-
 
   /**
    * Unsets the value of the "outputLevel" attribute of this Output.
@@ -246,4 +228,4 @@ package org.sbml.jsbml.ext.qual
     }
   }
 
-
+}

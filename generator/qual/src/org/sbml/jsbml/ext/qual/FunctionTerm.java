@@ -1,5 +1,5 @@
 /*
- * $Id: FunctionTerm.java 2465 2016-06-04 21:00:07Z deviser $
+ * $Id: FunctionTerm.java 2465 2016-06-04 23:07:05Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualFunctionTerm.java
  * $
@@ -28,8 +28,9 @@ package org.sbml.jsbml.ext.qual
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-04 21:00:07 +0400 (Sat, 04 Jun 2016) $
+ * @date $Date: 2016-06-04 23:07:05 +0400 (Sat, 04 Jun 2016) $
  */
+public class FunctionTerm {
   /**
    * @return the value of the "resultLevel" attribute of this FunctionTerm.
    */
@@ -40,7 +41,6 @@ package org.sbml.jsbml.ext.qual
     throw new PropertyUndefinedError(QualConstants.mResultLevel, this);
   }
 
-
   /**
    * Predicate returning {@code true} if this FunctionTerm's "resultLevel"
    * attribute is set.
@@ -48,7 +48,6 @@ package org.sbml.jsbml.ext.qual
   public boolean isSetResultLevel() {
     return mResultLevel != null;
   }
-
 
   /**
    * Sets the value of the "resultLevel" attribute of this FunctionTerm.
@@ -61,7 +60,6 @@ package org.sbml.jsbml.ext.qual
     firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
       this.oldmResultLevel);
   }
-
 
   /**
    * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
@@ -78,4 +76,4 @@ package org.sbml.jsbml.ext.qual
     }
   }
 
-
+}

@@ -124,8 +124,36 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
     def write_jsbml_class_header(self):
         abstract = self.jsbml_class_header_and_import['abstract']
+        class_name = self.jsbml_class_header_and_import['className']
         extends = self.jsbml_class_header_and_import['extends']
         implement_modules = self.jsbml_class_header_and_import['implements']
+        if abstract == False:
+            write_abstract = ''
+        else:
+            write_abstract = 'abstract '
+        line_to_write = 'public {0}class {1} '.format(write_abstract, class_name)
+        extends_len = len(extends)
+        if extends_len == 1:
+            line_to_write += '{0}'.format(extends[0])
+        elif extends_len > 1:
+            for n in range(0, extends_len-1):
+                line_to_write = line_to_write + extends[n] + ', '
+
+        implement_len = len(implement_modules)
+        print('TADADADADADAD')
+        print(implement_modules)
+        print(implement_len)
+        if implement_len == 1:
+            line_to_write += ' implements {0}'.format(implement_modules[0])
+        elif implement_len > 1:
+            line_to_write = line_to_write + ' implements '
+            for n in range(0, implement_len-1):
+                line_to_write = line_to_write + implement_modules[n] + ', '
+            line_to_write = line_to_write + implement_modules[-1]
+
+        self.write_line_jsbml(line_to_write)
+
+
 
 
     def write_general_includes(self):
@@ -805,6 +833,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             #print('curr_include_line is ', curr_include_line)
             self.write_line_verbatim(curr_include_line)
 
+    def close_jsbml_class_header(self):
+        self.down_indent()
+        self.file_out.write('}\n')
+
     # TODO need to add import
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
@@ -812,9 +844,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_java_imports()
         #self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
-        #self.write_cppns_begin()
-        #self.write_cpp_begin()
+        self.write_jsbml_class_header()
         self.write_class()
+        self.close_jsbml_class_header()
         # self.write_cpp_end()
         # if not self.is_plugin:
         #     self.write_c_code()

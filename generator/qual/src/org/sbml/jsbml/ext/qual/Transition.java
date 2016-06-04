@@ -1,5 +1,5 @@
 /*
- * $Id: Transition.java 2465 2016-06-04 21:00:07Z deviser $
+ * $Id: Transition.java 2465 2016-06-04 23:07:05Z deviser $
  * $URL:
  * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualTransition.java
  * $
@@ -28,8 +28,9 @@ package org.sbml.jsbml.ext.qual
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-04 21:00:07 +0400 (Sat, 04 Jun 2016) $
+ * @date $Date: 2016-06-04 23:07:05 +0400 (Sat, 04 Jun 2016) $
  */
+public class Transition {
   /**
    * @return the value of the "id" attribute of this Transition.
    */
@@ -37,14 +38,12 @@ package org.sbml.jsbml.ext.qual
     return isSetId() ? id : "";
   }
 
-
   /**
    * @return the value of the "name" attribute of this Transition.
    */
   public String getName() {
     return isSetName() ? name : "";
   }
-
 
   /**
    * Predicate returning {@code true} if this Transition's "id" attribute is
@@ -54,7 +53,6 @@ package org.sbml.jsbml.ext.qual
     ;
   }
 
-
   /**
    * Predicate returning {@code true} if this Transition's "name" attribute is
    * set.
@@ -63,14 +61,12 @@ package org.sbml.jsbml.ext.qual
     ;
   }
 
-
   /**
    * Sets the value of the "id" attribute of this Transition.
    */
   public void setId(String id) {
     return SyntaxChecker::checkAndSetSId(id, mId);
   }
-
 
   /**
    * Sets the value of the "name" attribute of this Transition.
@@ -79,7 +75,6 @@ package org.sbml.jsbml.ext.qual
     mName = name;
     return LIBSBML_OPERATION_SUCCESS;
   }
-
 
   /**
    * Unsets the value of the "id" attribute of this Transition.
@@ -93,7 +88,6 @@ package org.sbml.jsbml.ext.qual
     }
   }
 
-
   /**
    * Unsets the value of the "name" attribute of this Transition.
    */
@@ -106,4 +100,4 @@ package org.sbml.jsbml.ext.qual
     }
   }
 
-
+}
