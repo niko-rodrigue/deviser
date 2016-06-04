@@ -714,6 +714,18 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_comment_line(title_line)
         self.close_comment()
 
+    # TODO GSOC variable comment line
+    def write_variable_comment(self):
+        self.open_double_comment(self)
+        self.write_blank_comment_line()
+        self.close_comment()
+
+    # TODO GSOC variable comment line
+    def write_serial_version_comment(self):
+        self.open_double_comment(self)
+        line = 'Generated serial version identifier.'
+        self.write_comment_line(line)
+        self.close_comment()
 #########################################################################
 
 # Function for writing a function definition with comment
@@ -1072,7 +1084,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     def add_file_header(self):
         self.open_license_comment()
-        self.write_file_header_information()
+        #self.write_file_header_information() # TODO wait till SBML AND JSBML team decide
         # self.write_comment_line('@file   {0}'.format(self.filename))
         # self.write_comment_line('@brief  {0}'.format(self.brief_description))
         # if global_variables.is_package:

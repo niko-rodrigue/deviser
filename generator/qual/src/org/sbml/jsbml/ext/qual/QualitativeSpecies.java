@@ -1,8 +1,4 @@
 /*
- * $Id: QualitativeSpecies.java 2465 2016-06-04 23:07:05Z deviser $
- * $URL:
- * /home/john1990/Dropbox/GitHub/SBML/deviser/generator/qual/src/org/sbml/jsbml/ext/qualQualitativeSpecies.java
- * $
  * ----------------------------------------------------------------------------
  * This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>
  * for the latest version of JSBML and more information about SBML.
@@ -23,7 +19,6 @@
  */
 package org.sbml.jsbml.ext.qual
 
-
 import java.util.Map;
 
 import org.sbml.jsbml.AbstractNamedSBase;
@@ -39,9 +34,38 @@ import org.sbml.jsbml.util.StringTools;
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
- * @date $Date: 2016-06-04 23:07:05 +0400 (Sat, 04 Jun 2016) $
+ * @date $Date: $
  */
 public class QualitativeSpecies AbstractNamedSBase implements UniqueNamedSBase,  CallableSBase {
+
+  /**
+   * Generated serial version identifier.
+   */
+  private static final long serialVersionUID = -6048861420699176889L;
+  /**
+   *
+   */
+  private String mId;
+  /**
+   *
+   */
+  private String mName;
+  /**
+   *
+   */
+  private String mCompartment;
+  /**
+   *
+   */
+  private Boolean mConstant;
+  /**
+   *
+   */
+  private Integer mInitialLevel;
+  /**
+   *
+   */
+  private Integer mMaxLevel;
   /**
    * @return the value of the "id" attribute of this QualitativeSpecies.
    */

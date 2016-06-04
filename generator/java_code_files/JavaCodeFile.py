@@ -140,9 +140,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 line_to_write = line_to_write + extends[n] + ', '
 
         implement_len = len(implement_modules)
-        print('TADADADADADAD')
-        print(implement_modules)
-        print(implement_len)
         if implement_len == 1:
             line_to_write += ' implements {0}'.format(implement_modules[0])
         elif implement_len > 1:
@@ -151,7 +148,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 line_to_write = line_to_write + implement_modules[n] + ', '
             line_to_write = line_to_write + implement_modules[-1]
 
+
         self.write_line_jsbml(line_to_write)
+        self.file_out.write('\n') # TODO not a good solution
 
 
 
@@ -829,13 +828,30 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     # TODO add variable whether extension or parser
     def write_package_include(self):
         if global_variables.is_package:
-            curr_include_line = 'package org.sbml.{0}.ext.{1}\n'.format(self.language, self.package.lower())
+            curr_include_line = 'package org.sbml.{0}.ext.{1}'.format(self.language, self.package.lower())
             #print('curr_include_line is ', curr_include_line)
             self.write_line_verbatim(curr_include_line)
 
     def close_jsbml_class_header(self):
         self.down_indent()
         self.file_out.write('}\n')
+
+    def write_jsbml_class_variables(self):
+        self.up_indent()
+        self.write_serial_version_comment()
+        # TODO need to change serialVersionUID
+        line = 'private static final long     serialVersionUID = -6048861420699176889L;'
+        self.write_line(line)
+
+        attributes  = self.class_attributes
+        for attribute in attributes:
+            self.write_variable_comment()
+            #print(attribute['memberName'])
+            return_type = attribute['JClassType']
+            memberName = attribute['memberName']
+            line = 'private {0} {1};'.format(return_type, memberName)
+            self.write_line(line)
+        self.down_indent()
 
     # TODO need to add import
     def write_file(self):
@@ -845,6 +861,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         #self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         self.write_jsbml_class_header()
+        self.write_jsbml_class_variables()
         self.write_class()
         self.close_jsbml_class_header()
         # self.write_cpp_end()
