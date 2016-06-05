@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b28d12fe-8b83-4199-8b01-bf9015623b98" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" afterPath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" afterPath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/DefaultTerm.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/DefaultTerm.java" />
@@ -36,7 +37,7 @@
       <file leaf-file-name="generateCode.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/util/generateCode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
+            <state relative-caret-position="6444">
               <caret line="358" column="27" selection-start-line="358" selection-start-column="27" selection-end-line="358" selection-end-column="27" />
               <folding>
                 <element signature="e#1991#2001#0" expanded="true" />
@@ -49,7 +50,7 @@
       <file leaf-file-name="JavaFiles.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaFiles.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
+            <state relative-caret-position="1098">
               <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
               <folding />
             </state>
@@ -59,8 +60,8 @@
       <file leaf-file-name="JavaCodeFile.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="841" column="46" selection-start-line="841" selection-start-column="46" selection-end-line="841" selection-end-column="46" />
+            <state relative-caret-position="430">
+              <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
               <folding>
                 <element signature="e#1979#2014#0" expanded="true" />
               </folding>
@@ -71,8 +72,8 @@
       <file leaf-file-name="BaseJavaFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="727" column="28" selection-start-line="727" selection-start-column="28" selection-end-line="727" selection-end-column="28" />
+            <state relative-caret-position="322">
+              <caret line="1034" column="27" selection-start-line="1034" selection-start-column="27" selection-end-line="1034" selection-end-column="27" />
               <folding>
                 <element signature="e#1992#2003#0" expanded="true" />
               </folding>
@@ -83,7 +84,7 @@
       <file leaf-file-name="SetGetFunctions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1048">
+            <state relative-caret-position="3024">
               <caret line="168" column="57" selection-start-line="168" selection-start-column="57" selection-end-line="168" selection-end-column="57" />
               <folding>
                 <element signature="e#2012#2066#0" expanded="true" />
@@ -95,8 +96,8 @@
       <file leaf-file-name="BaseFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/base_files/BaseFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="223" column="17" selection-start-line="223" selection-start-column="15" selection-end-line="223" selection-end-column="17" />
+            <state relative-caret-position="286">
+              <caret line="102" column="45" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -1163,42 +1164,42 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>522</line>
+          <line>527</line>
           <option name="timeStamp" value="196" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>547</line>
+          <line>552</line>
           <option name="timeStamp" value="197" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>592</line>
+          <line>597</line>
           <option name="timeStamp" value="198" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>616</line>
+          <line>621</line>
           <option name="timeStamp" value="199" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>630</line>
+          <line>635</line>
           <option name="timeStamp" value="200" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>678</line>
+          <line>683</line>
           <option name="timeStamp" value="201" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>701</line>
+          <line>706</line>
           <option name="timeStamp" value="202" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>740</line>
+          <line>745</line>
           <option name="timeStamp" value="203" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1208,32 +1209,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>312</line>
+          <line>317</line>
           <option name="timeStamp" value="205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>402</line>
+          <line>407</line>
           <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>408</line>
+          <line>413</line>
           <option name="timeStamp" value="209" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>168</line>
+          <line>173</line>
           <option name="timeStamp" value="212" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>171</line>
+          <line>176</line>
           <option name="timeStamp" value="213" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>180</line>
+          <line>185</line>
           <option name="timeStamp" value="214" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
@@ -1243,12 +1244,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>382</line>
+          <line>387</line>
           <option name="timeStamp" value="231" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>392</line>
+          <line>397</line>
           <option name="timeStamp" value="234" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1423,7 +1424,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>295</line>
+          <line>300</line>
           <option name="timeStamp" value="292" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1688,7 +1689,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>383</line>
+          <line>388</line>
           <option name="timeStamp" value="405" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1858,7 +1859,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>857</line>
+          <line>862</line>
           <option name="timeStamp" value="451" />
         </line-breakpoint>
         <line-breakpoint type="python-line">
@@ -1868,27 +1869,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>1085</line>
+          <line>1086</line>
           <option name="timeStamp" value="453" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py</url>
-          <line>1058</line>
+          <line>1059</line>
           <option name="timeStamp" value="454" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>287</line>
+          <line>292</line>
           <option name="timeStamp" value="456" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>286</line>
+          <line>291</line>
           <option name="timeStamp" value="457" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>861</line>
+          <line>866</line>
           <option name="timeStamp" value="458" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -2028,22 +2029,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>864</line>
+          <line>869</line>
           <option name="timeStamp" value="490" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>859</line>
+          <line>864</line>
           <option name="timeStamp" value="491" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>865</line>
+          <line>870</line>
           <option name="timeStamp" value="492" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>835</line>
+          <line>840</line>
           <option name="timeStamp" value="493" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -2053,8 +2054,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py</url>
-          <line>152</line>
+          <line>156</line>
           <option name="timeStamp" value="495" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generator/base_files/BaseFile.py</url>
+          <line>102</line>
+          <option name="timeStamp" value="496" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -2064,7 +2070,7 @@
           </selected-grouping-rules>
         </breakpoints-dialog>
       </breakpoints-dialog>
-      <option name="time" value="496" />
+      <option name="time" value="497" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -2411,13 +2417,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="155" column="4" selection-start-line="155" selection-start-column="4" selection-end-line="155" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/util/generateCode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
+        <state relative-caret-position="6444">
           <caret line="358" column="27" selection-start-line="358" selection-start-column="27" selection-end-line="358" selection-end-column="27" />
           <folding>
             <element signature="e#1991#2001#0" expanded="true" />
@@ -2428,7 +2433,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaFiles.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
+        <state relative-caret-position="1098">
           <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
           <folding />
         </state>
@@ -2438,13 +2443,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="169">
           <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1048">
+        <state relative-caret-position="3024">
           <caret line="168" column="57" selection-start-line="168" selection-start-column="57" selection-end-line="168" selection-end-column="57" />
           <folding>
             <element signature="e#2012#2066#0" expanded="true" />
@@ -2452,28 +2456,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/base_files/BaseFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="223" column="17" selection-start-line="223" selection-start-column="15" selection-end-line="223" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="727" column="28" selection-start-line="727" selection-start-column="28" selection-end-line="727" selection-end-column="28" />
+        <state relative-caret-position="322">
+          <caret line="1034" column="27" selection-start-line="1034" selection-start-column="27" selection-end-line="1034" selection-end-column="27" />
           <folding>
             <element signature="e#1992#2003#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/generator/base_files/BaseFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="102" column="45" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="841" column="46" selection-start-line="841" selection-start-column="46" selection-end-line="841" selection-end-column="46" />
+        <state relative-caret-position="430">
+          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding>
             <element signature="e#1979#2014#0" expanded="true" />
           </folding>

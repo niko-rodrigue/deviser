@@ -1033,6 +1033,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             tabs += ' '
         # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
         lines = self.create_lines(line, len(tabs))
+        print('tada' ,lines)
         for i in range(0, len(lines)):
             self.file_out.write('{0}{1}'.format(tabs, lines[i]))
             tabs += '  '

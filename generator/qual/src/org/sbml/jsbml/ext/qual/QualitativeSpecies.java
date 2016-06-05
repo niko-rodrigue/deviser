@@ -36,7 +36,7 @@ import org.sbml.jsbml.util.StringTools;
  * @since 1.2
  * @date $Date: $
  */
-public class QualitativeSpecies AbstractNamedSBase implements UniqueNamedSBase,  CallableSBase {
+public class QualitativeSpecies extends AbstractNamedSBase implements UniqueNamedSBase, CallableSBase {
 
   /**
    * Generated serial version identifier.

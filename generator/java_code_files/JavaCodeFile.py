@@ -134,8 +134,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         line_to_write = 'public {0}class {1} '.format(write_abstract, class_name)
         extends_len = len(extends)
         if extends_len == 1:
-            line_to_write += '{0}'.format(extends[0])
+            line_to_write += 'extends {0}'.format(extends[0])
         elif extends_len > 1:
+            line_to_write += ' extends'
             for n in range(0, extends_len-1):
                 line_to_write = line_to_write + extends[n] + ', '
 
@@ -143,14 +144,18 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         if implement_len == 1:
             line_to_write += ' implements {0}'.format(implement_modules[0])
         elif implement_len > 1:
-            line_to_write = line_to_write + ' implements '
+            line_to_write += ' implements '
             for n in range(0, implement_len-1):
-                line_to_write = line_to_write + implement_modules[n] + ', '
+                print(implement_modules[n])
+                line_to_write += implement_modules[n] + ', '
             line_to_write = line_to_write + implement_modules[-1]
+            #print(line_to_write)
 
-
-        self.write_line_jsbml(line_to_write)
+        self.line_length = 120 # TODO not a great solution
+        self.write_line_jsbml(line_to_write) # TODO need to fix about spaces
+        #self.write_jsbml_line_verbatim(line_to_write)
         self.file_out.write('\n') # TODO not a good solution
+        self.line_length = 79
 
 
 
