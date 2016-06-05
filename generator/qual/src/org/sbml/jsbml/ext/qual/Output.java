@@ -55,14 +55,14 @@ public class Output {
    * @return the value of the "id" attribute of this Output.
    */
   public String getId() {
-    return isSetId() ? id : "";
+    return isSetId() ? mId : "";
   }
 
   /**
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */
   public String getQualitativeSpecies() {
-    return isSetQualitativeSpecies() ? qualitativeSpecies : "";
+    return isSetQualitativeSpecies() ? mQualitativeSpecies : "";
   }
 
   /**
@@ -79,7 +79,7 @@ public class Output {
    * @return the value of the "name" attribute of this Output.
    */
   public String getName() {
-    return isSetName() ? name : "";
+    return isSetName() ? mName : "";
   }
 
   /**
@@ -195,6 +195,7 @@ public class Output {
   public boolean unsetId() {
     if (isSetId()) {
       mId = null;
+      firePropertyChange(QualConstants.mId, oldmId, mId);
       return true;
     } else {
       return false;
@@ -207,6 +208,8 @@ public class Output {
   public boolean unsetQualitativeSpecies() {
     if (isSetQualitativeSpecies()) {
       mQualitativeSpecies = null;
+      firePropertyChange(QualConstants.mQualitativeSpecies,
+        oldmQualitativeSpecies, mQualitativeSpecies);
       return true;
     } else {
       return false;
@@ -227,6 +230,7 @@ public class Output {
   public boolean unsetName() {
     if (isSetName()) {
       mName = null;
+      firePropertyChange(QualConstants.mName, oldmName, mName);
       return true;
     } else {
       return false;

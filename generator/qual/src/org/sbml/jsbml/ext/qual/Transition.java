@@ -43,14 +43,14 @@ public class Transition {
    * @return the value of the "id" attribute of this Transition.
    */
   public String getId() {
-    return isSetId() ? id : "";
+    return isSetId() ? mId : "";
   }
 
   /**
    * @return the value of the "name" attribute of this Transition.
    */
   public String getName() {
-    return isSetName() ? name : "";
+    return isSetName() ? mName : "";
   }
 
   /**
@@ -90,6 +90,7 @@ public class Transition {
   public boolean unsetId() {
     if (isSetId()) {
       mId = null;
+      firePropertyChange(QualConstants.mId, oldmId, mId);
       return true;
     } else {
       return false;
@@ -102,6 +103,7 @@ public class Transition {
   public boolean unsetName() {
     if (isSetName()) {
       mName = null;
+      firePropertyChange(QualConstants.mName, oldmName, mName);
       return true;
     } else {
       return false;

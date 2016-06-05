@@ -59,14 +59,14 @@ public class Input {
    * @return the value of the "id" attribute of this Input.
    */
   public String getId() {
-    return isSetId() ? id : "";
+    return isSetId() ? mId : "";
   }
 
   /**
    * @return the value of the "name" attribute of this Input.
    */
   public String getName() {
-    return isSetName() ? name : "";
+    return isSetName() ? mName : "";
   }
 
   /**
@@ -83,7 +83,7 @@ public class Input {
    * @return the value of the "qualitativeSpecies" attribute of this Input.
    */
   public String getQualitativeSpecies() {
-    return isSetQualitativeSpecies() ? qualitativeSpecies : "";
+    return isSetQualitativeSpecies() ? mQualitativeSpecies : "";
   }
 
   /**
@@ -229,6 +229,7 @@ public class Input {
   public boolean unsetId() {
     if (isSetId()) {
       mId = null;
+      firePropertyChange(QualConstants.mId, oldmId, mId);
       return true;
     } else {
       return false;
@@ -241,6 +242,7 @@ public class Input {
   public boolean unsetName() {
     if (isSetName()) {
       mName = null;
+      firePropertyChange(QualConstants.mName, oldmName, mName);
       return true;
     } else {
       return false;
@@ -261,6 +263,8 @@ public class Input {
   public boolean unsetQualitativeSpecies() {
     if (isSetQualitativeSpecies()) {
       mQualitativeSpecies = null;
+      firePropertyChange(QualConstants.mQualitativeSpecies,
+        oldmQualitativeSpecies, mQualitativeSpecies);
       return true;
     } else {
       return false;

@@ -70,14 +70,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements UniqueName
    * @return the value of the "id" attribute of this QualitativeSpecies.
    */
   public String getId() {
-    return isSetId() ? id : "";
+    return isSetId() ? mId : "";
   }
 
   /**
    * @return the value of the "name" attribute of this QualitativeSpecies.
    */
   public String getName() {
-    return isSetName() ? name : "";
+    return isSetName() ? mName : "";
   }
 
   /**
@@ -85,7 +85,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements UniqueName
    * QualitativeSpecies.
    */
   public String getCompartment() {
-    return isSetCompartment() ? compartment : "";
+    return isSetCompartment() ? mCompartment : "";
   }
 
   /**
@@ -243,6 +243,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements UniqueName
   public boolean unsetId() {
     if (isSetId()) {
       mId = null;
+      firePropertyChange(QualConstants.mId, oldmId, mId);
       return true;
     } else {
       return false;
@@ -255,6 +256,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements UniqueName
   public boolean unsetName() {
     if (isSetName()) {
       mName = null;
+      firePropertyChange(QualConstants.mName, oldmName, mName);
       return true;
     } else {
       return false;
@@ -268,6 +270,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements UniqueName
   public boolean unsetCompartment() {
     if (isSetCompartment()) {
       mCompartment = null;
+      firePropertyChange(QualConstants.mCompartment, oldmCompartment,
+        mCompartment);
       return true;
     } else {
       return false;

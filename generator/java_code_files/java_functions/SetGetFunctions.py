@@ -216,7 +216,7 @@ class SetGetFunctions():
             if not self.document:
                 if curr_att_type == 'String':
                     implement_string = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'],
-                                                                              attribute['name'])]
+                                                                              attribute['memberName'])]
                     code = [self.create_code_block('line', implement_string)]
                 else:
                     if curr_att_type in global_variables.javaTypeAttributes:
@@ -1489,7 +1489,7 @@ class SetGetFunctions():
                                                                                        oldValue,
                                                                                        currValue)
 
-            code = [dict({'code_type': 'line', 'code': 'TADA'})]
+            #code = [dict({'code_type': 'line', 'code': 'TADA'})]
             implementation = ['({0} == null) || ({1}.length() == 0'.format(attribute['name'],attribute['name']),
                                   'this.{0} = null'.format(attribute['memberName']), 'else',
                                   'this.{0} = {1}'.format(attribute['memberName'], attribute['name'])]  # 3rd line
@@ -1733,12 +1733,12 @@ class SetGetFunctions():
             currValue = 'this.old{0}'.format(attribute['memberName'])
             #part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['memberName'])
             part2 = '{0} = null'.format(attribute['memberName'])
-            # part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-            #                                                                            attribute['memberName'],
-            #                                                                            oldValue,
-            #                                                                            attribute['memberName'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                            attribute['memberName'],
+                                                                            oldValue,
+                                                                            attribute['memberName'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
-                               part2,
+                               part2,part3,
                                'return true', 'else',
                                'return false']
             code = [dict({'code_type': 'if_else', 'code': implementation})]
