@@ -55,10 +55,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
-
-
-        # TODO mockup function
-        self.expand_import_modules()
     ########################################################################
 
     # Functions for writing the class
@@ -103,23 +99,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_line('class {0};'.format(element['element']))
         self.skip_line()
 
-    # TODO for writing imports
-    def write_java_imports(self):
-        self.skip_line()
-        java_modules = self.jsbml_class_header_and_import['javaModules']
-        if len(java_modules) > 0:
-            for module in java_modules:
-                javaModuleLine = 'import java.{0}'.format(module)
-                self.write_jsbml_line_verbatim(javaModuleLine)
-            self.skip_line()
 
-
-        jsbml_modules = self.jsbml_class_header_and_import['jsbmlModules']
-        if len(jsbml_modules) > 0:
-            for module in jsbml_modules:
-                jsbmlModuleLine = 'import org.sbml.jsbml.{0}'.format(module)
-                self.write_jsbml_line_verbatim(jsbmlModuleLine)
-            self.skip_line()
 
 
     def write_jsbml_class_header(self):
@@ -857,6 +837,26 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             line = 'private {0} {1};'.format(return_type, memberName)
             self.write_line(line)
         self.down_indent()
+
+        # TODO for writing imports
+
+    def write_java_imports(self):
+        # TODO mockup function
+        self.expand_import_modules()
+        self.skip_line()
+        java_modules = self.jsbml_class_header_and_import['javaModules']
+        if len(java_modules) > 0:
+            for module in java_modules:
+                javaModuleLine = 'import java.{0}'.format(module)
+                self.write_jsbml_line_verbatim(javaModuleLine)
+            self.skip_line()
+
+        jsbml_modules = self.jsbml_class_header_and_import['jsbmlModules']
+        if len(jsbml_modules) > 0:
+            for module in jsbml_modules:
+                jsbmlModuleLine = 'import org.sbml.jsbml.{0}'.format(module)
+                self.write_jsbml_line_verbatim(jsbmlModuleLine)
+            self.skip_line()
 
     # TODO need to add import
     def write_file(self):
