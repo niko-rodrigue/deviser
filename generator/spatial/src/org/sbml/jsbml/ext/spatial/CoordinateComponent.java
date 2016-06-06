@@ -17,4 +17,28 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.qual
+package org.sbml.jsbml.ext.spatial
+
+/**
+ * @author Deviser
+ * @version $Rev: 2465 $
+ * @since 1.2
+ * @date $Date: $
+ */
+public class CoordinateComponent {
+
+  /**
+   * Generated serial version identifier.
+   */
+  private static final long serialVersionUID = -6048861420699176889L;
+  /**
+   *
+   */
+  private String mId;
+  /**
+   *
+   */
+  private CoordinateKind mType;
+  /**
+   *
+   */

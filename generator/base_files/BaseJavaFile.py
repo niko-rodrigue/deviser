@@ -242,7 +242,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     ########################################################################
 
-    def write_general_includes(self):
+    def get_general_includes(self):
         lo_name = ''
         if self.has_parent_list_of:
             if 'lo_class_name' in self.class_object:
@@ -257,7 +257,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                                                                                    self.package.lower(),
                                                                                    folder, self.class_name)
                 print('curr_include_line is ', curr_include_line)
-                self.write_line_verbatim(curr_include_line)
+                # self.write_line_verbatim(curr_include_line)
             except Exception as error:
                 print("Error is ", error)
             if self.has_parent_list_of and not self.is_list_of:
@@ -266,25 +266,29 @@ class BaseJavaFile(BaseFile.BaseFile):
                                                                                        self.package.lower(),
                                                                                        lo_name)
                     print('curr_include_line Parent ', curr_include_line)
-                    self.write_line_verbatim(curr_include_line)
+                    # self.write_line_verbatim(curr_include_line)
                 except Exception as error:
                     print("error in ", error)
 
-            self.write_line_verbatim('#include <{0}/packages/{1}/validator/'
-                                     '{2}{3}Error'
+
+
+            line = '#include <{0}/packages/{1}/validator/'\
+                                     '{2}{3}Error'\
                                      '.h>'.format(self.language,
                                                   self.package.lower(),
                                                   self.package,
-                                                  self.cap_language))
+                                                  self.cap_language)
+            print(line)
         else:
-            self.write_line_verbatim('#include <{0}/{1}'
+            line = '#include <{0}/{1}'\
                                      '.h>'.format(self.language,
-                                                  self.class_name))
+                                                  self.class_name)
             if self.has_parent_list_of and not self.is_list_of:
-                self.write_line_verbatim('#include <{0}/{1}'
+                line = '#include <{0}/{1}'\
                                          '.h>'.format(self.language,
-                                                      lo_name))
-            self.write_line_verbatim('#include <sbml/xml/XMLInputStream.h>')
+                                                      lo_name)
+
+            line = '#include <sbml/xml/XMLInputStream.h>'
 
         # determine whether we need to write other headers
         write_element_filter = False
@@ -334,43 +338,73 @@ class BaseJavaFile(BaseFile.BaseFile):
                         concrete_classes.append(element)
 
         if write_element_filter:
-            self.write_line_verbatim('#include <{0}/util/ElementFilter.'
-                                     'h>'.format(self.language))
+            line = '#include <{0}/util/ElementFilter.'\
+                                     'h>'.format(self.language)
         if write_model:
-            self.write_line_verbatim('#include <{0}/Model'
-                                     '.h>'.format(self.language))
+            line = '#include <{0}/Model'\
+                                     '.h>'.format(self.language)
 
         if write_validators:
-            self.write_line_verbatim('#include <{0}/packages/{1}/validator/{2}'
-                                     'ConsistencyValidator'
+            line = '#include <{0}/packages/{1}/validator/{2}'\
+                                     'ConsistencyValidator'\
                                      '.h>'.format(self.language,
                                                   self.package.lower(),
-                                                  self.package))
-            self.write_line_verbatim('#include <{0}/packages/{1}/validator/{2}'
-                                     'IdentifierConsistencyValidator.'
+                                                  self.package)
+
+            line = '#include <{0}/packages/{1}/validator/{2}'\
+                                     'IdentifierConsistencyValidator.'\
                                      'h>'.format(self.language,
                                                  self.package.lower(),
-                                                 self.package))
+                                                 self.package)
+
 
         if write_math:
-            self.write_line_verbatim('#include <sbml/math/MathML.h>')
+            line = '#include <sbml/math/MathML.h>'
 
         if len(concrete_classes) > 0:
-            self.skip_line()
+            pass
+            #self.skip_line()
         for element in concrete_classes:
             if global_variables.is_package:
-                self.write_line_verbatim('#include <{0}/packages/{1}/{0}/{2}'
+                line = '#include <{0}/packages/{1}/{0}/{2}'\
                                          '.h>'.format(self.language,
                                                       self.package.lower(),
-                                                      element))
+                                                      element)
             else:
-                self.write_line_verbatim('#include <{0}/{1}.h>'
-                                         ''.format(self.language, element))
+                line = '#include <{0}/{1}.h>'\
+                                         ''.format(self.language, element)
 
-        # TODO for skipping lines
-        self.skip_line(2)
-        # self.write_line('using namespace std;')
-        self.skip_line()
+        # # TODO for skipping lines
+        # self.skip_line(2)
+        # # self.write_line('using namespace std;')
+        # self.skip_line()
+
+
+        #print(self.class_object)
+        print(self.is_list_of)
+        print(self.has_parent_list_of)
+        print(self.name)
+        print(self.class_name)
+        print(self.package)
+        print(self.typecode)
+        print(self.baseClass)
+        # print(self.list_of_name)
+        # print(self.list_of_child)
+        # print(self.baseClass)
+        print(self.has_std_base)
+        # print(self.sid_refs)
+        # print(self.unit_sid_refs)
+        print(self.add_decls)
+        print(self.add_impl)
+        print(self.has_math)
+        print(self.has_children)
+        # print(self.concretes)
+        print(self.document)
+        for attribute in self.attributes:
+            print('BADA ', attribute['name'])
+            print('YOLO ', attribute['type'])
+            #print(attribute)
+        print('----------------------------')
 
     ########################################################################
 
@@ -378,6 +412,9 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     # Function to expand import modules and extension
     def expand_import_modules(self):
+        self.get_general_includes()
+
+
         self.extends_modules = []
         self.implements_modules = []
         self.import_from_java_modules = []
@@ -909,8 +946,8 @@ class BaseJavaFile(BaseFile.BaseFile):
             else:
                 arguments = code['arguments']
             constructor_args = None
-            print('function_name ', function_name) #both for constructors and functions, not suitable for JSBML
-            print('->-')
+            # print('function_name ', function_name) #both for constructors and functions, not suitable for JSBML
+            # print('->-')
             if self.is_java_api:
                 if 'constructor_args' in code:
                     constructor_args = code['constructor_args']
@@ -1168,7 +1205,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             tabs += ' '
         # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
         lines = self.create_lines(line, len(tabs))
-        print('tada' ,lines)
+        # print('tada' ,lines)
         for i in range(0, len(lines)):
             self.file_out.write('{0}{1}'.format(tabs, lines[i]))
             tabs += '  '
