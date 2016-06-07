@@ -1032,5 +1032,5 @@ jsbml_classes[tree_node_change_event]['libSBML_analogue'] = None
 
 ########################################################################
 
-print('--------------------------------------------')
-print(jsbml_classes)
+# print('--------------------------------------------')
+# print(jsbml_classes)

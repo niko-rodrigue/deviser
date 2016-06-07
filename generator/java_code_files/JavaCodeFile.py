@@ -38,7 +38,7 @@
 
 from base_files import BaseJavaFile
 from . java_functions import *
-from util import query, strFunctions, global_variables
+from util import query, strFunctions, global_variables, jsbml_class_tree
 
 
 class JavaCodeFile(BaseJavaFile.BaseJavaFile):
@@ -55,6 +55,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
+
+        self.jsbml_tree = jsbml_class_tree.jsbml_classes
+        #print(self.jsbml_tree)
     ########################################################################
 
     # Functions for writing the class
