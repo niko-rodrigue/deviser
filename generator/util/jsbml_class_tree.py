@@ -46,55 +46,142 @@ def tree():
 
 jsbml_classes = tree()
 
+#Level 0 is the bottom of the Figure 2.1 from JSBML Manual
+
 # Class Names
+
+# Level 0
+
+species = 'Species'
+compartment = 'Compartment'
+parameter = 'Parameter'
+
+# Level 1
+species_reference = 'SpeciesReference'
+symbol = 'Symbol'
+local_parameter = 'LocalParameter'
+assignment_rule = 'AssignmentRule'
+rate_rule = 'RateRule'
+
+#Level 2
+#TODO classes stuff
+variable = 'Variable'
+quantity_with_unit = 'QuantityWithUnit'
+modifier_species_reference = 'ModifierSpeciesReference'
+event = 'Event'
+explicit_rule = 'ExplicitRule'
+algebraic_rule = 'AlgrebraicRule'
+
+#Level 3
+quantity = 'Quantity'
+reaction = 'Reaction'
+function_definition = 'FunctionDefinition'
+simple_species_reference = 'SimpleSpeciesReference'
+model = 'Model'
+species_type = 'SpeciesType'
+compartment_type = 'CompartmentType'
+unit_definition = 'UnitDefintion'
+abstract_named_sbase_with_unit = 'AbstractNamedSBaseWithUnit'
+kinetic_law = 'KineticLaw'
+event_assignment = 'EventAssignment'
+initial_assignment = 'InitialAssignment'
+rule = 'Rule'
+priority = 'Priority'
+stoichometry_math = 'StoichometryMath'
+trigger = 'Trigger'
+constraint = 'Constraint'
+delay = 'Delay'
+
+# Level 4
+compartmentalized_sbase = 'CompartmentalizedSBase'
+callable_sbase = 'CallableSBase'
+unique_named_sbase = 'UniqueNamedSBase'
+abstract_named_sbase = 'Abstract_named_sbase'
+sbase_with_unit = 'SBaseWithUnit'
+assignment = 'Assignment'
+abstract_math_container = 'AbstractMathContainer'
+
+# Level 5
+named_sbase_with_derived_unit = 'NamedSBaseWithDerivedUnit'
+math_container = 'MathContainer'
+sbml_document = 'SBMLDocument'
+unit = 'Unit'
+list_of = 'ListOf'
+xml_node = 'XMLNode'
+annotation = 'Annotation'
+creator = 'Creator'
+cv_term = 'CVTerm'
+history = 'History'
+
+# Level 6
+named_sbase = 'NamedSBase'
+sbase_with_derived_unit = 'SBaseWithDerivedUnit'
+abstract_sbase = 'AbstractSBase'
+abstract_sbase_plugin = 'AbstractSBasePlugin'
+tree_node_adapter = 'TreeNodeAdapter'
+ast_node = 'ASTNode'
+xml_token = 'XMLToken'
+annotation_element = 'AnnotationElement'
+
+# Level 7
+sbase = 'SBase'
+sbase_plugin = 'SBasePlugin'
+abstract_tree_node = 'AbstractTreeNode'
+simple_tree_node_change_listener = 'SimpleTreeNodeChangeListener'
+
+# Level 8
+tree_node_with_change_support = 'TreeNodeWithChangeSupport'
+tree_node_change_listener = 'TreeNodeChangeListener'
+tree_node_change_event = 'TreeNodeChangeEvent'
+
 
 
 ######################################################################
 
-#Level 0 is the bottom of the Figure 2.1 from JSBML Manual
+
 
 #Level 0
 
-# 'Species' Class
-jsbml_classes['Species']['name'] = 'Species'
-jsbml_classes['Species']['hasParent'] = True
-jsbml_classes['Species']['parentNode'] = 'Symbol' # TODO fill
-jsbml_classes['Species']['hasChildren'] = False
-jsbml_classes['Species']['childrenNodes'] = None
-jsbml_classes['Species']['isInterface'] = False
-jsbml_classes['Species']['parentInterfaces'] = ['CompartmentilizedSBase']
-jsbml_classes['Species']['childrenInterfaces'] = None
-jsbml_classes['Species']['isUniqueJSBML'] = False
-jsbml_classes['Species']['level'] = 0
-jsbml_classes['Species']['libSBML_analogue'] = None
+# species Class
+jsbml_classes[species]['name'] = species
+jsbml_classes[species]['hasParent'] = True
+jsbml_classes[species]['parentNode'] = 'Symbol' # TODO fill
+jsbml_classes[species]['hasChildren'] = False
+jsbml_classes[species]['childrenNodes'] = None
+jsbml_classes[species]['isInterface'] = False
+jsbml_classes[species]['parentInterfaces'] = ['CompartmentilizedSBase']
+jsbml_classes[species]['childrenInterfaces'] = None
+jsbml_classes[species]['isUniqueJSBML'] = False
+jsbml_classes[species]['level'] = 0
+jsbml_classes[species]['libSBML_analogue'] = None
 
-# 'Compartment' Class
-jsbml_classes['Compartment']['name'] = 'Compartment'
-jsbml_classes['Compartment']['hasParent'] = True
-jsbml_classes['Compartment']['parentNode'] = 'Symbol' # TODO fill
-jsbml_classes['Compartment']['hasChildren'] = False
-jsbml_classes['Compartment']['childrenNode'] = None
-jsbml_classes['Compartment']['isInterface'] = False
-jsbml_classes['Compartment']['parentInterfaces'] = None
-jsbml_classes['Compartment']['childrenInterfaces'] = None
-jsbml_classes['Compartment']['isUniqueJSBML'] = False
-jsbml_classes['Compartment']['level'] = 0
-jsbml_classes['Compartment']['libSBML_analogue'] = None
+# compartment Class
+jsbml_classes[compartment]['name'] = compartment
+jsbml_classes[compartment]['hasParent'] = True
+jsbml_classes[compartment]['parentNode'] = 'Symbol' # TODO fill
+jsbml_classes[compartment]['hasChildren'] = False
+jsbml_classes[compartment]['childrenNode'] = None
+jsbml_classes[compartment]['isInterface'] = False
+jsbml_classes[compartment]['parentInterfaces'] = None
+jsbml_classes[compartment]['childrenInterfaces'] = None
+jsbml_classes[compartment]['isUniqueJSBML'] = False
+jsbml_classes[compartment]['level'] = 0
+jsbml_classes[compartment]['libSBML_analogue'] = None
 
-print(jsbml_classes['Compartment']['parentNode'])
+
 print('-----------------------------------------')
-# 'Parameter' Class
-jsbml_classes['Parameter']['name'] = 'Parameter'
-jsbml_classes['Parameter']['hasParent'] = True
-jsbml_classes['Parameter']['parentNode'] = 'Symbol' # TODO fill
-jsbml_classes['Parameter']['hasChildren'] = False
-jsbml_classes['Parameter']['childrenNodes'] = None
-jsbml_classes['Parameter']['isInterface'] = False
-jsbml_classes['Parameter']['parentInterfaces'] = None
-jsbml_classes['Parameter']['childrenInterfaces'] = None
-jsbml_classes['Parameter']['isUniqueJSBML'] = False
-jsbml_classes['Parameter']['level'] = 0
-jsbml_classes['Parameter']['libSBML_analogue'] = None
+# parameter Class
+jsbml_classes[parameter]['name'] = parameter
+jsbml_classes[parameter]['hasParent'] = True
+jsbml_classes[parameter]['parentNode'] = 'Symbol' # TODO fill
+jsbml_classes[parameter]['hasChildren'] = False
+jsbml_classes[parameter]['childrenNodes'] = None
+jsbml_classes[parameter]['isInterface'] = False
+jsbml_classes[parameter]['parentInterfaces'] = None
+jsbml_classes[parameter]['childrenInterfaces'] = None
+jsbml_classes[parameter]['isUniqueJSBML'] = False
+jsbml_classes[parameter]['level'] = 0
+jsbml_classes[parameter]['libSBML_analogue'] = None
 
 
 
@@ -107,7 +194,7 @@ jsbml_classes['Symbol']['name'] = 'Symbol'
 jsbml_classes['Symbol']['hasParent'] = True
 jsbml_classes['Symbol']['parentNode'] = 'QuantityWithUnit'  # TODO fill
 jsbml_classes['Symbol']['hasChildren'] = True
-jsbml_classes['Symbol']['childrenNodes'] = ['Species', 'Compartment', 'Parameter']
+jsbml_classes['Symbol']['childrenNodes'] = [species, compartment, parameter]
 jsbml_classes['Symbol']['isInterface'] = False
 jsbml_classes['Symbol']['parentInterfaces'] = None
 jsbml_classes['Symbol']['childrenInterfaces'] = None
@@ -505,7 +592,7 @@ jsbml_classes['CompartmentalizedSBase']['name'] = 'CompartmentalizedSBase'
 jsbml_classes['CompartmentalizedSBase']['hasParent'] = None
 jsbml_classes['CompartmentalizedSBase']['parentNode'] = None # TODO fill
 jsbml_classes['CompartmentalizedSBase']['hasChildren'] = True
-jsbml_classes['CompartmentalizedSBase']['childrenNodes'] = ['Species', 'Reaction']
+jsbml_classes['CompartmentalizedSBase']['childrenNodes'] = [species, 'Reaction']
 jsbml_classes['CompartmentalizedSBase']['isInterface'] = True
 jsbml_classes['CompartmentalizedSBase']['parentInterfaces'] = ['NamedSBase']
 jsbml_classes['CompartmentalizedSBase']['childrenInterfaces'] = None
@@ -544,7 +631,7 @@ jsbml_classes['AbstractNamedSBase']['name'] = 'AbstractNamedSBase'
 jsbml_classes['AbstractNamedSBase']['hasParent'] = True
 jsbml_classes['AbstractNamedSBase']['parentNode'] = None # TODO fill
 jsbml_classes['AbstractNamedSBase']['hasChildren'] = False
-jsbml_classes['AbstractNamedSBase']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['AbstractNamedSBase']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['AbstractNamedSBase']['isInterface'] = False
 jsbml_classes['AbstractNamedSBase']['parentInterfaces'] = True
 jsbml_classes['AbstractNamedSBase']['childrenInterfaces'] = False
@@ -557,7 +644,7 @@ jsbml_classes['SBaseWithUnit']['name'] = 'SBaseWithUnit'
 jsbml_classes['SBaseWithUnit']['hasParent'] = True
 jsbml_classes['SBaseWithUnit']['parentNode'] = None # TODO fill
 jsbml_classes['SBaseWithUnit']['hasChildren'] = False
-jsbml_classes['SBaseWithUnit']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['SBaseWithUnit']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['SBaseWithUnit']['isInterface'] = False
 jsbml_classes['SBaseWithUnit']['parentInterfaces'] = True
 jsbml_classes['SBaseWithUnit']['childrenInterfaces'] = False
@@ -570,7 +657,7 @@ jsbml_classes['Assignment']['name'] = 'Assignment'
 jsbml_classes['Assignment']['hasParent'] = True
 jsbml_classes['Assignment']['parentNode'] = None # TODO fill
 jsbml_classes['Assignment']['hasChildren'] = False
-jsbml_classes['Assignment']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['Assignment']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['Assignment']['isInterface'] = False
 jsbml_classes['Assignment']['parentInterfaces'] = True
 jsbml_classes['Assignment']['childrenInterfaces'] = False
@@ -583,7 +670,7 @@ jsbml_classes['AbstractMathContainer']['name'] = 'AbstractMathContainer'
 jsbml_classes['AbstractMathContainer']['hasParent'] = True
 jsbml_classes['AbstractMathContainer']['parentNode'] = None # TODO fill
 jsbml_classes['AbstractMathContainer']['hasChildren'] = False
-jsbml_classes['AbstractMathContainer']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['AbstractMathContainer']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['AbstractMathContainer']['isInterface'] = False
 jsbml_classes['AbstractMathContainer']['parentInterfaces'] = True
 jsbml_classes['AbstractMathContainer']['childrenInterfaces'] = False
@@ -600,7 +687,7 @@ jsbml_classes['NamedSBaseWithDerivedUnit']['name'] = 'NamedSBaseWithDerivedUnit'
 jsbml_classes['NamedSBaseWithDerivedUnit']['hasParent'] = True
 jsbml_classes['NamedSBaseWithDerivedUnit']['parentNode'] = None # TODO fill
 jsbml_classes['NamedSBaseWithDerivedUnit']['hasChildren'] = False
-jsbml_classes['NamedSBaseWithDerivedUnit']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['NamedSBaseWithDerivedUnit']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['NamedSBaseWithDerivedUnit']['isInterface'] = False
 jsbml_classes['NamedSBaseWithDerivedUnit']['parentInterfaces'] = True
 jsbml_classes['NamedSBaseWithDerivedUnit']['childrenInterfaces'] = False
@@ -613,7 +700,7 @@ jsbml_classes['MathContainer']['name'] = 'MathContainer'
 jsbml_classes['MathContainer']['hasParent'] = True
 jsbml_classes['MathContainer']['parentNode'] = None # TODO fill
 jsbml_classes['MathContainer']['hasChildren'] = False
-jsbml_classes['MathContainer']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['MathContainer']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['MathContainer']['isInterface'] = False
 jsbml_classes['MathContainer']['parentInterfaces'] = True
 jsbml_classes['MathContainer']['childrenInterfaces'] = False
@@ -627,7 +714,7 @@ jsbml_classes['SBMLDocument']['name'] = 'SBMLDocument'
 jsbml_classes['SBMLDocument']['hasParent'] = True
 jsbml_classes['SBMLDocument']['parentNode'] = None # TODO fill
 jsbml_classes['SBMLDocument']['hasChildren'] = False
-jsbml_classes['SBMLDocument']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['SBMLDocument']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['SBMLDocument']['isInterface'] = False
 jsbml_classes['SBMLDocument']['parentInterfaces'] = True
 jsbml_classes['SBMLDocument']['childrenInterfaces'] = False
@@ -640,7 +727,7 @@ jsbml_classes['Unit']['name'] = 'Unit'
 jsbml_classes['Unit']['hasParent'] = True
 jsbml_classes['Unit']['parentNode'] = None # TODO fill
 jsbml_classes['Unit']['hasChildren'] = False
-jsbml_classes['Unit']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['Unit']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['Unit']['isInterface'] = False
 jsbml_classes['Unit']['parentInterfaces'] = True
 jsbml_classes['Unit']['childrenInterfaces'] = False
@@ -653,7 +740,7 @@ jsbml_classes['ListOf']['name'] = 'ListOf'
 jsbml_classes['ListOf']['hasParent'] = True
 jsbml_classes['ListOf']['parentNode'] = None # TODO fill
 jsbml_classes['ListOf']['hasChildren'] = False
-jsbml_classes['ListOf']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['ListOf']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['ListOf']['isInterface'] = False
 jsbml_classes['ListOf']['parentInterfaces'] = True
 jsbml_classes['ListOf']['childrenInterfaces'] = False
@@ -666,7 +753,7 @@ jsbml_classes['XMLNode']['name'] = 'XMLNode'
 jsbml_classes['XMLNode']['hasParent'] = True
 jsbml_classes['XMLNode']['parentNode'] = None # TODO fill
 jsbml_classes['XMLNode']['hasChildren'] = False
-jsbml_classes['XMLNode']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['XMLNode']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['XMLNode']['isInterface'] = False
 jsbml_classes['XMLNode']['parentInterfaces'] = True
 jsbml_classes['XMLNode']['childrenInterfaces'] = False
@@ -679,7 +766,7 @@ jsbml_classes['Annotation']['name'] = 'Annotation'
 jsbml_classes['Annotation']['hasParent'] = True
 jsbml_classes['Annotation']['parentNode'] = None # TODO fill
 jsbml_classes['Annotation']['hasChildren'] = False
-jsbml_classes['Annotation']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['Annotation']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['Annotation']['isInterface'] = False
 jsbml_classes['Annotation']['parentInterfaces'] = True
 jsbml_classes['Annotation']['childrenInterfaces'] = False
@@ -692,7 +779,7 @@ jsbml_classes['Creator']['name'] = 'Creator'
 jsbml_classes['Creator']['hasParent'] = True
 jsbml_classes['Creator']['parentNode'] = None # TODO fill
 jsbml_classes['Creator']['hasChildren'] = False
-jsbml_classes['Creator']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['Creator']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['Creator']['isInterface'] = False
 jsbml_classes['Creator']['parentInterfaces'] = True
 jsbml_classes['Creator']['childrenInterfaces'] = False
@@ -705,7 +792,7 @@ jsbml_classes['CVTerm']['name'] = 'CVTerm'
 jsbml_classes['CVTerm']['hasParent'] = True
 jsbml_classes['CVTerm']['parentNode'] = None # TODO fill
 jsbml_classes['CVTerm']['hasChildren'] = False
-jsbml_classes['CVTerm']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['CVTerm']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['CVTerm']['isInterface'] = False
 jsbml_classes['CVTerm']['parentInterfaces'] = True
 jsbml_classes['CVTerm']['childrenInterfaces'] = False
@@ -718,7 +805,7 @@ jsbml_classes['History']['name'] = 'History'
 jsbml_classes['History']['hasParent'] = True
 jsbml_classes['History']['parentNode'] = None # TODO fill
 jsbml_classes['History']['hasChildren'] = False
-jsbml_classes['History']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['History']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['History']['isInterface'] = False
 jsbml_classes['History']['parentInterfaces'] = True
 jsbml_classes['History']['childrenInterfaces'] = False
@@ -735,7 +822,7 @@ jsbml_classes['NamedSBase']['name'] = 'NamedSBase'
 jsbml_classes['NamedSBase']['hasParent'] = True
 jsbml_classes['NamedSBase']['parentNode'] = None # TODO fill
 jsbml_classes['NamedSBase']['hasChildren'] = False
-jsbml_classes['NamedSBase']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['NamedSBase']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['NamedSBase']['isInterface'] = False
 jsbml_classes['NamedSBase']['parentInterfaces'] = True
 jsbml_classes['NamedSBase']['childrenInterfaces'] = False
@@ -748,7 +835,7 @@ jsbml_classes['SBaseWithDerivedUnit']['name'] = 'SBaseWithDerivedUnit'
 jsbml_classes['SBaseWithDerivedUnit']['hasParent'] = True
 jsbml_classes['SBaseWithDerivedUnit']['parentNode'] = None # TODO fill
 jsbml_classes['SBaseWithDerivedUnit']['hasChildren'] = False
-jsbml_classes['SBaseWithDerivedUnit']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['SBaseWithDerivedUnit']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['SBaseWithDerivedUnit']['isInterface'] = False
 jsbml_classes['SBaseWithDerivedUnit']['parentInterfaces'] = True
 jsbml_classes['SBaseWithDerivedUnit']['childrenInterfaces'] = False
@@ -761,7 +848,7 @@ jsbml_classes['AbstractSBase']['name'] = 'AbstractSBase'
 jsbml_classes['AbstractSBase']['hasParent'] = True
 jsbml_classes['AbstractSBase']['parentNode'] = None # TODO fill
 jsbml_classes['AbstractSBase']['hasChildren'] = False
-jsbml_classes['AbstractSBase']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['AbstractSBase']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['AbstractSBase']['isInterface'] = False
 jsbml_classes['AbstractSBase']['parentInterfaces'] = True
 jsbml_classes['AbstractSBase']['childrenInterfaces'] = False
@@ -774,7 +861,7 @@ jsbml_classes['AbstractSBasePlugin']['name'] = 'AbstractSBasePlugin'
 jsbml_classes['AbstractSBasePlugin']['hasParent'] = True
 jsbml_classes['AbstractSBasePlugin']['parentNode'] = None # TODO fill
 jsbml_classes['AbstractSBasePlugin']['hasChildren'] = False
-jsbml_classes['AbstractSBasePlugin']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['AbstractSBasePlugin']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['AbstractSBasePlugin']['isInterface'] = False
 jsbml_classes['AbstractSBasePlugin']['parentInterfaces'] = True
 jsbml_classes['AbstractSBasePlugin']['childrenInterfaces'] = False
@@ -787,7 +874,7 @@ jsbml_classes['TreeNodeAdapter']['name'] = 'TreeNodeAdapter'
 jsbml_classes['TreeNodeAdapter']['hasParent'] = True
 jsbml_classes['TreeNodeAdapter']['parentNode'] = None # TODO fill
 jsbml_classes['TreeNodeAdapter']['hasChildren'] = False
-jsbml_classes['TreeNodeAdapter']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['TreeNodeAdapter']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['TreeNodeAdapter']['isInterface'] = False
 jsbml_classes['TreeNodeAdapter']['parentInterfaces'] = True
 jsbml_classes['TreeNodeAdapter']['childrenInterfaces'] = False
@@ -800,7 +887,7 @@ jsbml_classes['ASTNode']['name'] = 'ASTNode'
 jsbml_classes['ASTNode']['hasParent'] = True
 jsbml_classes['ASTNode']['parentNode'] = None # TODO fill
 jsbml_classes['ASTNode']['hasChildren'] = False
-jsbml_classes['ASTNode']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['ASTNode']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['ASTNode']['isInterface'] = False
 jsbml_classes['ASTNode']['parentInterfaces'] = True
 jsbml_classes['ASTNode']['childrenInterfaces'] = False
@@ -813,7 +900,7 @@ jsbml_classes['XMLToken']['name'] = 'XMLToken'
 jsbml_classes['XMLToken']['hasParent'] = True
 jsbml_classes['XMLToken']['parentNode'] = None # TODO fill
 jsbml_classes['XMLToken']['hasChildren'] = False
-jsbml_classes['XMLToken']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['XMLToken']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['XMLToken']['isInterface'] = False
 jsbml_classes['XMLToken']['parentInterfaces'] = True
 jsbml_classes['XMLToken']['childrenInterfaces'] = False
@@ -826,7 +913,7 @@ jsbml_classes['AnnotationElement']['name'] = 'AnnotationElement'
 jsbml_classes['AnnotationElement']['hasParent'] = True
 jsbml_classes['AnnotationElement']['parentNode'] = None # TODO fill
 jsbml_classes['AnnotationElement']['hasChildren'] = False
-jsbml_classes['AnnotationElement']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['AnnotationElement']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['AnnotationElement']['isInterface'] = False
 jsbml_classes['AnnotationElement']['parentInterfaces'] = True
 jsbml_classes['AnnotationElement']['childrenInterfaces'] = False
@@ -843,7 +930,7 @@ jsbml_classes['SBase']['name'] = 'SBase'
 jsbml_classes['SBase']['hasParent'] = True
 jsbml_classes['SBase']['parentNode'] = None # TODO fill
 jsbml_classes['SBase']['hasChildren'] = False
-jsbml_classes['SBase']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['SBase']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['SBase']['isInterface'] = False
 jsbml_classes['SBase']['parentInterfaces'] = True
 jsbml_classes['SBase']['childrenInterfaces'] = False
@@ -856,7 +943,7 @@ jsbml_classes['SBasePlugin']['name'] = 'SBasePlugin'
 jsbml_classes['SBasePlugin']['hasParent'] = True
 jsbml_classes['SBasePlugin']['parentNode'] = None # TODO fill
 jsbml_classes['SBasePlugin']['hasChildren'] = False
-jsbml_classes['SBasePlugin']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['SBasePlugin']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['SBasePlugin']['isInterface'] = False
 jsbml_classes['SBasePlugin']['parentInterfaces'] = True
 jsbml_classes['SBasePlugin']['childrenInterfaces'] = False
@@ -869,7 +956,7 @@ jsbml_classes['AbstractTreeNode']['name'] = 'AbstractTreeNode'
 jsbml_classes['AbstractTreeNode']['hasParent'] = True
 jsbml_classes['AbstractTreeNode']['parentNode'] = None # TODO fill
 jsbml_classes['AbstractTreeNode']['hasChildren'] = False
-jsbml_classes['AbstractTreeNode']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['AbstractTreeNode']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['AbstractTreeNode']['isInterface'] = False
 jsbml_classes['AbstractTreeNode']['parentInterfaces'] = True
 jsbml_classes['AbstractTreeNode']['childrenInterfaces'] = False
@@ -882,7 +969,7 @@ jsbml_classes['SimpleTreeNodeChangeListener']['name'] = 'SimpleTreeNodeChangeLis
 jsbml_classes['SimpleTreeNodeChangeListener']['hasParent'] = True
 jsbml_classes['SimpleTreeNodeChangeListener']['parentNode'] = None # TODO fill
 jsbml_classes['SimpleTreeNodeChangeListener']['hasChildren'] = False
-jsbml_classes['SimpleTreeNodeChangeListener']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['SimpleTreeNodeChangeListener']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['SimpleTreeNodeChangeListener']['isInterface'] = False
 jsbml_classes['SimpleTreeNodeChangeListener']['parentInterfaces'] = True
 jsbml_classes['SimpleTreeNodeChangeListener']['childrenInterfaces'] = False
@@ -899,7 +986,7 @@ jsbml_classes['TreeNodeWithChangeSupport']['name'] = 'TreeNodeWithChangeSupport'
 jsbml_classes['TreeNodeWithChangeSupport']['hasParent'] = True
 jsbml_classes['TreeNodeWithChangeSupport']['parentNode'] = None # TODO fill
 jsbml_classes['TreeNodeWithChangeSupport']['hasChildren'] = False
-jsbml_classes['TreeNodeWithChangeSupport']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['TreeNodeWithChangeSupport']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['TreeNodeWithChangeSupport']['isInterface'] = False
 jsbml_classes['TreeNodeWithChangeSupport']['parentInterfaces'] = True
 jsbml_classes['TreeNodeWithChangeSupport']['childrenInterfaces'] = False
@@ -912,7 +999,7 @@ jsbml_classes['TreeNodeChangeListener']['name'] = 'TreeNodeChangeListener'
 jsbml_classes['TreeNodeChangeListener']['hasParent'] = True
 jsbml_classes['TreeNodeChangeListener']['parentNode'] = None # TODO fill
 jsbml_classes['TreeNodeChangeListener']['hasChildren'] = False
-jsbml_classes['TreeNodeChangeListener']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['TreeNodeChangeListener']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['TreeNodeChangeListener']['isInterface'] = False
 jsbml_classes['TreeNodeChangeListener']['parentInterfaces'] = True
 jsbml_classes['TreeNodeChangeListener']['childrenInterfaces'] = False
@@ -925,7 +1012,7 @@ jsbml_classes['TreeNodeChangeEvent']['name'] = 'TreeNodeChangeListener'
 jsbml_classes['TreeNodeChangeEvent']['hasParent'] = True
 jsbml_classes['TreeNodeChangeEvent']['parentNode'] = None # TODO fill
 jsbml_classes['TreeNodeChangeEvent']['hasChildren'] = False
-jsbml_classes['TreeNodeChangeEvent']['childrenNodes'] = [jsbml_classes['Species'], jsbml_classes['Parameter']]
+jsbml_classes['TreeNodeChangeEvent']['childrenNodes'] = [jsbml_classes[species], jsbml_classes[parameter]]
 jsbml_classes['TreeNodeChangeEvent']['isInterface'] = False
 jsbml_classes['TreeNodeChangeEvent']['parentInterfaces'] = True
 jsbml_classes['TreeNodeChangeEvent']['childrenInterfaces'] = False
