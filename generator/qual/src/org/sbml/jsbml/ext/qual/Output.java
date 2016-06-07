@@ -19,6 +19,15 @@
  */
 package org.sbml.jsbml.ext.qual
 
+import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.FunctionDefinition;
+import org.sbml.jsbml.SimpleSpeciesReference;
+import org.sbml.jsbml.Model;
+import org.sbml.jsbml.SpeciesType;
+import org.sbml.jsbml.CompartmentType;
+import org.sbml.jsbml.UnitDefintion;
+import org.sbml.jsbml.AbstractNamedSBaseWithUnit;
+
 /**
  * @author Deviser
  * @version $Rev: 2465 $

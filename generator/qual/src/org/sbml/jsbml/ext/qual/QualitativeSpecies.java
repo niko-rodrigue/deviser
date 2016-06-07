@@ -19,16 +19,14 @@
  */
 package org.sbml.jsbml.ext.qual
 
-import java.util.Map;
-
-import org.sbml.jsbml.AbstractNamedSBase;
-import org.sbml.jsbml.CompartmentalizedSBase;
-import org.sbml.jsbml.LevelVersionError;
+import org.sbml.jsbml.Reaction;
+import org.sbml.jsbml.FunctionDefinition;
+import org.sbml.jsbml.SimpleSpeciesReference;
 import org.sbml.jsbml.Model;
-import org.sbml.jsbml.PropertyUndefinedError;
-import org.sbml.jsbml.Species;
-import org.sbml.jsbml.UniqueNamedSBase;
-import org.sbml.jsbml.util.StringTools;
+import org.sbml.jsbml.SpeciesType;
+import org.sbml.jsbml.CompartmentType;
+import org.sbml.jsbml.UnitDefintion;
+import org.sbml.jsbml.AbstractNamedSBaseWithUnit;
 
 /**
  * @author Deviser
@@ -36,7 +34,7 @@ import org.sbml.jsbml.util.StringTools;
  * @since 1.2
  * @date $Date: $
  */
-public class QualitativeSpecies extends AbstractNamedSBase implements UniqueNamedSBase, CallableSBase {
+public class QualitativeSpecies {
 
   /**
    * Generated serial version identifier.
