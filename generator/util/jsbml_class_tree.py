@@ -167,6 +167,8 @@ jsbml_classes[compartment]['childrenInterfaces'] = None
 jsbml_classes[compartment]['isUniqueJSBML'] = False
 jsbml_classes[compartment]['level'] = 0
 jsbml_classes[compartment]['libSBML_analogue'] = None
+# TODO modify class tree, Test stuff
+jsbml_classes[compartment]['requiredModules'] = [compartmentalized_sbase]
 
 
 print('-----------------------------------------')

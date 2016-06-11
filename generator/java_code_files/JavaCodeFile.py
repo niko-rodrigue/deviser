@@ -660,18 +660,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                     self.write_child_element_functions(child_class)
     ########################################################################
 
-    # Functions for writing definition declaration
-
-    def write_defn_begin(self):
-        self.skip_line(2)
-        self.write_line('#ifndef {0}_H__'.format(self.name))
-        self.write_line('#define {0}_H__'.format(self.name))
-        self.skip_line(2)
-
-    def write_defn_end(self):
-        self.skip_line(2)
-        self.write_line('#endif  /*  !{0}_H__  */'.format(self.name))
-        self.skip_line(2)
 
     ########################################################################
 
