@@ -94,20 +94,6 @@ public class Input {
   }
 
   /**
-   * Predicate returning {@code true} if this Input's "id" attribute is set.
-   */
-  public boolean isSetId() {
-    ;
-  }
-
-  /**
-   * Predicate returning {@code true} if this Input's "name" attribute is set.
-   */
-  public boolean isSetName() {
-    ;
-  }
-
-  /**
    * Predicate returning {@code true} if this Input's "sign" attribute is set.
    */
   public boolean isSetSign() {
@@ -119,7 +105,7 @@ public class Input {
    * attribute is set.
    */
   public boolean isSetQualitativeSpecies() {
-    ;
+    return mQualitativeSpecies != null;
   }
 
   /**
@@ -136,21 +122,6 @@ public class Input {
    */
   public boolean isSetThresholdLevel() {
     return mThresholdLevel != null;
-  }
-
-  /**
-   * Sets the value of the "id" attribute of this Input.
-   */
-  public void setId(String id) {
-    return SyntaxChecker::checkAndSetSId(id, mId);
-  }
-
-  /**
-   * Sets the value of the "name" attribute of this Input.
-   */
-  public void setName(String name) {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
   }
 
   /**
@@ -208,32 +179,6 @@ public class Input {
 
     firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
       this.oldmThresholdLevel);
-  }
-
-  /**
-   * Unsets the value of the "id" attribute of this Input.
-   */
-  public boolean unsetId() {
-    if (isSetId()) {
-      mId = null;
-      firePropertyChange(QualConstants.mId, oldmId, mId);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Unsets the value of the "name" attribute of this Input.
-   */
-  public boolean unsetName() {
-    if (isSetName()) {
-      mName = null;
-      firePropertyChange(QualConstants.mName, oldmName, mName);
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /**

@@ -80,18 +80,11 @@ public class Output {
   }
 
   /**
-   * Predicate returning {@code true} if this Output's "id" attribute is set.
-   */
-  public boolean isSetId() {
-    ;
-  }
-
-  /**
    * Predicate returning {@code true} if this Output's "qualitativeSpecies"
    * attribute is set.
    */
   public boolean isSetQualitativeSpecies() {
-    ;
+    return mQualitativeSpecies != null;
   }
 
   /**
@@ -103,25 +96,11 @@ public class Output {
   }
 
   /**
-   * Predicate returning {@code true} if this Output's "name" attribute is set.
-   */
-  public boolean isSetName() {
-    ;
-  }
-
-  /**
    * Predicate returning {@code true} if this Output's "outputLevel" attribute
    * is set.
    */
   public boolean isSetOutputLevel() {
     return mOutputLevel != null;
-  }
-
-  /**
-   * Sets the value of the "id" attribute of this Output.
-   */
-  public void setId(String id) {
-    return SyntaxChecker::checkAndSetSId(id, mId);
   }
 
   /**
@@ -157,14 +136,6 @@ public class Output {
   }
 
   /**
-   * Sets the value of the "name" attribute of this Output.
-   */
-  public void setName(String name) {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
-  }
-
-  /**
    * Sets the value of the "outputLevel" attribute of this Output.
    */
   public void setOutputLevel(int outputLevel) {
@@ -174,19 +145,6 @@ public class Output {
 
     firePropertyChange(QualConstants.mOutputLevel, oldmOutputLevel,
       this.oldmOutputLevel);
-  }
-
-  /**
-   * Unsets the value of the "id" attribute of this Output.
-   */
-  public boolean unsetId() {
-    if (isSetId()) {
-      mId = null;
-      firePropertyChange(QualConstants.mId, oldmId, mId);
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /**
@@ -209,19 +167,6 @@ public class Output {
   public boolean unsetTransitionEffect() {
     mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
-  }
-
-  /**
-   * Unsets the value of the "name" attribute of this Output.
-   */
-  public boolean unsetName() {
-    if (isSetName()) {
-      mName = null;
-      firePropertyChange(QualConstants.mName, oldmName, mName);
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /**

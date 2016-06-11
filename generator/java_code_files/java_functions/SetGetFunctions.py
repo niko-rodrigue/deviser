@@ -497,6 +497,10 @@ class SetGetFunctions():
         else:
             ob_type = 'element'
 
+        # TODO GSOC 2016 JSBML change
+        if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+            return None
+
         # create comment parts
         params = []
         return_lines = []
@@ -556,7 +560,8 @@ class SetGetFunctions():
                                   '> 0'.format(attribute['memberName'])]
 
             else:
-                implementation = ['']
+                implementation = ['return {0} != null'.format(
+                    attribute['memberName'])] # USED
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent
@@ -673,6 +678,10 @@ class SetGetFunctions():
             if 'isVector' in attribute and attribute['isVector']:
                 return
             att_type = attribute['CType']
+
+        # TODO GSOC 2016 JSBML change
+        if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+            return None
 
         # create comment parts
         params = []
@@ -1076,6 +1085,10 @@ class SetGetFunctions():
             ob_type = 'attribute'
         else:
             ob_type = 'element'
+
+        # TODO GSOC 2016 JSBML change
+        if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+            return None
 
 
         # TODO When does it get used?

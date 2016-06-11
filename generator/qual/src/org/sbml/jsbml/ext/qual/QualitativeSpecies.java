@@ -96,27 +96,11 @@ public class QualitativeSpecies {
   }
 
   /**
-   * Predicate returning {@code true} if this QualitativeSpecies's "id"
-   * attribute is set.
-   */
-  public boolean isSetId() {
-    ;
-  }
-
-  /**
-   * Predicate returning {@code true} if this QualitativeSpecies's "name"
-   * attribute is set.
-   */
-  public boolean isSetName() {
-    ;
-  }
-
-  /**
    * Predicate returning {@code true} if this QualitativeSpecies's
    * "compartment" attribute is set.
    */
   public boolean isSetCompartment() {
-    ;
+    return mCompartment != null;
   }
 
   /**
@@ -141,21 +125,6 @@ public class QualitativeSpecies {
    */
   public boolean isSetMaxLevel() {
     return mMaxLevel != null;
-  }
-
-  /**
-   * Sets the value of the "id" attribute of this QualitativeSpecies.
-   */
-  public void setId(String id) {
-    return SyntaxChecker::checkAndSetSId(id, mId);
-  }
-
-  /**
-   * Sets the value of the "name" attribute of this QualitativeSpecies.
-   */
-  public void setName(String name) {
-    mName = name;
-    return LIBSBML_OPERATION_SUCCESS;
   }
 
   /**
@@ -211,32 +180,6 @@ public class QualitativeSpecies {
 
     firePropertyChange(QualConstants.mMaxLevel, oldmMaxLevel,
       this.oldmMaxLevel);
-  }
-
-  /**
-   * Unsets the value of the "id" attribute of this QualitativeSpecies.
-   */
-  public boolean unsetId() {
-    if (isSetId()) {
-      mId = null;
-      firePropertyChange(QualConstants.mId, oldmId, mId);
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * Unsets the value of the "name" attribute of this QualitativeSpecies.
-   */
-  public boolean unsetName() {
-    if (isSetName()) {
-      mName = null;
-      firePropertyChange(QualConstants.mName, oldmName, mName);
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /**

@@ -198,9 +198,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     # Functions for writing the attribute manipulation functions
     # these are for attributes and elements that occur as a single child
 
-    def write_function_java(self, attrib_functions, att_index):
-        print('Ylo friend')
-        code = attrib_functions.write_get(True, att_index)
+    def write_function_java(self, code):
+        #print('Ylo friend')
         if code is not None:
             self.write_function_implementation(code)
 
@@ -214,16 +213,17 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         for i in range(0, num_attributes):
-            # code = attrib_functions.write_get(True, i)
+            code = attrib_functions.write_get(True, i)
             # self.write_function_implementation(code)
-            self.write_function_java(attrib_functions,i)
+            self.write_function_java(code)
 
             # code = attrib_functions.write_get_string_for_enum(True, i)
             # self.write_function_implementation(code)
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_is_set(True, i)
-            self.write_function_implementation(code)
+            # self.write_function_implementation(code)
+            self.write_function_java(code)
 
             # code = attrib_functions.write_get_num_for_vector(True, i) # IsSetID for JSBML not neccessary
             # self.write_function_implementation(code)
@@ -239,7 +239,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
             code = attrib_functions.write_set(True, i)
-            self.write_function_implementation(code)
+            self.write_function_java(code)
+            # self.write_function_implementation(code)
 
             # code = attrib_functions.write_set_string_for_enum(True, i)
             # self.write_function_implementation(code)
@@ -249,7 +250,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_unset(True, i)
-            self.write_function_implementation(code)
+            self.write_function_java(code)
+            # self.write_function_implementation(code)
 
     # function to write the get/set/isSet/unset functions for single
     # child elements
