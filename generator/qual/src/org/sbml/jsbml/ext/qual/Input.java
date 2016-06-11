@@ -43,14 +43,6 @@ public class Input {
   /**
    *
    */
-  private String mId;
-  /**
-   *
-   */
-  private String mName;
-  /**
-   *
-   */
   private Sign mSign;
   /**
    *
@@ -64,20 +56,6 @@ public class Input {
    *
    */
   private Integer mThresholdLevel;
-  /**
-   * @return the value of the "id" attribute of this Input.
-   */
-  public String getId() {
-    return isSetId() ? mId : "";
-  }
-
-  /**
-   * @return the value of the "name" attribute of this Input.
-   */
-  public String getName() {
-    return isSetName() ? mName : "";
-  }
-
   /**
    * @return the value of the "sign" attribute of this Input.
    */

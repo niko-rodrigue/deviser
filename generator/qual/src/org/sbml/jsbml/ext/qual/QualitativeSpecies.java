@@ -43,14 +43,6 @@ public class QualitativeSpecies {
   /**
    *
    */
-  private String mId;
-  /**
-   *
-   */
-  private String mName;
-  /**
-   *
-   */
   private String mCompartment;
   /**
    *
@@ -64,20 +56,6 @@ public class QualitativeSpecies {
    *
    */
   private Integer mMaxLevel;
-  /**
-   * @return the value of the "id" attribute of this QualitativeSpecies.
-   */
-  public String getId() {
-    return isSetId() ? mId : "";
-  }
-
-  /**
-   * @return the value of the "name" attribute of this QualitativeSpecies.
-   */
-  public String getName() {
-    return isSetName() ? mName : "";
-  }
-
   /**
    * @return the value of the "compartment" attribute of this
    * QualitativeSpecies.

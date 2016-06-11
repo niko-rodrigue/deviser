@@ -198,6 +198,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     # Functions for writing the attribute manipulation functions
     # these are for attributes and elements that occur as a single child
 
+    def write_function_java(self, attrib_functions, att_index):
+        print('Ylo friend')
+        code = attrib_functions.write_get(True, att_index)
+        if code is not None:
+            self.write_function_implementation(code)
+
     # function to write the get/set/isSet/unset functions for attributes
     def write_attribute_functions(self):
         attrib_functions = SetGetFunctions.SetGetFunctions(self.language,
@@ -208,8 +214,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         for i in range(0, num_attributes):
-            code = attrib_functions.write_get(True, i)
-            self.write_function_implementation(code)
+            # code = attrib_functions.write_get(True, i)
+            # self.write_function_implementation(code)
+            self.write_function_java(attrib_functions,i)
 
             # code = attrib_functions.write_get_string_for_enum(True, i)
             # self.write_function_implementation(code)
@@ -682,14 +689,16 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
         self.write_line(line)
 
-        attributes  = self.class_attributes
+        attributes = self.class_attributes
         for attribute in attributes:
-            self.write_variable_comment()
             #print(attribute['memberName'])
-            return_type = attribute['JClassType']
-            memberName = attribute['memberName']
-            line = 'private {0} {1};'.format(return_type, memberName)
-            self.write_line(line)
+            cap_att_name = attribute['capAttName']
+            if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                self.write_variable_comment()
+                return_type = attribute['JClassType']
+                member_name = attribute['memberName']
+                line = 'private {0} {1};'.format(return_type, member_name)
+                self.write_line(line)
         self.down_indent()
 
         # TODO for writing imports

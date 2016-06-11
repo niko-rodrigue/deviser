@@ -130,6 +130,10 @@ class SetGetFunctions():
         if attribute['isArray'] and self.is_java_api:
             return self.write_get_array(index, const)
         # create comment parts
+
+        # TODO GSOC 2016 JSBML change
+        if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+            return None
         params = []
         return_lines = []
         additional = []

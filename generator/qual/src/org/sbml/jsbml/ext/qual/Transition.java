@@ -32,28 +32,6 @@ public class Transition {
    */
   private static final long serialVersionUID = -6048861420699176889L;
   /**
-   *
-   */
-  private String mId;
-  /**
-   *
-   */
-  private String mName;
-  /**
-   * @return the value of the "id" attribute of this Transition.
-   */
-  public String getId() {
-    return isSetId() ? mId : "";
-  }
-
-  /**
-   * @return the value of the "name" attribute of this Transition.
-   */
-  public String getName() {
-    return isSetName() ? mName : "";
-  }
-
-  /**
    * Predicate returning {@code true} if this Transition's "id" attribute is
    * set.
    */

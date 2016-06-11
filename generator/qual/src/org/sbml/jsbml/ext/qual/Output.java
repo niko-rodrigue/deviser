@@ -43,10 +43,6 @@ public class Output {
   /**
    *
    */
-  private String mId;
-  /**
-   *
-   */
   private String mQualitativeSpecies;
   /**
    *
@@ -55,18 +51,7 @@ public class Output {
   /**
    *
    */
-  private String mName;
-  /**
-   *
-   */
   private Integer mOutputLevel;
-  /**
-   * @return the value of the "id" attribute of this Output.
-   */
-  public String getId() {
-    return isSetId() ? mId : "";
-  }
-
   /**
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */
@@ -82,13 +67,6 @@ public class Output {
       return mTransitionEffect;
     }
     throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
-  }
-
-  /**
-   * @return the value of the "name" attribute of this Output.
-   */
-  public String getName() {
-    return isSetName() ? mName : "";
   }
 
   /**
