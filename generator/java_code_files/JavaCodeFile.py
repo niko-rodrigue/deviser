@@ -64,7 +64,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     def write_class(self):
         # self.write_forward_class()
         # TODO for now only generate attribute functions
-        # self.write_constructors()
+        self.write_constructors()
 
         self.write_attribute_functions()
         # self.write_child_element_functions()
@@ -190,8 +190,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = constructor.write_clone()
         self.write_function_implementation(code)
 
-        code = constructor.write_destructor()
-        self.write_function_implementation(code)
 
     ########################################################################
 
@@ -212,6 +210,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         num_attributes = len(self.class_attributes)
 
 
+        #TODO how to write instance methods
         for i in range(0, num_attributes):
             code = attrib_functions.write_get(True, i)
             # self.write_function_implementation(code)

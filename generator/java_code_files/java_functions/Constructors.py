@@ -48,11 +48,11 @@ class Constructors():
         self.cap_language = language.upper()
         self.package = class_object['package']
         self.class_name = class_object['name']
-        self.is_cpp_api = is_cpp_api
+        self.is_java_api = is_cpp_api
         if is_cpp_api:
             self.object_name = class_object['name']
         else:
-            self.object_name = class_object['name'] + '_t'
+            self.object_name = class_object['name'] # + '_t'
 
         self.concretes = class_object['concretes']
         self.base_class = class_object['baseClass']
@@ -89,7 +89,7 @@ class Constructors():
         if (len(self.concretes) == 0 and index == 0) or index == -1:
             ob_name = self.object_name
             create = 'create'
-        elif self.is_cpp_api:
+        elif self.is_java_api:
             ob_name = self.object_name
             create = 'create'
         else:
@@ -133,7 +133,7 @@ class Constructors():
         additional = ''
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = self.class_name
             return_type = ''
         else:
@@ -152,7 +152,7 @@ class Constructors():
                                      'unsigned int version',
                                      'unsigned int pkgVersion']
         else:
-            if self.is_cpp_api:
+            if self.is_java_api:
                 arguments = ['unsigned int level = {0}_DEFAULT_'
                              'LEVEL'.format(global_variables.language.upper()),
                              'unsigned int version = {0}_DEFAULT_VERSI'
@@ -167,7 +167,7 @@ class Constructors():
         # create the function implementation
         constructor_args = self.write_constructor_args(None)
         if global_variables.is_package:
-            if self.is_cpp_api:
+            if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
                                   '(level, version, '
                                   'pkgVersion))'.format(global_variables.prefix,
@@ -182,7 +182,7 @@ class Constructors():
                 implementation = ['return new {0}(level, version, '
                                   'pkgVersion)'.format(name)]
         else:
-            if self.is_cpp_api:
+            if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
                                   'level, '
                                   'version))'.format(global_variables.prefix)]
@@ -217,7 +217,7 @@ class Constructors():
         if len(self.concretes) == 0 and index == 0:
             ob_name = self.object_name
             create = 'create'
-        elif self.is_cpp_api:
+        elif self.is_java_api:
             ob_name = self.object_name
             create = 'create'
         else:
@@ -257,7 +257,7 @@ class Constructors():
         additional = ''
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = self.class_name
             return_type = ''
         else:
@@ -267,7 +267,7 @@ class Constructors():
         arguments = []
 
         if global_variables.is_package:
-            if self.is_cpp_api:
+            if self.is_java_api:
                 arguments.append('{0}PkgNamespaces *{1}ns'
                                  .format(self.package, self.package.lower()))
             else:
@@ -275,7 +275,7 @@ class Constructors():
                                  .format(self.package, self.package.lower()))
             ns = '{0}ns'.format(self.package.lower())
         else:
-            if self.is_cpp_api:
+            if self.is_java_api:
                 arguments.append('{0}Namespaces *{1}ns'
                                  .format(global_variables.prefix,
                                          self.language))
@@ -324,7 +324,7 @@ class Constructors():
         if len(self.concretes) == 0 and index == 0:
             ob_name = self.object_name
             create = 'create'
-        elif self.is_cpp_api:
+        elif self.is_java_api:
             ob_name = self.object_name
             create = 'create'
         else:
@@ -343,7 +343,7 @@ class Constructors():
         additional = ''
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = self.class_name
             return_type = ''
         else:
@@ -415,7 +415,7 @@ class Constructors():
     # function to write copy constructor
     def write_copy_constructor(self):
         # do not write for C API
-        if self.is_cpp_api is False:
+        if self.is_java_api is False:
             return
         # create doc string header
         title_line = 'Copy constructor for {0}.'.format(self.object_name)
@@ -470,7 +470,7 @@ class Constructors():
     # function to write assignment operator
     def write_assignment_operator(self):
         # do not write for C API
-        if self.is_cpp_api is False:
+        if self.is_java_api is False:
             return
         # create doc string header
         title_line = 'Assignment operator for {0}.'.format(self.object_name)
@@ -524,23 +524,23 @@ class Constructors():
         title_line = 'Creates and returns a deep copy of this {0} object.'\
             .format(self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(abbrev_object, self.object_name))
         return_lines = ['@return a (deep) copy of this {0} object.'.format(
             self.object_name)]
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'clone'
         else:
             function = '{0}_clone'.format(self.class_name)
         return_type = '{0}*'.format(self.object_name)
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('const {0}* {1}'.format(self.object_name,
                                                    abbrev_object))
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             implementation = ['return new {0}(*this)'.format(self.object_name)]
             code_type = 'line'
         else:
@@ -564,64 +564,65 @@ class Constructors():
                      'object_name': self.object_name,
                      'implementation': code})
 
-    # function to write destructor
-    def write_destructor(self):
-        abbrev_object = strFunctions.abbrev_name(self.class_name)
-        # create doc string header
-        if self.is_cpp_api:
-            title_line = 'Destructor for {0}.'.format(self.object_name)
-        else:
-            title_line = 'Frees this {0} object.'.format(self.object_name)
-        params = []
-        if not self.is_cpp_api:
-            params.append('@param {0} the {1} structure.'
-                          .format(abbrev_object, self.object_name))
-        return_lines = []
-        additional = []
-        if self.is_cpp_api:
-            function = '~{0}'.format(self.object_name)
-            return_type = ''
-        else:
-            function = '{0}_free'.format(self.class_name)
-            return_type = 'void'
-        arguments = []
-        if not self.is_cpp_api:
-            arguments.append('{0}* {1}'.format(self.object_name, abbrev_object))
-        # create the function implementation
-        if self.is_cpp_api:
-            implementation = []
-            code = []
-            for attrib in self.attributes:
-                if attrib['isArray']:
-                    member = attrib['memberName']
-                    code.append(self.create_code_block(
-                        'if', ['{0} != NULL'.format(member),
-                               'delete [] {0}'.format(member)]))
-                    code.append(self.create_code_block(
-                        'line', ['{0} = NULL'.format(member)]))
-            for i in range(0, len(self.child_elements)):
-                element = self.child_elements[i]
-                member = element['memberName']
-                implementation.append('delete {0}'.format(member))
-                implementation.append('{0} = NULL'.format(member))
-            if len(implementation) > 0:
-                code.append(self.create_code_block('line', implementation))
-        else:
-            implementation = ['{0} != NULL'.format(abbrev_object),
-                              'delete {0}'.format(abbrev_object)]
-            code = [self.create_code_block('if', implementation)]
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': True,
-                     'object_name': self.object_name,
-                     'implementation': code})
+    # Java no need of a destructor
+    # # function to write destructor
+    # def write_destructor(self):
+    #     abbrev_object = strFunctions.abbrev_name(self.class_name)
+    #     # create doc string header
+    #     if self.is_java_api:
+    #         title_line = 'Destructor for {0}.'.format(self.object_name)
+    #     else:
+    #         title_line = 'Frees this {0} object.'.format(self.object_name)
+    #     params = []
+    #     if not self.is_java_api:
+    #         params.append('@param {0} the {1} structure.'
+    #                       .format(abbrev_object, self.object_name))
+    #     return_lines = []
+    #     additional = []
+    #     if self.is_java_api:
+    #         function = '~{0}'.format(self.object_name)
+    #         return_type = ''
+    #     else:
+    #         function = '{0}_free'.format(self.class_name)
+    #         return_type = 'void'
+    #     arguments = []
+    #     if not self.is_java_api:
+    #         arguments.append('{0}* {1}'.format(self.object_name, abbrev_object))
+    #     # create the function implementation
+    #     if self.is_java_api:
+    #         implementation = []
+    #         code = []
+    #         for attrib in self.attributes:
+    #             if attrib['isArray']:
+    #                 member = attrib['memberName']
+    #                 code.append(self.create_code_block(
+    #                     'if', ['{0} != NULL'.format(member),
+    #                            'delete [] {0}'.format(member)]))
+    #                 code.append(self.create_code_block(
+    #                     'line', ['{0} = NULL'.format(member)]))
+    #         for i in range(0, len(self.child_elements)):
+    #             element = self.child_elements[i]
+    #             member = element['memberName']
+    #             implementation.append('delete {0}'.format(member))
+    #             implementation.append('{0} = NULL'.format(member))
+    #         if len(implementation) > 0:
+    #             code.append(self.create_code_block('line', implementation))
+    #     else:
+    #         implementation = ['{0} != NULL'.format(abbrev_object),
+    #                           'delete {0}'.format(abbrev_object)]
+    #         code = [self.create_code_block('if', implementation)]
+    #
+    #     return dict({'title_line': title_line,
+    #                  'params': params,
+    #                  'return_lines': return_lines,
+    #                  'additional': additional,
+    #                  'function': function,
+    #                  'return_type': return_type,
+    #                  'arguments': arguments,
+    #                  'constant': False,
+    #                  'virtual': True,
+    #                  'object_name': self.object_name,
+    #                  'implementation': code})
 
     ########################################################################
 
