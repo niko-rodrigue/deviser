@@ -164,16 +164,20 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         constructor = Constructors.Constructors(self.language,
                                                 self.is_java_api,
                                                 self.class_object)
+        self.skip_line()
         if self.is_java_api and not self.is_plugin:
+            code = constructor.write_simple_constructor()
+            self.write_function_implementation(code)
+
             code = constructor.write_level_version_constructor()
             self.write_function_implementation(code)
 
             code = constructor.write_namespace_constructor()
             self.write_function_implementation(code)
-        elif self.is_plugin:
-            code = constructor.write_uri_constructor()
-            self.write_function_implementation(code)
-        elif self.has_std_base:
+        # elif self.is_plugin:
+        #     code = constructor.write_uri_constructor()
+        #     self.write_function_implementation(code)
+        elif self.has_std_base: # TODO constructor tricky This is tricky
             for i in range(0, len(self.concretes)+1):
                 code = constructor.write_level_version_constructor(i)
                 self.write_function_implementation(code)
@@ -181,14 +185,18 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = constructor.write_level_version_constructor(-1)
             self.write_function_implementation(code)
 
-        code = constructor.write_copy_constructor()
-        self.write_function_implementation(code)
 
-        code = constructor.write_assignment_operator()
-        self.write_function_implementation(code)
+        # TODO after main constructors
+        # code = constructor.write_copy_constructor()
+        # self.write_function_implementation(code)
+        #
+        # code = constructor.write_assignment_operator()
+        # self.write_function_implementation(code)
+        #
 
-        code = constructor.write_clone()
-        self.write_function_implementation(code)
+        # Clone need @override
+        # code = constructor.write_clone()
+        # self.write_function_implementation(code)
 
 
     ########################################################################

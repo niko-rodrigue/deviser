@@ -35,6 +35,38 @@ public class DefaultTerm {
    *
    */
   private Integer mResultLevel;
+
+  /**
+   */
+  public DefaultTerm() {
+    super();
+    initDefaults();
+  }
+
+  /**
+   * Creates a new DefaultTerm using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public DefaultTerm(unsigned int level, {
+                      unsigned int version, {
+                      unsigned int pkgVersion) {
+    : SBase(level, version) {
+    , mResultLevel (JSBML_INT_MAX) {
+    , mIsSetResultLevel (false) {
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  }
+
+  /**
+   * Creates a new DefaultTerm using the given QualPkgNamespaces object.
+   */
+  public DefaultTerm(QualPkgNamespaces *qualns) {
+    : SBase(qualns) {
+    , mResultLevel (JSBML_INT_MAX) {
+    , mIsSetResultLevel (false) {
+    setElementNamespace(qualns->getURI());
+    loadPlugins(qualns);
+  }
+
   /**
    * @return the value of the "resultLevel" attribute of this DefaultTerm.
    */

@@ -35,6 +35,42 @@ public class FunctionTerm {
    *
    */
   private Integer mResultLevel;
+
+  /**
+   */
+  public FunctionTerm() {
+    super();
+    initDefaults();
+  }
+
+  /**
+   * Creates a new FunctionTerm using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public FunctionTerm(unsigned int level, {
+                       unsigned int version, {
+                       unsigned int pkgVersion) {
+    : SBase(level, version) {
+    , mResultLevel (JSBML_INT_MAX) {
+    , mIsSetResultLevel (false) {
+    , mMath (NULL) {
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+    connectToChild();
+  }
+
+  /**
+   * Creates a new FunctionTerm using the given QualPkgNamespaces object.
+   */
+  public FunctionTerm(QualPkgNamespaces *qualns) {
+    : SBase(qualns) {
+    , mResultLevel (JSBML_INT_MAX) {
+    , mIsSetResultLevel (false) {
+    , mMath (NULL) {
+    setElementNamespace(qualns->getURI());
+    connectToChild();
+    loadPlugins(qualns);
+  }
+
   /**
    * @return the value of the "resultLevel" attribute of this FunctionTerm.
    */

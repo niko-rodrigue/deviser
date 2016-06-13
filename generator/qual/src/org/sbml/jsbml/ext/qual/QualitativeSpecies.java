@@ -56,6 +56,52 @@ public class QualitativeSpecies {
    *
    */
   private Integer mMaxLevel;
+
+  /**
+   */
+  public QualitativeSpecies() {
+    super();
+    initDefaults();
+  }
+
+  /**
+   * Creates a new QualitativeSpecies using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public QualitativeSpecies(unsigned int level, {
+                             unsigned int version, {
+                             unsigned int pkgVersion) {
+    : SBase(level, version) {
+    , mId ("") {
+    , mName ("") {
+    , mCompartment ("") {
+    , mConstant (False) {
+    , mIsSetConstant (false) {
+    , mInitialLevel (JSBML_INT_MAX) {
+    , mIsSetInitialLevel (false) {
+    , mMaxLevel (JSBML_INT_MAX) {
+    , mIsSetMaxLevel (false) {
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  }
+
+  /**
+   * Creates a new QualitativeSpecies using the given QualPkgNamespaces object.
+   */
+  public QualitativeSpecies(QualPkgNamespaces *qualns) {
+    : SBase(qualns) {
+    , mId ("") {
+    , mName ("") {
+    , mCompartment ("") {
+    , mConstant (False) {
+    , mIsSetConstant (false) {
+    , mInitialLevel (JSBML_INT_MAX) {
+    , mIsSetInitialLevel (false) {
+    , mMaxLevel (JSBML_INT_MAX) {
+    , mIsSetMaxLevel (false) {
+    setElementNamespace(qualns->getURI());
+    loadPlugins(qualns);
+  }
+
   /**
    * @return the value of the "compartment" attribute of this
    * QualitativeSpecies.

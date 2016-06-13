@@ -52,6 +52,46 @@ public class Output {
    *
    */
   private Integer mOutputLevel;
+
+  /**
+   */
+  public Output() {
+    super();
+    initDefaults();
+  }
+
+  /**
+   * Creates a new Output using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public Output(unsigned int level, {
+                 unsigned int version, {
+                 unsigned int pkgVersion) {
+    : SBase(level, version) {
+    , mId ("") {
+    , mQualitativeSpecies ("") {
+    , mTransitionEffect (TRANSITION_OUTPUT_EFFECT_INVALID) {
+    , mName ("") {
+    , mOutputLevel (JSBML_INT_MAX) {
+    , mIsSetOutputLevel (false) {
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  }
+
+  /**
+   * Creates a new Output using the given QualPkgNamespaces object.
+   */
+  public Output(QualPkgNamespaces *qualns) {
+    : SBase(qualns) {
+    , mId ("") {
+    , mQualitativeSpecies ("") {
+    , mTransitionEffect (TRANSITION_OUTPUT_EFFECT_INVALID) {
+    , mName ("") {
+    , mOutputLevel (JSBML_INT_MAX) {
+    , mIsSetOutputLevel (false) {
+    setElementNamespace(qualns->getURI());
+    loadPlugins(qualns);
+  }
+
   /**
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */

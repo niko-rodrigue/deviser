@@ -84,6 +84,93 @@ class Constructors():
 
     # Functions for writing constructors
 
+
+    # function to simple  constructor
+    def write_simple_constructor(self, index=0):
+        if (len(self.concretes) == 0 and index == 0) or index == -1:
+            ob_name = self.object_name
+            create = 'create'
+        elif self.is_java_api:
+            ob_name = self.object_name
+            create = 'create'
+        else:
+            if index == 0:
+                return
+            else:
+                i = index - 1
+            ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
+                                         self.object_name)
+            create = 'create{0}'.format(self.concretes[i]['element'])
+        title_line = ''
+        params = ''
+
+        return_lines = ['@throws {0}Constructor'
+                        'Exception'.format(self.cap_language),
+                        'Thrown if the given @p level and @p version '
+                        'combination, or this kind of {0} object, are either '
+                        'invalid or mismatched with respect to the parent '
+                        '{1} object.'.format(self.cap_language,
+                                             global_variables.document_class),
+                        '@copydetails doc_note_setting_lv']
+        additional = ''
+
+        # create the function declaration
+        if self.is_java_api:
+            function = self.class_name
+            return_type = ''
+        else:
+            function = '{0}_{1}'.format(self.class_name, create)
+            return_type = '{0} *'.format(self.object_name)
+
+        arguments = []
+        arguments_no_defaults = []
+        constructor_args = []
+        if global_variables.is_package:
+            if self.is_java_api:
+                implementation = ['super()','initDefaults()']
+                #implementation.append('initDefaults()')
+                # if self.has_children:
+                #     implementation.append('connectToChild()')
+            # else:
+            #     if index == 0 or index == -1:
+            #         name = self.class_name
+            #     else:
+            #         name = self.concretes[index - 1]['element']
+            #     implementation = ['return new {0}(level, version, '
+            #                       'pkgVersion)'.format(name)]
+        else:
+            if self.is_java_api:
+                implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
+                                  'level, '
+                                  'version))'.format(global_variables.prefix)]
+                if self.document:
+                    implementation.append('setLevel(level)')
+                    implementation.append('setVersion(version)')
+                    implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+                if self.has_children:
+                    implementation.append('connectToChild()')
+            else:
+                implementation = ['return new {0}(level, '
+                                  'version)'.format(self.class_name)]
+
+        code = [dict({'code_type': 'line', 'code': implementation})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'args_no_defaults': arguments_no_defaults,
+                     'constructor_args': constructor_args})
+
+
+
     # function to write level version constructor
     def write_level_version_constructor(self, index=0):
         if (len(self.concretes) == 0 and index == 0) or index == -1:
@@ -98,7 +185,7 @@ class Constructors():
             else:
                 i = index - 1
             ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
-                                       self.object_name)
+                                         self.object_name)
             create = 'create{0}'.format(self.concretes[i]['element'])
         # create doc string header
         title_line = 'Creates a new {0} using the given {1} Level' \
@@ -226,7 +313,7 @@ class Constructors():
             else:
                 i = index - 1
             ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
-                                       self.object_name)
+                                         self.object_name)
             create = 'create{0}'.format(self.concretes[i]['element'])
         # create doc string header
         title_line = 'Creates a new {0} using the given'\
@@ -563,66 +650,6 @@ class Constructors():
                      'virtual': True,
                      'object_name': self.object_name,
                      'implementation': code})
-
-    # Java no need of a destructor
-    # # function to write destructor
-    # def write_destructor(self):
-    #     abbrev_object = strFunctions.abbrev_name(self.class_name)
-    #     # create doc string header
-    #     if self.is_java_api:
-    #         title_line = 'Destructor for {0}.'.format(self.object_name)
-    #     else:
-    #         title_line = 'Frees this {0} object.'.format(self.object_name)
-    #     params = []
-    #     if not self.is_java_api:
-    #         params.append('@param {0} the {1} structure.'
-    #                       .format(abbrev_object, self.object_name))
-    #     return_lines = []
-    #     additional = []
-    #     if self.is_java_api:
-    #         function = '~{0}'.format(self.object_name)
-    #         return_type = ''
-    #     else:
-    #         function = '{0}_free'.format(self.class_name)
-    #         return_type = 'void'
-    #     arguments = []
-    #     if not self.is_java_api:
-    #         arguments.append('{0}* {1}'.format(self.object_name, abbrev_object))
-    #     # create the function implementation
-    #     if self.is_java_api:
-    #         implementation = []
-    #         code = []
-    #         for attrib in self.attributes:
-    #             if attrib['isArray']:
-    #                 member = attrib['memberName']
-    #                 code.append(self.create_code_block(
-    #                     'if', ['{0} != NULL'.format(member),
-    #                            'delete [] {0}'.format(member)]))
-    #                 code.append(self.create_code_block(
-    #                     'line', ['{0} = NULL'.format(member)]))
-    #         for i in range(0, len(self.child_elements)):
-    #             element = self.child_elements[i]
-    #             member = element['memberName']
-    #             implementation.append('delete {0}'.format(member))
-    #             implementation.append('{0} = NULL'.format(member))
-    #         if len(implementation) > 0:
-    #             code.append(self.create_code_block('line', implementation))
-    #     else:
-    #         implementation = ['{0} != NULL'.format(abbrev_object),
-    #                           'delete {0}'.format(abbrev_object)]
-    #         code = [self.create_code_block('if', implementation)]
-    #
-    #     return dict({'title_line': title_line,
-    #                  'params': params,
-    #                  'return_lines': return_lines,
-    #                  'additional': additional,
-    #                  'function': function,
-    #                  'return_type': return_type,
-    #                  'arguments': arguments,
-    #                  'constant': False,
-    #                  'virtual': True,
-    #                  'object_name': self.object_name,
-    #                  'implementation': code})
 
     ########################################################################
 

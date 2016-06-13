@@ -31,4 +31,44 @@ public class Transition {
    * Generated serial version identifier.
    */
   private static final long serialVersionUID = -6048861420699176889L;
+
+  /**
+   */
+  public Transition() {
+    super();
+    initDefaults();
+  }
+
+  /**
+   * Creates a new Transition using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public Transition(unsigned int level, {
+                     unsigned int version, {
+                     unsigned int pkgVersion) {
+    : SBase(level, version) {
+    , mId ("") {
+    , mName ("") {
+    , mInputs (level, version, pkgVersion) {
+    , mOutputs (level, version, pkgVersion) {
+    , mFunctionTerms (level, version, pkgVersion) {
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+    connectToChild();
+  }
+
+  /**
+   * Creates a new Transition using the given QualPkgNamespaces object.
+   */
+  public Transition(QualPkgNamespaces *qualns) {
+    : SBase(qualns) {
+    , mId ("") {
+    , mName ("") {
+    , mInputs (qualns) {
+    , mOutputs (qualns) {
+    , mFunctionTerms (qualns) {
+    setElementNamespace(qualns->getURI());
+    connectToChild();
+    loadPlugins(qualns);
+  }
+
 }

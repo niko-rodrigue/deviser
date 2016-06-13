@@ -56,6 +56,48 @@ public class Input {
    *
    */
   private Integer mThresholdLevel;
+
+  /**
+   */
+  public Input() {
+    super();
+    initDefaults();
+  }
+
+  /**
+   * Creates a new Input using the given JSBML Level, Version and
+   * &ldquo;qual&rdquo; package version.
+   */
+  public Input(unsigned int level, {
+                unsigned int version, {
+                unsigned int pkgVersion) {
+    : SBase(level, version) {
+    , mId ("") {
+    , mName ("") {
+    , mSign (SIGN_INVALID) {
+    , mQualitativeSpecies ("") {
+    , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID) {
+    , mThresholdLevel (JSBML_INT_MAX) {
+    , mIsSetThresholdLevel (false) {
+    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  }
+
+  /**
+   * Creates a new Input using the given QualPkgNamespaces object.
+   */
+  public Input(QualPkgNamespaces *qualns) {
+    : SBase(qualns) {
+    , mId ("") {
+    , mName ("") {
+    , mSign (SIGN_INVALID) {
+    , mQualitativeSpecies ("") {
+    , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID) {
+    , mThresholdLevel (JSBML_INT_MAX) {
+    , mIsSetThresholdLevel (false) {
+    setElementNamespace(qualns->getURI());
+    loadPlugins(qualns);
+  }
+
   /**
    * @return the value of the "sign" attribute of this Input.
    */
