@@ -61,12 +61,9 @@ public class Output {
   }
 
   /**
-   * Creates a new Output using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
+   * @param level @param version
    */
-  public Output(unsigned int level, {
-                 unsigned int version, {
-                 unsigned int pkgVersion) {
+  public Output(int level, int version, int pkgVersion) {
     : SBase(level, version) {
     , mId ("") {
     , mQualitativeSpecies ("") {

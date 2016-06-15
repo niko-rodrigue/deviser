@@ -65,12 +65,9 @@ public class Input {
   }
 
   /**
-   * Creates a new Input using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
+   * @param level @param version
    */
-  public Input(unsigned int level, {
-                unsigned int version, {
-                unsigned int pkgVersion) {
+  public Input(int level, int version, int pkgVersion) {
     : SBase(level, version) {
     , mId ("") {
     , mName ("") {

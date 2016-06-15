@@ -44,12 +44,9 @@ public class DefaultTerm {
   }
 
   /**
-   * Creates a new DefaultTerm using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
+   * @param level @param version
    */
-  public DefaultTerm(unsigned int level, {
-                      unsigned int version, {
-                      unsigned int pkgVersion) {
+  public DefaultTerm(int level, int version, int pkgVersion) {
     : SBase(level, version) {
     , mResultLevel (JSBML_INT_MAX) {
     , mIsSetResultLevel (false) {

@@ -65,12 +65,9 @@ public class QualitativeSpecies {
   }
 
   /**
-   * Creates a new QualitativeSpecies using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
+   * @param level @param version
    */
-  public QualitativeSpecies(unsigned int level, {
-                             unsigned int version, {
-                             unsigned int pkgVersion) {
+  public QualitativeSpecies(int level, int version, int pkgVersion) {
     : SBase(level, version) {
     , mId ("") {
     , mName ("") {

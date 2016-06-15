@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b28d12fe-8b83-4199-8b01-bf9015623b98" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" afterPath="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" afterPath="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/java_code_files/java_functions/Constructors.py" afterPath="$PROJECT_DIR$/generator/java_code_files/java_functions/Constructors.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/DefaultTerm.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/DefaultTerm.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/FunctionTerm.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/FunctionTerm.java" />
@@ -14,6 +14,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Output.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Output.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/QualitativeSpecies.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/QualitativeSpecies.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Transition.java" afterPath="$PROJECT_DIR$/generator/qual/src/org/sbml/jsbml/ext/qual/Transition.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator/util/jsbml_class_tree.py" afterPath="$PROJECT_DIR$/generator/util/jsbml_class_tree.py" />
     </list>
     <ignored path="deviser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,8 +61,8 @@
       <file leaf-file-name="JavaCodeFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="166" column="23" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+            <state relative-caret-position="3042">
+              <caret line="169" column="29" selection-start-line="169" selection-start-column="29" selection-end-line="169" selection-end-column="29" />
               <folding>
                 <element signature="e#1979#2014#0" expanded="true" />
               </folding>
@@ -69,21 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Constructors.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Constructors.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/Constructors.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="736">
-              <caret line="651" column="45" selection-start-line="651" selection-start-column="45" selection-end-line="651" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SetGetFunctions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9810">
-              <caret line="546" column="72" selection-start-line="546" selection-start-column="72" selection-end-line="546" selection-end-column="72" />
+            <state relative-caret-position="554">
+              <caret line="204" column="62" selection-start-line="204" selection-start-column="27" selection-end-line="204" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -92,21 +83,31 @@
       <file leaf-file-name="BaseJavaFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="16128">
-              <caret line="899" column="0" selection-start-line="899" selection-start-column="0" selection-end-line="899" selection-end-column="0" />
+            <state relative-caret-position="36">
+              <caret line="936" column="0" selection-start-line="936" selection-start-column="0" selection-end-line="937" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jsbml_class_tree.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="jsbml_class_tree.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/generator/util/jsbml_class_tree.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15390">
-              <caret line="856" column="0" selection-start-line="856" selection-start-column="0" selection-end-line="856" selection-end-column="0" />
+            <state relative-caret-position="455">
+              <caret line="1059" column="50" selection-start-line="1059" selection-start-column="50" selection-end-line="1059" selection-end-column="50" />
               <folding>
                 <element signature="e#1965#1974#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseCppFile.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator/base_files/BaseCppFile.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="11754">
+              <caret line="654" column="8" selection-start-line="654" selection-start-column="8" selection-end-line="654" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,11 +143,11 @@
         <option value="$PROJECT_DIR$/generator/java_code_files/java_functions/ProtectedFunctions.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/JavaFiles.py" />
         <option value="$PROJECT_DIR$/generator/base_files/BaseFile.py" />
-        <option value="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
-        <option value="$PROJECT_DIR$/generator/util/jsbml_class_tree.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/java_functions/SetGetFunctions.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py" />
         <option value="$PROJECT_DIR$/generator/java_code_files/java_functions/Constructors.py" />
+        <option value="$PROJECT_DIR$/generator/base_files/BaseJavaFile.py" />
+        <option value="$PROJECT_DIR$/generator/util/jsbml_class_tree.py" />
       </list>
     </option>
   </component>
@@ -199,6 +200,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -292,7 +294,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -548,9 +549,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="24" width="1024" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.035964034" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17782217" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="1152" y="112" width="984" height="656" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1804,13 +1805,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/generator/code_files/CppHeaderFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14004">
-          <caret line="780" column="0" selection-start-line="780" selection-start-column="0" selection-end-line="780" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/code_files/cpp_functions/GeneralFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2466">
@@ -2062,14 +2056,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/base_files/BaseCppFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="817" column="21" selection-start-line="817" selection-start-column="21" selection-end-line="817" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/deviser.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="954">
@@ -2147,16 +2133,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator/util/jsbml_class_tree.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15390">
-          <caret line="856" column="0" selection-start-line="856" selection-start-column="0" selection-end-line="856" selection-end-column="0" />
-          <folding>
-            <element signature="e#1965#1974#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/generator/util/generateCode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6426">
@@ -2165,14 +2141,6 @@
             <element signature="e#1991#2001#0" expanded="true" />
             <marker date="1464170909666" expanded="true" signature="1991:2444" ph="import ..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16128">
-          <caret line="899" column="0" selection-start-line="899" selection-start-column="0" selection-end-line="899" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2186,19 +2154,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/JavaCodeFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="166" column="23" selection-start-line="166" selection-start-column="23" selection-end-line="166" selection-end-column="23" />
+        <state relative-caret-position="3042">
+          <caret line="169" column="29" selection-start-line="169" selection-start-column="29" selection-end-line="169" selection-end-column="29" />
           <folding>
             <element signature="e#1979#2014#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/generator/base_files/BaseCppFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11754">
+          <caret line="654" column="8" selection-start-line="654" selection-start-column="8" selection-end-line="654" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/code_files/BaseClassFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="206" column="31" selection-start-line="206" selection-start-column="31" selection-end-line="206" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/generator/java_code_files/java_functions/Constructors.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="651" column="45" selection-start-line="651" selection-start-column="45" selection-end-line="651" selection-end-column="45" />
+        <state relative-caret-position="554">
+          <caret line="204" column="62" selection-start-line="204" selection-start-column="27" selection-end-line="204" selection-end-column="65" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/base_files/BaseJavaFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="936" column="0" selection-start-line="936" selection-start-column="0" selection-end-line="937" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator/util/jsbml_class_tree.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="1059" column="50" selection-start-line="1059" selection-start-column="50" selection-end-line="1059" selection-end-column="50" />
+          <folding>
+            <element signature="e#1965#1974#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

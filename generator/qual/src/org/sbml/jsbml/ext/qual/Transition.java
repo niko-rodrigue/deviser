@@ -40,12 +40,9 @@ public class Transition {
   }
 
   /**
-   * Creates a new Transition using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
+   * @param level @param version
    */
-  public Transition(unsigned int level, {
-                     unsigned int version, {
-                     unsigned int pkgVersion) {
+  public Transition(int level, int version, int pkgVersion) {
     : SBase(level, version) {
     , mId ("") {
     , mName ("") {

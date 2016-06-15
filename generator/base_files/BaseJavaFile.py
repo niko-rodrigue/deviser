@@ -944,7 +944,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
             #GSOC 2016 function name changes necessary -> u'QualitativeSpecies getId' Wrong
-
+            # TODO GSOC write param
             if self.is_java_api:
                 if not code['object_name']:
                     function_name = code['function']

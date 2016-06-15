@@ -44,12 +44,9 @@ public class FunctionTerm {
   }
 
   /**
-   * Creates a new FunctionTerm using the given JSBML Level, Version and
-   * &ldquo;qual&rdquo; package version.
+   * @param level @param version
    */
-  public FunctionTerm(unsigned int level, {
-                       unsigned int version, {
-                       unsigned int pkgVersion) {
+  public FunctionTerm(int level, int version, int pkgVersion) {
     : SBase(level, version) {
     , mResultLevel (JSBML_INT_MAX) {
     , mIsSetResultLevel (false) {

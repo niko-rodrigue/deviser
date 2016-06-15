@@ -63,8 +63,8 @@ local_parameter = 'LocalParameter'
 assignment_rule = 'AssignmentRule'
 rate_rule = 'RateRule'
 
-#Level 2
-#TODO classes stuff
+# Level 2
+# TODO classes stuff
 variable = 'Variable'
 quantity_with_unit = 'QuantityWithUnit'
 modifier_species_reference = 'ModifierSpeciesReference'
@@ -72,7 +72,7 @@ event = 'Event'
 explicit_rule = 'ExplicitRule'
 algebraic_rule = 'AlgrebraicRule'
 
-#Level 3
+# Level 3
 quantity = 'Quantity'
 reaction = 'Reaction'
 function_definition = 'FunctionDefinition'
@@ -785,7 +785,7 @@ jsbml_classes[annotation]['libSBML_analogue'] = None
 # creator Class
 jsbml_classes[creator]['name'] = creator
 jsbml_classes[creator]['hasParent'] = True
-jsbml_classes[creator]['parentNode'] = annotation_element # TODO fill
+jsbml_classes[creator]['parentNode'] = annotation_element
 jsbml_classes[creator]['hasChildren'] = False
 jsbml_classes[creator]['childrenNodes'] = None
 jsbml_classes[creator]['isInterface'] = False
@@ -1036,3 +1036,27 @@ jsbml_classes[tree_node_change_event]['libSBML_analogue'] = None
 
 # print('--------------------------------------------')
 # print(jsbml_classes)
+
+#  TODO GSOC 2016 new dictionary for modules
+java_mods = 'java'
+jsbml_mods = 'jsbml'
+
+pack_qual = 'qual'
+pack_fbc = 'fbc'
+
+
+
+
+java_map = 'Map'
+level_version_error = 'LevelVersionError'
+property_undefined = 'PropertyUndefinedError'
+util_string_tools = 'util.StringTools'
+
+in_out_qualspecies = []
+
+
+jsbml_modules = tree()
+jsbml_modules[pack_qual]['input'][java_mods] = [map]
+jsbml_modules[pack_qual]['input'][jsbml_mods] = []
+
+

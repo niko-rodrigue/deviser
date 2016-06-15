@@ -188,14 +188,12 @@ class Constructors():
                                          self.object_name)
             create = 'create{0}'.format(self.concretes[i]['element'])
         # create doc string header
-        title_line = 'Creates a new {0} using the given {1} Level' \
-            .format(ob_name, self.cap_language)
+        # title_line = 'Creates a new {0} using the given {1} Level' \
+        #     .format(ob_name, self.cap_language)
         if global_variables.is_package:
-            title_line += ', Version and &ldquo;{0}&rdquo; package ' \
-                          'version.'.format(strFunctions.
-                                            lower_first(self.package))
+            title_line = '@param level\n @param version' #.format(strFunctions.lower_first(self.package))
         else:
-            title_line += ' and @ p version values.'
+            title_line = ' and @ p version values.'
 
         params = ['@param level an unsigned int, the {0} Level to '
                   'assign to this {1}.'.format(self.cap_language,
@@ -229,27 +227,27 @@ class Constructors():
 
         if global_variables.is_package:
             arguments = [
-                'unsigned int level = '
+                'int level = '
                 '{0}Extension::getDefaultLevel()'.format(self.package),
-                'unsigned int version = '
+                'nt version = '
                 '{0}Extension::getDefaultVersion()'.format(self.package),
-                'unsigned int pkgVersion = '
+                'int pkgVersion = '
                 '{0}Extension::getDefaultPackageVersion()'.format(self.package)]
-            arguments_no_defaults = ['unsigned int level',
-                                     'unsigned int version',
-                                     'unsigned int pkgVersion']
+            arguments_no_defaults = ['int level',
+                                     'int version',
+                                     'int pkgVersion']
         else:
             if self.is_java_api:
-                arguments = ['unsigned int level = {0}_DEFAULT_'
+                arguments = ['int level = {0}_DEFAULT_'
                              'LEVEL'.format(global_variables.language.upper()),
-                             'unsigned int version = {0}_DEFAULT_VERSI'
+                             'int version = {0}_DEFAULT_VERSI'
                              'ON'.format(global_variables.language.upper())]
-                arguments_no_defaults = ['unsigned int level',
+                arguments_no_defaults = ['int level',
                                          'unsigned int version']
             else:
-                arguments = ['unsigned int level', 'unsigned int version']
-                arguments_no_defaults = ['unsigned int level',
-                                         'unsigned int version']
+                arguments = ['int level', 'int version']
+                arguments_no_defaults = ['int level',
+                                         'int version']
 
         # create the function implementation
         constructor_args = self.write_constructor_args(None)
