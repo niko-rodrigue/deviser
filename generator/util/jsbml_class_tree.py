@@ -1056,6 +1056,13 @@ in_out_qualspecies = []
 
 
 jsbml_modules = tree()
+jsbml_modules[pack_qual]['files'] = ['input',
+                                     'output',
+                                     'qualitativespecies',
+                                     'transition',
+                                     'sign']
+
+
 jsbml_modules[pack_qual]['input'][java_mods] = [map]
 jsbml_modules[pack_qual]['input'][jsbml_mods] = []
 
