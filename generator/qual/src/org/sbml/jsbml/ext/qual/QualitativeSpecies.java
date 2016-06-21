@@ -31,7 +31,7 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class QualitativeSpecies {
+public class QualitativeSpecies extends AbstractNamedSBase implements CompartmentalizedSBase, UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.

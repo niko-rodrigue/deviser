@@ -31,7 +31,7 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class Output {
+public class Output extends AbstractNamedSBase implements UniqueNamedSBase, CallableSBase {
 
   /**
    * Generated serial version identifier.

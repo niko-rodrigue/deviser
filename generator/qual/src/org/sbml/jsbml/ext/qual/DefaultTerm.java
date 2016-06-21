@@ -31,7 +31,7 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class DefaultTerm {
+public class DefaultTerm extends AbstractMathContainer {
 
   /**
    * Generated serial version identifier.

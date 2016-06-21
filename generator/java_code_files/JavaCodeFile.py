@@ -57,6 +57,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.expand_class(class_object)
 
         self.jsbml_tree = jsbml_class_tree.jsbml_classes
+        self.jsbml_modules = jsbml_class_tree.jsbml_modules
         #print(self.jsbml_tree)
     ########################################################################
 

@@ -1054,17 +1054,17 @@ jsbml_modules[pack_qual]['files'] = ['input',
                                      'sign']
 
 
-jsbml_modules[pack_qual]['input'] = ['AbstractNamedSBase','UniqueNamedSBase',
-                                     'CallableSBas']
+jsbml_modules[pack_qual]['Input'] = ['AbstractNamedSBase','UniqueNamedSBase',
+                                     'CallableSBase']
 
-jsbml_modules[pack_qual]['output'] = ['AbstractNamedSBase', 'UniqueNamedSBase',
-                                     'CallableSBas']
+jsbml_modules[pack_qual]['Output'] = ['AbstractNamedSBase', 'UniqueNamedSBase',
+                                     'CallableSBase']
 
 
-jsbml_modules[pack_qual]['transition'] = ['AbstractNamedSBase', 'UniqueNamedSBase']
+jsbml_modules[pack_qual]['Transition'] = ['AbstractNamedSBase', 'UniqueNamedSBase']
 
-jsbml_modules[pack_qual]['qualitativespecies'] = ['AbstractNamedSBase', 'CompartmentalizedSBase', 'UniqueNamedSBase']
+jsbml_modules[pack_qual]['QualitativeSpecies'] = ['AbstractNamedSBase', 'CompartmentalizedSBase', 'UniqueNamedSBase']
 
-jsbml_modules[pack_qual]['functionterm'] = ['AbstractMathContainer']
+jsbml_modules[pack_qual]['FunctionTerm'] = ['AbstractMathContainer']
 
-jsbml_modules[pack_qual]['defaultterm'] = ['AbstractMathContainer']
+jsbml_modules[pack_qual]['DefaultTerm'] = ['AbstractMathContainer']
