@@ -51,6 +51,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   private Integer mOutputLevel;
 
   /**
+   *  
    */
   public Output() {
     super();
@@ -58,21 +59,32 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @param level @param version
+   * @param level
+   * @param version
    */
-  public Output(int level, int version, int pkgVersion) {
-    : SBase(level, version) {
-    , mId ("") {
-    , mQualitativeSpecies ("") {
-    , mTransitionEffect (TRANSITION_OUTPUT_EFFECT_INVALID) {
-    , mName ("") {
-    , mOutputLevel (JSBML_INT_MAX) {
-    , mIsSetOutputLevel (false) {
-    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  public Output(int level, int version) {
+    this(null, null, level, version);
   }
 
   /**
-   * Creates a new Output using the given QualPkgNamespaces object.
+   * @param id
+   */
+  public Output(String id) {
+    super(id);
+    initDefaults();
+  }
+
+  /**
+   * @param id
+   * @param level
+   * @param version
+   */
+  public Output(String id, int level, int version) {
+    this(id, null, level, version);
+  }
+
+  /**
+   * @param qualns the QualPkgNamespaces object.
    */
   public Output(QualPkgNamespaces *qualns) {
     : SBase(qualns) {
@@ -138,7 +150,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Sets the value of the "qualitativeSpecies" attribute of this Output.
+   * @param qualitativeSpecies String value of the "qualitativeSpecies"
+   * attribute to be set.
    */
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
     if (qualitativeSpecies != this.mQualitativeSpecies) {
@@ -157,7 +170,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Sets the value of the "transitionEffect" attribute of this Output.
+   * @param transitionEffect TransitionOutputEffect value of the
+   * "transitionEffect" attribute to be set.
    */
   public void setTransitionEffect(TransitionOutputEffect transitionEffect) {
     if (TransitionOutputEffect_isValid(transitionEffect) == 0) {
@@ -170,7 +184,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Sets the value of the "outputLevel" attribute of this Output.
+   * @param outputLevel int value of the "outputLevel" attribute to be set.
    */
   public void setOutputLevel(int outputLevel) {
     Integer oldmOutputLevel = this.mOutputLevel;

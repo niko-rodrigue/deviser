@@ -440,7 +440,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         #self.import_from_jsbml_utils_modules = []
         pack = str(self.package).lower()
         if str(self.package).lower() == 'qual':
-            if self.name  in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
+            if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
                 self.class_is_abstract = False
                 self.import_from_java_modules.append('java.util.Map')
             if self.name in ['Transition']:
@@ -901,6 +901,12 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_comment_line(title_line)
         self.close_comment()
 
+    def write_class_params_header(self, params):
+        self.open_double_comment(self)
+        for param in params:
+            self.write_comment_line(param)
+        self.close_comment()
+
     # TODO GSOC variable comment line
     def write_variable_comment(self):
         self.open_double_comment(self)
@@ -945,7 +951,10 @@ class BaseJavaFile(BaseFile.BaseFile):
 
             if exclude:
                 self.write_doxygen_start()
-            self.write_brief_header(code['title_line'])
+            if len(code['params'])>0:
+                self.write_class_params_header(code['params'])
+            else:
+                self.write_brief_header(code['title_line'])
             function_name = code['function']
 
 

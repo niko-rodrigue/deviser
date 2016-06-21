@@ -43,6 +43,7 @@ public class FunctionTerm extends AbstractMathContainer {
   private Integer mResultLevel;
 
   /**
+   *  
    */
   public FunctionTerm() {
     super();
@@ -50,19 +51,32 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * @param level @param version
+   * @param level
+   * @param version
    */
-  public FunctionTerm(int level, int version, int pkgVersion) {
-    : SBase(level, version) {
-    , mResultLevel (JSBML_INT_MAX) {
-    , mIsSetResultLevel (false) {
-    , mMath (NULL) {
-    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
-    connectToChild();
+  public FunctionTerm(int level, int version) {
+    this(null, null, level, version);
   }
 
   /**
-   * Creates a new FunctionTerm using the given QualPkgNamespaces object.
+   * @param id
+   */
+  public FunctionTerm(String id) {
+    super(id);
+    initDefaults();
+  }
+
+  /**
+   * @param id
+   * @param level
+   * @param version
+   */
+  public FunctionTerm(String id, int level, int version) {
+    this(id, null, level, version);
+  }
+
+  /**
+   * @param qualns the QualPkgNamespaces object.
    */
   public FunctionTerm(QualPkgNamespaces *qualns) {
     : SBase(qualns) {
@@ -93,7 +107,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * Sets the value of the "resultLevel" attribute of this FunctionTerm.
+   * @param resultLevel int value of the "resultLevel" attribute to be set.
    */
   public void setResultLevel(int resultLevel) {
     Integer oldmResultLevel = this.mResultLevel;

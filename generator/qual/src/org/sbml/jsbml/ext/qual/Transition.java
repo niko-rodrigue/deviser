@@ -40,6 +40,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   private static final long serialVersionUID = -6048861420699176889L;
 
   /**
+   *  
    */
   public Transition() {
     super();
@@ -47,21 +48,32 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @param level @param version
+   * @param level
+   * @param version
    */
-  public Transition(int level, int version, int pkgVersion) {
-    : SBase(level, version) {
-    , mId ("") {
-    , mName ("") {
-    , mInputs (level, version, pkgVersion) {
-    , mOutputs (level, version, pkgVersion) {
-    , mFunctionTerms (level, version, pkgVersion) {
-    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
-    connectToChild();
+  public Transition(int level, int version) {
+    this(null, null, level, version);
   }
 
   /**
-   * Creates a new Transition using the given QualPkgNamespaces object.
+   * @param id
+   */
+  public Transition(String id) {
+    super(id);
+    initDefaults();
+  }
+
+  /**
+   * @param id
+   * @param level
+   * @param version
+   */
+  public Transition(String id, int level, int version) {
+    this(id, null, level, version);
+  }
+
+  /**
+   * @param qualns the QualPkgNamespaces object.
    */
   public Transition(QualPkgNamespaces *qualns) {
     : SBase(qualns) {

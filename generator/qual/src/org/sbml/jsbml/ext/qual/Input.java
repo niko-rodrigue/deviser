@@ -55,6 +55,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   private Integer mThresholdLevel;
 
   /**
+   *  
    */
   public Input() {
     super();
@@ -62,22 +63,32 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @param level @param version
+   * @param level
+   * @param version
    */
-  public Input(int level, int version, int pkgVersion) {
-    : SBase(level, version) {
-    , mId ("") {
-    , mName ("") {
-    , mSign (SIGN_INVALID) {
-    , mQualitativeSpecies ("") {
-    , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID) {
-    , mThresholdLevel (JSBML_INT_MAX) {
-    , mIsSetThresholdLevel (false) {
-    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  public Input(int level, int version) {
+    this(null, null, level, version);
   }
 
   /**
-   * Creates a new Input using the given QualPkgNamespaces object.
+   * @param id
+   */
+  public Input(String id) {
+    super(id);
+    initDefaults();
+  }
+
+  /**
+   * @param id
+   * @param level
+   * @param version
+   */
+  public Input(String id, int level, int version) {
+    this(id, null, level, version);
+  }
+
+  /**
+   * @param qualns the QualPkgNamespaces object.
    */
   public Input(QualPkgNamespaces *qualns) {
     : SBase(qualns) {
@@ -161,7 +172,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Sets the value of the "sign" attribute of this Input.
+   * @param sign Sign value of the "sign" attribute to be set.
    */
   public void setSign(Sign sign) {
     if (Sign_isValid(sign) == 0) {
@@ -174,7 +185,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Sets the value of the "qualitativeSpecies" attribute of this Input.
+   * @param qualitativeSpecies String value of the "qualitativeSpecies"
+   * attribute to be set.
    */
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
     if (qualitativeSpecies != this.mQualitativeSpecies) {
@@ -193,7 +205,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Sets the value of the "transitionEffect" attribute of this Input.
+   * @param transitionEffect TransitionInputEffect value of the
+   * "transitionEffect" attribute to be set.
    */
   public void setTransitionEffect(TransitionInputEffect transitionEffect) {
     if (TransitionInputEffect_isValid(transitionEffect) == 0) {
@@ -206,7 +219,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Sets the value of the "thresholdLevel" attribute of this Input.
+   * @param thresholdLevel int value of the "thresholdLevel" attribute to be
+   * set.
    */
   public void setThresholdLevel(int thresholdLevel) {
     Integer oldmThresholdLevel = this.mThresholdLevel;

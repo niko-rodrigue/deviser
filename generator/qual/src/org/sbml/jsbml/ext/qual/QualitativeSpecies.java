@@ -55,6 +55,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   private Integer mMaxLevel;
 
   /**
+   *  
    */
   public QualitativeSpecies() {
     super();
@@ -62,24 +63,32 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param level @param version
+   * @param level
+   * @param version
    */
-  public QualitativeSpecies(int level, int version, int pkgVersion) {
-    : SBase(level, version) {
-    , mId ("") {
-    , mName ("") {
-    , mCompartment ("") {
-    , mConstant (False) {
-    , mIsSetConstant (false) {
-    , mInitialLevel (JSBML_INT_MAX) {
-    , mIsSetInitialLevel (false) {
-    , mMaxLevel (JSBML_INT_MAX) {
-    , mIsSetMaxLevel (false) {
-    setSBMLNamespacesAndOwn(new QualPkgNamespaces(level, version, pkgVersion));
+  public QualitativeSpecies(int level, int version) {
+    this(null, null, level, version);
   }
 
   /**
-   * Creates a new QualitativeSpecies using the given QualPkgNamespaces object.
+   * @param id
+   */
+  public QualitativeSpecies(String id) {
+    super(id);
+    initDefaults();
+  }
+
+  /**
+   * @param id
+   * @param level
+   * @param version
+   */
+  public QualitativeSpecies(String id, int level, int version) {
+    this(id, null, level, version);
+  }
+
+  /**
+   * @param qualns the QualPkgNamespaces object.
    */
   public QualitativeSpecies(QualPkgNamespaces *qualns) {
     : SBase(qualns) {
@@ -168,7 +177,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Sets the value of the "compartment" attribute of this QualitativeSpecies.
+   * @param compartment String value of the "compartment" attribute to be set.
    */
   public boolean setCompartment(String compartment) {
     if (compartment != this.mCompartment) {
@@ -187,7 +196,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Sets the value of the "constant" attribute of this QualitativeSpecies.
+   * @param constant boolean value of the "constant" attribute to be set.
    */
   public void setConstant(boolean constant) {
     Boolean oldmConstant = this.mConstant;
@@ -199,7 +208,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Sets the value of the "initialLevel" attribute of this QualitativeSpecies.
+   * @param initialLevel int value of the "initialLevel" attribute to be set.
    */
   public void setInitialLevel(int initialLevel) {
     Integer oldmInitialLevel = this.mInitialLevel;
@@ -211,7 +220,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Sets the value of the "maxLevel" attribute of this QualitativeSpecies.
+   * @param maxLevel int value of the "maxLevel" attribute to be set.
    */
   public void setMaxLevel(int maxLevel) {
     Integer oldmMaxLevel = this.mMaxLevel;
