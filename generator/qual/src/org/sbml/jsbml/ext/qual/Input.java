@@ -88,19 +88,14 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @param qualns the QualPkgNamespaces object.
+   * @param id
+   * @param name
+   * @param level
+   * @param version
    */
-  public Input(QualPkgNamespaces *qualns) {
-    : SBase(qualns) {
-    , mId ("") {
-    , mName ("") {
-    , mSign (SIGN_INVALID) {
-    , mQualitativeSpecies ("") {
-    , mTransitionEffect (TRANSITION_INPUT_EFFECT_INVALID) {
-    , mThresholdLevel (JSBML_INT_MAX) {
-    , mIsSetThresholdLevel (false) {
-    setElementNamespace(qualns->getURI());
-    loadPlugins(qualns);
+  public Input(String id, String name, int level, int version) {
+    super(id, name, level, version);
+    initDefaults();
   }
 
   /**

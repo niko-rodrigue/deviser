@@ -73,18 +73,14 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @param qualns the QualPkgNamespaces object.
+   * @param id
+   * @param name
+   * @param level
+   * @param version
    */
-  public Transition(QualPkgNamespaces *qualns) {
-    : SBase(qualns) {
-    , mId ("") {
-    , mName ("") {
-    , mInputs (qualns) {
-    , mOutputs (qualns) {
-    , mFunctionTerms (qualns) {
-    setElementNamespace(qualns->getURI());
-    connectToChild();
-    loadPlugins(qualns);
+  public Transition(String id, String name, int level, int version) {
+    super(id, name, level, version);
+    initDefaults();
   }
 
 }

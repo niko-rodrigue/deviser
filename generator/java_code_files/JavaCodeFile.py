@@ -179,8 +179,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = constructor.write_id_level_version_constructor()
             self.write_function_implementation(code)
 
-            code = constructor.write_namespace_constructor()
+            code = constructor.write_id_name_level_version_constructor()
             self.write_function_implementation(code)
+
+
+            # code = constructor.write_namespace_constructor()
+            # self.write_function_implementation(code)
         # elif self.is_plugin:
         #     code = constructor.write_uri_constructor()
         #     self.write_function_implementation(code)

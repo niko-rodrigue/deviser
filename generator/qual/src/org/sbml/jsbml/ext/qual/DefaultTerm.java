@@ -76,14 +76,14 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
-   * @param qualns the QualPkgNamespaces object.
+   * @param id
+   * @param name
+   * @param level
+   * @param version
    */
-  public DefaultTerm(QualPkgNamespaces *qualns) {
-    : SBase(qualns) {
-    , mResultLevel (JSBML_INT_MAX) {
-    , mIsSetResultLevel (false) {
-    setElementNamespace(qualns->getURI());
-    loadPlugins(qualns);
+  public DefaultTerm(String id, String name, int level, int version) {
+    super(id, name, level, version);
+    initDefaults();
   }
 
   /**

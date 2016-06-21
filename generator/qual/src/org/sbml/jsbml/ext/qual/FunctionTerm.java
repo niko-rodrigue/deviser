@@ -76,16 +76,14 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * @param qualns the QualPkgNamespaces object.
+   * @param id
+   * @param name
+   * @param level
+   * @param version
    */
-  public FunctionTerm(QualPkgNamespaces *qualns) {
-    : SBase(qualns) {
-    , mResultLevel (JSBML_INT_MAX) {
-    , mIsSetResultLevel (false) {
-    , mMath (NULL) {
-    setElementNamespace(qualns->getURI());
-    connectToChild();
-    loadPlugins(qualns);
+  public FunctionTerm(String id, String name, int level, int version) {
+    super(id, name, level, version);
+    initDefaults();
   }
 
   /**

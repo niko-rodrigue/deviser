@@ -84,18 +84,14 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @param qualns the QualPkgNamespaces object.
+   * @param id
+   * @param name
+   * @param level
+   * @param version
    */
-  public Output(QualPkgNamespaces *qualns) {
-    : SBase(qualns) {
-    , mId ("") {
-    , mQualitativeSpecies ("") {
-    , mTransitionEffect (TRANSITION_OUTPUT_EFFECT_INVALID) {
-    , mName ("") {
-    , mOutputLevel (JSBML_INT_MAX) {
-    , mIsSetOutputLevel (false) {
-    setElementNamespace(qualns->getURI());
-    loadPlugins(qualns);
+  public Output(String id, String name, int level, int version) {
+    super(id, name, level, version);
+    initDefaults();
   }
 
   /**

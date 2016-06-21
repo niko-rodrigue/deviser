@@ -88,21 +88,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param qualns the QualPkgNamespaces object.
+   * @param id
+   * @param name
+   * @param level
+   * @param version
    */
-  public QualitativeSpecies(QualPkgNamespaces *qualns) {
-    : SBase(qualns) {
-    , mId ("") {
-    , mName ("") {
-    , mCompartment ("") {
-    , mConstant (False) {
-    , mIsSetConstant (false) {
-    , mInitialLevel (JSBML_INT_MAX) {
-    , mIsSetInitialLevel (false) {
-    , mMaxLevel (JSBML_INT_MAX) {
-    , mIsSetMaxLevel (false) {
-    setElementNamespace(qualns->getURI());
-    loadPlugins(qualns);
+  public QualitativeSpecies(String id, String name, int level, int version) {
+    super(id, name, level, version);
+    initDefaults();
   }
 
   /**
