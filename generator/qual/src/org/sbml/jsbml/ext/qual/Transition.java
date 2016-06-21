@@ -19,6 +19,13 @@
  */
 package org.sbml.jsbml.ext.qual
 
+import java.text.MessageFormat;
+import java.util.Map;
+
+import org.sbml.jsbml.*;
+import org.sbml.jsbml.util.*;
+import org.sbml.jsbml.util.filters.*;
+
 /**
  * @author Deviser
  * @version $Rev: 2465 $

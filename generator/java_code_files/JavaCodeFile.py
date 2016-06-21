@@ -719,7 +719,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         java_modules = self.jsbml_class_header_and_import['javaModules']
         if len(java_modules) > 0:
             for module in java_modules:
-                javaModuleLine = 'import java.{0}'.format(module)
+                javaModuleLine = 'import {0}'.format(module)
                 self.write_jsbml_line_verbatim(javaModuleLine)
             self.skip_line()
 

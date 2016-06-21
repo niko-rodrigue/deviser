@@ -400,20 +400,22 @@ class BaseJavaFile(BaseFile.BaseFile):
         # print(self.has_children)
         # # print(self.concretes)
         # print(self.document)
-        for attribute in self.attributes:
-            print('BADA ', attribute['name'])
-            print('YOLO ', attribute['type'])
-            #print(attribute)
-            if attribute['type'] == 'SIdRef':
-                key = 'AbstractNamedSBase'
-                children = self.jsbml_tree[key]['childrenNodes']
-                self.import_from_jsbml_modules += children
-                print(children)
-                for child in children:
-                    interface = self.jsbml_tree[child]['parentInterfaces']
-                    print(interface)
-                    print('--------')
-        print('----------------------------')
+
+
+        # for attribute in self.attributes:
+        #     print('BADA ', attribute['name'])
+        #     print('YOLO ', attribute['type'])
+        #     #print(attribute)
+        #     if attribute['type'] == 'SIdRef':
+        #         key = 'AbstractNamedSBase'
+        #         children = self.jsbml_tree[key]['childrenNodes']
+        #         self.import_from_jsbml_modules += children
+        #         print(children)
+        #         for child in children:
+        #             interface = self.jsbml_tree[child]['parentInterfaces']
+        #             print(interface)
+        #             print('--------')
+        # print('----------------------------')
 
     ########################################################################
 
@@ -427,28 +429,26 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.implements_modules = []
         self.import_from_java_modules = []
         self.import_from_jsbml_modules = []
-        self.get_general_includes()
+
+        #THis is the tricky part
+        # self.get_general_includes()
+
+        self.import_from_jsbml_modules.append('*')
+        self.import_from_jsbml_modules.append('util.*')
+        self.import_from_jsbml_modules.append('util.filters.*')
+
         #self.import_from_jsbml_utils_modules = []
-        # if str(self.package).lower() == 'qual':
-        #     if self.name == 'QualitativeSpecies':
-        #         self.class_is_abstract = False
-        #         self.extends_modules.append('AbstractNamedSBase')
-        #         self.implements_modules.append('UniqueNamedSBase')
-        #         self.implements_modules.append('CallableSBase')
-        #         self.import_from_java_modules.append('util.Map')
-        #         self.import_from_jsbml_modules.append('AbstractNamedSBase')
-        #         self.import_from_jsbml_modules.append('CompartmentalizedSBase')
-        #         self.import_from_jsbml_modules.append('LevelVersionError')
-        #         self.import_from_jsbml_modules.append('Model')
-        #         self.import_from_jsbml_modules.append('PropertyUndefinedError')
-        #         self.import_from_jsbml_modules.append('Species')
-        #         self.import_from_jsbml_modules.append('UniqueNamedSBase')
-        #         self.import_from_jsbml_modules.append('util.StringTools')
+        if str(self.package).lower() == 'qual':
+            if self.name  in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
+                self.class_is_abstract = False
+                self.import_from_java_modules.append('java.util.Map')
+            if self.name in ['Transition']:
+                self.import_from_java_modules.append('java.text.MessageFormat')
         self.jsbml_class_header_and_import = dict({'className': self.name,
                                                    'abstract': self.class_is_abstract,
                                                    'extends': self.extends_modules,
                                                    'implements': self.implements_modules,
-                                                   'javaModules': self.import_from_java_modules,
+                                                   'javaModules': sorted(self.import_from_java_modules),
                                                    'jsbmlModules': self.import_from_jsbml_modules})
 
 

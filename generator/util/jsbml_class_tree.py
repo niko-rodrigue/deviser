@@ -1046,15 +1046,6 @@ pack_fbc = 'fbc'
 
 
 
-
-java_map = 'Map'
-level_version_error = 'LevelVersionError'
-property_undefined = 'PropertyUndefinedError'
-util_string_tools = 'util.StringTools'
-
-in_out_qualspecies = []
-
-
 jsbml_modules = tree()
 jsbml_modules[pack_qual]['files'] = ['input',
                                      'output',
@@ -1063,7 +1054,17 @@ jsbml_modules[pack_qual]['files'] = ['input',
                                      'sign']
 
 
-jsbml_modules[pack_qual]['input'][java_mods] = [map]
-jsbml_modules[pack_qual]['input'][jsbml_mods] = []
+jsbml_modules[pack_qual]['input'] = ['AbstractNamedSBase','UniqueNamedSBase',
+                                     'CallableSBas']
+
+jsbml_modules[pack_qual]['output'] = ['AbstractNamedSBase', 'UniqueNamedSBase',
+                                     'CallableSBas']
 
 
+jsbml_modules[pack_qual]['transition'] = ['AbstractNamedSBase', 'UniqueNamedSBase']
+
+jsbml_modules[pack_qual]['qualitativespecies'] = ['AbstractNamedSBase', 'CompartmentalizedSBase', 'UniqueNamedSBase']
+
+jsbml_modules[pack_qual]['functionterm'] = ['AbstractMathContainer']
+
+jsbml_modules[pack_qual]['defaultterm'] = ['AbstractMathContainer']
