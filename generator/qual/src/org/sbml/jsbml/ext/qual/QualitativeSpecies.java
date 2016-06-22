@@ -103,6 +103,18 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
+   *  
+   */
+  public void initDefaults() {
+    setPackageVersion(-1);
+    packageName = QualConstants.shortLabel;
+    mCompartment = null;
+    mConstant = null;
+    mInitialLevel = null;
+    mMaxLevel = null;
+  }
+
+  /**
    * @return the value of the "compartment" attribute of this
    * QualitativeSpecies.
    */

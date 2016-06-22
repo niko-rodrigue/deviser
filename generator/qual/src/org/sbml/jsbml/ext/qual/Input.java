@@ -103,6 +103,18 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
+   *  
+   */
+  public void initDefaults() {
+    setPackageVersion(-1);
+    packageName = QualConstants.shortLabel;
+    mSign = null;
+    mQualitativeSpecies = null;
+    mTransitionEffect = null;
+    mThresholdLevel = null;
+  }
+
+  /**
    * @return the value of the "sign" attribute of this Input.
    */
   public Sign getSign() {

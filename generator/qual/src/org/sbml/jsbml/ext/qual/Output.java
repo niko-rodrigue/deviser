@@ -99,6 +99,17 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
+   *  
+   */
+  public void initDefaults() {
+    setPackageVersion(-1);
+    packageName = QualConstants.shortLabel;
+    mQualitativeSpecies = null;
+    mTransitionEffect = null;
+    mOutputLevel = null;
+  }
+
+  /**
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */
   public String getQualitativeSpecies() {

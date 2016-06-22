@@ -185,6 +185,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_function_implementation(code)
             self.line_length = 79
 
+            code = constructor.write_init_defaults_constructor()
+            self.write_function_implementation(code)
 
             # code = constructor.write_namespace_constructor()
             # self.write_function_implementation(code)

@@ -691,6 +691,153 @@ class Constructors():
                      'args_no_defaults': arguments_no_defaults,
                      'constructor_args': constructor_args})
 
+    def write_init_defaults_constructor(self, index=0):
+        if (len(self.concretes) == 0 and index == 0) or index == -1:
+            ob_name = self.object_name
+            create = 'create'
+        elif self.is_java_api:
+            ob_name = self.object_name
+            create = 'create'
+        else:
+            if index == 0:
+                return
+            else:
+                i = index - 1
+            ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
+                                         self.object_name)
+            create = 'create{0}'.format(self.concretes[i]['element'])
+        # create doc string header
+        # title_line = 'Creates a new {0} using the given {1} Level' \
+        #     .format(ob_name, self.cap_language)
+        if global_variables.is_package:
+            title_line = '@param level\n'  # .format(strFunctions.lower_first(self.package))
+        else:
+            title_line = ' and @ p version values.'
+
+        params = [' ']
+
+        # if global_variables.is_package:
+        #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
+        #                   'Version to assign to this {2}.'
+        #                   .format(self.cap_language, self.package,
+        #                           self.object_name))
+
+        return_lines = ['@throws {0}Constructor'
+                        'Exception'.format(self.cap_language),
+                        'Thrown if the given @p level and @p version '
+                        'combination, or this kind of {0} object, are either '
+                        'invalid or mismatched with respect to the parent '
+                        '{1} object.'.format(self.cap_language,
+                                             global_variables.document_class),
+                        '@copydetails doc_note_setting_lv']
+        additional = ''
+
+        # create the function declaration
+        if self.is_java_api:
+            function = 'void initDefaults'#self.class_name
+            return_type = ''
+        else:
+            function = '{0}_{1}'.format(self.class_name, create)
+            return_type = '{0} *'.format(self.object_name)
+
+        if global_variables.is_package:
+            arguments = [
+                'int level = '
+                '{0}Extension::getDefaultLevel()'.format(self.package),
+                'nt version = '
+                '{0}Extension::getDefaultVersion()'.format(self.package),
+                'int pkgVersion = '
+                '{0}Extension::getDefaultPackageVersion()'.format(self.package)]
+            arguments_no_defaults = ['']
+        else:
+            if self.is_java_api:
+                arguments = ['int level = {0}_DEFAULT_'
+                             'LEVEL'.format(global_variables.language.upper()),
+                             'int version = {0}_DEFAULT_VERSI'
+                             'ON'.format(global_variables.language.upper())]
+                arguments_no_defaults = ['int level',
+                                         'unsigned int version']
+            else:
+                arguments = ['String id', 'int level', 'int version']
+                arguments_no_defaults = ['']
+
+        # create the function implementation
+        constructor_args = []  # self.write_constructor_args(None)
+
+        if global_variables.is_package:
+            if self.is_java_api:
+                implementation = ['setPackageVersion(-1)']
+                # TODO spacing wrong
+                implementation.append('packageName = {0}Constants.shortLabel'.format(self.package))
+
+                attributes = self.attributes
+                for attribute in attributes:
+                    # print(attribute['memberName'])
+                    cap_att_name = attribute['capAttName']
+                    if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                        member_name = attribute['memberName']
+                        line = '{0} = null'.format(member_name)
+                        implementation.append(line)
+
+
+                # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
+                #                                                                                     attribute[
+                #                                                                                         'memberName'])]
+                # code = [dict({'code_type': 'if', 'code': implementation2}),
+                #         dict({'code_type': 'line', 'code': implementation})]
+
+
+                implementation3 = ['initDefaults()']
+
+                # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
+                #                   '(level, version, '
+                #                   'pkgVersion))'.format(global_variables.prefix,
+                #                                         self.package)]
+                # if self.has_children:
+                #     implementation.append('connectToChild()')
+                # else:
+                #     if index == 0 or index == -1:
+                #         name = self.class_name
+                #     else:
+                #         name = self.concretes[index-1]['element']
+                #     implementation = ['return new {0}(level, version, '
+                #                       'pkgVersion)'.format(name)]
+        else:
+            if self.is_java_api:
+                implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
+                                  'level, '
+                                  'version))'.format(global_variables.prefix)]
+                # if self.document:
+                #     implementation.append('setLevel(level)')
+                #     implementation.append('setVersion(version)')
+                #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+                # if self.has_children:
+                #     implementation.append('connectToChild()')
+            else:
+                implementation = ['return new {0}(level, '
+                                  'version)'.format(self.class_name)]
+
+        code = [dict({'code_type': 'line', 'code': implementation})]
+
+        # code = [dict({'code_type': 'line', 'code': implementation}),
+        #         dict({'code_type': 'if', 'code': implementation2}),
+        #         dict({'code_type': 'line', 'code': implementation3})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'args_no_defaults': arguments_no_defaults,
+                     'constructor_args': constructor_args})
+
+
     # TODO BACKUP
     #     # function to write level version constructor
     #

@@ -91,6 +91,15 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
+   *  
+   */
+  public void initDefaults() {
+    setPackageVersion(-1);
+    packageName = QualConstants.shortLabel;
+    mResultLevel = null;
+  }
+
+  /**
    * @return the value of the "resultLevel" attribute of this DefaultTerm.
    */
   public int getResultLevel() {

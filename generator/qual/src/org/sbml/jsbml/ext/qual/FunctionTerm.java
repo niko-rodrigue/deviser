@@ -91,6 +91,16 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
+   *  
+   */
+  public void initDefaults() {
+    setPackageVersion(-1);
+    packageName = QualConstants.shortLabel;
+    mResultLevel = null;
+    mMath = null;
+  }
+
+  /**
    * @return the value of the "resultLevel" attribute of this FunctionTerm.
    */
   public int getResultLevel() {

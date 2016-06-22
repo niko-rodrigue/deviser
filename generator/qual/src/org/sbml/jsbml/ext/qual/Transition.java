@@ -87,4 +87,15 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     initDefaults();
   }
 
+  /**
+   *  
+   */
+  public void initDefaults() {
+    setPackageVersion(-1);
+    packageName = QualConstants.shortLabel;
+    mInputs = null;
+    mOutputs = null;
+    mFunctionTerms = null;
+  }
+
 }
