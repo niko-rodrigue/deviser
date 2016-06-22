@@ -46,7 +46,9 @@ from parseXML import ParseXML
 from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles
 
 # JSBML imports --> need to fix this part
-# from java_code_files import ExtensionFiles
+
+# from java_code_files import JavaExtensionFiles
+
 from java_code_files import JavaFiles
 # from java_code_files import ValidationFiles #Need to fix this part
 
@@ -325,20 +327,22 @@ def generate_jsbml_code_files(name, ob):
     print('extension_dir ', extension_dir)
     print('parser_dir ',parser_dir)
 
-    # os.chdir(common_dir)
+    # os.chdir(extension_dir)
     # ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
     # ext.write_files()
     # ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True) #fwd? Type VIP
     # ext.write_files()
     # os.chdir(this_dir)
-    #
+    # #
+
     # os.chdir(extension_dir)
-    # ext = ExtensionFiles.ExtensionFiles(ob, '', True)
+    # ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     # ext.write_files()
-    # for i in range(0, len(ob['plugins'])+1):
-    #     ext.write_plugin_files(i)
+    # # for i in range(0, len(ob['plugins'])+1):
+    # #     ext.write_plugin_files(i)
     # os.chdir(this_dir)
-    #
+    
+
     # os.chdir(valid_dir)
     # all_files = ValidationFiles.ValidationFiles(ob, True)
     # all_files.write_files()

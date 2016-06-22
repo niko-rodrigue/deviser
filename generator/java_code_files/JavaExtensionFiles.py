@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
-# @file    ExtensionFiles.py
+# @file    JavaExtensionFiles.py
 # @brief   class for generating the plugin files
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @author  Hovakim Grabski GSOC 2016
 #
 # <!--------------------------------------------------------------------------
 #
@@ -37,10 +36,10 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from . import ExtensionCodeFile
-from . import ExtensionHeaderFile
-from . import CppCodeFile
-from . import JavaHeaderFile
+from . import JavaExtensionCodeFile
+from . import JavaExtensionHeaderFile
+from . import JavaCodeFile
+# from . import JavaHeaderFile
 from util import strFunctions, global_variables
 
 
@@ -55,7 +54,7 @@ class ExtensionFiles():
         self.language = global_variables.language
 
     def write_files(self):
-        self.write_header()
+        # self.write_header()
         if self.file_type == '':
             self.write_code()
 
@@ -66,8 +65,8 @@ class ExtensionFiles():
         self.remove_class_description(num)
 
     def write_header(self):
-        types_fileout = ExtensionHeaderFile.ExtensionHeaderFile(self.package,
-                                                                self.file_type)
+        types_fileout = JavaExtensionHeaderFile.ExtensionHeaderFile(self.package,
+                                                                    self.file_type)
         if self.verbose:
             print('Writing file {0}'.format(types_fileout.filename))
         if self.file_type == '':
@@ -86,14 +85,14 @@ class ExtensionFiles():
         fileout.close_file()
 
     def write_plugin_code(self, class_descrip):
-        fileout = CppCodeFile.CppCodeFile(class_descrip)
+        fileout = JavaCodeFile.JavaCodeFile(class_descrip)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
         fileout.write_file()
         fileout.close_file()
 
     def write_code(self):
-        fileout = ExtensionCodeFile.ExtensionCodeFile(self.package)
+        fileout = JavaExtensionCodeFile.ExtensionCodeFile(self.package)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
         fileout.write_file()

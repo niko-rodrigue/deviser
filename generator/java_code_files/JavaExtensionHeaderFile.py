@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# @file    ExtensionHeaderFile.py
+# @file    JavaExtensionHeaderFile.py
 # @brief   class for generating header file for the given class
 # @author  Frank Bergmann
 # @author  Sarah Keating

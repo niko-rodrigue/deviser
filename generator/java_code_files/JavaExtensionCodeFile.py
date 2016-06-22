@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# @file    ExtensionCodeFile.py
+# @file    JavaExtensionCodeFile.py
 # @brief   class for generating code file for the given extension
 # @author  Frank Bergmann
 # @author  Sarah Keating
