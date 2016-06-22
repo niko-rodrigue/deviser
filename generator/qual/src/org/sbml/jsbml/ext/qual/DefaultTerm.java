@@ -100,6 +100,14 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
+   * (non-Javadoc)
+   */
+  @Override
+  public DefaultTerm clone() {
+    return new DefaultTerm(this);
+  }
+
+  /**
    * @return the value of the "resultLevel" attribute of this DefaultTerm.
    */
   public int getResultLevel() {

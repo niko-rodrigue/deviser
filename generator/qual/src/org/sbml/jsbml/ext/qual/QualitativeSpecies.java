@@ -115,6 +115,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
+   * (non-Javadoc)
+   */
+  @Override
+  public QualitativeSpecies clone() {
+    return new QualitativeSpecies(this);
+  }
+
+  /**
    * @return the value of the "compartment" attribute of this
    * QualitativeSpecies.
    */

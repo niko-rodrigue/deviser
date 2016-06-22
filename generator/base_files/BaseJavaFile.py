@@ -907,6 +907,9 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_comment_line(param)
         self.close_comment()
 
+    def write_override_statement(self):
+        self.write_line_verbatim('@Override')
+
     # TODO GSOC variable comment line
     def write_variable_comment(self):
         self.open_double_comment(self)
@@ -955,6 +958,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_class_params_header(code['params'])
             else:
                 self.write_brief_header(code['title_line'])
+            if len(code['additional']) > 0:
+                if code['additional'][0] is'Override':
+                    self.write_override_statement()
             function_name = code['function']
 
 

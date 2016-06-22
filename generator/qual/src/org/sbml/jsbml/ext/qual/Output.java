@@ -110,6 +110,14 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
+   * (non-Javadoc)
+   */
+  @Override
+  public Output clone() {
+    return new Output(this);
+  }
+
+  /**
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */
   public String getQualitativeSpecies() {

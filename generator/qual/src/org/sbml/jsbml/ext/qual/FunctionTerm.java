@@ -101,6 +101,14 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
+   * (non-Javadoc)
+   */
+  @Override
+  public FunctionTerm clone() {
+    return new FunctionTerm(this);
+  }
+
+  /**
    * @return the value of the "resultLevel" attribute of this FunctionTerm.
    */
   public int getResultLevel() {

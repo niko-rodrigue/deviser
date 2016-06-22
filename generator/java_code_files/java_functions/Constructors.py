@@ -1275,8 +1275,7 @@ class Constructors():
     def write_clone(self):
         abbrev_object = strFunctions.abbrev_name(self.class_name)
         # create doc string header
-        title_line = 'Creates and returns a deep copy of this {0} object.'\
-            .format(self.object_name)
+        title_line = '(non-Javadoc)'
         params = []
         if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
@@ -1286,16 +1285,17 @@ class Constructors():
         additional = []
         if self.is_java_api:
             function = 'clone'
+            additional.append('Override')
         else:
             function = '{0}_clone'.format(self.class_name)
-        return_type = '{0}*'.format(self.object_name)
+        return_type = '{0}'.format(self.object_name)
         arguments = []
         if not self.is_java_api:
             arguments.append('const {0}* {1}'.format(self.object_name,
                                                    abbrev_object))
         # create the function implementation
         if self.is_java_api:
-            implementation = ['return new {0}(*this)'.format(self.object_name)]
+            implementation = ['return new {0}(this)'.format(self.object_name)]
             code_type = 'line'
         else:
             implementation = ['{0} != NULL'.format(abbrev_object),

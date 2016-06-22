@@ -115,6 +115,14 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
+   * (non-Javadoc)
+   */
+  @Override
+  public Input clone() {
+    return new Input(this);
+  }
+
+  /**
    * @return the value of the "sign" attribute of this Input.
    */
   public Sign getSign() {

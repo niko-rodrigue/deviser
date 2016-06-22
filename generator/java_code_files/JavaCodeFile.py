@@ -211,8 +211,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         #
 
         # Clone need @override
-        # code = constructor.write_clone()
-        # self.write_function_implementation(code)
+        code = constructor.write_clone()
+        self.write_function_implementation(code)
 
 
     ########################################################################

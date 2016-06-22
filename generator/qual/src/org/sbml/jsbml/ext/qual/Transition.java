@@ -98,4 +98,12 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     mFunctionTerms = null;
   }
 
+  /**
+   * (non-Javadoc)
+   */
+  @Override
+  public Transition clone() {
+    return new Transition(this);
+  }
+
 }
