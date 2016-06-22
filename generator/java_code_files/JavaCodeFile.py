@@ -176,11 +176,14 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = constructor.write_id_constructor()
             self.write_function_implementation(code)
 
+
             code = constructor.write_id_level_version_constructor()
             self.write_function_implementation(code)
 
+            self.line_length = 90
             code = constructor.write_id_name_level_version_constructor()
             self.write_function_implementation(code)
+            self.line_length = 79
 
 
             # code = constructor.write_namespace_constructor()

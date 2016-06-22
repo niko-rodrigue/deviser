@@ -627,12 +627,13 @@ class Constructors():
         if global_variables.is_package:
             if self.is_java_api:
                 implementation = ['super(id, name, level, version)']
-
+                # TODO spacing wrong
                 # if curr_att_type in global_variables.javaTypeAttributes:
-                #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
+                implement_part2 = 'throw new LevelVersionError(getElementName(), level, version)'
                 # else:
                 #     implement_part2 = 'return {0}'.format(attribute['memberName'])
-                # implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
+                implementation2 = ['getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0',
+                                   implement_part2]
                 # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
                 #                                                                                     attribute[
                 #                                                                                         'memberName'])]
@@ -640,7 +641,7 @@ class Constructors():
                 #         dict({'code_type': 'line', 'code': implementation})]
 
 
-                implementation.append('initDefaults()')
+                implementation3 = ['initDefaults()']
 
                 # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
                 #                   '(level, version, '
@@ -670,7 +671,11 @@ class Constructors():
                 implementation = ['return new {0}(level, '
                                   'version)'.format(self.class_name)]
 
-        code = [dict({'code_type': 'line', 'code': implementation})]
+        # code = [dict({'code_type': 'line', 'code': implementation})]
+
+        code = [dict({'code_type': 'line', 'code': implementation}),
+                dict({'code_type': 'if', 'code': implementation2}),
+                dict({'code_type': 'line', 'code': implementation3})]
 
         return dict({'title_line': title_line,
                      'params': params,

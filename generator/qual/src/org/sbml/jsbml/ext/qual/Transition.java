@@ -80,6 +80,10 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   public Transition(String id, String name, int level, int version) {
     super(id, name, level, version);
+
+    if (getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0) {
+      throw new LevelVersionError(getElementName(), level, version);
+    }
     initDefaults();
   }
 
