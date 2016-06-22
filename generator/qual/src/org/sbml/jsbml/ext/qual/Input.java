@@ -243,11 +243,9 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public void setThresholdLevel(int thresholdLevel) {
     Integer oldmThresholdLevel = this.mThresholdLevel;
-
-    this.oldmThresholdLevel = thresholdLevel;
-
+    this.mThresholdLevel = thresholdLevel;
     firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
-      this.oldmThresholdLevel);
+      this.mThresholdLevel);
   }
 
   /**

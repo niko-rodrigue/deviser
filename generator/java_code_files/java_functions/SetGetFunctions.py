@@ -1651,17 +1651,19 @@ class SetGetFunctions():
 
         try:
             curr_att_type = attribute['JClassType']
-            oldValue =  'old{0}'.format(attribute['memberName'])
-            currValue =  'this.old{0}'.format(attribute['memberName'])
+            oldValue = 'old{0}'.format(attribute['memberName'])
+            currValue = 'this.{0}'.format(attribute['memberName'])
             implementation1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['memberName'])]
             implementation2 = ['{0} = {1}'.format(currValue, attribute['name'])]
             implementation3 = ['firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                        attribute['memberName'],
                                                                                        oldValue,
                                                                                        currValue)]
-            code = [dict({'code_type': 'line', 'code': implementation1}),
-                    dict({'code_type': 'line', 'code': implementation2}),
-                    dict({'code_type': 'line', 'code': implementation3})]
+            all_impl = implementation1 + implementation2 + implementation3
+            code = [dict({'code_type': 'line', 'code': all_impl})]
+            # code = [dict({'code_type': 'line', 'code': implementation1}),
+            #         dict({'code_type': 'line', 'code': implementation2}),
+            #         dict({'code_type': 'line', 'code': implementation3})]
             return code  # implementation  #
         except Exception as error:
             print("write_set_att_with_member ", error)

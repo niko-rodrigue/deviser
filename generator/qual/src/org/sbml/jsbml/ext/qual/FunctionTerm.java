@@ -131,11 +131,9 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   public void setResultLevel(int resultLevel) {
     Integer oldmResultLevel = this.mResultLevel;
-
-    this.oldmResultLevel = resultLevel;
-
+    this.mResultLevel = resultLevel;
     firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
-      this.oldmResultLevel);
+      this.mResultLevel);
   }
 
   /**

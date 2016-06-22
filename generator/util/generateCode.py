@@ -47,7 +47,7 @@ from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles
 
 # JSBML imports --> need to fix this part
 
-# from java_code_files import JavaExtensionFiles
+from java_code_files import JavaExtensionFiles
 
 from java_code_files import JavaFiles
 # from java_code_files import ValidationFiles #Need to fix this part
@@ -335,13 +335,15 @@ def generate_jsbml_code_files(name, ob):
     # os.chdir(this_dir)
     # #
 
-    # os.chdir(extension_dir)
-    # ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    os.chdir(extension_dir)
+    ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    ext.write_constants()
     # ext.write_files()
-    # # for i in range(0, len(ob['plugins'])+1):
-    # #     ext.write_plugin_files(i)
-    # os.chdir(this_dir)
-    
+
+    # for i in range(0, len(ob['plugins'])+1):
+    #     ext.write_plugin_files(i)
+    os.chdir(this_dir)
+
 
     # os.chdir(valid_dir)
     # all_files = ValidationFiles.ValidationFiles(ob, True)

@@ -39,25 +39,38 @@
 
 from base_files import BaseJavaFile
 from . java_functions import *
-from util import query, strFunctions
+from util import query, strFunctions, global_variables
 
 
-class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
+class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
     """Class for all Java Code files"""
 
-    def __init__(self, package):
+    def __init__(self, package, custom_file=None):
 
         self.up_package = strFunctions.upper_first(package['name'])
-        self.name = '{0}Extension'.format(self.up_package)
+
+        # TODO GSOC 2016
+        self.original_package = package
+        self.custom_file = custom_file
+        if self.custom_file is not None:
+            self.filename = '{0}{1}'.format(self.up_package, self.custom_file)
+            self.name = '{0}{1}'.format(self.up_package, self.custom_file)
+        else:
+            self.name = '{0}Extension'.format(self.up_package)
+
         self.brief_description = \
             'Implementation  of {0}.'.format(self.name)
-        BaseJavaFile.BaseJavaFile.__init__(self, self.name, 'cpp',
-                                         None)
+        BaseJavaFile.BaseJavaFile.__init__(self, self.name, 'java',
+                                           None)
 
         # members from object
         self.package = package['name']
         self.cap_package = package['name'].upper()
         self.baseClass = '{0}Extension'.format(self.cap_language)
+
+
+
+
 
         self.elements = package['elements']
         self.number = package['number']
@@ -85,10 +98,10 @@ class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
     def write_class(self):
         # self.write_forward_class()
         self.write_attribute_functions()
-        self.write_extension_instance()
-        self.write_constructors()
-        self.write_virtual_functions()
-        self.write_init_function()
+        # self.write_extension_instance()
+        # self.write_constructors()
+        # self.write_virtual_functions()
+        # self.write_init_function()
 
     ########################################################################
     # Functions for writing specific includes and forward implementations
@@ -314,15 +327,84 @@ class ExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
     ########################################################################
 
+        # Write file
+
+    # TODO add variable whether extension or parser
+    def write_package_include(self):
+        if global_variables.is_package:
+            curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
+            # print('curr_include_line is ', curr_include_line)
+            self.write_line_verbatim(curr_include_line)
+
+    def close_jsbml_class_header(self):
+        self.down_indent()
+        self.file_out.write('}\n')
+
+    def write_jsbml_class_variables(self):
+        self.up_indent()
+
+
+        self.write_serial_version_comment()
+        # TODO need to change serialVersionUID
+        line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
+        self.write_line(line)
+
+        elements_attributes = self.original_package['baseElements']
+        for attributes in elements_attributes:
+            for attribute in attributes['attribs']:
+                # print(attribute['memberName'])
+                cap_att_name = attribute['capAttName']
+                if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                    self.write_variable_comment()
+                    return_type = attribute['JClassType']
+                    member_name = attribute['memberName']
+                    line = 'public static final {0} {1};'.format(return_type, member_name)
+                    self.write_line(line)
+        self.down_indent()
+
+        # TODO for writing imports
+
+    def write_java_imports(self):
+        # TODO mockup function
+        self.expand_import_modules()
+        self.skip_line()
+        java_modules = self.jsbml_class_header_and_import['javaModules']
+        if len(java_modules) > 0:
+            for module in java_modules:
+                javaModuleLine = 'import {0}'.format(module)
+                self.write_jsbml_line_verbatim(javaModuleLine)
+            self.skip_line()
+
+        jsbml_modules = self.jsbml_class_header_and_import['jsbmlModules']
+        if len(jsbml_modules) > 0:
+            for module in jsbml_modules:
+                jsbmlModuleLine = 'import org.sbml.jsbml.{0}'.format(module)
+                self.write_jsbml_line_verbatim(jsbmlModuleLine)
+            self.skip_line()
+
+
+    def write_constants_file(self):
+        BaseJavaFile.BaseJavaFile.write_file(self)
+
+        self.write_package_include()
+        # self.write_java_imports()
+        #self.write_general_includes()
+
+        BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
+        # self.write_jsbml_class_header()
+        # self.write_jsbml_class_variables()
+        # self.write_class()
+        self.close_jsbml_class_header()
+
     # Write file
 
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
-        self.write_general_includes()
-        self.write_cppns_begin()
-        self.write_cpp_begin()
+        # self.write_general_includes()
+        # self.write_cppns_begin()
+        # self.write_cpp_begin()
         self.write_class()
 #        self.write_extension_instance()
-        self.write_cpp_end()
-        self.write_type_defs()
-        self.write_cppns_end()
+#         self.write_cpp_end()
+#         self.write_type_defs()
+#         self.write_cppns_end()

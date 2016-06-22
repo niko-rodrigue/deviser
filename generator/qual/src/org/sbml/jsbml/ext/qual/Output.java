@@ -207,11 +207,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public void setOutputLevel(int outputLevel) {
     Integer oldmOutputLevel = this.mOutputLevel;
-
-    this.oldmOutputLevel = outputLevel;
-
+    this.mOutputLevel = outputLevel;
     firePropertyChange(QualConstants.mOutputLevel, oldmOutputLevel,
-      this.oldmOutputLevel);
+      this.mOutputLevel);
   }
 
   /**

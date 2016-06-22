@@ -37,13 +37,13 @@
 # ------------------------------------------------------------------------ -->
 
 from . import JavaExtensionCodeFile
-from . import JavaExtensionHeaderFile
+# from . import JavaExtensionHeaderFile
 from . import JavaCodeFile
 # from . import JavaHeaderFile
 from util import strFunctions, global_variables
 
 
-class ExtensionFiles():
+class JavaExtensionFiles():
     """Class for all Extension files"""
 
     def __init__(self, package, filetype='', verbose=False):
@@ -51,7 +51,7 @@ class ExtensionFiles():
         self.package = package
         self.verbose = verbose
         self.file_type = filetype
-        self.language = global_variables.language
+        self.language = global_variables.javaLanguage
 
     def write_files(self):
         # self.write_header()
@@ -64,25 +64,25 @@ class ExtensionFiles():
         self.write_plugin_code(class_descrip)
         self.remove_class_description(num)
 
-    def write_header(self):
-        types_fileout = JavaExtensionHeaderFile.ExtensionHeaderFile(self.package,
-                                                                    self.file_type)
-        if self.verbose:
-            print('Writing file {0}'.format(types_fileout.filename))
-        if self.file_type == '':
-            types_fileout.write_file()
-        elif self.file_type == 'types':
-            types_fileout.write_types_file()
-        elif self.file_type == 'fwd':
-            types_fileout.write_fwd_file()
-        types_fileout.close_file()
+    # def write_header(self):
+    #     types_fileout = JavaExtensionHeaderFile.ExtensionHeaderFile(self.package,
+    #                                                                 self.file_type)
+    #     if self.verbose:
+    #         print('Writing file {0}'.format(types_fileout.filename))
+    #     if self.file_type == '':
+    #         types_fileout.write_file()
+    #     elif self.file_type == 'types':
+    #         types_fileout.write_types_file()
+    #     elif self.file_type == 'fwd':
+    #         types_fileout.write_fwd_file()
+    #     types_fileout.close_file()
 
-    def write_plugin_header(self, class_descrip):
-        fileout = JavaHeaderFile.CppHeaderFile(class_descrip)
-        if self.verbose:
-            print('Writing file {0}'.format(fileout.filename))
-        fileout.write_file()
-        fileout.close_file()
+    # def write_plugin_header(self, class_descrip):
+    #     fileout = JavaHeaderFile.JavaHeaderFile(class_descrip)
+    #     if self.verbose:
+    #         print('Writing file {0}'.format(fileout.filename))
+    #     fileout.write_file()
+    #     fileout.close_file()
 
     def write_plugin_code(self, class_descrip):
         fileout = JavaCodeFile.JavaCodeFile(class_descrip)
@@ -91,8 +91,17 @@ class ExtensionFiles():
         fileout.write_file()
         fileout.close_file()
 
+    def write_constants(self):
+        print('Time for some constants')
+        custom_name = 'Constants'
+        fileout = JavaExtensionCodeFile.JavaExtensionCodeFile(self.package, custom_name)
+        if self.verbose:
+            print('Writing file {0}'.format(fileout.filename))
+        fileout.write_constants_file()
+        fileout.close_file()
+
     def write_code(self):
-        fileout = JavaExtensionCodeFile.ExtensionCodeFile(self.package)
+        fileout = JavaExtensionCodeFile.JavaExtensionCodeFile(self.package)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
         fileout.write_file()

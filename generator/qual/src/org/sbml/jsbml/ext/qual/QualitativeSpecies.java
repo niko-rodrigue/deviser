@@ -217,11 +217,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   public void setConstant(boolean constant) {
     Boolean oldmConstant = this.mConstant;
-
-    this.oldmConstant = constant;
-
-    firePropertyChange(QualConstants.mConstant, oldmConstant,
-      this.oldmConstant);
+    this.mConstant = constant;
+    firePropertyChange(QualConstants.mConstant, oldmConstant, this.mConstant);
   }
 
   /**
@@ -229,11 +226,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   public void setInitialLevel(int initialLevel) {
     Integer oldmInitialLevel = this.mInitialLevel;
-
-    this.oldmInitialLevel = initialLevel;
-
+    this.mInitialLevel = initialLevel;
     firePropertyChange(QualConstants.mInitialLevel, oldmInitialLevel,
-      this.oldmInitialLevel);
+      this.mInitialLevel);
   }
 
   /**
@@ -241,11 +236,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   public void setMaxLevel(int maxLevel) {
     Integer oldmMaxLevel = this.mMaxLevel;
-
-    this.oldmMaxLevel = maxLevel;
-
-    firePropertyChange(QualConstants.mMaxLevel, oldmMaxLevel,
-      this.oldmMaxLevel);
+    this.mMaxLevel = maxLevel;
+    firePropertyChange(QualConstants.mMaxLevel, oldmMaxLevel, this.mMaxLevel);
   }
 
   /**
