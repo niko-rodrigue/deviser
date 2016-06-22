@@ -1507,7 +1507,7 @@ class SetGetFunctions():
                                                                                        currValue)
 
             #code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            implementation = ['({0} == null) || ({1}.length() == 0'.format(attribute['name'],attribute['name']),
+            implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
                                   'this.{0} = null'.format(attribute['memberName']), 'else',
                                   'this.{0} = {1}'.format(attribute['memberName'], attribute['name'])]  # 3rd line
 

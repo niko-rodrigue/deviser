@@ -699,7 +699,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     # TODO add variable whether extension or parser
     def write_package_include(self):
         if global_variables.is_package:
-            curr_include_line = 'package org.sbml.{0}.ext.{1}'.format(self.language, self.package.lower())
+            curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
             #print('curr_include_line is ', curr_include_line)
             self.write_line_verbatim(curr_include_line)
 

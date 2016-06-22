@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.qual
+package org.sbml.jsbml.ext.qual;
 
 import java.util.Map;
 
@@ -191,7 +191,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   public boolean setCompartment(String compartment) {
     if (compartment != this.mCompartment) {
       String oldmCompartment = this.mCompartment;
-      if ((compartment == null) || (compartment.length() == 0) {
+      if ((compartment == null) || (compartment.isEmpty())) {
         this.mCompartment = null;
       } else {
         this.mCompartment = compartment;

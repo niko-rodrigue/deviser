@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.qual
+package org.sbml.jsbml.ext.qual;
 
 import java.util.Map;
 
@@ -202,7 +202,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
     if (qualitativeSpecies != this.mQualitativeSpecies) {
       String oldmQualitativeSpecies = this.mQualitativeSpecies;
-      if ((qualitativeSpecies == null) || (qualitativeSpecies.length() == 0) {
+      if ((qualitativeSpecies == null) || (qualitativeSpecies.isEmpty())) {
         this.mQualitativeSpecies = null;
       } else {
         this.mQualitativeSpecies = qualitativeSpecies;

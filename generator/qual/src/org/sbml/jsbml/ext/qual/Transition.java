@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.qual
+package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
 import java.util.Map;
