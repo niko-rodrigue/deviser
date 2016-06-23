@@ -40,6 +40,7 @@
 from util import strFunctions, query, global_variables
 import sys
 
+
 class SetGetFunctions():
     """Class for all java  functions for set/get/isset/unset"""
 

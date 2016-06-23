@@ -299,3 +299,20 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     }
   }
 
+  /**
+   * @return the value of the "isIdMandatory"
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return true;
+  }
+
+  /**
+   * @return the value of the "isCompartmentMandatory"
+   */
+  @Override
+  public boolean isCompartmentMandatory() {
+    return true;
+  }
+
+}

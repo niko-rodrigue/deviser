@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
-# @file    SetGetFunctions.py
+# @file    MandatoryFunctions.py
 # @brief   class to create functions to get/set attributes/elements
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @author  GSOC 2016 Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #
@@ -42,9 +41,9 @@ import sys
 
 
 class MandatoryFunctions():
-    """Class for all java  functions for set/get/isset/unset"""
+    """Class for all java  functions for mandatory functions"""
 
-    def __init__(self, language, is_java_api, is_list_of, class_object):
+    def __init__(self, language, is_java_api, is_list_of, class_object, mandatory_data):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -105,7 +104,115 @@ class MandatoryFunctions():
         self.failed = global_variables.ret_failed
         self.invalid_att = global_variables.ret_invalid_att
         self.invalid_obj = global_variables.ret_invalid_obj
+
+        # TODO GSOC 2016
+        self.mandatory_data = mandatory_data
+
     ########################################################################
+
+    # Functions for writing mandatory
+
+    # GSOC 2016 write_mandatory prototype v0.1
+    # function to write mandatory functions
+    def write_mandatory(self, is_attribute, index, const=True, virtual=False):
+        if not self.is_java_api and not const:
+            return
+        if is_attribute:
+            if index < len(self.mandatory_data):
+                attribute = self.mandatory_data[index]
+                print(attribute.keys())
+            else:
+                return
+
+        key = list(attribute.keys())[0]
+        # # TODO GSOC 2016 JSBML change
+
+        params = []
+        arguments = []
+        return_lines = []
+        additional = []
+        title_line = '@return the value of the \"{0}\"'.format(key)
+            # .format(attribute['name'],
+            #         ('attribute' if is_attribute else 'element'),
+            #         (self.class_name if self.is_java_api else self.object_name))
+
+        if self.is_java_api:
+            return_lines.append('@return the value of the \"{0}\" '.format(key))
+                                # .format(attribute['name'],
+                                #         ('attribute' if is_attribute
+                                #          else 'element'),
+                                #         self.class_name,
+                                #         (attribute['attType']
+                                #          if (is_attribute
+                                #              and attribute['isEnum'] is False)
+                                #          else attribute['attTypeCode'])))
+
+
+        # create the function declaration
+        if self.is_java_api:
+            function = '{0}'.format(key)
+            return_type = attribute[key]['returnType']
+        # else:
+        #     function = '{0}_get{1}'.format(self.class_name,
+        #                                    attribute['capAttName'])
+        #     if attribute['attType'] == 'element':
+        #         return_type = 'const {0}'.format(attribute['CType'])
+        #     else:
+        #         return_type = '{0}'.format(attribute['CType'])
+        #
+        # arguments = []
+        # if not self.is_java_api:
+        #     arguments.append('const {0} * {1}'
+        #                      .format(self.object_name, self.abbrev_parent))
+        #
+        # # GSOC 2016 modification
+        # # Need PackageName for Constants, such as QualConstants.initialLevel
+        # # Also need to add info about the type of Data (boolean or int, or etc)
+        # # need to use this self.package
+        #
+        # # implementation2 wrong example Output.java -> return transitionEffect;
+        # # cap_att_name = attribute['capAttName']
+        # curr_att_type = attribute['attTypeCode']
+        #
+        # # code = [dict({'code_type': 'line', 'code': implementation})]
+        #
+        # # print('type ',curr_att_type)
+        # # create the function implementation
+        if self.is_java_api:
+            if attribute[key]['Override'] is True:
+                additional.append('Override')
+            implement_string = ['return {0}'.format(attribute[key]['return'])]
+            code = [self.create_code_block('line', implement_string)]
+        #         else:
+        #             if curr_att_type in global_variables.javaTypeAttributes:
+        #                 implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
+        #             else:
+        #                 implement_part2 = 'return {0}'.format(attribute['memberName'])
+        #             implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
+        #             implementation = [
+        #                 'throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
+        #                                                                                   attribute['memberName'])]
+        #             code = [dict({'code_type': 'if', 'code': implementation2}),
+        #                     dict({'code_type': 'line', 'code': implementation})]
+        #     else:
+        #         implementation = self.write_get_for_doc_functions(attribute)
+        #         code = [self.create_code_block('line', implementation)]  # tricky
+        # else:
+        #     code = self.get_c_attribute(attribute)
+
+
+        # return the parts
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': const,
+                     'virtual': virtual,
+                     'object_name': self.struct_name,
+                     'implementation': code})
 
     # Functions for writing get functions
 

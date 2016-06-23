@@ -47,3 +47,4 @@ from . import ListOfQueryFunctions
 from . import ProtectedFunctions
 from . import SetGetFunctions
 from . import ValidatorClassFunctions
+from . import MandatoryFunctions

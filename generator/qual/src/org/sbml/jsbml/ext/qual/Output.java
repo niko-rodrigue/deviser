@@ -249,4 +249,12 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     }
   }
 
+  /**
+   * @return the value of the "isIdMandatory"
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return true;
+  }
+
 }

@@ -236,14 +236,16 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         attrib_functions = MandatoryFunctions.MandatoryFunctions(self.language,
                                                            self.is_java_api,
                                                            self.is_list_of,
-                                                           self.class_object)
-        # num_attributes = len(self.class_attributes)
-        #
+                                                           self.class_object,
+                                                           self.mandatory_data)
+
+        num_attributes = len(self.mandatory_data)
+
         # TODO how to write instance methods
-        # for i in range(0, num_attributes):
-        #     code = attrib_functions.write_get(True, i)
-        #     # self.write_function_implementation(code)
-        #     self.write_function_java(code)
+        for i in range(0, num_attributes):
+            code = attrib_functions.write_mandatory(True, i)
+            # self.write_function_implementation(code)
+            self.write_function_java(code)
 
     # function to write the get/set/isSet/unset functions for attributes
     def write_attribute_functions(self):

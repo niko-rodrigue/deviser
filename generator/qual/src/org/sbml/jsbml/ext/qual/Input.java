@@ -293,4 +293,12 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
   }
 
+  /**
+   * @return the value of the "isIdMandatory"
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return true;
+  }
+
 }
