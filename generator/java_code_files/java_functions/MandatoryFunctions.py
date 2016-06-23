@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 #
-# @file    MandatoryFunctions.py
-# @brief   class to create  mandatory functions
-# @author  GSOC 2016 Hovakim Grabski
+# @file    SetGetFunctions.py
+# @brief   class to create functions to get/set attributes/elements
+# @author  Frank Bergmann
+# @author  Sarah Keating
 #
 # <!--------------------------------------------------------------------------
 #
@@ -39,6 +40,7 @@
 from util import strFunctions, query, global_variables
 import sys
 
+
 class MandatoryFunctions():
     """Class for all java  functions for set/get/isset/unset"""
 
@@ -58,10 +60,10 @@ class MandatoryFunctions():
             self.object_child_name = self.child_name
         else:
             if is_list_of:
-                self.object_name = 'ListOf'
+                self.object_name = 'ListOf'  #_t'
             else:
-                self.object_name = self.class_name
-            self.object_child_name = self.child_name
+                self.object_name = self.class_name  #+ '_t'
+            self.object_child_name = self.child_name  # + '_t'
 
         self.attributes = class_object['class_attributes']
         self.child_elements = class_object['child_elements']

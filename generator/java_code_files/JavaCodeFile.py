@@ -55,6 +55,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
+            self.expand_mandatory()
 
 
         # self.jsbml_modules = jsbml_data_tree.jsbml_modules
@@ -69,9 +70,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_attribute_functions()
 
-        # self.write_mandatory_function()
+        self.write_mandatory_functions()
 
-        
+
         # self.write_child_element_functions()
         # self.write_listof_functions()
         # self.write_child_lo_element_functions()
@@ -230,6 +231,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_function_implementation(code)
 
         # function to write the get/set/isSet/unset functions for attributes
+
     def write_mandatory_functions(self):
         attrib_functions = MandatoryFunctions.MandatoryFunctions(self.language,
                                                            self.is_java_api,
@@ -237,7 +239,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.class_object)
         # num_attributes = len(self.class_attributes)
         #
-        # # TODO how to write instance methods
+        # TODO how to write instance methods
         # for i in range(0, num_attributes):
         #     code = attrib_functions.write_get(True, i)
         #     # self.write_function_implementation(code)

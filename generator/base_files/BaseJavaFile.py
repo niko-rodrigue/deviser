@@ -241,6 +241,9 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.class_object['is_header'] = self.is_header
         self.class_object['document'] = self.document
 
+        # TODO GSOC 2016
+        self.pack = str(self.package).lower()
+
     ########################################################################
 
     def get_general_includes(self):
@@ -439,17 +442,16 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.import_from_jsbml_modules.append('util.filters.*')
 
         #self.import_from_jsbml_utils_modules = []
-        pack = str(self.package).lower()
         if str(self.package).lower() == 'qual':
             if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
                 self.class_is_abstract = False
                 self.import_from_java_modules.append('java.util.Map')
             if self.name in ['Transition']:
                 self.import_from_java_modules.append('java.text.MessageFormat')
-        if len(self.jsbml_data_tree[pack][self.name]) > 0:
-            self.extends_modules = [self.jsbml_data_tree[pack][self.name][0]]
-        if len(self.jsbml_data_tree[pack][self.name]) > 1:
-            self.implements_modules = self.jsbml_data_tree[pack][self.name][1:]
+        if len(self.jsbml_data_tree[self.pack][self.name]) > 0:
+            self.extends_modules = [self.jsbml_data_tree[self.pack][self.name][0]]
+        if len(self.jsbml_data_tree[self.pack][self.name]) > 1:
+            self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
 
         self.jsbml_class_header_and_import = dict({'className': self.name,
                                                    'abstract': self.class_is_abstract,
@@ -460,6 +462,30 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
 
+    def expand_mandatory(self):
+        # print(self.name)
+        # print(self.pack)
+        self.mandatory_data = []
+
+        keys = self.jsbml_data_tree[self.pack][self.name]
+        #print(keys)
+
+        for import_key in keys:
+            data = self.jsbml_data_tree[import_key]['Mandatory']
+            #print(data)
+            if len(data) > 0:
+                self.mandatory_data.append(data)
+
+        attributes = self.attributes
+        for attribute in attributes:
+            att_key = strFunctions.upper_first(attribute['name'])
+            data = self.jsbml_data_tree[att_key]['Mandatory']
+            #print(data)
+            if len(data) > 0:
+                self.mandatory_data.append(data)
+
+        # print(self.mandatory_data)
+        # print('----------->>>>>>>-------')
 
 
 

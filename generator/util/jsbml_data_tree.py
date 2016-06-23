@@ -1072,7 +1072,10 @@ jsbml_data_tree[pack_qual]['DefaultTerm'] = ['AbstractMathContainer']
 # TODO GSOC 2016 Mandatory
 mandatory_keyword = 'Mandatory'
 
-jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory'] = {'Override': True}
-jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory'] = {'returnType': 'boolean'}
-jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory'] = {'return': 'true'}
+jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['Override'] = True
+jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['returnType'] = 'boolean'
+jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['return'] = 'true'
 
+jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['Override'] = True
+jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['returnType'] = 'boolean'
+jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['return'] = 'true'
