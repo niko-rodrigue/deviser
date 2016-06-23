@@ -250,7 +250,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @return the value of the "isIdMandatory"
+   * (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {

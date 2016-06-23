@@ -300,7 +300,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the value of the "isIdMandatory"
+   * (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {
@@ -308,11 +308,18 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the value of the "isCompartmentMandatory"
+   * (non-Javadoc)
    */
   @Override
   public boolean isCompartmentMandatory() {
     return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isInitialLevelMandatory() {
+    return false;
   }
 
 }

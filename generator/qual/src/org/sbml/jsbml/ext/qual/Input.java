@@ -294,7 +294,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @return the value of the "isIdMandatory"
+   * (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {

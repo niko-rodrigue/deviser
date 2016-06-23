@@ -131,13 +131,17 @@ class MandatoryFunctions():
         arguments = []
         return_lines = []
         additional = []
-        title_line = '@return the value of the \"{0}\"'.format(key)
+
+        if attribute[key]['Override'] is True:
+            title_line = '(non-Javadoc)'
+        else:
+            title_line = '@return {0} '.format(attribute[key]['return'])
             # .format(attribute['name'],
             #         ('attribute' if is_attribute else 'element'),
             #         (self.class_name if self.is_java_api else self.object_name))
 
         if self.is_java_api:
-            return_lines.append('@return the value of the \"{0}\" '.format(key))
+            return_lines.append('@return {0} '.format(attribute[key]['return']))
                                 # .format(attribute['name'],
                                 #         ('attribute' if is_attribute
                                 #          else 'element'),
@@ -152,32 +156,8 @@ class MandatoryFunctions():
         if self.is_java_api:
             function = '{0}'.format(key)
             return_type = attribute[key]['returnType']
-        # else:
-        #     function = '{0}_get{1}'.format(self.class_name,
-        #                                    attribute['capAttName'])
-        #     if attribute['attType'] == 'element':
-        #         return_type = 'const {0}'.format(attribute['CType'])
-        #     else:
-        #         return_type = '{0}'.format(attribute['CType'])
-        #
-        # arguments = []
-        # if not self.is_java_api:
-        #     arguments.append('const {0} * {1}'
-        #                      .format(self.object_name, self.abbrev_parent))
-        #
-        # # GSOC 2016 modification
-        # # Need PackageName for Constants, such as QualConstants.initialLevel
-        # # Also need to add info about the type of Data (boolean or int, or etc)
-        # # need to use this self.package
-        #
-        # # implementation2 wrong example Output.java -> return transitionEffect;
-        # # cap_att_name = attribute['capAttName']
-        # curr_att_type = attribute['attTypeCode']
-        #
-        # # code = [dict({'code_type': 'line', 'code': implementation})]
-        #
-        # # print('type ',curr_att_type)
-        # # create the function implementation
+
+
         if self.is_java_api:
             if attribute[key]['Override'] is True:
                 additional.append('Override')

@@ -107,7 +107,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @return the value of the "isIdMandatory"
+   * (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {

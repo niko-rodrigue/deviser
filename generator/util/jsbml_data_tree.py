@@ -1079,3 +1079,8 @@ jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['retur
 jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['Override'] = True
 jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['returnType'] = 'boolean'
 jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['return'] = 'true'
+
+initial_level = 'InitialLevel'
+jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['Override'] = False
+jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['returnType'] = 'boolean'
+jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['return'] = 'false'
