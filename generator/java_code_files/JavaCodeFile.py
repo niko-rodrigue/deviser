@@ -38,7 +38,7 @@
 
 from base_files import BaseJavaFile
 from . java_functions import *
-from util import query, strFunctions, global_variables, jsbml_class_tree
+from util import query, strFunctions, global_variables, jsbml_data_tree
 
 
 class JavaCodeFile(BaseJavaFile.BaseJavaFile):
@@ -56,9 +56,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         if represents_class:
             self.expand_class(class_object)
 
-        self.jsbml_tree = jsbml_class_tree.jsbml_classes
-        self.jsbml_modules = jsbml_class_tree.jsbml_modules
-        #print(self.jsbml_tree)
+        self.jsbml_data_tree = jsbml_data_tree.jsbml_data_tree
+        # self.jsbml_modules = jsbml_data_tree.jsbml_modules
+        #print(self.jsbml_data_tree)
     ########################################################################
 
     # Functions for writing the class

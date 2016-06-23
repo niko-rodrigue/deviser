@@ -408,11 +408,11 @@ class BaseJavaFile(BaseFile.BaseFile):
         #     #print(attribute)
         #     if attribute['type'] == 'SIdRef':
         #         key = 'AbstractNamedSBase'
-        #         children = self.jsbml_tree[key]['childrenNodes']
+        #         children = self.jsbml_data_tree[key]['childrenNodes']
         #         self.import_from_jsbml_modules += children
         #         print(children)
         #         for child in children:
-        #             interface = self.jsbml_tree[child]['parentInterfaces']
+        #             interface = self.jsbml_data_tree[child]['parentInterfaces']
         #             print(interface)
         #             print('--------')
         # print('----------------------------')
@@ -445,10 +445,10 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.import_from_java_modules.append('java.util.Map')
             if self.name in ['Transition']:
                 self.import_from_java_modules.append('java.text.MessageFormat')
-        if len(self.jsbml_modules[pack][self.name]) > 0:
-            self.extends_modules = [self.jsbml_modules[pack][self.name][0]]
-        if len(self.jsbml_modules[pack][self.name]) > 1:
-            self.implements_modules = self.jsbml_modules[pack][self.name][1:]
+        if len(self.jsbml_data_tree[pack][self.name]) > 0:
+            self.extends_modules = [self.jsbml_data_tree[pack][self.name][0]]
+        if len(self.jsbml_data_tree[pack][self.name]) > 1:
+            self.implements_modules = self.jsbml_data_tree[pack][self.name][1:]
 
         self.jsbml_class_header_and_import = dict({'className': self.name,
                                                    'abstract': self.class_is_abstract,
