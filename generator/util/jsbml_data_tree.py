@@ -1044,7 +1044,7 @@ jsbml_mods = 'jsbml'
 pack_qual = 'qual'
 pack_fbc = 'fbc'
 
-
+# TODO GSOC 2016 qual package imports
 
 jsbml_data_tree[pack_qual]['files'] = ['input',
                                      'output',
@@ -1067,3 +1067,12 @@ jsbml_data_tree[pack_qual]['QualitativeSpecies'] = ['AbstractNamedSBase', 'Compa
 jsbml_data_tree[pack_qual]['FunctionTerm'] = ['AbstractMathContainer']
 
 jsbml_data_tree[pack_qual]['DefaultTerm'] = ['AbstractMathContainer']
+
+
+# TODO GSOC 2016 Mandatory
+mandatory_keyword = 'Mandatory'
+
+jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory'] = {'Override': True}
+jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory'] = {'returnType': 'boolean'}
+jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory'] = {'return': 'true'}
+

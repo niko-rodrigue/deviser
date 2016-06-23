@@ -40,8 +40,7 @@
 import time
 import os
 from . import BaseFile
-from util import strFunctions, query, global_variables
-
+from util import strFunctions, query, global_variables, jsbml_data_tree
 
 
 class BaseJavaFile(BaseFile.BaseFile):
@@ -77,6 +76,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.library_name = global_variables.java_library_name
         self.cap_language = self.language.upper()
 
+        # TODO GSOC 2016 jsbml_data_tree
+        self.jsbml_data_tree = jsbml_data_tree.jsbml_data_tree
         # TODO will need something similar for importing modules, but how?
         self.class_is_abstract = False
         # expand the information for the attributes
