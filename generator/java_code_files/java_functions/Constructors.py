@@ -775,7 +775,7 @@ class Constructors():
                     # print(attribute['memberName'])
                     cap_att_name = attribute['capAttName']
                     if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
-                        member_name = attribute['memberName']
+                        member_name = attribute['name']
                         line = '{0} = null'.format(member_name)
                         implementation.append(line)
 

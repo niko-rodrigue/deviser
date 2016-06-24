@@ -40,19 +40,19 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    *
    */
-  private Sign mSign;
+  private Sign sign;
   /**
    *
    */
-  private String mQualitativeSpecies;
+  private String qualitativeSpecies;
   /**
    *
    */
-  private TransitionInputEffect mTransitionEffect;
+  private TransitionInputEffect transitionEffect;
   /**
    *
    */
-  private Integer mThresholdLevel;
+  private Integer thresholdLevel;
 
   /**
    *  
@@ -108,10 +108,10 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    mSign = null;
-    mQualitativeSpecies = null;
-    mTransitionEffect = null;
-    mThresholdLevel = null;
+    sign = null;
+    qualitativeSpecies = null;
+    transitionEffect = null;
+    thresholdLevel = null;
   }
 
   /**
@@ -127,16 +127,16 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public Sign getSign() {
     if (isSetSign()) {
-      return mSign;
+      return sign;
     }
-    throw new PropertyUndefinedError(QualConstants.mSign, this);
+    throw new PropertyUndefinedError(QualConstants.sign, this);
   }
 
   /**
    * @return the value of the "qualitativeSpecies" attribute of this Input.
    */
   public String getQualitativeSpecies() {
-    return isSetQualitativeSpecies() ? mQualitativeSpecies : "";
+    return isSetQualitativeSpecies() ? qualitativeSpecies : "";
   }
 
   /**
@@ -144,9 +144,9 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public TransitionInputEffect getTransitionEffect() {
     if (isSetTransitionEffect()) {
-      return mTransitionEffect;
+      return transitionEffect;
     }
-    throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
+    throw new PropertyUndefinedError(QualConstants.transitionEffect, this);
   }
 
   /**
@@ -154,16 +154,16 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public int getThresholdLevel() {
     if (isSetThresholdLevel()) {
-      return mThresholdLevel.intValue();
+      return thresholdLevel.intValue();
     }
-    throw new PropertyUndefinedError(QualConstants.mThresholdLevel, this);
+    throw new PropertyUndefinedError(QualConstants.thresholdLevel, this);
   }
 
   /**
    * Predicate returning {@code true} if this Input's "sign" attribute is set.
    */
   public boolean isSetSign() {
-    return (mSign != SIGN_INVALID);
+    return (sign != SIGN_INVALID);
   }
 
   /**
@@ -171,7 +171,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * attribute is set.
    */
   public boolean isSetQualitativeSpecies() {
-    return mQualitativeSpecies != null;
+    return qualitativeSpecies != null;
   }
 
   /**
@@ -179,7 +179,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * attribute is set.
    */
   public boolean isSetTransitionEffect() {
-    return (mTransitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
+    return (transitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
   }
 
   /**
@@ -187,7 +187,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * attribute is set.
    */
   public boolean isSetThresholdLevel() {
-    return mThresholdLevel != null;
+    return thresholdLevel != null;
   }
 
   /**
@@ -195,10 +195,10 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public void setSign(Sign sign) {
     if (Sign_isValid(sign) == 0) {
-      mSign = SIGN_INVALID;
+      sign = SIGN_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     } else {
-      mSign = sign;
+      sign = sign;
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
@@ -208,16 +208,16 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * attribute to be set.
    */
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
-    if (qualitativeSpecies != this.mQualitativeSpecies) {
-      String oldmQualitativeSpecies = this.mQualitativeSpecies;
+    if (qualitativeSpecies != this.qualitativeSpecies) {
+      String oldQualitativeSpecies = this.qualitativeSpecies;
       if ((qualitativeSpecies == null) || (qualitativeSpecies.isEmpty())) {
-        this.mQualitativeSpecies = null;
+        this.qualitativeSpecies = null;
       } else {
-        this.mQualitativeSpecies = qualitativeSpecies;
+        this.qualitativeSpecies = qualitativeSpecies;
       }
 
-      firePropertyChange(QualConstants.mQualitativeSpecies,
-        oldmQualitativeSpecies, this.oldmQualitativeSpecies);
+      firePropertyChange(QualConstants.qualitativeSpecies,
+        oldQualitativeSpecies, this.oldQualitativeSpecies);
       return true;
     }
     return false;
@@ -229,10 +229,10 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public void setTransitionEffect(TransitionInputEffect transitionEffect) {
     if (TransitionInputEffect_isValid(transitionEffect) == 0) {
-      mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
+      transitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     } else {
-      mTransitionEffect = transitionEffect;
+      transitionEffect = transitionEffect;
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
@@ -242,17 +242,17 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * set.
    */
   public void setThresholdLevel(int thresholdLevel) {
-    Integer oldmThresholdLevel = this.mThresholdLevel;
-    this.mThresholdLevel = thresholdLevel;
-    firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
-      this.mThresholdLevel);
+    Integer oldThresholdLevel = this.thresholdLevel;
+    this.thresholdLevel = thresholdLevel;
+    firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
+      this.thresholdLevel);
   }
 
   /**
    * Unsets the value of the "sign" attribute of this Input.
    */
   public boolean unsetSign() {
-    mSign = SIGN_INVALID;
+    sign = SIGN_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -261,9 +261,9 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public boolean unsetQualitativeSpecies() {
     if (isSetQualitativeSpecies()) {
-      mQualitativeSpecies = null;
-      firePropertyChange(QualConstants.mQualitativeSpecies,
-        oldmQualitativeSpecies, mQualitativeSpecies);
+      qualitativeSpecies = null;
+      firePropertyChange(QualConstants.qualitativeSpecies,
+        oldQualitativeSpecies, qualitativeSpecies);
       return true;
     } else {
       return false;
@@ -274,7 +274,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * Unsets the value of the "transitionEffect" attribute of this Input.
    */
   public boolean unsetTransitionEffect() {
-    mTransitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
+    transitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -283,10 +283,10 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public boolean unsetThresholdLevel() {
     if (isSetThresholdLevel()) {
-      Integer oldmThresholdLevel = mThresholdLevel;
-      mThresholdLevel = null;
-      firePropertyChange(QualConstants.mThresholdLevel, oldmThresholdLevel,
-        mThresholdLevel);
+      Integer oldThresholdLevel = thresholdLevel;
+      thresholdLevel = null;
+      firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
+        thresholdLevel);
       return true;
     } else {
       return false;

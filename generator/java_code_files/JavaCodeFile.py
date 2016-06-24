@@ -743,7 +743,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                 self.write_variable_comment()
                 return_type = attribute['JClassType']
-                member_name = attribute['memberName']
+                member_name = attribute['name']
                 line = 'private {0} {1};'.format(return_type, member_name)
                 self.write_line(line)
         self.down_indent()

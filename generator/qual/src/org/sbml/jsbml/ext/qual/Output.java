@@ -40,15 +40,15 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    *
    */
-  private String mQualitativeSpecies;
+  private String qualitativeSpecies;
   /**
    *
    */
-  private TransitionOutputEffect mTransitionEffect;
+  private TransitionOutputEffect transitionEffect;
   /**
    *
    */
-  private Integer mOutputLevel;
+  private Integer outputLevel;
 
   /**
    *  
@@ -104,9 +104,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    mQualitativeSpecies = null;
-    mTransitionEffect = null;
-    mOutputLevel = null;
+    qualitativeSpecies = null;
+    transitionEffect = null;
+    outputLevel = null;
   }
 
   /**
@@ -121,7 +121,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * @return the value of the "qualitativeSpecies" attribute of this Output.
    */
   public String getQualitativeSpecies() {
-    return isSetQualitativeSpecies() ? mQualitativeSpecies : "";
+    return isSetQualitativeSpecies() ? qualitativeSpecies : "";
   }
 
   /**
@@ -129,9 +129,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public TransitionOutputEffect getTransitionEffect() {
     if (isSetTransitionEffect()) {
-      return mTransitionEffect;
+      return transitionEffect;
     }
-    throw new PropertyUndefinedError(QualConstants.mTransitionEffect, this);
+    throw new PropertyUndefinedError(QualConstants.transitionEffect, this);
   }
 
   /**
@@ -139,9 +139,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public int getOutputLevel() {
     if (isSetOutputLevel()) {
-      return mOutputLevel.intValue();
+      return outputLevel.intValue();
     }
-    throw new PropertyUndefinedError(QualConstants.mOutputLevel, this);
+    throw new PropertyUndefinedError(QualConstants.outputLevel, this);
   }
 
   /**
@@ -149,7 +149,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * attribute is set.
    */
   public boolean isSetQualitativeSpecies() {
-    return mQualitativeSpecies != null;
+    return qualitativeSpecies != null;
   }
 
   /**
@@ -157,7 +157,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * attribute is set.
    */
   public boolean isSetTransitionEffect() {
-    return (mTransitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
+    return (transitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
   }
 
   /**
@@ -165,7 +165,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * is set.
    */
   public boolean isSetOutputLevel() {
-    return mOutputLevel != null;
+    return outputLevel != null;
   }
 
   /**
@@ -173,16 +173,16 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * attribute to be set.
    */
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
-    if (qualitativeSpecies != this.mQualitativeSpecies) {
-      String oldmQualitativeSpecies = this.mQualitativeSpecies;
+    if (qualitativeSpecies != this.qualitativeSpecies) {
+      String oldQualitativeSpecies = this.qualitativeSpecies;
       if ((qualitativeSpecies == null) || (qualitativeSpecies.isEmpty())) {
-        this.mQualitativeSpecies = null;
+        this.qualitativeSpecies = null;
       } else {
-        this.mQualitativeSpecies = qualitativeSpecies;
+        this.qualitativeSpecies = qualitativeSpecies;
       }
 
-      firePropertyChange(QualConstants.mQualitativeSpecies,
-        oldmQualitativeSpecies, this.oldmQualitativeSpecies);
+      firePropertyChange(QualConstants.qualitativeSpecies,
+        oldQualitativeSpecies, this.oldQualitativeSpecies);
       return true;
     }
     return false;
@@ -194,10 +194,10 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public void setTransitionEffect(TransitionOutputEffect transitionEffect) {
     if (TransitionOutputEffect_isValid(transitionEffect) == 0) {
-      mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
+      transitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     } else {
-      mTransitionEffect = transitionEffect;
+      transitionEffect = transitionEffect;
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
@@ -206,10 +206,10 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * @param outputLevel int value of the "outputLevel" attribute to be set.
    */
   public void setOutputLevel(int outputLevel) {
-    Integer oldmOutputLevel = this.mOutputLevel;
-    this.mOutputLevel = outputLevel;
-    firePropertyChange(QualConstants.mOutputLevel, oldmOutputLevel,
-      this.mOutputLevel);
+    Integer oldOutputLevel = this.outputLevel;
+    this.outputLevel = outputLevel;
+    firePropertyChange(QualConstants.outputLevel, oldOutputLevel,
+      this.outputLevel);
   }
 
   /**
@@ -217,9 +217,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public boolean unsetQualitativeSpecies() {
     if (isSetQualitativeSpecies()) {
-      mQualitativeSpecies = null;
-      firePropertyChange(QualConstants.mQualitativeSpecies,
-        oldmQualitativeSpecies, mQualitativeSpecies);
+      qualitativeSpecies = null;
+      firePropertyChange(QualConstants.qualitativeSpecies,
+        oldQualitativeSpecies, qualitativeSpecies);
       return true;
     } else {
       return false;
@@ -230,7 +230,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * Unsets the value of the "transitionEffect" attribute of this Output.
    */
   public boolean unsetTransitionEffect() {
-    mTransitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
+    transitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
@@ -239,10 +239,10 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public boolean unsetOutputLevel() {
     if (isSetOutputLevel()) {
-      Integer oldmOutputLevel = mOutputLevel;
-      mOutputLevel = null;
-      firePropertyChange(QualConstants.mOutputLevel, oldmOutputLevel,
-        mOutputLevel);
+      Integer oldOutputLevel = outputLevel;
+      outputLevel = null;
+      firePropertyChange(QualConstants.outputLevel, oldOutputLevel,
+        outputLevel);
       return true;
     } else {
       return false;

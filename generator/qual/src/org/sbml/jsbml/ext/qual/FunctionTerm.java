@@ -40,7 +40,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    *
    */
-  private Integer mResultLevel;
+  private Integer resultLevel;
 
   /**
    *  
@@ -96,8 +96,8 @@ public class FunctionTerm extends AbstractMathContainer {
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    mResultLevel = null;
-    mMath = null;
+    resultLevel = null;
+    math = null;
   }
 
   /**
@@ -113,9 +113,9 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   public int getResultLevel() {
     if (isSetResultLevel()) {
-      return mResultLevel.intValue();
+      return resultLevel.intValue();
     }
-    throw new PropertyUndefinedError(QualConstants.mResultLevel, this);
+    throw new PropertyUndefinedError(QualConstants.resultLevel, this);
   }
 
   /**
@@ -123,17 +123,17 @@ public class FunctionTerm extends AbstractMathContainer {
    * attribute is set.
    */
   public boolean isSetResultLevel() {
-    return mResultLevel != null;
+    return resultLevel != null;
   }
 
   /**
    * @param resultLevel int value of the "resultLevel" attribute to be set.
    */
   public void setResultLevel(int resultLevel) {
-    Integer oldmResultLevel = this.mResultLevel;
-    this.mResultLevel = resultLevel;
-    firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
-      this.mResultLevel);
+    Integer oldResultLevel = this.resultLevel;
+    this.resultLevel = resultLevel;
+    firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+      this.resultLevel);
   }
 
   /**
@@ -141,10 +141,10 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   public boolean unsetResultLevel() {
     if (isSetResultLevel()) {
-      Integer oldmResultLevel = mResultLevel;
-      mResultLevel = null;
-      firePropertyChange(QualConstants.mResultLevel, oldmResultLevel,
-        mResultLevel);
+      Integer oldResultLevel = resultLevel;
+      resultLevel = null;
+      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+        resultLevel);
       return true;
     } else {
       return false;
