@@ -15,24 +15,29 @@ def clean_line(data):
     return temp
 
 def extract_data(temp_data):
-    print(temp_data)
+    print('temp_data ',temp_data)
     # function_name_step1  = temp_data[-1].split(');')
     # print(function_name_step1)
 
     function_name = ''
-    access_member = None
+    access_type = None
     is_abstract = False
     return_type = []
     arguments = []
-    of_type = []
+    of_type = ''
+    of_type_args = []
+
 
     for i in range(len(temp_data)):
-
+        if temp_data[0] == 'Compiled':
+            continue
+        if len(temp_data) == 1 and temp_data[-1] == '}':
+            break
         # Function Arguments extracter
         if '(' in temp_data[i]:
-            print('i is ',i)
+            #print('i is ',i)
             function_name_step1  = temp_data[i].split('(')
-            print('function_name_step1 ',function_name_step1)
+            #print('function_name_step1 ',function_name_step1)
             function_name = function_name_step1[0]
             function_index = i
             if function_name_step1[-1] != ');':
@@ -62,10 +67,42 @@ def extract_data(temp_data):
             # function_name_step2  = function_name_step1[-1].split(');')
             # print(function_name_step2)
         elif '<' in temp_data[i]:
-            pass
+            type_of_name_step1  = temp_data[i].split('<')
+            of_type = type_of_name_step1[0]
+            type_index = i
+            if type_of_name_step1[-1] != '>':
+                if '>' in type_of_name_step1[-1]:
+                    arg = type_of_name_step1[-1].split('>')[0]
+                    of_type_args.append(arg)
+                else:
+                    arg = type_of_name_step1[-1].split(',')[0]
+                    of_type_args.append(arg)
+                    for y in range(type_index, len(temp_data)):
+                        #print('y ',temp_data[y])
+                        if ',' in temp_data[y]:
+                            arg = type_of_name_step1[-1].split(',')[0]
+                            of_type_args.append(arg)
+                        elif '>' in type_of_name_step1[-1]:
+                            arg = type_of_name_step1[-1].split('>')[0]
+                            of_type_args.append(arg)
 
+    if temp_data[0] in ['public', 'private', 'protected']:
+        access_type = temp_data[0]
+
+    
+
+    if len(temp_data) > 1 and temp_data[1] == 'abstract':
+        is_abstract = True 
+        return_type = temp_data[2]
+
+    print('access_type ',access_type)
+    print('is_abstract ',is_abstract)
+    print('return_type ',return_type)
     print('function_name ',function_name)
     print('arguments ',arguments)
+
+    print('of_type ',of_type)
+    print('of_type_args ',of_type_args)
     print('-----------')
     # function_name = function_name_step2[0] 
     # print('function_name ',function_name)
@@ -105,7 +142,7 @@ def get_class_information(class_name=None):
 
 # get_class_information()
 
-# class_name = 'org.sbml.jsbml.CompartmentalizedSBase'
+#class_name = 'org.sbml.jsbml.CompartmentalizedSBase'
 
 class_name = 'org.sbml.jsbml.AbstractNamedSBase'
 get_class_information(class_name)
