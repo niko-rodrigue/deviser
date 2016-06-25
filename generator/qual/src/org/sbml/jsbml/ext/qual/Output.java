@@ -109,23 +109,23 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     outputLevel = null;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public Output clone() {
     return new Output(this);
   }
 
-  /**
-   * @return the value of the "qualitativeSpecies" attribute of this Output.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public String getQualitativeSpecies() {
     return isSetQualitativeSpecies() ? qualitativeSpecies : "";
   }
 
   /**
-   * @return the value of the "transitionEffect" attribute of this Output.
+   * @return the transitionEffect
    */
   public TransitionOutputEffect getTransitionEffect() {
     if (isSetTransitionEffect()) {
@@ -135,7 +135,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @return the value of the "outputLevel" attribute of this Output.
+   * @return the outputLevel
    */
   public int getOutputLevel() {
     if (isSetOutputLevel()) {
@@ -144,34 +144,31 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     throw new PropertyUndefinedError(QualConstants.outputLevel, this);
   }
 
-  /**
-   * Predicate returning {@code true} if this Output's "qualitativeSpecies"
-   * attribute is set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public boolean isSetQualitativeSpecies() {
     return qualitativeSpecies != null;
   }
 
   /**
-   * Predicate returning {@code true} if this Output's "transitionEffect"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetTransitionEffect() {
     return (transitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
   }
 
   /**
-   * Predicate returning {@code true} if this Output's "outputLevel" attribute
-   * is set.
+   * @return 
    */
   public boolean isSetOutputLevel() {
     return outputLevel != null;
   }
 
-  /**
-   * @param qualitativeSpecies String value of the "qualitativeSpecies"
-   * attribute to be set.
+  /* Sets the value of the "qualitativeSpecies" attribute of this Output.
    */
+  @Override
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
     if (qualitativeSpecies != this.qualitativeSpecies) {
       String oldQualitativeSpecies = this.qualitativeSpecies;
@@ -189,8 +186,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @param transitionEffect TransitionOutputEffect value of the
-   * "transitionEffect" attribute to be set.
+   * @param transitionEffect
    */
   public void setTransitionEffect(TransitionOutputEffect transitionEffect) {
     if (TransitionOutputEffect_isValid(transitionEffect) == 0) {
@@ -203,7 +199,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @param outputLevel int value of the "outputLevel" attribute to be set.
+   * @param outputLevel
    */
   public void setOutputLevel(int outputLevel) {
     Integer oldOutputLevel = this.outputLevel;
@@ -212,9 +208,10 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       this.outputLevel);
   }
 
-  /**
-   * Unsets the value of the "qualitativeSpecies" attribute of this Output.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public boolean unsetQualitativeSpecies() {
     if (isSetQualitativeSpecies()) {
       qualitativeSpecies = null;
@@ -227,7 +224,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Unsets the value of the "transitionEffect" attribute of this Output.
+   * @return {@code true} if the unset of the transitionEffect attribute was
+   * successful
    */
   public boolean unsetTransitionEffect() {
     transitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
@@ -235,7 +233,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Unsets the value of the "outputLevel" attribute of this Output.
+   * @return {@code true} if the unset of the outputLevel attribute was
+   * successful
    */
   public boolean unsetOutputLevel() {
     if (isSetOutputLevel()) {
@@ -249,8 +248,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     }
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {

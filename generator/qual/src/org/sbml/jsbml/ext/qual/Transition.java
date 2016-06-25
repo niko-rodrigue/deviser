@@ -98,16 +98,14 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     functionTerm = null;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public Transition clone() {
     return new Transition(this);
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {

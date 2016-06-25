@@ -114,8 +114,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     thresholdLevel = null;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public Input clone() {
@@ -123,7 +122,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @return the value of the "sign" attribute of this Input.
+   * @return the sign
    */
   public Sign getSign() {
     if (isSetSign()) {
@@ -132,15 +131,16 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     throw new PropertyUndefinedError(QualConstants.sign, this);
   }
 
-  /**
-   * @return the value of the "qualitativeSpecies" attribute of this Input.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public String getQualitativeSpecies() {
     return isSetQualitativeSpecies() ? qualitativeSpecies : "";
   }
 
   /**
-   * @return the value of the "transitionEffect" attribute of this Input.
+   * @return the transitionEffect
    */
   public TransitionInputEffect getTransitionEffect() {
     if (isSetTransitionEffect()) {
@@ -150,7 +150,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @return the value of the "thresholdLevel" attribute of this Input.
+   * @return the thresholdLevel
    */
   public int getThresholdLevel() {
     if (isSetThresholdLevel()) {
@@ -160,38 +160,36 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Predicate returning {@code true} if this Input's "sign" attribute is set.
+   * @return 
    */
   public boolean isSetSign() {
     return (sign != SIGN_INVALID);
   }
 
-  /**
-   * Predicate returning {@code true} if this Input's "qualitativeSpecies"
-   * attribute is set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public boolean isSetQualitativeSpecies() {
     return qualitativeSpecies != null;
   }
 
   /**
-   * Predicate returning {@code true} if this Input's "transitionEffect"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetTransitionEffect() {
     return (transitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
   }
 
   /**
-   * Predicate returning {@code true} if this Input's "thresholdLevel"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetThresholdLevel() {
     return thresholdLevel != null;
   }
 
   /**
-   * @param sign Sign value of the "sign" attribute to be set.
+   * @param sign
    */
   public void setSign(Sign sign) {
     if (Sign_isValid(sign) == 0) {
@@ -203,10 +201,9 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
   }
 
-  /**
-   * @param qualitativeSpecies String value of the "qualitativeSpecies"
-   * attribute to be set.
+  /* Sets the value of the "qualitativeSpecies" attribute of this Input.
    */
+  @Override
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
     if (qualitativeSpecies != this.qualitativeSpecies) {
       String oldQualitativeSpecies = this.qualitativeSpecies;
@@ -224,8 +221,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @param transitionEffect TransitionInputEffect value of the
-   * "transitionEffect" attribute to be set.
+   * @param transitionEffect
    */
   public void setTransitionEffect(TransitionInputEffect transitionEffect) {
     if (TransitionInputEffect_isValid(transitionEffect) == 0) {
@@ -238,8 +234,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * @param thresholdLevel int value of the "thresholdLevel" attribute to be
-   * set.
+   * @param thresholdLevel
    */
   public void setThresholdLevel(int thresholdLevel) {
     Integer oldThresholdLevel = this.thresholdLevel;
@@ -249,16 +244,17 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Unsets the value of the "sign" attribute of this Input.
+   * @return {@code true} if the unset of the sign attribute was successful
    */
   public boolean unsetSign() {
     sign = SIGN_INVALID;
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-  /**
-   * Unsets the value of the "qualitativeSpecies" attribute of this Input.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public boolean unsetQualitativeSpecies() {
     if (isSetQualitativeSpecies()) {
       qualitativeSpecies = null;
@@ -271,7 +267,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Unsets the value of the "transitionEffect" attribute of this Input.
+   * @return {@code true} if the unset of the transitionEffect attribute was
+   * successful
    */
   public boolean unsetTransitionEffect() {
     transitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
@@ -279,7 +276,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
-   * Unsets the value of the "thresholdLevel" attribute of this Input.
+   * @return {@code true} if the unset of the thresholdLevel attribute was
+   * successful
    */
   public boolean unsetThresholdLevel() {
     if (isSetThresholdLevel()) {
@@ -293,8 +291,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {

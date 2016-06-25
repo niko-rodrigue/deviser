@@ -100,8 +100,7 @@ public class FunctionTerm extends AbstractMathContainer {
     math = null;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public FunctionTerm clone() {
@@ -109,7 +108,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * @return the value of the "resultLevel" attribute of this FunctionTerm.
+   * @return the resultLevel
    */
   public int getResultLevel() {
     if (isSetResultLevel()) {
@@ -119,15 +118,14 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * Predicate returning {@code true} if this FunctionTerm's "resultLevel"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetResultLevel() {
     return resultLevel != null;
   }
 
   /**
-   * @param resultLevel int value of the "resultLevel" attribute to be set.
+   * @param resultLevel
    */
   public void setResultLevel(int resultLevel) {
     Integer oldResultLevel = this.resultLevel;
@@ -137,7 +135,8 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * Unsets the value of the "resultLevel" attribute of this FunctionTerm.
+   * @return {@code true} if the unset of the resultLevel attribute was
+   * successful
    */
   public boolean unsetResultLevel() {
     if (isSetResultLevel()) {

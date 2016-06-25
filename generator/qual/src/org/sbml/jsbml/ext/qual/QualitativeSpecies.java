@@ -114,24 +114,23 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     maxLevel = null;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public QualitativeSpecies clone() {
     return new QualitativeSpecies(this);
   }
 
-  /**
-   * @return the value of the "compartment" attribute of this
-   * QualitativeSpecies.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public String getCompartment() {
     return isSetCompartment() ? compartment : "";
   }
 
   /**
-   * @return the value of the "constant" attribute of this QualitativeSpecies.
+   * @return the constant
    */
   public boolean getConstant() {
     if (isSetConstant()) {
@@ -141,8 +140,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the value of the "initialLevel" attribute of this
-   * QualitativeSpecies.
+   * @return the initialLevel
    */
   public int getInitialLevel() {
     if (isSetInitialLevel()) {
@@ -152,7 +150,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the value of the "maxLevel" attribute of this QualitativeSpecies.
+   * @return the maxLevel
    */
   public int getMaxLevel() {
     if (isSetMaxLevel()) {
@@ -161,41 +159,38 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     throw new PropertyUndefinedError(QualConstants.maxLevel, this);
   }
 
-  /**
-   * Predicate returning {@code true} if this QualitativeSpecies's
-   * "compartment" attribute is set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public boolean isSetCompartment() {
     return compartment != null;
   }
 
   /**
-   * Predicate returning {@code true} if this QualitativeSpecies's "constant"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetConstant() {
     return constant != null;
   }
 
   /**
-   * Predicate returning {@code true} if this QualitativeSpecies's
-   * "initialLevel" attribute is set.
+   * @return 
    */
   public boolean isSetInitialLevel() {
     return initialLevel != null;
   }
 
   /**
-   * Predicate returning {@code true} if this QualitativeSpecies's "maxLevel"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetMaxLevel() {
     return maxLevel != null;
   }
 
-  /**
-   * @param compartment String value of the "compartment" attribute to be set.
+  /* Sets the value of the "compartment" attribute of this QualitativeSpecies.
    */
+  @Override
   public boolean setCompartment(String compartment) {
     if (compartment != this.compartment) {
       String oldCompartment = this.compartment;
@@ -213,7 +208,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param constant boolean value of the "constant" attribute to be set.
+   * @param constant
    */
   public void setConstant(boolean constant) {
     Boolean oldConstant = this.constant;
@@ -222,7 +217,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param initialLevel int value of the "initialLevel" attribute to be set.
+   * @param initialLevel
    */
   public void setInitialLevel(int initialLevel) {
     Integer oldInitialLevel = this.initialLevel;
@@ -232,7 +227,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param maxLevel int value of the "maxLevel" attribute to be set.
+   * @param maxLevel
    */
   public void setMaxLevel(int maxLevel) {
     Integer oldMaxLevel = this.maxLevel;
@@ -240,10 +235,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     firePropertyChange(QualConstants.maxLevel, oldMaxLevel, this.maxLevel);
   }
 
-  /**
-   * Unsets the value of the "compartment" attribute of this
-   * QualitativeSpecies.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml
    */
+  @Override
   public boolean unsetCompartment() {
     if (isSetCompartment()) {
       compartment = null;
@@ -256,7 +251,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Unsets the value of the "constant" attribute of this QualitativeSpecies.
+   * @return {@code true} if the unset of the constant attribute was successful
    */
   public boolean unsetConstant() {
     if (isSetConstant()) {
@@ -270,8 +265,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Unsets the value of the "initialLevel" attribute of this
-   * QualitativeSpecies.
+   * @return {@code true} if the unset of the initialLevel attribute was
+   * successful
    */
   public boolean unsetInitialLevel() {
     if (isSetInitialLevel()) {
@@ -286,7 +281,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * Unsets the value of the "maxLevel" attribute of this QualitativeSpecies.
+   * @return {@code true} if the unset of the maxLevel attribute was successful
    */
   public boolean unsetMaxLevel() {
     if (isSetMaxLevel()) {
@@ -299,16 +294,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     }
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public boolean isIdMandatory() {
     return true;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public boolean isCompartmentMandatory() {

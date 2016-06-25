@@ -1079,6 +1079,7 @@ jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['retur
 jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['Override'] = True
 jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['returnType'] = 'boolean'
 jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['return'] = 'true'
+jsbml_data_tree[compartment]['isAbstract'] = True
 
 initial_level = 'InitialLevel'
 jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['Override'] = False

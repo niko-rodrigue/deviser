@@ -921,6 +921,21 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.close_comment()
 
 
+    # functions for writing Javadoc comments
+    def write_non_javadoc_comment_line(self, line):
+        #print('line is ',line)
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        lines = self.create_lines(line, len(tabs), True)
+        #print('lines ',lines)
+        lines = lines[0].split('--')
+        self.file_out.write(' {1}\n'
+                            .format(tabs, lines[0]))
+        for i in range(1, len(lines)):
+            self.file_out.write('{0}{1} {2}\n'
+                                .format(tabs, self.comment, lines[i]))
+
 
     # Need to add tabs
     def write_brief_header(self, title_line):
@@ -928,9 +943,16 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_comment_line(title_line)
         self.close_comment()
 
+    def write_non_javadoc_header(self, title_line):
+        self.open_non_javadoc_comment(self)
+        self.write_non_javadoc_comment_line(title_line)
+        self.close_comment()
+
+
     def write_class_params_header(self, params):
         self.open_double_comment(self)
         for param in params:
+            #print('param ', param)
             self.write_comment_line(param)
         self.close_comment()
 
@@ -981,13 +1003,15 @@ class BaseJavaFile(BaseFile.BaseFile):
 
             if exclude:
                 self.write_doxygen_start()
-            if len(code['params'])>0:
-                self.write_class_params_header(code['params'])
-            else:
-                self.write_brief_header(code['title_line'])
             if len(code['additional']) > 0:
                 if code['additional'][0] is'Override':
+                    self.write_non_javadoc_header(code['title_line'])
                     self.write_override_statement()
+            if len(code['params']) > 0 and len(code['additional']) == 0:
+                self.write_class_params_header(code['params'])
+            else:
+                if len(code['additional']) == 0:
+                    self.write_brief_header(code['title_line'])
             function_name = code['function']
 
 
@@ -1428,3 +1452,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         for i in range(0, int(self.num_tabs)):
             tabs += '  '
         self.file_out.write('{0}{1}\n'.format(tabs, '/**'))
+
+    @staticmethod
+    def open_non_javadoc_comment(self):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        self.file_out.write('{0}{1}'.format(tabs, '/*'))

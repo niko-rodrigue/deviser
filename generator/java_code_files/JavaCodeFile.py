@@ -252,7 +252,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         attrib_functions = SetGetFunctions.SetGetFunctions(self.language,
                                                            self.is_java_api,
                                                            self.is_list_of,
-                                                           self.class_object)
+                                                           self.class_object,
+                                                           self.jsbml_data_tree)
         num_attributes = len(self.class_attributes)
 
 

@@ -40,11 +40,13 @@
 from util import strFunctions, query, global_variables
 import sys
 
+from util.jsbml_data_tree import jsbml_data_tree
+
 
 class SetGetFunctions():
     """Class for all java  functions for set/get/isset/unset"""
 
-    def __init__(self, language, is_java_api, is_list_of, class_object):
+    def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -105,6 +107,11 @@ class SetGetFunctions():
         self.failed = global_variables.ret_failed
         self.invalid_att = global_variables.ret_invalid_att
         self.invalid_obj = global_variables.ret_invalid_obj
+
+
+        # TODO GSOC 2016
+        if jsbml_data_tree is not None:
+            self.jsbml_data_tree = jsbml_data_tree
     ########################################################################
 
     # Functions for writing get functions
@@ -138,10 +145,19 @@ class SetGetFunctions():
         params = []
         return_lines = []
         additional = []
-        title_line = '@return the value of the \"{0}\" {1} of this {2}.' \
-            .format(attribute['name'],
-                    ('attribute' if is_attribute else 'element'),
-                    (self.class_name if self.is_java_api else self.object_name))
+        # title_line = '@return the value of the \"{0}\" {1} of this {2}.' \
+        #     .format(attribute['name'],
+        #             ('attribute' if is_attribute else 'element'),
+        #             (self.class_name if self.is_java_api else self.object_name))
+        title_line = '@return the {0}'.format(attribute['name'])
+
+        # TODO detect if override or not
+        additional_add = self.determine_override_or_deprecated(attribute)
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml'
+
 
         if not self.is_java_api:
             params.append('@param {0} the {1} structure whose {2} is sought.'
@@ -506,10 +522,11 @@ class SetGetFunctions():
         params = []
         return_lines = []
         additional = []
-        title_line = 'Predicate returning {0} if ' \
-                     'this {1}\'s \"{2}\" {3} is set.' \
-            .format(self.true, self.object_name, attribute['name'],
-                    ob_type)
+        # title_line = 'Predicate returning {0} if ' \
+        #              'this {1}\'s \"{2}\" {3} is set.' \
+        #     .format(self.true, self.object_name, attribute['name'],
+        #             ob_type)
+        title_line = '@return '
         if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
@@ -519,6 +536,15 @@ class SetGetFunctions():
                             .format(self.true, self.object_name,
                                     attribute['name'],
                                     ob_type, self.false))
+
+        # TODO detect if override
+        additional_add = self.determine_override_or_deprecated(attribute)
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml'
+
+
 
         # create the function declaration
         if self.is_java_api:
@@ -651,6 +677,15 @@ class SetGetFunctions():
                 return
 
 
+    def determine_override_or_deprecated(self, attribute):
+        # TODO write_set  implementation of return_type definition DONE
+        if attribute['type'] == 'SIdRef':
+            add = 'Override'
+        else:
+            add = None
+        return  add
+
+
     # TODO Add changes to write SIdRef multiple times
     # function to write set functions
     def write_set(self, is_attribute, index, write_for = "String"):
@@ -700,6 +735,9 @@ class SetGetFunctions():
                       .format(attribute['name'], att_type,
                               ob_type))
 
+        params = ['@param {0}'.format(attribute['name'])]
+                  # '       the {0} to set'.format(attribute['name'])]
+
         return_lines.append("@copydetails doc_returns_success_code")
         return_lines.append('@li @{0}constant{1}{2}, '
                             'OperationReturnValues_'
@@ -728,11 +766,13 @@ class SetGetFunctions():
         # TODO write_set  implementation of return_type definition DONE
         if attribute['type'] == 'SIdRef':
             return_type = 'boolean'
-            additional.append('@Override')
         else:
             return_type ='void'
             # additional.append(['@YOLOALOHA'])
 
+        additional_add = self.determine_override_or_deprecated(attribute)
+        if additional_add is not None:
+            additional.append(additional_add)
 
 
         arguments = []
@@ -1092,6 +1132,8 @@ class SetGetFunctions():
             return None
 
 
+
+
         # TODO When does it get used?
         if 'isVector' in attribute and attribute['isVector']:
             code = self.write_clear(attribute)
@@ -1104,8 +1146,16 @@ class SetGetFunctions():
         params = []
         return_lines = []
         additional = []
-        title_line = 'Unsets the value of the \"{0}\" {1} of this {2}.' \
-            .format(attribute['name'], ob_type, self.object_name)
+        title_line = '@return {{@code true}} if the unset of the {0} attribute was successful' \
+            .format(attribute['name'])
+
+
+        # TODO override unset
+        additional_add = self.determine_override_or_deprecated(attribute)
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml'
 
         if not self.is_java_api:
             params.append('@param {0} the {1} structure.'

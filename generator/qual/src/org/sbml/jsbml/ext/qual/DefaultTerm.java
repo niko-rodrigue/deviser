@@ -99,8 +99,7 @@ public class DefaultTerm extends AbstractMathContainer {
     resultLevel = null;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
    */
   @Override
   public DefaultTerm clone() {
@@ -108,7 +107,7 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
-   * @return the value of the "resultLevel" attribute of this DefaultTerm.
+   * @return the resultLevel
    */
   public int getResultLevel() {
     if (isSetResultLevel()) {
@@ -118,15 +117,14 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
-   * Predicate returning {@code true} if this DefaultTerm's "resultLevel"
-   * attribute is set.
+   * @return 
    */
   public boolean isSetResultLevel() {
     return resultLevel != null;
   }
 
   /**
-   * @param resultLevel int value of the "resultLevel" attribute to be set.
+   * @param resultLevel
    */
   public void setResultLevel(int resultLevel) {
     Integer oldResultLevel = this.resultLevel;
@@ -136,7 +134,8 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
-   * Unsets the value of the "resultLevel" attribute of this DefaultTerm.
+   * @return {@code true} if the unset of the resultLevel attribute was
+   * successful
    */
   public boolean unsetResultLevel() {
     if (isSetResultLevel()) {
