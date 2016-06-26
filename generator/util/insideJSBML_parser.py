@@ -15,7 +15,7 @@ def clean_line(data):
     return temp
 
 def extract_data(temp_data):
-    print('temp_data ',temp_data)
+    # print('temp_data ',temp_data)
     # function_name_step1  = temp_data[-1].split(');')
     # print(function_name_step1)
 
@@ -27,12 +27,14 @@ def extract_data(temp_data):
     of_type = ''
     of_type_args = []
 
+    if len(temp_data) == 1 and temp_data[-1] == '}':
+        return 
 
     for i in range(len(temp_data)):
         if temp_data[0] == 'Compiled':
-            continue
+            return
         if len(temp_data) == 1 and temp_data[-1] == '}':
-            break
+            return 
         # Function Arguments extracter
         if '(' in temp_data[i]:
             #print('i is ',i)
@@ -94,23 +96,33 @@ def extract_data(temp_data):
     if len(temp_data) > 1 and temp_data[1] == 'abstract':
         is_abstract = True 
         return_type = temp_data[2]
+    elif temp_data[1] == 'void':
+        return_type = temp_data[1]
+    else:
+        return_type = temp_data[1]
 
-    print('access_type ',access_type)
-    print('is_abstract ',is_abstract)
-    print('return_type ',return_type)
-    print('function_name ',function_name)
-    print('arguments ',arguments)
 
-    print('of_type ',of_type)
-    print('of_type_args ',of_type_args)
-    print('-----------')
+    # print('access_type ',access_type)
+    # print('is_abstract ',is_abstract)
+    # print('return_type ',return_type)
+    # print('function_name ',function_name)
+    # print('arguments ',arguments)
+
+    # print('of_type ',of_type)
+    # print('of_type_args ',of_type_args)
+    
+
+    return {'accessType':access_type,'isAbstract':is_abstract, 
+            'returnType':return_type, 'functionName':function_name,
+            'functionArgs':arguments, 'of_type':of_type, 
+            'of_type_args':of_type_args, 'originalData':temp_data}
     # function_name = function_name_step2[0] 
     # print('function_name ',function_name)
     # print('------------------')           
 
 
 def parse_output(output):
-    output_data = {}
+    output_data = []
     for line in output:
         #print(line) 
         data_stage1 = line.split('\n')
@@ -120,7 +132,13 @@ def parse_output(output):
         # print(line)
         # print(temp_data)
     
-        extract_data(temp_data)
+        data = extract_data(temp_data)
+
+        print('data is ', data)
+        print('-----------')
+        if data is not None:
+            output_data.append(data)
+
         
         # if '{' in temp_data:
         #     output_data.update({'classInfo':temp_data[:-1]})
@@ -135,14 +153,15 @@ def get_class_information(class_name=None):
     class_output  = os.popen('{0}'.format(command)).readlines()
     # print_output(class_output)
     dict_data = parse_output(class_output)
-    print(dict_data)
+    return dict_data
 
 
 
 
 # get_class_information()
 
-#class_name = 'org.sbml.jsbml.CompartmentalizedSBase'
+# class_name = 'org.sbml.jsbml.CompartmentalizedSBase'
 
 class_name = 'org.sbml.jsbml.AbstractNamedSBase'
-get_class_information(class_name)
+data = get_class_information(class_name)
+#print(data)
