@@ -122,7 +122,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml
+   * @see org.sbml.jsbml.CompartmentalizedSBase#getCompartment
    */
   @Override
   public String getCompartment() {
@@ -160,7 +160,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml
+   * @see org.sbml.jsbml.CompartmentalizedSBase#isSetCompartment
    */
   @Override
   public boolean isSetCompartment() {
@@ -188,7 +188,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return maxLevel != null;
   }
 
-  /* Sets the value of the "compartment" attribute of this QualitativeSpecies.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment
    */
   @Override
   public boolean setCompartment(String compartment) {
@@ -236,7 +237,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml
+   * @see org.sbml.jsbml.CompartmentalizedSBase#unsetCompartment
    */
   @Override
   public boolean unsetCompartment() {

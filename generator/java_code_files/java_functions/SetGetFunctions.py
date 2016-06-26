@@ -211,11 +211,11 @@ class SetGetFunctions():
                 return_type = '{0}'.format(attribute['CType'])
 
         # TODO detect if override or not
-        additional_add = self.determine_override_or_deprecated(attribute,function)
+        additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute,function)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'
-            title_line += '@see org.sbml.jsbml'
+            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
 
         arguments = []
         if not self.is_java_api:
@@ -558,11 +558,11 @@ class SetGetFunctions():
             return_type = 'int'
 
         # TODO detect if override
-        additional_add = self.determine_override_or_deprecated(attribute, function)
+        additional_add, class_key, functionArgs = self.determine_override_or_deprecated(attribute, function)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'
-            title_line += '@see org.sbml.jsbml'
+            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
 
 
         arguments = []
@@ -684,19 +684,25 @@ class SetGetFunctions():
                 return
 
 
-    def determine_override_or_deprecated(self, attribute, function):
+    def determine_override_or_deprecated(self, attribute, function, return_type=None,att_type=None):
         # TODO write_set  implementation of return_type definition DONE
         add = None
+        class_key = None
+        functionArgs = None
         for key in list(self.jsbml_methods.keys()):
             for method in self.jsbml_methods[key]:
                 if function == method['functionName']:
+                    class_key = key
                     if method['isAbstract'] is True:
+                        if att_type is not None and att_type in method['functionArgs']:
+                            functionArgs = method['functionArgs']
+
                         add = 'Override'
         # if attribute['type'] == 'SIdRef':
         #     add = 'Override'
         # else:
         #     add = None
-        return  add
+        return add, class_key, functionArgs
 
 
     # TODO Add changes to write SIdRef multiple times
@@ -783,10 +789,11 @@ class SetGetFunctions():
             return_type ='void'
             # additional.append(['@YOLOALOHA'])
 
-        additional_add = self.determine_override_or_deprecated(attribute, function)
+        additional_add, class_key, functionArgs = self.determine_override_or_deprecated(attribute, function, return_type)
         if additional_add is not None:
             additional.append(additional_add)
-
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
 
         arguments = []
         if self.is_java_api:
@@ -1187,16 +1194,24 @@ class SetGetFunctions():
                                              attribute['capAttName'])
             return_type = 'int'
 
-        # TODO override unset
-        additional_add = self.determine_override_or_deprecated(attribute,function)
+        # TODO override unset need to change this part
+        additional_add, class_key, functionArgs = self.determine_override_or_deprecated(attribute,function)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'
-            title_line += '@see org.sbml.jsbml'
+            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+            # if functionArgs is None:
+            #     title_line += '()'
+            # if functionArgs is not None and len(functionArgs) > 1:
+            #     pass
+            #     # for i in functionArgs:
+            #     #     title_line += i
+            # else:
+            #     title_line += '()'
 
 
 
-        # TODO GSOC 2016 write_unset return type definition
+                    # TODO GSOC 2016 write_unset return type definition
         return_type = 'boolean'
         arguments = []
         if not self.is_java_api:
