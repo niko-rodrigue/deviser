@@ -466,9 +466,10 @@ class BaseJavaFile(BaseFile.BaseFile):
             data = insideJSBML_parser.get_class_information(module)
             self.jsbml_methods.update({module: data})
 
-            for interface_class in self.jsbml_data_tree[module]['parentInterface']:
-                interface = insideJSBML_parser.get_class_information(interface_class)
-                self.jsbml_methods.update({interface_class: data})
+            if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
+                for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
+                    interface = insideJSBML_parser.get_class_information(interface_class)
+                    self.jsbml_methods.update({interface_class: interface})
 
         for module in self.implements_modules:
             data = insideJSBML_parser.get_class_information(module)

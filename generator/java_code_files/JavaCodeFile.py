@@ -75,7 +75,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_attribute_functions()
 
         # TODO GSOC MANDATORY
-        # self.write_mandatory_functions()
+        self.write_mandatory_functions()
 
 
         # self.write_child_element_functions()
@@ -242,15 +242,16 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.is_java_api,
                                                            self.is_list_of,
                                                            self.class_object,
-                                                           self.mandatory_data)
+                                                           self.jsbml_data_tree,
+                                                           self.jsbml_methods)
 
-        num_attributes = len(self.mandatory_data)
-
-        # TODO how to write instance methods
-        for i in range(0, num_attributes):
-            code = attrib_functions.write_mandatory(True, i)
-            # self.write_function_implementation(code)
-            self.write_function_java(code)
+        # num_attributes = len(self.mandatory_data)
+        #
+        # # TODO how to write instance methods
+        # for i in range(0, num_attributes):
+        #     code = attrib_functions.write_mandatory(True, i)
+        #     # self.write_function_implementation(code)
+        #     self.write_function_java(code)
 
     # function to write the get/set/isSet/unset functions for attributes
     def write_attribute_functions(self):

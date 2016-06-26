@@ -111,10 +111,35 @@ class MandatoryFunctions():
         if jsbml_methods is not None:
             self.jsbml_methods = jsbml_methods
 
+
+        self.mandatory_data = {}
+
+        self.determine_mandatory_methods()
+
     ########################################################################
 
-    def determine_mandatory_methods(self):
-        pass
+
+    # TODO GSOC 2016 determine mandatory methods to write
+    def determine_mandatory_methods(self, function='Mandatory'):
+        for key in list(self.jsbml_methods.keys()):
+            for method in self.jsbml_methods[key]:
+                if function in method['functionName']:
+                    self.mandatory_data.update({method['functionName']: method})
+
+
+        # TODO fix bug no need isCompartment
+        for attribute in self.attributes:
+            att_name = strFunctions.upper_first(attribute['name'])
+            method_name = 'is{0}'.format(att_name)
+            if method_name not in self.mandatory_data:
+                for key in list(self.mandatory_data.keys()):
+                    if method_name not in key:
+                        if att_name != 'Id' and att_name != 'Name':
+                            self.mandatory_data.update({method_name: attribute})
+
+        print('Mandatory Data ', list(self.mandatory_data.keys()))
+
+
 
     # Functions for writing mandatory
 
