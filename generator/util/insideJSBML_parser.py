@@ -65,7 +65,7 @@ def extract_data(temp_data):
             #     arguments.append(arg)
             #     for y in range(len(temp_data[function_index+1:])):
             #         print('y is ',temp_data[y])
-            print(function_name,'--', function_index) # THis works
+            # print(function_name,'--', function_index) # THis works
             # function_name_step2  = function_name_step1[-1].split(');')
             # print(function_name_step2)
         elif '<' in temp_data[i]:
@@ -102,6 +102,9 @@ def extract_data(temp_data):
         return_type = temp_data[1]
 
 
+    if function_name == '':
+        return
+
     # print('access_type ',access_type)
     # print('is_abstract ',is_abstract)
     # print('return_type ',return_type)
@@ -134,8 +137,8 @@ def parse_output(output):
     
         data = extract_data(temp_data)
 
-        print('data is ', data)
-        print('-----------')
+        # print('data is ', data)
+        # print('-----------')
         if data is not None:
             output_data.append(data)
 
@@ -149,6 +152,7 @@ def parse_output(output):
     return output_data
 
 def get_class_information(class_name=None):
+    class_name = 'org.sbml.jsbml.{0}'.format(class_name)
     command = 'javap -package {0}'.format(class_name)
     class_output  = os.popen('{0}'.format(command)).readlines()
     # print_output(class_output)
@@ -162,6 +166,6 @@ def get_class_information(class_name=None):
 
 # class_name = 'org.sbml.jsbml.CompartmentalizedSBase'
 
-class_name = 'org.sbml.jsbml.AbstractNamedSBase'
-data = get_class_information(class_name)
-#print(data)
+# class_name = 'org.sbml.jsbml.AbstractNamedSBase'
+# data = get_class_information(class_name)
+# print(data)

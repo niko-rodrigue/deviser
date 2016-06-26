@@ -38,6 +38,7 @@
 
 import os
 from collections import defaultdict
+from util import insideJSBML_parser
 
 
 def tree():
@@ -1085,3 +1086,11 @@ initial_level = 'InitialLevel'
 jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['Override'] = False
 jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['returnType'] = 'boolean'
 jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['return'] = 'false'
+
+
+
+# TODO approach for whole thing not effective
+# keys = jsbml_data_tree.keys()
+# for key in keys:
+#     class_methods = insideJSBML_parser.get_class_information(key)
+#     #print(class_methods)
