@@ -154,10 +154,14 @@ def parse_output(output):
 def get_class_information(class_name=None):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
     command = 'javap -package {0}'.format(class_name)
-    class_output  = os.popen('{0}'.format(command)).readlines()
+    try:
+        class_output = os.popen('{0}'.format(command)).readlines()
+        dict_data = parse_output(class_output)
+        return dict_data
+    except:
+        return
     # print_output(class_output)
-    dict_data = parse_output(class_output)
-    return dict_data
+
 
 
 

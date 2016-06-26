@@ -40,7 +40,7 @@
 import time
 import os
 from . import BaseFile
-from util import strFunctions, query, global_variables, jsbml_data_tree
+from util import strFunctions, query, global_variables, jsbml_data_tree, insideJSBML_parser
 
 
 class BaseJavaFile(BaseFile.BaseFile):
@@ -459,6 +459,34 @@ class BaseJavaFile(BaseFile.BaseFile):
                                                    'implements': self.implements_modules,
                                                    'javaModules': sorted(self.import_from_java_modules),
                                                    'jsbmlModules': self.import_from_jsbml_modules})
+
+    def expand_jsbml_methods(self):
+        self.jsbml_methods = {}
+        for module in self.extends_modules:
+            data = insideJSBML_parser.get_class_information(module)
+            self.jsbml_methods.update({module: data})
+
+            for interface_class in self.jsbml_data_tree[module]['parentInterface']:
+                interface = insideJSBML_parser.get_class_information(interface_class)
+                self.jsbml_methods.update({interface_class: data})
+
+        for module in self.implements_modules:
+            data = insideJSBML_parser.get_class_information(module)
+            self.jsbml_methods.update({module: data})
+
+        for i in range(0, len(self.attributes)):
+            capname = strFunctions.upper_first(self.attributes[i]['name'])
+            # print('capname is ',capname)
+            if capname not in list(self.jsbml_data_tree.keys()):
+                continue
+            else:
+                data = insideJSBML_parser.get_class_information(capname)
+                # print('yahoo ',data)
+                self.jsbml_methods.update({capname: data})
+
+
+        # print('YOLO ',self.jsbml_methods)
+
 
 
 

@@ -150,7 +150,7 @@ jsbml_data_tree[species]['parentNode'] = symbol # TODO fill
 jsbml_data_tree[species]['hasChildren'] = False
 jsbml_data_tree[species]['childrenNodes'] = None
 jsbml_data_tree[species]['isInterface'] = False
-jsbml_data_tree[species]['parentInterfaces'] = ['CompartmentilizedSBase']
+jsbml_data_tree[species]['parentInterfaces'] = [compartmentalized_sbase]
 jsbml_data_tree[species]['childrenInterfaces'] = None
 jsbml_data_tree[species]['isUniqueJSBML'] = False
 jsbml_data_tree[species]['level'] = 0
@@ -1070,22 +1070,22 @@ jsbml_data_tree[pack_qual]['FunctionTerm'] = ['AbstractMathContainer']
 jsbml_data_tree[pack_qual]['DefaultTerm'] = ['AbstractMathContainer']
 
 
-# TODO GSOC 2016 Mandatory
-mandatory_keyword = 'Mandatory'
-
-jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['Override'] = True
-jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['returnType'] = 'boolean'
-jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['return'] = 'true'
-
-jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['Override'] = True
-jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['returnType'] = 'boolean'
-jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['return'] = 'true'
-jsbml_data_tree[compartment]['isAbstract'] = True
-
-initial_level = 'InitialLevel'
-jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['Override'] = False
-jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['returnType'] = 'boolean'
-jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['return'] = 'false'
+# # TODO GSOC 2016 Mandatory
+# mandatory_keyword = 'Mandatory'
+#
+# jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['Override'] = True
+# jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['returnType'] = 'boolean'
+# jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['return'] = 'true'
+#
+# jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['Override'] = True
+# jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['returnType'] = 'boolean'
+# jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['return'] = 'true'
+# jsbml_data_tree[compartment]['isAbstract'] = True
+#
+# initial_level = 'InitialLevel'
+# jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['Override'] = False
+# jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['returnType'] = 'boolean'
+# jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['return'] = 'false'
 
 
 

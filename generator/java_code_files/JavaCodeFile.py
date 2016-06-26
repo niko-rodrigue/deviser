@@ -55,7 +55,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
-            self.expand_mandatory()
+
+            # TODO GSOC 2016 JSBML
+            self.expand_import_modules()
+            # self.expand_mandatory()
+            self.expand_jsbml_methods()
 
 
         # self.jsbml_modules = jsbml_data_tree.jsbml_modules
@@ -70,7 +74,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_attribute_functions()
 
-        self.write_mandatory_functions()
+        # TODO GSOC MANDATORY
+        # self.write_mandatory_functions()
 
 
         # self.write_child_element_functions()
@@ -253,7 +258,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.is_java_api,
                                                            self.is_list_of,
                                                            self.class_object,
-                                                           self.jsbml_data_tree)
+                                                           self.jsbml_data_tree,
+                                                           self.jsbml_methods)
         num_attributes = len(self.class_attributes)
 
 
@@ -753,7 +759,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
     def write_java_imports(self):
         # TODO mockup function
-        self.expand_import_modules()
         self.skip_line()
         java_modules = self.jsbml_class_header_and_import['javaModules']
         if len(java_modules) > 0:
