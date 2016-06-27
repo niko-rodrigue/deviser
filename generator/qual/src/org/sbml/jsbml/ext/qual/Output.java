@@ -246,9 +246,10 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     }
   }
 
-  /**
-   * @return false
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
+  @Override
   public boolean isIdMandatory() {
     return false;
   }

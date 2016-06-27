@@ -289,9 +289,10 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
   }
 
-  /**
-   * @return false
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
+  @Override
   public boolean isIdMandatory() {
     return false;
   }

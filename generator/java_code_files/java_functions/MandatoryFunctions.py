@@ -231,14 +231,6 @@ class MandatoryFunctions():
             return_type = 'boolean'
 
 
-        additional_add = []
-        # TODO detect if override or not
-        # additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute_key)
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        #     title_line = '(non-Javadoc)--'
-        #     title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
-
         if len(self.mandatory_data[attribute_key]) > 2:
             curr_attribute = self.mandatory_data[attribute_key]
         elif len(self.mandatory_data[attribute_key]) == 2:
@@ -250,7 +242,17 @@ class MandatoryFunctions():
         else:
             return_value = 'true'
 
+
         title_line = '@return {0}'.format(return_value)
+
+        additional_add = []
+        # TODO detect if override or not
+        additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute_key)
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+
 
         if self.is_java_api:
             implement_string = ['return {0}'.format(return_value)]

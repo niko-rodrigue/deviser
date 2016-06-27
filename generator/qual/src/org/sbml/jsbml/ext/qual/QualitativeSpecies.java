@@ -295,9 +295,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     }
   }
 
-  /**
-   * @return true
+  /* (non-Javadoc)
+   * @see
    */
+  @Override
   public boolean isCompartmentMandatory() {
     return true;
   }
@@ -309,9 +310,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return true;
   }
 
-  /**
-   * @return true
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
+  @Override
   public boolean isIdMandatory() {
     return true;
   }

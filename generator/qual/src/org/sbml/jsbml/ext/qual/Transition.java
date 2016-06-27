@@ -105,9 +105,10 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return new Transition(this);
   }
 
-  /**
-   * @return false
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
+  @Override
   public boolean isIdMandatory() {
     return false;
   }
