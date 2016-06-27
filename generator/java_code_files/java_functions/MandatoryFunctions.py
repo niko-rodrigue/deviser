@@ -116,6 +116,7 @@ class MandatoryFunctions():
 
         self.determine_mandatory_methods()
 
+
     ########################################################################
 
 
@@ -124,26 +125,33 @@ class MandatoryFunctions():
         for key in list(self.jsbml_methods.keys()):
             for method in self.jsbml_methods[key]:
                 if function in method['functionName']:
-                    self.mandatory_data.update({method['functionName']: method})
+                    self.mandatory_data.update({method['functionName']: [method]})
 
-
-        # TODO fix bug no need isCompartment
+        #
+        # # TODO fix bug no need isCompartment
         for attribute in self.attributes:
+
             att_name = strFunctions.upper_first(attribute['name'])
-            method_name = 'is{0}'.format(att_name)
-            if method_name not in self.mandatory_data:
-                for key in list(self.mandatory_data.keys()):
-                    if method_name not in key:
-                        if att_name != 'Id' and att_name != 'Name':
-                            self.mandatory_data.update({method_name: attribute})
+            method_name = str('is{0}Mandatory'.format(att_name))
+            for key in list(self.mandatory_data.keys()):
+                if method_name != str(key):
+                    if att_name != 'Id' and att_name != 'Name':
+                        self.mandatory_data.update({method_name: attribute})
+                elif method_name == str(key):
+                    self.mandatory_data[method_name].append(attribute)
+        # #
+        # # print('Mandatory Data ', list(self.mandatory_data.keys()))
+        # return sorted(list(self.mandatory_data.keys()))
 
-        print('Mandatory Data ', list(self.mandatory_data.keys()))
-
-
+    def get_num_attributes(self):
+        try:
+            return len(self.write_order)
+        except:
+            return 0
 
     # Functions for writing mandatory
 
-    def determine_override_or_deprecated(self, attribute, function, return_type=None,att_type=None):
+    def determine_override_or_deprecated(self, function, return_type=None,att_type=None):
         # TODO write_set  implementation of return_type definition DONE
         add = None
         class_key = None
@@ -171,57 +179,64 @@ class MandatoryFunctions():
         if not self.is_java_api and not const:
             return
         if is_attribute:
-            if index < len(self.mandatory_data):
-                attribute = self.mandatory_data[index]
-                print(attribute.keys())
+            if index < len(self.write_order):
+                attribute_key = self.write_order[index]
             else:
                 return
 
-        key = list(attribute.keys())[0]
         # # TODO GSOC 2016 JSBML change
+
+
+        # attribute = self.mandatory_data[attribute_key]
 
         params = []
         arguments = []
         return_lines = []
         additional = []
 
-        if attribute[key]['Override'] is True:
-            title_line = '(non-Javadoc)'
-        else:
-            title_line = '@return {0} '.format(attribute[key]['return'])
-            # .format(attribute['name'],
-            #         ('attribute' if is_attribute else 'element'),
-            #         (self.class_name if self.is_java_api else self.object_name))
-
-        if self.is_java_api:
-            return_lines.append('@return {0} '.format(attribute[key]['return']))
-                                # .format(attribute['name'],
-                                #         ('attribute' if is_attribute
-                                #          else 'element'),
-                                #         self.class_name,
-                                #         (attribute['attType']
-                                #          if (is_attribute
-                                #              and attribute['isEnum'] is False)
-                                #          else attribute['attTypeCode'])))
 
 
+        # if self.is_java_api:
+        #     return_lines.append('@return {0} '.format(attribute[key]['return']))
+        #                         # .format(attribute['name'],
+        #                         #         ('attribute' if is_attribute
+        #                         #          else 'element'),
+        #                         #         self.class_name,
+        #                         #         (attribute['attType']
+        #                         #          if (is_attribute
+        #                         #              and attribute['isEnum'] is False)
+        #                         #          else attribute['attTypeCode'])))
+
+
+
+
+
+
+        additional_add = []
         # TODO detect if override or not
-        additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute,function)
+        additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute_key)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'
             title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
 
 
+
+
+
         # create the function declaration
         if self.is_java_api:
-            function = '{0}'.format(key)
-            return_type = attribute[key]['returnType']
+            function = '{0}'.format(attribute_key)
+            return_type = 'boolean'
 
+        if len(self.mandatory_data[attribute_key]) > 1:
+            curr_attribute = self.mandatory_data[attribute_key][1]
+            return_value = curr_attribute['reqd']
+        else:
+            curr_attribute = self.mandatory_data[attribute_key][10]
+            return_value = curr_attribute['reqd']
 
         if self.is_java_api:
-            if attribute[key]['Override'] is True:
-                additional.append('Override')
             implement_string = ['return {0}'.format(attribute[key]['return'])]
             code = [self.create_code_block('line', implement_string)]
         #         else:

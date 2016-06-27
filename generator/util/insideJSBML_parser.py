@@ -1,5 +1,5 @@
 import os
-
+import time
 
 # command = 'javap -p org.sbml.jsbml.CompartmentalizedSBase'
 
@@ -155,8 +155,10 @@ def get_class_information(class_name=None):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
     command = 'javap -package {0}'.format(class_name)
     try:
-        class_output = os.popen('{0}'.format(command)).readlines()
+        class_info = os.popen('{0}'.format(command))
+        class_output = class_info.readlines()
         dict_data = parse_output(class_output)
+        class_info.close()
         return dict_data
     except:
         return

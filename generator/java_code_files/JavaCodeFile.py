@@ -245,9 +245,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.jsbml_data_tree,
                                                            self.jsbml_methods)
 
-        # num_attributes = len(self.mandatory_data)
+        # num_attributes = attrib_functions.get_num_attributes()
         #
-        # # TODO how to write instance methods
+        # # # TODO how to write instance methods
         # for i in range(0, num_attributes):
         #     code = attrib_functions.write_mandatory(True, i)
         #     # self.write_function_implementation(code)

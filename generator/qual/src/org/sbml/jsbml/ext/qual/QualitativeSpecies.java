@@ -295,4 +295,3 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     }
   }
 
-}
