@@ -134,11 +134,17 @@ class MandatoryFunctions():
             att_name = strFunctions.upper_first(attribute['name'])
             method_name = str('is{0}Mandatory'.format(att_name))
             for key in list(self.mandatory_data.keys()):
-                if (str(method_name) is not  str(key)):
-                    if (str(att_name) != 'Id') and (str(att_name) != 'Name'):
-                        self.mandatory_data.update({method_name: attribute})
-                elif (str(method_name) is str(key)):
+                test_key = str(key)[:]
+                test_method = str(method_name)[:]
+                att = str(att_name)[:]
+                if (test_method == test_key):
                     self.mandatory_data[method_name].append(attribute)
+                # here is  the problem but how to fix it
+                else: #(test_method != test_key):
+                    if test_method not in self.mandatory_data:
+                        if att not in ['Id', 'Name']:
+                            self.mandatory_data.update({method_name: attribute})
+
         # #
         # # print('Mandatory Data ', list(self.mandatory_data.keys()))
         return sorted(list(self.mandatory_data.keys()))
