@@ -289,4 +289,39 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
   }
 
+  /**
+   * @return false
+   */
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isQualitativeSpeciesMandatory() {
+    return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isSignMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isThresholdLevelMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isTransitionEffectMandatory() {
+    return false;
+  }
+
 }

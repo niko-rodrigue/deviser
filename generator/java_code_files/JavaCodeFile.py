@@ -249,10 +249,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         print('num attributes ', num_attributes)
         #
         # # # TODO how to write instance methods
-        # for i in range(0, num_attributes):
-        #     code = attrib_functions.write_mandatory(True, i)
-        #     # self.write_function_implementation(code)
-        #     self.write_function_java(code)
+        for i in range(0, num_attributes):
+            code = attrib_functions.write_mandatory(True, i)
+            # self.write_function_implementation(code)
+            self.write_function_java(code)
 
     # function to write the get/set/isSet/unset functions for attributes
     def write_attribute_functions(self):

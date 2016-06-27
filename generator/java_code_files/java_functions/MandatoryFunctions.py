@@ -239,17 +239,18 @@ class MandatoryFunctions():
         #     title_line = '(non-Javadoc)--'
         #     title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
 
-        if len(self.mandatory_data[attribute_key]) > 1:
+        if len(self.mandatory_data[attribute_key]) > 2:
+            curr_attribute = self.mandatory_data[attribute_key]
+        elif len(self.mandatory_data[attribute_key]) == 2:
             curr_attribute = self.mandatory_data[attribute_key][1]
-            return_value = curr_attribute['reqd']
-        else:
-            curr_attribute = self.mandatory_data[attribute_key][10]
-            return_value = curr_attribute['reqd']
 
-        if return_value is 'False':
+        return_value = str(curr_attribute['reqd'])[:]
+        if return_value == 'False':
             return_value = 'false'
         else:
             return_value = 'true'
+
+        title_line = '@return {0}'.format(return_value)
 
         if self.is_java_api:
             implement_string = ['return {0}'.format(return_value)]

@@ -105,4 +105,11 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return new Transition(this);
   }
 
+  /**
+   * @return false
+   */
+  public boolean isIdMandatory() {
+    return false;
+  }
+
 }

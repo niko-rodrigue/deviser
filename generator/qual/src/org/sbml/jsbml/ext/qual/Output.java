@@ -246,4 +246,32 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     }
   }
 
+  /**
+   * @return false
+   */
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isOutputLevelMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isQualitativeSpeciesMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isTransitionEffectMandatory() {
+    return false;
+  }
+
 }
