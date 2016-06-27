@@ -245,7 +245,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.jsbml_data_tree,
                                                            self.jsbml_methods)
 
-        # num_attributes = attrib_functions.get_num_attributes()
+        num_attributes = attrib_functions.get_num_attributes()
+        print('num attributes ', num_attributes)
         #
         # # # TODO how to write instance methods
         # for i in range(0, num_attributes):

@@ -114,7 +114,7 @@ class MandatoryFunctions():
 
         self.mandatory_data = {}
 
-        self.determine_mandatory_methods()
+        self.write_order = self.determine_mandatory_methods()
 
 
     ########################################################################
@@ -134,17 +134,18 @@ class MandatoryFunctions():
             att_name = strFunctions.upper_first(attribute['name'])
             method_name = str('is{0}Mandatory'.format(att_name))
             for key in list(self.mandatory_data.keys()):
-                if method_name != str(key):
-                    if att_name != 'Id' and att_name != 'Name':
+                if (str(method_name) is not  str(key)):
+                    if (str(att_name) != 'Id') and (str(att_name) != 'Name'):
                         self.mandatory_data.update({method_name: attribute})
-                elif method_name == str(key):
+                elif (str(method_name) is str(key)):
                     self.mandatory_data[method_name].append(attribute)
         # #
         # # print('Mandatory Data ', list(self.mandatory_data.keys()))
-        # return sorted(list(self.mandatory_data.keys()))
+        return sorted(list(self.mandatory_data.keys()))
 
     def get_num_attributes(self):
         try:
+            #print(self.write_order)
             return len(self.write_order)
         except:
             return 0
@@ -212,13 +213,7 @@ class MandatoryFunctions():
 
 
 
-        additional_add = []
-        # TODO detect if override or not
-        additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute_key)
-        if additional_add is not None:
-            additional.append(additional_add)
-            title_line = '(non-Javadoc)--'
-            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+
 
 
 
@@ -229,6 +224,15 @@ class MandatoryFunctions():
             function = '{0}'.format(attribute_key)
             return_type = 'boolean'
 
+
+        additional_add = []
+        # TODO detect if override or not
+        # additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute_key)
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        #     title_line = '(non-Javadoc)--'
+        #     title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+
         if len(self.mandatory_data[attribute_key]) > 1:
             curr_attribute = self.mandatory_data[attribute_key][1]
             return_value = curr_attribute['reqd']
@@ -236,8 +240,13 @@ class MandatoryFunctions():
             curr_attribute = self.mandatory_data[attribute_key][10]
             return_value = curr_attribute['reqd']
 
+        if return_value is 'False':
+            return_value = 'false'
+        else:
+            return_value = 'true'
+
         if self.is_java_api:
-            implement_string = ['return {0}'.format(attribute[key]['return'])]
+            implement_string = ['return {0}'.format(return_value)]
             code = [self.create_code_block('line', implement_string)]
         #         else:
         #             if curr_att_type in global_variables.javaTypeAttributes:
