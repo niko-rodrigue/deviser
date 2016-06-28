@@ -66,3 +66,6 @@ testOutput/
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+.idea/deviser.iml
+.idea/misc.xml
+.idea/modules.xml
