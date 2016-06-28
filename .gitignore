@@ -58,3 +58,6 @@ target/
 
 #mine
 testOutput/
+
+# PyCharm IDE
+.idea/**
