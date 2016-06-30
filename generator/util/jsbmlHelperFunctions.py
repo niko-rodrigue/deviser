@@ -36,5 +36,34 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from base_files import BaseJavaFile
+
 from util import query, strFunctions, global_variables, insideJSBML_parser
+
+
+# Determine override or or deprecated
+def determine_override_or_deprecated(jsbml_methods, function, attribute= None, return_type=None, att_type=None):
+    # TODO write_set  implementation of return_type definition DONE
+    add = None
+    class_key = None
+    functionArgs = None
+    for key in list(jsbml_methods.keys()):
+        for method in jsbml_methods[key]:
+            if function == method['functionName']:
+                class_key = key
+                if method['isAbstract'] is True:
+                    if att_type is not None and att_type in method['functionArgs']:
+                        functionArgs = method['functionArgs']
+
+                    add = 'Override'
+    # if attribute['type'] == 'SIdRef':
+    #     add = 'Override'
+    # else:
+    #     add = None
+    return add, class_key, functionArgs
+
+
+def get_javadoc_comments_and_state(additional_add, class_key, function,  functionArgs):
+    if additional_add is not None:
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+    return  title_line

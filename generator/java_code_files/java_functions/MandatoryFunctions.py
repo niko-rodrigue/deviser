@@ -36,7 +36,7 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, query, global_variables
+from util import strFunctions, query, global_variables, jsbmlHelperFunctions
 import sys
 
 
@@ -158,25 +158,6 @@ class MandatoryFunctions():
 
     # Functions for writing mandatory
 
-    def determine_override_or_deprecated(self, function, return_type=None,att_type=None):
-        # TODO write_set  implementation of return_type definition DONE
-        add = None
-        class_key = None
-        functionArgs = None
-        for key in list(self.jsbml_methods.keys()):
-            for method in self.jsbml_methods[key]:
-                if function == method['functionName']:
-                    class_key = key
-                    if method['isAbstract'] is True:
-                        if att_type is not None and att_type in method['functionArgs']:
-                            functionArgs = method['functionArgs']
-
-                        add = 'Override'
-        # if attribute['type'] == 'SIdRef':
-        #     add = 'Override'
-        # else:
-        #     add = None
-        return add, class_key, functionArgs
 
 
 
@@ -247,7 +228,7 @@ class MandatoryFunctions():
 
         additional_add = []
         # TODO detect if override or not
-        additional_add, class_key, functionArgs= self.determine_override_or_deprecated(attribute_key)
+        additional_add, class_key, functionArgs= jsbmlHelperFunctions.determine_override_or_deprecated(self.jsbml_methods, attribute_key)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'
