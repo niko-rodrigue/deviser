@@ -62,14 +62,45 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
     return add, class_key, functionArgs
 
 
-def get_javadoc_comments_and_state(additional_add, class_key, function,  functionArgs):
+def get_javadoc_comments_and_state(additional_add, class_key, function, functionArgs):
     if additional_add is not None:
         title_line = '(non-Javadoc)--'
         title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
-    return  title_line
+    return title_line
 
 
 
-def find_function_with_diff_args(jsbml_methods,attribute, function ):
+def javap_arg_parser(argument):
+    arg = argument
+    # print('argus ',arg)
+    arg_type = None
+    if len(arg)>1:
+        pass
+    else:
+        arg_type = arg[0].split('.')[-1]
+        # print('arg_type ', arg_type)
+    return arg_type
+
+def find_function_with_diff_args(jsbml_methods, attribute, function ):
     print('function ', function)
     print('arguments ', attribute['attTypeCode'])
+    orginal_attType = str(attribute['attTypeCode'])[:]
+    function_name = str(function)[:]
+    curr_attribute = attribute
+    jsbml_methods = jsbml_methods
+
+    method_to_write =  None
+
+    for key in list(jsbml_methods.keys()):
+        for method in jsbml_methods[key]:
+            if function_name == method['functionName']:
+                # print("YAHSHDASD", method)
+                arg_type = javap_arg_parser(method['functionArgs'])[:]
+                if arg_type is not None:
+                    if arg_type != orginal_attType:
+                        method_to_write = [arg_type, method]
+
+    print('tada ',method_to_write)
+
+
+
