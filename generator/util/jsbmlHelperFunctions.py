@@ -67,3 +67,9 @@ def get_javadoc_comments_and_state(additional_add, class_key, function,  functio
         title_line = '(non-Javadoc)--'
         title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
     return  title_line
+
+
+
+def find_function_with_diff_args(jsbml_methods,attribute, function ):
+    print('function ', function)
+    print('arguments ', attribute['attTypeCode'])

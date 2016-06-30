@@ -824,6 +824,12 @@ class SetGetFunctions():
                                                        self.cap_language)]
             code = [self.create_code_block('line', implementation)]
 
+
+        similar_function = jsbmlHelperFunctions.find_function_with_diff_args(self.jsbml_methods,
+                                                                             attribute, function)
+
+
+
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
