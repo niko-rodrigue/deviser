@@ -684,26 +684,7 @@ class SetGetFunctions():
             else:
                 return
 
-    #
-    # def determine_override_or_deprecated(self,function, attribute=None, return_type=None,att_type=None):
-    #     # TODO write_set  implementation of return_type definition DONE
-    #     add = None
-    #     class_key = None
-    #     functionArgs = None
-    #     for key in list(self.jsbml_methods.keys()):
-    #         for method in self.jsbml_methods[key]:
-    #             if function == method['functionName']:
-    #                 class_key = key
-    #                 if method['isAbstract'] is True:
-    #                     if att_type is not None and att_type in method['functionArgs']:
-    #                         functionArgs = method['functionArgs']
-    #
-    #                     add = 'Override'
-    #     # if attribute['type'] == 'SIdRef':
-    #     #     add = 'Override'
-    #     # else:
-    #     #     add = None
-    #     return add, class_key, functionArgs
+
 
 
     # TODO Add changes to write SIdRef multiple times
