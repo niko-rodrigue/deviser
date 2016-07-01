@@ -89,7 +89,7 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
     curr_attribute = attribute
     jsbml_methods = jsbml_methods
 
-    method_to_write =  None
+    method_to_write = None
 
     for key in list(jsbml_methods.keys()):
         for method in jsbml_methods[key]:
@@ -101,6 +101,7 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
                         method_to_write = [arg_type, method]
 
     print('tada ',method_to_write)
+    return method_to_write
 
 
 

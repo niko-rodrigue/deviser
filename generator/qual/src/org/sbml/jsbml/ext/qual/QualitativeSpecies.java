@@ -208,6 +208,13 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return false;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment
+   */
+  @Override
+  public boolean setCompartment(Compartment compartment) {
+  }
+
   /**
    * @param constant
    */
@@ -215,6 +222,12 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     Boolean oldConstant = this.constant;
     this.constant = constant;
     firePropertyChange(QualConstants.constant, oldConstant, this.constant);
+  }
+
+  /**
+   * Sets the value of the "constant" attribute of this QualitativeSpecies.
+   */
+  public boolean setConstant(Compartment constant) {
   }
 
   /**
@@ -228,12 +241,24 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
+   * Sets the value of the "initialLevel" attribute of this QualitativeSpecies.
+   */
+  public boolean setInitialLevel(Compartment initialLevel) {
+  }
+
+  /**
    * @param maxLevel
    */
   public void setMaxLevel(int maxLevel) {
     Integer oldMaxLevel = this.maxLevel;
     this.maxLevel = maxLevel;
     firePropertyChange(QualConstants.maxLevel, oldMaxLevel, this.maxLevel);
+  }
+
+  /**
+   * Sets the value of the "maxLevel" attribute of this QualitativeSpecies.
+   */
+  public boolean setMaxLevel(Compartment maxLevel) {
   }
 
   /* (non-Javadoc)

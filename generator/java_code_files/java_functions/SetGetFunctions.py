@@ -114,6 +114,8 @@ class SetGetFunctions():
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
             self.jsbml_methods = jsbml_methods
+
+        self.duplicate_methods = []
     ########################################################################
 
     # Functions for writing get functions
@@ -827,6 +829,8 @@ class SetGetFunctions():
 
         similar_function = jsbmlHelperFunctions.find_function_with_diff_args(self.jsbml_methods,
                                                                              attribute, function)
+        if similar_function is not None:
+            self.duplicate_methods.append(similar_function)
 
 
 
@@ -842,6 +846,82 @@ class SetGetFunctions():
                      'virtual': False,
                      'object_name': self.struct_name,
                      'implementation': code})
+
+    def get_similar_num_attributes(self):
+        try:
+            return len(self.duplicate_methods)
+        except Exception as e:
+            return 0
+
+
+    def write_similar_functions(self, is_attribute, att_index, duplic_index):
+        if is_attribute:
+            if att_index < len(self.attributes):
+                attribute = self.attributes[att_index]
+            else:
+                return
+            if duplic_index < len(self.duplicate_methods):
+                dup_attribute = self.duplicate_methods[duplic_index]
+            else:
+                return
+        if is_attribute:
+            ob_type = 'attribute'
+        else:
+            ob_type = 'element'
+
+        # create comment parts
+        params = []
+        return_lines = []
+
+        # TODO could this be used for overrides?
+        additional = []
+        arguments = []
+        title_line = 'Sets the value of the \"{0}\" {1} of this {2}.' \
+            .format(attribute['name'], ob_type, self.object_name)
+
+        if self.is_java_api:
+            function = 'set{0}'.format(attribute['capAttName'])
+            arg_name = attribute['name']
+
+        return_type = dup_attribute[1]['returnType']
+
+        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function, attribute,
+            return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, functionArgs)
+
+        # if self.duplicate_methods[duplic_index]['isAbstract'] is True:
+        #     additional_add = 'Override
+        #     additional.append(additional_add)
+        #
+        #     title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, functionArgs)
+
+        arguments.append('{0} {1}'
+                         .format(dup_attribute[0], arg_name))
+
+        implementation = None
+        code = implementation #[self.create_code_block('line', implementation)]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.struct_name,
+                     'implementation': code})
+
+
+
 
     # function to write set functions
     def write_set_string_for_enum(self, is_attribute, index):

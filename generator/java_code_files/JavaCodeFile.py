@@ -294,6 +294,14 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
             code = attrib_functions.write_set(True, i)
             self.write_function_java(code)
+
+            similar_num_attributes = attrib_functions.get_similar_num_attributes()
+            for y in range(0, similar_num_attributes):
+                code = attrib_functions.write_similar_functions(True, i, y)
+                self.write_function_java(code)
+
+
+
             # self.write_function_implementation(code)
 
             # code = attrib_functions.write_set_string_for_enum(True, i)

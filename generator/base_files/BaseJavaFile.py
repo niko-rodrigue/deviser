@@ -1050,7 +1050,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if not code['object_name']:
                     function_name = code['function']
                 else:
-                    function_name =  code['function'] #code['object_name'] + ' ' \  +
+                    function_name = code['function'] #code['object_name'] + ' ' \  +
             if 'args_no_defaults' in code:
                 arguments = code['args_no_defaults']
             else:
@@ -1070,6 +1070,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_implementation(code['implementation'])
                 # print("code implementation ",code['implementation'])
                 # print('---------------->')
+            else:
+                self.write_line('}')
 
 
 
