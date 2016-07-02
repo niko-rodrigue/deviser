@@ -285,6 +285,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # self.write_function_implementation(code)
             self.write_function_java(code)
 
+            code = attrib_functions.write_is_set_instance(True, i)
+            self.write_function_java(code)
+
             # code = attrib_functions.write_get_num_for_vector(True, i) # IsSetID for JSBML not neccessary
             # self.write_function_implementation(code)
 

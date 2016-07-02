@@ -811,6 +811,130 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
+    def write_is_set_instance(self, is_attribute, index, const=True, virtual=False):
+        if is_attribute:
+            if index < len(self.attributes):
+                attribute = self.attributes[index]
+            else:
+                return
+        else:
+            if index < len(self.child_elements):
+                attribute = self.child_elements[index]
+            else:
+                return
+        if not self.is_java_api and ('isVector' in attribute and attribute['isVector']):
+            return
+        if is_attribute:
+            ob_type = 'attribute'
+        else:
+            ob_type = 'element'
+
+        # TODO GSOC 2016 JSBML change
+        if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+            return None
+
+        # create comment parts
+        if attribute['type'] != 'SIdRef':
+            return None
+
+
+        params = []
+        return_lines = []
+        additional = []
+        # title_line = 'Predicate returning {0} if ' \
+        #              'this {1}\'s \"{2}\" {3} is set.' \
+        #     .format(self.true, self.object_name, attribute['name'],
+        #             ob_type)
+        title_line = '@return '
+        if not self.is_java_api:
+            params.append('@param {0} the {1} structure.'
+                          .format(self.abbrev_parent, self.object_name))
+
+        return_lines.append('@return {0} if this {1}\'s \"{2}\" {3} has been '
+                            'set, otherwise {4} is returned.'
+                            .format(self.true, self.object_name,
+                                    attribute['name'],
+                                    ob_type, self.false))
+
+        # create the function declaration
+        if self.is_java_api:
+            if 'isVector' in attribute and attribute['isVector']:
+                function = 'has{0}'.format(strFunctions.plural(attribute['capAttName']))
+            else:
+                function = 'isSet{0}Instance'.format(attribute['capAttName'])
+            return_type = 'boolean'
+        else:
+            function = '{0}_isSet{1}'.format(self.class_name,
+                                             attribute['capAttName'])
+            return_type = 'int'
+
+        # TODO detect if override
+        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods, function, attribute)
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
+                                                                             class_key, function, functionArgs)
+
+        arguments = []
+        if not self.is_java_api:
+            arguments.append('const {0} * {1}'
+                             .format(self.object_name, self.abbrev_parent))
+
+        # GSOC 2016 modification
+        # create the function implementation
+        if self.is_java_api:
+            if query.is_string(attribute):
+                implementation = ['return {0} != null'.format(
+                    attribute['name'])]  # USED
+            elif attribute['attType'] == 'enum' or attribute['isArray']:
+                implementation = ['return ({0} != '
+                                  '{1})'.format(attribute['name'],
+                                                attribute['default'])]
+            elif query.has_is_set_member(attribute):
+                # implementation = ['return '
+                #                   'mIsSet{0}'.format(attribute['capAttName'])]
+                implementation = ['return {0} != null'.format(
+                    attribute['name'])]  # Used
+            elif attribute['type'] == 'element':
+                implementation = ['return ({0} != '
+                                  '{1})'.format(attribute['name'],
+                                                attribute['default'])]
+            elif 'isVector' in attribute and attribute['isVector']:
+                implementation = ['return {0}.size() '
+                                  '> 0'.format(attribute['name'])]
+
+            else:
+                implementation = ['return get{0}Instance() != null'.format(attribute['capAttName'])]  # USED
+        else:
+            if not self.is_list_of:
+                use_name = self.abbrev_parent
+            else:
+                use_name = 'static_cast<const ' \
+                           '{0}*>({1})'.format(self.class_name,
+                                               self.abbrev_parent)
+            implementation = ['return ({0} != NULL) ? static_cast<int>({0}->is'
+                              'Set{1}()) : 0'.format(use_name,
+                                                     attribute['capAttName'])]
+
+        code = [dict({'code_type': 'line', 'code': implementation})]
+
+        # return the parts
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': True,
+                     'virtual': False,
+                     'object_name': self.struct_name,
+                     'implementation': code})
+
+
+
+
     # function for writing getNum for a vector type attribute
     def write_get_num_for_vector(self, is_attribute, index):
         if not self.is_java_api:

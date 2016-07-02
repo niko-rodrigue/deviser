@@ -166,6 +166,13 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * @return 
    */
+  public boolean isSetQualitativeSpeciesInstance() {
+    return getQualitativeSpeciesInstance() != null;
+  }
+
+  /**
+   * @return 
+   */
   public boolean isSetTransitionEffect() {
     return (transitionEffect != TRANSITION_OUTPUT_EFFECT_INVALID);
   }

@@ -188,6 +188,13 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * @return 
    */
+  public boolean isSetQualitativeSpeciesInstance() {
+    return getQualitativeSpeciesInstance() != null;
+  }
+
+  /**
+   * @return 
+   */
   public boolean isSetTransitionEffect() {
     return (transitionEffect != TRANSITION_INPUT_EFFECT_INVALID);
   }
