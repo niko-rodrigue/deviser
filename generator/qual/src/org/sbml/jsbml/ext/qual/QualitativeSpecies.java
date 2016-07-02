@@ -133,8 +133,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    * @see
    */
   @Override
-  public String getCompartmentInstance() {
-    if (isSetCompartment) {
+  public Compartment getCompartmentInstance() {
+    if (isSetCompartment()) {
       Model model = getModel();
       if (model != null) {
         return model.getCompartment(getCompartment());

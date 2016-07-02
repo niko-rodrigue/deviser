@@ -141,8 +141,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * @return the qualitativeSpecies
    */
-  public String getQualitativeSpeciesInstance() {
-    if (isSetQualitativeSpecies) {
+  public QualitativeSpecies getQualitativeSpeciesInstance() {
+    if (isSetQualitativeSpecies()) {
       Model model = getModel();
       if (model != null) {
         return model.getQualitativeSpecies(getQualitativeSpecies());

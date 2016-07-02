@@ -349,23 +349,24 @@ class SetGetFunctions():
         # create the function declaration
         if self.is_java_api:
             function = 'get{0}Instance'.format(attribute['capAttName'])
-            if attribute['attType'] == 'string' \
-                    or attribute['attType'] == 'element':
-                if const:
-                    return_type = attribute['attTypeCode']  # 'const ' +
-                else:
-                    return_type = attribute['attTypeCode']
-            elif attribute['attType'] == 'vector':
-                return_type = 'const {0}&'.format(attribute['attTypeCode'])
-            else:
-                return_type = attribute['attTypeCode']
-        else:
-            function = '{0}_get{1}'.format(self.class_name,
-                                           attribute['capAttName'])
-            if attribute['attType'] == 'element':
-                return_type = 'const {0}'.format(attribute['CType'])
-            else:
-                return_type = '{0}'.format(attribute['CType'])
+        return_type = attribute['capAttName']
+        #     if attribute['attType'] == 'string' \
+        #             or attribute['attType'] == 'element':
+        #         if const:
+        #             return_type = attribute['attTypeCode']  # 'const ' +
+        #         else:
+        #             return_type = attribute['attTypeCode']
+        #     elif attribute['attType'] == 'vector':
+        #         return_type = 'const {0}&'.format(attribute['attTypeCode'])
+        #     else:
+        #         return_type = attribute['attTypeCode']
+        # else:
+        #     function = '{0}_get{1}'.format(self.class_name,
+        #                                    attribute['capAttName'])
+        #     if attribute['attType'] == 'element':
+        #         return_type = 'const {0}'.format(attribute['CType'])
+        #     else:
+        #         return_type = '{0}'.format(attribute['CType'])
 
         # TODO  GSOC 2016 get Object Instance
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
@@ -411,7 +412,7 @@ class SetGetFunctions():
                           'return model.get{0}(get{1}())'.format(object, object)]  # 3rd line
 
         nested_if = self.create_code_block('if', implementation)
-        implementation = ['isSet{0}'.format(object),
+        implementation = ['isSet{0}()'.format(object),
                           implement_part1,
                           nested_if,'']  # 2nd line
         # print('implementation ',implementation)
