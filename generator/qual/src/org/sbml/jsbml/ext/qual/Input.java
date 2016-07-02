@@ -103,6 +103,25 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
+   * @param orig the Input instance to copy.
+   */
+  public Input(Input orig) {
+    super(orig);
+
+    if (orig.isSetSign()) {
+      setSign(orig.getSign());
+    }
+    if (orig.isSetQualitativeSpecies()) {
+      setQualitativeSpecies(orig.getQualitativeSpecies());
+    }
+    if (orig.isSetTransitionEffect()) {
+      setTransitionEffect(orig.getTransitionEffect());
+    }
+    if (orig.isSetThresholdLevel()) {
+      setThresholdLevel(orig.getThresholdLevel());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {

@@ -91,6 +91,16 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
+   * @param orig the DefaultTerm instance to copy.
+   */
+  public DefaultTerm(DefaultTerm orig) {
+    super(orig);
+
+    if (orig.isSetResultLevel()) {
+      setResultLevel(orig.getResultLevel());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {

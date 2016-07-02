@@ -88,6 +88,22 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
+   * @param orig the Transition instance to copy.
+   */
+  public Transition(Transition orig) {
+    super(orig);
+
+    if (orig.isSetInput()) {
+      setInput(orig.getInput());
+    }
+    if (orig.isSetOutput()) {
+      setOutput(orig.getOutput());
+    }
+    if (orig.isSetFunctionTerm()) {
+      setFunctionTerm(orig.getFunctionTerm());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {

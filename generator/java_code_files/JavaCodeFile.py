@@ -174,7 +174,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     def write_constructors(self):
         constructor = Constructors.Constructors(self.language,
                                                 self.is_java_api,
-                                                self.class_object)
+                                                self.class_object,
+                                                self.jsbml_data_tree,
+                                                self.jsbml_methods,
+                                                self.extends_modules
+                                                )
         self.skip_line()
         if self.is_java_api and not self.is_plugin:
             code = constructor.write_simple_constructor()
@@ -194,6 +198,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = constructor.write_id_name_level_version_constructor()
             self.write_function_implementation(code)
             self.line_length = 79
+
+            code = constructor.write_copy_constructor()
+            self.write_function_implementation(code)
 
             code = constructor.write_init_defaults_constructor()
             self.write_function_implementation(code)

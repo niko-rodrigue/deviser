@@ -2,8 +2,7 @@
 #
 # @file    Constructors.py
 # @brief   class for constructors for c++ and c
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @author  GSOC 2016 Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #
@@ -43,13 +42,14 @@ from util import strFunctions, query, global_variables
 class Constructors():
     """Class for all constructors"""
 
-    def __init__(self, language, is_cpp_api, class_object):
+    def __init__(self, language, is_java_api, class_object,
+                 jsbml_data_tree=None, jsbml_methods=None, import_modules=None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
         self.class_name = class_object['name']
-        self.is_java_api = is_cpp_api
-        if is_cpp_api:
+        self.is_java_api = is_java_api
+        if is_java_api:
             self.object_name = class_object['name']
         else:
             self.object_name = class_object['name'] # + '_t'
@@ -79,8 +79,40 @@ class Constructors():
         if 'document' in class_object:
             self.document = class_object['document']
 
+        # TODO GSOC 2016
+        if jsbml_data_tree is not None:
+            self.jsbml_data_tree = jsbml_data_tree
+        if jsbml_methods is not None:
+            self.jsbml_methods = jsbml_methods
+        if import_modules is not None:
+            self.import_modules = import_modules
 
+        self.copy_name = 'orig'
+
+        # TODO GSOC 2016 robot constructor
+        # if self.is_java_api:
+        #     self.expand_constructors()
+
+
+        self.duplicate_methods = []
     ########################################################################
+
+
+    # TODO still need to think is it required or not
+    def expand_constructors(self):
+        # print(self.jsbml_methods)
+        # print(self.import_modules)
+
+        for import_module in self.import_modules:
+            data = self.jsbml_methods[import_module]
+            for single_elem in data:
+                func = single_elem['functionName'].split('.')[-1]
+                if str(func)[:] == str(import_module)[:]:
+                    print('import module ', import_module)
+                    print(single_elem['functionName'])
+                    print(single_elem['originalData'])
+            # print(data)
+
 
     # Functions for writing constructors
 
@@ -1173,40 +1205,56 @@ class Constructors():
             return
         # create doc string header
         title_line = 'Copy constructor for {0}.'.format(self.object_name)
-        params = ['@param orig the {0} instance to copy.'.format(
+        params = ['@param {0} the {1} instance to copy.'.format(self.copy_name,
             self.object_name)]
         return_lines = []
         additional = []
         # create function decl
         function = '{0}'.format(self.object_name)
         return_type = ''
-        arguments = ['const {0}& orig'.format(self.object_name)]
+        arguments = ['{0} {1}'.format(self.object_name, self.copy_name)]
         # create the function implementation
-        constructor_args = self.write_copy_constructor_args(self)
+
+        constructor_args = [] #arguments #self.write_copy_constructor_args(self)
         code = []
         clone = 'clone'
+
+        implementation = ['super({0})'.format(self.copy_name)]
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+
         for i in range(0, len(self.attributes)):
-            if self.attributes[i]['isArray']:
-                line = self.write_set_array(i)
-                code.append(self.create_code_block('line', line))
-        for i in range(0, len(self.child_elements)):
-            element = self.child_elements[i]
-            member = element['memberName']
-            if element['element'] == 'ASTNode':
-                clone = 'deepCopy'
-            implementation = ['orig.{0} != NULL'.format(member),
-                              '{0} = orig.{0}->{1}()'.format(member,
-                                                             clone)]
-            code.append(self.create_code_block('if', implementation))
-        if self.document:
-            implementation = ['set{0}Document(this)'.format(global_variables.prefix)]
-            code.append(dict({'code_type': 'line', 'code': implementation}))
-        if self.has_children:
-            implementation = ['connectToChild()']
-            code.append(dict({'code_type': 'line', 'code': implementation}))
-        else:
-            implementation = ['']
-            code.append(dict({'code_type': 'blank', 'code': implementation}))
+            attribute = self.attributes[i]
+            if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                continue
+            else:
+                temp_code = self.create_copy_if(i)
+                code.append(temp_code)
+
+
+        # for i in range(0, len(self.attributes)):
+        #     if self.attributes[i]['isArray']:
+        #         line = self.write_set_array(i)
+        #         code.append(self.create_code_block('line', line))
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['orig.{0} != NULL'.format(member),
+        #                       '{0} = orig.{0}->{1}()'.format(member,
+        #                                                      clone)]
+        #     code.append(self.create_code_block('if', implementation))
+        # if self.document:
+        #     implementation = ['set{0}Document(this)'.format(global_variables.prefix)]
+        #     code.append(dict({'code_type': 'line', 'code': implementation}))
+        # if self.has_children:
+        #     implementation = ['connectToChild()']
+        #     code.append(dict({'code_type': 'line', 'code': implementation}))
+        # else:
+        #     implementation = ['']
+        #     code.append(dict({'code_type': 'blank', 'code': implementation}))
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1220,6 +1268,19 @@ class Constructors():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
+
+    def create_copy_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+
+        implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
+                          'set{0}({1}.get{2}())'.format(name, self.copy_name, name)]  # 3rd line
+
+        temp_code = self.create_code_block('if', implementation)
+        return temp_code
+
+
+
 
     # function to write assignment operator
     def write_assignment_operator(self):

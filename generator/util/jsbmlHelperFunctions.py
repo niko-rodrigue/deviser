@@ -82,8 +82,8 @@ def javap_arg_parser(argument):
     return arg_type
 
 def find_function_with_diff_args(jsbml_methods, attribute, function ):
-    print('function ', function)
-    print('arguments ', attribute['attTypeCode'])
+    # print('function ', function)
+    # print('arguments ', attribute['attTypeCode'])
     orginal_attType = str(attribute['attTypeCode'])[:]
     function_name = str(function)[:]
     curr_attribute = attribute
@@ -100,7 +100,7 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
                     if arg_type != orginal_attType:
                         method_to_write = [arg_type, method]
 
-    print('tada ',method_to_write)
+    # print('tada ',method_to_write)
     return method_to_write
 
 

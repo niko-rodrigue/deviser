@@ -99,6 +99,22 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
+   * @param orig the Output instance to copy.
+   */
+  public Output(Output orig) {
+    super(orig);
+
+    if (orig.isSetQualitativeSpecies()) {
+      setQualitativeSpecies(orig.getQualitativeSpecies());
+    }
+    if (orig.isSetTransitionEffect()) {
+      setTransitionEffect(orig.getTransitionEffect());
+    }
+    if (orig.isSetOutputLevel()) {
+      setOutputLevel(orig.getOutputLevel());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {

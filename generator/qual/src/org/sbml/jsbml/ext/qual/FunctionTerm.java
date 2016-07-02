@@ -91,6 +91,19 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
+   * @param orig the FunctionTerm instance to copy.
+   */
+  public FunctionTerm(FunctionTerm orig) {
+    super(orig);
+
+    if (orig.isSetResultLevel()) {
+      setResultLevel(orig.getResultLevel());
+    }
+    if (orig.isSetMath()) {
+      setMath(orig.getMath());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {

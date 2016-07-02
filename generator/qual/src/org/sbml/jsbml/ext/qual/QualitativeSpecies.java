@@ -103,6 +103,25 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
+   * @param orig the QualitativeSpecies instance to copy.
+   */
+  public QualitativeSpecies(QualitativeSpecies orig) {
+    super(orig);
+
+    if (orig.isSetCompartment()) {
+      setCompartment(orig.getCompartment());
+    }
+    if (orig.isSetConstant()) {
+      setConstant(orig.getConstant());
+    }
+    if (orig.isSetInitialLevel()) {
+      setInitialLevel(orig.getInitialLevel());
+    }
+    if (orig.isSetMaxLevel()) {
+      setMaxLevel(orig.getMaxLevel());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {
