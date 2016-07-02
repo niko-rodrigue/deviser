@@ -146,6 +146,8 @@ class SetGetFunctions():
         # TODO GSOC 2016 JSBML change
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
+
+
         params = []
         return_lines = []
         additional = []
@@ -216,8 +218,10 @@ class SetGetFunctions():
         additional_add, class_key, functionArgs= jsbmlHelperFunctions.determine_override_or_deprecated(self.jsbml_methods, function,attribute)
         if additional_add is not None:
             additional.append(additional_add)
-            title_line = '(non-Javadoc)--'
-            title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
+                                                                             class_key, function,  functionArgs)
+
+
 
         arguments = []
         if not self.is_java_api:
@@ -260,6 +264,188 @@ class SetGetFunctions():
                 code = [self.create_code_block('line', implementation)]  # tricky
         else:
             code = self.get_c_attribute(attribute)
+
+        # return the parts
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': const,
+                     'virtual': virtual,
+                     'object_name': self.struct_name,
+                     'implementation': code})
+
+    def write_get_instance(self, is_attribute, index, const=True, virtual=False):
+        if not self.is_java_api and not const:
+            return
+        if is_attribute:
+            if index < len(self.attributes):
+                attribute = self.attributes[index]
+            else:
+                return
+            # dont write a get for c
+            if not self.is_java_api and (attribute['isArray'] or attribute['isVector']):
+                return
+        else:
+            if index < len(self.child_elements):
+                attribute = self.child_elements[index]
+            else:
+                return
+        if attribute['isArray'] and self.is_java_api:
+            return self.write_get_array(index, const)
+        # create comment parts
+
+        # TODO GSOC 2016 JSBML change
+        if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+            return None
+
+        if attribute['type'] != 'SIdRef':
+            return None
+
+        params = []
+        return_lines = []
+        additional = []
+        # title_line = '@return the value of the \"{0}\" {1} of this {2}.' \
+        #     .format(attribute['name'],
+        #             ('attribute' if is_attribute else 'element'),
+        #             (self.class_name if self.is_java_api else self.object_name))
+        title_line = '@return the {0}'.format(attribute['name'])
+
+        if not self.is_java_api:
+            params.append('@param {0} the {1} structure whose {2} is sought.'
+                          .format(self.abbrev_parent, self.object_name,
+                                  attribute['name']))
+
+        if self.is_java_api:
+            return_lines.append('@return the value of the \"{0}\" {1} of '
+                                'this {2} as a {3}.'
+                                .format(attribute['name'],
+                                        ('attribute' if is_attribute
+                                         else 'element'),
+                                        self.class_name,
+                                        (attribute['attType']
+                                         if (is_attribute
+                                             and attribute['isEnum'] is False)
+                                         else attribute['attTypeCode'])))
+        else:
+            return_lines.append('@return the value of the \"{0}\" {1} of '
+                                'this {2} as a {3} {4}.'
+                                .format(attribute['name'],
+                                        ('attribute' if is_attribute
+                                         else 'element'),
+                                        self.object_name,
+                                        ('pointer to a'
+                                         if (is_attribute and
+                                             attribute['attType'] == 'string')
+                                         else ''),
+                                        (attribute['attType']
+                                         if (is_attribute
+                                             and attribute['isEnum'] is False)
+                                         else attribute['attTypeCode'])))
+
+        # create the function declaration
+        if self.is_java_api:
+            function = 'get{0}Instance'.format(attribute['capAttName'])
+            if attribute['attType'] == 'string' \
+                    or attribute['attType'] == 'element':
+                if const:
+                    return_type = attribute['attTypeCode']  # 'const ' +
+                else:
+                    return_type = attribute['attTypeCode']
+            elif attribute['attType'] == 'vector':
+                return_type = 'const {0}&'.format(attribute['attTypeCode'])
+            else:
+                return_type = attribute['attTypeCode']
+        else:
+            function = '{0}_get{1}'.format(self.class_name,
+                                           attribute['capAttName'])
+            if attribute['attType'] == 'element':
+                return_type = 'const {0}'.format(attribute['CType'])
+            else:
+                return_type = '{0}'.format(attribute['CType'])
+
+        # TODO  GSOC 2016 get Object Instance
+        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods, function, attribute)
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
+                                                                             class_key, function,  functionArgs)
+
+
+
+        arguments = []
+        if not self.is_java_api:
+            arguments.append('const {0} * {1}'
+                             .format(self.object_name, self.abbrev_parent))
+
+        # GSOC 2016 modification
+        # Need PackageName for Constants, such as QualConstants.initialLevel
+        # Also need to add info about the type of Data (boolean or int, or etc)
+        # need to use this self.package
+
+        # implementation2 wrong example Output.java -> return transitionEffect;
+        # cap_att_name = attribute['capAttName']
+        curr_att_type = attribute['attTypeCode']
+
+        # code = [dict({'code_type': 'line', 'code': implementation})]
+
+        # print('type ',curr_att_type)
+        # create the function implementation
+
+        curr_att_type = attribute['JClassType']
+        oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+        currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
+
+        object = strFunctions.upper_first(attribute['name'])
+
+        # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
+        implement_part1 = 'Model model = getModel()'.format(curr_att_type, oldValue, attribute['name'])
+
+
+        # code = [dict({'code_type': 'line', 'code': 'TADA'})]
+        implementation = ['model != null'.format(attribute['name'], attribute['name']),
+                          'return model.get{0}(get{1}())'.format(object, object)]  # 3rd line
+
+        nested_if = self.create_code_block('if', implementation)
+        implementation = ['isSet{0}'.format(object),
+                          implement_part1,
+                          nested_if,'']  # 2nd line
+        # print('implementation ',implementation)
+        # code.append(self.create_code_block('if', implementation))
+        code = [self.create_code_block('if', implementation)]
+
+        implementationNext = ['return null']  # 1st line
+        code.append(self.create_code_block('line', implementationNext))
+
+
+
+
+        # if self.is_java_api:
+        #     if not self.document:
+        #         if curr_att_type == 'String':
+        #             implement_string = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'],
+        #                                                                       attribute['name'])]
+        #             code = [self.create_code_block('line', implement_string)]
+        #         else:
+        #             if curr_att_type in global_variables.javaTypeAttributes:
+        #                 implement_part2 = 'return {0}.{1}Value()'.format(attribute['name'], curr_att_type)
+        #             else:
+        #                 implement_part2 = 'return {0}'.format(attribute['name'])
+        #             implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
+        #             implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
+        #                                                                                                 attribute[
+        #                                                                                                     'name'])]
+        #             code = [dict({'code_type': 'if', 'code': implementation2}),
+        #                     dict({'code_type': 'line', 'code': implementation})]
+        #     else:
+        #         implementation = self.write_get_for_doc_functions(attribute)
+        #         code = [self.create_code_block('line', implementation)]  # tricky
+        # else:
+        #     code = self.get_c_attribute(attribute)
 
         # return the parts
         return dict({'title_line': title_line,

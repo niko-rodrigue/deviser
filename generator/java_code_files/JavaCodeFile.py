@@ -271,6 +271,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # self.write_function_implementation(code)
             self.write_function_java(code)
 
+
+            # TODO GSOC 2016 get Object Instance
+            code = attrib_functions.write_get_instance(True, i)
+            # self.write_function_implementation(code)
+            self.write_function_java(code)
+
             # code = attrib_functions.write_get_string_for_enum(True, i)
             # self.write_function_implementation(code)
 
