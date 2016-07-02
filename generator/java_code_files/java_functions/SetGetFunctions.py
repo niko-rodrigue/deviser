@@ -1219,6 +1219,7 @@ class SetGetFunctions():
         implementation = None
         code = implementation #[self.create_code_block('line', implementation)]
 
+        self.duplicate_methods = []
         return dict({'title_line': title_line,
                      'params': params,
                      'return_lines': return_lines,
@@ -1954,7 +1955,7 @@ class SetGetFunctions():
 
             curr_att_type = attribute['JClassType']
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.{0}'.format(attribute['name'])
 
             implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
             implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
@@ -2159,6 +2160,11 @@ class SetGetFunctions():
             code = [dict({'code_type': 'line', 'code': implementation})]
 
         # TODO GSOC 2016 modification unset query
+        # TODO here's the problem
+        elif attribute['type'] == 'SIdRef':
+            implementation = ['return set{0}(({1}) null)'.format(attribute['capAttName'],
+                                                          attribute['JClassType'])]
+            code = [dict({'code_type': 'line', 'code': implementation})]
         elif query.has_is_set_member(attribute):
             # implementation = ['{0} = {1}'.format(attribute['name'],
             #                                      attribute['default']),
