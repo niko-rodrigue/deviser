@@ -123,15 +123,15 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     if (equals) {
       Transition obj = (Transition) object;
 
-      equals &= obj.isSetInput() == isSetInput;
+      equals &= obj.isSetInput() == isSetInput();
       if (equals && isSetInput()) {
         equals &= (obj.getInput() == getInput());
       }
-      equals &= obj.isSetOutput() == isSetOutput;
+      equals &= obj.isSetOutput() == isSetOutput();
       if (equals && isSetOutput()) {
         equals &= (obj.getOutput() == getOutput());
       }
-      equals &= obj.isSetFunctionTerm() == isSetFunctionTerm;
+      equals &= obj.isSetFunctionTerm() == isSetFunctionTerm();
       if (equals && isSetFunctionTerm()) {
         equals &= (obj.getFunctionTerm() == getFunctionTerm());
       }

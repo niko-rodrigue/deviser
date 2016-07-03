@@ -134,15 +134,15 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     if (equals) {
       Output obj = (Output) object;
 
-      equals &= obj.isSetQualitativeSpecies() == isSetQualitativeSpecies;
+      equals &= obj.isSetQualitativeSpecies() == isSetQualitativeSpecies();
       if (equals && isSetQualitativeSpecies()) {
         equals &= (obj.getQualitativeSpecies() == getQualitativeSpecies());
       }
-      equals &= obj.isSetTransitionEffect() == isSetTransitionEffect;
+      equals &= obj.isSetTransitionEffect() == isSetTransitionEffect();
       if (equals && isSetTransitionEffect()) {
         equals &= (obj.getTransitionEffect() == getTransitionEffect());
       }
-      equals &= obj.isSetOutputLevel() == isSetOutputLevel;
+      equals &= obj.isSetOutputLevel() == isSetOutputLevel();
       if (equals && isSetOutputLevel()) {
         equals &= (obj.getOutputLevel() == getOutputLevel());
       }

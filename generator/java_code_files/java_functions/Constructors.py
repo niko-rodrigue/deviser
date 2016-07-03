@@ -1286,7 +1286,7 @@ class Constructors():
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
 
-        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}'.format(self.equals_short, name, name)
+        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
         implement2 = ['equals && isSet{0}()'.format(name),
                           'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, name, name)]  # 3rd line

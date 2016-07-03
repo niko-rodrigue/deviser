@@ -122,11 +122,11 @@ public class FunctionTerm extends AbstractMathContainer {
     if (equals) {
       FunctionTerm obj = (FunctionTerm) object;
 
-      equals &= obj.isSetResultLevel() == isSetResultLevel;
+      equals &= obj.isSetResultLevel() == isSetResultLevel();
       if (equals && isSetResultLevel()) {
         equals &= (obj.getResultLevel() == getResultLevel());
       }
-      equals &= obj.isSetMath() == isSetMath;
+      equals &= obj.isSetMath() == isSetMath();
       if (equals && isSetMath()) {
         equals &= (obj.getMath() == getMath());
       }

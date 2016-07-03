@@ -142,19 +142,19 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     if (equals) {
       Input obj = (Input) object;
 
-      equals &= obj.isSetSign() == isSetSign;
+      equals &= obj.isSetSign() == isSetSign();
       if (equals && isSetSign()) {
         equals &= (obj.getSign() == getSign());
       }
-      equals &= obj.isSetQualitativeSpecies() == isSetQualitativeSpecies;
+      equals &= obj.isSetQualitativeSpecies() == isSetQualitativeSpecies();
       if (equals && isSetQualitativeSpecies()) {
         equals &= (obj.getQualitativeSpecies() == getQualitativeSpecies());
       }
-      equals &= obj.isSetTransitionEffect() == isSetTransitionEffect;
+      equals &= obj.isSetTransitionEffect() == isSetTransitionEffect();
       if (equals && isSetTransitionEffect()) {
         equals &= (obj.getTransitionEffect() == getTransitionEffect());
       }
-      equals &= obj.isSetThresholdLevel() == isSetThresholdLevel;
+      equals &= obj.isSetThresholdLevel() == isSetThresholdLevel();
       if (equals && isSetThresholdLevel()) {
         equals &= (obj.getThresholdLevel() == getThresholdLevel());
       }

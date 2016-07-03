@@ -118,7 +118,7 @@ public class DefaultTerm extends AbstractMathContainer {
     if (equals) {
       DefaultTerm obj = (DefaultTerm) object;
 
-      equals &= obj.isSetResultLevel() == isSetResultLevel;
+      equals &= obj.isSetResultLevel() == isSetResultLevel();
       if (equals && isSetResultLevel()) {
         equals &= (obj.getResultLevel() == getResultLevel());
       }

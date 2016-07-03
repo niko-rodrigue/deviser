@@ -142,19 +142,19 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     if (equals) {
       QualitativeSpecies obj = (QualitativeSpecies) object;
 
-      equals &= obj.isSetCompartment() == isSetCompartment;
+      equals &= obj.isSetCompartment() == isSetCompartment();
       if (equals && isSetCompartment()) {
         equals &= (obj.getCompartment() == getCompartment());
       }
-      equals &= obj.isSetConstant() == isSetConstant;
+      equals &= obj.isSetConstant() == isSetConstant();
       if (equals && isSetConstant()) {
         equals &= (obj.getConstant() == getConstant());
       }
-      equals &= obj.isSetInitialLevel() == isSetInitialLevel;
+      equals &= obj.isSetInitialLevel() == isSetInitialLevel();
       if (equals && isSetInitialLevel()) {
         equals &= (obj.getInitialLevel() == getInitialLevel());
       }
-      equals &= obj.isSetMaxLevel() == isSetMaxLevel;
+      equals &= obj.isSetMaxLevel() == isSetMaxLevel();
       if (equals && isSetMaxLevel()) {
         equals &= (obj.getMaxLevel() == getMaxLevel());
       }
