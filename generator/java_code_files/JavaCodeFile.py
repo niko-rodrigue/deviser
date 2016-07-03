@@ -398,61 +398,64 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.is_java_api,
                                                           self.is_list_of,
                                                           self.class_object)
-        code = gen_functions.write_rename_sidrefs()
-        self.write_function_implementation(code)
+        
 
-        if not self.is_plugin:
-            code = gen_functions.write_get_element_name()
-            self.write_function_implementation(code)
 
-        code = gen_functions.write_set_element_name()
-        self.write_function_implementation(code, exclude=True)
-
-        if not self.is_plugin:
-            code = gen_functions.write_get_typecode()
-            self.write_function_implementation(code)
-
-        code = gen_functions.write_get_item_typecode()
-        self.write_function_implementation(code)
-
-        code = gen_functions.write_has_required_attributes()
-        self.write_function_implementation(code)
-
-        code = gen_functions.write_has_required_elements()
-        self.write_function_implementation(code)
-
-        code = gen_functions.write_write_elements()
-        self.write_function_implementation(code, exclude=True)
-
-        code = gen_functions.write_accept()
-        self.write_function_implementation(code, exclude=True)
-
-        code = gen_functions.write_set_document()
-        self.write_function_implementation(code, exclude=True)
-
-        code = gen_functions.write_write()
-        self.write_function_implementation(code, exclude=True)
-
-        code = gen_functions.write_connect_to_child()
-        self.write_function_implementation(code, exclude=True)
-
-        if self.is_plugin:
-            code = gen_functions.write_connect_to_parent()
-            self.write_function_implementation(code, exclude=True)
-
-        if global_variables.is_package:
-            code = gen_functions.write_enable_package()
-            self.write_function_implementation(code, exclude=True)
-
-        if self.is_doc_plugin:
-            code = gen_functions.write_is_comp_flat()
-            self.write_function_implementation(code, exclude=True)
-
-            code = gen_functions.write_check_consistency()
-            self.write_function_implementation(code, exclude=True)
-
-            code = gen_functions.write_read_attributes()
-            self.write_function_implementation(code, exclude=True)
+        # code = gen_functions.write_rename_sidrefs()
+        # self.write_function_implementation(code)
+        #
+        # if not self.is_plugin:
+        #     code = gen_functions.write_get_element_name()
+        #     self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_set_element_name()
+        # self.write_function_implementation(code, exclude=True)
+        #
+        # if not self.is_plugin:
+        #     code = gen_functions.write_get_typecode()
+        #     self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_get_item_typecode()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_has_required_attributes()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_has_required_elements()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_write_elements()
+        # self.write_function_implementation(code, exclude=True)
+        #
+        # code = gen_functions.write_accept()
+        # self.write_function_implementation(code, exclude=True)
+        #
+        # code = gen_functions.write_set_document()
+        # self.write_function_implementation(code, exclude=True)
+        #
+        # code = gen_functions.write_write()
+        # self.write_function_implementation(code, exclude=True)
+        #
+        # code = gen_functions.write_connect_to_child()
+        # self.write_function_implementation(code, exclude=True)
+        #
+        # if self.is_plugin:
+        #     code = gen_functions.write_connect_to_parent()
+        #     self.write_function_implementation(code, exclude=True)
+        #
+        # if global_variables.is_package:
+        #     code = gen_functions.write_enable_package()
+        #     self.write_function_implementation(code, exclude=True)
+        #
+        # if self.is_doc_plugin:
+        #     code = gen_functions.write_is_comp_flat()
+        #     self.write_function_implementation(code, exclude=True)
+        #
+        #     code = gen_functions.write_check_consistency()
+        #     self.write_function_implementation(code, exclude=True)
+        #
+        #     code = gen_functions.write_read_attributes()
+        #     self.write_function_implementation(code, exclude=True)
 
     ########################################################################
 
