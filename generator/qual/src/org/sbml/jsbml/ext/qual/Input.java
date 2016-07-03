@@ -133,9 +133,38 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     thresholdLevel = null;
   }
 
-  /* (non-Javadoc)
+  /**
+   * @param rhs the Input object whose values are to be used as the basis of
+   * the assignment.
    */
-  @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      Input object = (Input) object;
+
+      equals &= object.isSetSign() == isSetSign;
+      if (equals && isSetSign()) {
+        equals &= (object.getSign() == getSign());
+      }
+      equals &= object.isSetQualitativeSpecies() == isSetQualitativeSpecies;
+      if (equals && isSetQualitativeSpecies()) {
+        equals &= (object.getQualitativeSpecies() == getQualitativeSpecies());
+      }
+      equals &= object.isSetTransitionEffect() == isSetTransitionEffect;
+      if (equals && isSetTransitionEffect()) {
+        equals &= (object.getTransitionEffect() == getTransitionEffect());
+      }
+      equals &= object.isSetThresholdLevel() == isSetThresholdLevel;
+      if (equals && isSetThresholdLevel()) {
+        equals &= (object.getThresholdLevel() == getThresholdLevel());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public Input clone() {
     return new Input(this);
   }

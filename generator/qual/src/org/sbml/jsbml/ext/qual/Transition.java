@@ -114,9 +114,34 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     functionTerm = null;
   }
 
-  /* (non-Javadoc)
+  /**
+   * @param rhs the Transition object whose values are to be used as the basis
+   * of the assignment.
    */
-  @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      Transition object = (Transition) object;
+
+      equals &= object.isSetInput() == isSetInput;
+      if (equals && isSetInput()) {
+        equals &= (object.getInput() == getInput());
+      }
+      equals &= object.isSetOutput() == isSetOutput;
+      if (equals && isSetOutput()) {
+        equals &= (object.getOutput() == getOutput());
+      }
+      equals &= object.isSetFunctionTerm() == isSetFunctionTerm;
+      if (equals && isSetFunctionTerm()) {
+        equals &= (object.getFunctionTerm() == getFunctionTerm());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public Transition clone() {
     return new Transition(this);
   }

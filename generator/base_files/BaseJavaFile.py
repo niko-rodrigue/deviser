@@ -1070,6 +1070,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_implementation(code['implementation'])
                 # print("code implementation ",code['implementation'])
                 # print('---------------->')
+            # TODO this part ok
             else:
                 self.write_line('}')
 

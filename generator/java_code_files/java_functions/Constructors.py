@@ -36,7 +36,7 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, query, global_variables
+from util import strFunctions, query, global_variables, jsbmlHelperFunctions
 
 
 class Constructors():
@@ -88,6 +88,7 @@ class Constructors():
             self.import_modules = import_modules
 
         self.copy_name = 'orig'
+        self.equals_name = 'object'
 
         # TODO GSOC 2016 robot constructor
         # if self.is_java_api:
@@ -1279,11 +1280,23 @@ class Constructors():
         temp_code = self.create_code_block('if', implementation)
         return temp_code
 
+    def create_equals_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+
+        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}'.format(self.equals_name, name, name)
+
+        implement2 = ['equals && isSet{0}()'.format(name),
+                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_name, name, name)]  # 3rd line
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        temp_code2 = self.create_code_block('if', implement2)
+        return [implement1, temp_code2]
 
 
 
-    # function to write assignment operator
-    def write_assignment_operator(self):
+    # function to write assignment equals method
+    def write_equals(self):
         # do not write for C API
         if self.is_java_api is False:
             return
@@ -1293,32 +1306,75 @@ class Constructors():
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
         additional = []
-        function = 'operator='.format(self.object_name)
-        return_type = '{0}&'.format(self.object_name)
-        arguments = ['const {0}& rhs'.format(self.object_name)]
+        function = 'equals'.format(self.object_name)
+        return_type = 'boolean'.format(self.object_name)
+        arguments = ['{0} {1}'.format(strFunctions.upper_first(self.equals_name), self.equals_name)]
         # create the function implementation
         args = ['&rhs != this'] + self.write_assignment_args(self)
         clone = 'clone'
-        for i in range(0, len(self.child_elements)):
-            element = self.child_elements[i]
-            member = element['memberName']
-            args += ['delete {0}'.format(member)]
-            if element['element'] == 'ASTNode':
-                clone = 'deepCopy'
-            implementation = ['rhs.{0} != NULL'.format(member),
-                              '{0} = rhs.{0}->{1}()'.format(member,
-                                                            clone),
-                              'else', '{0} = NULL'.format(member)]
-            args += [self.create_code_block('if_else', implementation)]
-        implementation = args
-        if self.has_children:
-            implementation.append('connectToChild()')
-        if self.document:
-            implementation.append('set{0}Document(this)'.format(global_variables.prefix))
 
-        implementation2 = ['return *this']
-        code = [dict({'code_type': 'if', 'code': implementation}),
-                dict({'code_type': 'line', 'code': implementation2})]
+        code = []
+
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function=function,
+            return_type=return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, function_args)
+
+        implementation = ['boolean equals = super.equals({0})'.format(self.equals_name)]
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+        implementation = ['equals']
+
+
+
+        implement_inside = ['{0} {1} = ({2}) {3}'.format(self.class_name,
+                                                       self.equals_name,
+                                                       self.class_name,
+                                                       self.equals_name)]
+        line = self.create_code_block('line', implement_inside)
+        implementation.append(line)
+
+        for i in range(0, len(self.attributes)):
+            attribute = self.attributes[i]
+            if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                continue
+            else:
+                temp_code = self.create_equals_if(i)
+                # code.append(temp_code[-1])
+                for y_code in temp_code:
+                    implementation.append(y_code)
+
+        # TODO why bug?
+        implementation.append('return equals')
+        implementation.append('')
+        code.append(self.create_code_block('if', implementation))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1346,11 +1402,25 @@ class Constructors():
         additional = []
         if self.is_java_api:
             function = 'clone'
-            additional.append('Override')
+            # additional.append('Override')
         else:
             function = '{0}_clone'.format(self.class_name)
         return_type = '{0}'.format(self.object_name)
         arguments = []
+
+
+        # TODO part  not clear
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function=function,
+            return_type=return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, function_args)
+
+
         if not self.is_java_api:
             arguments.append('const {0}* {1}'.format(self.object_name,
                                                    abbrev_object))

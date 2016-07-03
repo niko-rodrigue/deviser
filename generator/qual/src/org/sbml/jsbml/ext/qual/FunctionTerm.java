@@ -113,7 +113,29 @@ public class FunctionTerm extends AbstractMathContainer {
     math = null;
   }
 
+  /**
+   * @param rhs the FunctionTerm object whose values are to be used as the
+   * basis of the assignment.
+   */
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      FunctionTerm object = (FunctionTerm) object;
+
+      equals &= object.isSetResultLevel() == isSetResultLevel;
+      if (equals && isSetResultLevel()) {
+        equals &= (object.getResultLevel() == getResultLevel());
+      }
+      equals &= object.isSetMath() == isSetMath;
+      if (equals && isSetMath()) {
+        equals &= (object.getMath() == getMath());
+      }
+      return equals;
+    }  }
+
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#clone
    */
   @Override
   public FunctionTerm clone() {

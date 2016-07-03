@@ -125,9 +125,34 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     outputLevel = null;
   }
 
-  /* (non-Javadoc)
+  /**
+   * @param rhs the Output object whose values are to be used as the basis of
+   * the assignment.
    */
-  @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      Output object = (Output) object;
+
+      equals &= object.isSetQualitativeSpecies() == isSetQualitativeSpecies;
+      if (equals && isSetQualitativeSpecies()) {
+        equals &= (object.getQualitativeSpecies() == getQualitativeSpecies());
+      }
+      equals &= object.isSetTransitionEffect() == isSetTransitionEffect;
+      if (equals && isSetTransitionEffect()) {
+        equals &= (object.getTransitionEffect() == getTransitionEffect());
+      }
+      equals &= object.isSetOutputLevel() == isSetOutputLevel;
+      if (equals && isSetOutputLevel()) {
+        equals &= (object.getOutputLevel() == getOutputLevel());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public Output clone() {
     return new Output(this);
   }

@@ -109,7 +109,25 @@ public class DefaultTerm extends AbstractMathContainer {
     resultLevel = null;
   }
 
+  /**
+   * @param rhs the DefaultTerm object whose values are to be used as the basis
+   * of the assignment.
+   */
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      DefaultTerm object = (DefaultTerm) object;
+
+      equals &= object.isSetResultLevel() == isSetResultLevel;
+      if (equals && isSetResultLevel()) {
+        equals &= (object.getResultLevel() == getResultLevel());
+      }
+      return equals;
+    }  }
+
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#clone
    */
   @Override
   public DefaultTerm clone() {

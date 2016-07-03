@@ -133,9 +133,38 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     maxLevel = null;
   }
 
-  /* (non-Javadoc)
+  /**
+   * @param rhs the QualitativeSpecies object whose values are to be used as
+   * the basis of the assignment.
    */
-  @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      QualitativeSpecies object = (QualitativeSpecies) object;
+
+      equals &= object.isSetCompartment() == isSetCompartment;
+      if (equals && isSetCompartment()) {
+        equals &= (object.getCompartment() == getCompartment());
+      }
+      equals &= object.isSetConstant() == isSetConstant;
+      if (equals && isSetConstant()) {
+        equals &= (object.getConstant() == getConstant());
+      }
+      equals &= object.isSetInitialLevel() == isSetInitialLevel;
+      if (equals && isSetInitialLevel()) {
+        equals &= (object.getInitialLevel() == getInitialLevel());
+      }
+      equals &= object.isSetMaxLevel() == isSetMaxLevel;
+      if (equals && isSetMaxLevel()) {
+        equals &= (object.getMaxLevel() == getMaxLevel());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public QualitativeSpecies clone() {
     return new QualitativeSpecies(this);
   }
