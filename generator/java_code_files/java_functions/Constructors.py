@@ -1286,10 +1286,10 @@ class Constructors():
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
 
-        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}'.format(self.equals_name, name, name)
+        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}'.format(self.equals_short, name, name)
 
         implement2 = ['equals && isSet{0}()'.format(name),
-                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_name, name, name)]  # 3rd line
+                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, name, name)]  # 3rd line
 
         # temp_code1 = self.create_code_block('line', implement1)
         temp_code2 = self.create_code_block('if', implement2)
@@ -1337,7 +1337,7 @@ class Constructors():
 
 
         implement_inside = ['{0} {1} = ({2}) {3}'.format(self.class_name,
-                                                       self.equals_name,
+                                                       self.equals_short,
                                                        self.class_name,
                                                        self.equals_name)]
         line = self.create_code_block('line', implement_inside)
