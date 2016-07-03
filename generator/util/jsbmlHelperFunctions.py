@@ -39,6 +39,7 @@
 
 from util import query, strFunctions, global_variables, insideJSBML_parser
 import itertools
+import random
 
 # Determine override or or deprecated
 def determine_override_or_deprecated(jsbml_methods, function, attribute= None, return_type=None, att_type=None):
@@ -126,6 +127,12 @@ def erat2( ):
 def generate_prime_numbers(n):
     """ Input n>=6, Returns a list of primes, 2 <= p < n """
     return list(itertools.takewhile(lambda p: p<n, erat2()))
+
+
+def select_prime_number(prime_numbers):
+    hash_num = random.choice(prime_numbers)
+    return hash_num
+
 
 # tada = generate_prime_numbers(3000000)
 # print(tada)

@@ -385,4 +385,25 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     return false;
   }
 
+  /* hashcode method for Input.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 28961;
+
+    int hashCode = super.hashCode();
+
+    if (isSetSign()) {
+      hashCode += prime;
+    }
+    if (isSetQualitativeSpecies()) {
+      hashCode += prime * getQualitativeSpecies().hashCode();
+    }
+    if (isSetTransitionEffect()) {
+      hashCode += prime;
+    }
+    if (isSetThresholdLevel()) {
+      hashCode += prime * getThresholdLevel();
+    }  }
+
 }

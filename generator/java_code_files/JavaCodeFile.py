@@ -397,9 +397,14 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         gen_functions = GeneralFunctions.GeneralFunctions(self.language,
                                                           self.is_java_api,
                                                           self.is_list_of,
-                                                          self.class_object)
-        
+                                                          self.class_object,
+                                                          self.jsbml_data_tree,
+                                                          self.jsbml_methods,
+                                                          self.prime_numbers)
 
+
+        code = gen_functions.write_hashcode()
+        self.write_function_implementation(code)
 
         # code = gen_functions.write_rename_sidrefs()
         # self.write_function_implementation(code)

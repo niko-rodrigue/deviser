@@ -39,8 +39,10 @@
 
 import time
 import os
+
+from util.jsbml_data_tree import jsbml_data_tree
 from . import BaseFile
-from util import strFunctions, query, global_variables, jsbml_data_tree, insideJSBML_parser
+from util import strFunctions, query, global_variables, jsbml_data_tree, insideJSBML_parser, jsbmlHelperFunctions
 
 
 class BaseJavaFile(BaseFile.BaseFile):
@@ -69,6 +71,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.file_link = ''
         self.folder_and_filename = os.getcwd() + self.filename
         self.jsbml_version = 1.2
+        # TODO GSOC 2016 prime numbers
+        n = 30000
+        self.prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
+
         self.serialVersionUID = -6048861420699176889
 
         # members that might get overridden if creating another library

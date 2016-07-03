@@ -176,4 +176,16 @@ public class DefaultTerm extends AbstractMathContainer {
     }
   }
 
+  /* hashcode method for DefaultTerm.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 6563;
+
+    int hashCode = super.hashCode();
+
+    if (isSetResultLevel()) {
+      hashCode += prime * getResultLevel();
+    }  }
+
 }

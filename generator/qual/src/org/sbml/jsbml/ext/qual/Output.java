@@ -328,4 +328,22 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     return false;
   }
 
+  /* hashcode method for Output.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 10487;
+
+    int hashCode = super.hashCode();
+
+    if (isSetQualitativeSpecies()) {
+      hashCode += prime * getQualitativeSpecies().hashCode();
+    }
+    if (isSetTransitionEffect()) {
+      hashCode += prime;
+    }
+    if (isSetOutputLevel()) {
+      hashCode += prime;
+    }  }
+
 }

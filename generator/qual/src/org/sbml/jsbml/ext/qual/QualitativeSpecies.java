@@ -401,4 +401,25 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return false;
   }
 
+  /* hashcode method for QualitativeSpecies.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 439;
+
+    int hashCode = super.hashCode();
+
+    if (isSetCompartment()) {
+      hashCode += prime * getCompartment().hashCode();
+    }
+    if (isSetConstant()) {
+      hashCode += prime + (getConstant() ? 1 : -1);
+    }
+    if (isSetInitialLevel()) {
+      hashCode += prime * getInitialLevel();
+    }
+    if (isSetMaxLevel()) {
+      hashCode += prime * getMaxLevel();
+    }  }
+
 }

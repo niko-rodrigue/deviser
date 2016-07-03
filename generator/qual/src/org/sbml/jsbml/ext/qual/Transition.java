@@ -153,4 +153,13 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return false;
   }
 
+  /* hashcode method for Transition.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 14657;
+
+    int hashCode = super.hashCode();
+  }
+
 }

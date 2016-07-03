@@ -184,4 +184,16 @@ public class FunctionTerm extends AbstractMathContainer {
     }
   }
 
+  /* hashcode method for FunctionTerm.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 20857;
+
+    int hashCode = super.hashCode();
+
+    if (isSetResultLevel()) {
+      hashCode += prime * getResultLevel();
+    }  }
+
 }

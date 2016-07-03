@@ -37,20 +37,22 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, global_variables
+from util import strFunctions, global_variables, jsbmlHelperFunctions
+import random
 
 
 class GeneralFunctions():
     """Class for general functions"""
 
-    def __init__(self, language, is_cpp_api, is_list_of, class_object):
+    def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None,
+                 jsbml_methods=None, prime_numbers = None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
         self.class_name = class_object['name']
         self.has_std_base = class_object['has_std_base']
         self.base_class = class_object['baseClass']
-        self.is_cpp_api = is_cpp_api
+        self.is_java_api = is_java_api
         self.is_list_of = is_list_of
         self.is_plugin = False
         if 'is_plugin' in class_object:
@@ -65,7 +67,7 @@ class GeneralFunctions():
             self.child_name = class_object['lo_child']
         else:
             self.child_name = ''
-        if is_cpp_api:
+        if is_java_api:
             self.object_name = self.class_name
             self.object_child_name = self.child_name
         else:
@@ -118,12 +120,12 @@ class GeneralFunctions():
             self.document = class_object['document']
 
         # useful variables
-        if not self.is_cpp_api and self.is_list_of:
+        if not self.is_java_api and self.is_list_of:
             self.struct_name = self.object_child_name
         else:
             self.struct_name = self.object_name
         self.abbrev_parent = strFunctions.abbrev_name(self.object_name)
-        if self.is_cpp_api is False:
+        if self.is_java_api is False:
             self.true = '@c 1'
             self.false = '@c 0'
         else:
@@ -131,7 +133,7 @@ class GeneralFunctions():
             self.false = '@c false'
 
         # status
-        if self.is_cpp_api:
+        if self.is_java_api:
             if self.is_list_of:
                 self.status = 'cpp_list'
             else:
@@ -142,7 +144,129 @@ class GeneralFunctions():
             else:
                 self.status = 'c_not_list'
 
+        # TODO GSOC 2016
+        if jsbml_data_tree is not None:
+            self.jsbml_data_tree = jsbml_data_tree
+        if jsbml_methods is not None:
+            self.jsbml_methods = jsbml_methods
+        if prime_numbers is not None:
+            self.prime_numbers = prime_numbers
+
+        self.duplicate_methods = []
+
     ########################################################################
+
+
+
+    # Functions for writing hashCode
+    def create_hashcode_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        type = self.attributes[index]['type']
+
+        implementation = ['isSet{0}()'.format(name)]
+        if str(type)[:] == 'bool':
+            implementation.append('hashCode += prime + (get{0}() ? 1 : -1)'.format(name))
+        elif str(type)[:] == 'SIdRef':
+            implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
+        elif str(type)[:] == 'uint':
+            implementation.append('hashCode += prime * get{0}()'.format(name))
+        else:
+            implementation.append('hashCode += prime')
+
+        temp_code = self.create_code_block('if', implementation)
+        return temp_code
+
+
+
+
+    def write_hashcode(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        title_line = 'hashcode method for {0}.'.format(self.object_name)
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+
+        # create function decl
+        function = 'hashCode'
+        return_type = 'int'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+        hash_num = jsbmlHelperFunctions.select_prime_number(self.prime_numbers)
+
+        implementation = ['final int prime = {0}'.format(hash_num)]
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+        implementation = ['int hashCode = super.hashCode()']
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+        for i in range(0, len(self.attributes)):
+            attribute = self.attributes[i]
+            if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                continue
+            else:
+                temp_code = self.create_hashcode_if(i)
+                code.append(temp_code)
+
+        # for i in range(0, len(self.attributes)):
+        #     if self.attributes[i]['isArray']:
+        #         line = self.write_set_array(i)
+        #         code.append(self.create_code_block('line', line))
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['orig.{0} != NULL'.format(member),
+        #                       '{0} = orig.{0}->{1}()'.format(member,
+        #                                                      clone)]
+        #     code.append(self.create_code_block('if', implementation))
+        # if self.document:
+        #     implementation = ['set{0}Document(this)'.format(global_variables.prefix)]
+        #     code.append(dict({'code_type': 'line', 'code': implementation}))
+        # if self.has_children:
+        #     implementation = ['connectToChild()']
+        #     code.append(dict({'code_type': 'line', 'code': implementation}))
+        # else:
+        #     implementation = ['']
+        #     code.append(dict({'code_type': 'blank', 'code': implementation}))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
 
     # Functions for writing renamesidref
 
@@ -206,7 +330,7 @@ class GeneralFunctions():
 
     # function to write getElement
     def write_get_element_name(self):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
         # create comment parts
         if self.override_name:
@@ -248,7 +372,7 @@ class GeneralFunctions():
 
     # function to write getTypeCode
     def write_get_typecode(self):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
 
         # create comment
@@ -361,7 +485,7 @@ class GeneralFunctions():
                      'attributes for this {1} object have been set.'\
             .format(self.true, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
 
@@ -377,7 +501,7 @@ class GeneralFunctions():
                 additional.append('@li \"{0}\"'.format(att_name))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'hasRequiredAttributes'
             return_type = 'bool'
         else:
@@ -385,12 +509,12 @@ class GeneralFunctions():
             return_type = 'int'
 
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
 
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             if self.has_std_base:
                 all_present = 'true'
             else:
@@ -437,7 +561,7 @@ class GeneralFunctions():
                      'elements for this {1} object have been set.'\
             .format(self.true, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
 
@@ -457,7 +581,7 @@ class GeneralFunctions():
                                   .format(self.child_lo_elements[i]['name']))
 
         # create the function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'hasRequiredElements'
             return_type = 'bool'
         else:
@@ -465,11 +589,11 @@ class GeneralFunctions():
             return_type = 'int'
 
         arguments = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
         # create the function implementation
-        if self.is_cpp_api:
+        if self.is_java_api:
             if self.has_std_base:
                 all_present = 'true'
             else:
@@ -876,7 +1000,7 @@ class GeneralFunctions():
 
     # function to write connectToChild
     def write_connect_to_child(self):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
         elif not self.has_children:
             return
@@ -931,7 +1055,7 @@ class GeneralFunctions():
 
     # function to write connectToParent
     def write_connect_to_parent(self):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
         elif not self.has_children:
             return
@@ -985,7 +1109,7 @@ class GeneralFunctions():
 
     # function to write setElementName
     def write_set_element_name(self):
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
         if not self.overwrites_children:
             return
