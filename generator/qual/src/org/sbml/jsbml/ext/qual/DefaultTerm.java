@@ -176,4 +176,81 @@ public class DefaultTerm extends AbstractMathContainer {
     }
   }
 
+  /**
+   * For DefaultTerm, the XML element name is always @c "defaultTerm".
+   */
+  public const std::string& getElementName() {
+    static const string name = "defaultTerm";
+    return name;
+  }
+
+  public int getTypeCode() {
+    return SBML_QUAL_DEFAULT_TERM;
+  }
+
+  public bool hasRequiredAttributes() {
+    bool allPresent = true;
+
+    if (isSetResultLevel() == false) {
+      allPresent = false;
+    }
+    return allPresent;
+  }
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Write any contained elements
+   */
+  public void writeElements(XMLOutputStream& stream) {
+    SBase::writeElements(stream);
+
+    SBase::writeExtensionElements(stream);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  public bool accept(SBMLVisitor& v) {
+    return v.visit(*this);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  public void setSBMLDocument(SBMLDocument* d) {
+    SBase::setSBMLDocument(d);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  public void enablePackageInternal(const std::string& pkgURI, {
+                                    const std::string& pkgPrefix, {
+                                    bool flag) {
+    SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+
+  /** @endcond */
+
+
 }

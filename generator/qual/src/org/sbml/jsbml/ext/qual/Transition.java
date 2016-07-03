@@ -153,4 +153,136 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return false;
   }
 
+  /**
+   * For Transition, the XML element name is always @c "transition".
+   */
+  public const std::string& getElementName() {
+    static const string name = "transition";
+    return name;
+  }
+
+  public int getTypeCode() {
+    return SBML_QUAL_TRANSITION;
+  }
+
+  public bool hasRequiredAttributes() {
+    bool allPresent = true;
+
+    return allPresent;
+  }
+
+  public bool hasRequiredElements() {
+    bool allPresent = true;
+
+    if (getNumFunctionTerms() == 0) {
+      allPresent = false;
+    }
+    return allPresent;
+  }
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Write any contained elements
+   */
+  public void writeElements(XMLOutputStream& stream) {
+    SBase::writeElements(stream);
+
+    if (getNumInputs() > 0) {
+      mInputs.write(stream);
+    }
+    if (getNumOutputs() > 0) {
+      mOutputs.write(stream);
+    }
+    if (getNumFunctionTerms() > 0) {
+      mFunctionTerms.write(stream);
+    }
+    SBase::writeExtensionElements(stream);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  public bool accept(SBMLVisitor& v) {
+    v.visit(*this);
+
+    mInputs.accept(v);
+
+    mOutputs.accept(v);
+
+    mFunctionTerms.accept(v);
+
+    v.leave(*this);
+    return true;
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  public void setSBMLDocument(SBMLDocument* d) {
+    SBase::setSBMLDocument(d);
+
+    mInputs.setSBMLDocument(d);
+
+    mOutputs.setSBMLDocument(d);
+
+    mFunctionTerms.setSBMLDocument(d);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Connects to child elements
+   */
+  public void connectToChild() {
+    SBase::connectToChild();
+
+    mInputs.connectToParent(this);
+
+    mOutputs.connectToParent(this);
+
+    mFunctionTerms.connectToParent(this);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  public void enablePackageInternal(const std::string& pkgURI, {
+                                    const std::string& pkgPrefix, {
+                                    bool flag) {
+    SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+    mInputs.enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+    mOutputs.enablePackageInternal(pkgURI, pkgPrefix, flag);
+
+    mFunctionTerms.enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+
+  /** @endcond */
+
+
 }

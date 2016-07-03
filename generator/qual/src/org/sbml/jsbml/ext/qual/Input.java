@@ -385,4 +385,89 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     return false;
   }
 
+  /**
+   * @copydoc doc_renamesidref_common
+   */
+  public void renameSIdRefs(const std::string& oldid, const std::string& newid) {
+    if (isSetQualitativeSpecies() && mQualitativeSpecies == oldid) {
+      setQualitativeSpecies(newid);
+    }  }
+
+  /**
+   * For Input, the XML element name is always @c "input".
+   */
+  public const std::string& getElementName() {
+    static const string name = "input";
+    return name;
+  }
+
+  public int getTypeCode() {
+    return SBML_QUAL_INPUT;
+  }
+
+  public bool hasRequiredAttributes() {
+    bool allPresent = true;
+
+    if (isSetQualitativeSpecies() == false) {
+      allPresent = false;
+    }
+    return allPresent;
+  }
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Write any contained elements
+   */
+  public void writeElements(XMLOutputStream& stream) {
+    SBase::writeElements(stream);
+
+    SBase::writeExtensionElements(stream);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Accepts the given SBMLVisitor
+   */
+  public bool accept(SBMLVisitor& v) {
+    return v.visit(*this);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Sets the parent SBMLDocument
+   */
+  public void setSBMLDocument(SBMLDocument* d) {
+    SBase::setSBMLDocument(d);
+  }
+
+  /** @endcond */
+
+
+
+  /** @cond doxygenJSBMLInternal */
+
+  /**
+   * Enables/disables the given package with this element
+   */
+  public void enablePackageInternal(const std::string& pkgURI, {
+                                    const std::string& pkgPrefix, {
+                                    bool flag) {
+    SBase::enablePackageInternal(pkgURI, pkgPrefix, flag);
+  }
+
+  /** @endcond */
+
+
 }

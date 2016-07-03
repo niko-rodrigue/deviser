@@ -38,7 +38,7 @@
 
 
 from util import query, strFunctions, global_variables, insideJSBML_parser
-
+import itertools
 
 # Determine override or or deprecated
 def determine_override_or_deprecated(jsbml_methods, function, attribute= None, return_type=None, att_type=None):
@@ -103,5 +103,31 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
     # print('tada ',method_to_write)
     return method_to_write
 
+
+
+# Function for prime number generatopn
+def erat2( ):
+    D = {  }
+    yield 2
+    for q in itertools.islice(itertools.count(3), 0, None, 2):
+        p = D.pop(q, None)
+        if p is None:
+            D[q*q] = q
+            yield q
+        else:
+            x = p + q
+            while x in D or not (x&1):
+                x += p
+            D[x] = p
+
+
+# Generate prime number using sieve algorithm
+# param n - generate numbers of prime numbers,
+def generate_prime_numbers(n):
+    """ Input n>=6, Returns a list of primes, 2 <= p < n """
+    return list(itertools.takewhile(lambda p: p<n, erat2()))
+
+# tada = generate_prime_numbers(3000000)
+# print(tada)
 
 

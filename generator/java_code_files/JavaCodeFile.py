@@ -82,7 +82,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_listof_functions()
         # self.write_child_lo_element_functions()
         # self.write_concrete_functions()
-        # self.write_general_functions()
+
+        # TODO write hash, read, write
+        self.write_general_functions()
         # self.write_functions_to_retrieve()
         # if self.document:
         #     self.write_document_error_log_functions()
