@@ -89,6 +89,8 @@ class Constructors():
 
         self.copy_name = 'orig'
         self.equals_name = 'object'
+        self.equals_short = 'obj'
+
 
         # TODO GSOC 2016 robot constructor
         # if self.is_java_api:
@@ -1306,6 +1308,7 @@ class Constructors():
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
         additional = []
+        additional.append('Override')
         function = 'equals'.format(self.object_name)
         return_type = 'boolean'.format(self.object_name)
         arguments = ['{0} {1}'.format(strFunctions.upper_first(self.equals_name), self.equals_name)]

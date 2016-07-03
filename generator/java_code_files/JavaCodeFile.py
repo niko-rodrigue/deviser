@@ -222,9 +222,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO after main constructors
         # code = constructor.write_copy_constructor()
         # self.write_function_implementation(code)
-        #
-        code = constructor.write_equals()
-        self.write_function_implementation(code)
+
+
+        # TODO write_equals problematic
+        # code = constructor.write_equals()
+        # self.write_function_implementation(code)
         #
 
         # Clone need @override
