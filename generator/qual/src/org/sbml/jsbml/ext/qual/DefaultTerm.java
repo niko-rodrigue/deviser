@@ -180,7 +180,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 8277851;
+    final int prime = 6678131;
 
     int hashCode = super.hashCode();
 
@@ -196,11 +196,8 @@ public class DefaultTerm extends AbstractMathContainer {
 
     if (!isAttributeRead) {
       isAttributeRead = true;
-
-      if (attributeName.equals(QualConstants.resultLevel) {
-        setResultLevel(StringTools.parseSBMLInteger(value));
-      }
-      return isAttributeRead;
-    }  }
+    }
+    return isAttributeRead;
+  }
 
 }

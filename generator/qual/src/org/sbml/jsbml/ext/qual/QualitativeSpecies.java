@@ -405,7 +405,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 9996157;
+    final int prime = 2642039;
 
     int hashCode = super.hashCode();
 
@@ -431,19 +431,19 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     if (!isAttributeRead) {
       isAttributeRead = true;
 
-      if (attributeName.equals(QualConstants.compartment) {
+      if (attributeName.equals(QualConstants.compartment)) {
         setCompartment(StringTools.parseSBMLString(value));
-      }
-      if (attributeName.equals(QualConstants.constant) {
+      }      else if (attributeName.equals(QualConstants.constant)) {
         setConstant(StringTools.parseSBMLBoolean(value));
-      }
-      if (attributeName.equals(QualConstants.initialLevel) {
+      }      else if (attributeName.equals(QualConstants.initialLevel)) {
         setInitialLevel(StringTools.parseSBMLInteger(value));
-      }
-      if (attributeName.equals(QualConstants.maxLevel) {
+      }      else if (attributeName.equals(QualConstants.maxLevel)) {
         setMaxLevel(StringTools.parseSBMLInteger(value));
+      } else {
+        isAttributeRead = false;
       }
-      return isAttributeRead;
-    }  }
+    }
+    return isAttributeRead;
+  }
 
 }

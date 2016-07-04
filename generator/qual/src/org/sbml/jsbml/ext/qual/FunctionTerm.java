@@ -188,7 +188,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 6765607;
+    final int prime = 772847;
 
     int hashCode = super.hashCode();
 
@@ -204,11 +204,8 @@ public class FunctionTerm extends AbstractMathContainer {
 
     if (!isAttributeRead) {
       isAttributeRead = true;
-
-      if (attributeName.equals(QualConstants.resultLevel) {
-        setResultLevel(StringTools.parseSBMLInteger(value));
-      }
-      return isAttributeRead;
-    }  }
+    }
+    return isAttributeRead;
+  }
 
 }

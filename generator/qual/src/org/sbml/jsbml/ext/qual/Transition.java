@@ -157,7 +157,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 1155449;
+    final int prime = 1124219;
 
     int hashCode = super.hashCode();
   }
@@ -171,7 +171,6 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     if (!isAttributeRead) {
       isAttributeRead = true;
 
-      return isAttributeRead;
-    }  }
-
-}
+      if (else) {
+        isAttributeRead = false;
+      }

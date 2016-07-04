@@ -288,6 +288,41 @@ class GeneralFunctions():
         return  temp_code
 
 
+    def create_read_attribute_else_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        java_type = self.attributes[index]['JClassType']
+
+        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+
+        implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name),
+                          'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)
+                          ]  # 3rd line
+
+        if index < len(self.attributes)-1:
+            implementation.append('else if')
+
+
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        # temp_code = self.create_code_block('else_if', implementation)
+        # return temp_code
+        return implementation
+
+    def create_read_attribute_else(self):
+        # name = self.attributes[index]['capAttName']
+        # member_name = self.attributes[index]['name']
+        # java_type = self.attributes[index]['JClassType']
+
+        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+
+        implementation = ['else', 'isAttributeRead = false']  # 3rd line
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        # temp_code = self.create_code_block('else_if', implementation)
+        # return temp_code
+        return implementation
+
 
     # Functions for writing readAttributes
     def write_read_attribute(self):
@@ -334,19 +369,32 @@ class GeneralFunctions():
         line = self.create_code_block('line', implement_inside)
         implementation.append(line)
 
+
+        # TODO here is the bug what to do?
+        implementation_else_if = []
         for i in range(0, len(self.attributes)):
+            #print('i is ',i)
             attribute = self.attributes[i]
             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
                 continue
             else:
-                temp_code = self.create_read_attribute_if(i)
+                temp_code = self.create_read_attribute_else_if(i)
+                implementation_else_if += temp_code
+                # else_if_index = i
+                # break
                 # code.append(temp_code[-1])
-                implementation.append(temp_code)
-        #
-        # # TODO why bug?
-        implementation.append('return isAttributeRead')
-        implementation.append('')
+        temp_code = self.create_read_attribute_else()
+        implementation_else_if += temp_code
+
+        temp_code = self.create_code_block('else_if', implementation_else_if)
+        #code.append(temp_code)
+        implementation.append(temp_code)
+        # implementation.append('')
         code.append(self.create_code_block('if', implementation))
+
+
+        temp = ['return isAttributeRead']
+        code.append(self.create_code_block('line', temp))
 
         # for i in range(0, len(self.child_elements)):
         #     element = self.child_elements[i]
