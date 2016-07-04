@@ -380,25 +380,27 @@ class GeneralFunctions():
 
         # TODO here is the bug what to do?
         implementation_else_if = []
-        for i in range(0, len(self.attributes)):
-            #print('i is ',i)
-            attribute = self.attributes[i]
-            if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-                continue
-            else:
-                temp_code = self.create_read_attribute_else_if(i)
-                implementation_else_if += temp_code
-                # else_if_index = i
-                # break
-                # code.append(temp_code[-1])
-        temp_code = self.create_read_attribute_else()
-        implementation_else_if += temp_code
+        if len(self.attributes) > 1:
+            for i in range(0, len(self.attributes)):
+                #print('i is ',i)s
+                attribute = self.attributes[i]
+                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                    continue
+                else:
+                    temp_code = self.create_read_attribute_else_if(i)
+                    implementation_else_if += temp_code
+                    # else_if_index = i
+                    # break
+                    # code.append(temp_code[-1])
+        if len(self.attributes) > 1:
+            temp_code = self.create_read_attribute_else()
+            implementation_else_if += temp_code
 
-        temp_code = self.create_code_block('else_if', implementation_else_if)
-        #code.append(temp_code)
-        implementation.append(temp_code)
+            temp_code = self.create_code_block('else_if', implementation_else_if)
+            #code.append(temp_code)
+            implementation.append(temp_code)
         # implementation.append('')
-        code.append(self.create_code_block('if', implementation))
+            code.append(self.create_code_block('if', implementation))
 
 
         temp = ['return isAttributeRead']

@@ -157,7 +157,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 7244087;
+    final int prime = 9863753;
 
     int hashCode = super.hashCode();
   }
