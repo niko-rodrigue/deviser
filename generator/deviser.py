@@ -43,7 +43,8 @@ import sys
 
 try:
     from util import generateLatex, generateCode, global_variables
-except:
+except Exception as e:
+    print('Error is ', e)
     from util import global_variables
     global_variables.code_returned = global_variables.return_codes['unknown error - please report']
 #from legacy import run
