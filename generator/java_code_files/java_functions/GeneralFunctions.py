@@ -295,9 +295,17 @@ class GeneralFunctions():
 
         # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
-        implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name),
-                          'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)
-                          ]  # 3rd line
+        implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name)]
+
+
+
+        type = self.attributes[index]['type']
+
+        if str(type)[:] == 'SIdRef':
+            implementation.append('set{0}({1})'.format(name, self.value))
+        else:
+            implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
+
 
         if index < len(self.attributes)-1:
             implementation.append('else if')
