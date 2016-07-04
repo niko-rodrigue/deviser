@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 28961;
+    final int prime = 4876961;
 
     int hashCode = super.hashCode();
 
@@ -404,6 +404,30 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
     if (isSetThresholdLevel()) {
       hashCode += prime * getThresholdLevel();
+    }  }
+
+  /* Assignment operator for Input.
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(QualConstants.sign) {
+        setSign(StringTools.parseSBMLSign(value));
+      }
+      if (attributeName.equals(QualConstants.qualitativeSpecies) {
+        setQualitativeSpecies(StringTools.parseSBMLString(value));
+      }
+      if (attributeName.equals(QualConstants.transitionEffect) {
+        setTransitionEffect(StringTools.parseSBMLTransitionInputEffect(value));
+      }
+      if (attributeName.equals(QualConstants.thresholdLevel) {
+        setThresholdLevel(StringTools.parseSBMLInteger(value));
+      }
+      return isAttributeRead;
     }  }
 
 }

@@ -152,6 +152,11 @@ class GeneralFunctions():
         if prime_numbers is not None:
             self.prime_numbers = prime_numbers
 
+        self.attributeName = 'attributeName'
+        self.prefix = 'prefix'
+        self.value = 'value'
+
+
         self.duplicate_methods = []
 
     ########################################################################
@@ -267,6 +272,115 @@ class GeneralFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+    # Functions for writing hashCode
+    def create_read_attribute_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        java_type = self.attributes[index]['JClassType']
+
+        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+
+        implement = ['{0}.equals({1}Constants.{2}'.format(self.attributeName, self.package, member_name),
+                          'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)]  # 3rd line
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        temp_code = self.create_code_block('if', implement)
+        return  temp_code
+
+
+
+    # Functions for writing readAttributes
+    def write_read_attribute(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        title_line = 'Assignment operator for {0}.'.format(self.object_name)
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+        function = 'readAttribute'
+        return_type = 'boolean'
+        arguments = ['String attributeName'] #, 'String prefix', 'String value']
+        arguments_no_defaults = ['String {0}'.format(self.attributeName),
+                                 'String {0}'.format(self.prefix), 'String {0}'.format(self.value)]
+        # create the function implementation
+        args = [] # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function=function,
+            return_type=return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, function_args)
+
+        implementation = ['boolean isAttributeRead = super.readAttribute({0}, {1}, {2})'.format(self.attributeName,
+                                                                                                self.prefix,
+                                                                                                self.value)]
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+        implementation = ['!isAttributeRead']
+
+        implement_inside = ['isAttributeRead = true']
+        line = self.create_code_block('line', implement_inside)
+        implementation.append(line)
+
+        for i in range(0, len(self.attributes)):
+            attribute = self.attributes[i]
+            if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                continue
+            else:
+                temp_code = self.create_read_attribute_if(i)
+                # code.append(temp_code[-1])
+                implementation.append(temp_code)
+        #
+        # # TODO why bug?
+        implementation.append('return isAttributeRead')
+        implementation.append('')
+        code.append(self.create_code_block('if', implementation))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
 
     # Functions for writing renamesidref
 
