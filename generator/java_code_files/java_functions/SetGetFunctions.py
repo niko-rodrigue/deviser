@@ -397,10 +397,17 @@ class SetGetFunctions():
         # print('type ',curr_att_type)
         # create the function implementation
 
+
+
+        # TODO  getCompartmentInstance error
+        # QualitativeSpecies.java:176: error: incompatible types: String cannot be converted to boolean
+        # return model.getCompartment(getCompartment());
+
+
         curr_att_type = attribute['JClassType']
         oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
         currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
-
+        
         object = strFunctions.upper_first(attribute['name'])
 
         # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
@@ -1216,8 +1223,8 @@ class SetGetFunctions():
         arguments.append('{0} {1}'
                          .format(dup_attribute[0], arg_name))
 
-        implementation = None
-        code = implementation #[self.create_code_block('line', implementation)]
+        implementation = ['return get{0}()'.format(attribute['capAttName'])]
+        code = [self.create_code_block('line', implementation)] #[self.create_code_block('line', implementation)]
 
         self.duplicate_methods = []
         return dict({'title_line': title_line,

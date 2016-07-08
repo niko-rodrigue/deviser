@@ -282,6 +282,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public boolean setCompartment(Compartment compartment) {
+    return getCompartment();
   }
 
   /**
@@ -405,7 +406,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 3124129;
+    final int prime = 8261641;
 
     int hashCode = super.hashCode();
 
