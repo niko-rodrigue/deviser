@@ -77,7 +77,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         # print('prime ', len(self.prime_numbers))
         self.prime_numbers = global_variables.prime_numbers
 
-        self.serialVersionUID = -6048861420699176889
+        self.serialVersionUID = jsbmlHelperFunctions.generate_uuid() #-6048861420699176889
 
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage

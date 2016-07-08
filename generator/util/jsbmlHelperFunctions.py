@@ -37,9 +37,10 @@
 # ------------------------------------------------------------------------ -->
 
 
-from util import query, strFunctions, global_variables, insideJSBML_parser
+# from util import query, strFunctions, global_variables, insideJSBML_parser
 import itertools
 import random
+import uuid
 
 # Determine override or or deprecated
 def determine_override_or_deprecated(jsbml_methods, function, attribute= None, return_type=None, att_type=None):
@@ -131,6 +132,13 @@ def generate_prime_numbers(n):
 
 def select_prime_number(prime_numbers):
     return random.choice(prime_numbers)
+
+
+def generate_uuid():
+    return uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF
+
+# uid = generate_uuid()
+# print(uid)
 
 # tada = generate_prime_numbers(3000000)
 # print(tada)
