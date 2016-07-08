@@ -40,7 +40,7 @@
 import sys
 import os
 
-from pandas.hashtable import na_sentinel
+# from pandas.hashtable import na_sentinel
 
 from parseXML import ParseXML
 from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles

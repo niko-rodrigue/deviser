@@ -19,7 +19,6 @@
  */
 package org.sbml.jsbml.ext.qual;
 
-import java.text.MessageFormat;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -32,17 +31,21 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
+public class FunctionTerm extends AbstractMathContainer {
 
   /**
    * Generated serial version identifier.
    */
   private static final long serialVersionUID = -6048861420699176889L;
+  /**
+   *
+   */
+  private Integer resultLevel;
 
   /**
    *  
    */
-  public Transition() {
+  public FunctionTerm() {
     super();
     initDefaults();
   }
@@ -51,14 +54,14 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    * @param level
    * @param version
    */
-  public Transition(int level, int version) {
+  public FunctionTerm(int level, int version) {
     this(null, null, level, version);
   }
 
   /**
    * @param id
    */
-  public Transition(String id) {
+  public FunctionTerm(String id) {
     super(id);
     initDefaults();
   }
@@ -68,7 +71,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    * @param level
    * @param version
    */
-  public Transition(String id, int level, int version) {
+  public FunctionTerm(String id, int level, int version) {
     this(id, null, level, version);
   }
 
@@ -78,7 +81,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    * @param level
    * @param version
    */
-  public Transition(String id, String name, int level, int version) {
+  public FunctionTerm(String id, String name, int level, int version) {
     super(id, name, level, version);
 
     if (getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0) {
@@ -88,19 +91,16 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @param orig the Transition instance to copy.
+   * @param orig the FunctionTerm instance to copy.
    */
-  public Transition(Transition orig) {
+  public FunctionTerm(FunctionTerm orig) {
     super(orig);
 
-    if (orig.isSetInput()) {
-      setInput(orig.getInput());
+    if (orig.isSetResultLevel()) {
+      setResultLevel(orig.getResultLevel());
     }
-    if (orig.isSetOutput()) {
-      setOutput(orig.getOutput());
-    }
-    if (orig.isSetFunctionTerm()) {
-      setFunctionTerm(orig.getFunctionTerm());
+    if (orig.isSetMath()) {
+      setMath(orig.getMath());
     }  }
 
   /**
@@ -109,58 +109,92 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    input = null;
-    output = null;
-    functionTerm = null;
+    resultLevel = null;
+    math = null;
   }
 
-  /* Assignment operator for Transition.
+  /* Assignment operator for FunctionTerm.
    */
   @Override
   public boolean equals(Object object) {
     boolean equals = super.equals(object);
 
     if (equals) {
-      Transition obj = (Transition) object;
+      FunctionTerm obj = (FunctionTerm) object;
 
-      equals &= obj.isSetInput() == isSetInput();
-      if (equals && isSetInput()) {
-        equals &= (obj.getInput() == getInput());
+      equals &= obj.isSetResultLevel() == isSetResultLevel();
+      if (equals && isSetResultLevel()) {
+        equals &= (obj.getResultLevel() == getResultLevel());
       }
-      equals &= obj.isSetOutput() == isSetOutput();
-      if (equals && isSetOutput()) {
-        equals &= (obj.getOutput() == getOutput());
-      }
-      equals &= obj.isSetFunctionTerm() == isSetFunctionTerm();
-      if (equals && isSetFunctionTerm()) {
-        equals &= (obj.getFunctionTerm() == getFunctionTerm());
+      equals &= obj.isSetMath() == isSetMath();
+      if (equals && isSetMath()) {
+        equals &= (obj.getMath() == getMath());
       }
       return equals;
     }  }
 
-  /**
-   * (non-Javadoc)
-   */
-  public Transition clone() {
-    return new Transition(this);
-  }
-
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   * @see org.sbml.jsbml.AbstractMathContainer#clone
    */
   @Override
-  public boolean isIdMandatory() {
-    return false;
+  public FunctionTerm clone() {
+    return new FunctionTerm(this);
   }
 
-  /* hashcode method for Transition.
+  /**
+   * @return the resultLevel
+   */
+  public int getResultLevel() {
+    if (isSetResultLevel()) {
+      return resultLevel.intValue();
+    }
+    throw new PropertyUndefinedError(QualConstants.resultLevel, this);
+  }
+
+  /**
+   * @return 
+   */
+  public boolean isSetResultLevel() {
+    return resultLevel != null;
+  }
+
+  /**
+   * @param resultLevel
+   */
+  public void setResultLevel(int resultLevel) {
+    Integer oldResultLevel = this.resultLevel;
+    this.resultLevel = resultLevel;
+    firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+      this.resultLevel);
+  }
+
+  /**
+   * @return {@code true} if the unset of the resultLevel attribute was
+   * successful
+   */
+  public boolean unsetResultLevel() {
+    if (isSetResultLevel()) {
+      Integer oldResultLevel = resultLevel;
+      resultLevel = null;
+      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+        resultLevel);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /* hashcode method for FunctionTerm.
    */
   @Override
   public int hashCode() {
-    final int prime = 3281497;
+    final int prime = 9515911;
 
     int hashCode = super.hashCode();
 
+    if (isSetResultLevel()) {
+      hashCode += prime * getResultLevel();
+    }
     return hashCode;
   }
 

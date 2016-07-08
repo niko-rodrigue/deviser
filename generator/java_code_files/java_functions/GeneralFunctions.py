@@ -259,6 +259,9 @@ class GeneralFunctions():
         #     implementation = ['']
         #     code.append(dict({'code_type': 'blank', 'code': implementation}))
 
+        temp = ['return hashCode']
+        code.append(self.create_code_block('line', temp))
+
         return dict({'title_line': title_line,
                      'params': params,
                      'return_lines': return_lines,
@@ -376,6 +379,7 @@ class GeneralFunctions():
         implement_inside = ['isAttributeRead = true']
         line = self.create_code_block('line', implement_inside)
         implementation.append(line)
+
 
 
         # TODO here is the bug what to do?

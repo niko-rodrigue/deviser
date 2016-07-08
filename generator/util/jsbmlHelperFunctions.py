@@ -106,7 +106,7 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
 
 
 
-# Function for prime number generatopn
+# Function for prime number generator
 def erat2( ):
     D = {  }
     yield 2
@@ -130,9 +130,7 @@ def generate_prime_numbers(n):
 
 
 def select_prime_number(prime_numbers):
-    hash_num = random.choice(prime_numbers)
-    return hash_num
-
+    return random.choice(prime_numbers)
 
 # tada = generate_prime_numbers(3000000)
 # print(tada)

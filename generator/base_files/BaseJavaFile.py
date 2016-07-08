@@ -74,6 +74,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         # TODO GSOC 2016 prime numbers
         n = 10000000
         self.prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
+        print('prime ', len(self.prime_numbers))
 
         self.serialVersionUID = -6048861420699176889
 
