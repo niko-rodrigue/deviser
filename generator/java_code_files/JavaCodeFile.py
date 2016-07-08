@@ -409,7 +409,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = gen_functions.write_to_string()
         self.write_function_implementation(code)
 
-        self.line_length = 120
+        self.line_length = 100
         code = gen_functions.write_read_attribute()
         self.write_function_implementation(code)
         self.line_length = 79

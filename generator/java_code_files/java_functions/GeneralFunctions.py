@@ -294,7 +294,15 @@ class GeneralFunctions():
     def create_read_attribute_else_if(self, index):
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
-        java_type = self.attributes[index]['JClassType']
+        java_type_data = self.attributes[index]['JClassType']
+
+        if java_type_data == 'Boolean':
+            java_type = 'Boolean'
+        elif java_type_data == 'Integer':
+            java_type = 'Int'
+        else: #TODO needs to be modified
+            java_type = java_type_data
+
 
         # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
@@ -314,7 +322,8 @@ class GeneralFunctions():
             if index < len(self.attributes)-1:
                 implementation.append('else if')
         except Exception as e:
-            print('Yolo ', e)
+            # print('Yolo ', e)
+            pass
         # implementation.append('else if')
 
 
@@ -382,14 +391,14 @@ class GeneralFunctions():
                                                                                                 self.value)]
         line = self.create_code_block('line', implementation)
         code.append(line)
-        print('wahaha ', self.class_name)
-        print('len ', len(self.attributes))
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
 
 
 
         # TODO here is the bug what to do?
         implementation_else_if = []
-        #each atribute has id and name
+        #each atribute has id and name, which are not a must for jsbml
         if len(self.attributes) > 2:
             # if zone stuff
             implementation = ['!isAttributeRead']
@@ -424,7 +433,7 @@ class GeneralFunctions():
         #     temp = ['return isAttributeRead']
         #     code.append(self.create_code_block('line', temp))
 
-        print('yahoo ',implementation_else_if)
+        # print('yahoo ',implementation_else_if)
 
         # try:
         #     if len(self.attributes) > 1:

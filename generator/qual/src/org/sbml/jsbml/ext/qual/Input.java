@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 8138657;
+    final int prime = 2926039;
 
     int hashCode = super.hashCode();
 
@@ -435,7 +435,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       }      else if (attributeName.equals(QualConstants.transitionEffect)) {
         setTransitionEffect(StringTools.parseSBMLTransitionInputEffect(value));
       }      else if (attributeName.equals(QualConstants.thresholdLevel)) {
-        setThresholdLevel(StringTools.parseSBMLInteger(value));
+        setThresholdLevel(StringTools.parseSBMLInt(value));
       } else {
         isAttributeRead = false;
       }
