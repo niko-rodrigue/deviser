@@ -383,12 +383,14 @@ class GeneralFunctions():
         line = self.create_code_block('line', implementation)
         code.append(line)
         print('wahaha ', self.class_name)
+        print('len ', len(self.attributes))
 
 
 
         # TODO here is the bug what to do?
         implementation_else_if = []
-        if len(self.attributes) > 1:
+        #each atribute has id and name
+        if len(self.attributes) > 2:
             # if zone stuff
             implementation = ['!isAttributeRead']
 

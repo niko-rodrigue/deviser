@@ -332,7 +332,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 7123063;
+    final int prime = 1272679;
 
     int hashCode = super.hashCode();
 
@@ -364,6 +364,19 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   public boolean readAttribute(String attributeName, String prefix, String value) {
     boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
 
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(QualConstants.qualitativeSpecies)) {
+        setQualitativeSpecies(value);
+      }      else if (attributeName.equals(QualConstants.transitionEffect)) {
+        setTransitionEffect(StringTools.parseSBMLTransitionOutputEffect(value));
+      }      else if (attributeName.equals(QualConstants.outputLevel)) {
+        setOutputLevel(StringTools.parseSBMLInteger(value));
+      } else {
+        isAttributeRead = false;
+      }
+    }
     return isAttributeRead;
   }
 
