@@ -37,7 +37,7 @@
 # ------------------------------------------------------------------------ -->
 
 
-# from util import query, strFunctions, global_variables, insideJSBML_parser
+from util import query, strFunctions, global_variables, insideJSBML_parser
 import itertools
 import random
 import uuid
@@ -135,7 +135,12 @@ def select_prime_number(prime_numbers):
 
 
 def generate_uuid():
-    return uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF
+    # Possible solution
+    # http://stackoverflow.com/questions/24796654/python-uuid4-how-to-limit-the-length-of-unique-chars
+    value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF
+    # value = uuid.uuid1().int  & (1<<68)-1
+    str_val = str(value)[:19]
+    return str_val
 
 # uid = generate_uuid()
 # print(uid)
