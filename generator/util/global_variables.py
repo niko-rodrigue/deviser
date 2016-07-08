@@ -101,7 +101,7 @@ java_library_name = 'JSBML'
 global prime_numbers
 n = 10000000
 prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
-print('prime ', len(prime_numbers))
+# print('prime ', len(prime_numbers))
 
 
 

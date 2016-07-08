@@ -170,8 +170,10 @@ def get_class_information(class_name=None):
 
 # get_class_information()
 
-# class_name = 'org.sbml.jsbml.CompartmentalizedSBase'
+
 
 # class_name = 'org.sbml.jsbml.AbstractNamedSBase'
+
+# class_name = 'CompartmentalizedSBase'
 # data = get_class_information(class_name)
 # print(data)
