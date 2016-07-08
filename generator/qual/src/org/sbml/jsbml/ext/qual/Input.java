@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 887449;
+    final int prime = 904459;
 
     int hashCode = super.hashCode();
 

@@ -159,7 +159,25 @@ class GeneralFunctions():
 
         self.duplicate_methods = []
 
+
+        self.methods_to_write = ['readAttribute', 'toString', 'writeXMLAttributes', 'hashCode']
+
+        # if self.is_java_api == True:
+        #     self.expand_methods_to_write()
+
     ########################################################################
+
+    # This look like it is not required
+    def expand_methods_to_write(self):
+        for class_name in self.jsbml_methods:
+            for method in self.jsbml_methods[class_name]:
+                # print('method is ', method['functionName'])
+                function_name = method['functionName']
+                if function_name in ['readAttribute', 'toString', 'writeXMLAttributes', 'hashCode']:
+                    if function_name not in self.methods_to_write:
+                        self.methods_to_write.append(function_name)
+
+        print('self write ', self.methods_to_write)
 
 
 
@@ -190,6 +208,10 @@ class GeneralFunctions():
         if self.is_java_api is False:
             return
         # create doc string header
+        function = 'hashCode'
+        if function not in self.methods_to_write:
+            return
+
         title_line = 'hashcode method for {0}.'.format(self.object_name)
         params = ['@param None']
         return_lines = []
@@ -198,7 +220,7 @@ class GeneralFunctions():
 
 
         # create function decl
-        function = 'hashCode'
+
         return_type = 'int'
         arguments = []
         # create the function implementation
@@ -319,13 +341,18 @@ class GeneralFunctions():
         if self.is_java_api is False:
             return
         # create doc string header
+        # Check if method is required
+        function = 'readAttribute'
+        if function not in self.methods_to_write:
+            return
+
         title_line = 'Assignment operator for {0}.'.format(self.object_name)
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
         additional = []
         additional.append('Override')
-        function = 'readAttribute'
+
         return_type = 'boolean'
         arguments = ['String attributeName'] #, 'String prefix', 'String value']
         arguments_no_defaults = ['String {0}'.format(self.attributeName),
@@ -450,6 +477,13 @@ class GeneralFunctions():
         # do not write for C API
         if self.is_java_api is False:
             return
+
+        # Check if method is required
+        function = 'toString'
+        if function not in self.methods_to_write:
+            return
+
+
         # create doc string header
         title_line = '(non-Javadoc)--see java.lang.Object#toString()'.format(self.object_name)
         params = ['@param rhs the {0} object whose values are to be used '
@@ -457,7 +491,7 @@ class GeneralFunctions():
         return_lines = []
         additional = []
         additional.append('Override')
-        function = 'toString'
+
         return_type = 'String'
         arguments = ['']  # , 'String prefix', 'String value']
         arguments_no_defaults = ['']
