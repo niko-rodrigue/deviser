@@ -180,7 +180,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 9452129;
+    final int prime = 8940131;
 
     int hashCode = super.hashCode();
 
@@ -196,6 +196,15 @@ public class DefaultTerm extends AbstractMathContainer {
   @Override
   public String toString() {
     return "DefaultTerm [id = " + getId() + ", name = " + getName() + "]";
+  }
+
+  /* Assignment operator for DefaultTerm.
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    return isAttributeRead;
   }
 
 }

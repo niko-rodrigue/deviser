@@ -310,8 +310,12 @@ class GeneralFunctions():
             implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
 
 
-        if index < len(self.attributes)-1:
-            implementation.append('else if')
+        try:
+            if index < len(self.attributes)-1:
+                implementation.append('else if')
+        except Exception as e:
+            print('Yolo ', e)
+        # implementation.append('else if')
 
 
 
@@ -378,38 +382,67 @@ class GeneralFunctions():
                                                                                                 self.value)]
         line = self.create_code_block('line', implementation)
         code.append(line)
-
-        implementation = ['!isAttributeRead']
-
-        implement_inside = ['isAttributeRead = true']
-        line = self.create_code_block('line', implement_inside)
-        implementation.append(line)
+        print('wahaha ', self.class_name)
 
 
 
         # TODO here is the bug what to do?
         implementation_else_if = []
         if len(self.attributes) > 1:
+            # if zone stuff
+            implementation = ['!isAttributeRead']
+
+            implement_inside = ['isAttributeRead = true']
+            line = self.create_code_block('line', implement_inside)
+            implementation.append(line)
+
+
+
             for i in range(0, len(self.attributes)):
                 #print('i is ',i)s
                 attribute = self.attributes[i]
                 if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
                     continue
-                else:
+                else: #Here lies a bug
                     temp_code = self.create_read_attribute_else_if(i)
                     implementation_else_if += temp_code
                     # else_if_index = i
                     # break
                     # code.append(temp_code[-1])
-        if len(self.attributes) > 1:
+
             temp_code = self.create_read_attribute_else()
             implementation_else_if += temp_code
 
             temp_code = self.create_code_block('else_if', implementation_else_if)
-            #code.append(temp_code)
             implementation.append(temp_code)
-        # implementation.append('')
             code.append(self.create_code_block('if', implementation))
+
+
+        # else:
+        #     temp = ['return isAttributeRead']
+        #     code.append(self.create_code_block('line', temp))
+
+        print('yahoo ',implementation_else_if)
+
+        # try:
+        #     if len(self.attributes) > 1:
+        #         temp_code = self.create_read_attribute_else()
+        #         implementation_else_if += temp_code
+        #
+        #         temp_code = self.create_code_block('else_if', implementation_else_if)
+        #         implementation.append(temp_code)
+        #         code.append(self.create_code_block('if', implementation))
+        # except:
+        #     pass
+            # temp_code = self.create_code_block('else_if', implementation_else_if)
+            # implementation.append(temp_code)
+            # code.append(self.create_code_block('if', implementation))
+        #         #code.append(temp_code)
+        #         implementation.append(temp_code)
+        #     # implementation.append('')
+        #         code.append(self.create_code_block('if', implementation))
+        # except Exception as e:
+        #     print('Yolo test ', e)
 
 
         temp = ['return isAttributeRead']
