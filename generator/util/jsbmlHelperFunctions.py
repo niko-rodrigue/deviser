@@ -37,7 +37,7 @@
 # ------------------------------------------------------------------------ -->
 
 
-# from util import query, strFunctions, global_variables, insideJSBML_parser
+from util import query, strFunctions, global_variables, insideJSBML_parser
 import itertools
 import random
 import uuid
