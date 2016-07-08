@@ -180,7 +180,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 3478679;
+    final int prime = 7566599;
 
     int hashCode = super.hashCode();
 
@@ -188,6 +188,14 @@ public class DefaultTerm extends AbstractMathContainer {
       hashCode += prime * getResultLevel();
     }
     return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "DefaultTerm [id = " + getId() + ", name = " + getName() + "]";
   }
 
 }

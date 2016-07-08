@@ -424,6 +424,105 @@ class GeneralFunctions():
 
     # Functions for writing renamesidref
 
+    def create_to_string(self):
+
+        text = ''
+        if len(self.attributes) > 1:
+            for index in range(0, len(self.attributes)):
+                # print('i is ',i)s
+                attribute = self.attributes[index]
+                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                    continue
+                else:
+                    name = self.attributes[index]['capAttName']
+                    member_name = self.attributes[index]['name']
+                    type = self.attributes[index]['type']
+
+                    text += '{0} = " + {1} + ", '.format(member_name, member_name)
+                    # else_if_index = i
+                    # break
+                    # code.append(temp_code[-1])
+        return  text
+
+
+
+    def write_to_string(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        title_line = '(non-Javadoc)--see java.lang.Object#toString()'.format(self.object_name)
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+        function = 'toString'
+        return_type = 'String'
+        arguments = ['']  # , 'String prefix', 'String value']
+        arguments_no_defaults = ['']
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function=function,
+            return_type=return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, function_args)
+
+
+        text = 'return "{0} ['.format(self.class_name)
+
+        text_rest = self.create_to_string()
+        text += text_rest
+
+        text += 'id = " + getId() + ", name = " + getName() + "]"'
+
+        temp = [text]
+        code.append(self.create_code_block('line', temp))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
+
+
     # function to write rename_sid_ref
     def write_rename_sidrefs(self):
         # only write is not list of and has sidrefs

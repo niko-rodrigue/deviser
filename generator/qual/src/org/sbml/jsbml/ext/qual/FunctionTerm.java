@@ -188,7 +188,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 3733459;
+    final int prime = 3234061;
 
     int hashCode = super.hashCode();
 
@@ -196,6 +196,14 @@ public class FunctionTerm extends AbstractMathContainer {
       hashCode += prime * getResultLevel();
     }
     return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "FunctionTerm [id = " + getId() + ", name = " + getName() + "]";
   }
 
 }

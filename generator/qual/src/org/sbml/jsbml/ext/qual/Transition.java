@@ -157,11 +157,19 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 4634027;
+    final int prime = 8062721;
 
     int hashCode = super.hashCode();
 
     return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "Transition [id = " + getId() + ", name = " + getName() + "]";
   }
 
 }

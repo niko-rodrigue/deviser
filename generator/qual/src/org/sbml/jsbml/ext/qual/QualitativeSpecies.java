@@ -405,7 +405,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 6770053;
+    final int prime = 6120269;
 
     int hashCode = super.hashCode();
 
@@ -422,6 +422,16 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       hashCode += prime * getMaxLevel();
     }
     return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "QualitativeSpecies [compartment = " + compartment + ", constant = "
+      + constant + ", initialLevel = " + initialLevel + ", maxLevel = " +
+        maxLevel + ", id = " + getId() + ", name = " + getName() + "]";
   }
 
 }

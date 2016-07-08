@@ -332,7 +332,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 3038753;
+    final int prime = 2733431;
 
     int hashCode = super.hashCode();
 
@@ -346,6 +346,16 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       hashCode += prime;
     }
     return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "Output [qualitativeSpecies = " + qualitativeSpecies + ", "
+      "transitionEffect = " + transitionEffect + ", outputLevel = " + outputLevel
+        + ", id = " + getId() + ", name = " + getName() + "]";
   }
 
 }
