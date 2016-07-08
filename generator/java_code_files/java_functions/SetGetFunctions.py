@@ -407,7 +407,7 @@ class SetGetFunctions():
         curr_att_type = attribute['JClassType']
         oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
         currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
-        
+
         object = strFunctions.upper_first(attribute['name'])
 
         # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
@@ -429,8 +429,8 @@ class SetGetFunctions():
         implementationNext = ['return null']  # 1st line
         code.append(self.create_code_block('line', implementationNext))
 
-
-
+        # implementation = ['return get{0}()'.format(attribute['capAttName'])]
+        # code = [self.create_code_block('line', implementation)]  # [self.create_code_block('line', implementation)]
 
         # if self.is_java_api:
         #     if not self.document:

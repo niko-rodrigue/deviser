@@ -180,7 +180,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 793493;
+    final int prime = 4700567;
 
     int hashCode = super.hashCode();
 
