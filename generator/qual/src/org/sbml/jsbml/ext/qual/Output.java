@@ -332,7 +332,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 4906399;
+    final int prime = 3038753;
 
     int hashCode = super.hashCode();
 

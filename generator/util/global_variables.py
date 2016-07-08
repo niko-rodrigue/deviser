@@ -38,6 +38,7 @@
 # ------------------------------------------------------------------------ -->
 
 import os
+from . import jsbmlHelperFunctions
 
 
 global error_list
@@ -77,7 +78,7 @@ global package_full_name
 package_full_name = ''
 
 
-# GSOC 2016 modification
+# TODO  GSOC 2016 modification
 global javaLanguage
 javaLanguage = 'jsbml'
 
@@ -95,6 +96,13 @@ javaTypeAttributes = ['int', 'boolean', 'double'] # 'String'
 
 global java_library_name
 java_library_name = 'JSBML'
+
+
+global prime_numbers
+n = 10000000
+prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
+print('prime ', len(prime_numbers))
+
 
 
 global return_codes

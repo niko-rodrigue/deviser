@@ -236,28 +236,6 @@ class GeneralFunctions():
                 temp_code = self.create_hashcode_if(i)
                 code.append(temp_code)
 
-        # for i in range(0, len(self.attributes)):
-        #     if self.attributes[i]['isArray']:
-        #         line = self.write_set_array(i)
-        #         code.append(self.create_code_block('line', line))
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['orig.{0} != NULL'.format(member),
-        #                       '{0} = orig.{0}->{1}()'.format(member,
-        #                                                      clone)]
-        #     code.append(self.create_code_block('if', implementation))
-        # if self.document:
-        #     implementation = ['set{0}Document(this)'.format(global_variables.prefix)]
-        #     code.append(dict({'code_type': 'line', 'code': implementation}))
-        # if self.has_children:
-        #     implementation = ['connectToChild()']
-        #     code.append(dict({'code_type': 'line', 'code': implementation}))
-        # else:
-        #     implementation = ['']
-        #     code.append(dict({'code_type': 'blank', 'code': implementation}))
 
         temp = ['return hashCode']
         code.append(self.create_code_block('line', temp))

@@ -405,7 +405,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 6498281;
+    final int prime = 6770053;
 
     int hashCode = super.hashCode();
 

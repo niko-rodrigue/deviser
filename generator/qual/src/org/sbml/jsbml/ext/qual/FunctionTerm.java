@@ -188,7 +188,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 9515911;
+    final int prime = 3733459;
 
     int hashCode = super.hashCode();
 
