@@ -149,8 +149,8 @@ def generate_uuid():
     # str_val = str(value)[:19]
     return value
 
-uid = generate_uuid()
-print(uid)
+# uid = generate_uuid()
+# print(uid)
 
 # tada = generate_prime_numbers(3000000)
 # print(tada)
