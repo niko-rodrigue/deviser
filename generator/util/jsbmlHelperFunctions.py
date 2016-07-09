@@ -137,13 +137,19 @@ def select_prime_number(prime_numbers):
 def generate_uuid():
     # Possible solution
     # http://stackoverflow.com/questions/24796654/python-uuid4-how-to-limit-the-length-of-unique-chars
-    value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF
+    # value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF
+    value = uuid.uuid4().int &  (1<<56)-1
+    print('uuid ', value)
+    print('uuid ', len(str(value)))
+    # jsbml_val_example = 3370025650545068132
+    # print('jsbml uuid ', jsbml_val_example)
+    # print('jsbml uuid ', len(str(jsbml_val_example)))
     # value = uuid.uuid1().int  & (1<<68)-1
-    str_val = str(value)[:19]
-    return str_val
+    # str_val = str(value)[:19]
+    return value
 
-# uid = generate_uuid()
-# print(uid)
+uid = generate_uuid()
+print(uid)
 
 # tada = generate_prime_numbers(3000000)
 # print(tada)

@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 9885231427739104073L;
+  private static final long serialVersionUID = 20703272266738908L;
   /**
    *
    */
@@ -406,7 +406,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 2706413;
+    final int prime = 1396847;
 
     int hashCode = super.hashCode();
 
