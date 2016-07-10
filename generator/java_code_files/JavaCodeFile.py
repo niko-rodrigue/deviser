@@ -414,6 +414,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_function_implementation(code)
         self.line_length = 79
 
+        self.line_length = 150
+        code = gen_functions.write_write_xml_attribute()
+        self.write_function_implementation(code)
+        self.line_length = 79
+
         # code = gen_functions.write_rename_sidrefs()
         # self.write_function_implementation(code)
         #

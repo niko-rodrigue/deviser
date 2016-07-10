@@ -493,6 +493,112 @@ class GeneralFunctions():
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
 
+
+    # Functions for writing hashCode
+    def create_xml_attributes_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        type = self.attributes[index]['type']
+        jclass_type = self.attributes[index]['JClassType']
+
+        implementation = ['isSet{0}()'.format(name)]
+        if str(type)[:] == 'SId' or str(type)[:] == 'string':
+            implementation.append('attributes.remove("{0}")'.format(member_name))
+            implementation.append('attributes.put({0}Constants.shortLabel + ":{1}",  get{2}())'.format(
+                                                                        self.package,  member_name, name))
+        elif str(type)[:] == 'bool':
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}()))'.format(
+                                                                        self.package, self.package, member_name, jclass_type,  name))
+        elif str(type)[:] == 'SIdRef':
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}())'.format(
+                                                                        self.package, self.package, member_name, name))
+        elif str(type)[:] == 'uint':
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}()))'.format(
+                    self.package, self.package, member_name, jclass_type, name))
+        else:
+            implementation.append('hashCode += prime')
+
+        temp_code = self.create_code_block('if', implementation)
+        return temp_code
+
+
+
+
+
+
+    # GSOC 2016 Function for writing  xml attributes
+    def write_write_xml_attribute(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'writeXMLAttributes'
+        if function not in self.methods_to_write:
+            return
+
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()'
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'Map <String, String>'
+        arguments = []
+        arguments_no_defaults = []
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function=function,
+            return_type=return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, function_args)
+
+        implementation = ['{0} attributes = super.writeXMLAttributes()'.format(return_type)]
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
+
+
+
+        # TODO here is the bug what to do?
+        implementation_else_if = []
+        # each atribute has id and name, which are not a must for jsbml
+        # if len(self.attributes) > 2:
+        for i in range(0, len(self.attributes)):
+            # print('i is ',i)s
+            temp_code = self.create_xml_attributes_if(i)
+            code.append(temp_code)
+
+
+        temp = ['return attributes']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
+
     # Functions for writing renamesidref
 
     def create_to_string(self):

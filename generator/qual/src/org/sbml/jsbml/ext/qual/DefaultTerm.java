@@ -36,7 +36,7 @@ public class DefaultTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 1093409724137929409L;
+  private static final long serialVersionUID = 45196958677764585L;
   /**
    *
    */
@@ -180,7 +180,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 1034827;
+    final int prime = 2357363;
 
     int hashCode = super.hashCode();
 
@@ -205,6 +205,19 @@ public class DefaultTerm extends AbstractMathContainer {
     boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
 
     return isAttributeRead;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   */
+  @Override
+  public Map <String, String> writeXMLAttributes() {
+    Map <String, String> attributes = super.writeXMLAttributes();
+
+    if (isSetResultLevel()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.resultLevel, Integer.toString(getResultLevel()));
+    }
+    return attributes;
   }
 
 }

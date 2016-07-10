@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 1033912563984613920L;
+  private static final long serialVersionUID = 31208048889726685L;
   /**
    *
    */
@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 6628421;
+    final int prime = 8862583;
 
     int hashCode = super.hashCode();
 
@@ -441,6 +441,36 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       }
     }
     return isAttributeRead;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   */
+  @Override
+  public Map <String, String> writeXMLAttributes() {
+    Map <String, String> attributes = super.writeXMLAttributes();
+
+    if (isSetId()) {
+      attributes.remove("id");
+      attributes.put(QualConstants.shortLabel + ":id", getId());
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(QualConstants.shortLabel + ":name", getName());
+    }
+    if (isSetSign()) {
+      hashCode += prime;
+    }
+    if (isSetQualitativeSpecies()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies, getQualitativeSpecies());
+    }
+    if (isSetTransitionEffect()) {
+      hashCode += prime;
+    }
+    if (isSetThresholdLevel()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.thresholdLevel, Integer.toString(getThresholdLevel()));
+    }
+    return attributes;
   }
 
 }
