@@ -37,7 +37,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 3507730754228076L;
+  private static final long serialVersionUID = 26321965129173444L;
 
   /**
    *  
@@ -157,7 +157,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 292793;
+    final int prime = 2449963;
 
     int hashCode = super.hashCode();
 
@@ -181,13 +181,20 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return isAttributeRead;
   }
 
-  /* Assignment operator for Transition.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes());
 
-    return isAttributeRead;
+    if (isSetId()) {
+      attributes.remove("id");
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+    }
+    return attributes;
   }
 
 }

@@ -494,6 +494,33 @@ class GeneralFunctions():
                      'implementation': code})
 
 
+    # Functions for writing hashCode
+    def create_xml_attributes_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        type = self.attributes[index]['type']
+
+        implementation = ['isSet{0}()'.format(name)]
+        if str(type)[:] == 'SId' or str(type)[:] == 'string':
+            implementation.append('attributes.remove("{0}")'.format(member_name))
+        elif str(type)[:] == 'bool':
+            implementation.append('hashCode += prime + (get{0}() ? 1 : -1)'.format(name))
+        elif str(type)[:] == 'SIdRef':
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}()'.format(
+                                                                        self.package, self.package, member_name, name))
+        elif str(type)[:] == 'uint':
+            implementation.append('hashCode += prime * get{0}()'.format(name))
+        else:
+            implementation.append('hashCode += prime')
+
+        temp_code = self.create_code_block('if', implementation)
+        return temp_code
+
+
+
+
+
+
     # GSOC 2016 Function for writing  xml attributes
     def write_write_xml_attribute(self):
         # do not write for C API
@@ -505,7 +532,8 @@ class GeneralFunctions():
         if function not in self.methods_to_write:
             return
 
-        title_line = 'Assignment operator for {0}.'.format(self.object_name)
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()'
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
@@ -542,84 +570,15 @@ class GeneralFunctions():
         # TODO here is the bug what to do?
         implementation_else_if = []
         # each atribute has id and name, which are not a must for jsbml
-        if len(self.attributes) > 2:
-            # if zone stuff
-            implementation = ['!isAttributeRead']
-
-            implement_inside = ['isAttributeRead = true']
-            line = self.create_code_block('line', implement_inside)
-            implementation.append(line)
-
-            for i in range(0, len(self.attributes)):
-                # print('i is ',i)s
-                attribute = self.attributes[i]
-                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-                    continue
-                else:  # Here lies a bug
-                    temp_code = self.create_read_attribute_else_if(i)
-                    implementation_else_if += temp_code
-                    # else_if_index = i
-                    # break
-                    # code.append(temp_code[-1])
-
-            temp_code = self.create_read_attribute_else()
-            implementation_else_if += temp_code
-
-            temp_code = self.create_code_block('else_if', implementation_else_if)
-            implementation.append(temp_code)
-            code.append(self.create_code_block('if', implementation))
+        # if len(self.attributes) > 2:
+        for i in range(0, len(self.attributes)):
+            # print('i is ',i)s
+            temp_code = self.create_xml_attributes_if(i)
+            code.append(temp_code)
 
 
-            # else:
-            #     temp = ['return isAttributeRead']
-            #     code.append(self.create_code_block('line', temp))
-
-            # print('yahoo ',implementation_else_if)
-
-            # try:
-            #     if len(self.attributes) > 1:
-            #         temp_code = self.create_read_attribute_else()
-            #         implementation_else_if += temp_code
-            #
-            #         temp_code = self.create_code_block('else_if', implementation_else_if)
-            #         implementation.append(temp_code)
-            #         code.append(self.create_code_block('if', implementation))
-            # except:
-            #     pass
-            # temp_code = self.create_code_block('else_if', implementation_else_if)
-            # implementation.append(temp_code)
-            # code.append(self.create_code_block('if', implementation))
-        #         #code.append(temp_code)
-        #         implementation.append(temp_code)
-        #     # implementation.append('')
-        #         code.append(self.create_code_block('if', implementation))
-        # except Exception as e:
-        #     print('Yolo test ', e)
-
-
-        temp = ['return isAttributeRead']
+        temp = ['return attributes']
         code.append(self.create_code_block('line', temp))
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,

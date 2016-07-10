@@ -36,7 +36,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 24610972178659580L;
+  private static final long serialVersionUID = 63152569258758700L;
   /**
    *
    */
@@ -332,7 +332,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 3784169;
+    final int prime = 3344261;
 
     int hashCode = super.hashCode();
 
@@ -380,26 +380,30 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     return isAttributeRead;
   }
 
-  /* Assignment operator for Output.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes());
 
-    if (!isAttributeRead) {
-      isAttributeRead = true;
-
-      if (attributeName.equals(QualConstants.qualitativeSpecies)) {
-        setQualitativeSpecies(value);
-      }      else if (attributeName.equals(QualConstants.transitionEffect)) {
-        setTransitionEffect(StringTools.parseSBMLTransitionOutputEffect(value));
-      }      else if (attributeName.equals(QualConstants.outputLevel)) {
-        setOutputLevel(StringTools.parseSBMLInt(value));
-      } else {
-        isAttributeRead = false;
-      }
+    if (isSetId()) {
+      attributes.remove("id");
     }
-    return isAttributeRead;
+    if (isSetQualitativeSpecies()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies,
+        getQualitativeSpecies();
+    }
+    if (isSetTransitionEffect()) {
+      hashCode += prime;
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+    }
+    if (isSetOutputLevel()) {
+      hashCode += prime;
+    }
+    return attributes;
   }
 
 }

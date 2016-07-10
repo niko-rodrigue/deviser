@@ -36,7 +36,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 434154231373998L;
+  private static final long serialVersionUID = 13016664125016931L;
   /**
    *
    */
@@ -188,7 +188,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 7598753;
+    final int prime = 5873473;
 
     int hashCode = super.hashCode();
 
@@ -215,13 +215,17 @@ public class FunctionTerm extends AbstractMathContainer {
     return isAttributeRead;
   }
 
-  /* Assignment operator for FunctionTerm.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes());
 
-    return isAttributeRead;
+    if (isSetResultLevel()) {
+      hashCode += prime * getResultLevel();
+    }
+    return attributes;
   }
 
 }

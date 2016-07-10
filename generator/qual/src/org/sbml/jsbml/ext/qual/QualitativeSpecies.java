@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 48591057801237497L;
+  private static final long serialVersionUID = 48527172416564266L;
   /**
    *
    */
@@ -406,7 +406,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 9619877;
+    final int prime = 8175457;
 
     int hashCode = super.hashCode();
 
@@ -459,28 +459,32 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return isAttributeRead;
   }
 
-  /* Assignment operator for QualitativeSpecies.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes());
 
-    if (!isAttributeRead) {
-      isAttributeRead = true;
-
-      if (attributeName.equals(QualConstants.compartment)) {
-        setCompartment(value);
-      }      else if (attributeName.equals(QualConstants.constant)) {
-        setConstant(StringTools.parseSBMLBoolean(value));
-      }      else if (attributeName.equals(QualConstants.initialLevel)) {
-        setInitialLevel(StringTools.parseSBMLInt(value));
-      }      else if (attributeName.equals(QualConstants.maxLevel)) {
-        setMaxLevel(StringTools.parseSBMLInt(value));
-      } else {
-        isAttributeRead = false;
-      }
+    if (isSetId()) {
+      attributes.remove("id");
     }
-    return isAttributeRead;
+    if (isSetName()) {
+      attributes.remove("name");
+    }
+    if (isSetCompartment()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.compartment, getCompartment();
+    }
+    if (isSetConstant()) {
+      hashCode += prime + (getConstant() ? 1 : -1);
+    }
+    if (isSetInitialLevel()) {
+      hashCode += prime * getInitialLevel();
+    }
+    if (isSetMaxLevel()) {
+      hashCode += prime * getMaxLevel();
+    }
+    return attributes;
   }
 
 }

@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 60133395450130848L;
+  private static final long serialVersionUID = 10678928099511354L;
   /**
    *
    */
@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 7173251;
+    final int prime = 5683583;
 
     int hashCode = super.hashCode();
 
@@ -443,28 +443,33 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     return isAttributeRead;
   }
 
-  /* Assignment operator for Input.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes());
 
-    if (!isAttributeRead) {
-      isAttributeRead = true;
-
-      if (attributeName.equals(QualConstants.sign)) {
-        setSign(StringTools.parseSBMLSign(value));
-      }      else if (attributeName.equals(QualConstants.qualitativeSpecies)) {
-        setQualitativeSpecies(value);
-      }      else if (attributeName.equals(QualConstants.transitionEffect)) {
-        setTransitionEffect(StringTools.parseSBMLTransitionInputEffect(value));
-      }      else if (attributeName.equals(QualConstants.thresholdLevel)) {
-        setThresholdLevel(StringTools.parseSBMLInt(value));
-      } else {
-        isAttributeRead = false;
-      }
+    if (isSetId()) {
+      attributes.remove("id");
     }
-    return isAttributeRead;
+    if (isSetName()) {
+      attributes.remove("name");
+    }
+    if (isSetSign()) {
+      hashCode += prime;
+    }
+    if (isSetQualitativeSpecies()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies,
+        getQualitativeSpecies();
+    }
+    if (isSetTransitionEffect()) {
+      hashCode += prime;
+    }
+    if (isSetThresholdLevel()) {
+      hashCode += prime * getThresholdLevel();
+    }
+    return attributes;
   }
 
 }
