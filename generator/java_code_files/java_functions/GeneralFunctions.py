@@ -493,6 +493,147 @@ class GeneralFunctions():
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
 
+
+    # GSOC 2016 Function for writing  xml attributes
+    def write_write_xml_attribute(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'writeXMLAttributes'
+        if function not in self.methods_to_write:
+            return
+
+        title_line = 'Assignment operator for {0}.'.format(self.object_name)
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'Map <String, String>'
+        arguments = []
+        arguments_no_defaults = []
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function=function,
+            return_type=return_type)
+
+        if additional_add is not None:
+            additional.append(additional_add)
+            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                             function, function_args)
+
+        implementation = ['{0} attributes = super.writeXMLAttributes())'.format(return_type)]
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
+
+
+
+        # TODO here is the bug what to do?
+        implementation_else_if = []
+        # each atribute has id and name, which are not a must for jsbml
+        if len(self.attributes) > 2:
+            # if zone stuff
+            implementation = ['!isAttributeRead']
+
+            implement_inside = ['isAttributeRead = true']
+            line = self.create_code_block('line', implement_inside)
+            implementation.append(line)
+
+            for i in range(0, len(self.attributes)):
+                # print('i is ',i)s
+                attribute = self.attributes[i]
+                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                    continue
+                else:  # Here lies a bug
+                    temp_code = self.create_read_attribute_else_if(i)
+                    implementation_else_if += temp_code
+                    # else_if_index = i
+                    # break
+                    # code.append(temp_code[-1])
+
+            temp_code = self.create_read_attribute_else()
+            implementation_else_if += temp_code
+
+            temp_code = self.create_code_block('else_if', implementation_else_if)
+            implementation.append(temp_code)
+            code.append(self.create_code_block('if', implementation))
+
+
+            # else:
+            #     temp = ['return isAttributeRead']
+            #     code.append(self.create_code_block('line', temp))
+
+            # print('yahoo ',implementation_else_if)
+
+            # try:
+            #     if len(self.attributes) > 1:
+            #         temp_code = self.create_read_attribute_else()
+            #         implementation_else_if += temp_code
+            #
+            #         temp_code = self.create_code_block('else_if', implementation_else_if)
+            #         implementation.append(temp_code)
+            #         code.append(self.create_code_block('if', implementation))
+            # except:
+            #     pass
+            # temp_code = self.create_code_block('else_if', implementation_else_if)
+            # implementation.append(temp_code)
+            # code.append(self.create_code_block('if', implementation))
+        #         #code.append(temp_code)
+        #         implementation.append(temp_code)
+        #     # implementation.append('')
+        #         code.append(self.create_code_block('if', implementation))
+        # except Exception as e:
+        #     print('Yolo test ', e)
+
+
+        temp = ['return isAttributeRead']
+        code.append(self.create_code_block('line', temp))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
+
     # Functions for writing renamesidref
 
     def create_to_string(self):

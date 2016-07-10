@@ -1090,9 +1090,9 @@ jsbml_data_tree[pack_dyn]['DynElement'] = [abstract_named_sbase, unique_named_sb
 jsbml_data_tree[pack_dyn]['SpatialComponent'] = [abstract_named_sbase, unique_named_sbase]
 
 # distrib package
-jsbml_data_tree[pack_distrib]['DrawFromDistribution'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_distrib]['DistribInput'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_distrib]['Uncertainty'] = [abstract_named_sbase, unique_named_sbase]
+jsbml_data_tree[pack_distrib]['DrawFromDistribution'] = [abstract_sbase, 'IdManager']
+jsbml_data_tree[pack_distrib]['DistribInput'] = [abstract_named_sbase]
+jsbml_data_tree[pack_distrib]['Uncertainty'] = [abstract_named_sbase]
 
 
 # groups package
@@ -1100,18 +1100,20 @@ jsbml_data_tree[pack_groups]['Group'] = [abstract_named_sbase, unique_named_sbas
 jsbml_data_tree[pack_groups]['Member'] = [abstract_named_sbase, unique_named_sbase]
 
 # spatial package
-jsbml_data_tree[pack_spatial]['Geometry'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['Domain'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['InteriorPoint'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['Boundary'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['AdjacentDomains'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['GeometryDefinition'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CompartmentMapping'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CoordinateComponent'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['SampledFieldGeometry'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['SampledField'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['SampledVolume'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['AnalyticGeometry'] = [abstract_named_sbase, unique_named_sbase]
+abstract_spatial_named_sbase = 'AbstractSpatialNamedSBase'
+geometry_definition = 'GeometryDefinition'
+jsbml_data_tree[pack_spatial]['Geometry'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['Domain'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['InteriorPoint'] = [abstract_sbase]
+jsbml_data_tree[pack_spatial]['Boundary'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['AdjacentDomains'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial][geometry_definition] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['CompartmentMapping'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['CoordinateComponent'] = [abstract_spatial_named_sbase, sbase_with_unit]
+jsbml_data_tree[pack_spatial]['SampledFieldGeometry'] = [geometry_definition]
+jsbml_data_tree[pack_spatial]['SampledField'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['SampledVolume'] = [abstract_spatial_named_sbase]
+jsbml_data_tree[pack_spatial]['AnalyticGeometry'] = [geometry_definition]
 jsbml_data_tree[pack_spatial]['AnalyticVolume'] = [abstract_named_sbase, unique_named_sbase]
 jsbml_data_tree[pack_spatial]['ParametricGeometry'] = [abstract_named_sbase, unique_named_sbase]
 jsbml_data_tree[pack_spatial]['ParametricObject'] = [abstract_named_sbase, unique_named_sbase]
