@@ -36,7 +36,7 @@ public class DefaultTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 45196958677764585L;
+  private static final long serialVersionUID = 53201485894823046L;
   /**
    *
    */
@@ -180,7 +180,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 2357363;
+    final int prime = 1456123;
 
     int hashCode = super.hashCode();
 
