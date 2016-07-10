@@ -36,7 +36,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 6496175089410210L;
+  private static final long serialVersionUID = 61593354211372029L;
   /**
    *
    */
@@ -332,7 +332,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 135671;
+    final int prime = 9299503;
 
     int hashCode = super.hashCode();
 
@@ -385,21 +385,21 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
-    Map <String, String> attributes = super.writeXMLAttributes());
+    Map <String, String> attributes = super.writeXMLAttributes();
 
     if (isSetId()) {
       attributes.remove("id");
-      attributes.put(QualConstants.shortLabel + ":id", getId();
+      attributes.put(QualConstants.shortLabel + ":id", getId());
     }
     if (isSetQualitativeSpecies()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies, getQualitativeSpecies();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies, getQualitativeSpecies());
     }
     if (isSetTransitionEffect()) {
       hashCode += prime;
     }
     if (isSetName()) {
       attributes.remove("name");
-      attributes.put(QualConstants.shortLabel + ":name", getName();
+      attributes.put(QualConstants.shortLabel + ":name", getName());
     }
     if (isSetOutputLevel()) {
       hashCode += prime;

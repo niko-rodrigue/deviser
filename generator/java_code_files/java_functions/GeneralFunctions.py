@@ -504,17 +504,17 @@ class GeneralFunctions():
         implementation = ['isSet{0}()'.format(name)]
         if str(type)[:] == 'SId' or str(type)[:] == 'string':
             implementation.append('attributes.remove("{0}")'.format(member_name))
-            implementation.append('attributes.put({0}Constants.shortLabel + ":{1}",  get{2}()'.format(
+            implementation.append('attributes.put({0}Constants.shortLabel + ":{1}",  get{2}())'.format(
                                                                         self.package,  member_name, name))
         elif str(type)[:] == 'bool':
-            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}())'.format(
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}()))'.format(
                                                                         self.package, self.package, member_name, jclass_type,  name))
         elif str(type)[:] == 'SIdRef':
-            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}()'.format(
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}())'.format(
                                                                         self.package, self.package, member_name, name))
         elif str(type)[:] == 'uint':
             implementation.append(
-                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}())'.format(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}()))'.format(
                     self.package, self.package, member_name, jclass_type, name))
         else:
             implementation.append('hashCode += prime')
@@ -565,7 +565,7 @@ class GeneralFunctions():
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
                                                                              function, function_args)
 
-        implementation = ['{0} attributes = super.writeXMLAttributes())'.format(return_type)]
+        implementation = ['{0} attributes = super.writeXMLAttributes()'.format(return_type)]
         line = self.create_code_block('line', implementation)
         code.append(line)
         # print('wahaha ', self.class_name)

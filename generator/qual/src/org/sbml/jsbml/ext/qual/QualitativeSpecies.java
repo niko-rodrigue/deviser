@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 46969907953726179L;
+  private static final long serialVersionUID = 46883218676584331L;
   /**
    *
    */
@@ -406,7 +406,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 5280161;
+    final int prime = 7503751;
 
     int hashCode = super.hashCode();
 
@@ -464,27 +464,27 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public Map <String, String> writeXMLAttributes() {
-    Map <String, String> attributes = super.writeXMLAttributes());
+    Map <String, String> attributes = super.writeXMLAttributes();
 
     if (isSetId()) {
       attributes.remove("id");
-      attributes.put(QualConstants.shortLabel + ":id", getId();
+      attributes.put(QualConstants.shortLabel + ":id", getId());
     }
     if (isSetName()) {
       attributes.remove("name");
-      attributes.put(QualConstants.shortLabel + ":name", getName();
+      attributes.put(QualConstants.shortLabel + ":name", getName());
     }
     if (isSetCompartment()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.compartment, getCompartment();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.compartment, getCompartment());
     }
     if (isSetConstant()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.constant, Boolean.toString(getConstant());
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.constant, Boolean.toString(getConstant()));
     }
     if (isSetInitialLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.initialLevel, Integer.toString(getInitialLevel());
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.initialLevel, Integer.toString(getInitialLevel()));
     }
     if (isSetMaxLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.maxLevel, Integer.toString(getMaxLevel());
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.maxLevel, Integer.toString(getMaxLevel()));
     }
     return attributes;
   }
