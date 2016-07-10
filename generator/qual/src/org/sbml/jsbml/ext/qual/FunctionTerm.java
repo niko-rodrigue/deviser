@@ -36,7 +36,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 13016664125016931L;
+  private static final long serialVersionUID = 56206843180011804L;
   /**
    *
    */
@@ -188,7 +188,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 5873473;
+    final int prime = 7141933;
 
     int hashCode = super.hashCode();
 
@@ -223,7 +223,7 @@ public class FunctionTerm extends AbstractMathContainer {
     Map <String, String> attributes = super.writeXMLAttributes());
 
     if (isSetResultLevel()) {
-      hashCode += prime * getResultLevel();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.resultLevel, Integer.toString(getResultLevel());
     }
     return attributes;
   }

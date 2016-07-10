@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 48527172416564266L;
+  private static final long serialVersionUID = 46969907953726179L;
   /**
    *
    */
@@ -406,7 +406,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 8175457;
+    final int prime = 5280161;
 
     int hashCode = super.hashCode();
 
@@ -468,21 +468,23 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
 
     if (isSetId()) {
       attributes.remove("id");
+      attributes.put(QualConstants.shortLabel + ":id", getId();
     }
     if (isSetName()) {
       attributes.remove("name");
+      attributes.put(QualConstants.shortLabel + ":name", getName();
     }
     if (isSetCompartment()) {
       attributes.put(QualConstants.shortLabel + ":" + QualConstants.compartment, getCompartment();
     }
     if (isSetConstant()) {
-      hashCode += prime + (getConstant() ? 1 : -1);
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.constant, Boolean.toString(getConstant());
     }
     if (isSetInitialLevel()) {
-      hashCode += prime * getInitialLevel();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.initialLevel, Integer.toString(getInitialLevel());
     }
     if (isSetMaxLevel()) {
-      hashCode += prime * getMaxLevel();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.maxLevel, Integer.toString(getMaxLevel());
     }
     return attributes;
   }

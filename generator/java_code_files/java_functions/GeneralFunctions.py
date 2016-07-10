@@ -499,17 +499,23 @@ class GeneralFunctions():
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
         type = self.attributes[index]['type']
+        jclass_type = self.attributes[index]['JClassType']
 
         implementation = ['isSet{0}()'.format(name)]
         if str(type)[:] == 'SId' or str(type)[:] == 'string':
             implementation.append('attributes.remove("{0}")'.format(member_name))
+            implementation.append('attributes.put({0}Constants.shortLabel + ":{1}",  get{2}()'.format(
+                                                                        self.package,  member_name, name))
         elif str(type)[:] == 'bool':
-            implementation.append('hashCode += prime + (get{0}() ? 1 : -1)'.format(name))
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}())'.format(
+                                                                        self.package, self.package, member_name, jclass_type,  name))
         elif str(type)[:] == 'SIdRef':
             implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}()'.format(
                                                                         self.package, self.package, member_name, name))
         elif str(type)[:] == 'uint':
-            implementation.append('hashCode += prime * get{0}()'.format(name))
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}())'.format(
+                    self.package, self.package, member_name, jclass_type, name))
         else:
             implementation.append('hashCode += prime')
 

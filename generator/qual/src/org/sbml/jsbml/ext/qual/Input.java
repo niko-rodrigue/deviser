@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 10678928099511354L;
+  private static final long serialVersionUID = 5944880863842935L;
   /**
    *
    */
@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 5683583;
+    final int prime = 4046719;
 
     int hashCode = super.hashCode();
 
@@ -452,22 +452,23 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
 
     if (isSetId()) {
       attributes.remove("id");
+      attributes.put(QualConstants.shortLabel + ":id", getId();
     }
     if (isSetName()) {
       attributes.remove("name");
+      attributes.put(QualConstants.shortLabel + ":name", getName();
     }
     if (isSetSign()) {
       hashCode += prime;
     }
     if (isSetQualitativeSpecies()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies,
-        getQualitativeSpecies();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies, getQualitativeSpecies();
     }
     if (isSetTransitionEffect()) {
       hashCode += prime;
     }
     if (isSetThresholdLevel()) {
-      hashCode += prime * getThresholdLevel();
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.thresholdLevel, Integer.toString(getThresholdLevel());
     }
     return attributes;
   }
