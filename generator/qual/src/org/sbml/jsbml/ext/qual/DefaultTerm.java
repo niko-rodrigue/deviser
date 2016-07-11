@@ -36,7 +36,11 @@ public class DefaultTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 53201485894823046L;
+=======
+  private static final long serialVersionUID = 57526319997718453L;
+>>>>>>> WIP
   /**
    *
    */
@@ -121,9 +125,9 @@ public class DefaultTerm extends AbstractMathContainer {
       equals &= obj.isSetResultLevel() == isSetResultLevel();
       if (equals && isSetResultLevel()) {
         equals &= (obj.getResultLevel() == getResultLevel());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /* (non-Javadoc)
    * @see org.sbml.jsbml.AbstractMathContainer#clone
@@ -180,7 +184,11 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 1456123;
+=======
+    final int prime = 1006883;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
@@ -198,7 +206,8 @@ public class DefaultTerm extends AbstractMathContainer {
     return "DefaultTerm [id = " + getId() + ", name = " + getName() + "]";
   }
 
-  /* Assignment operator for DefaultTerm.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

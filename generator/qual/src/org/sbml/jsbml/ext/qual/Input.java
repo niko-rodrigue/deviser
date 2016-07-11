@@ -36,7 +36,11 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 68589097958440396L;
+=======
+  private static final long serialVersionUID = 29618216833286283L;
+>>>>>>> WIP
   /**
    *
    */
@@ -127,10 +131,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    sign = null;
     qualitativeSpecies = null;
-    transitionEffect = null;
-    thresholdLevel = null;
   }
 
   /* Assignment operator for Input.
@@ -157,9 +158,9 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       equals &= obj.isSetThresholdLevel() == isSetThresholdLevel();
       if (equals && isSetThresholdLevel()) {
         equals &= (obj.getThresholdLevel() == getThresholdLevel());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -389,7 +390,11 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 167449;
+=======
+    final int prime = 879817;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
@@ -419,7 +424,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
           getName() + "]";
   }
 
-  /* Assignment operator for Input.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

@@ -36,7 +36,11 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 39348386794271924L;
+=======
+  private static final long serialVersionUID = 53981898757937693L;
+>>>>>>> WIP
   /**
    *
    */
@@ -129,8 +133,6 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     packageName = QualConstants.shortLabel;
     compartment = null;
     constant = null;
-    initialLevel = null;
-    maxLevel = null;
   }
 
   /* Assignment operator for QualitativeSpecies.
@@ -157,9 +159,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       equals &= obj.isSetMaxLevel() == isSetMaxLevel();
       if (equals && isSetMaxLevel()) {
         equals &= (obj.getMaxLevel() == getMaxLevel());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -282,7 +284,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public boolean setCompartment(Compartment compartment) {
-    return getCompartment();
+    if (compartment != null) {
+      return setCompartment(compartment.getId());
+    }
+    return unsetCompartment();
   }
 
   /**
@@ -373,13 +378,6 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return true;
   }
 
-  /**
-   * @return true
-   */
-  public boolean isConstantMandatory() {
-    return true;
-  }
-
   /* (non-Javadoc)
    * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
@@ -402,11 +400,22 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return false;
   }
 
+  /**
+   * @return true
+   */
+  public boolean isSetConstantMandatory() {
+    return true;
+  }
+
   /* hashcode method for QualitativeSpecies.
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 2624173;
+=======
+    final int prime = 9580513;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
@@ -435,7 +444,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
         maxLevel + ", id = " + getId() + ", name = " + getName() + "]";
   }
 
-  /* Assignment operator for QualitativeSpecies.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

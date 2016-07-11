@@ -36,7 +36,11 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 14845785311349225L;
+=======
+  private static final long serialVersionUID = 51270343777078225L;
+>>>>>>> WIP
   /**
    *
    */
@@ -120,9 +124,6 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    qualitativeSpecies = null;
-    transitionEffect = null;
-    outputLevel = null;
   }
 
   /* Assignment operator for Output.
@@ -145,9 +146,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       equals &= obj.isSetOutputLevel() == isSetOutputLevel();
       if (equals && isSetOutputLevel()) {
         equals &= (obj.getOutputLevel() == getOutputLevel());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -332,7 +333,11 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 8768503;
+=======
+    final int prime = 4649693;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
@@ -358,7 +363,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
         + ", id = " + getId() + ", name = " + getName() + "]";
   }
 
-  /* Assignment operator for Output.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

@@ -36,7 +36,11 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 33404595201033519L;
+=======
+  private static final long serialVersionUID = 11656239654618237L;
+>>>>>>> WIP
   /**
    *
    */
@@ -129,9 +133,9 @@ public class FunctionTerm extends AbstractMathContainer {
       equals &= obj.isSetMath() == isSetMath();
       if (equals && isSetMath()) {
         equals &= (obj.getMath() == getMath());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /* (non-Javadoc)
    * @see org.sbml.jsbml.AbstractMathContainer#clone
@@ -188,7 +192,11 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 3863203;
+=======
+    final int prime = 1312937;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
@@ -206,7 +214,8 @@ public class FunctionTerm extends AbstractMathContainer {
     return "FunctionTerm [id = " + getId() + ", name = " + getName() + "]";
   }
 
-  /* Assignment operator for FunctionTerm.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

@@ -359,7 +359,8 @@ class GeneralFunctions():
         if function not in self.methods_to_write:
             return
 
-        title_line = 'Assignment operator for {0}.'.format(self.object_name)
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String, java.lang.String, java.lang.String)'
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []

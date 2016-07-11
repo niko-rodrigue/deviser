@@ -811,8 +811,11 @@ class Constructors():
                     cap_att_name = attribute['capAttName']
                     if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                         member_name = attribute['name']
-                        line = '{0} = null'.format(member_name)
-                        implementation.append(line)
+                        # TODO changed to as jsbml example
+                        reqd = str(attribute['reqd'])[:]
+                        if reqd == 'True':
+                            line = '{0} = null'.format(member_name)
+                            implementation.append(line)
 
 
                 # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
@@ -1235,6 +1238,9 @@ class Constructors():
                 temp_code = self.create_copy_if(i)
                 code.append(temp_code)
 
+        # implementation = ['']
+        # line = self.create_code_block('line', implementation)
+        # code.append(line)
 
         # for i in range(0, len(self.attributes)):
         #     if self.attributes[i]['isArray']:
@@ -1354,9 +1360,14 @@ class Constructors():
                     implementation.append(y_code)
 
         # TODO why bug?
-        implementation.append('return equals')
-        implementation.append('')
+
         code.append(self.create_code_block('if', implementation))
+
+        equals_return = ['return equals']
+        # implementation.append('')
+
+        code.append(self.create_code_block('line', equals_return))
+
 
         # for i in range(0, len(self.child_elements)):
         #     element = self.child_elements[i]

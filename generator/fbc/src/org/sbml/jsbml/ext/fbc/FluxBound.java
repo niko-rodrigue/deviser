@@ -29,12 +29,12 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class FluxBound {
+public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = -6048861420699176889L;
+  private static final long serialVersionUID = 33493007498532203L;
   /**
    *
    */
@@ -97,6 +97,22 @@ public class FluxBound {
   }
 
   /**
+   * @param orig the FluxBound instance to copy.
+   */
+  public FluxBound(FluxBound orig) {
+    super(orig);
+
+    if (orig.isSetReaction()) {
+      setReaction(orig.getReaction());
+    }
+    if (orig.isSetOperation()) {
+      setOperation(orig.getOperation());
+    }
+    if (orig.isSetValue()) {
+      setValue(orig.getValue());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {
@@ -107,19 +123,55 @@ public class FluxBound {
     value = null;
   }
 
-  /* (non-Javadoc)
+  /* Assignment operator for FluxBound.
    */
   @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      FluxBound obj = (FluxBound) object;
+
+      equals &= obj.isSetReaction() == isSetReaction();
+      if (equals && isSetReaction()) {
+        equals &= (obj.getReaction() == getReaction());
+      }
+      equals &= obj.isSetOperation() == isSetOperation();
+      if (equals && isSetOperation()) {
+        equals &= (obj.getOperation() == getOperation());
+      }
+      equals &= obj.isSetValue() == isSetValue();
+      if (equals && isSetValue()) {
+        equals &= (obj.getValue() == getValue());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public FluxBound clone() {
     return new FluxBound(this);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return the reaction
    */
-  @Override
   public String getReaction() {
     return isSetReaction() ? reaction : "";
+  }
+
+  /**
+   * @return the reaction
+   */
+  public Reaction getReactionInstance() {
+    if (isSetReaction()) {
+      Model model = getModel();
+      if (model != null) {
+        return model.getReaction(getReaction());
+      }
+    }
+    return null;
   }
 
   /**
@@ -142,12 +194,18 @@ public class FluxBound {
     throw new PropertyUndefinedError(FbcConstants.value, this);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return 
    */
-  @Override
   public boolean isSetReaction() {
     return reaction != null;
+  }
+
+  /**
+   * @return 
+   */
+  public boolean isSetReactionInstance() {
+    return getReactionInstance() != null;
   }
 
   /**
@@ -164,9 +222,9 @@ public class FluxBound {
     return value != null;
   }
 
-  /* Sets the value of the "reaction" attribute of this FluxBound.
+  /**
+   * @param reaction
    */
-  @Override
   public boolean setReaction(String reaction) {
     if (reaction != this.reaction) {
       String oldReaction = this.reaction;
@@ -176,7 +234,7 @@ public class FluxBound {
         this.reaction = reaction;
       }
 
-      firePropertyChange(FbcConstants.reaction, oldReaction, this.oldReaction);
+      firePropertyChange(FbcConstants.reaction, oldReaction, this.reaction);
       return true;
     }
     return false;
@@ -204,18 +262,11 @@ public class FluxBound {
     firePropertyChange(FbcConstants.value, oldValue, this.value);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return {@code true} if the unset of the reaction attribute was successful
    */
-  @Override
   public boolean unsetReaction() {
-    if (isSetReaction()) {
-      reaction = null;
-      firePropertyChange(FbcConstants.reaction, oldReaction, reaction);
-      return true;
-    } else {
-      return false;
-    }
+    return setReaction((String) null);
   }
 
   /**
@@ -239,6 +290,114 @@ public class FluxBound {
     } else {
       return false;
     }
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.Reaction#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isOperationMandatory() {
+    return true;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isReactionMandatory() {
+    return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isValueMandatory() {
+    return false;
+  }
+
+  /* hashcode method for FluxBound.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 1368659;
+
+    int hashCode = super.hashCode();
+
+    if (isSetReaction()) {
+      hashCode += prime * getReaction().hashCode();
+    }
+    if (isSetOperation()) {
+      hashCode += prime;
+    }
+    if (isSetValue()) {
+      hashCode += prime;
+    }
+    return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "FluxBound [reaction = " + reaction + ", operation = " + operation +
+      ", value = " + value + ", id = " + getId() + ", name = " + getName() + "]";
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(FbcConstants.reaction)) {
+        setReaction(value);
+      }      else if (attributeName.equals(FbcConstants.operation)) {
+        setOperation(StringTools.parseSBMLFbcOperation(value));
+      }      else if (attributeName.equals(FbcConstants.value)) {
+        setValue(StringTools.parseSBMLDouble(value));
+      } else {
+        isAttributeRead = false;
+      }
+    }
+    return isAttributeRead;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   */
+  @Override
+  public Map <String, String> writeXMLAttributes() {
+    Map <String, String> attributes = super.writeXMLAttributes();
+
+    if (isSetId()) {
+      attributes.remove("id");
+      attributes.put(FbcConstants.shortLabel + ":id", getId());
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(FbcConstants.shortLabel + ":name", getName());
+    }
+    if (isSetReaction()) {
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction, getReaction());
+    }
+    if (isSetOperation()) {
+      hashCode += prime;
+    }
+    if (isSetValue()) {
+      hashCode += prime;
+    }
+    return attributes;
   }
 
 }

@@ -37,7 +37,11 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 20849386054372452L;
+=======
+  private static final long serialVersionUID = 46538646845538549L;
+>>>>>>> WIP
 
   /**
    *  
@@ -109,8 +113,6 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    input = null;
-    output = null;
     functionTerm = null;
   }
 
@@ -134,9 +136,9 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
       equals &= obj.isSetFunctionTerm() == isSetFunctionTerm();
       if (equals && isSetFunctionTerm()) {
         equals &= (obj.getFunctionTerm() == getFunctionTerm());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -157,7 +159,11 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 7711763;
+=======
+    final int prime = 1766327;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
@@ -172,7 +178,8 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return "Transition [id = " + getId() + ", name = " + getName() + "]";
   }
 
-  /* Assignment operator for Transition.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

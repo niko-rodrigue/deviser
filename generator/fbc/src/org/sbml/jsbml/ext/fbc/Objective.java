@@ -29,12 +29,12 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class Objective {
+public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = -6048861420699176889L;
+  private static final long serialVersionUID = 52631535382787119L;
   /**
    *
    */
@@ -89,6 +89,19 @@ public class Objective {
   }
 
   /**
+   * @param orig the Objective instance to copy.
+   */
+  public Objective(Objective orig) {
+    super(orig);
+
+    if (orig.isSetType()) {
+      setType(orig.getType());
+    }
+    if (orig.isSetFluxObjective()) {
+      setFluxObjective(orig.getFluxObjective());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {
@@ -98,9 +111,29 @@ public class Objective {
     fluxObjective = null;
   }
 
-  /* (non-Javadoc)
+  /* Assignment operator for Objective.
    */
   @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      Objective obj = (Objective) object;
+
+      equals &= obj.isSetType() == isSetType();
+      if (equals && isSetType()) {
+        equals &= (obj.getType() == getType());
+      }
+      equals &= obj.isSetFluxObjective() == isSetFluxObjective();
+      if (equals && isSetFluxObjective()) {
+        equals &= (obj.getFluxObjective() == getFluxObjective());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public Objective clone() {
     return new Objective(this);
   }
@@ -143,4 +176,56 @@ public class Objective {
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-}
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return true;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isTypeMandatory() {
+    return true;
+  }
+
+  /* hashcode method for Objective.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 8795221;
+
+    int hashCode = super.hashCode();
+
+    if (isSetType()) {
+      hashCode += prime;
+    }
+    return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "Objective [type = " + type + ", id = " + getId() + ", name = " +
+      getName() + "]";
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(FbcConstants.type)) {
+        setType(StringTools.parseSBMLFbcType(value));
+        else;
+        isAttributeRead = false;
+      }
