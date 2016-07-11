@@ -125,18 +125,28 @@ class MandatoryFunctions():
         for key in list(self.jsbml_methods.keys()):
             for method in self.jsbml_methods[key]:
                 if function in method['functionName']:
-                    self.mandatory_data.update({method['functionName']: [method]})
+                    function_name = str(method['functionName'])[:]
+                    if 'Id' in function_name or 'Name' in function_name:
+                        self.mandatory_data.update({method['functionName']: [method]})
 
         #
         # # TODO fix bug no need isCompartment
         for attribute in self.attributes:
 
             att_name = strFunctions.upper_first(attribute['name'])
-            method_name = str('is{0}Mandatory'.format(att_name))
+            method_name_one = str('is{0}Mandatory'.format(att_name))
+            method_name_two= str('isSet{0}Mandatory'.format(att_name))
             for key in list(self.mandatory_data.keys()):
+                # TODO isSetConstantMandatory
+                type = str(attribute['type'])[:]
+                if type == 'bool':
+                    method_name = method_name_two
+                else:
+                    method_name = method_name_one
                 test_key = str(key)[:]
                 test_method = str(method_name)[:]
                 att = str(att_name)[:]
+
                 if (test_method == test_key):
                     self.mandatory_data[method_name].append(attribute)
                 # here is  the problem but how to fix it

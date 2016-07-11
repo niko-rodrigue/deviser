@@ -1223,8 +1223,19 @@ class SetGetFunctions():
         arguments.append('{0} {1}'
                          .format(dup_attribute[0], arg_name))
 
-        implementation = ['return set{0}({1}.getId())'.format(attribute['capAttName'], attribute['name'])]
-        code = [self.create_code_block('line', implementation)] #[self.create_code_block('line', implementation)]
+        implementation = ['{0} != null'.format(attribute['name'])]
+
+        if_temp = ['return set{0}({1}.getId())'.format(attribute['capAttName'], attribute['name'])]
+
+        if_code = self.create_code_block('line', if_temp)
+
+        implementation.append(if_code)
+        code = [self.create_code_block('if', implementation)] #[self.create_code_block('line', implementation)]
+
+
+        rest_code = ['return unset{}()'.format(attribute['capAttName'])]
+        code.append(self.create_code_block('line', rest_code))
+
 
         self.duplicate_methods = []
         return dict({'title_line': title_line,

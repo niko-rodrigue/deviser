@@ -36,7 +36,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 59253853741693852L;
+  private static final long serialVersionUID = 1254785864217959L;
   /**
    *
    */
@@ -120,9 +120,6 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
-    qualitativeSpecies = null;
-    transitionEffect = null;
-    outputLevel = null;
   }
 
   /* Assignment operator for Output.
@@ -332,7 +329,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 7592329;
+    final int prime = 7036373;
 
     int hashCode = super.hashCode();
 

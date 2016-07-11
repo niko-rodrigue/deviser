@@ -34,7 +34,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 66224797909902901L;
+  private static final long serialVersionUID = 58802514439760414L;
   /**
    *
    */
@@ -242,6 +242,99 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
     } else {
       return false;
     }
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isCoefficientMandatory() {
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.Reaction#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isReactionMandatory() {
+    return true;
+  }
+
+  /* hashcode method for FluxObjective.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 9933659;
+
+    int hashCode = super.hashCode();
+
+    if (isSetReaction()) {
+      hashCode += prime * getReaction().hashCode();
+    }
+    if (isSetCoefficient()) {
+      hashCode += prime;
+    }
+    return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "FluxObjective [reaction = " + reaction + ", coefficient = " +
+      coefficient + ", id = " + getId() + ", name = " + getName() + "]";
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(FbcConstants.reaction)) {
+        setReaction(value);
+      }      else if (attributeName.equals(FbcConstants.coefficient)) {
+        setCoefficient(StringTools.parseSBMLDouble(value));
+      } else {
+        isAttributeRead = false;
+      }
+    }
+    return isAttributeRead;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   */
+  @Override
+  public Map <String, String> writeXMLAttributes() {
+    Map <String, String> attributes = super.writeXMLAttributes();
+
+    if (isSetId()) {
+      attributes.remove("id");
+      attributes.put(FbcConstants.shortLabel + ":id", getId());
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(FbcConstants.shortLabel + ":name", getName());
+    }
+    if (isSetReaction()) {
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction, getReaction());
+    }
+    if (isSetCoefficient()) {
+      hashCode += prime;
+    }
+    return attributes;
   }
 
 }

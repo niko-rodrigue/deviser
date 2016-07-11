@@ -34,7 +34,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 29275439085716050L;
+  private static final long serialVersionUID = 52631535382787119L;
   /**
    *
    */
@@ -176,4 +176,56 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
     return LIBSBML_OPERATION_SUCCESS;
   }
 
-}
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return true;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isTypeMandatory() {
+    return true;
+  }
+
+  /* hashcode method for Objective.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 8795221;
+
+    int hashCode = super.hashCode();
+
+    if (isSetType()) {
+      hashCode += prime;
+    }
+    return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "Objective [type = " + type + ", id = " + getId() + ", name = " +
+      getName() + "]";
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(FbcConstants.type)) {
+        setType(StringTools.parseSBMLFbcType(value));
+        else;
+        isAttributeRead = false;
+      }

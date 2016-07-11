@@ -34,7 +34,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 5423628588545833L;
+  private static final long serialVersionUID = 33493007498532203L;
   /**
    *
    */
@@ -290,6 +290,114 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
     } else {
       return false;
     }
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.Reaction#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isOperationMandatory() {
+    return true;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isReactionMandatory() {
+    return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isValueMandatory() {
+    return false;
+  }
+
+  /* hashcode method for FluxBound.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 1368659;
+
+    int hashCode = super.hashCode();
+
+    if (isSetReaction()) {
+      hashCode += prime * getReaction().hashCode();
+    }
+    if (isSetOperation()) {
+      hashCode += prime;
+    }
+    if (isSetValue()) {
+      hashCode += prime;
+    }
+    return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "FluxBound [reaction = " + reaction + ", operation = " + operation +
+      ", value = " + value + ", id = " + getId() + ", name = " + getName() + "]";
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(FbcConstants.reaction)) {
+        setReaction(value);
+      }      else if (attributeName.equals(FbcConstants.operation)) {
+        setOperation(StringTools.parseSBMLFbcOperation(value));
+      }      else if (attributeName.equals(FbcConstants.value)) {
+        setValue(StringTools.parseSBMLDouble(value));
+      } else {
+        isAttributeRead = false;
+      }
+    }
+    return isAttributeRead;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   */
+  @Override
+  public Map <String, String> writeXMLAttributes() {
+    Map <String, String> attributes = super.writeXMLAttributes();
+
+    if (isSetId()) {
+      attributes.remove("id");
+      attributes.put(FbcConstants.shortLabel + ":id", getId());
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(FbcConstants.shortLabel + ":name", getName());
+    }
+    if (isSetReaction()) {
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction, getReaction());
+    }
+    if (isSetOperation()) {
+      hashCode += prime;
+    }
+    if (isSetValue()) {
+      hashCode += prime;
+    }
+    return attributes;
   }
 
 }

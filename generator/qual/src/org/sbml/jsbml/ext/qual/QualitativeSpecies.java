@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 34816033774935192L;
+  private static final long serialVersionUID = 22922858122464147L;
   /**
    *
    */
@@ -129,8 +129,6 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     packageName = QualConstants.shortLabel;
     compartment = null;
     constant = null;
-    initialLevel = null;
-    maxLevel = null;
   }
 
   /* Assignment operator for QualitativeSpecies.
@@ -282,7 +280,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public boolean setCompartment(Compartment compartment) {
-    return setCompartment(compartment.getId());
+    if (compartment != null) {
+      return setCompartment(compartment.getId());
+    }
+    return unsetCompartment();
   }
 
   /**
@@ -373,13 +374,6 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return true;
   }
 
-  /**
-   * @return true
-   */
-  public boolean isConstantMandatory() {
-    return true;
-  }
-
   /* (non-Javadoc)
    * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
@@ -402,11 +396,18 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return false;
   }
 
+  /**
+   * @return true
+   */
+  public boolean isSetConstantMandatory() {
+    return true;
+  }
+
   /* hashcode method for QualitativeSpecies.
    */
   @Override
   public int hashCode() {
-    final int prime = 6485081;
+    final int prime = 5450267;
 
     int hashCode = super.hashCode();
 
