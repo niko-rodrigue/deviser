@@ -29,12 +29,12 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class Objective {
+public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = -6048861420699176889L;
+  private static final long serialVersionUID = 29275439085716050L;
   /**
    *
    */
@@ -89,6 +89,19 @@ public class Objective {
   }
 
   /**
+   * @param orig the Objective instance to copy.
+   */
+  public Objective(Objective orig) {
+    super(orig);
+
+    if (orig.isSetType()) {
+      setType(orig.getType());
+    }
+    if (orig.isSetFluxObjective()) {
+      setFluxObjective(orig.getFluxObjective());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {
@@ -98,9 +111,29 @@ public class Objective {
     fluxObjective = null;
   }
 
-  /* (non-Javadoc)
+  /* Assignment operator for Objective.
    */
   @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      Objective obj = (Objective) object;
+
+      equals &= obj.isSetType() == isSetType();
+      if (equals && isSetType()) {
+        equals &= (obj.getType() == getType());
+      }
+      equals &= obj.isSetFluxObjective() == isSetFluxObjective();
+      if (equals && isSetFluxObjective()) {
+        equals &= (obj.getFluxObjective() == getFluxObjective());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public Objective clone() {
     return new Objective(this);
   }

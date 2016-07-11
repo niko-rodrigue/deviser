@@ -184,37 +184,17 @@ class MandatoryFunctions():
 
 
 
-        # if self.is_java_api:
-        #     return_lines.append('@return {0} '.format(attribute[key]['return']))
-        #                         # .format(attribute['name'],
-        #                         #         ('attribute' if is_attribute
-        #                         #          else 'element'),
-        #                         #         self.class_name,
-        #                         #         (attribute['attType']
-        #                         #          if (is_attribute
-        #                         #              and attribute['isEnum'] is False)
-        #                         #          else attribute['attTypeCode'])))
-
-
-
-
-
-
-
-
-
-
-
-
         # create the function declaration
         if self.is_java_api:
             function = '{0}'.format(attribute_key)
             return_type = 'boolean'
 
-
+        # TODO GSOC 2016 FBC bug
         if len(self.mandatory_data[attribute_key]) > 2:
             curr_attribute = self.mandatory_data[attribute_key]
         elif len(self.mandatory_data[attribute_key]) == 2:
+            curr_attribute = self.mandatory_data[attribute_key][1]
+        else:
             curr_attribute = self.mandatory_data[attribute_key][1]
 
         return_value = str(curr_attribute['reqd'])[:]

@@ -29,12 +29,12 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class FluxBound {
+public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = -6048861420699176889L;
+  private static final long serialVersionUID = 5423628588545833L;
   /**
    *
    */
@@ -97,6 +97,22 @@ public class FluxBound {
   }
 
   /**
+   * @param orig the FluxBound instance to copy.
+   */
+  public FluxBound(FluxBound orig) {
+    super(orig);
+
+    if (orig.isSetReaction()) {
+      setReaction(orig.getReaction());
+    }
+    if (orig.isSetOperation()) {
+      setOperation(orig.getOperation());
+    }
+    if (orig.isSetValue()) {
+      setValue(orig.getValue());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {
@@ -107,19 +123,55 @@ public class FluxBound {
     value = null;
   }
 
-  /* (non-Javadoc)
+  /* Assignment operator for FluxBound.
    */
   @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      FluxBound obj = (FluxBound) object;
+
+      equals &= obj.isSetReaction() == isSetReaction();
+      if (equals && isSetReaction()) {
+        equals &= (obj.getReaction() == getReaction());
+      }
+      equals &= obj.isSetOperation() == isSetOperation();
+      if (equals && isSetOperation()) {
+        equals &= (obj.getOperation() == getOperation());
+      }
+      equals &= obj.isSetValue() == isSetValue();
+      if (equals && isSetValue()) {
+        equals &= (obj.getValue() == getValue());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public FluxBound clone() {
     return new FluxBound(this);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return the reaction
    */
-  @Override
   public String getReaction() {
     return isSetReaction() ? reaction : "";
+  }
+
+  /**
+   * @return the reaction
+   */
+  public Reaction getReactionInstance() {
+    if (isSetReaction()) {
+      Model model = getModel();
+      if (model != null) {
+        return model.getReaction(getReaction());
+      }
+    }
+    return null;
   }
 
   /**
@@ -142,12 +194,18 @@ public class FluxBound {
     throw new PropertyUndefinedError(FbcConstants.value, this);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return 
    */
-  @Override
   public boolean isSetReaction() {
     return reaction != null;
+  }
+
+  /**
+   * @return 
+   */
+  public boolean isSetReactionInstance() {
+    return getReactionInstance() != null;
   }
 
   /**
@@ -164,9 +222,9 @@ public class FluxBound {
     return value != null;
   }
 
-  /* Sets the value of the "reaction" attribute of this FluxBound.
+  /**
+   * @param reaction
    */
-  @Override
   public boolean setReaction(String reaction) {
     if (reaction != this.reaction) {
       String oldReaction = this.reaction;
@@ -176,7 +234,7 @@ public class FluxBound {
         this.reaction = reaction;
       }
 
-      firePropertyChange(FbcConstants.reaction, oldReaction, this.oldReaction);
+      firePropertyChange(FbcConstants.reaction, oldReaction, this.reaction);
       return true;
     }
     return false;
@@ -204,18 +262,11 @@ public class FluxBound {
     firePropertyChange(FbcConstants.value, oldValue, this.value);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return {@code true} if the unset of the reaction attribute was successful
    */
-  @Override
   public boolean unsetReaction() {
-    if (isSetReaction()) {
-      reaction = null;
-      firePropertyChange(FbcConstants.reaction, oldReaction, reaction);
-      return true;
-    } else {
-      return false;
-    }
+    return setReaction((String) null);
   }
 
   /**

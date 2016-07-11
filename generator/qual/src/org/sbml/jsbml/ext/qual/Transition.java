@@ -37,7 +37,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 28477172870225158L;
+  private static final long serialVersionUID = 17139085493276315L;
 
   /**
    *  
@@ -157,7 +157,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 9246803;
+    final int prime = 1057307;
 
     int hashCode = super.hashCode();
 
@@ -172,7 +172,8 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return "Transition [id = " + getId() + ", name = " + getName() + "]";
   }
 
-  /* Assignment operator for Transition.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

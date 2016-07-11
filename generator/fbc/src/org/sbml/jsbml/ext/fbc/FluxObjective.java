@@ -29,12 +29,12 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class FluxObjective {
+public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = -6048861420699176889L;
+  private static final long serialVersionUID = 66224797909902901L;
   /**
    *
    */
@@ -93,6 +93,19 @@ public class FluxObjective {
   }
 
   /**
+   * @param orig the FluxObjective instance to copy.
+   */
+  public FluxObjective(FluxObjective orig) {
+    super(orig);
+
+    if (orig.isSetReaction()) {
+      setReaction(orig.getReaction());
+    }
+    if (orig.isSetCoefficient()) {
+      setCoefficient(orig.getCoefficient());
+    }  }
+
+  /**
    *  
    */
   public void initDefaults() {
@@ -102,19 +115,51 @@ public class FluxObjective {
     coefficient = null;
   }
 
-  /* (non-Javadoc)
+  /* Assignment operator for FluxObjective.
    */
   @Override
+  public boolean equals(Object object) {
+    boolean equals = super.equals(object);
+
+    if (equals) {
+      FluxObjective obj = (FluxObjective) object;
+
+      equals &= obj.isSetReaction() == isSetReaction();
+      if (equals && isSetReaction()) {
+        equals &= (obj.getReaction() == getReaction());
+      }
+      equals &= obj.isSetCoefficient() == isSetCoefficient();
+      if (equals && isSetCoefficient()) {
+        equals &= (obj.getCoefficient() == getCoefficient());
+      }
+      return equals;
+    }  }
+
+  /**
+   * (non-Javadoc)
+   */
   public FluxObjective clone() {
     return new FluxObjective(this);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return the reaction
    */
-  @Override
   public String getReaction() {
     return isSetReaction() ? reaction : "";
+  }
+
+  /**
+   * @return the reaction
+   */
+  public Reaction getReactionInstance() {
+    if (isSetReaction()) {
+      Model model = getModel();
+      if (model != null) {
+        return model.getReaction(getReaction());
+      }
+    }
+    return null;
   }
 
   /**
@@ -127,12 +172,18 @@ public class FluxObjective {
     throw new PropertyUndefinedError(FbcConstants.coefficient, this);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return 
    */
-  @Override
   public boolean isSetReaction() {
     return reaction != null;
+  }
+
+  /**
+   * @return 
+   */
+  public boolean isSetReactionInstance() {
+    return getReactionInstance() != null;
   }
 
   /**
@@ -142,9 +193,9 @@ public class FluxObjective {
     return coefficient != null;
   }
 
-  /* Sets the value of the "reaction" attribute of this FluxObjective.
+  /**
+   * @param reaction
    */
-  @Override
   public boolean setReaction(String reaction) {
     if (reaction != this.reaction) {
       String oldReaction = this.reaction;
@@ -154,7 +205,7 @@ public class FluxObjective {
         this.reaction = reaction;
       }
 
-      firePropertyChange(FbcConstants.reaction, oldReaction, this.oldReaction);
+      firePropertyChange(FbcConstants.reaction, oldReaction, this.reaction);
       return true;
     }
     return false;
@@ -170,18 +221,11 @@ public class FluxObjective {
       this.coefficient);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml
+  /**
+   * @return {@code true} if the unset of the reaction attribute was successful
    */
-  @Override
   public boolean unsetReaction() {
-    if (isSetReaction()) {
-      reaction = null;
-      firePropertyChange(FbcConstants.reaction, oldReaction, reaction);
-      return true;
-    } else {
-      return false;
-    }
+    return setReaction((String) null);
   }
 
   /**

@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 31208048889726685L;
+  private static final long serialVersionUID = 55282065547692082L;
   /**
    *
    */
@@ -389,7 +389,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 8862583;
+    final int prime = 2029331;
 
     int hashCode = super.hashCode();
 
@@ -419,7 +419,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
           getName() + "]";
   }
 
-  /* Assignment operator for Input.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {

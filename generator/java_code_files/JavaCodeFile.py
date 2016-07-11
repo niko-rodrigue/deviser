@@ -74,17 +74,17 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_attribute_functions()
 
-        # TODO GSOC MANDATORY
+        # TODO GSOC MANDATORY bugs
         self.write_mandatory_functions()
-
+        # TODO write hash, read, write bugs
+        self.write_general_functions()
 
         # self.write_child_element_functions()
         # self.write_listof_functions()
         # self.write_child_lo_element_functions()
         # self.write_concrete_functions()
 
-        # TODO write hash, read, write
-        self.write_general_functions()
+
         # self.write_functions_to_retrieve()
         # if self.document:
         #     self.write_document_error_log_functions()
