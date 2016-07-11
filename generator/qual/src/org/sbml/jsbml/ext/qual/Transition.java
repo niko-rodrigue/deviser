@@ -37,7 +37,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 25519146081498181L;
+  private static final long serialVersionUID = 46538646845538549L;
 
   /**
    *  
@@ -132,9 +132,9 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
       equals &= obj.isSetFunctionTerm() == isSetFunctionTerm();
       if (equals && isSetFunctionTerm()) {
         equals &= (obj.getFunctionTerm() == getFunctionTerm());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -155,7 +155,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 3385883;
+    final int prime = 1766327;
 
     int hashCode = super.hashCode();
 

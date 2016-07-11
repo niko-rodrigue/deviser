@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 19544643856279231L;
+  private static final long serialVersionUID = 29618216833286283L;
   /**
    *
    */
@@ -154,9 +154,9 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       equals &= obj.isSetThresholdLevel() == isSetThresholdLevel();
       if (equals && isSetThresholdLevel()) {
         equals &= (obj.getThresholdLevel() == getThresholdLevel());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -386,7 +386,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 7283219;
+    final int prime = 879817;
 
     int hashCode = super.hashCode();
 

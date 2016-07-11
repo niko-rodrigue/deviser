@@ -1360,9 +1360,14 @@ class Constructors():
                     implementation.append(y_code)
 
         # TODO why bug?
-        implementation.append('return equals')
-        implementation.append('')
+
         code.append(self.create_code_block('if', implementation))
+
+        equals_return = ['return equals']
+        # implementation.append('')
+
+        code.append(self.create_code_block('line', equals_return))
+
 
         # for i in range(0, len(self.child_elements)):
         #     element = self.child_elements[i]

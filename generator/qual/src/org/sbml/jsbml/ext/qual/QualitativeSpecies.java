@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 22922858122464147L;
+  private static final long serialVersionUID = 53981898757937693L;
   /**
    *
    */
@@ -155,9 +155,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       equals &= obj.isSetMaxLevel() == isSetMaxLevel();
       if (equals && isSetMaxLevel()) {
         equals &= (obj.getMaxLevel() == getMaxLevel());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -407,7 +407,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public int hashCode() {
-    final int prime = 5450267;
+    final int prime = 9580513;
 
     int hashCode = super.hashCode();
 
