@@ -11,6 +11,7 @@ path_to_tests = ''
 function_table = {'binding': 'run_bindings_tests',
                   'cmake': 'run_cmake_tests',
                   'cpp': 'run_cpp_tests',
+                  'java': 'run_java_tests',
                   'exit': 'run_exit_tests',
                   'tex': 'run_tex_tests'}
 
@@ -100,6 +101,7 @@ def run_tests(test_name, name, fails):
     import test_binding_code
     import test_cmake_code
     import test_cpp_code
+    import test_java_code
     import test_exit_codes
     import test_tex_files
     fail = eval(module)
