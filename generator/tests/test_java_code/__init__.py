@@ -37,4 +37,4 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from . import run_cpp_tests
+from . import run_java_tests
