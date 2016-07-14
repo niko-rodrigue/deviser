@@ -90,7 +90,7 @@ SBase::SBase (unsigned int level, unsigned int version)
   mSBMLNamespaces = new SBMLNamespaces(level, version);
 
   //
-  // Sets the XMLNS URI of corresponding SBML Level/Version to
+  // Sets the XMLNS URI of corresponding SBML_Lang Level/Version to
   // the element namespace (mURI) of this object.
   //
   //
@@ -222,7 +222,7 @@ SBase& SBase::operator=(const SBase& rhs)
 
 
 /*
- * @return the metaid of this SBML object.
+ * @return the metaid of this SBML_Lang object.
  */
 const string&
 SBase::getMetaId () const
@@ -232,7 +232,7 @@ SBase::getMetaId () const
 
 
 /*
- * @return the metaid of this SBML object.
+ * @return the metaid of this SBML_Lang object.
  */
 string&
 SBase::getMetaId ()
@@ -249,7 +249,7 @@ SBase::getId() const
 
 
 /*
- * @return the notes of this SBML object.
+ * @return the notes of this SBML_Lang object.
  */
 XMLNode*
 SBase::getNotes()
@@ -266,7 +266,7 @@ SBase::getNotes() const
 
 
 /*
- * @return the notes of this SBML object by string.
+ * @return the notes of this SBML_Lang object by string.
  */
 std::string
 SBase::getNotesString()
@@ -283,7 +283,7 @@ SBase::getNotesString() const
 
 
 /*
- * @return the annotation of this SBML object.
+ * @return the annotation of this SBML_Lang object.
  */
 XMLNode*
 SBase::getAnnotation ()
@@ -300,7 +300,7 @@ SBase::getAnnotation () const
 
 
 /*
- * @return the annotation of this SBML object by string.
+ * @return the annotation of this SBML_Lang object by string.
  */
 std::string
 SBase::getAnnotationString ()
@@ -388,7 +388,7 @@ SBase::unsetUserData()
 }
 
 /*
- * @return the Namespaces associated with this SBML object
+ * @return the Namespaces associated with this SBML_Lang object
  */
 XMLNamespaces*
 SBase::getNamespaces()
@@ -411,7 +411,7 @@ SBase::getNamespaces() const
 
 
 /*
- * @return the parent SBMLDocument of this SBML object.
+ * @return the parent SBMLDocument of this SBML_Lang object.
  */
 const SBMLDocument*
 SBase::getSBMLDocument () const
@@ -441,7 +441,7 @@ SBase::getSBMLDocument () const
 }
 
 /*
- * @return the parent SBMLDocument of this SBML object.
+ * @return the parent SBMLDocument of this SBML_Lang object.
  */
 SBMLDocument*
 SBase::getSBMLDocument ()
@@ -524,7 +524,7 @@ SBase::getParentSBMLObject () const
 
 
 /*
- * @return the line number of this SBML object.
+ * @return the line number of this SBML_Lang object.
  */
 unsigned int
 SBase::getLine () const
@@ -534,7 +534,7 @@ SBase::getLine () const
 
 
 /*
- * @return the column number of this SBML object.
+ * @return the column number of this SBML_Lang object.
  */
 unsigned int
 SBase::getColumn () const
@@ -544,7 +544,7 @@ SBase::getColumn () const
 
 
 /*
- * @return true if the metaid of this SBML object is set, false
+ * @return true if the metaid of this SBML_Lang object is set, false
  * otherwise.
  */
 bool
@@ -555,14 +555,14 @@ SBase::isSetMetaId () const
 
 
 bool
-SedBase::isSetId() const
+SBase::isSetId() const
 {
   return (getId().empty() == false);
 }
 
 
 /*
- * @return true if the notes of this SBML object is set, false
+ * @return true if the notes of this SBML_Lang object is set, false
  * otherwise.
  */
 bool
@@ -573,7 +573,7 @@ SBase::isSetNotes () const
 
 
 /*
- * @return true if the annotation of this SBML object is set,
+ * @return true if the annotation of this SBML_Lang object is set,
  * false otherwise.
  */
 bool
@@ -584,7 +584,7 @@ SBase::isSetAnnotation () const
 
 
 /*
- * Sets the metaid field of the given SBML object to a copy of metaid.
+ * Sets the metaid field of the given SBML_Lang object to a copy of metaid.
  */
 int
 SBase::setMetaId (const std::string& metaid)
@@ -607,7 +607,7 @@ SBase::setMetaId (const std::string& metaid)
 
 
 /*
- * Sets the annotation of this SBML object to a copy of annotation.
+ * Sets the annotation of this SBML_Lang object to a copy of annotation.
  */
 int
 SBase::setAnnotation (XMLNode* annotation)
@@ -629,7 +629,7 @@ SBase::setAnnotation (XMLNode* annotation)
 }
 
 /*
- * Sets the annotation (by string) of this SBML object to a copy of annotation.
+ * Sets the annotation (by string) of this SBML_Lang object to a copy of annotation.
  */
 int
 SBase::setAnnotation (const std::string& annotation)
@@ -918,7 +918,7 @@ SBase::replaceTopLevelAnnotationElement(const std::string& annotation)
 
 
 /*
- * Sets the notes of this SBML object to a copy of notes.
+ * Sets the notes of this SBML_Lang object to a copy of notes.
  */
 int
 SBase::setNotes(const XMLNode* notes)
@@ -983,10 +983,10 @@ SBase::setNotes(const XMLNode* notes)
 }
 
 /*
- * Sets the notes (by std::string) of this SBML object to a copy of notes.
+ * Sets the notes (by std::string) of this SBML_Lang object to a copy of notes.
  */
 int
-SedBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
+SBase::setNotes(const std::string& notes, bool addXHTMLMarkup)
 {
   int success = LIBSBML_OPERATION_FAILED;
   
@@ -1063,7 +1063,7 @@ SBase::appendNotes(const XMLNode* notes)
 
   const string&  name = notes->getName();
 
-  // The content of notes in SBML can consist only of the following
+  // The content of notes in SBML_Lang can consist only of the following
   // possibilities:
   //
   //  1. A complete XHTML document (minus the XML and DOCTYPE
@@ -1428,7 +1428,7 @@ SBase::appendNotes(const std::string& notes)
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Sets the parent SBMLDocument of this SBML object.
+ * Sets the parent SBMLDocument of this SBML_Lang object.
  */
 void
 SBase::setSBMLDocument (SBMLDocument* d)
@@ -1438,9 +1438,9 @@ SBase::setSBMLDocument (SBMLDocument* d)
 
 
 /*
-  * Sets the parent SBML object of this SBML object.
+  * Sets the parent SBML_Lang object of this SBML_Lang object.
   *
-  * @param sb the SBML object to use
+  * @param sb the SBML_Lang object to use
   */
 void
 SBase::connectToParent (SBase* parent)
@@ -1462,7 +1462,7 @@ SBase::connectToParent (SBase* parent)
 
 
 /*
- * Sets this SBML object to child SBML objects (if any).
+ * Sets this SBML_Lang object to child SBML_Lang objects (if any).
  * (Creates a child-parent relationship by the parent)
  *
  * Subclasses must override this function if they define
@@ -1533,7 +1533,7 @@ SBase::getAncestorOfType(int type) const
 
 
 /*
- * Sets the namespaces relevant of this SBML object.
+ * Sets the namespaces relevant of this SBML_Lang object.
  *
  * @param xmlns the namespaces to set
  */
@@ -1555,7 +1555,7 @@ SBase::setNamespaces(XMLNamespaces* xmlns)
 
 
 /*
- * Unsets the metaid of this SBML object.
+ * Unsets the metaid of this SBML_Lang object.
  */
 int
 SBase::unsetMetaId ()
@@ -1574,7 +1574,7 @@ SBase::unsetMetaId ()
 
 
 /*
- * Unsets the notes of this SBML object.
+ * Unsets the notes of this SBML_Lang object.
  */
 int
 SBase::unsetNotes ()
@@ -1586,7 +1586,7 @@ SBase::unsetNotes ()
 
 
 /*
- * Unsets the annotation of this SBML object.
+ * Unsets the annotation of this SBML_Lang object.
  */
 int
 SBase::unsetAnnotation ()
@@ -1597,7 +1597,7 @@ SBase::unsetAnnotation ()
 
 
 /*
- * @return the SBML level of this SBML object.
+ * @return the SBML_Lang level of this SBML_Lang object.
  */
 unsigned int
 SBase::getLevel () const
@@ -1612,7 +1612,7 @@ SBase::getLevel () const
 
 
 /*
- * @return the SBML version of this SBML object.
+ * @return the SBML_Lang version of this SBML_Lang object.
  */
 unsigned int
 SBase::getVersion () const
@@ -1627,10 +1627,10 @@ SBase::getVersion () const
 
 
 /*
- * @return the typecode (int) of this SBML object or SBML_UNKNOWN
+ * @return the typecode (int) of this SBML_Lang object or SBML_UNKNOWN
  * (default).
  *
- * This method MAY return the typecode of this SBML object or it MAY
+ * This method MAY return the typecode of this SBML_Lang object or it MAY
  * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
  * implement this method to return a typecode.  This method is meant
  * primarily for the LibSBML C interface where class and subclass
@@ -1753,7 +1753,7 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
   //
   // (TODO) Currently, the following check code works only for
-  //        elements in SBML core.
+  //        elements in SBML_Lang core.
   //        This function may need to be extented for other elements
   //        defined in each package extension.
   //
@@ -1768,13 +1768,13 @@ SBase::hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xml
 
     if (xmlns->hasURI(SBML_XMLNS_L1V1))
     {
-      // checks different SBML XMLNamespaces
+      // checks different SBML_Lang XMLNamespaces
       if (numNS > 0) return false;
       ++numNS;
       declaredURI.assign(SBML_XMLNS_L1V1);
     }
 
-    // checks if the SBML Namespace is explicitly defined.
+    // checks if the SBML_Lang Namespace is explicitly defined.
     for (int i=0; i < xmlns->getLength(); i++)
     {
       if (!declaredURI.empty() &&
@@ -1825,7 +1825,7 @@ SBase::getSBMLNamespaces() const
   if (mSBML != NULL)
     return mSBML->mSBMLNamespaces;
   
-  // initialize SBML namespace if need be
+  // initialize SBML_Lang namespace if need be
   if (mSBMLNamespaces == NULL)
     const_cast<SBase*>(this)->mSBMLNamespaces = new SBMLNamespaces();
   return mSBMLNamespaces;  
@@ -1835,7 +1835,7 @@ SBase::getSBMLNamespaces() const
 
 
 /*
- * @return the partial SBML that describes this SBML object.
+ * @return the partial SBML_Lang that describes this SBML_Lang object.
  */
 char*
 SBase::toSBML ()
@@ -1851,7 +1851,7 @@ SBase::toSBML ()
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Reads (initializes) this SBML object by reading from XMLInputStream.
+ * Reads (initializes) this SBML_Lang object by reading from XMLInputStream.
  */
 void
 SBase::read (XMLInputStream& stream)
@@ -1868,9 +1868,9 @@ SBase::read (XMLInputStream& stream)
   readAttributes( element.getAttributes(), expectedAttributes );
 
   /* if we are reading a document pass the
-   * SBML Namespace information to the input stream object
+   * SBML_Lang Namespace information to the input stream object
    * thus the MathML reader can find out what level/version
-   * of SBML it is parsing
+   * of SBML_Lang it is parsing
    */
   if (element.getName() == "sbml")
   {
@@ -1905,10 +1905,7 @@ SBase::read (XMLInputStream& stream)
         {
           unsigned int errorId =
                              this->getErrorLog()->getError(n)->getErrorId();
-          if (errorId == SBMLSBMLDocumentAllowedAttributes
-            || errorId == SBMLSBMLDocumentLevelMustBeInteger
-            || errorId == SBMLSBMLDocumentVersionMustBeInteger
-            || errorId == InvalidNamespaceOnSBML)
+<insert_document_errors/>
           {
             errorLoggedAlready = true;
           }
@@ -1919,7 +1916,7 @@ SBase::read (XMLInputStream& stream)
           static ostringstream errMsg;
           errMsg.str("");
           errMsg << "The prefix for the <sbml> element does not match "
-            << "the prefix for the SBML namespace.  This means that "
+            << "the prefix for the SBML_Lang namespace.  This means that "
             << "the <sbml> element in not in the SBMLNamespace."<< endl;
 
           logError(InvalidNamespaceOnSBML,
@@ -1933,7 +1930,7 @@ SBase::read (XMLInputStream& stream)
   {
     //
     // checks if the given default namespace (if any) is a valid
-    // SBML namespace
+    // SBML_Lang namespace
     //
     checkDefaultNamespace(mSBMLNamespaces->getNamespaces(), element.getName());
     if (!element.getPrefix().empty())
@@ -2011,7 +2008,7 @@ SBase::setElementText(const std::string &text)
 
 /** @cond doxygenLibsbmlInternal */
 /*
- * Writes (serializes) this SBML object by writing it to XMLOutputStream.
+ * Writes (serializes) this SBML_Lang object by writing it to XMLOutputStream.
  */
 void
 SBase::write (XMLOutputStream& stream) const
@@ -2031,7 +2028,7 @@ SBase::write (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * SBML objects as XML elements.  Be sure to call your parents
+ * SBML_Lang objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
  */
 void
@@ -2046,10 +2043,10 @@ SBase::writeElements (XMLOutputStream& stream) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Subclasses should override this method to create, store, and then
- * return an SBML object corresponding to the next XMLToken in the
+ * return an SBML_Lang object corresponding to the next XMLToken in the
  * XMLInputStream.
  *
- * @return the SBML object corresponding to next XMLToken in the
+ * @return the SBML_Lang object corresponding to next XMLToken in the
  * XMLInputStream or @c NULL if the token was not recognized.
  */
 SBase*
@@ -2094,7 +2091,7 @@ SBase::readAnnotation (XMLInputStream& stream)
 
     if (mAnnotation != NULL)
     {
-      string msg = "An SBML <" + getElementName() + "> element ";
+      string msg = "An SBML_Lang <" + getElementName() + "> element ";
       msg += "has multiple <annotation> children.";
       logError(MultipleAnnotations, getLevel(), getVersion(), msg);
     }
@@ -2135,7 +2132,7 @@ SBase::readNotes (XMLInputStream& stream)
 
     //
     // checks if the given default namespace (if any) is a valid
-    // SBML namespace
+    // SBML_Lang namespace
     //
     const XMLNamespaces &xmlns = mNotes->getNamespaces();
     checkDefaultNamespace(&xmlns,"notes");
@@ -2190,7 +2187,7 @@ SBase::logUnknownAttribute( const string& attribute,
   ostringstream msg;
 
     msg << "Attribute '" << attribute << "' is not part of the "
-        << "definition of an SBML Level " << level
+        << "definition of an SBML_Lang Level " << level
         << " Version " << version << " <" << element << "> element.";
 
   if (mSBML)
@@ -2220,7 +2217,7 @@ SBase::logUnknownElement( const string& element,
     ostringstream msg;
 
     msg << "Element '" << element << "' is not part of the definition of "
-        << "SBML Level " << level << " Version " << version << ".";
+        << "SBML_Lang Level " << level << " Version " << version << ".";
 
     if (mSBML != NULL)
     {
@@ -2420,7 +2417,7 @@ SBase::getSBMLPrefix() const
  *
  * @note The root element may not be an SBMLDocument element. For example,
  * this element is the root element if this element doesn't have a parent
- * SBML object (i.e. mParentSBMLObject is NULL)
+ * SBML_Lang object (i.e. mParentSBMLObject is NULL)
  */
 SBase*
 SBase::getRootElement()
@@ -2475,7 +2472,7 @@ SBase::writeXMLNS (XMLOutputStream& stream) const
 
 /** @cond doxygenLibsbmlInternal */
 /*
-  * Checks that an SBML ListOf element has been populated.
+  * Checks that an SBML_Lang ListOf element has been populated.
   * If a listOf element has been declared with no elements,
   * an error is logged.
   */
@@ -2575,7 +2572,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
 {
   //
   // checks if the given default namespace (if any) is a valid
-  // SBML namespace
+  // SBML_Lang namespace
   //
   if (xmlns == NULL || xmlns->getLength() == 0)
     return;
@@ -2585,7 +2582,7 @@ SBase::checkDefaultNamespace(const XMLNamespaces* xmlns,
     return;
 
   // if this element (SBase derived) has notes or annotation elements,
-  // it is ok for them to be in the SBML namespace!
+  // it is ok for them to be in the SBML_Lang namespace!
   if ( SBMLNamespaces::isSBMLNamespace(defaultURI)
        && !SBMLNamespaces::isSBMLNamespace(mURI)
        && (elementName == "notes" || elementName == "annotation"))
@@ -2617,7 +2614,7 @@ SBase::checkAnnotation()
 
   //
   // checks if the given default namespace (if any) is a valid
-  // SBML namespace
+  // SBML_Lang namespace
   //
   const XMLNamespaces &xmlns = mAnnotation->getNamespaces();
   checkDefaultNamespace(&xmlns,"annotation");
@@ -2652,7 +2649,7 @@ SBase::checkAnnotation()
       if (find(uri_list.begin(), uri_list.end(), uri)
                                                != uri_list.end())
       {
-        string msg = "An SBML <" + getElementName() + "> element ";
+        string msg = "An SBML_Lang <" + getElementName() + "> element ";
         msg += "has an <annotation> child with multiple children with the same namespace.";
         logError(DuplicateAnnotationNamespaces, getLevel(), getVersion(), msg);
       }
@@ -2694,7 +2691,7 @@ SBase::checkAnnotation()
                                           SPEC_NAMESPACE);
       n++;
     }
-    string msg = "An SBML <" + getElementName() + "> element ";
+    string msg = "An SBML_Lang <" + getElementName() + "> element ";
     if (match > 0)
     {
       msg += "uses a restricted namespace on an element in its child <annotation>.";
@@ -2864,7 +2861,7 @@ SBase::checkCompatibility(const SBase * object) const
 /** @cond doxygenLibsbmlInternal */
 /*
  * Stores the location (line and column) and any XML namespaces (for
- * roundtripping) declared on this SBML (XML) element.
+ * roundtripping) declared on this SBML_Lang (XML) element.
  */
 void
 SBase::setSBaseFields (const XMLToken& element)

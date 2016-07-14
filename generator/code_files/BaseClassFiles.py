@@ -43,7 +43,7 @@ import os
 from . import CppHeaderFile
 from . import CppCodeFile
 from . import ValidationFiles
-from util import strFunctions, global_variables
+from util import strFunctions, global_variables, query
 from base_files import BaseFile, BaseCMakeFile, BaseTemplateFile
 
 
@@ -110,7 +110,14 @@ class BaseClassFiles(BaseTemplateFile.BaseTemplateFile):
         fileout.close_file()
 
     def write_cmake(self, name):
-        out_name = 'lib{0}-{1}'.format(global_variables.language, name[4:])
+        if name.startswith('lib'):
+            if global_variables.library_name.lower().startswith('lib'):
+                out_name = '{0}-{1}'.format(global_variables.library_name.lower(), name[4:])
+            else:
+                out_name = 'lib{0}-{1}'.format(global_variables.library_name.lower(), name[4:])
+        else:
+            out_name = name
+#        out_name = 'lib{0}-{1}'.format(global_variables.language, name[4:])
         fileout = BaseCMakeFile.BaseCMakeFile(out_name)
         filein = '{0}.cmake'.format(name)
         if self.verbose:
@@ -120,32 +127,32 @@ class BaseClassFiles(BaseTemplateFile.BaseTemplateFile):
 
     def print_includes(self, fileout):
         for element in self.elements:
-            if not element['name'].endswith('Document'):
-                name = strFunctions.prefix_name(element['name'])
-                fileout.copy_line_verbatim('#include <{0}/{1}.h>\n'
-                                           ''.format(global_variables.language,
-                                                     name))
+            name = strFunctions.prefix_name(element['name'])
+            fileout.copy_line_verbatim('#include <{0}/{1}.h>\n'
+                                       ''.format(global_variables.language,
+                                                 name))
 
     def print_typecodes(self, fileout):
         for element in self.elements:
-            if not element['name'].endswith('Document'):
-                name = element['typecode']
-                fileout.copy_line_verbatim('  , {0}\n'
+          #  if not element['name'].endswith('Document'):
+            name = element['typecode']
+            fileout.copy_line_verbatim('  , {0}\n'
                                            ''.format(name))
 
     def print_typecode_strings(self, fileout):
         for element in self.elements:
-            if not element['name'].endswith('Document'):
-                name = strFunctions.remove_prefix(element['name'])
-                fileout.copy_line_verbatim('  , \"{0}\"\n'
+        #   if not element['name'].endswith('Document'):
+            name = strFunctions.remove_prefix(element['name'])
+            fileout.copy_line_verbatim('  , \"{0}\"\n'
                                            ''.format(name))
 
     def print_visit_header(self, fileout):
         for element in self.elements:
             if not element['name'].endswith('Document'):
-                name = strFunctions.prefix_name(element['name'])
-                self.write_visit_header(fileout, name)
-                fileout.skip_line(2)
+                if not 'document' in element or not element['document']:
+                    name = strFunctions.prefix_name(element['name'])
+                    self.write_visit_header(fileout, name)
+                    fileout.skip_line(2)
 
     def write_visit_header(self, fileout, name):
         fileout.open_comment()
@@ -166,9 +173,10 @@ class BaseClassFiles(BaseTemplateFile.BaseTemplateFile):
     def print_leave_header(self, fileout):
         for element in self.elements:
             if not element['name'].endswith('Document'):
-                name = strFunctions.prefix_name(element['name'])
-                fileout.skip_line(2)
-                self.write_leave_header(fileout, name)
+                if not 'document' in element or not element['document']:
+                    name = strFunctions.prefix_name(element['name'])
+                    fileout.skip_line(2)
+                    self.write_leave_header(fileout, name)
 
     def write_leave_header(self, fileout, name):
         fileout.open_comment()
@@ -264,3 +272,34 @@ class BaseClassFiles(BaseTemplateFile.BaseTemplateFile):
             name = error['typecode']
             if not name.endswith('Unknown'):
                 valid.write_table_entry(error)
+
+    def print_document_errors(self, fileout):
+        root = {'baseElements': self.elements}
+        doc = query.get_class(global_variables.document_class, root)
+        if not doc:
+            docname = 'Document'
+        else:
+            docname = strFunctions.prefix_name(doc['name'])
+        libname = strFunctions.get_library_suffix(global_variables.library_name)
+        fileout.copy_line_verbatim('          if ( errorId == {0}{1}Allowed'
+                                   'CoreAttributes\n'.format(libname, docname))
+        level = False
+        version = False
+        if doc and 'attribs' in doc:
+            for a in doc['attribs']:
+                if a['name'] == 'level':
+                    level = True
+                elif a['name'] == 'version':
+                    version = True
+        if level:
+            fileout.copy_line_verbatim('            || errorId == {0}{1}'
+                                       'LevelMustBeInteger\n'
+                                       ''.format(libname, docname))
+        if version:
+            fileout.copy_line_verbatim('            || errorId == {0}{1}'
+                                       'VersionMustBeInteger\n'
+                                       ''.format(libname, docname))
+        fileout.copy_line_verbatim('            || errorId == InvalidNamespace'
+                                   'On{0})\n'.format(global_variables.prefix))
+
+

@@ -2,6 +2,34 @@
  * @file SedError.h
  * @brief Definition of the SedError class.
  * @author DEVISER
+ *
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSEDML. Please visit http://sed-ml.org for more
+ * information about SED-ML. The latest version of libSEDML can be found on
+ * github: https://github.com/fbergmann/libSEDML/
+ * 
+
+ * Copyright (c) 2013-2016, Frank T. Bergmann
+ * All rights reserved.
+ * 
+
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this
+ * list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
  */
 
 
@@ -18,25 +46,25 @@ BEGIN_C_DECLS
 
 /**
  * @enum SedErrorCode_t
- * Codes for all Sed-level errors and warnings from the core specification.
+ * Codes for all SEDML-level errors and warnings from the core specification.
  */
 typedef enum
 {
   SedUnknownError                      = 10000 /*!< Encountered unknown internal libSEDML error. */
 , NotUTF8                               = 10001 /*!< File does not use UTF-8 encoding. */
 , UnrecognizedElement                   = 10002 /*!< Encountered unrecognized element. */
-, NotSchemaConformant                   = 10003 /*!< Document does not conform to the Sed XML schema. */
+, NotSchemaConformant                   = 10003 /*!< Document does not conform to the SEDML XML schema. */
 , InvalidMathElement                    = 10201
 , MissingAnnotationNamespace            = 10401 /*!< Missing declaration of the XML namespace for the annotation. */
 , DuplicateAnnotationNamespaces         = 10402 /*!< Multiple annotations using the same XML namespace. */
-, SedNamespaceInAnnotation             = 10403 /*!< The Sed XML namespace cannot be used in an Annotation object. */
-, MultipleAnnotations                   = 10404 /*!< Only one Annotation object is permitted under a given Sed object. */
+, SedNamespaceInAnnotation             = 10403 /*!< The SEDML XML namespace cannot be used in an Annotation object. */
+, MultipleAnnotations                   = 10404 /*!< Only one Annotation object is permitted under a given SEDML object. */
 , AnnotationNotElement                  = 10405
 , NotesNotInXHTMLNamespace              = 10801 /*!< Notes must be placed in the XHTML XML namespace. */
 , NotesContainsXMLDecl                  = 10802 /*!< XML declarations are not permitted in Notes objects. */
 , NotesContainsDOCTYPE                  = 10803 /*!< XML DOCTYPE elements are not permitted in Notes objects. */
 , InvalidNotesContent                   = 10804 /*!< Invalid notes content found. */
-, OnlyOneNotesElementAllowed            = 10805 /*!< Only one Notes subobject is permitted on a given Sed object. */
+, OnlyOneNotesElementAllowed            = 10805 /*!< Only one Notes subobject is permitted on a given SEDML object. */
 , SedmlNSUndeclared      = 10101
 , SedmlElementNotInNs      = 10102
 , SedmlDuplicateComponentId      = 10301
@@ -52,8 +80,8 @@ typedef enum
 , SedmlSedDocumentLevelMustBeInteger      = 20205
 , SedmlSedDocumentVersionMustBeInteger      = 20206
 , SedmlSedDocumentEmptyLOElements      = 20207
-, SedmlSedDocumentLOSedModelsAllowedCoreElements      = 20208
-, SedmlSedDocumentLOSedModelsAllowedCoreAttributes      = 20209
+, SedmlSedDocumentLOModelsAllowedCoreElements      = 20208
+, SedmlSedDocumentLOModelsAllowedCoreAttributes      = 20209
 , SedmlSedModelAllowedCoreAttributes      = 20301
 , SedmlSedModelAllowedCoreElements      = 20302
 , SedmlSedModelAllowedAttributes      = 20303
@@ -62,8 +90,8 @@ typedef enum
 , SedmlSedModelNameMustBeString      = 20306
 , SedmlSedModelLanguageMustBeString      = 20307
 , SedmlSedModelEmptyLOElements      = 20308
-, SedmlSedModelLOSedChangesAllowedCoreElements      = 20309
-, SedmlSedModelLOSedChangesAllowedCoreAttributes      = 20310
+, SedmlSedModelLOChangesAllowedCoreElements      = 20309
+, SedmlSedModelLOChangesAllowedCoreAttributes      = 20310
 , SedmlSedChangeAllowedCoreAttributes      = 20401
 , SedmlSedChangeAllowedCoreElements      = 20402
 , SedmlSedAddXMLAllowedCoreAttributes      = 20501
@@ -83,10 +111,10 @@ typedef enum
 , SedmlSedDataGeneratorAllowedElements      = 20704
 , SedmlSedDataGeneratorNameMustBeString      = 20705
 , SedmlSedDataGeneratorEmptyLOElements      = 20706
-, SedmlSedDataGeneratorLOSedVariablesAllowedCoreElements      = 20707
-, SedmlSedDataGeneratorLOSedParametersAllowedCoreElements      = 20708
-, SedmlSedDataGeneratorLOSedVariablesAllowedCoreAttributes      = 20709
-, SedmlSedDataGeneratorLOSedParametersAllowedCoreAttributes      = 20710
+, SedmlSedDataGeneratorLOVariablesAllowedCoreElements      = 20707
+, SedmlSedDataGeneratorLOParametersAllowedCoreElements      = 20708
+, SedmlSedDataGeneratorLOVariablesAllowedCoreAttributes      = 20709
+, SedmlSedDataGeneratorLOParametersAllowedCoreAttributes      = 20710
 , SedmlSedRepeatedTaskAllowedCoreAttributes      = 20801
 , SedmlSedRepeatedTaskAllowedCoreElements      = 20802
 , SedmlSedRepeatedTaskAllowedAttributes      = 20803
@@ -101,7 +129,7 @@ typedef enum
 , SedmlSedVectorRangeAllowedCoreElements      = 21002
 , SedmlSedVectorRangeAllowedAttributes      = 21003
 , SedmlSedVectorRangeValueMustBeString      = 21004
-, UnknownCoreAttribute                  = 99994 /*!< Encountered an unknown attribute in the Sed Core namespace. */
+, UnknownCoreAttribute                  = 99994 /*!< Encountered an unknown attribute in the SEDML Core namespace. */
 , SedCodesUpperBound                   = 99999 /*!< Upper boundary of libSEDML-specific diagnostic codes. */
 } SedErrorCode_t;
 
@@ -113,7 +141,7 @@ typedef enum
  * Note that these are distinct from XMLError's category codes.  User
  * programs receiving an SedError object can use this distinction to
  * check whether the error represents a low-level XML problem or an
- * Sed problem.
+ * SEDML problem.
  *
  * @see #XMLErrorCategory_t
  */
@@ -124,10 +152,10 @@ typedef enum
     LIBSEDML_CAT_XML = LIBSBML_CAT_XML,
 
     LIBSEDML_CAT_SEDML = (LIBSEDML_CAT_XML + 1)
-    /*!< General Sed error  not falling into another category below. */
+    /*!< General SEDML error  not falling into another category below. */
 
   , LIBSEDML_CAT_GENERAL_CONSISTENCY
-    /*!< Category of errors that can occur while validating general Sed
+    /*!< Category of errors that can occur while validating general SEDML
      * constructs. */
 
   , LIBSEDML_CAT_IDENTIFIER_CONSISTENCY
@@ -136,15 +164,15 @@ typedef enum
 
   , LIBSEDML_CAT_MATHML_CONSISTENCY
     /*!< Category of errors that can occur while validating MathML formulas
-     * in a model.  With respect to the Sed specification, these concern
+     * in a model.  With respect to the SEDML specification, these concern
      * failures in applying the validation rules numbered 102xx in the
      * Level&nbsp;2 Versions&nbsp;2&ndash;4
      * and Level&nbsp;3 Version&nbsp;1 specifications. */
 
   , LIBSEDML_CAT_INTERNAL_CONSISTENCY
     /*!< Category of errors that can occur while validating libSEDML's
-     * internal representation of Sed constructs. (These are tests
-     * performed by libSEDML and do not have equivalent Sed validation
+     * internal representation of SEDML constructs. (These are tests
+     * performed by libSEDML and do not have equivalent SEDML validation
      * rules.)  */
 
 } SedErrorCategory_t;
@@ -174,12 +202,12 @@ typedef enum
 
     LIBSEDML_SEV_SCHEMA_ERROR    = (LIBSEDML_SEV_FATAL + 1)
     /*!< The XML content does not conform to
-     * the relevant version of the Sed XML
-     * Schema.  The content is not valid Sed. */
+     * the relevant version of the SEDML XML
+     * Schema.  The content is not valid SEDML. */
 
   , LIBSEDML_SEV_GENERAL_WARNING
     /*!< The XML content is invalid for some
-     * levels/versions of Sed, and while it
+     * levels/versions of SEDML, and while it
      * may be valid in others, it is something
      * that is best avoided anyway.  LibSEDML
      * will issue warnings in those cases it
@@ -188,7 +216,7 @@ typedef enum
   , LIBSEDML_SEV_NOT_APPLICABLE
     /*!< This error code is only a placeholder
      * for errors that have relevance to some
-     * versions of Sed but not others. */
+     * versions of SEDML but not others. */
 
   /** @endcond **/
 } SedErrorSeverity_t;
@@ -205,10 +233,10 @@ class LIBSEDML_EXTERN SedError : public XMLError
 public:
 
   /**
-   * Creates a new SedError to report that something occurred during Sed
+   * Creates a new SedError to report that something occurred during SEDML
    * processing.
    *
-   * When a libSEDML operation on Sed content results in a warning, error
+   * When a libSEDML operation on SEDML content results in a warning, error
    * or other diagnostic, the issue is reported as an SedError object.
    * SedError objects have identification numbers to indicate the nature
    * of the exception.  @if clike These numbers are drawn from
@@ -226,7 +254,7 @@ public:
    * @p errorId to this constructor @em can be (but does not have to be) a
    * value from this @if clike enumeration. If it @em is a value
    * from <a class="el" href="#SedErrorCode_t">SedErrorCode_t</a>, the
-   * SedError class assumes the error is a low-level system or Sed layer
+   * SedError class assumes the error is a low-level system or SEDML layer
    * error and <em>prepends</em> a built-in, predefined error message to
    * any string passed in the argument @p details to this constructor.  In
    * addition, all <a class="el"
@@ -237,7 +265,7 @@ public:
    * href="#SedErrorCategory_t">SedErrorCategory_t</a>,
    * respectively. @else set of constants.  If it @em
    * is one of the predefined error identifiers, the SedError class
-   * assumes the error is a low-level system or Sed layer error and
+   * assumes the error is a low-level system or SEDML layer error and
    * <em>prepends</em> a built-in, predefined error message to any string
    * passed in the argument @p details to this constructor.  In addition,
    * all the predefined error identifiers have associated values for the
@@ -278,18 +306,18 @@ public:
    * respectively.  If the value of @p errorId is one of the standard error
    * codes, callers do not need to fill in @p severity and @p category in a
    * call to this constructor.  Conversely, if @p errorId is not an existing
-   * Sed-level error code, callers can use other values for @p severity and
+   * SEDML-level error code, callers can use other values for @p severity and
    * @p category. @endif@~
    *
    * Please see the top of the documentation for SedError for a longer
    * discussion of the possible error codes, their meanings, and their
-   * applicability to different combinations of Level+Version of Sed.
+   * applicability to different combinations of Level+Version of SEDML.
    *
    * @param errorId an unsigned int, the identification number of the error.
    *
-   * @param level the Sed Level of the Sed model
+   * @param level the SEDML Level of the SEDML model
    *
-   * @param version the Sed Version within the Level of the Sed model
+   * @param version the SEDML Version within the Level of the SEDML model
    *
    * @param details a string containing additional details about the error.
    * If the error code in @p errorId is one that is recognized by SedError,

@@ -317,7 +317,7 @@ class ValidationFiles():
         self.error_file.up_indent()
         self.error_file.write_line('\"{0}\",'.format(rule['short']))
         self.error_file.write_line('{0}_CAT_GENERAL_'
-                                   'CONSISTENCY,'.format(self.cap_lib))
+                                   'CONSISTENCY,'.format(global_variables.up_full_lib))
         self.error_file.write_line('{0},'.format(rule['lib_sev']))
         self.error_file.write_line_no_indent('\"{0}\",'
                                              ''.format(format_rule))
@@ -359,6 +359,8 @@ class ValidationFiles():
                 else:
                     [i, ret_str] = self.replace_name(i, text_string, length)
                 return_string += ret_str
+            elif letter == '~':
+                return_string += ' '
             else:
                 return_string += letter
             i += 1

@@ -24,7 +24,7 @@ LIBSBML_CPP_NAMESPACE_BEGIN
 
 /** @cond doxygenLibsbmlInternal **/
 /** 
- * Helper function for SBMLError().  Takes an index, SBML level and version,
+ * Helper function for SBMLError().  Takes an index, SBML_Lang level and version,
  * and returns the appropriate field for the severity code out of the
    language_ErrorTable entry.
  */
@@ -98,9 +98,9 @@ static struct sbmlCategoryString {
   const char * catString;
 } sbmlCategoryStringTable[] = 
 {
-  { LIBSBML_CAT_SBML,                   "General SBML conformance"    },
-  { LIBSBML_CAT_GENERAL_CONSISTENCY,	"SBML component consistency"  },
-  { LIBSBML_CAT_IDENTIFIER_CONSISTENCY,	"SBML identifier consistency" },
+  { LIBSBML_CAT_SBML,                   "General SBML_Lang conformance"    },
+  { LIBSBML_CAT_GENERAL_CONSISTENCY,	"SBML_Lang component consistency"  },
+  { LIBSBML_CAT_IDENTIFIER_CONSISTENCY,	"SBML_Lang identifier consistency" },
   { LIBSBML_CAT_MATHML_CONSISTENCY,     "MathML consistency"          },
   { LIBSBML_CAT_INTERNAL_CONSISTENCY,   "Internal consistency"        }
 };
@@ -163,7 +163,7 @@ SBMLError::SBMLError (  const unsigned int errorId
     if ( index == 0 && mErrorId != SBMLUnknownError )
     {
       // The id is in the range of error numbers that are supposed to be in
-      // the SBML layer, but it's NOT in our table. This is an internal error.
+      // the SBML_Lang layer, but it's NOT in our table. This is an internal error.
       // Unfortunately, we don't have an error log or anywhere to report it
       // except the measure of last resort: the standard error output.
     
@@ -200,10 +200,10 @@ SBMLError::SBMLError (  const unsigned int errorId
     {
 
       mSeverity = LIBSBML_SEV_WARNING;
-      newMsg << "[Although SBML Level " << level
+      newMsg << "[Although SBML_Lang Level " << level
              << " Version " << version << " does not explicitly define the "
              << "following as an error, other Levels and/or Versions "
-             << "of SBML do.] " << endl;
+             << "of SBML_Lang do.] " << endl;
     }
 
     // Finish updating the (full) error message.
@@ -258,7 +258,7 @@ SBMLError::SBMLError (  const unsigned int errorId
   }
 
 
-   // It's not an error code in the SBML layer, so assume the caller has
+   // It's not an error code in the SBML_Lang layer, so assume the caller has
   // filled in all the relevant additional data.  (If they didn't, the
   // following merely assigns the defaults.)
   mMessage        = details;

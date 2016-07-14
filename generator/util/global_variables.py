@@ -70,12 +70,16 @@ global prefix
 prefix = 'SBML'
 global library_name
 library_name = 'Libsbml'
+global up_full_lib
+up_full_lib = 'LIBSBML'
 global is_package
 is_package = True
 global package_prefix
 package_prefix = ''
 global package_full_name
 package_full_name = ''
+global has_level_version
+has_level_version = True
 
 
 # TODO  GSOC 2016 modification
@@ -152,26 +156,37 @@ global namespaces
 global dependency
 global library_version
 
+global custom_copyright
+custom_copyright = ''
+
+
+def set_custom_copyright(copyright):
+    global custom_copyright
+    custom_copyright = copyright
+
 def set_global_fullname(fullname):
     global package_full_name
     package_full_name = fullname
 
 
 def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix,
-                specifications=[], depend=[], library_vers=[]):
+                specifications=[], depend=[], library_vers=[], copyright=''):
     global language
     language = lang
 
     global namespaces
+    global has_level_version
     namespaces = []
     if len(specifications) > 0:
         namespaces = specifications
+        if not 'level' in namespaces[0] or not namespaces[0]['level']:
+            has_level_version = False
     else:
         namespaces.append(dict({'namespace': 'not defined'}))
 
     global dependency
     dependency = []
-    if len(specifications) > 0:
+    if len(depend) > 0:
         dependency = depend
 
     global library_version
@@ -179,19 +194,25 @@ def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix,
     if library_vers:
         library_version = library_vers
 
+    global custom_copyright
+    custom_copyright = copyright
+
     if base:
         global baseClass
         baseClass = base
         global std_base
         std_base = base
 
-    if doc:
-        global document_class
-        document_class = doc
-
     if prfix:
         global prefix
         prefix = prfix
+
+    if doc:
+        global document_class
+        document_class = doc
+        if not doc.startswith(prefix):
+            document_class = '{0}{1}'.format(prefix, doc)
+
 
     if pkg_prefix:
         global package_prefix
@@ -202,6 +223,12 @@ def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix,
         library_name = lib
     else:
         library_name = 'Lib' + language
+
+    global up_full_lib
+    if not library_name.upper().startswith('LIB'):
+        up_full_lib = 'LIB{0}'.format(library_name.upper())
+    else:
+        up_full_lib = library_name.upper()
 
     global is_package
     is_package = is_pack
@@ -235,6 +262,8 @@ def set_globals(lang, base, doc, prfix, lib, is_pack, pkg_prefix,
 
     global ret_att_unex
     ret_att_unex = '{0}_UNEXPECTED_ATTRIBUTE'.format(library_name.upper())
+
+
 
 
 def get_return_code(index):

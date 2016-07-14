@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../')
 from code_files import CppFiles, ExtensionFiles, ValidationFiles
 from parseXML import ParseXML
 
-import test_functions
+from tests import test_functions
 
 
 ##############################################################################
@@ -249,6 +249,11 @@ def main():
     list_of = ''
     test_case = 'a listOf child that uses listOfFoo as the name'
     fail += run_test(name, num, class_name, test_case, list_of)
+
+    name = 'test_att'
+    class_name = 'TestSBMLError'
+    test_case = 'error enumeration '
+    fail += run_valid_test(name, class_name, test_case)
 
     name = 'qual'
     num = 5
@@ -587,6 +592,13 @@ def main():
     class_name = 'Other'
     list_of = ''
     test_case = 'element xml names differ'
+    fail += run_test(name, num, class_name, test_case, list_of)
+
+    name = 'add_copyright'
+    num = 0
+    class_name = 'Copyright'
+    list_of = ''
+    test_case = 'additional copyright'
     fail += run_test(name, num, class_name, test_case, list_of)
 
     test_functions.report('CPP', fail, fails, not_tested)

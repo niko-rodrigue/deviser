@@ -126,8 +126,6 @@ class ValidationRulesGeneral():
             rule = self.write_empty_list_rule(self)
             self.add_rule(rule)
 
-
-
     def add_rule(self, rule):
         if rule is not None:
             self.rules.append(rule)
@@ -145,7 +143,7 @@ class ValidationRulesGeneral():
         text = 'Unknown error from {0}'.format(self.up_package)
         ref = ''
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Unknown error from {0}'.format(self.up_package)
         lib_ref = ''
         tc = '{0}Unknown'.format(self.up_package)
@@ -159,7 +157,7 @@ class ValidationRulesGeneral():
         text = 'To conform to the {0} specification for SBML Level~{1} ' \
                'Version~{2}, an SBML document must declare ' \
                '\\uri{3}http://www.sbml.org/sbml/' \
-               'level{1}/version{2}/{4}/version{5}{6} as the XMLNamespace' \
+               'level{1}/version{2}/{4}/version{5}{6} as the XMLNamespace ' \
                'to use for elements of this package.'\
             .format(self.full_pkg_command, self.level, self.version,
                     self.start_b, self.package, self.pkg_version, self.end_b)
@@ -167,7 +165,7 @@ class ValidationRulesGeneral():
             .format(self.pkg_ref,
                     strFunctions.wrap_section('xml-namespace', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'The {0} namespace is not correctly ' \
                 'declared.'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section 3.1'.format(self.up_package)
@@ -189,7 +187,7 @@ class ValidationRulesGeneral():
             .format(self.pkg_ref,
                     strFunctions.wrap_section('xml-namespace', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Element not in {0} namespace'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section 3.1'.format(self.up_package)
         tc = '{0}ElementNotInNs'.format(self.up_package)
@@ -201,11 +199,12 @@ class ValidationRulesGeneral():
     def write_id_rule(self):
         text = '(Extends validation rule \\#10301 in the \\sbmlthreecore ' \
                'specification. TO DO list scope of ids)'
-        ref = '{0} {1}.'\
-            .format(self.pkg_ref,
-                    strFunctions.wrap_section('primitive-types', False))
+        ref = 'SBML Level~3 Version~1 Core, Section~3.1.7.'
+        # ref = '{0} {1}.'\
+        #     .format(self.pkg_ref,
+        #             strFunctions.wrap_section('primitive-types', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Duplicate \'id\' attribute value'
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}DuplicateComponentId'.format(self.up_package)
@@ -219,11 +218,12 @@ class ValidationRulesGeneral():
                'the \\class{1}SBML{2} data type \\primtype{1}SId{2}'\
             .format(strFunctions.wrap_token('id', self.package),
                     self.start_b, self.end_b)
-        ref = '{0} {1}.'\
-            .format(self.pkg_ref,
-                    strFunctions.wrap_section('primitive-types', False))
+        ref = 'SBML Level~3 Version~1 Core, Section~3.1.7.'
+        # ref = '{0} {1}.'\
+        #     .format(self.pkg_ref,
+        #             strFunctions.wrap_section('primitive-types', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Invalid SId syntax'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}IdSyntaxRule'.format(self.up_package)
@@ -240,7 +240,7 @@ class ValidationRulesGeneral():
                     strFunctions.wrap_token('required', self.package))
         ref = 'SBML Level~3 Version~1 Core, Section~4.1.2.'
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Required {0}:required attribute on <sbml>'.format(self.package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}AttributeRequiredMissing'.format(self.up_package)
@@ -256,7 +256,7 @@ class ValidationRulesGeneral():
                     self.start_b, self.end_b)
         ref = 'SBML Level~3 Version~1 Core, Section~4.1.2.'
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'The {0}:required attribute must be Boolean' \
                 ''.format(self.package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
@@ -275,7 +275,7 @@ class ValidationRulesGeneral():
             .format(self.pkg_ref,
                     strFunctions.wrap_section('xml-namespace', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'The {0}:required attribute must be \'{1}\'' \
                 ''.format(self.package, self.reqd_status)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
@@ -289,11 +289,12 @@ class ValidationRulesGeneral():
         text = 'The value of a {0} must conform to the syntax of ' \
                'the XML Type ID'\
             .format(strFunctions.wrap_token('metaid', self.package))
-        ref = '{0} {1}.'\
-            .format(self.pkg_ref,
-                    strFunctions.wrap_section('primitive-types', False))
+        ref = 'SBML Level~3 Version~1 Core, Section~3.1.6.'
+        # ref = '{0} {1}.'\
+        #     .format(self.pkg_ref,
+        #             strFunctions.wrap_section('primitive-types', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Invalid SId syntax'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = 'InvalidMetaidSyntax'.format(self.up_package)
@@ -308,7 +309,7 @@ class ValidationRulesGeneral():
             .format(self.pkg_ref,
                     strFunctions.wrap_section('primitive-types', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Invalid namespace'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = 'InvalidNamespaceOn{0}'.format(global_variables.prefix)
@@ -323,7 +324,7 @@ class ValidationRulesGeneral():
             .format(self.pkg_ref,
                     strFunctions.wrap_section('primitive-types', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Allowed attributes'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = 'AllowedAttributes'.format(self.up_package)
@@ -338,7 +339,7 @@ class ValidationRulesGeneral():
             .format(self.pkg_ref,
                     strFunctions.wrap_section('primitive-types', False))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'No empty listOf'.format(self.up_package)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = 'EmptyListElement'.format(self.up_package)

@@ -58,10 +58,10 @@ class ValidationRulesForClass():
         self.start_b = '{'
         self.end_b = '}'
 
-        self.formatted_name = '\{0}'.format(object_desc['name'])
-        self.indef = strFunctions.get_indefinite(object_desc['name'])
+        self.lower_name = strFunctions.lower_first(strFunctions.remove_prefix(self.name))
+        self.formatted_name = '\{0}'.format(strFunctions.remove_prefix(self.name))
+        self.indef = strFunctions.get_indefinite(self.lower_name)
         self.indef_u = strFunctions.upper_first(self.indef)
-        self.lower_name = strFunctions.lower_first(self.name)
 
         self.reqd_att = []
         self.opt_att = []
@@ -228,6 +228,14 @@ class ValidationRulesForClass():
                 .format(name, self.indef, formatted_name,
                         strFunctions.wrap_token('boolean'))
             rule_type = 'Boolean'
+        elif att_type == 'UnitSId' or att_type == 'UnitSIdRef':
+            text = 'The value of the attribute {0} on {1} {2} must have a ' \
+                   'taken from the following: the identifier of a ' \
+                   '\\UnitDefinition object in the enclosing \Model, or one ' \
+                   'of the base units in SBML.'.format(name,
+                                                       self.indef,
+                                                       formatted_name)
+            rule_type = 'Unit'
         elif att_type == 'enum':
             enum_name = strFunctions.texify(attribute['element'])
             enums = attribute['parent']['root']['enums']
@@ -264,7 +272,7 @@ class ValidationRulesForClass():
         ref = '{0}, {1}.'\
             .format(self.pkg_ref, strFunctions.wrap_section(refname))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = '{0} attribute must be {1}.'.format(att_name, rule_type)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}{1}{2}MustBe{3}'.format(self.up_package, abbrev, att_name,
@@ -287,24 +295,25 @@ class ValidationRulesForClass():
                         strFunctions.wrap_token('sboTerm'), self.indef)
             ref = 'SBML Level~3 Version~1 Core, Section~3.2.'
             sev = 'ERROR'
-            lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+            lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
             tc = '{0}{1}AllowedCoreAttributes'.format(self.up_package,
                                                       self.name)
             short = 'Core attributes allowed on <{0}>.'.format(self.lower_name)
             lo = False
         else:
-            lo_name = strFunctions.plural(lo_child['element'])
+            temp = strFunctions.remove_prefix(lo_child['element'])
+            lo_name = strFunctions.plural(temp)
             text = 'A {0} object may have the optional SBML Level~3 ' \
                    'Core attributes {1} and {2}. No other attributes from the ' \
                    'SBML Level 3 Core namespaces are permitted on a {0} object.'\
-                .format(strFunctions.get_element_name(lo_child),
+                .format(strFunctions.get_element_name(lo_child, False),
                         strFunctions.wrap_token('metaid'),
                         strFunctions.wrap_token('sboTerm'))
             sec_name = 'listof' + lo_name.lower()
             ref = '{0}, {1}.'\
                 .format(self.pkg_ref, strFunctions.wrap_section(sec_name))
             sev = 'ERROR'
-            lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+            lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
             tc = '{0}{1}LO{2}AllowedCoreAttributes'.format(self.up_package,
                                                            self.name, lo_name)
             lo = True
@@ -327,22 +336,23 @@ class ValidationRulesForClass():
                 .format(self.indef_u, self.formatted_name, self.indef)
             ref = 'SBML Level~3 Version~1 Core, Section~3.2.'
             sev = 'ERROR'
-            lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+            lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
             tc = '{0}{1}AllowedCoreElements'.format(self.up_package, self.name)
             short = 'Core elements allowed on <{0}>.'.format(self.lower_name)
             lo = False
         else:
-            loname = strFunctions.get_element_name(lo_child)
-            lo_name = strFunctions.plural(lo_child['element'])
+            loname = strFunctions.get_element_name_no_prefix(lo_child)
+            temp = strFunctions.remove_prefix(lo_child['element'])
+            lo_name = strFunctions.plural(temp)
             text = 'Apart from the general notes and annotations subobjects ' \
                    'permitted on all SBML objects, a {0} container object ' \
                    'may only contain \{1} objects.'\
-                .format(loname, lo_child['element'])
+                .format(loname, temp)
             sec_name = 'listof' + lo_name.lower()
             ref = '{0}, {1}.'\
                 .format(self.pkg_ref, strFunctions.wrap_section(sec_name))
             sev = 'ERROR'
-            lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+            lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
             tc = '{0}{1}LO{2}AllowedCoreElements'.format(self.up_package, self.name,
                                                      lo_name)
             lo = True
@@ -378,7 +388,7 @@ class ValidationRulesForClass():
         ref = '{0}, {1}.'\
             .format(self.pkg_ref, strFunctions.wrap_section(self.name))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Attributes allowed on <{0}>.'.format(self.lower_name)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}{1}AllowedAttributes'.format(self.up_package, self.name)
@@ -412,7 +422,7 @@ class ValidationRulesForClass():
         ref = '{0}, {1}.'\
             .format(self.pkg_ref, strFunctions.wrap_section(self.name))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Elements allowed on <{0}>.'.format(self.lower_name)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}{1}AllowedElements'.format(self.up_package, self.name)
@@ -437,6 +447,8 @@ class ValidationRulesForClass():
         if count == num:
             return
         attributes = []
+        if len(child_class['lo_class_name']) == 0:
+            child_class['lo_class_name'] = strFunctions.list_of_name(child_class['name'])
         formatted_name = '\\' + child_class['lo_class_name']
         name = child_class['name']
         child_reqd = []
@@ -472,7 +484,7 @@ class ValidationRulesForClass():
             .format(self.pkg_ref,
                     strFunctions.wrap_section(child_class['lo_class_name']))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         short = 'Attributes allowed on <{0}>.'.format(strFunctions.lower_first(child_class['lo_class_name']))
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         tc = '{0}{1}LO{2}AllowedAttributes'.format(self.up_package, self.name,
@@ -532,7 +544,7 @@ class ValidationRulesForClass():
         ref = '{0}, {1}.'\
             .format(self.pkg_ref, strFunctions.wrap_section(self.name))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         if unusual_min:
             short = 'Number of children in ListOf elements allowed on <{0}>.' \
@@ -592,7 +604,7 @@ class ValidationRulesForClass():
         ref = '{0}, {1}.'\
             .format(self.pkg_ref, strFunctions.wrap_section(self.name))
         sev = 'ERROR'
-        lib_sev = 'LIB{0}_SEV_ERROR'.format(global_variables.language.upper())
+        lib_sev = '{0}_SEV_ERROR'.format(global_variables.up_full_lib)
         lib_ref = 'L3V1 {0} V1 Section'.format(self.up_package)
         if unusual_min:
             short = 'No children in ListOf elements allowed on <{0}>.' \
@@ -674,17 +686,17 @@ class ValidationRulesForClass():
             return ''
         elif num == 1:
             return 'one and only one instance of the {0} element'\
-                .format(strFunctions.get_element_name(attributes[0]))
+                .format(strFunctions.get_element_name(attributes[0], False))
         else:
             required_statement = 'one and only one instance of each of the {0}'\
-                .format(strFunctions.get_element_name(attributes[0]))
+                .format(strFunctions.get_element_name(attributes[0], False))
             i = 1
             while i < num - 1:
                 required_statement += ', {0}'\
-                    .format(strFunctions.get_element_name(attributes[i]))
+                    .format(strFunctions.get_element_name(attributes[i], False))
                 i += 1
             required_statement += ' and \{0} elements'\
-                .format(strFunctions.get_element_name(attributes[i]))
+                .format(strFunctions.get_element_name(attributes[i], False))
             return required_statement
 
     # parse the optional attribute sentence
@@ -695,17 +707,17 @@ class ValidationRulesForClass():
             return ''
         elif num == 1:
             return 'one and only one instance of the {0} element' \
-                .format(strFunctions.get_element_name(attributes[0]))
+                .format(strFunctions.get_element_name(attributes[0], False))
         else:
             optional_statement = 'one and only one instance of each of the {0}' \
-                .format(strFunctions.get_element_name(attributes[0]))
+                .format(strFunctions.get_element_name(attributes[0], False))
             i = 1
             while i < num - 1:
                 optional_statement += ', {0}' \
-                    .format(strFunctions.get_element_name(attributes[i]))
+                    .format(strFunctions.get_element_name(attributes[i], False))
                 i += 1
             optional_statement += ' and {0} elements'\
-                .format(strFunctions.get_element_name(attributes[i]))
+                .format(strFunctions.get_element_name(attributes[i], False))
             return optional_statement
 
     ########################################################################

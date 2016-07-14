@@ -28,6 +28,9 @@ def generate_new_cpp_header(filename, num):
     ob = parser.parse_deviser_xml()
     for wc in ob['baseElements']:
         strFunctions.prefix_classes(wc)
+    for working_class in ob['baseElements']:
+        if working_class['name'] == global_variables.document_class:
+            working_class['document'] = True
     working_class = ob['baseElements'][num]
     if working_class['name'] == global_variables.document_class:
         working_class['document'] = True
@@ -42,6 +45,10 @@ def generate_templates(filename):
     prefix = global_variables.prefix
     for wc in ob['baseElements']:
         strFunctions.prefix_classes(wc)
+    for working_class in ob['baseElements']:
+        if working_class['name'] == global_variables.document_class:
+            working_class['document'] = True
+    global_variables.populate_error_list(ob)
     ValidationFiles.ValidationFiles(ob, True)
     os.chdir('./temp')
     base_files = BaseClassFiles.BaseClassFiles(prefix,  ob['baseElements'], True)
@@ -51,6 +58,12 @@ def generate_templates(filename):
 def generate_common_templates(filename):
     parser = ParseXML.ParseXML(filename)
     ob = parser.parse_deviser_xml()
+    for wc in ob['baseElements']:
+        strFunctions.prefix_classes(wc)
+    for working_class in ob['baseElements']:
+        if working_class['name'] == global_variables.document_class:
+            working_class['document'] = True
+    global_variables.populate_error_list(ob)
     prefix = global_variables.prefix
     os.chdir('./temp')
     base_files = BaseClassFiles.BaseClassFiles(prefix,  ob['baseElements'], True)
@@ -62,6 +75,10 @@ def generate_forward(filename):
     ob = parser.parse_deviser_xml()
     for wc in ob['baseElements']:
         strFunctions.prefix_classes(wc)
+    for working_class in ob['baseElements']:
+        if working_class['name'] == global_variables.document_class:
+            working_class['document'] = True
+    global_variables.populate_error_list(ob)
     os.chdir('./temp')
     ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True)
     ext.write_files()
@@ -116,9 +133,13 @@ def compare_files(correct_file, temp_file):
                                         not_tested)
 
 
-def compare_code_headers(class_name):
-    correct_file = '.\\test-code\\{0}.h'.format(class_name)
-    temp_file = '.\\temp\\{0}.h'.format(class_name)
+def compare_code_headers(class_name, lib=None):
+    if not lib:
+        correct_file = '.\\test-code\\{0}.h'.format(class_name)
+        temp_file = '.\\temp\\{0}.h'.format(class_name)
+    else:
+        correct_file = '.\\test-code\\{1}\\{0}.h'.format(class_name, lib)
+        temp_file = '.\\temp\\{0}.h'.format(class_name)
     return compare_files(correct_file, temp_file)
 
 
@@ -193,40 +214,40 @@ def run_templates(name, class_name, test_case, list_of):
     print('')
     return fail
 
-def test_other_templates():
-    fail = compare_code_headers('SedConstructorException')
-    fail += compare_code_impl('SedConstructorException')
-    fail += compare_code_headers('SedReader')
-    fail += compare_code_impl('SedReader')
-    fail += compare_code_headers('SedWriter')
-    fail += compare_code_impl('SedWriter')
-    fail += compare_code_headers('SedErrorLog')
-    fail += compare_code_impl('SedErrorLog')
-    fail += compare_code_headers('SedNamespaces')
-    fail += compare_code_impl('SedNamespaces')
-    fail += compare_code_headers('SedError')
-    fail += compare_code_impl('SedError')
-    fail += compare_code_headers('SedTypes')
-    fail += compare_code_headers('SedTypeCodes')
-    fail += compare_code_impl('SedTypeCodes')
-    fail += compare_code_headers('SedVisitor')
-    fail += compare_code_impl('SedVisitor')
-    fail += compare_code_headers('SedErrorTable')
+def test_other_templates(prefix):
+    fail = compare_code_headers('{0}ConstructorException'.format(prefix))
+    fail += compare_code_impl('{0}ConstructorException'.format(prefix))
+    fail += compare_code_headers('{0}Reader'.format(prefix))
+    fail += compare_code_impl('{0}Reader'.format(prefix))
+    fail += compare_code_headers('{0}Writer'.format(prefix))
+    fail += compare_code_impl('{0}Writer'.format(prefix))
+    fail += compare_code_headers('{0}ErrorLog'.format(prefix))
+    fail += compare_code_impl('{0}ErrorLog'.format(prefix))
+    fail += compare_code_headers('{0}Namespaces'.format(prefix))
+    fail += compare_code_impl('{0}Namespaces'.format(prefix))
+    fail += compare_code_headers('{0}Error'.format(prefix))
+    fail += compare_code_impl('{0}Error'.format(prefix))
+    fail += compare_code_headers('{0}Types'.format(prefix))
+    fail += compare_code_headers('{0}TypeCodes'.format(prefix))
+    fail += compare_code_impl('{0}TypeCodes'.format(prefix))
+    fail += compare_code_headers('{0}Visitor'.format(prefix))
+    fail += compare_code_impl('{0}Visitor'.format(prefix))
+    fail += compare_code_headers('{0}ErrorTable'.format(prefix))
     print('')
     return fail
 
-def test_common_templates(name, class_name, test_case):
+def test_common_templates(name, class_name, test_case, prefix, lib):
     filename = test_functions.set_up_test(name, class_name, test_case)
     generate_common_templates(filename)
-    fail = compare_code_headers('common')
-    fail += compare_code_headers('extern')
-    fail += compare_code_headers('libsedml-config')
-    fail += compare_code_impl('libsedml-version')
-    fail += compare_code_headers('SedOperationReturnValues')
-    fail += compare_code_impl('SedOperationReturnValues')
-    fail += compare_code_cmake('libsedml-version.h')
-    fail += compare_code_cmake('libsedml-config-common.h')
-    fail += compare_code_cmake('libsedml-namespace.h')
+    fail = compare_code_headers('common', lib)
+    fail += compare_code_headers('extern', lib)
+    fail += compare_code_headers('lib{0}-config'.format(lib))
+    fail += compare_code_impl('lib{0}-version'.format(lib))
+    fail += compare_code_headers('{0}OperationReturnValues'.format(prefix))
+    fail += compare_code_impl('{0}OperationReturnValues'.format(prefix))
+    fail += compare_code_cmake('lib{0}-version.h'.format(lib))
+    fail += compare_code_cmake('lib{0}-config-common.h'.format(lib))
+    fail += compare_code_cmake('lib{0}-namespace.h'.format(lib))
     print('')
     return fail
 
@@ -313,12 +334,12 @@ def main():
     list_of = 'SedListOf'
     test_case = 'templates'
     fail += run_templates(name, class_name, test_case, list_of)
-    fail += test_other_templates()
+    fail += test_other_templates('Sed')
 
     name = 'test_sedml'
     class_name = 'SedBase'
     test_case = 'common'
-    fail += test_common_templates(name, class_name, test_case)
+    fail += test_common_templates(name, class_name, test_case, 'Sed', 'sedml')
 
     name = 'test_sedml'
     class_name = 'sedmlfwd'
@@ -390,8 +411,38 @@ def main():
     test_case = 'global files'
     fail += test_global(name, class_name, test_case)
 
+    global_variables.reset()
+
+    name = 'combine-archive'
+    num = 0
+    class_name = 'CaContent'
+    list_of = ''
+    test_case = 'check includes'
+    fail += run_test(name, num, class_name, test_case, list_of)
+
+    name = 'combine-archive'
+    class_name = 'CaBase'
+    list_of = 'CaListOf'
+    test_case = 'templates'
+    fail += run_templates(name, class_name, test_case, list_of)
+    fail += test_other_templates('Ca')
+
+
+    name = 'combine-archive'
+    class_name = 'CaBase'
+    test_case = 'common'
+    fail += test_common_templates(name, class_name, test_case, 'Ca', 'combine')
+
+    name = 'combine-archive'
+    num = 1
+    class_name = 'CaOmexManifest'
+    list_of = ''
+    test_case = 'document'
+    fail += run_test(name, num, class_name, test_case, list_of)
+
     test_functions.report('OTHER LIBRARY', fail, fails, not_tested)
     return fail
+
 
 if __name__ == '__main__':
     main()

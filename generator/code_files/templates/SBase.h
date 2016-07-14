@@ -145,7 +145,7 @@ public:
    *
    * @copydetails doc_what_is_metaid
    *  
-   * @return the meta-identifier of this SBML object.
+   * @return the meta-identifier of this SBML_Lang object.
    *
    * @see isSetMetaId()
    * @see setMetaId(const std::string& metaid)
@@ -158,7 +158,7 @@ public:
    *
    * @copydetails doc_what_is_metaid
    *  
-   * @return the meta-identifier of this SBML object, as a string.
+   * @return the meta-identifier of this SBML_Lang object, as a string.
    *
    * @see isSetMetaId()
    * @see setMetaId(const std::string& metaid)
@@ -167,17 +167,17 @@ public:
 
   
   /*
-   * @return the id of this SBML object.
+   * @return the id of this SBML_Lang object.
    *
    * @note The fact that the value of attribute "id" is defined on the
    * SBMLBase parent class object is a convenience provided by libSBML, and
-   * <b>does not strictly follow SBML specifications</b>.  This libSBML
+   * <b>does not strictly follow SBML_Lang specifications</b>.  This libSBML
    * implementation of SBMLBase allows client applications to use more
    * generalized code in some situations (for instance, when manipulating
    * objects that are all known to have identifiers), but beware that not
-   * all SBML object classes provide an "id" attribute.  LibSBML will allow
+   * all SBML_Lang object classes provide an "id" attribute.  LibSBML will allow
    * the identifier to be set, but it will not read nor write "id"
-   * attributes for objects that do not possess them according to the SBML
+   * attributes for objects that do not possess them according to the SBML_Lang
    * specification for the Level and Version in use.
    *
    */
@@ -194,7 +194,7 @@ public:
    * objects.  For an alternative method of accessing the notes, see
    * getNotesString().
    *
-   * @return the content of the "notes" subelement of this SBML object as a
+   * @return the content of the "notes" subelement of this SBML_Lang object as a
    * tree structure composed of XMLNode objects.
    *
    * @see getNotesString()
@@ -220,7 +220,7 @@ public:
    * objects.  For an alternative method of accessing the notes, see
    * getNotesString().
    *
-   * @return the content of the "notes" subelement of this SBML object as a
+   * @return the content of the "notes" subelement of this SBML_Lang object as a
    * tree structure composed of XMLNode objects.
    *
    * @see getNotesString()
@@ -244,7 +244,7 @@ public:
    * an application's needs, one or the other method may be more
    * convenient.
    *
-   * @return the content of the "notes" subelement of this SBML object as a
+   * @return the content of the "notes" subelement of this SBML_Lang object as a
    * string.
    *
    * @see getNotes()
@@ -268,7 +268,7 @@ public:
    * an application's needs, one or the other method may be more
    * convenient.
    *
-   * @return the content of the "notes" subelement of this SBML object as a
+   * @return the content of the "notes" subelement of this SBML_Lang object as a
    * string.
    *
    * @see getNotes()
@@ -293,7 +293,7 @@ public:
    * content.  See the ModelHistory, CVTerm and RDFAnnotationParser classes
    * for more information about the facilities available.
    *
-   * @return the annotation of this SBML object as a tree of XMLNode objects.
+   * @return the annotation of this SBML_Lang object as a tree of XMLNode objects.
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -316,7 +316,7 @@ public:
    * content.  See the ModelHistory, CVTerm and RDFAnnotationParser classes
    * for more information about the facilities available.
    *
-   * @return the annotation of this SBML object as a tree of XMLNode objects.
+   * @return the annotation of this SBML_Lang object as a tree of XMLNode objects.
    *
    * @see getAnnotationString()
    * @see isSetAnnotation()
@@ -336,7 +336,7 @@ public:
    * The annotations returned by this method will be in string form.  See the
    * method getAnnotation() for a version that returns annotations in XML form.
    *
-   * @return the annotation of this SBML object as a character string.
+   * @return the annotation of this SBML_Lang object as a character string.
    *
    * @see getAnnotation()
    * @see isSetAnnotation()
@@ -356,7 +356,7 @@ public:
    * The annotations returned by this method will be in string form.  See the
    * method getAnnotation() for a version that returns annotations in XML form.
    *
-   * @return the annotation of this SBML object as a character string.
+   * @return the annotation of this SBML_Lang object as a character string.
    *
    * @see getAnnotation()
    * @see isSetAnnotation()
@@ -370,14 +370,14 @@ public:
 
 
   /**
-   * Returns a list of the XML Namespaces declared on the SBML document
+   * Returns a list of the XML Namespaces declared on the SBML_Lang document
    * owning this object.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and (in
-   * Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
+   * The SBMLNamespaces object encapsulates SBML_Lang Level/Version/namespaces
+   * information.  It is used to communicate the SBML_Lang Level, Version, and (in
+   * Level&nbsp;3) packages used in addition to SBML_Lang Level&nbsp;3 Core.
    *
-   * @return the XML Namespaces associated with this SBML object, or @c NULL
+   * @return the XML Namespaces associated with this SBML_Lang object, or @c NULL
    * in certain very usual circumstances where a namespace is not set.
    *
    * @see getLevel()
@@ -387,14 +387,14 @@ public:
 
 
   /**
-   * Returns a list of the XML Namespaces declared on the SBML document
+   * Returns a list of the XML Namespaces declared on the SBML_Lang document
    * owning this object.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and (in
-   * Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
+   * The SBMLNamespaces object encapsulates SBML_Lang Level/Version/namespaces
+   * information.  It is used to communicate the SBML_Lang Level, Version, and (in
+   * Level&nbsp;3) packages used in addition to SBML_Lang Level&nbsp;3 Core.
    *
-   * @return the XML Namespaces associated with this SBML object, or @c NULL
+   * @return the XML Namespaces associated with this SBML_Lang object, or @c NULL
    * in certain very usual circumstances where a namespace is not set.
    *
    * @see getLevel()
@@ -409,7 +409,7 @@ public:
    * This method allows the caller to obtain the SBMLDocument for the
    * current object.
    * 
-   * @return the parent SBMLDocument object of this SBML object.
+   * @return the parent SBMLDocument object of this SBML_Lang object.
    *
    * @see getParentSBMLObject()
    * @see getModel()
@@ -423,7 +423,7 @@ public:
    * This method allows the caller to obtain the SBMLDocument for the
    * current object.
    * 
-   * @return the parent SBMLDocument object of this SBML object.
+   * @return the parent SBMLDocument object of this SBML_Lang object.
    *
    * @see getParentSBMLObject()
    * @see getModel()
@@ -432,13 +432,13 @@ public:
 
 
   /**
-   * Returns the parent SBML object containing this object.
+   * Returns the parent SBML_Lang object containing this object.
    *
    * This returns the immediately-containing object.  This method is
    * convenient when holding an object nested inside other objects in an
-   * SBML model.  
+   * SBML_Lang model.  
    * 
-   * @return the parent SBML object of this SBML object.
+   * @return the parent SBML_Lang object of this SBML_Lang object.
    *
    * @see getSBMLDocument()
    * @see getModel()
@@ -447,13 +447,13 @@ public:
 
 
   /**
-   * Returns the parent SBML object containing this object.
+   * Returns the parent SBML_Lang object containing this object.
    *
    * This returns the immediately-containing object.  This method is
    * convenient when holding an object nested inside other objects in an
-   * SBML model.  
+   * SBML_Lang model.  
    * 
-   * @return the parent SBML object of this SBML object.
+   * @return the parent SBML_Lang object of this SBML_Lang object.
    *
    * @see getSBMLDocument()
    * @see getModel()
@@ -462,76 +462,76 @@ public:
 
 
   /**
-   * Returns the first ancestor object that has the given SBML type code.
+   * Returns the first ancestor object that has the given SBML_Lang type code.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * @if clike LibSBML attaches an identifying code to every kind of SBML_Lang
+   * object.  These are known as <em>SBML_Lang type codes</em>.  The set of
    * possible type codes is defined in the enumeration #SBMLTypeCode_t.
    * The names of the type codes all begin with the characters @c
    * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * kind of SBML_Lang object.  These are known as <em>SBML_Lang type codes</em>.  In
    * other languages, the set of type codes is stored in an enumeration; in
    * the Java language interface for libSBML, the type codes are defined as
    * static integer constants in the interface class {@link
    * libsbmlConstants}.  The names of the type codes all begin with the
    * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
+   * code to every kind of SBML_Lang object.  These are known as <em>SBML_Lang type
    * codes</em>.  In the Python language interface for libSBML, the type
    * codes are defined as static integer constants in the interface class
    * @link libsbml@endlink.  The names of the type codes all begin with the
    * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
+   * code to every kind of SBML_Lang object.  These are known as <em>SBML_Lang type
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml libsbml@endlink.  The names of the type codes all begin with
    * the characters @c SBML_. @endif@~
    *
    * This method searches the tree of objects that are parents of this
-   * object, and returns the first one that has the given SBML type code from 
+   * object, and returns the first one that has the given SBML_Lang type code from 
    * the given @p pkgName.
    *
-   * @param type the SBML type code of the object sought
+   * @param type the SBML_Lang type code of the object sought
    *
-   * @return the ancestor SBML object of this SBML object that corresponds
-   * to the given @if clike #SBMLTypeCode_t value@else SBML object type
+   * @return the ancestor SBML_Lang object of this SBML_Lang object that corresponds
+   * to the given @if clike #SBMLTypeCode_t value@else SBML_Lang object type
    * code@endif, or @c NULL if no ancestor exists.
    */
   SBase* getAncestorOfType(int type);
 
 
   /**
-   * Returns the first ancestor object that has the given SBML type code.
+   * Returns the first ancestor object that has the given SBML_Lang type code.
    *
-   * @if clike LibSBML attaches an identifying code to every kind of SBML
-   * object.  These are known as <em>SBML type codes</em>.  The set of
+   * @if clike LibSBML attaches an identifying code to every kind of SBML_Lang
+   * object.  These are known as <em>SBML_Lang type codes</em>.  The set of
    * possible type codes is defined in the enumeration #SBMLTypeCode_t.
    * The names of the type codes all begin with the characters @c
    * SBML_. @endif@if java LibSBML attaches an identifying code to every
-   * kind of SBML object.  These are known as <em>SBML type codes</em>.  In
+   * kind of SBML_Lang object.  These are known as <em>SBML_Lang type codes</em>.  In
    * other languages, the set of type codes is stored in an enumeration; in
    * the Java language interface for libSBML, the type codes are defined as
    * static integer constants in the interface class {@link
    * libsbmlConstants}.  The names of the type codes all begin with the
    * characters @c SBML_. @endif@if python LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
+   * code to every kind of SBML_Lang object.  These are known as <em>SBML_Lang type
    * codes</em>.  In the Python language interface for libSBML, the type
    * codes are defined as static integer constants in the interface class
    * @link libsbml@endlink.  The names of the type codes all begin with the
    * characters @c SBML_. @endif@if csharp LibSBML attaches an identifying
-   * code to every kind of SBML object.  These are known as <em>SBML type
+   * code to every kind of SBML_Lang object.  These are known as <em>SBML_Lang type
    * codes</em>.  In the C# language interface for libSBML, the type codes
    * are defined as static integer constants in the interface class @link
    * libsbmlcs.libsbml libsbml@endlink.  The names of the type codes all begin with
    * the characters @c SBML_. @endif@~
    *
    * This method searches the tree of objects that are parents of this
-   * object, and returns the first one that has the given SBML type code from 
+   * object, and returns the first one that has the given SBML_Lang type code from 
    * the given @p pkgName.
    *
-   * @param type the SBML type code of the object sought
+   * @param type the SBML_Lang type code of the object sought
    *
-   * @return the ancestor SBML object of this SBML object that corresponds
-   * to the given @if clike #SBMLTypeCode_t value@else SBML object type
+   * @return the ancestor SBML_Lang object of this SBML_Lang object that corresponds
+   * to the given @if clike #SBMLTypeCode_t value@else SBML_Lang object type
    * code@endif, or @c NULL if no ancestor exists.
    *
    */
@@ -540,12 +540,12 @@ public:
 
   /**
    * Returns the line number on which this object first appears in the XML
-   * representation of the SBML document, or '0' if the object was created,
+   * representation of the SBML_Lang document, or '0' if the object was created,
    * not read from a file.
    *
-   * @return the line number of this SBML object, or '0' if no such value.
+   * @return the line number of this SBML_Lang object, or '0' if no such value.
    *
-   * @note The line number for each construct in an SBML model is set upon
+   * @note The line number for each construct in an SBML_Lang model is set upon
    * reading the model.  The accuracy of the line number depends on the
    * correctness of the XML representation of the model, and on the
    * particular XML parser library being used.  The former limitation
@@ -567,12 +567,12 @@ public:
 
   /**
    * Returns the column number on which this object first appears in the XML
-   * representation of the SBML document, or '0' if the object was created,
+   * representation of the SBML_Lang document, or '0' if the object was created,
    * not read from a file.
    * 
-   * @return the column number of this SBML object, or '0' if no such value.
+   * @return the column number of this SBML_Lang object, or '0' if no such value.
    * 
-   * @note The column number for each construct in an SBML model is set
+   * @note The column number for each construct in an SBML_Lang model is set
    * upon reading the model.  The accuracy of the column number depends on
    * the correctness of the XML representation of the model, and on the
    * particular XML parser library being used.  The former limitation
@@ -595,7 +595,7 @@ public:
   /**
    * Predicate returning @c true if this object's "metaid" attribute is set.
    *
-   * @return @c true if the "metaid" attribute of this SBML object is
+   * @return @c true if the "metaid" attribute of this SBML_Lang object is
    * set, @c false otherwise.
    *
    * @see getMetaId()
@@ -607,7 +607,7 @@ public:
   /**
    * Predicate returning @c true if this object's "id" attribute is set.
    *
-   * @return @c true if the "id" attribute of this SBML object is
+   * @return @c true if the "id" attribute of this SBML_Lang object is
    * set, @c false otherwise.
    *
    * @see getId()
@@ -618,7 +618,7 @@ public:
    * Predicate returning @c true if this
    * object's "notes" subelement exists and has content.
    *
-   * The optional SBML element named "notes", present on every major SBML
+   * The optional SBML_Lang element named "notes", present on every major SBML_Lang
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
    * "notes" element would be to contain formatted user comments about the
@@ -632,9 +632,9 @@ public:
    * verify the formatting of "notes" content, libSBML provides the static
    * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * href="http://sbml.org/Documents/Specifications">SBML_Lang specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML_Lang Level&nbsp;2 and &nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -665,10 +665,10 @@ public:
    * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * @return @c true if a "annotation" subelement exists, @c false
    * otherwise.
@@ -706,7 +706,7 @@ public:
 
 
   /**
-   * Sets the value of the "annotation" subelement of this SBML object.
+   * Sets the value of the "annotation" subelement of this SBML_Lang object.
    *
    * The content of @p annotation is copied, and any previous content of
    * this object's "annotation" subelement is deleted.
@@ -720,10 +720,10 @@ public:
    * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * Call this method will result in any existing content of the
    * "annotation" subelement to be discarded.  Unless you have taken steps
@@ -752,7 +752,7 @@ public:
 
 
   /**
-   * Sets the value of the "annotation" subelement of this SBML object.
+   * Sets the value of the "annotation" subelement of this SBML_Lang object.
    *
    * The content of @p annotation is copied, and any previous content of
    * this object's "annotation" subelement is deleted.
@@ -766,10 +766,10 @@ public:
    * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * Call this method will result in any existing content of the
    * "annotation" subelement to be discarded.  Unless you have taken steps
@@ -811,10 +811,10 @@ public:
    * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type "any"</a>,
    * allowing essentially arbitrary well-formed XML data content.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * Unlike SBase::setAnnotation(const XMLNode* annotation) or
    * SBase::setAnnotation(const std::string& annotation), this method
@@ -852,10 +852,10 @@ public:
    * href="http://www.w3.org/TR/2004/REC-xml-20040204/#elemdecls">XML type "any"</a>,
    * allowing essentially arbitrary well-formed XML data content.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * Unlike SBase::setAnnotation(const XMLNode* annotation) or
    * SBase::setAnnotation(const std::string& annotation), this method
@@ -882,12 +882,12 @@ public:
 
   /**
    * Removes the top-level element within the "annotation" subelement of this
-   * SBML object with the given name and optional URI.
+   * SBML_Lang object with the given name and optional URI.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * Calling this method allows a particular annotation element to be removed
    * whilst the remaining annotations remain intact.
@@ -913,12 +913,12 @@ public:
 
   /**
    * Replaces the given top-level element within the "annotation"
-   * subelement of this SBML object and with the annotation element supplied.
+   * subelement of this SBML_Lang object and with the annotation element supplied.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * This method determines the name of the element to be replaced from the
    * annotation argument. Functionally it is equivalent to calling
@@ -942,12 +942,12 @@ public:
 
   /**
    * Replaces the given top-level element within the "annotation"
-   * subelement of this SBML object and with the annotation element supplied.
+   * subelement of this SBML_Lang object and with the annotation element supplied.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * This method determines the name of the element to be replaced from the
    * annotation argument. Functionally it is equivalent to calling
@@ -970,12 +970,12 @@ public:
 
 
   /**
-   * Sets the value of the "notes" subelement of this SBML object.
+   * Sets the value of the "notes" subelement of this SBML_Lang object.
    *
    * The content of @p notes is copied, and any existing content of this
    * object's "notes" subelement is deleted.
    *
-   * The optional SBML element named "notes", present on every major SBML
+   * The optional SBML_Lang element named "notes", present on every major SBML_Lang
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
    * "notes" element would be to contain formatted user comments about the
@@ -989,9 +989,9 @@ public:
    * verify the formatting of "notes" content, libSBML provides the static
    * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode xhtml@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * href="http://sbml.org/Documents/Specifications">SBML_Lang specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML_Lang Level&nbsp;2 and &nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1015,13 +1015,13 @@ public:
 
 
   /**
-   * Sets the value of the "notes" subelement of this SBML object to a copy
+   * Sets the value of the "notes" subelement of this SBML_Lang object to a copy
    * of the string @p notes.
    *
    * The content of @p notes is copied, and any existing content of this
    * object's "notes" subelement is deleted.
    *
-   * The optional SBML element named "notes", present on every major SBML
+   * The optional SBML_Lang element named "notes", present on every major SBML_Lang
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
    * "notes" element would be to contain formatted user comments about the
@@ -1035,9 +1035,9 @@ public:
    * verify the formatting of "notes" content, libSBML provides the static
    * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * href="http://sbml.org/Documents/Specifications">SBML_Lang specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML_Lang Level&nbsp;2 and &nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1071,7 +1071,7 @@ public:
    *
    * The content of @p notes is copied.
    *
-   * The optional SBML element named "notes", present on every major SBML
+   * The optional SBML_Lang element named "notes", present on every major SBML_Lang
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
    * "notes" element would be to contain formatted user comments about the
@@ -1085,9 +1085,9 @@ public:
    * verify the formatting of "notes" content, libSBML provides the static
    * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * href="http://sbml.org/Documents/Specifications">SBML_Lang specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML_Lang Level&nbsp;2 and &nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    * 
@@ -1116,7 +1116,7 @@ public:
    *
    * The content of the parameter @p notes is copied.
    *
-   * The optional SBML element named "notes", present on every major SBML
+   * The optional SBML_Lang element named "notes", present on every major SBML_Lang
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
    * "notes" element would be to contain formatted user comments about the
@@ -1130,9 +1130,9 @@ public:
    * verify the formatting of "notes" content, libSBML provides the static
    * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * href="http://sbml.org/Documents/Specifications">SBML_Lang specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML_Lang Level&nbsp;2 and &nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1158,7 +1158,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Sets the parent SBMLDocument of this SBML object.
+   * Sets the parent SBMLDocument of this SBML_Lang object.
    *
    * @param d the SBMLDocument object to use
    *
@@ -1173,20 +1173,20 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Sets the parent SBML object of this SBML object.
+   * Sets the parent SBML_Lang object of this SBML_Lang object.
    * (Creates a child-parent relationship by the child)
    * This function is called when a child element is
    * set/added/created by its parent element (e.g. by setXXX,
    * addXXX, createXXX, and connectToChild functions of the
    * parent element).
    *
-   * @param parent the SBML object to use
+   * @param parent the SBML_Lang object to use
    */
   virtual void connectToParent (SBase* parent);
 
 
   /**
-   * Sets this SBML object to child SBML objects (if any).
+   * Sets this SBML_Lang object to child SBML_Lang objects (if any).
    * (Creates a child-parent relationship by the parent)
    *
    * Subclasses must override this function if they define
@@ -1205,14 +1205,14 @@ public:
 
 
   /**
-   * Sets the namespaces relevant of this SBML object.
+   * Sets the namespaces relevant of this SBML_Lang object.
    *
    * The content of @p xmlns is copied, and this object's existing
    * namespace content is deleted.
    *
-   * The SBMLNamespaces object encapsulates SBML Level/Version/namespaces
-   * information.  It is used to communicate the SBML Level, Version, and
-   * (in Level&nbsp;3) packages used in addition to SBML Level&nbsp;3 Core.
+   * The SBMLNamespaces object encapsulates SBML_Lang Level/Version/namespaces
+   * information.  It is used to communicate the SBML_Lang Level, Version, and
+   * (in Level&nbsp;3) packages used in addition to SBML_Lang Level&nbsp;3 Core.
    * 
    * @param xmlns the namespaces to set
    *
@@ -1223,16 +1223,16 @@ public:
 
 
   /**
-   * Unsets the value of the "metaid" attribute of this SBML object.
+   * Unsets the value of the "metaid" attribute of this SBML_Lang object.
    *
    */
   int unsetMetaId ();
 
 
   /**
-   * Unsets the value of the "notes" subelement of this SBML object.
+   * Unsets the value of the "notes" subelement of this SBML_Lang object.
    *
-   * The optional SBML element named "notes", present on every major SBML
+   * The optional SBML_Lang element named "notes", present on every major SBML_Lang
    * component type, is intended as a place for storing optional
    * information intended to be seen by humans.  An example use of the
    * "notes" element would be to contain formatted user comments about the
@@ -1246,9 +1246,9 @@ public:
    * verify the formatting of "notes" content, libSBML provides the static
    * utility method SyntaxChecker::hasExpectedXHTMLSyntax(@if java XMLNode@endif); however,
    * readers are urged to consult the appropriate <a target="_blank"
-   * href="http://sbml.org/Documents/Specifications">SBML specification
+   * href="http://sbml.org/Documents/Specifications">SBML_Lang specification
    * document</a> for the Level and Version of their model for more
-   * in-depth explanations.  The SBML Level&nbsp;2 and &nbsp;3
+   * in-depth explanations.  The SBML_Lang Level&nbsp;2 and &nbsp;3
    * specifications have considerable detail about how "notes" element
    * content must be structured.
    *
@@ -1268,7 +1268,7 @@ public:
 
 
   /**
-   * Unsets the value of the "annotation" subelement of this SBML object.
+   * Unsets the value of the "annotation" subelement of this SBML_Lang object.
    *
    * Whereas the SBase "notes" subelement is a container for content to be
    * shown directly to humans, the "annotation" element is a container for
@@ -1279,10 +1279,10 @@ public:
    * "any"</a>, allowing essentially arbitrary well-formed XML data
    * content.
    *
-   * SBML places a few restrictions on the organization of the content of
+   * SBML_Lang places a few restrictions on the organization of the content of
    * annotations; these are intended to help software tools read and write
    * the data as well as help reduce conflicts between annotations added by
-   * different tools.  Please see the SBML specifications for more details.
+   * different tools.  Please see the SBML_Lang specifications for more details.
    *
    * @return integer value indicating success/failure of the
    * function.  The possible values returned by this function are:
@@ -1300,10 +1300,10 @@ public:
 
 
   /**
-   * Returns the SBML Level of the SBMLDocument object containing @em this
+   * Returns the SBML_Lang Level of the SBMLDocument object containing @em this
    * object.
    * 
-   * @return the SBML level of this SBML object.
+   * @return the SBML_Lang level of this SBML_Lang object.
    * 
    * @see getVersion()
    * @see getNamespaces()
@@ -1313,10 +1313,10 @@ public:
 
 
   /**
-   * Returns the Version within the SBML Level of the SBMLDocument object
+   * Returns the Version within the SBML_Lang Level of the SBMLDocument object
    * containing @em this object.
    * 
-   * @return the SBML version of this SBML object.
+   * @return the SBML_Lang version of this SBML_Lang object.
    *
    * @see getLevel()
    * @see getNamespaces()
@@ -1331,8 +1331,8 @@ public:
    *
    * @copydetails doc_additional_typecode_details
    *
-   * @return the @if clike #SBMLTypeCode_t value@else SBML object type
-   * code@endif@~ of this SBML object, or @sbmlconstant{SBML_UNKNOWN,
+   * @return the @if clike #SBMLTypeCode_t value@else SBML_Lang object type
+   * code@endif@~ of this SBML_Lang object, or @sbmlconstant{SBML_UNKNOWN,
    * SBMLTypeCode_t} (the default).  The latter is possible because
    * subclasses of SBase are not required to implement this method to return
    * a type code.
@@ -1347,10 +1347,10 @@ public:
 
   /**
    * Predicate returning @c true if this object's level/version and namespace
-   * values correspond to a valid SBML specification.
+   * values correspond to a valid SBML_Lang specification.
    *
    * @return @c true if the level, version and namespace values of this 
-   * SBML object correspond to a valid set of values, @c false otherwise.
+   * SBML_Lang object correspond to a valid set of values, @c false otherwise.
    */
   bool hasValidLevelVersionNamespaceCombination();
 
@@ -1359,7 +1359,7 @@ public:
    * Returns the XML element name of this object.
    *
    * This is overridden by subclasses to return a string appropriate to the
-   * SBML component.  For example, Model defines it as returning @c
+   * SBML_Lang component.  For example, Model defines it as returning @c
    * "model", CompartmentType defines it as returning @c "compartmentType",
    * and so on.
    */
@@ -1367,10 +1367,10 @@ public:
 
 
   /**
-   * Returns a string consisting of a partial SBML corresponding to just
+   * Returns a string consisting of a partial SBML_Lang corresponding to just
    * this object.
    * 
-   * @return the partial SBML that describes this SBML object.
+   * @return the partial SBML_Lang that describes this SBML_Lang object.
    *
    * @warning <span class="warning">This is primarily provided for testing
    * and debugging purposes.  It may be removed in a future version of
@@ -1384,7 +1384,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Reads (initializes) this SBML object by reading from XMLInputStream.
+   * Reads (initializes) this SBML_Lang object by reading from XMLInputStream.
    */
   void read (XMLInputStream& stream);
   /** @endcond */
@@ -1392,7 +1392,7 @@ public:
 
   /** @cond doxygenLibsbmlInternal */
   /**
-   * Writes (serializes) this SBML object by writing it to XMLOutputStream.
+   * Writes (serializes) this SBML_Lang object by writing it to XMLOutputStream.
    */
   virtual void write (XMLOutputStream& stream) const;
   /** @endcond */
@@ -1401,7 +1401,7 @@ public:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Subclasses should override this method to write out their contained
-   * SBML objects as XML elements.  Be sure to call your parents
+   * SBML_Lang objects as XML elements.  Be sure to call your parents
    * implementation of this method as well.  For example:@if clike
    * <pre>
    *   SBase::writeElements();
@@ -1573,10 +1573,10 @@ public:
 
   /**
    * Returns the SBMLErrorLog used to log errors while reading and
-   * validating SBML.
+   * validating SBML_Lang.
    *
    * @return the SBMLErrorLog used to log errors while reading and
-   * validating SBML.
+   * validating SBML_Lang.
    */
   SBMLErrorLog* getErrorLog ();
 
@@ -1595,12 +1595,12 @@ protected:
 
   /** @cond doxygenLibsbmlInternal */
 
-  bool matchesCoreSedNamespace(const SBase * sb);
+  bool matchesCoreSBMLNamespace(const SBase * sb);
 
-  bool matchesCoreSedNamespace(const SBase * sb) const;
+  bool matchesCoreSBMLNamespace(const SBase * sb) const;
 
   /**
-   * Creates a new SBase object with the given SBML level, version.
+   * Creates a new SBase object with the given SBML_Lang level, version.
    */
   SBase (unsigned int level, unsigned int version);
 
@@ -1622,10 +1622,10 @@ protected:
 
   /**
    * Subclasses should override this method to create, store, and then
-   * return an SBML object corresponding to the next XMLToken in the
+   * return an SBML_Lang object corresponding to the next XMLToken in the
    * XMLInputStream.
    *
-   * @return the SBML object corresponding to next XMLToken in the
+   * @return the SBML_Lang object corresponding to next XMLToken in the
    * XMLInputStream or @c NULL if the token was not recognized.
    */
   virtual SBase* createObject (XMLInputStream& stream);
@@ -1634,7 +1634,7 @@ protected:
   /**
    * Predicate returning @c true if this
    * object's level/version and namespace values correspond to a valid
-   * SBML specification.
+   * SBML_Lang specification.
    *
    * @param typecode the typecode for this element
    * @param xmlns the namespaces used by this element.
@@ -1643,7 +1643,7 @@ protected:
    *        allows to use it in scenarios where the namespaces or typecode have not yet been initialized. 
    * 
    * @return @c true if the level, version and namespace values of this 
-   * SBML object correspond to a valid set of values, @c false otherwise.
+   * SBML_Lang object correspond to a valid set of values, @c false otherwise.
    */
   bool hasValidLevelVersionNamespaceCombination(int typecode, XMLNamespaces *xmlns);
 
@@ -1658,7 +1658,7 @@ protected:
 
 
   /**
-   * The SBML XML Schema is written such that the order of child elements
+   * The SBML_Lang XML Schema is written such that the order of child elements
    * is significant.  LibSBML can read elements out of order.  If you
    * override this method to indicate the ordinal position of element with
    * respect to its siblings, libSBML will log an error if the element is
@@ -1755,7 +1755,7 @@ protected:
 
 
   /**
-   * Checks that an SBML ListOf element is populated.  
+   * Checks that an SBML_Lang ListOf element is populated.  
    * If a listOf element has been declared with no elements, 
    * an error is logged.
    */
@@ -1790,9 +1790,9 @@ protected:
 
    /**
    * Sets the XML namespace to which this element belongs to.
-   * For example, all elements that belong to SBML Level 3 Version 1 Core
+   * For example, all elements that belong to SBML_Lang Level 3 Version 1 Core
    * must set the namespace to <code>"http://www.sbml.org/sbml/level3/version1/core"</code>; 
-   * all elements that belong to Layout Extension Version 1 for SBML Level 3
+   * all elements that belong to Layout Extension Version 1 for SBML_Lang Level 3
    * Version 1 Core must set the namespace to 
    * <code>"http://www.sbml.org/sbml/level3/version1/layout/version1"</code>.
    *
@@ -1813,10 +1813,10 @@ protected:
   std::string getPrefix() const;
 
   /**
-   * Return the SBML XML namespace prefix of this element.
+   * Return the SBML_Lang XML namespace prefix of this element.
    *
    * This will be the same as getPrefix() unless the element in question is
-   * an element of an SBML extension class.
+   * an element of an SBML_Lang extension class.
    *
    * @return the XML namespace prefix
    */
@@ -1828,7 +1828,7 @@ protected:
    *
    * @note The root element may not be an SBMLDocument element. For example,
    * this element is the root element if this element doesn't have a parent
-   * SBML object (i.e. mParentSBMLObject is NULL)
+   * SBML_Lang object (i.e. mParentSBMLObject is NULL)
    *
    * @see enablePackageInternal
    */
@@ -1848,7 +1848,7 @@ protected:
   unsigned int mLine;
   unsigned int mColumn;
 
-  /* store the parent SBML object */
+  /* store the parent SBML_Lang object */
   SBase* mParentSBMLObject;
   bool mHasBeenDeleted;
 
@@ -1859,7 +1859,7 @@ protected:
   // This variable can be publicly accessible by getElementNamespace function.
   //
   // For example, mURI of elements defined in L3 Core (or defined in Level 2 
-  // or before) will be the URI defined in the corresponding SBML specification
+  // or before) will be the URI defined in the corresponding SBML_Lang specification
   // (e.g. "http://www.sbml.org/sbml/level3/version1" for L3V1 Core); and mURI
   // will be "http://www.sbml.org/sbml/level3/version1/layout/version1" for 
   // elements defined in layout extension L3V1-V1.
@@ -1879,7 +1879,7 @@ private:
   /** @cond doxygenLibsbmlInternal */
   /**
    * Stores the location (line and column) and any XML namespaces (for
-   * roundtripping) declared on this SBML (XML) element.
+   * roundtripping) declared on this SBML_Lang (XML) element.
    */
   void setSBaseFields (const XMLToken& element);
 
@@ -1935,7 +1935,7 @@ SBase_getMetaId (SBase_t *sb);
  *
  * @param sb the SBase_t structure
  *
- * @return the parent SBMLDocument of this SBML structure.
+ * @return the parent SBMLDocument of this SBML_Lang structure.
  *
  * @memberof SBase_t
  */
@@ -1950,7 +1950,7 @@ SBase_getSBMLDocument (SBase_t *sb);
  *
  * @param sb the SBase_t structure
  *
- * @return the parent SBase  of this SBML structure.
+ * @return the parent SBase  of this SBML_Lang structure.
  *
  * @memberof SBase_t
  */
@@ -1972,7 +1972,7 @@ SBase_getParentSBMLObject (SBase_t *sb);
  * @param sb the SBase_t structure
  * @param type the typecode (int) of the structure to be returned
  *
- * @return the ancestor SBase_t structure of this SBML structure with
+ * @return the ancestor SBase_t structure of this SBML_Lang structure with
  * the corresponding typecode (int), NULL if there is no ancestor of
  * this type.
  *
@@ -1984,7 +1984,7 @@ SBase_getAncestorOfType (SBase_t *sb, int type);
 
 /**
  * Returns the line number on which the given structure first appears in the
- * XML representation of the SBML document, or '0' if the object was created,
+ * XML representation of the SBML_Lang document, or '0' if the object was created,
  * not read from a file.
  *
  * @param sb the SBase_t structure
@@ -2002,12 +2002,12 @@ SBase_getLine (const SBase_t *sb);
 
 /**
  * Returns the column number on which the given structure first appears in the
- * XML representation of the SBML document, or '0' if the object was created,
+ * XML representation of the SBML_Lang document, or '0' if the object was created,
  * not read from a file.
  *
  * @param sb the SBase_t structure
  *
- * @return the column number of this SBML structure, or '0' if no such value.
+ * @return the column number of this SBML_Lang structure, or '0' if no such value.
  *
  * @see getLine().
  *
@@ -2019,9 +2019,9 @@ SBase_getColumn (const SBase_t *sb);
 
 
 /**
- * Returns the notes from given SBML structure.
+ * Returns the notes from given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  *
  * @return the XMLNode_t structure representing the notes from this structure.
  *
@@ -2033,11 +2033,11 @@ SBase_getNotes (SBase_t *sb);
 
 
 /**
- * Returns the notes string from given SBML structure.
+ * Returns the notes string from given SBML_Lang structure.
  * The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  *
  * @return the string (char*) representing the notes from this structure.
  *
@@ -2049,9 +2049,9 @@ SBase_getNotesString (SBase_t *sb);
 
 
 /**
- * Returns the annotation from given SBML structure.
+ * Returns the annotation from given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  *
  * @return the XMLNode_t structure representing the annotation from this structure.
  *
@@ -2063,11 +2063,11 @@ SBase_getAnnotation (SBase_t *sb);
 
 
 /**
- * Returns the annotation string from given SBML structure.
+ * Returns the annotation string from given SBML_Lang structure.
  * The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  *
  * @return the string (char*) representing the annotation from this structure.
  *
@@ -2084,7 +2084,7 @@ SBase_getAnnotationString (SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "metaid" attribute of this SBML structure
+ * @return nonzero (for true) if the "metaid" attribute of this SBML_Lang structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -2100,7 +2100,7 @@ SBase_isSetMetaId (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "notes" subelement of this SBML structure
+ * @return nonzero (for true) if the "notes" subelement of this SBML_Lang structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -2116,7 +2116,7 @@ SBase_isSetNotes (const SBase_t *sb);
  *
  * @param sb the SBase_t structure to query
  *
- * @return nonzero (for true) if the "annotation" subelement of this SBML structure
+ * @return nonzero (for true) if the "annotation" subelement of this SBML_Lang structure
  * is set, zero (for false) otherwise.
  *
  * @memberof SBase_t
@@ -2132,10 +2132,10 @@ SBase_isSetAnnotation (const SBase_t *sb);
  * The string @p metaid is copied.  The value of @p metaid must be an
  * identifier conforming to the syntax defined by the XML 1.0 data type
  * ID.  Among other things, this type requires that a value is unique
- * among all the values of type XML ID in an SBMLDocument_t.  Although SBML
+ * among all the values of type XML ID in an SBMLDocument_t.  Although SBML_Lang
  * only uses XML ID for the "metaid" attribute, callers should be careful
  * if they use XML ID's in XML portions of a model that are not defined
- * by SBML, such as in the application-specific content of the
+ * by SBML_Lang, such as in the application-specific content of the
  * "annotation" subelement.
  *
  * @param sb the SBase_t structure
@@ -2159,7 +2159,7 @@ SBase_setMetaId (SBase_t *sb, const char *metaid);
 
 
 /**
- * Sets the namespaces relevant of this SBML structure.
+ * Sets the namespaces relevant of this SBML_Lang structure.
  *
  * @param sb the SBase_t structure
  *
@@ -2176,9 +2176,9 @@ SBase_setNamespaces (SBase_t *sb, XMLNamespaces_t *xmlns);
 
 
 /**
- * Sets the notes for the given SBML structure.
+ * Sets the notes for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param notes the XMLNode_t structure respresenting the notes.
  *
  * @copydetails doc_returns_success_code
@@ -2193,9 +2193,9 @@ SBase_setNotes (SBase_t *sb, XMLNode_t *notes);
 
 
 /**
- * Sets the notes for the given SBML structure.
+ * Sets the notes for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param notes the string (const char*) respresenting the notes.
  *
  * @copydetails doc_returns_success_code
@@ -2211,9 +2211,9 @@ SBase_setNotesString (SBase_t *sb, const char *notes);
 
 
 /**
- * Sets the notes for the given SBML structure.
+ * Sets the notes for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param notes the string (const char*) respresenting the notes.
  *
  * @copydetails doc_returns_success_code
@@ -2229,9 +2229,9 @@ SBase_setNotesStringAddMarkup (SBase_t *sb, const char *notes);
 
 
 /**
- * Appends the notes for the given SBML structure.
+ * Appends the notes for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param notes the XMLNode_t structure respresenting the notes.
  *
  * @copydetails doc_returns_success_code
@@ -2247,9 +2247,9 @@ SBase_appendNotes (SBase_t *sb, XMLNode_t *notes);
 
 
 /**
- * Appends the notes for the given SBML structure.
+ * Appends the notes for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param notes the string (const char*) respresenting the notes.
  *
  * @copydetails doc_returns_success_code
@@ -2265,9 +2265,9 @@ SBase_appendNotesString (SBase_t *sb, const char *notes);
 
 
 /**
- * Sets the annotation for the given SBML structure.
+ * Sets the annotation for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param annotation the XMLNode_t structure respresenting the annotation.
  *
  * @copydetails doc_returns_success_code
@@ -2281,9 +2281,9 @@ SBase_setAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 /**
- * Sets the annotation for the given SBML structure.
+ * Sets the annotation for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param annotation the string (const char*) respresenting the annotation.
  *
  * @copydetails doc_returns_success_code
@@ -2298,9 +2298,9 @@ SBase_setAnnotationString (SBase_t *sb, const char *annotation);
 
 
 /**
- * Appends the annotation for the given SBML structure.
+ * Appends the annotation for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param annotation the XMLNode_t structure respresenting the annotation.
  *
  * @copydetails doc_returns_success_code
@@ -2315,9 +2315,9 @@ SBase_appendAnnotation (SBase_t *sb, XMLNode_t *annotation);
 
 
 /**
- * Appends the annotation for the given SBML structure.
+ * Appends the annotation for the given SBML_Lang structure.
  *
- * @param sb the given SBML structure.
+ * @param sb the given SBML_Lang structure.
  * @param annotation the string (const char*) respresenting the annotation.
  *
  * @copydetails doc_returns_success_code
@@ -2392,11 +2392,11 @@ SBase_getModel (const SBase_t *sb);
 
 
 /**
- * Returns the SBML Level of the overall SBML document.
+ * Returns the SBML_Lang Level of the overall SBML_Lang document.
  *
  * @param sb the SBase_t structure to query
  *
- * @return the SBML level of the given structure.
+ * @return the SBML_Lang level of the given structure.
  *
  * @see getVersion()
  *
@@ -2408,11 +2408,11 @@ SBase_getLevel (const SBase_t *sb);
 
 
 /**
- * Returns the Version within the SBML Level of the overall SBML document.
+ * Returns the Version within the SBML_Lang Level of the overall SBML_Lang document.
  *
  * @param sb the SBase_t structure to query
  *
- * @return the SBML version of the given structure.
+ * @return the SBML_Lang version of the given structure.
  *
  * @see getLevel()
  *
@@ -2426,7 +2426,7 @@ SBase_getVersion (const SBase_t *sb);
 /**
  * Returns the libSBML type code for this structure.
  *
- * This method MAY return the typecode of this SBML structure or it MAY
+ * This method MAY return the typecode of this SBML_Lang structure or it MAY
  * return SBML_UNKNOWN.  That is, subclasses of SBase are not required to
  * implement this method to return a typecode.  This method is meant
  * primarily for the LibSBML C interface where class and subclass
@@ -2435,7 +2435,7 @@ SBase_getVersion (const SBase_t *sb);
  * @note In libSBML 5, the type of return value has been changed from
  * typecode (int) to int. The return value is one of enum values defined for
  * each package. For example, return values will be one of typecode (int) if
- * this structure is defined in SBML core package, return values will be one of
+ * this structure is defined in SBML_Lang core package, return values will be one of
  * SBMLLayoutTypeCode_t if this structure is defined in Layout extension
  * (i.e. similar enum types are defined in each package extension for each
  * SBase subclass) The value of each typecode can be duplicated between those
@@ -2445,7 +2445,7 @@ SBase_getVersion (const SBase_t *sb);
  *
  * @param sb the SBase_t structure
  *
- * @return the typecode (int value) of this SBML structure or SBML_UNKNOWN
+ * @return the typecode (int value) of this SBML_Lang structure or SBML_UNKNOWN
  * (default).
  *
  * @see getElementName()
@@ -2462,7 +2462,7 @@ SBase_getTypeCode (const SBase_t *sb);
  * Returns the XML element name of the given structure.
  *
  * This is overridden by subclasses to return a string appropriate to the
- * SBML component.  For example, Model defines it as returning "model",
+ * SBML_Lang component.  For example, Model defines it as returning "model",
  * CompartmentType defines it as returning "compartmentType", etc.
  *
  * @param sb the SBase_t structure
@@ -2477,12 +2477,12 @@ SBase_getElementName (const SBase_t *sb);
 /**
  * Predicate returning nonzero true or false depending on whether the
  * structure's level/version and namespace values correspond to a valid
- * SBML specification.
+ * SBML_Lang specification.
  *
  * @param sb the SBase_t structure
  *
  * @return nonzero (true) if the level, version and namespace values of this
- * SBML structure correspond to a valid set of values, zero (false) otherwise.
+ * SBML_Lang structure correspond to a valid set of values, zero (false) otherwise.
  *
  * @memberof SBase_t
  */
@@ -2531,7 +2531,7 @@ SBase_getUserData(const SBase_t* sb);
  * @param sb defines the node of which the user data should be queried.
  *
  * @return nonzero (true) if the user data object of this
- * SBML structure has been set, zero (false) otherwise.
+ * SBML_Lang structure has been set, zero (false) otherwise.
  *
  * @memberof SBase_t
  */

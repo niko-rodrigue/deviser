@@ -58,7 +58,10 @@ class BaseTemplateFile:
     def create_base_description(self, name, common=False):
         if common:
             if name.startswith('lib'):
-                used_name = 'lib{0}-{1}'.format(global_variables.language, name[4:])
+                if global_variables.library_name.lower().startswith('lib'):
+                    used_name = '{0}-{1}'.format(global_variables.library_name.lower(), name[4:])
+                else:
+                    used_name = 'lib{0}-{1}'.format(global_variables.library_name.lower(), name[4:])
             else:
                 used_name = name
 
@@ -123,6 +126,9 @@ class BaseTemplateFile:
             elif line.startswith('<add_specific_error_table/>'):
                 self.print_error_table(fileout)
                 i += 1
+            elif line.startswith('<insert_document_errors/>'):
+                self.print_document_errors(fileout)
+                i += 1
             elif line.startswith('<add_visitor_forwards/>'):
                 self.print_visitor_forwards(fileout)
                 i += 1
@@ -172,16 +178,35 @@ class BaseTemplateFile:
 
     @staticmethod
     def adjust_line(line):
+        lowerlibname = global_variables.library_name.lower()
         line = re.sub('SBase', global_variables.std_base, line)
         line = re.sub('LIBSBML', global_variables.library_name.upper(), line)
-        line = re.sub('LibSBML', 'Lib{0}'.format(global_variables.language.upper()), line)
-        line = re.sub('libSBML', 'lib{0}'.format(global_variables.language.upper()), line)
+        line = re.sub('LibSBML', strFunctions.upper_first(global_variables.library_name), line)
+        line = re.sub('libSBML', strFunctions.lower_first(global_variables.library_name), line)
+        line = re.sub('libsbml', lowerlibname, line)
+        if lowerlibname.startswith('lib'):
+            line = re.sub('sbmlfwd', '{0}fwd'.format(lowerlibname[3:]), line)
+        else:
+            line = re.sub('sbmlfwd', '{0}fwd'.format(lowerlibname), line)
+        doctype = '{0}_DOCUMENT'.format(global_variables.language.upper())
+        if global_variables.document_class != 'SedDocument':
+            doctype = 'LIB_{0}_{1}'.format(strFunctions.get_library_suffix(global_variables.library_name).upper(),
+                                           strFunctions.remove_prefix(global_variables.document_class).upper())
+        line = re.sub('SBML_DOCUMENT', doctype, line)
+        line = re.sub('SBMLDocument', global_variables.document_class, line)
         line = re.sub('CAT_SBML',
                       'CAT_{0}'.format(global_variables.language.upper()), line)
+        line = re.sub('SBML_Lang',
+                      '{0}'.format(global_variables.language.upper()), line)
         line = re.sub('SBML_',
                       '{0}_'.format(global_variables.language.upper()), line)
-        line = re.sub('readSBML', 'read{0}ML'.format(global_variables.prefix), line)
-        line = re.sub('writeSBML', 'write{0}ML'.format(global_variables.prefix), line)
+        # hack for SedML
+        if global_variables.prefix == 'Sed':
+            line = re.sub('readSBML', 'read{0}ML'.format(global_variables.prefix), line)
+            line = re.sub('writeSBML', 'write{0}ML'.format(global_variables.prefix), line)
+        else:
+            line = re.sub('readSBML', 'read{0}'.format(global_variables.language.upper()), line)
+            line = re.sub('writeSBML', 'write{0}'.format(global_variables.language.upper()), line)
         line = re.sub('sbml', global_variables.language, line)
         line = re.sub('SBMLSBML', '{0}{1}'.format(strFunctions.upper_first(global_variables.language), global_variables.prefix), line)
         line = re.sub('SBML', global_variables.prefix, line)

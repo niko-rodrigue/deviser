@@ -3,6 +3,34 @@
  * @brief Definition of the SedWriter class.
  * @author DEVISER
  *
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSEDML. Please visit http://sed-ml.org for more
+ * information about SED-ML. The latest version of libSEDML can be found on
+ * github: https://github.com/fbergmann/libSEDML/
+ * 
+
+ * Copyright (c) 2013-2016, Frank T. Bergmann
+ * All rights reserved.
+ * 
+
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this
+ * list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
+ *
  * @class 
  * @sbmlbrief{} TODO:Definition of the SedWriter class.
  */
@@ -34,7 +62,7 @@ public:
   /**
    * Creates a new SedWriter.
    *
-   * The libSEDML SedWriter objects offer methods for writing Sed in
+   * The libSEDML SedWriter objects offer methods for writing SEDML in
    * XML form to files and text strings.
    */
   SedWriter  ();
@@ -101,13 +129,13 @@ public:
 
 
   /**
-   * Writes the given Sed document to filename.
+   * Writes the given SedDocument to filename.
    *
    * @htmlinclude assuming-compressed-file.html
    *
-   * @param d the Sed document to be written
+   * @param d the SedDocument to be written
    *
-   * @param filename the name or full pathname of the file where the Sed
+   * @param filename the name or full pathname of the file where the SEDML
    * is to be written. 
    *
    * @return @c true on success and @c false if the filename could not be
@@ -122,11 +150,11 @@ public:
 
 
   /**
-   * Writes the given Sed document to the output stream.
+   * Writes the given SedDocument to the output stream.
    *
-   * @param d the Sed document to be written
+   * @param d the SedDocument to be written
    *
-   * @param stream the stream object where the Sed is to be written.
+   * @param stream the stream object where the SEDML is to be written.
    *
    * @return @c true on success and @c false if one of the underlying
    * parser components fail (rare).
@@ -140,13 +168,13 @@ public:
   /** @cond doxygenLibsedmlInternal */
 
   /**
-   * Writes the given Sed document to an in-memory string and returns a
+   * Writes the given SedDocument to an in-memory string and returns a
    * pointer to it.
    *
    * The string is owned by the caller and should be freed (with @c free())
    * when no longer needed.
    *
-   * @param d the Sed document to be written
+   * @param d the SedDocument to be written
    *
    * @return the string on success and @c 0 if one of the underlying parser
    * components fail.
@@ -159,13 +187,13 @@ public:
   /** @endcond */
 
   /**
-   * Writes the given Sed document to filename.
+   * Writes the given SedDocument to filename.
    *
    * @htmlinclude assuming-compressed-file.html
    *
-   * @param d the Sed document to be written
+   * @param d the SedDocument to be written
    *
-   * @param filename the name or full pathname of the file where the Sed
+   * @param filename the name or full pathname of the file where the SEDML
    * is to be written. 
    *
    * @return @c true on success and @c false if the filename could not be
@@ -180,13 +208,13 @@ public:
 
 
   /**
-   * Writes the given Sed document to an in-memory string and returns a
+   * Writes the given SedDocument to an in-memory string and returns a
    * pointer to it.
    *
    * The string is owned by the caller and should be freed (with @c free())
    * when no longer needed.
    *
-   * @param d the Sed document to be written
+   * @param d the SedDocument to be written
    *
    * @return the string on success and @c 0 if one of the underlying parser
    * components fail.
@@ -198,9 +226,9 @@ public:
 
 #ifndef SWIG
   /**
-   * Writes the given Sed document to an in-memory string and returns it.
+   * Writes the given SedDocument to an in-memory string and returns it.
    *
-   * @param d the Sed document to be written
+   * @param d the SedDocument to be written
    *
    * @return the string on success or an empty string, 
    *         if one of the underlying parser
@@ -262,9 +290,9 @@ public:
 #ifndef SWIG
 
 /**
- * Writes the given Sed document to an in-memory string that is returned.
+ * Writes the given SedDocument to an in-memory string that is returned.
  *
- * @param d the Sed document to be written
+ * @param d the SedDocument to be written
  *
  * @return the string on success or an empty string, 
  *         if one of the underlying parser
@@ -343,7 +371,7 @@ int
 SedWriter_setProgramVersion (SedWriter_t *sw, const char *version);
 
 /**
- * Writes the given Sed document to filename.
+ * Writes the given SedDocument to filename.
  *
  * @htmlinclude assuming-compressed-file.html
  *
@@ -381,17 +409,12 @@ SedWriter_writeSedML ( SedWriter_t         *sw,
                        const char           *filename );
 
 /**
- * Writes the given Sed document to filename.
+ * Writes the given SedDocument to filename.
  *
  * If the filename ends with @em .gz, the file will be compressed by @em gzip.
  * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
  * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
  * uncompressed.
- * If the filename ends with @em .zip, a filename that will be added to the
- * zip archive file will end with @em .xml or @em .sedml. For example, the filename
- * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
- * or @em test.zip. Also, the filename in the archive will be @em test.sedml if the
- * given filename is @em test.sedml.zip.
  *
  * @note To create a gzip/zip file, libSEDML needs to be linked with zlib at 
  * compile time. Also, libSEDML needs to be linked with bzip2 to create a bzip2 file.
@@ -413,7 +436,7 @@ SedWriter_writeSedMLToFile ( SedWriter_t         *sw,
 
 
 /**
- * Writes the given Sed document to an in-memory string and returns a
+ * Writes the given SedDocument to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *
@@ -456,7 +479,7 @@ SedWriter_hasBzip2 ();
 
 
 /**
- * Writes the given Sed document @p d to the file named by @p filename.
+ * Writes the given SedDocument @p d to the file named by @p filename.
  * This convenience function is functionally equivalent to:
  *
  *   SedWriter_writeSedML(SedWriter_create(), d, filename);
@@ -470,7 +493,7 @@ SedWriter_hasBzip2 ();
  *
  * @return @c 1 on success and @c 0 (zero) if @p filename could not be
  * written.  Some possible reasons for failure include (a) being unable to
- * open the file, and (b) using a filename that indicates a compressed Sed
+ * open the file, and (b) using a filename that indicates a compressed SEDML
  * file (i.e., a filename ending in <code>&quot;.zip&quot;</code> or
  * similar) when the compression functionality has not been enabled in
  * the underlying copy of libSEDML.
@@ -488,7 +511,7 @@ writeSedML (const SedDocument_t *d, const char *filename);
 
 
 /**
- * Writes the given Sed document @p d to an in-memory string and returns a
+ * Writes the given SedDocument @p d to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.  This convenience function is
  * functionally equivalent to:
@@ -515,7 +538,7 @@ writeSedMLToString (const SedDocument_t *d);
 
 
 /**
- * Writes the given Sed document @p d to the file @p filename.
+ * Writes the given SedDocument @p d to the file @p filename.
  * This convenience function is functionally equivalent to:
  *
  *   SedWriter_writeSedMLToFile(SedWriter_create(), d, filename);

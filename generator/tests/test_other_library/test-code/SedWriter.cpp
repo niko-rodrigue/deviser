@@ -2,6 +2,34 @@
  * @file SedWriter.cpp
  * @brief Implementation of the SedWriter class.
  * @author DEVISER
+ *
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSEDML. Please visit http://sed-ml.org for more
+ * information about SED-ML. The latest version of libSEDML can be found on
+ * github: https://github.com/fbergmann/libSEDML/
+ * 
+
+ * Copyright (c) 2013-2016, Frank T. Bergmann
+ * All rights reserved.
+ * 
+
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this
+ * list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
  */
 
 
@@ -82,17 +110,12 @@ SedWriter::setProgramVersion (const std::string& version)
 
 
 /*
- * Writes the given Sed document to filename.
+ * Writes the given SedDocument to filename.
  *
  * If the filename ends with @em .gz, the file will be compressed by @em gzip.
  * Similary, if the filename ends with @em .zip or @em .bz2, the file will be
  * compressed by @em zip or @em bzip2, respectively. Otherwise, the fill will be
  * uncompressed.
- * If the filename ends with @em .zip, a filename that will be added to the
- * zip archive file will end with @em .xml or @em .sedml. For example, the filename
- * in the zip archive will be @em test.xml if the given filename is @em test.xml.zip
- * or @em test.zip. Also, the filename in the archive will be @em test.sedml if the
- * given filename is @em test.sedml.zip.
  *
  * @note To create a gzip/zip file, underlying libSEDML needs to be linked with zlib at 
  * compile time. Also, underlying libSEDML needs to be linked with bzip2 to create a 
@@ -199,7 +222,7 @@ SedWriter::writeSedML (const SedDocument* d, const std::string& filename)
 
 
 /*
- * Writes the given Sed document to the output stream.
+ * Writes the given SedDocument to the output stream.
  *
  * @return true on success and false if one of the underlying parser
  * components fail (rare).
@@ -231,7 +254,7 @@ SedWriter::writeSedML (const SedDocument* d, std::ostream& stream)
 
 /** @cond doxygenLibsedmlInternal */
 /*
- * Writes the given Sed document to an in-memory string and returns a
+ * Writes the given SedDocument to an in-memory string and returns a
  * pointer to it.  The string is owned by the caller and should be freed
  * (with free()) when no longer needed.
  *

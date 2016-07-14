@@ -2,6 +2,34 @@
  * @file SedListOf.cpp
  * @brief Implementation of the SedListOf class.
  * @author DEVISER
+ *
+ * <!--------------------------------------------------------------------------
+ * This file is part of libSEDML. Please visit http://sed-ml.org for more
+ * information about SED-ML. The latest version of libSEDML can be found on
+ * github: https://github.com/fbergmann/libSEDML/
+ * 
+
+ * Copyright (c) 2013-2016, Frank T. Bergmann
+ * All rights reserved.
+ * 
+
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ * 
+
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this
+ * list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * This library is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation. A copy of the license agreement is provided in the
+ * file named "LICENSE.txt" included with this software distribution and also
+ * available online as http://sbml.org/software/libsbml/license.html
+ * ------------------------------------------------------------------------ -->
  */
 
 
@@ -385,7 +413,7 @@ struct SetParentSedObject : public unary_function<SedBase*, void>
 /** @cond doxygenLibsedmlInternal */
 
 /*
- * Sets the parent SedDocument of this Sed object.
+ * Sets the parent SedDocument of this SEDML object.
  */
 void
 SedListOf::setSedDocument (SedDocument* d)
@@ -396,7 +424,7 @@ SedListOf::setSedDocument (SedDocument* d)
 
 
 /*
- * Sets this Sed object to child Sed objects (if any).
+ * Sets this SEDML object to child SEDML objects (if any).
  * (Creates a child-parent relationship by the parent)
   */
 void
@@ -410,7 +438,7 @@ SedListOf::connectToChild()
 
 
 /*
- * @return the typecode (int) of this Sed object or SEDML_UNKNOWN
+ * @return the typecode (int) of this SEDML object or SEDML_UNKNOWN
  * (default).
  */
 int
@@ -421,7 +449,7 @@ SedListOf::getTypeCode () const
 
 
 /*
- * @return the typecode (int) of Sed objects contained in this SedListOf or
+ * @return the typecode (int) of SEDML objects contained in this SedListOf or
  * SEDML_UNKNOWN (default).
  */
 int
@@ -458,7 +486,7 @@ struct Write : public unary_function<SedBase*, void>
 /** @cond doxygenLibsedmlInternal */
 /*
  * Subclasses should override this method to write out their contained
- * Sed objects as XML elements.  Be sure to call your parents
+ * SEDML objects as XML elements.  Be sure to call your parents
  * implementation of this method as well.
  */
 void

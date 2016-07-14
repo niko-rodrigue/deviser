@@ -67,7 +67,7 @@ SBMLErrorLog::~SBMLErrorLog ()
 
 
 /*
- * See SBMLError for a list of SBML error codes and XMLError
+ * See SBMLError for a list of SBML_Lang error codes and XMLError
  * for a list of system and XML-level error codes.
  */
 void
