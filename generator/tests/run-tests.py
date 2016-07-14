@@ -35,9 +35,12 @@ def main():
 
     run_test('binding', 'code')
     run_test('cmake', 'code')
+
     run_test('cpp', 'code')
+    # run_test('java', 'code')
     run_test('exit', 'codes')
     run_test('tex', 'files')
+
 
     print('')
 
