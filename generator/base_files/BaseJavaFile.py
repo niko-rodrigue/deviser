@@ -77,7 +77,6 @@ class BaseJavaFile(BaseFile.BaseFile):
         # print('prime ', len(self.prime_numbers))
         self.prime_numbers = global_variables.prime_numbers
 
-        self.serialVersionUID = jsbmlHelperFunctions.generate_uuid() #-6048861420699176889
 
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage
@@ -85,6 +84,9 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.cap_language = self.language.upper()
 
         # TODO GSOC 2016 jsbml_data_tree
+        self.run_tests = global_variables.running_tests
+        self.serialVersionUID = jsbmlHelperFunctions.generate_uuid(self.run_tests) #-6048861420699176889
+
         self.jsbml_data_tree = jsbml_data_tree.jsbml_data_tree
         # TODO will need something similar for importing modules, but how?
         self.class_is_abstract = False

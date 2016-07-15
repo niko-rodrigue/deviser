@@ -136,12 +136,16 @@ def select_prime_number(prime_numbers, run_tests=False):
     return random.choice(prime_numbers)
 
 
-def generate_uuid():
-    # Possible solution
-    # http://stackoverflow.com/questions/24796654/python-uuid4-how-to-limit-the-length-of-unique-chars
-    # value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF # 64bit
-    value = uuid.uuid4().int & 0xFFFFFFFFFFFFFF   # 56 bit
-    # value = uuid.uuid4().int &  (1<<56)-1
+def generate_uuid(run_tests=False):
+    if run_tests is True:
+        # random.seed(0)
+        value = '9891207272440019'
+    else:
+        # Possible solution
+        # http://stackoverflow.com/questions/24796654/python-uuid4-how-to-limit-the-length-of-unique-chars
+        # value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF # 64bit
+        value = uuid.uuid4().int & 0xFFFFFFFFFFFFFF   # 56 bit
+        # value = uuid.uuid4().int &  (1<<56)-1
     print('uuid ', value)
     print('uuid ', len(str(value)))
     # jsbml_val_example = 3370025650545068132

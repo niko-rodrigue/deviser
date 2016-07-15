@@ -36,7 +36,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 69613215521180331L;
+  private static final long serialVersionUID = 9891207272440019L;
   /**
    *
    */
