@@ -36,7 +36,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 47263838669665211L;
+  private static final long serialVersionUID = 60661530995253018L;
   /**
    *
    */
@@ -188,7 +188,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 4022903;
+    final int prime = 2756903;
 
     int hashCode = super.hashCode();
 
