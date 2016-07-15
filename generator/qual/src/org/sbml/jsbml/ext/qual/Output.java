@@ -36,7 +36,11 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
+<<<<<<< HEAD
   private static final long serialVersionUID = 63826305534559155L;
+=======
+  private static final long serialVersionUID = 19935318052522443L;
+>>>>>>> WIP
   /**
    *
    */
@@ -329,7 +333,11 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
+<<<<<<< HEAD
     final int prime = 4573069;
+=======
+    final int prime = 2645777;
+>>>>>>> WIP
 
     int hashCode = super.hashCode();
 
