@@ -145,6 +145,10 @@ class GeneralFunctions():
                 self.status = 'c_not_list'
 
         # TODO GSOC 2016
+
+        # For tests
+        self.run_tests = global_variables.running_tests
+
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
@@ -240,7 +244,9 @@ class GeneralFunctions():
         # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
         #                                                                      function, function_args)
 
-        hash_num = jsbmlHelperFunctions.select_prime_number(self.prime_numbers)
+
+
+        hash_num = jsbmlHelperFunctions.select_prime_number(self.prime_numbers, self.run_tests)
 
         implementation = ['final int prime = {0}'.format(hash_num)]
         line = self.create_code_block('line', implementation)

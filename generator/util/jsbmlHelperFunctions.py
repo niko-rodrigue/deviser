@@ -130,7 +130,9 @@ def generate_prime_numbers(n):
     return list(itertools.takewhile(lambda p: p<n, erat2()))
 
 
-def select_prime_number(prime_numbers):
+def select_prime_number(prime_numbers, run_tests=False):
+    if run_tests is True:
+        random.seed(0)
     return random.choice(prime_numbers)
 
 

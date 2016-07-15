@@ -12,8 +12,10 @@ from parseXML import ParseXML
 import test_functions
 
 
+
 ##############################################################################
 # Set up variables
+os_sep = os.sep
 fails = []
 not_tested = []
 
@@ -125,9 +127,15 @@ def compare_ext_headers(class_name):
     return compare_files(correct_file, temp_file)
 
 
+# What if folder slash wrong?
+# def compare_code_impl(class_name):
+#     correct_file = '.\\test-code\\{0}.java'.format(class_name)
+#     temp_file = '.\\temp\\{0}.java'.format(class_name)
+#     return compare_files(correct_file, temp_file)
+
 def compare_code_impl(class_name):
-    correct_file = '.\\test-code\\{0}.java'.format(class_name)
-    temp_file = '.\\temp\\{0}.java'.format(class_name)
+    correct_file = './test-code/{0}.java'.format(class_name)
+    temp_file = './temp/{0}.java'.format(class_name)
     return compare_files(correct_file, temp_file)
 
 
