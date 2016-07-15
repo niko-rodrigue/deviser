@@ -161,6 +161,7 @@ def get_class_information(class_name=None):
         class_info.close()
         return dict_data
     except:
+        print('Check if Java SDK is installed, deviser requires javap')
         return
     # print_output(class_output)
 
