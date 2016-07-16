@@ -205,13 +205,20 @@ class MandatoryFunctions():
         elif len(self.mandatory_data[attribute_key]) == 2:
             curr_attribute = self.mandatory_data[attribute_key][1]
         else:
-            curr_attribute = self.mandatory_data[attribute_key][1]
+            curr_attribute = self.mandatory_data[attribute_key][0]
 
-        return_value = str(curr_attribute['reqd'])[:]
-        if return_value == 'False':
-            return_value = 'false'
-        else:
+
+
+        try:
+            return_value = str(curr_attribute['reqd'])[:]
+            if return_value == 'False':
+                return_value = 'false'
+            else:
+                return_value = 'true'
+        except Exception as e:
+            print('error ',e)
             return_value = 'true'
+
 
 
         title_line = '@return {0}'.format(return_value)

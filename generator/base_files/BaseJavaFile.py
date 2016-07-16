@@ -554,6 +554,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'String'
                 attributes[i]['attTypeCode'] = 'String'
                 attributes[i]['CType'] = 'String'
+                attributes[i]["JClassType"] = 'String'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = '""'
             elif att_type == 'string':

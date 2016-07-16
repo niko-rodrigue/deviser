@@ -471,56 +471,56 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
 
 
-    name = 'spatial'
-    num = 7
-    class_name = 'CoordinateComponent'
-    list_of = 'ListOfCoordinateComponent'
-    test_case = 'an element on CoordinateComponent'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 8
-    class_name = 'SampledFieldGeometry'
-    list_of = 'ListOfSampledFieldGeometry'
-    test_case = 'an element on SampledFieldGeometry'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'spatial'
-    num = 9
-    class_name = 'SampledField'
-    list_of = 'ListOfSampledField'
-    test_case = 'an element on SampledField'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'spatial'
-    num = 10
-    class_name = 'SampledVolume'
-    list_of = 'ListOfSampledVolume'
-    test_case = 'an element on SampledVolume'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'spatial'
-    num = 11
-    class_name = 'AnalyticGeometry'
-    list_of = 'ListOfAnalyticGeometry'
-    test_case = 'an element on AnalyticGeometry'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'spatial'
-    num = 12
-    class_name = 'AnalyticVolume'
-    list_of = 'ListOfAnalyticVolume'
-    test_case = 'an element on AnalyticVolume'
-    fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 7
+    # class_name = 'CoordinateComponent'
+    # list_of = 'ListOfCoordinateComponent'
+    # test_case = 'an element on CoordinateComponent'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 8
+    # class_name = 'SampledFieldGeometry'
+    # list_of = 'ListOfSampledFieldGeometry'
+    # test_case = 'an element on SampledFieldGeometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 9
+    # class_name = 'SampledField'
+    # list_of = 'ListOfSampledField'
+    # test_case = 'an element on SampledField'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 10
+    # class_name = 'SampledVolume'
+    # list_of = 'ListOfSampledVolume'
+    # test_case = 'an element on SampledVolume'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 11
+    # class_name = 'AnalyticGeometry'
+    # list_of = 'ListOfAnalyticGeometry'
+    # test_case = 'an element on AnalyticGeometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 12
+    # class_name = 'AnalyticVolume'
+    # list_of = 'ListOfAnalyticVolume'
+    # test_case = 'an element on AnalyticVolume'
+    # fail += run_test(name, num, class_name, test_case)
 
 
     name = 'spatial'
@@ -555,7 +555,7 @@ def main():
     fail += run_test(name, num, class_name, test_case)
 
 
-    name = 'spatal'
+    name = 'spatial'
     num = 17
     class_name = 'CSGNode'
     list_of = 'ListOfCSGNode'
@@ -641,6 +641,20 @@ def main():
     list_of = 'ListOfSpatialSymbolReference'
     test_case = 'an element on SpatialSymbolReference'
     fail += run_test(name, num, class_name, test_case)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     # name = 'qual'
