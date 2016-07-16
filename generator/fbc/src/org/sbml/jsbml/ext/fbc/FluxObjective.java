@@ -34,7 +34,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 58802514439760414L;
+  private static final long serialVersionUID = 56127520376395755L;
   /**
    *
    */
@@ -112,7 +112,6 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
     setPackageVersion(-1);
     packageName = FbcConstants.shortLabel;
     reaction = null;
-    coefficient = null;
   }
 
   /* Assignment operator for FluxObjective.
@@ -131,9 +130,9 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
       equals &= obj.isSetCoefficient() == isSetCoefficient();
       if (equals && isSetCoefficient()) {
         equals &= (obj.getCoefficient() == getCoefficient());
-      }
-      return equals;
-    }  }
+      }    }
+    return equals;
+  }
 
   /**
    * (non-Javadoc)
@@ -270,7 +269,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    */
   @Override
   public int hashCode() {
-    final int prime = 9933659;
+    final int prime = 9562649;
 
     int hashCode = super.hashCode();
 

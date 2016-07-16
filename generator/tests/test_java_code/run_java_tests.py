@@ -281,194 +281,194 @@ def main():
 
     # TODO xml base elements
 
-    name = 'qual'
-    num = 0
-    class_name = 'QualitativeSpecies'
-    list_of = 'ListOfQualitativeSpecies'
-    test_case = 'an element on QualitativeSpecies'
-    fail += run_test(name, num, class_name, test_case)
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualitativeSpecies'
+    # list_of = 'ListOfQualitativeSpecies'
+    # test_case = 'an element on QualitativeSpecies'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'qual'
+    # num = 1
+    # class_name = 'Transition'
+    # list_of = 'ListOfTransition'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'qual'
+    # num = 2
+    # class_name = 'Input'
+    # list_of = 'ListOfInput'
+    # test_case = 'an element on Input'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'qual'
+    # num = 3
+    # class_name = 'Output'
+    # list_of = 'ListOfOutput'
+    # test_case = 'an element on Output'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'qual'
+    # num = 4
+    # class_name = 'DefaultTerm'
+    # list_of = 'ListOfDefaultTerm'
+    # test_case = 'an element on DefaultTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'qual'
+    # num = 5
+    # class_name = 'FunctionTerm'
+    # list_of = 'ListOfFunctionTerm'
+    # test_case = 'an element on FunctionTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    #
 
-
-    name = 'qual'
-    num = 1
-    class_name = 'Transition'
-    list_of = 'ListOfTransition'
-    test_case = 'an element on Transition'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'qual'
-    num = 2
-    class_name = 'Input'
-    list_of = 'ListOfInput'
-    test_case = 'an element on Input'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'qual'
-    num = 3
-    class_name = 'Output'
-    list_of = 'ListOfOutput'
-    test_case = 'an element on Output'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'qual'
-    num = 4
-    class_name = 'DefaultTerm'
-    list_of = 'ListOfDefaultTerm'
-    test_case = 'an element on DefaultTerm'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'qual'
-    num = 5
-    class_name = 'FunctionTerm'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'fbc_v2'
-    num = 0
-    class_name = 'FluxBound'
-    list_of = 'ListOfFluxBound'
-    test_case = 'an element on FluxBound'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'fbc_v2'
-    num = 1
-    class_name = 'FluxObjective'
-    list_of = 'ListOfFluxObjective'
-    test_case = 'an element on FluxObjective'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'fbc_v2'
-    num = 2
-    class_name = 'Objective'
-    list_of = 'ListOfObjective'
-    test_case = 'an element on Objective'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'dyn'
-    num = 0
-    class_name = 'DynElement'
-    list_of = 'ListOfDynElement'
-    test_case = 'an element on DynElement'
-    fail += run_test(name, num, class_name, test_case)
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FluxBound'
+    # list_of = 'ListOfFluxBound'
+    # test_case = 'an element on FluxBound'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'fbc_v2'
+    # num = 2
+    # class_name = 'FluxObjective'
+    # list_of = 'ListOfFluxObjective'
+    # test_case = 'an element on FluxObjective'
+    # fail += run_test(name, num, class_name, test_case)
 
 
 
-
-    name = 'dyn'
-    num = 1
-    class_name = 'SpatialComponent'
-    list_of = 'ListOfSpatialComponent'
-    test_case = 'an element on SpatialComponent'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'distrib'
-    num = 0
-    class_name = 'DrawFromDistribution'
-    list_of = 'ListOfDrawFromDistribution'
-    test_case = 'an element on DrawFromDistribution'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'distrib'
-    num = 1
-    class_name = 'DistribInput'
-    list_of = 'ListOfDistribInput'
-    test_case = 'an element on DistribInput'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'distrib'
-    num = 1
-    class_name = 'Uncertainty'
-    list_of = 'ListOfUncertainty'
-    test_case = 'an element on Uncertainty'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'groups'
-    num = 0
-    class_name = 'Group'
-    list_of = 'ListOfGroup'
-    test_case = 'an element on Group'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'groups'
-    num = 1
-    class_name = 'Member'
-    list_of = 'ListOfMembern'
-    test_case = 'an element on Member'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 0
-    class_name = 'DomainType'
-    list_of = 'ListOfDomainType'
-    test_case = 'an element on DomainType'
-    fail += run_test(name, num, class_name, test_case)
-
-
-
-    name = 'spatial'
-    num = 1
-    class_name = 'Domain'
-    list_of = 'ListOfDomain'
-    test_case = 'an element on Domain'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 2
-    class_name = 'InteriorPoint'
-    list_of = 'ListOfInteriorPoint'
-    test_case = 'an element on InteriorPoint'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 3
-    class_name = 'Boundary'
-    list_of = 'ListOfBoundary'
-    test_case = 'an element on Boundary'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 4
-    class_name = 'AdjacentDomains'
-    list_of = 'ListOfAdjacentDomains'
-    test_case = 'an element on AdjacentDomains'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 5
-    class_name = 'GeometryDefinition'
-    list_of = 'ListOfGeometryDefinition'
-    test_case = 'an element on GeometryDefinition'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'spatial'
-    num = 6
-    class_name = 'CompartmentMapping'
-    list_of = 'ListOfCompartmentMapping'
-    test_case = 'an element on CompartmentMapping'
-    fail += run_test(name, num, class_name, test_case)
+    # name = 'fbc_v2'
+    # num = 1
+    # class_name = 'Objective'
+    # list_of = 'ListOfObjective'
+    # test_case = 'an element on Objective'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'dyn'
+    # num = 0
+    # class_name = 'DynElement'
+    # list_of = 'ListOfDynElement'
+    # test_case = 'an element on DynElement'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    #
+    # name = 'dyn'
+    # num = 1
+    # class_name = 'SpatialComponent'
+    # list_of = 'ListOfSpatialComponent'
+    # test_case = 'an element on SpatialComponent'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'distrib'
+    # num = 0
+    # class_name = 'DrawFromDistribution'
+    # list_of = 'ListOfDrawFromDistribution'
+    # test_case = 'an element on DrawFromDistribution'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'distrib'
+    # num = 1
+    # class_name = 'DistribInput'
+    # list_of = 'ListOfDistribInput'
+    # test_case = 'an element on DistribInput'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'distrib'
+    # num = 1
+    # class_name = 'Uncertainty'
+    # list_of = 'ListOfUncertainty'
+    # test_case = 'an element on Uncertainty'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'groups'
+    # num = 0
+    # class_name = 'Group'
+    # list_of = 'ListOfGroup'
+    # test_case = 'an element on Group'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'groups'
+    # num = 1
+    # class_name = 'Member'
+    # list_of = 'ListOfMembern'
+    # test_case = 'an element on Member'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 0
+    # class_name = 'DomainType'
+    # list_of = 'ListOfDomainType'
+    # test_case = 'an element on DomainType'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 1
+    # class_name = 'Domain'
+    # list_of = 'ListOfDomain'
+    # test_case = 'an element on Domain'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 2
+    # class_name = 'InteriorPoint'
+    # list_of = 'ListOfInteriorPoint'
+    # test_case = 'an element on InteriorPoint'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 3
+    # class_name = 'Boundary'
+    # list_of = 'ListOfBoundary'
+    # test_case = 'an element on Boundary'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 4
+    # class_name = 'AdjacentDomains'
+    # list_of = 'ListOfAdjacentDomains'
+    # test_case = 'an element on AdjacentDomains'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 5
+    # class_name = 'GeometryDefinition'
+    # list_of = 'ListOfGeometryDefinition'
+    # test_case = 'an element on GeometryDefinition'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 6
+    # class_name = 'CompartmentMapping'
+    # list_of = 'ListOfCompartmentMapping'
+    # test_case = 'an element on CompartmentMapping'
+    # fail += run_test(name, num, class_name, test_case)
 
 
     name = 'spatial'

@@ -1259,25 +1259,29 @@ class BaseJavaFile(BaseFile.BaseFile):
             if_code.append(code[i])
             i += 1
         self.write_block('if', if_code, True)
-        i += 1
-        else_if_code = [code[i]]
-        i += 1
-        while i < len(code):
-            while i < len(code) and \
-                    (code[i] != 'else if' and code[i] != "else"):
-                else_if_code.append(code[i])
-                i += 1
-            self.write_block('else if', else_if_code, True)
-            if i < len(code):
-                flag_else = (code[i] == 'else')
-                if not flag_else:
-                    if i < len(code):
-                        i += 1
-                        else_if_code = [code[i]]
-                        i += 1
-                else:
-                    self.write_block('else', code[i+1:len(code)], False)
-                    break
+        try:
+            i += 1
+            else_if_code = [code[i]]
+            i += 1
+            while i < len(code):
+                while i < len(code) and \
+                        (code[i] != 'else if' and code[i] != "else"):
+                    else_if_code.append(code[i])
+                    i += 1
+                self.write_block('else if', else_if_code, True)
+                if i < len(code):
+                    flag_else = (code[i] == 'else')
+                    if not flag_else:
+                        if i < len(code):
+                            i += 1
+                            else_if_code = [code[i]]
+                            i += 1
+                    else:
+                        self.write_block('else', code[i+1:len(code)], False)
+                        break
+        except Exception as e:
+            print('error ', e)
+
 
     def write_try_block(self, code):
         try_code = [code[0]]
