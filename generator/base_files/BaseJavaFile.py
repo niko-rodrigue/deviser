@@ -1203,6 +1203,8 @@ class BaseJavaFile(BaseFile.BaseFile):
     def write_implementation_block(self, code_type, code):
         if code_type == 'line':
             self.write_lines(code)
+        elif code_type == 'empty_line': # Prototype idea
+            self.write_empty_line()
         elif code_type == 'comment':
             self.write_comments(code)
         elif code_type == 'if':
@@ -1239,6 +1241,10 @@ class BaseJavaFile(BaseFile.BaseFile):
     def write_lines(self, code):
         for i in range(0, len(code)):
             self.write_line('{0};'.format(code[i]))
+
+    def write_empty_line(self, code = ''):
+        self.write_line('\n')
+
 
     def write_comments(self, code):
         for i in range(0, len(code)):
@@ -1294,6 +1300,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_block('catch', code[i+1:len(code)], True)
 
     def write_block(self, block_start, code, condition):
+        #print('condition is ', condition)
         if condition:
             self.write_line_jsbml('{0} ({1})'.format(block_start, code[0]))
             #self.write_line('{')

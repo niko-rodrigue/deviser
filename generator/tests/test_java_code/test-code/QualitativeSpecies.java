@@ -119,7 +119,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     }
     if (orig.isSetMaxLevel()) {
       setMaxLevel(orig.getMaxLevel());
-    }  }
+    }
+  }
 
   /**
    *  
@@ -155,7 +156,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       equals &= obj.isSetMaxLevel() == isSetMaxLevel();
       if (equals && isSetMaxLevel()) {
         equals &= (obj.getMaxLevel() == getMaxLevel());
-      }    }
+      }
+    }
     return equals;
   }
 

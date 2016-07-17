@@ -1238,6 +1238,11 @@ class Constructors():
                 temp_code = self.create_copy_if(i)
                 code.append(temp_code)
 
+
+        # TODO temporary fix
+        line = self.create_code_block('line', '')
+        code.append(line)
+
         # implementation = ['']
         # line = self.create_code_block('line', implementation)
         # code.append(line)
@@ -1359,7 +1364,10 @@ class Constructors():
                 for y_code in temp_code:
                     implementation.append(y_code)
 
-        # TODO why bug?
+        # TODO  temporary fix
+
+        line = self.create_code_block('line', '')
+        implementation.append(line)
 
         code.append(self.create_code_block('if', implementation))
 
