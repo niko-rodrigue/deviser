@@ -3,6 +3,9 @@ import time
 
 # command = 'javap -p org.sbml.jsbml.CompartmentalizedSBase'
 
+jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
+
+
 def print_output(output):
     for line in output:
         print(line)
@@ -153,7 +156,7 @@ def parse_output(output):
 
 def get_class_information(class_name=None):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
-    command = 'javap -package {0}'.format(class_name)
+    command = 'javap -cp {0} -package {1}'.format(jsbml_jar, class_name)
     try:
         class_info = os.popen('{0}'.format(command))
         class_output = class_info.readlines()

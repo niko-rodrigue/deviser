@@ -81,7 +81,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         # self.write_child_element_functions()
         # self.write_listof_functions()
-        # self.write_child_lo_element_functions()
+
+        self.write_child_lo_element_functions()
+
         # self.write_concrete_functions()
 
 
@@ -344,14 +346,15 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
             attrib_functions = SetGetFunctions.\
                 SetGetFunctions(self.language, self.is_java_api,
-                                self.is_list_of, self.class_object)
+                                self.is_list_of, self.class_object, self.jsbml_data_tree, self.jsbml_methods)
 
             num_elements = len(self.child_elements)
         else:
             attrib_functions = SetGetFunctions.SetGetFunctions(self.language,
                                                                self.is_java_api,
                                                                self.is_list_of,
-                                                               override)
+                                                               override,
+                                                               self.jsbml_data_tree, self.jsbml_methods)
             num_elements = 1
 
         for i in range(0, num_elements):
