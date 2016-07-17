@@ -823,14 +823,13 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         if len(child_lo_elements) > 0:
             for child_lo_element in child_lo_elements:
                 #print(attribute['memberName'])
-                print(child_lo_element)
                 # cap_att_name = attribute['capAttName']
                 # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
-                #     self.write_variable_comment()
-                #     return_type = attribute['JClassType']
-                #     member_name = attribute['name']
-                #     line = 'private {0} {1};'.format(return_type, member_name)
-                #     self.write_line(line)
+                self.write_variable_comment()
+                return_type = '{0}<{1}>'.format(child_lo_element['JClassType'], child_lo_element['capAttName'])
+                member_name = child_lo_element['jsbmlName']
+                line = 'private {0} {1};'.format(return_type, member_name)
+                self.write_line(line)
 
 
         self.down_indent()

@@ -534,6 +534,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         for i in range(0, len(attributes)):
             capname = strFunctions.upper_first(attributes[i]['name'])
             attributes[i]['name'] = strFunctions.lower_first(capname)
+            attributes[i]['jsbmlName'] = strFunctions.lower_first(capname)
             attributes[i]['capAttName'] = capname
             attributes[i]['memberName'] = 'm' + capname
             attributes[i]['pluralName'] = \
@@ -632,9 +633,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                     attributes[i]['children_overwrite'] = True
             elif att_type == 'lo_element' or att_type == 'inline_lo_element':
                 name = strFunctions.list_of_name(attributes[i]['element'])
+                jsbml_name = strFunctions.jsbml_list_of_name(attributes[i]['element'])
                 plural = strFunctions.plural_no_prefix(attributes[i]['element'])
                 attributes[i]['attType'] = 'lo_element'
                 attributes[i]['attTypeCode'] = name
+                attributes[i]['jsbmlName'] = jsbml_name
                 attributes[i]['CType'] = 'ListOf'# _t'
                 attributes[i]['JClassType'] = 'ListOf'  # _t'
                 attributes[i]['memberName'] = 'm' + plural

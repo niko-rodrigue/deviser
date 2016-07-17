@@ -80,6 +80,13 @@ def list_of_name(name, addPrefix=True):
     return prefix + 'ListOf' + plural_no_prefix(name)
 
 
+def jsbml_list_of_name(name, addPrefix=True):
+    prefix = ''
+    if addPrefix and not global_variables.is_package:
+        prefix = global_variables.prefix
+    return prefix + 'listOf' + plural_no_prefix(name)
+
+
 def lower_list_of_name_no_prefix(name):
     return 'listOf' + plural_no_prefix(upper_first(name))
 
