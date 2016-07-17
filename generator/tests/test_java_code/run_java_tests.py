@@ -281,22 +281,25 @@ def main():
 
     # TODO xml base elements
 
+
+
+    # # TODO qual tests
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualitativeSpecies'
+    # list_of = 'ListOfQualitativeSpecies'
+    # test_case = 'an element on QualitativeSpecies'
+    # fail += run_test(name, num, class_name, test_case)
+
+
     name = 'qual'
-    num = 0
-    class_name = 'QualitativeSpecies'
-    list_of = 'ListOfQualitativeSpecies'
-    test_case = 'an element on QualitativeSpecies'
+    num = 1
+    class_name = 'Transition'
+    list_of = 'ListOfTransition'
+    test_case = 'an element on Transition'
     fail += run_test(name, num, class_name, test_case)
 
 
-    # name = 'qual'
-    # num = 1
-    # class_name = 'Transition'
-    # list_of = 'ListOfTransition'
-    # test_case = 'an element on Transition'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
     # name = 'qual'
     # num = 2
     # class_name = 'Input'
@@ -327,8 +330,9 @@ def main():
     # list_of = 'ListOfFunctionTerm'
     # test_case = 'an element on FunctionTerm'
     # fail += run_test(name, num, class_name, test_case)
-    #
-    #
+
+
+    # # TODO fbc tests
     # name = 'fbc_v2'
     # num = 0
     # class_name = 'FluxBound'
@@ -353,6 +357,7 @@ def main():
     # test_case = 'an element on Objective'
     # fail += run_test(name, num, class_name, test_case)
     #
+    # # TODO dyn tests
     #
     # name = 'dyn'
     # num = 0
@@ -360,8 +365,6 @@ def main():
     # list_of = 'ListOfDynElement'
     # test_case = 'an element on DynElement'
     # fail += run_test(name, num, class_name, test_case)
-    #
-    #
     #
     #
     # name = 'dyn'
@@ -372,6 +375,7 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
     #
     #
+    # # TODO distrib tests
     #
     # name = 'distrib'
     # num = 0
@@ -396,7 +400,7 @@ def main():
     # test_case = 'an element on Uncertainty'
     # fail += run_test(name, num, class_name, test_case)
     #
-    #
+    # # TODO groups tests
     # name = 'groups'
     # num = 0
     # class_name = 'Group'
@@ -413,7 +417,7 @@ def main():
     # test_case = 'an element on Member'
     # fail += run_test(name, num, class_name, test_case)
     #
-    #
+    # # TODO spatial tests
     # name = 'spatial'
     # num = 0
     # class_name = 'DomainType'
@@ -703,6 +707,10 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
 
 
+
+
+
+    # TODO original Tests
     # name = 'qual'
     # num = 5
     # class_name = 'FunctionTerm'
@@ -710,8 +718,6 @@ def main():
     # test_case = 'an element on ListOf'
     # fail += run_test(name, num, class_name, test_case, list_of)
 
-
-    # TODO qual tests
     # name = 'qual'
     # num = 3
     # class_name = 'Output'

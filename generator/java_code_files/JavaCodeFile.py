@@ -795,15 +795,44 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_line(line)
 
         attributes = self.class_attributes
-        for attribute in attributes:
-            #print(attribute['memberName'])
-            cap_att_name = attribute['capAttName']
-            if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
-                self.write_variable_comment()
-                return_type = attribute['JClassType']
-                member_name = attribute['name']
-                line = 'private {0} {1};'.format(return_type, member_name)
-                self.write_line(line)
+        if len(attributes) > 0:
+            for attribute in attributes:
+                #print(attribute['memberName'])
+                cap_att_name = attribute['capAttName']
+                if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                    self.write_variable_comment()
+                    return_type = attribute['JClassType']
+                    member_name = attribute['name']
+                    line = 'private {0} {1};'.format(return_type, member_name)
+                    self.write_line(line)
+
+        child_elements = self.child_elements
+        if len(child_elements) > 0:
+            for child_element in child_elements:
+                #print(attribute['memberName'])
+                print(child_element)
+                # cap_att_name = attribute['capAttName']
+                # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                #     self.write_variable_comment()
+                #     return_type = attribute['JClassType']
+                #     member_name = attribute['name']
+                #     line = 'private {0} {1};'.format(return_type, member_name)
+                #     self.write_line(line)
+
+        child_lo_elements = self.child_lo_elements
+        if len(child_lo_elements) > 0:
+            for child_lo_element in child_lo_elements:
+                #print(attribute['memberName'])
+                print(child_lo_element)
+                # cap_att_name = attribute['capAttName']
+                # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                #     self.write_variable_comment()
+                #     return_type = attribute['JClassType']
+                #     member_name = attribute['name']
+                #     line = 'private {0} {1};'.format(return_type, member_name)
+                #     self.write_line(line)
+
+
         self.down_indent()
 
         # TODO for writing imports
