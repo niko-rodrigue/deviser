@@ -5,6 +5,9 @@ import time
 
 jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
 
+curr_dir = os.getcwd()
+print('curr_dir ',curr_dir)
+
 
 def print_output(output):
     for line in output:
@@ -154,9 +157,14 @@ def parse_output(output):
         # print('\n')
     return output_data
 
-def get_class_information(class_name=None):
+def get_class_information(class_name=None, individual_run=False):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
-    command = 'javap -cp {0} -package {1}'.format(jsbml_jar, class_name)
+
+    if individual_run == False:
+        command = 'javap -cp {0}{1}util{1}{2} -package {3}'.format(curr_dir, os.sep, jsbml_jar, class_name)
+    else:
+        command = 'javap -cp {0} -package {1}'.format(jsbml_jar, class_name)
+    # print('command ',command)
     try:
         class_info = os.popen('{0}'.format(command))
         class_output = class_info.readlines()
@@ -179,5 +187,5 @@ def get_class_information(class_name=None):
 # class_name = 'org.sbml.jsbml.AbstractNamedSBase'
 
 # class_name = 'CompartmentalizedSBase'
-# data = get_class_information(class_name)
+# data = get_class_information(class_name, individual_run=True)
 # print(data)

@@ -108,7 +108,6 @@ prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
 # print('prime ', len(prime_numbers))
 
 
-
 global return_codes
 return_codes= dict({'success': 0,
                     'failed to read file': 1,

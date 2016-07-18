@@ -37,7 +37,19 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 70236351787566771L;
+  private static final long serialVersionUID = 71165026426584652L;
+  /**
+   *
+   */
+  private ListOf<Input> listOfInputs;
+  /**
+   *
+   */
+  private ListOf<Output> listOfOutputs;
+  /**
+   *
+   */
+  private ListOf<FunctionTerm> listOfFunctionTerms;
 
   /**
    *  
@@ -101,7 +113,8 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     }
     if (orig.isSetFunctionTerm()) {
       setFunctionTerm(orig.getFunctionTerm());
-    }  }
+    }
+  }
 
   /**
    *  
@@ -132,7 +145,8 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
       equals &= obj.isSetFunctionTerm() == isSetFunctionTerm();
       if (equals && isSetFunctionTerm()) {
         equals &= (obj.getFunctionTerm() == getFunctionTerm());
-      }    }
+      }
+    }
     return equals;
   }
 
@@ -155,7 +169,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 347297;
+    final int prime = 3291359;
 
     int hashCode = super.hashCode();
 
@@ -196,6 +210,330 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
       attributes.put(QualConstants.shortLabel + ":name", getName());
     }
     return attributes;
+  }
+
+  /**
+   * Returns the ListOfInputs from this Transition.
+   */
+  public const ListOfInputs* getListOfInputs() {
+    return &mInputs;
+  }
+
+  /**
+   * Returns the ListOfInputs from this Transition.
+   */
+  public ListOfInputs* getListOfInputs() {
+    return &mInputs;
+  }
+
+  public Input* getInput(unsigned int n) {
+    return mInputs.get(n);
+  }
+
+  public const Input* getInput(unsigned int n) {
+    return mInputs.get(n);
+  }
+
+  public Input* getInput(const std::string& sid) {
+    return mInputs.get(sid);
+  }
+
+  public const Input* getInput(const std::string& sid) {
+    return mInputs.get(sid);
+  }
+
+  /**
+   * @param sid a string representing the qualitativeSpecies attribute of the
+   * Input object to retrieve.
+   */
+  public const Input* getInputByQualitativeSpecies(const std::string& sid) {
+    return mInputs.getByQualitativeSpecies(sid);
+  }
+
+  /**
+   * @param sid a string representing the qualitativeSpecies attribute of the
+   * Input object to retrieve.
+   */
+  public Input* getInputByQualitativeSpecies(const std::string& sid) {
+    return mInputs.getByQualitativeSpecies(sid);
+  }
+
+  public int addInput(const Input* i) {
+    if (i == NULL) {
+      return LIBSBML_OPERATION_FAILED;
+    }    else if (i->hasRequiredAttributes() == false) {
+      return LIBSBML_INVALID_OBJECT;
+    }    else if (getLevel() != i->getLevel()) {
+      return LIBSBML_LEVEL_MISMATCH;
+    }    else if (getVersion() != i->getVersion()) {
+      return LIBSBML_VERSION_MISMATCH;
+    }    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const      SBase*>(i)) == false) {
+      return LIBSBML_NAMESPACES_MISMATCH;
+    }    else if (i->isSetId() && (mInputs.get(i->getId())) != NULL) {
+      return LIBSBML_DUPLICATE_OBJECT_ID;
+    } else {
+      mInputs.append(i);
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
+   * Get the number of Input objects in this Transition.
+   */
+  public unsigned int getNumInputs() {
+    return mInputs.size();
+  }
+
+  public Input* createInput() {
+    Input* i = NULL;
+
+ try {
+      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+      i = new Input(qualns);
+      delete qualns;
+    }
+    catch (...) {
+    }
+    if (i != NULL) {
+      mInputs.appendAndOwn(i);
+    }
+    return i;
+  }
+
+  public Input* removeInput(unsigned int n) {
+    return mInputs.remove(n);
+  }
+
+  public Input* removeInput(const std::string& sid) {
+    return mInputs.remove(sid);
+  }
+
+  /**
+   * Returns the ListOfOutputs from this Transition.
+   */
+  public const ListOfOutputs* getListOfOutputs() {
+    return &mOutputs;
+  }
+
+  /**
+   * Returns the ListOfOutputs from this Transition.
+   */
+  public ListOfOutputs* getListOfOutputs() {
+    return &mOutputs;
+  }
+
+  public Output* getOutput(unsigned int n) {
+    return mOutputs.get(n);
+  }
+
+  public const Output* getOutput(unsigned int n) {
+    return mOutputs.get(n);
+  }
+
+  public Output* getOutput(const std::string& sid) {
+    return mOutputs.get(sid);
+  }
+
+  public const Output* getOutput(const std::string& sid) {
+    return mOutputs.get(sid);
+  }
+
+  /**
+   * @param sid a string representing the qualitativeSpecies attribute of the
+   * Output object to retrieve.
+   */
+  public const Output* getOutputByQualitativeSpecies(const std::string& sid) {
+    return mOutputs.getByQualitativeSpecies(sid);
+  }
+
+  /**
+   * @param sid a string representing the qualitativeSpecies attribute of the
+   * Output object to retrieve.
+   */
+  public Output* getOutputByQualitativeSpecies(const std::string& sid) {
+    return mOutputs.getByQualitativeSpecies(sid);
+  }
+
+  public int addOutput(const Output* o) {
+    if (o == NULL) {
+      return LIBSBML_OPERATION_FAILED;
+    }    else if (o->hasRequiredAttributes() == false) {
+      return LIBSBML_INVALID_OBJECT;
+    }    else if (getLevel() != o->getLevel()) {
+      return LIBSBML_LEVEL_MISMATCH;
+    }    else if (getVersion() != o->getVersion()) {
+      return LIBSBML_VERSION_MISMATCH;
+    }    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const      SBase*>(o)) == false) {
+      return LIBSBML_NAMESPACES_MISMATCH;
+    }    else if (o->isSetId() && (mOutputs.get(o->getId())) != NULL) {
+      return LIBSBML_DUPLICATE_OBJECT_ID;
+    } else {
+      mOutputs.append(o);
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
+   * Get the number of Output objects in this Transition.
+   */
+  public unsigned int getNumOutputs() {
+    return mOutputs.size();
+  }
+
+  public Output* createOutput() {
+    Output* o = NULL;
+
+ try {
+      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+      o = new Output(qualns);
+      delete qualns;
+    }
+    catch (...) {
+    }
+    if (o != NULL) {
+      mOutputs.appendAndOwn(o);
+    }
+    return o;
+  }
+
+  public Output* removeOutput(unsigned int n) {
+    return mOutputs.remove(n);
+  }
+
+  public Output* removeOutput(const std::string& sid) {
+    return mOutputs.remove(sid);
+  }
+
+  /**
+   * Returns the ListOfFunctionTerms from this Transition.
+   */
+  public const ListOfFunctionTerms* getListOfFunctionTerms() {
+    return &mFunctionTerms;
+  }
+
+  /**
+   * Returns the ListOfFunctionTerms from this Transition.
+   */
+  public ListOfFunctionTerms* getListOfFunctionTerms() {
+    return &mFunctionTerms;
+  }
+
+  public FunctionTerm* getFunctionTerm(unsigned int n) {
+    return mFunctionTerms.get(n);
+  }
+
+  public const FunctionTerm* getFunctionTerm(unsigned int n) {
+    return mFunctionTerms.get(n);
+  }
+
+  public int addFunctionTerm(const FunctionTerm* ft) {
+    if (ft == NULL) {
+      return LIBSBML_OPERATION_FAILED;
+    }    else if (ft->hasRequiredAttributes() == false) {
+      return LIBSBML_INVALID_OBJECT;
+    }    else if (ft->hasRequiredElements() == false) {
+      return LIBSBML_INVALID_OBJECT;
+    }    else if (getLevel() != ft->getLevel()) {
+      return LIBSBML_LEVEL_MISMATCH;
+    }    else if (getVersion() != ft->getVersion()) {
+      return LIBSBML_VERSION_MISMATCH;
+    }    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const      SBase*>(ft)) == false) {
+      return LIBSBML_NAMESPACES_MISMATCH;
+    } else {
+      mFunctionTerms.append(ft);
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
+   * Get the number of FunctionTerm objects in this Transition.
+   */
+  public unsigned int getNumFunctionTerms() {
+    return mFunctionTerms.size();
+  }
+
+  public FunctionTerm* createFunctionTerm() {
+    FunctionTerm* ft = NULL;
+
+ try {
+      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
+      ft = new FunctionTerm(qualns);
+      delete qualns;
+    }
+    catch (...) {
+    }
+    if (ft != NULL) {
+      mFunctionTerms.appendAndOwn(ft);
+    }
+    return ft;
+  }
+
+  public FunctionTerm* removeFunctionTerm(unsigned int n) {
+    return mFunctionTerms.remove(n);
+  }
+
+  /**
+   * @return the defaultTerm
+   */
+  public DefaultTerm getDefaultTerm() {
+    if (isSetDefaultTerm()) {
+      return defaultTerm;
+    }
+    throw new PropertyUndefinedError(QualConstants.defaultTerm, this);
+  }
+
+  /**
+   * @return the defaultTerm
+   */
+  public DefaultTerm getDefaultTerm() {
+    if (isSetDefaultTerm()) {
+      return defaultTerm;
+    }
+    throw new PropertyUndefinedError(QualConstants.defaultTerm, this);
+  }
+
+  /**
+   * @return 
+   */
+  public boolean isSetDefaultTerm() {
+    return (defaultTerm != NULL);
+  }
+
+  /**
+   * @param defaultTerm
+   */
+  public void setDefaultTerm(DefaultTerm defaultTerm) {
+    if (defaultTerm == defaultTerm) {
+      return LIBSBML_OPERATION_SUCCESS;
+    }    else if (defaultTerm == NULL) {
+      delete defaultTerm;
+      defaultTerm = NULL;
+      return LIBSBML_OPERATION_SUCCESS;
+    } else {
+      delete defaultTerm;
+      defaultTerm = (defaultTerm != NULL) ? defaultTerm->clone() : NULL;
+      if (defaultTerm != NULL) {
+        defaultTerm->connectToParent(this);
+      }
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
+   * Creates a new DefaultTerm object, adds it to this Transition object and
+   * returns the DefaultTerm object created.
+   */
+  public DefaultTerm createDefaultTerm() {
+  }
+
+  /**
+   * @return {@code true} if the unset of the defaultTerm attribute was
+   * successful
+   */
+  public boolean unsetDefaultTerm() {
+    delete defaultTerm;
+    defaultTerm = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
   }
 
 }

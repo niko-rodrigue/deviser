@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 20658379035243107L;
+  private static final long serialVersionUID = 36048554055314531L;
   /**
    *
    */
@@ -119,7 +119,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     }
     if (orig.isSetThresholdLevel()) {
       setThresholdLevel(orig.getThresholdLevel());
-    }  }
+    }
+  }
 
   /**
    *  
@@ -154,7 +155,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       equals &= obj.isSetThresholdLevel() == isSetThresholdLevel();
       if (equals && isSetThresholdLevel()) {
         equals &= (obj.getThresholdLevel() == getThresholdLevel());
-      }    }
+      }
+    }
     return equals;
   }
 
@@ -386,7 +388,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 9968263;
+    final int prime = 932221;
 
     int hashCode = super.hashCode();
 

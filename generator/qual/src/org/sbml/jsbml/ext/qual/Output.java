@@ -36,7 +36,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 63997593823971902L;
+  private static final long serialVersionUID = 55876245981001849L;
   /**
    *
    */
@@ -112,7 +112,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     }
     if (orig.isSetOutputLevel()) {
       setOutputLevel(orig.getOutputLevel());
-    }  }
+    }
+  }
 
   /**
    *  
@@ -142,7 +143,8 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       equals &= obj.isSetOutputLevel() == isSetOutputLevel();
       if (equals && isSetOutputLevel()) {
         equals &= (obj.getOutputLevel() == getOutputLevel());
-      }    }
+      }
+    }
     return equals;
   }
 
@@ -329,7 +331,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 3792967;
+    final int prime = 1256707;
 
     int hashCode = super.hashCode();
 
