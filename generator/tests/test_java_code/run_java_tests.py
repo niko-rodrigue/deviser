@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../')
 print(sys.path)
 
-from java_code_files import JavaFiles, JavaExtensionFiles
+from java_code_files import JavaFiles #, JavaExtensionFiles
 from parseXML import ParseXML
 
 import test_functions

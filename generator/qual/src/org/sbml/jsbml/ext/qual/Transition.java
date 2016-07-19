@@ -37,7 +37,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 71165026426584652L;
+  private static final long serialVersionUID = 52273494992473694L;
   /**
    *
    */
@@ -165,53 +165,6 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return false;
   }
 
-  /* hashcode method for Transition.
-   */
-  @Override
-  public int hashCode() {
-    final int prime = 3291359;
-
-    int hashCode = super.hashCode();
-
-    return hashCode;
-  }
-
-  /* (non-Javadoc)
-   * see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return "Transition [id = " + getId() + ", name = " + getName() + "]";
-  }
-
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
-   */
-  @Override
-  public boolean readAttribute(String attributeName, String prefix, String value) {
-    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
-
-    return isAttributeRead;
-  }
-
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
-   */
-  @Override
-  public Map <String, String> writeXMLAttributes() {
-    Map <String, String> attributes = super.writeXMLAttributes();
-
-    if (isSetId()) {
-      attributes.remove("id");
-      attributes.put(QualConstants.shortLabel + ":id", getId());
-    }
-    if (isSetName()) {
-      attributes.remove("name");
-      attributes.put(QualConstants.shortLabel + ":name", getName());
-    }
-    return attributes;
-  }
-
   /**
    * Returns the ListOfInputs from this Transition.
    */
@@ -219,43 +172,8 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return &mInputs;
   }
 
-  /**
-   * Returns the ListOfInputs from this Transition.
-   */
-  public ListOfInputs* getListOfInputs() {
-    return &mInputs;
-  }
-
   public Input* getInput(unsigned int n) {
     return mInputs.get(n);
-  }
-
-  public const Input* getInput(unsigned int n) {
-    return mInputs.get(n);
-  }
-
-  public Input* getInput(const std::string& sid) {
-    return mInputs.get(sid);
-  }
-
-  public const Input* getInput(const std::string& sid) {
-    return mInputs.get(sid);
-  }
-
-  /**
-   * @param sid a string representing the qualitativeSpecies attribute of the
-   * Input object to retrieve.
-   */
-  public const Input* getInputByQualitativeSpecies(const std::string& sid) {
-    return mInputs.getByQualitativeSpecies(sid);
-  }
-
-  /**
-   * @param sid a string representing the qualitativeSpecies attribute of the
-   * Input object to retrieve.
-   */
-  public Input* getInputByQualitativeSpecies(const std::string& sid) {
-    return mInputs.getByQualitativeSpecies(sid);
   }
 
   public int addInput(const Input* i) {
@@ -315,43 +233,8 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return &mOutputs;
   }
 
-  /**
-   * Returns the ListOfOutputs from this Transition.
-   */
-  public ListOfOutputs* getListOfOutputs() {
-    return &mOutputs;
-  }
-
   public Output* getOutput(unsigned int n) {
     return mOutputs.get(n);
-  }
-
-  public const Output* getOutput(unsigned int n) {
-    return mOutputs.get(n);
-  }
-
-  public Output* getOutput(const std::string& sid) {
-    return mOutputs.get(sid);
-  }
-
-  public const Output* getOutput(const std::string& sid) {
-    return mOutputs.get(sid);
-  }
-
-  /**
-   * @param sid a string representing the qualitativeSpecies attribute of the
-   * Output object to retrieve.
-   */
-  public const Output* getOutputByQualitativeSpecies(const std::string& sid) {
-    return mOutputs.getByQualitativeSpecies(sid);
-  }
-
-  /**
-   * @param sid a string representing the qualitativeSpecies attribute of the
-   * Output object to retrieve.
-   */
-  public Output* getOutputByQualitativeSpecies(const std::string& sid) {
-    return mOutputs.getByQualitativeSpecies(sid);
   }
 
   public int addOutput(const Output* o) {
@@ -411,18 +294,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     return &mFunctionTerms;
   }
 
-  /**
-   * Returns the ListOfFunctionTerms from this Transition.
-   */
-  public ListOfFunctionTerms* getListOfFunctionTerms() {
-    return &mFunctionTerms;
-  }
-
   public FunctionTerm* getFunctionTerm(unsigned int n) {
-    return mFunctionTerms.get(n);
-  }
-
-  public const FunctionTerm* getFunctionTerm(unsigned int n) {
     return mFunctionTerms.get(n);
   }
 
@@ -534,6 +406,53 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
     delete defaultTerm;
     defaultTerm = NULL;
     return LIBSBML_OPERATION_SUCCESS;
+  }
+
+  /* hashcode method for Transition.
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 9882307;
+
+    int hashCode = super.hashCode();
+
+    return hashCode;
+  }
+
+  /* (non-Javadoc)
+   * see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    return "Transition [id = " + getId() + ", name = " + getName() + "]";
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   */
+  @Override
+  public boolean readAttribute(String attributeName, String prefix, String value) {
+    boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
+
+    return isAttributeRead;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   */
+  @Override
+  public Map <String, String> writeXMLAttributes() {
+    Map <String, String> attributes = super.writeXMLAttributes();
+
+    if (isSetId()) {
+      attributes.remove("id");
+      attributes.put(QualConstants.shortLabel + ":id", getId());
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(QualConstants.shortLabel + ":name", getName());
+    }
+    return attributes;
   }
 
 }

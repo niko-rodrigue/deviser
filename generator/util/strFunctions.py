@@ -38,7 +38,10 @@
 # ------------------------------------------------------------------------ -->
 
 import re
-from util import global_variables
+try: 
+  from . import global_variables
+except: 
+  import global_variables
 
 
 def upper_first(word):

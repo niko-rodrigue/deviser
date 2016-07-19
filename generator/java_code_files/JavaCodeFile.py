@@ -76,8 +76,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         # TODO GSOC MANDATORY bugs
         self.write_mandatory_functions()
-        # TODO write hash, read, write bugs
-        self.write_general_functions()
+
 
         # self.write_child_element_functions()
         # self.write_listof_functions()
@@ -86,6 +85,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         # self.write_concrete_functions()
 
+        # TODO write hash, read, write bugs
+        self.write_general_functions()
 
         # self.write_functions_to_retrieve()
         # if self.document:
@@ -708,23 +709,32 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 .ListOfQueryFunctions(self.language, self.is_java_api,
                                       self.is_list_of,
                                       element)
+
+
+
+            # TODO
             code = lo_functions.write_get_list_of_function(is_const=True)
             self.write_function_implementation(code)
 
-            code = lo_functions.write_get_list_of_function(is_const=False)
-            self.write_function_implementation(code)
 
+            # # ? same as previous
+            # code = lo_functions.write_get_list_of_function(is_const=False)
+            # self.write_function_implementation(code)
+
+
+            #getInputCount
             code = lo_functions.write_get_element_by_index(is_const=False)
             self.write_function_implementation(code)
 
-            code = lo_functions.write_get_element_by_index(is_const=True)
-            self.write_function_implementation(code)
+            # # ? same as previous
+            # code = lo_functions.write_get_element_by_index(is_const=True)
+            # self.write_function_implementation(code)
 
-            code = lo_functions.write_get_element_by_id(is_const=False)
-            self.write_function_implementation(code)
-
-            code = lo_functions.write_get_element_by_id(is_const=True)
-            self.write_function_implementation(code)
+            # code = lo_functions.write_get_element_by_id(is_const=False)
+            # self.write_function_implementation(code)
+            #
+            # code = lo_functions.write_get_element_by_id(is_const=True)
+            # self.write_function_implementation(code)
 
             sid_ref = query.get_sid_refs_for_class(element)
             for j in range(0, len(sid_ref)):
@@ -732,19 +742,20 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                     code = lo_functions.write_lookup(sid_ref[j])
                     self.write_function_verbatim(code)
 
-                code = \
-                    lo_functions.write_get_element_by_sidref(sid_ref[j],
-                                                             const=True)
-                self.write_function_implementation(code)
+                # code = \
+                #     lo_functions.write_get_element_by_sidref(sid_ref[j],
+                #                                              const=True)
+                # self.write_function_implementation(code)
 
-                code = \
-                    lo_functions.write_get_element_by_sidref(sid_ref[j],
-                                                             const=False)
-                self.write_function_implementation(code)
+                # code = \
+                #     lo_functions.write_get_element_by_sidref(sid_ref[j],
+                #                                              const=False)
+                # self.write_function_implementation(code)
 
             code = lo_functions.write_add_element_function()
             self.write_function_implementation(code)
 
+            # getInputCount alternative
             code = lo_functions.write_get_num_element_function()
             self.write_function_implementation(code)
 
@@ -753,9 +764,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                         code = lo_functions.write_create_element_function(n+1)
                         self.write_function_implementation(code)
             else:
+                # createInput
                 code = lo_functions.write_create_element_function()
                 self.write_function_implementation(code)
 
+            #removeInput
             code = lo_functions.write_remove_element_by_index()
             self.write_function_implementation(code)
 
@@ -813,7 +826,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         if len(child_elements) > 0:
             for child_element in child_elements:
                 #print(attribute['memberName'])
-                print(child_element)
+                # print(child_element)
+                pass
                 # cap_att_name = attribute['capAttName']
                 # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                 #     self.write_variable_comment()

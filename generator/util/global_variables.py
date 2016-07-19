@@ -38,7 +38,7 @@
 # ------------------------------------------------------------------------ -->
 
 import os
-from . import jsbmlHelperFunctions
+from util import jsbmlHelperFunctions
 
 
 global error_list

@@ -1291,6 +1291,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                         break
         except Exception as e:
             print('error ', e)
+            # pass
 
 
     def write_try_block(self, code):
