@@ -756,12 +756,13 @@ class ListOfQueryFunctions():
 
 
 
-        additional = []
-        if self.is_java_api:
-            additional.append('@copydetails doc_note_object_is_copied')
-            additional.append(' ')
-            additional.append('@see create{0}()'
-                              ''.format(strFunctions.remove_prefix(self.object_child_name)))
+
+        # if self.is_java_api:
+        #     additional.append('@copydetails doc_note_object_is_copied')
+        #     additional.append(' ')
+        #     additional.append('@see create{0}()'
+        #                       ''.format(strFunctions.remove_prefix(self.object_child_name)))
+
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
@@ -777,7 +778,7 @@ class ListOfQueryFunctions():
         arguments.append('{0} {1}'.format(used_java_name,
                                           used_java_argument_name))
 
-
+        additional = []
         params = ['@param {0}'.format(used_java_argument_name),
                   '       the {0} to add'.format(used_java_argument_name),
                   '@return']

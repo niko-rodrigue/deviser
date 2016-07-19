@@ -691,8 +691,41 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                              const=False)
                 self.write_function_implementation(code)
 
+
+
+
+
+    def write_child_lo_element_functions_by_groups(self, function_to_write):
+        num_elements = len(self.child_lo_elements)
+        for i in range(0, num_elements):
+            element = self.child_lo_elements[i]
+            element['std_base'] = self.std_base
+            element['package'] = self.package
+            element['is_header'] = self.is_header
+            element['is_plugin'] = self.is_plugin
+            if self.is_plugin:
+                element['plugin'] = self.class_name
+            if 'concrete' in element:
+                element['concretes'] = query.get_concretes(
+                    self.class_object['root'], element['concrete'])
+            lo_functions = ListOfQueryFunctions \
+                .ListOfQueryFunctions(self.language, self.is_java_api,
+                                      self.is_list_of,
+                                      element)
+
+
+            if function_to_write == 'addElement':
+                code = lo_functions.write_add_element_function()
+                self.write_function_implementation(code)
+
+
     # main function to write the functions dealing with a child listOf element
     def write_child_lo_element_functions(self):
+        function_to_write = 'addElement'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+
+
         num_elements = len(self.child_lo_elements)
         for i in range(0, num_elements):
             element = self.child_lo_elements[i]
@@ -753,8 +786,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 # self.write_function_implementation(code)
 
 
-            code = lo_functions.write_add_element_function()
-            self.write_function_implementation(code)
+
 
             # getInputCount alternative
             code = lo_functions.write_get_num_element_function()
