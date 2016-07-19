@@ -752,6 +752,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 #                                              const=False)
                 # self.write_function_implementation(code)
 
+
             code = lo_functions.write_add_element_function()
             self.write_function_implementation(code)
 

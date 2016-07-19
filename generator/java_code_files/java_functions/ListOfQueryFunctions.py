@@ -43,28 +43,33 @@ from util import strFunctions, query, global_variables
 class ListOfQueryFunctions():
     """Class for all functions for ListOf classes"""
 
-    def __init__(self, language, is_cpp_api, is_list_of, class_object):
+    def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None, jsbml_methods=None):
         self.language = language
         self.cap_language = language.upper()
-        self.is_cpp_api = is_cpp_api
+        self.is_java_api = is_java_api
         self.is_list_of = is_list_of
         self.is_plugin = False
+        self.attTypeCode = class_object['attTypeCode']
         if 'is_plugin' in class_object:
             self.is_plugin = class_object['is_plugin']
         self.class_object = class_object
         self.package = class_object['package']
         if is_list_of:
             self.child_name = class_object['lo_child']
+            self.child_name_lower = class_object['name']
             self.class_name = class_object['name']
         elif self.is_plugin:
             self.child_name = strFunctions.upper_first(class_object['element'])
+            self.child_name_lower = class_object['name']
             self.class_name = class_object['plugin']
         else:
             self.child_name = strFunctions.upper_first(class_object['element'])
+            self.child_name_lower = class_object['name']
             self.class_name = class_object['parent']['name']
-        if is_cpp_api:
+        if is_java_api:
             self.object_name = self.class_name
             self.object_child_name = self.child_name
+            self.object_name_lower = self.child_name_lower
         else:
             if is_list_of:
                 if global_variables.is_package:
@@ -74,6 +79,7 @@ class ListOfQueryFunctions():
             else:
                 self.object_name = self.class_name + '_t'
             self.object_child_name = self.child_name + '_t'
+            self.object_name_lower = self.child_name_lower
         self.std_base = class_object['std_base']
         self.concretes = []
         if 'concretes' in class_object and len(class_object['concretes']) > 0:
@@ -96,7 +102,7 @@ class ListOfQueryFunctions():
         self.used_eq_names = []
 
         # useful variables
-        if not self.is_cpp_api and self.is_list_of:
+        if not self.is_java_api and self.is_list_of:
             self.struct_name = self.object_child_name
         else:
             self.struct_name = self.object_name
@@ -110,7 +116,7 @@ class ListOfQueryFunctions():
 
 
         # status
-        if self.is_cpp_api:
+        if self.is_java_api:
             if self.is_list_of:
                 self.status = 'cpp_list'
             elif self.is_plugin:
@@ -126,6 +132,14 @@ class ListOfQueryFunctions():
         self.open_br = '{'
         self.close_br = '}'
 
+
+        # TODO GSOC 2016
+        if jsbml_data_tree is not None:
+            self.jsbml_data_tree = jsbml_data_tree
+        if jsbml_methods is not None:
+            self.jsbml_methods = jsbml_methods
+
+        self.duplicate_methods = []
     ########################################################################
 
     # Functions for writing get element functions
@@ -133,7 +147,7 @@ class ListOfQueryFunctions():
     # function to write get by index from a listOf
     def write_get_element_by_index(self, is_const):
         # c api does not need a non constant version
-        if not self.is_cpp_api and not is_const:
+        if not self.is_java_api and not is_const:
             return
 
         if self.is_list_of:
@@ -151,7 +165,7 @@ class ListOfQueryFunctions():
                                                         self.object_child_name,
                                                         self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to search.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param n an unsigned int representing the index '
@@ -159,14 +173,14 @@ class ListOfQueryFunctions():
         return_lines = ['@return the nth {0} {1}.'.format(
             self.object_child_name, return_string)]
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             additional = ['@see size()'] if self.is_list_of \
                 else ['@see getNum{0}()'.format(strFunctions.remove_prefix(self.plural))]
 
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'get' if self.is_list_of else 'get{0}'\
                 .format(strFunctions.remove_prefix(self.object_child_name))
         else:
@@ -235,7 +249,7 @@ class ListOfQueryFunctions():
     # function to write get by id from a listOf
     def write_get_element_by_id(self, is_const):
         # c api does not need a non constant version
-        if not self.is_cpp_api and not is_const:
+        if not self.is_java_api and not is_const:
             return
         elif not self.has_id:
             return
@@ -256,7 +270,7 @@ class ListOfQueryFunctions():
         title_line = 'Get {0} {1} from the {2} based on its identifier.'\
             .format(self.indef_name, self.object_child_name, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to search.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param sid a string representing the identifier '
@@ -265,7 +279,7 @@ class ListOfQueryFunctions():
                         ' or NULL if no such {0} exists.'
                         .format(self.object_child_name, return_string)]
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             if self.is_list_of:
                 additional = ['@see size()']
             else:
@@ -274,7 +288,7 @@ class ListOfQueryFunctions():
                 additional.append('@see getNum{0}()'.format(strFunctions.remove_prefix(self.plural)))
 
         # create function declaration
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'get' if self.is_list_of \
                 else 'get{0}'.format(used_cpp_name)
             arguments = ['const std::string& sid']
@@ -362,7 +376,7 @@ class ListOfQueryFunctions():
     # function to write get by sidref from a listOf
     def write_get_element_by_sidref(self, sid_ref, const):
         # c api does not need a non constant version
-        if not self.is_cpp_api and not const:
+        if not self.is_java_api and not const:
             return
 
         # useful variables
@@ -386,7 +400,7 @@ class ListOfQueryFunctions():
                                          self.object_name,
                                          element)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to search.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param sid a string representing the {0} attribute '
@@ -401,7 +415,7 @@ class ListOfQueryFunctions():
         # create function declaration
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
-        if self.is_cpp_api:
+        if self.is_java_api:
             if self.is_list_of:
                 function = 'getBy{0}'.format(element)
             else:
@@ -418,7 +432,7 @@ class ListOfQueryFunctions():
         else:
             return_type = '{0}*'.format(self.object_child_name)
         up_name = strFunctions.abbrev_name(element).upper()
-        if const and self.is_cpp_api and self.is_list_of:
+        if const and self.is_java_api and self.is_list_of:
             implementation = ['vector<{0}*>::const_iterator '
                               'result'.format(self.std_base),
                               'result = find_if(mItems.begin(), mItems.end(), '
@@ -426,11 +440,11 @@ class ListOfQueryFunctions():
                               'return (result == mItems.end()) ? 0 : '
                               'static_cast  <const {0}*> '
                               '(*result)'.format(self.object_child_name)]
-        elif self.is_cpp_api and not self.is_list_of:
+        elif self.is_java_api and not self.is_list_of:
             implementation = ['return {0}.getBy{1}'
                               '(sid)'.format(self.class_object['memberName'],
                                              element)]
-        elif not const and self.is_cpp_api and self.is_list_of:
+        elif not const and self.is_java_api and self.is_list_of:
             implementation = ['return const_cast<{0}*>(static_cast<const {1}'
                               '&>(*this).getBy{2}(sid))'.format(self.child_name,
                                                                 self.class_name,
@@ -458,7 +472,7 @@ class ListOfQueryFunctions():
     # function to write lookup by sidref from a listOf
     def write_lookup(self, sid_ref):
         # c api does not need it
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             return
 
         # useful variables
@@ -525,7 +539,7 @@ class ListOfQueryFunctions():
                      'pointer to it.'.format(self.object_child_name,
                                              self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to search.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param n an unsigned int representing the index of '
@@ -533,7 +547,7 @@ class ListOfQueryFunctions():
         return_lines = ['@return a pointer to the nth {0} in this {1}.'.format(
             self.object_child_name, self.object_name)]
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             additional = ['@see size()'] if self.is_list_of \
                 else ['@see getNum{0}'.format(strFunctions.remove_prefix(self.plural))]
             additional.append(' ')
@@ -543,7 +557,7 @@ class ListOfQueryFunctions():
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'remove' if self.is_list_of \
                 else 'remove{0}'.format(used_cpp_name)
         else:
@@ -619,7 +633,7 @@ class ListOfQueryFunctions():
                      'returns a pointer to it.'.format(self.object_child_name,
                                                        self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to search.'
                           .format(self.abbrev_parent, self.object_name))
         params.append('@param sid a string representing the identifier of '
@@ -629,14 +643,14 @@ class ListOfQueryFunctions():
                         'exists.'.format(self.object_child_name,
                                          self.object_name)]
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             additional.append('@note the caller owns the returned object and '
                               'is responsible for deleting it.')
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'remove' if self.is_list_of \
                 else 'remove{0}'.format(used_cpp_name)
             arguments = ['const std::string& sid']
@@ -718,7 +732,7 @@ class ListOfQueryFunctions():
         title_line = 'Adds a copy of the given {0} to this {1}.'.format(
             self.object_child_name, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to which the {2} '
                           'should be added.'.format(self.abbrev_parent,
                                                     self.object_name,
@@ -738,8 +752,12 @@ class ListOfQueryFunctions():
                                                              self.open_br,
                                                              failed,
                                                              self.close_br)]
+
+
+
+
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             additional.append('@copydetails doc_note_object_is_copied')
             additional.append(' ')
             additional.append('@see create{0}()'
@@ -747,16 +765,29 @@ class ListOfQueryFunctions():
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
-        used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
-        if self.is_cpp_api:
-            function = 'add{0}'.format(used_cpp_name)
+        used_java_name = strFunctions.remove_prefix(self.object_child_name)
+        used_java_argument_name = strFunctions.remove_prefix(self.object_name_lower)
+        if self.is_java_api:
+            function = 'add{0}'.format(used_java_name)
         else:
             function = '{0}_add{1}'.format(self.class_name, used_c_name)
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
-        arguments.append('const {0}* {1}'.format(self.object_child_name,
-                                                 self.abbrev_child))
-        return_type = 'int'
+
+        arguments.append('{0} {1}'.format(used_java_name,
+                                          used_java_argument_name))
+
+
+        params = ['@param {0}'.format(used_java_argument_name),
+                  '       the {0} to add'.format(used_java_argument_name),
+                  '@return']
+
+        # params = ['@param id',
+        #           '@param name',
+        #           '@param level',
+        #           '@param version']
+
+        return_type = 'boolean'
         member = ''
         if not self.is_list_of:
             member = self.class_object['memberName']
@@ -767,56 +798,58 @@ class ListOfQueryFunctions():
                           'return {0}'.format(global_variables.ret_success)]
         this_object = query.get_class(self.object_child_name,
                                       self.class_object['root'])
-        if self.is_cpp_api:
-            implementation = ['{0} == NULL'.format(self.abbrev_child),
-                              'return {0}'.format(global_variables.ret_failed),
-                              'else if',
-                              '{0}->hasRequiredAttributes() == '
-                              'false'.format(self.abbrev_child),
-                              'return '
-                              '{0}'.format(global_variables.ret_invalid_obj)]
-            if this_object and 'hasChildren' in this_object \
-                    and this_object['hasChildren']:
-                ret = global_variables.ret_invalid_obj
-                implementation += ['else if',
-                                   '{0}->hasRequiredElements() == '
-                                   'false'.format(self.abbrev_child),
-                                   'return {0}'.format(ret)]
-            implementation += ['else if',
-                               'getLevel() != {0}->'
-                               'getLevel()'.format(self.abbrev_child),
-                               'return '
-                               '{0}'.format(global_variables.ret_level_mis),
-                               'else if',
-                               'getVersion() != {0}->'
-                               'getVersion()'.format(self.abbrev_child),
-                               'return '
-                               '{0}'.format(global_variables.ret_vers_mis),
-                               'else if']
-            if self.is_plugin:
-                ret = global_variables.ret_pkgv_mis
-                implementation.append('getPackageVersion() != {0}->getPackage'
-                                      'Version()'.format(self.abbrev_child))
-                implementation.append('return {0}'.format(ret))
-            else:
-                implementation.append('matchesRequired{0}NamespacesForAddition'
-                                      '(static_cast<const {1}*>({2})) == '
-                                      'false'.format(global_variables.prefix,
-                                                     self.std_base,
-                                                     self.abbrev_child))
-                implementation.append('return '
-                                      '{0}'.format(global_variables.ret_ns_mis))
-            if not self.is_list_of and self.has_id:
-                implementation.append('else if')
-                implementation.append('{0}->isSetId() '
-                                      '&& ({1}.get({0}->getId())) '
-                                      '!= NULL'.format(self.abbrev_child,
-                                                       member))
-                implementation.append('return '
-                                      '{0}'.format(global_variables.ret_dup_id))
-            implementation.append('else')
-            implementation.append(self.create_code_block('line', else_lines))
-            code = [self.create_code_block('else_if', implementation)]
+        if self.is_java_api:
+            implementation = ['return get{0}().add({1})'.format(self.attTypeCode, used_java_argument_name)]
+            code = [self.create_code_block('line', implementation)]
+            # implementation = ['{0} == NULL'.format(self.abbrev_child),
+            #                   'return {0}'.format(global_variables.ret_failed),
+            #                   'else if',
+            #                   '{0}->hasRequiredAttributes() == '
+            #                   'false'.format(self.abbrev_child),
+            #                   'return '
+            #                   '{0}'.format(global_variables.ret_invalid_obj)]
+            # if this_object and 'hasChildren' in this_object \
+            #         and this_object['hasChildren']:
+            #     ret = global_variables.ret_invalid_obj
+            #     implementation += ['else if',
+            #                        '{0}->hasRequiredElements() == '
+            #                        'false'.format(self.abbrev_child),
+            #                        'return {0}'.format(ret)]
+            # implementation += ['else if',
+            #                    'getLevel() != {0}->'
+            #                    'getLevel()'.format(self.abbrev_child),
+            #                    'return '
+            #                    '{0}'.format(global_variables.ret_level_mis),
+            #                    'else if',
+            #                    'getVersion() != {0}->'
+            #                    'getVersion()'.format(self.abbrev_child),
+            #                    'return '
+            #                    '{0}'.format(global_variables.ret_vers_mis),
+            #                    'else if']
+            # if self.is_plugin:
+            #     ret = global_variables.ret_pkgv_mis
+            #     implementation.append('getPackageVersion() != {0}->getPackage'
+            #                           'Version()'.format(self.abbrev_child))
+            #     implementation.append('return {0}'.format(ret))
+            # else:
+            #     implementation.append('matchesRequired{0}NamespacesForAddition'
+            #                           '(static_cast<const {1}*>({2})) == '
+            #                           'false'.format(global_variables.prefix,
+            #                                          self.std_base,
+            #                                          self.abbrev_child))
+            #     implementation.append('return '
+            #                           '{0}'.format(global_variables.ret_ns_mis))
+            # if not self.is_list_of and self.has_id:
+            #     implementation.append('else if')
+            #     implementation.append('{0}->isSetId() '
+            #                           '&& ({1}.get({0}->getId())) '
+            #                           '!= NULL'.format(self.abbrev_child,
+            #                                            member))
+            #     implementation.append('return '
+            #                           '{0}'.format(global_variables.ret_dup_id))
+            # implementation.append('else')
+            # implementation.append(self.create_code_block('line', else_lines))
+            # code = [self.create_code_block('else_if', implementation)]
         else:
             implementation = ['return ({0} != NULL) ? {0}->add{1}({2}) : '
                               '{3}'.format(self.abbrev_parent,
@@ -852,7 +885,7 @@ class ListOfQueryFunctions():
                 i = index - 1
             child_name = self.concretes[i]['element']
             child = child_name
-            if not self.is_cpp_api:
+            if not self.is_java_api:
                 child += '_t'
             is_concrete = True
             abbrev_child = strFunctions.abbrev_name(child)
@@ -861,7 +894,7 @@ class ListOfQueryFunctions():
                      'and returns the {0} object ' \
                      'created.'.format(child, self.object_name)
         params = []
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure '
                           'to which the {2} should be '
                           'added.'.format(self.abbrev_parent, self.object_name,
@@ -869,7 +902,7 @@ class ListOfQueryFunctions():
         return_lines = ['@return a new {0} object '
                         'instance.'.format(child)]
         additional = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             additional.append('@see add{0}(const {2}* {1})'
                               .format(strFunctions.remove_prefix(self.object_child_name),
                                       self.abbrev_child,
@@ -877,7 +910,7 @@ class ListOfQueryFunctions():
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(child_name)
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'create{0}'.format(strFunctions.remove_prefix(child))
         else:
             function = '{0}_create{1}'.format(self.class_name, used_c_name)
@@ -885,7 +918,7 @@ class ListOfQueryFunctions():
                                                self.abbrev_parent))
         return_type = '{0}*'.format(child)
 
-        if self.is_cpp_api and not is_concrete:
+        if self.is_java_api and not is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
             implementation = ['{0}* {1} = NULL'.format(self.child_name,
@@ -925,7 +958,7 @@ class ListOfQueryFunctions():
             code.append(self.create_code_block('if', implementation))
             implementation = ['return {0}'.format(self.abbrev_child)]
             code.append(self.create_code_block('line', implementation))
-        elif self.is_cpp_api and is_concrete:
+        elif self.is_java_api and is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
             implementation = ['{0}* {1} = NULL'.format(child,
@@ -1003,7 +1036,7 @@ class ListOfQueryFunctions():
         if parameter:
             params.append('@param {0} the {0} of the {1} to return.'
                           ''.format(parameter['name'], self.object_child_name))
-        if not self.is_cpp_api:
+        if not self.is_java_api:
             params.append('@param {0} the {1} structure to query.'
                           .format(self.abbrev_parent, self.object_name))
         return_lines = ['@return the number of {0} objects in '
@@ -1016,7 +1049,7 @@ class ListOfQueryFunctions():
         if parameter:
             arguments.append('{0} {1}'.format(parameter['type'], parameter['name']))
         used_c_name = strFunctions.remove_prefix(self.plural)
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'getNum{0}'.format(used_c_name)
         else:
             function = '{0}_getNum{1}'.format(self.class_name, used_c_name)
@@ -1024,9 +1057,9 @@ class ListOfQueryFunctions():
                                                self.abbrev_parent))
         return_type = 'unsigned int'
 
-        if self.is_cpp_api and self.is_list_of:
+        if self.is_java_api and self.is_list_of:
             implementation = ['return size()']
-        elif self.is_cpp_api and not self.is_list_of:
+        elif self.is_java_api and not self.is_list_of:
             if not self.document:
                 implementation = ['return {0}.'
                                   'size()'.format(self.class_object['memberName'])]
@@ -1064,13 +1097,13 @@ class ListOfQueryFunctions():
 
     # function to write get num
     def write_get_list_of_function(self, is_const=False):
-        if not self.is_cpp_api and not is_const:
+        if not self.is_java_api and not is_const:
             return
 
         loname = strFunctions.list_of_name(self.child_name)
         # create comment parts
         params = []
-        if self.is_cpp_api:
+        if self.is_java_api:
             title_line = 'Returns the {0} from this {1}.' \
                          ''.format(loname, self.object_name)
             return_lines = ['@return the {0} '
@@ -1088,7 +1121,7 @@ class ListOfQueryFunctions():
 
         # create the function declaration
         name_used = strFunctions.remove_prefix(loname)
-        if self.is_cpp_api:
+        if self.is_java_api:
             function = 'get{0}'.format(name_used)
             arguments = []
             if is_const:
@@ -1103,7 +1136,7 @@ class ListOfQueryFunctions():
                 return_type = 'ListOf_t*'
             else:
                 return_type = '{0}ListOf_t*'.format(global_variables.prefix)
-        if self.is_cpp_api:
+        if self.is_java_api:
             implementation = ['return '
                               '&{0}'.format(self.class_object['memberName'])]
             code = [self.create_code_block('line', implementation)]
