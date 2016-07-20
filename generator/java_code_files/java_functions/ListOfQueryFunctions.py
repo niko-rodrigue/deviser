@@ -118,11 +118,11 @@ class ListOfQueryFunctions():
         # status
         if self.is_java_api:
             if self.is_list_of:
-                self.status = 'cpp_list'
+                self.status = 'java_list'
             elif self.is_plugin:
                 self.status = 'plugin'
             else:
-                self.status = 'cpp_not_list'
+                self.status = 'java_not_list'
         else:
             if self.is_list_of:
                 self.status = 'c_list'
@@ -542,24 +542,31 @@ class ListOfQueryFunctions():
         if not self.is_java_api:
             params.append('@param {0} the {1} structure to search.'
                           .format(self.abbrev_parent, self.object_name))
-        params.append('@param n an unsigned int representing the index of '
-                      'the {0} to remove.'.format(self.object_child_name))
+        # params.append('@param n an unsigned int representing the index of '
+        #               'the {0} to remove.'.format(self.object_child_name))
         return_lines = ['@return a pointer to the nth {0} in this {1}.'.format(
             self.object_child_name, self.object_name)]
         additional = []
-        if self.is_java_api:
-            additional = ['@see size()'] if self.is_list_of \
-                else ['@see getNum{0}'.format(strFunctions.remove_prefix(self.plural))]
-            additional.append(' ')
-            additional.append('@note the caller owns the returned object and '
-                              'is responsible for deleting it.')
+        # if self.is_java_api:
+        #     additional = ['@see size()'] if self.is_list_of \
+        #         else ['@see getNum{0}'.format(strFunctions.remove_prefix(self.plural))]
+        #     additional.append(' ')
+        #     additional.append('@note the caller owns the returned object and '
+        #                       'is responsible for deleting it.')
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
-        used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
+        used_java_name = strFunctions.remove_prefix(self.object_child_name)
+
+
+        params.append('Removes an element from the {{@link #listOf{0}s}}'.format(used_java_name))
+        params.append(' ')
+        params.append('@param {0} the element to be removed from the list.'.format(used_java_name))
+        params.append('@return {@code true} if the list contained the specified element and it was removed.')
+        params.append('@see java.util.List#remove(Object)')
         if self.is_java_api:
             function = 'remove' if self.is_list_of \
-                else 'remove{0}'.format(used_cpp_name)
+                else 'remove{0}'.format(used_java_name)
         else:
             if self.is_list_of:
                 function = '{0}_remove'.format(self.class_name)
@@ -569,12 +576,13 @@ class ListOfQueryFunctions():
 
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
-        arguments.append('unsigned int n')
-        return_type = '{0}*'.format(self.object_child_name)
+        arguments.append('int i')
+        # return_type = '{0}*'.format(self.object_child_name)
+        return_type = 'boolean'
 
         code = []
         if not self.is_header:
-            if self.status == 'cpp_list':
+            if self.status == 'java_list':
                 list_type = 'ListOf'
                 if not global_variables.is_package:
                     list_type = strFunctions.prefix_name('ListOf')
@@ -598,10 +606,18 @@ class ListOfQueryFunctions():
                         '(n)'.format(self.class_name, self.abbrev_parent)]
                 code.append(self.create_code_block('line', line))
             else:
-                line = ['return ({0} != NULL) ? '
-                        '{0}->remove{1}(n) : '
-                        'NULL'.format(self.abbrev_parent, used_c_name)]
-                code = [self.create_code_block('line', line)]
+                # line = ['return ({0} != NULL) ? '
+                #         '{0}->remove{1}(n) : '
+                #         'NULL'.format(self.abbrev_parent, used_c_name)]
+                implementation = ['isSetListOf{0}s()'.format(used_java_name)]
+                implementation.append('throw new IndexOutOfBoundsException(Integer.toString(i))')
+                # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
+                # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
+                code.append(self.create_code_block('if', implementation))
+
+        line = 'return getListOf{0}s().remove(i)'.format(used_java_name)
+        line_code = line #self.create_code_block('line', line)
+        code.append(line_code)
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -664,6 +680,7 @@ class ListOfQueryFunctions():
                                                self.abbrev_parent))
             arguments.append('const char* sid')
         return_type = '{0}*'.format(self.object_child_name)
+        # return_type  = 'void's
 
         code = []
         if not self.is_header:

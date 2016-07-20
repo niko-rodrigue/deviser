@@ -719,11 +719,26 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 self.write_function_implementation(code)
 
 
+            #removeInput
+            if function_to_write == 'removeElementByIndex':
+                code = lo_functions.write_remove_element_by_index()
+                self.write_function_implementation(code)
+
+            if function_to_write == 'removeElementById':
+                code = lo_functions.write_remove_element_by_id()
+                self.write_function_implementation(code)
+
+
     # main function to write the functions dealing with a child listOf element
     def write_child_lo_element_functions(self):
         function_to_write = 'addElement'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
+        function_to_write = 'removeElementByIndex'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        function_to_write = 'removeElementById'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
 
 
         num_elements = len(self.child_lo_elements)
@@ -801,12 +816,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 code = lo_functions.write_create_element_function()
                 self.write_function_implementation(code)
 
-            #removeInput
-            code = lo_functions.write_remove_element_by_index()
-            self.write_function_implementation(code)
 
-            code = lo_functions.write_remove_element_by_id()
-            self.write_function_implementation(code)
 
             # this tackles the situation where a listOfFoo class also
             # contains an element of another type
