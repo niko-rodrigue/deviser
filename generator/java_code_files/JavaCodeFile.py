@@ -728,6 +728,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 code = lo_functions.write_remove_element_by_id()
                 self.write_function_implementation(code)
 
+            if function_to_write == 'getListOf':
+                code = lo_functions.write_get_list_of_function()
+                self.write_function_implementation(code)
+
 
     # main function to write the functions dealing with a child listOf element
     def write_child_lo_element_functions(self):
@@ -738,6 +742,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
         function_to_write = 'removeElementById'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        function_to_write = 'getListOf'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
 
@@ -761,8 +768,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
             # TODO
-            code = lo_functions.write_get_list_of_function(is_const=True)
-            self.write_function_implementation(code)
+
 
 
             # # ? same as previous

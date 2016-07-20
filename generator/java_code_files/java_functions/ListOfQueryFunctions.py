@@ -1134,6 +1134,7 @@ class ListOfQueryFunctions():
             return
 
         loname = strFunctions.list_of_name(self.child_name)
+        loname_lower = strFunctions.jsbml_list_of_name(self.child_name)
         # create comment parts
         params = []
         if self.is_java_api:
@@ -1152,15 +1153,31 @@ class ListOfQueryFunctions():
                             'ListOf_t *.'.format(loname, self.object_name)]
         additional = []
 
+
+
         # create the function declaration
-        name_used = strFunctions.remove_prefix(loname)
+        lo_name = strFunctions.remove_prefix(loname)
+        lo_name_lower = strFunctions.remove_prefix(loname_lower)
+        used_java_name = strFunctions.upper_first(self.child_name)
+        used_java_name_lower = strFunctions.lower_first(self.child_name)
+
+
+        params.append('Returns the {{@link {0}}}'.format(loname_lower))
+        params.append('Creates it if it does not already exist.')
+        params.append(' ')
+        params.append('@return the {{@link {0}}}.'.format(loname_lower))
+
+        code = []
+        # used_java_name = strFunctions.upper_first(strFunctions.remove_prefix(self.object_name))
+        # used_java_name_lower = strFunctions.upper_first(strFunctions.remove_prefix(self.object_name_lower))
         if self.is_java_api:
-            function = 'get{0}'.format(name_used)
-            arguments = []
-            if is_const:
-                return_type = 'const {0}*'.format(loname)
-            else:
-                return_type = '{0}*'.format(loname)
+            function = 'get{0}'.format(lo_name)
+            arguments = []#['{0}s'.format(used_java_name)]
+            return_type = 'ListOf<{0}>'.format(used_java_name)
+            # if is_const:
+            #     return_type = 'const {0}*'.format(loname)
+            # else:
+            #     return_type = '{0}*'.format(loname)
         else:
             function = '{0}_get{1}'.format(self.class_name, name_used)
             arguments = ['{0}* {1}'.format(self.object_name,
@@ -1170,14 +1187,38 @@ class ListOfQueryFunctions():
             else:
                 return_type = '{0}ListOf_t*'.format(global_variables.prefix)
         if self.is_java_api:
-            implementation = ['return '
-                              '&{0}'.format(self.class_object['memberName'])]
-            code = [self.create_code_block('line', implementation)]
+            # implementation = ['return '
+            #                   '&{0}'.format(self.class_object['memberName'])]
+            # code = [self.create_code_block('line', implementation)]
+            implementation = ['{0} == null'.format(loname_lower)]
+            implementation.append('{0} == new ListOf<{1}>()'.format(loname_lower, used_java_name))
+            implementation.append('{0}.setNamespace({1}Constants.namespaceURI)'.format(loname_lower, self.package))
+            implementation.append('{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
+
+            if self.status != 'plugin':
+                implementation.append('registerChild({0})'.format(loname_lower))
+
+
+            temp_code = self.create_code_block('if', implementation)
+            code.append(temp_code)
         else:
             implementation = ['return ({0} != NULL) ? {0}->get{1}() : '
                               'NULL'.format(self.abbrev_parent, name_used)]
             code = [self.create_code_block('line', implementation)]
         # return the parts
+
+
+        if self.status == 'plugin':
+            implementation = ['{isSetExtendedSBase()']
+            implementation.append('extendedSBase.registerChild({0})'.format(loname_lower))
+
+            temp_code = self.create_code_block('if', implementation)
+            code.append(temp_code)
+
+        line = 'return {0}'.format(loname_lower)
+        line_code = line  # self.create_code_block('line', line)
+        code.append(line_code)
+
         return dict({'title_line': title_line,
                      'params': params,
                      'return_lines': return_lines,
