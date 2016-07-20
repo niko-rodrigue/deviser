@@ -649,27 +649,38 @@ class ListOfQueryFunctions():
                      'returns a pointer to it.'.format(self.object_child_name,
                                                        self.object_name)
         params = []
-        if not self.is_java_api:
-            params.append('@param {0} the {1} structure to search.'
-                          .format(self.abbrev_parent, self.object_name))
-        params.append('@param sid a string representing the identifier of '
-                      'the {0} to remove.'.format(self.object_child_name))
+        # if not self.is_java_api:
+        #     params.append('@param {0} the {1} structure to search.'
+        #                   .format(self.abbrev_parent, self.object_name))
+        # params.append('@param sid a string representing the identifier of '
+        #               'the {0} to remove.'.format(self.object_child_name))
         return_lines = ['@return the {0} in this {1} based on the identifier '
                         'or NULL if no such {0} '
                         'exists.'.format(self.object_child_name,
                                          self.object_name)]
+
+
+
         additional = []
-        if self.is_java_api:
-            additional.append('@note the caller owns the returned object and '
-                              'is responsible for deleting it.')
+        # if self.is_java_api:
+        #     additional.append('@note the caller owns the returned object and '
+        #                       'is responsible for deleting it.')
         # create the function declaration
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
-        used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
+        used_java_name = strFunctions.remove_prefix(self.object_child_name)
+        used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
+
+
+        params.append('Removes an element from the {{@link #listOf{0}s}}.'.format(used_java_name))
+        params.append(' ')
+        params.append('@param {0}Id the id of the element to be removed from the list.'.format(used_java_name_lower))
+        params.append('@return the removed element, if it was successfully found and removed or {@code null}.')
+
         if self.is_java_api:
             function = 'remove' if self.is_list_of \
-                else 'remove{0}'.format(used_cpp_name)
-            arguments = ['const std::string& sid']
+                else 'remove{0}'.format(used_java_name)
+            arguments = ['String {0}Id'.format(used_java_name_lower)]
         else:
             if self.is_list_of:
                 function = '{0}_removeById'.format(self.class_name)
@@ -679,7 +690,7 @@ class ListOfQueryFunctions():
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
             arguments.append('const char* sid')
-        return_type = '{0}*'.format(self.object_child_name)
+        return_type = '{0}'.format(used_java_name)
         # return_type  = 'void's
 
         code = []
@@ -721,10 +732,14 @@ class ListOfQueryFunctions():
                                               self.abbrev_parent)]
                 code.append(self.create_code_block('line', line))
             else:
-                line = ['return ({0} != NULL && sid != NULL) ? '
-                        '{0}->remove{1}(sid) : '
-                        'NULL'.format(self.abbrev_parent, used_c_name)]
-                code = [self.create_code_block('line', line)]
+                implementation= ['isSetListOf{0}s()'.format(used_java_name)]
+                implementation.append('return getListOf{0}s().remove({1}Id)'.format(used_java_name,
+                                                                                    used_java_name_lower))
+                code.append(self.create_code_block('if', implementation))
+
+            line = 'return null'.format(used_java_name)
+            line_code = line  # self.create_code_block('line', line)
+            code.append(line_code)
 
         # return the parts
         return dict({'title_line': title_line,
