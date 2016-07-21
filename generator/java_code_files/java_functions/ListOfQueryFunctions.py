@@ -1251,36 +1251,46 @@ class ListOfQueryFunctions():
                          'this {1}.'.format(self.object_child_name,
                                             self.object_name)
         params = []
-        if parameter:
-            params.append('@param {0} the {0} of the {1} to return.'
-                          ''.format(parameter['name'], self.object_child_name))
-        if not self.is_java_api:
-            params.append('@param {0} the {1} structure to query.'
-                          .format(self.abbrev_parent, self.object_name))
+        # if parameter:
+        #     params.append('@param {0} the {0} of the {1} to return.'
+        #                   ''.format(parameter['name'], self.object_child_name))
+        # if not self.is_java_api:
+        #     params.append('@param {0} the {1} structure to query.'
+        #                   .format(self.abbrev_parent, self.object_name))
         return_lines = ['@return the number of {0} objects in '
                         'this {1}.'.format(self.object_child_name,
                                            self.object_name)]
         additional = []
 
+
         # create the function declaration
         arguments = []
         if parameter:
             arguments.append('{0} {1}'.format(parameter['type'], parameter['name']))
-        used_c_name = strFunctions.remove_prefix(self.plural)
+        used_java_name_plural = strFunctions.remove_prefix(self.plural)
+        used_java_name =  strFunctions.remove_prefix(self.child_name)
         if self.is_java_api:
-            function = 'getNum{0}'.format(used_c_name)
+            function = 'getNum{0}'.format(used_java_name_plural)
         else:
-            function = '{0}_getNum{1}'.format(self.class_name, used_c_name)
+            function = '{0}_getNum{1}'.format(self.class_name, used_java_name_plural)
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
-        return_type = 'unsigned int'
+        return_type = 'int'
 
+
+        params.append('Returns the number of {{@link {0}}}s in this'.format(used_java_name))
+        params.append('{{@link {0}}}.'.format(self.package))
+        params.append(' ')
+        params.append('@return the number of {{@link {0}}}s in this  {{@link {0}}}.'.format(used_java_name,
+                                                                                            self.package))
+        params.append('@libsbml.deprecated same as {{@link #get{0}Count()}}'.format(used_java_name))
         if self.is_java_api and self.is_list_of:
-            implementation = ['return size()']
+            implementation = ['return get{0}Count()'.format(used_java_name)]
         elif self.is_java_api and not self.is_list_of:
             if not self.document:
-                implementation = ['return {0}.'
-                                  'size()'.format(self.class_object['memberName'])]
+                implementation = ['return get{0}Count()'.format(used_java_name)]
+                # implementation = ['return {0}.'
+                #                   'size()'.format(self.class_object['memberName'])]
             elif parameter:
                 implementation = ['return getErrorLog()->'
                                   'getNumFailsWith{0}({1})'
@@ -1293,7 +1303,7 @@ class ListOfQueryFunctions():
         else:
             implementation = ['return ({0} != NULL) ? {0}->getNum{1}() : '
                               '{2}_INT_MAX'.format(self.abbrev_parent,
-                                                   used_c_name,
+                                                   used_java_name_plural,
                                                    self.cap_language)]
         code = [self.create_code_block('line', implementation)]
         # return the parts

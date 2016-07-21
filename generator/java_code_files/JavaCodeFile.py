@@ -78,12 +78,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_mandatory_functions()
 
 
-        # self.write_child_element_functions()
-        # self.write_listof_functions()
+        self.write_child_element_functions()
+        self.write_listof_functions()
 
         self.write_child_lo_element_functions()
 
-        # self.write_concrete_functions()
+        self.write_concrete_functions()
 
         # TODO write hash, read, write bugs
         self.write_general_functions()
@@ -732,6 +732,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 code = lo_functions.write_get_list_of_function()
                 self.write_function_implementation(code)
 
+
+            # getInputCount alternative
+            if function_to_write == 'getNum':
+                code = lo_functions.write_get_num_element_function()
+                self.write_function_implementation(code)
+
             if function_to_write == 'createElement':
                 if 'concretes' in element:
                     for n in range(0, len(element['concretes'])):
@@ -772,7 +778,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         function_to_write = 'createElementID'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
-
+        function_to_write = 'getNum'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
 
 
         num_elements = len(self.child_lo_elements)
@@ -798,8 +805,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
             #getInputCount
-            code = lo_functions.write_get_element_by_index(is_const=False)
-            self.write_function_implementation(code)
+            # code = lo_functions.write_get_element_by_index(is_const=False)
+            # self.write_function_implementation(code)
 
             # # ? same as previous
             # code = lo_functions.write_get_element_by_index(is_const=True)
@@ -830,9 +837,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
 
-            # getInputCount alternative
-            code = lo_functions.write_get_num_element_function()
-            self.write_function_implementation(code)
+
 
 
 
