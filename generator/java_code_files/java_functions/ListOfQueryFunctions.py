@@ -1629,6 +1629,106 @@ class ListOfQueryFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
+
+    ########################################################################
+
+    # Functions for writing unsetListOf
+
+    # function to write unset
+
+    def write_unset_list_of_function(self, is_const=False):
+        if not self.is_java_api and not is_const:
+            return
+
+        loname = strFunctions.list_of_name(self.child_name)
+        loname_lower = strFunctions.jsbml_list_of_name(self.child_name)
+        # create comment parts
+        params = []
+        if self.is_java_api:
+            title_line = 'Returns the {0} from this {1}.' \
+                         ''.format(loname, self.object_name)
+            return_lines = ['@return the {0} '
+                            'from this {1}.'.format(loname, self.object_name)]
+        else:
+            title_line = 'Returns a ListOf_t* containing {0} objects ' \
+                         'from this {1}.'.format(self.object_child_name,
+                                                 self.object_name)
+            params.append('@param {0} the {1} structure whose \"{2}\" is sought'
+                          '.'.format(self.abbrev_parent, self.object_name,
+                                     loname))
+            return_lines = ['@return the \"{0}\" from this {1} as a '
+                            'ListOf_t *.'.format(loname, self.object_name)]
+        additional = []
+
+        # create the function declaration
+        lo_name = strFunctions.remove_prefix(loname)
+        lo_name_lower = strFunctions.remove_prefix(loname_lower)
+        used_java_name = strFunctions.upper_first(self.child_name)
+        used_java_name_lower = strFunctions.lower_first(self.child_name)
+
+        params.append('Returns {{@code true}} if {{@link {0}}} \
+                      contains at least one element, otherwise {{@code false}}.'.format(loname_lower))
+        params.append(' ')
+        params.append('@return {{@code true}} if {{@link {0}}} contains at least \
+                         one element, otherwise {{@code false}}.'.format(loname_lower))
+
+        code = []
+        # used_java_name = strFunctions.upper_first(strFunctions.remove_prefix(self.object_name))
+        # used_java_name_lower = strFunctions.upper_first(strFunctions.remove_prefix(self.object_name_lower))
+        if self.is_java_api:
+            function = 'unset{0}'.format(lo_name)
+            arguments = []  # ['{0}s'.format(used_java_name)]
+            return_type = 'boolean'
+            # if is_const:
+            #     return_type = 'const {0}*'.format(loname)
+            # else:
+            #     return_type = '{0}*'.format(loname)
+        else:
+            function = '{0}_get{1}'.format(self.class_name, name_used)
+            arguments = ['{0}* {1}'.format(self.object_name,
+                                           self.abbrev_parent)]
+            if global_variables.is_package:
+                return_type = 'ListOf_t*'
+            else:
+                return_type = '{0}ListOf_t*'.format(global_variables.prefix)
+
+        if self.is_java_api:
+            # implementation = ['return '
+            #                   '&{0}'.format(self.class_object['memberName'])]
+            # code = [self.create_code_block('line', implementation)]
+            implementation = ['isSet{0}()'.format(loname)]
+            implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_name, loname, loname_lower))
+            implementation.append('this.{0} = null'.format(loname_lower))
+            implementation.append('old{0}.fireNodeRemovedEvent()'.format(loname))
+            implementation.append('return true')
+
+
+
+            temp_code = self.create_code_block('if', implementation)
+            code.append(temp_code)
+        else:
+            implementation = ['return ({0} != NULL) ? {0}->get{1}() : '
+                              'NULL'.format(self.abbrev_parent, name_used)]
+            code = [self.create_code_block('line', implementation)]
+        # return the parts
+
+
+        line = 'return false'.format(loname_lower)
+        line_code = line  # self.create_code_block('line', line)
+        code.append(line_code)
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': is_const,
+                     'virtual': False,
+                     'object_name': self.struct_name,
+                     'implementation': code})
+
     ########################################################################
 
     # HELPER FUNCTIONS
