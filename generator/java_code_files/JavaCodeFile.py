@@ -732,6 +732,17 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 code = lo_functions.write_get_list_of_function()
                 self.write_function_implementation(code)
 
+            if function_to_write == 'createElement':
+                if 'concretes' in element:
+                    for n in range(0, len(element['concretes'])):
+                            code = lo_functions.write_create_element_function(n+1)
+                            self.write_function_implementation(code)
+                else:
+                    # createInput
+                    code = lo_functions.write_create_element_function()
+                    self.write_function_implementation(code)
+
+
 
     # main function to write the functions dealing with a child listOf element
     def write_child_lo_element_functions(self):
@@ -746,6 +757,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         function_to_write = 'getListOf'
         self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        function_to_write = 'createElement'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+
 
 
         num_elements = len(self.child_lo_elements)
@@ -768,12 +784,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
             # TODO
-
-
-
-            # # ? same as previous
-            # code = lo_functions.write_get_list_of_function(is_const=False)
-            # self.write_function_implementation(code)
 
 
             #getInputCount
@@ -813,28 +823,21 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = lo_functions.write_get_num_element_function()
             self.write_function_implementation(code)
 
-            if 'concretes' in element:
-                for n in range(0, len(element['concretes'])):
-                        code = lo_functions.write_create_element_function(n+1)
-                        self.write_function_implementation(code)
-            else:
-                # createInput
-                code = lo_functions.write_create_element_function()
-                self.write_function_implementation(code)
 
 
 
             # this tackles the situation where a listOfFoo class also
             # contains an element of another type
             # eg qual:ListOfFunctionTerms contains a DefaultTerm
-            if not self.is_plugin:
-                element_children = \
-                    query.get_other_element_children(self.class_object, element)
-
-                for j in range(0, len(element_children)):
-                    child_class = self.create_lo_other_child_element_class(
-                        element_children[0], self.class_name)
-                    self.write_child_element_functions(child_class)
+                
+            # if not self.is_plugin:
+            #     element_children = \
+            #         query.get_other_element_children(self.class_object, element)
+            #
+            #     for j in range(0, len(element_children)):
+            #         child_class = self.create_lo_other_child_element_class(
+            #             element_children[0], self.class_name)
+            #         self.write_child_element_functions(child_class)
     ########################################################################
 
 
