@@ -716,6 +716,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 code = lo_functions.write_is_set_list_of_function()
                 self.write_function_implementation(code)
 
+            if function_to_write == 'setListOf':
+                code = lo_functions.write_set_list_of_function()
+                self.write_function_implementation(code)
+
 
             if function_to_write == 'addElement':
                 code = lo_functions.write_add_element_function()
@@ -785,6 +789,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
         function_to_write = 'isSetListOf'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        function_to_write = 'setListOf'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
         num_elements = len(self.child_lo_elements)
