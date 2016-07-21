@@ -1462,10 +1462,10 @@ class ListOfQueryFunctions():
         used_java_name = strFunctions.upper_first(self.child_name)
         used_java_name_lower = strFunctions.lower_first(self.child_name)
 
-        params.append('Returns the {{@link {0}}}'.format(loname_lower))
-        params.append('Creates it if it does not already exist.')
+        params.append('Returns {{@code true}} if {{@link {0}}} contains at least one element.'.format(loname_lower))
         params.append(' ')
-        params.append('@return the {{@link {0}}}.'.format(loname_lower))
+        params.append('@return {{@code true}} if {{@link {0}}} contains at least one element, \
+                    otherwise {{@code false}}.'.format(loname_lower))
 
         code = []
         # used_java_name = strFunctions.upper_first(strFunctions.remove_prefix(self.object_name))
