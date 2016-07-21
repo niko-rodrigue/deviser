@@ -1064,6 +1064,177 @@ class ListOfQueryFunctions():
 
     ########################################################################
 
+
+    # function to write create element by id
+
+    def write_create_element_id_function(self, index=0):
+        is_concrete = False
+        if len(self.concretes) == 0 and index == 0:
+            child = self.object_child_name
+            abbrev_child = self.abbrev_child
+            child_name = self.child_name
+        else:
+            if index == 0:
+                return
+            else:
+                i = index - 1
+            child_name = self.concretes[i]['element']
+            child = child_name
+            if not self.is_java_api:
+                child += '_t'
+            is_concrete = True
+            abbrev_child = strFunctions.abbrev_name(child)
+        # create comment parts
+        title_line = 'Creates a new {0} object, adds it to this {1} object ' \
+                     'and returns the {0} object ' \
+                     'created.'.format(child, self.object_name)
+        params = []
+        # if not self.is_java_api:
+        #     params.append('@param {0} the {1} structure '
+        #                   'to which the {2} should be '
+        #                   'added.'.format(self.abbrev_parent, self.object_name,
+        #                                   child))
+        return_lines = ['@return a new {0} object '
+                        'instance.'.format(child)]
+        additional = []
+        # if self.is_java_api:
+        #     additional.append('@see add{0}(const {2}* {1})'
+        #                       .format(strFunctions.remove_prefix(self.object_child_name),
+        #                               self.abbrev_child,
+        #                               self.object_child_name))
+
+
+        params.append('Creates a new {0} element and adds it to the'.format(child))
+        params.append('{{@link #listOf${0}s}} list.'.format(child))
+        params.append(' ')
+        params.append('@param id the identifier that is to be applied to the new element.')
+        params.append('@return the newly created element, which is the last item in the')
+        params.append('{{@link #listOf${0}s}}'.format(child))
+
+        # create the function declaration
+        arguments = []
+        used_c_name = strFunctions.remove_prefix(child_name)
+
+        used_java_name_lower = strFunctions.lower_first(strFunctions.remove_prefix(child_name))
+        if self.is_java_api:
+            function = 'create{0}'.format(strFunctions.remove_prefix(child))
+            arguments.append('String id')
+        else:
+            function = '{0}_create{1}'.format(self.class_name, used_c_name)
+            arguments.append('{0}* {1}'.format(self.object_name,
+                                               self.abbrev_parent))
+        return_type = '{0}'.format(child)
+
+        # code = []
+        # Input, Output, FunctionTerm
+        if self.is_java_api and not is_concrete:
+            pack_up = self.package.upper()
+            pack_low = self.package.lower()
+
+            implementation = ['{0} {1} = new {2}(id)'.format(child, used_java_name_lower, child)]
+            implementation.append('add{0}({1})'.format(child, used_java_name_lower))
+            implementation.append('return {0}'.format(used_java_name_lower))
+            code = [self.create_code_block('line', implementation)]
+
+
+            # implementation = ['{0}* {1} = NULL'.format(self.child_name,
+            #                                            self.abbrev_child)]
+            # code = [self.create_code_block('line', implementation)]
+            #
+            # if self.class_object['num_versions'] > 1:
+            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
+            #            'getPackageVersion())'.format(pack_up, pack_low,
+            #                                          global_variables.prefix)
+            # else:
+            #     line = '{0}_CREATE_NS({1}ns, ' \
+            #            'get{2}Namespaces())'.format(pack_up, pack_low,
+            #                                         global_variables.prefix)
+            # if global_variables.is_package:
+            #     implementation = [line,
+            #                       '{0} = new {1}({2}ns)'.format(self.abbrev_child,
+            #                                                     self.child_name,
+            #                                                     pack_low),
+            #                       'delete {0}ns'.format(pack_low),
+            #                       'catch', '...', '']
+            # else:
+            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
+            #                       ''.format(self.abbrev_child,
+            #                                 self.child_name,
+            #                                 global_variables.prefix),
+            #                       'catch', '...', '']
+            # code.append(self.create_code_block('try', implementation))
+            # implementation = ['{0} != NULL'.format(self.abbrev_child)]
+            # if self.is_list_of:
+            #     implementation.append('appendAndOwn'
+            #                           '({0})'.format(self.abbrev_child))
+            # else:
+            #     member = self.class_object['memberName']
+            #     implementation.append('{0}.appendAndOwn'
+            #                           '({1})'.format(member, self.abbrev_child))
+            # code.append(self.create_code_block('if', implementation))
+            # implementation = ['return {0}'.format(self.abbrev_child)]
+            # code.append(self.create_code_block('line', implementation))
+        elif self.is_java_api and is_concrete:
+            pack_up = self.package.upper()
+            pack_low = self.package.lower()
+            implementation = ['{0}* {1} = NULL'.format(child,
+                                                       abbrev_child)]
+            code = [self.create_code_block('line', implementation)]
+            if self.class_object['num_versions'] > 1:
+                line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
+                       'getPackageVersion())'.format(pack_up, pack_low,
+                                                     global_variables.prefix)
+            else:
+                line = '{0}_CREATE_NS({1}ns, ' \
+                       'get{2}Namespaces())'.format(pack_up, pack_low,
+                                                    global_variables.prefix)
+            if global_variables.is_package:
+                implementation = [line,
+                                  '{0} = new {1}({2}ns)'.format(abbrev_child,
+                                                                child,
+                                                                pack_low),
+                                  'delete {0}ns'.format(pack_low),
+                                  'catch', '...', '']
+            else:
+                implementation = ['{0} = new {1}(get{2}Namespaces())'
+                                  ''.format(abbrev_child,
+                                            child,
+                                            global_variables.prefix),
+                                  'catch', '...', '']
+            code.append(self.create_code_block('try', implementation))
+            implementation = ['{0} != NULL'.format(abbrev_child)]
+            if self.is_list_of:
+                implementation.append('appendAndOwn'
+                                      '({0})'.format(abbrev_child))
+            else:
+                member = self.class_object['memberName']
+                implementation.append('{0}.appendAndOwn'
+                                      '({1})'.format(member, abbrev_child))
+            code.append(self.create_code_block('if', implementation))
+            implementation = ['return {0}'.format(abbrev_child)]
+            code.append(self.create_code_block('line', implementation))
+        else:
+            implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
+                              'NULL'.format(self.abbrev_parent,
+                                            used_c_name)]
+            code = [self.create_code_block('line', implementation)]
+        # return the parts
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.struct_name,
+                     'implementation': code})
+
+
+
+
+
     # Functions for writing get num element functions
 
     # function to write get num

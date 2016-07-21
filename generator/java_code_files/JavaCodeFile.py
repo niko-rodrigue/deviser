@@ -742,7 +742,15 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                     code = lo_functions.write_create_element_function()
                     self.write_function_implementation(code)
 
-
+            if function_to_write == 'createElementID':
+                if 'concretes' in element:
+                    for n in range(0, len(element['concretes'])):
+                        code = lo_functions.write_create_element_id_function(n + 1)
+                        self.write_function_implementation(code)
+                else:
+                    # createInput
+                    code = lo_functions.write_create_element_id_function()
+                    self.write_function_implementation(code)
 
     # main function to write the functions dealing with a child listOf element
     def write_child_lo_element_functions(self):
@@ -759,6 +767,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
         function_to_write = 'createElement'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        function_to_write = 'createElementID'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
 
