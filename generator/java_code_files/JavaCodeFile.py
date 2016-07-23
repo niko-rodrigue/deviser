@@ -414,6 +414,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = gen_functions.write_get_allows_children()
         self.write_function_implementation(code)
 
+        code = gen_functions.write_get_child_count()
+        self.write_function_implementation(code)
+
+
         code = gen_functions.write_hashcode()
         self.write_function_implementation(code)
 
