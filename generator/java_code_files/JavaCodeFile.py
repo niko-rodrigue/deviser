@@ -406,8 +406,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.prime_numbers)
 
 
-
-
+        self.line_length = 150
+        code = gen_functions.write_get_child_at()
+        self.write_function_implementation(code)
+        self.line_length = 79
 
         code = gen_functions.write_hashcode()
         self.write_function_implementation(code)

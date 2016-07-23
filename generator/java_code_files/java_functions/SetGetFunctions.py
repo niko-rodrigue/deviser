@@ -2041,6 +2041,8 @@ class SetGetFunctions():
             #                                                          atts)
             #         code.append(self.create_code_block('if_else',
             #                                            implementation))
+
+        # TODO here's some work that needs to be done element and vector
         elif 'isVector' in attribute and attribute['isVector']:
             implementation = ['{0} = {1}'.format(member, name),
                               'return {0}'.format(self.success)]

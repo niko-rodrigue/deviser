@@ -184,6 +184,137 @@ class GeneralFunctions():
         print('self write ', self.methods_to_write)
 
 
+    ########################################################################
+
+
+    #Function for writing get_child_at
+    def create_nested_if_for_get_child_at(self, lo_element):
+        name = lo_element['name']
+        cap_name = lo_element['capAttName']
+        # print('lo name ',name)
+        # print('lo capname ', cap_name)
+        # name = self.attributes[index]['capAttName']
+        # member_name = self.attributes[index]['name']
+        # type = self.attributes[index]['type']
+        #
+        # curr_att_type = attribute['JClassType']
+        # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+        # currValue = 'this.{0}'.format(attribute['name'])
+        #
+        # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
+        # implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+        # implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+        #                                                                           attribute['name'],
+        #                                                                           oldValue,
+        #                                                                           currValue)
+        #
+        # # code = [dict({'code_type': 'line', 'code': 'TADA'})]
+        implementation = ['pos == index',
+                          'return getListOf{0}s'.format(cap_name)]  # 3rd line
+        #
+        nested_if = self.create_code_block('if', implementation)
+        implementation = ['isSetListOf{0}s'.format(cap_name),
+                          nested_if, 'pos++']  # 2nd line
+        # # print('implementation ',implementation)
+        # # code.append(self.create_code_block('if', implementation))
+        # code = [self.create_code_block('if', implementation)]
+        #
+        # implementationNext = ['return false']  # 1st line
+        # code.append(self.create_code_block('line', implementationNext))
+        #
+        temp_code = self.create_code_block('if', implementation)
+        return temp_code
+
+
+
+
+    def write_get_child_at(self):
+        if len(self.child_lo_elements) == 0:
+            return
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getChildAt'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.AbstractSBase#getChildAt(int)'
+        params = []
+
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'TreeNode'
+        arguments = ['int index']
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+
+        implementation = []
+        implementation.append('index < 0')
+        implementation.append('throw new IndexOutOfBoundsException(MessageFormat.format('\
+                              'resourceBundle.getString("IndexSurpassesBoundsException"), index, 0))')
+        code.append(self.create_code_block('if', implementation))
+
+
+        implementation = []
+        implementation.append('int count = super.getChildCount(), pos = 0')
+        code.append(self.create_code_block('line', implementation))
+
+
+        implementation = ['index < count']
+        implementation.append('return super.getChildAt(index)')
+        implementation.append('else')
+        implementation.append('index -= count')
+
+        code.append(self.create_code_block('if_else', implementation))
+
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+
+        for i in range(0, len(self.child_lo_elements)):
+            lo_element = self.child_lo_elements[i]
+            temp_code = self.create_nested_if_for_get_child_at(lo_element)
+            code.append(temp_code)
+
+        # temp = ['return hashCode']
+        # code.append(self.create_code_block('line', temp))
+
+        implementation= ['throw new IndexOutOfBoundsException(MessageFormat.format(\
+                        resourceBundle.getString("IndexExceedsBoundsException"),\
+                         index, Math.min(pos, 0)))']
+
+        code.append(self.create_code_block('line', implementation))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+    ########################################################################
 
     # Functions for writing hashCode
     def create_hashcode_if(self, index):

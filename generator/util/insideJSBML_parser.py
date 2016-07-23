@@ -4,17 +4,10 @@ import time
 
 
 file_path = os.path.dirname(os.path.abspath(__file__))
-
-#
-# print(sys.platform)
-
-
-# command = 'javap -p org.sbml.jsbml.CompartmentalizedSBase'
-
 jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
 
 curr_dir = os.getcwd()
-print('curr_dir ',curr_dir)
+# print('curr_dir ',curr_dir)
 
 
 def print_output(output):
@@ -168,9 +161,8 @@ def parse_output(output):
 def get_class_information(class_name=None, individual_run=False):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
-    # if individual_run == False:
-    #     command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
-    # else:
+
+
     command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
     # print('command ',command)
     try:
