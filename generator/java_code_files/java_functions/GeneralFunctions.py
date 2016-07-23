@@ -313,6 +313,57 @@ class GeneralFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+    ########################################################################
+
+    def write_get_allows_children(self):
+        if len(self.child_lo_elements) == 0:
+            return
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getAllowsChildren'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml#getAllowsChildren()'
+        params = []
+
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'boolean'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+
+        if self.has_children == True:
+            code_to_add = 'true'
+        else:
+            code_to_add = 'false'
+        implementation = []
+        implementation.append('return {0}'.format(code_to_add))
+        code.append(self.create_code_block('line', implementation))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
 
     ########################################################################
 
