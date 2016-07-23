@@ -36,7 +36,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 32394613948194511L;
+  private static final long serialVersionUID = 70652096172654816L;
   /**
    *
    */
@@ -186,11 +186,74 @@ public class FunctionTerm extends AbstractMathContainer {
     }
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#getMath
+   */
+  @Override
+  public ASTNode getMath() {
+    if (isSetMath()) {
+      return math;
+    }
+    throw new PropertyUndefinedError(QualConstants.math, this);
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#getMath
+   */
+  @Override
+  public ASTNode getMath() {
+    if (isSetMath()) {
+      return math;
+    }
+    throw new PropertyUndefinedError(QualConstants.math, this);
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#isSetMath
+   */
+  @Override
+  public boolean isSetMath() {
+    return (math != NULL);
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#setMath
+   */
+  @Override
+  public void setMath(ASTNode math) {
+    if (math == math) {
+      return LIBSBML_OPERATION_SUCCESS;
+    }    else if (math == NULL) {
+      delete math;
+      math = NULL;
+      return LIBSBML_OPERATION_SUCCESS;
+    }    else if (!(math->isWellFormedASTNode())) {
+      return LIBSBML_INVALID_OBJECT;
+    } else {
+      delete math;
+      math = (math != NULL) ? math->deepCopy() : NULL;
+      if (math != NULL) {
+        math->setParentJSBMLObject(this);
+      }
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#unsetMath
+   */
+  @Override
+  public boolean unsetMath() {
+    delete math;
+    math = NULL;
+    return LIBSBML_OPERATION_SUCCESS;
+  }
+
   /* hashcode method for FunctionTerm.
    */
   @Override
   public int hashCode() {
-    final int prime = 357509;
+    final int prime = 4323101;
 
     int hashCode = super.hashCode();
 

@@ -37,7 +37,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 52273494992473694L;
+  private static final long serialVersionUID = 48649891067297965L;
   /**
    *
    */
@@ -166,253 +166,407 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Returns the ListOfInputs from this Transition.
+   * @param input
+   * the input to add
+   * @return
    */
-  public const ListOfInputs* getListOfInputs() {
-    return &mInputs;
-  }
-
-  public Input* getInput(unsigned int n) {
-    return mInputs.get(n);
-  }
-
-  public int addInput(const Input* i) {
-    if (i == NULL) {
-      return LIBSBML_OPERATION_FAILED;
-    }    else if (i->hasRequiredAttributes() == false) {
-      return LIBSBML_INVALID_OBJECT;
-    }    else if (getLevel() != i->getLevel()) {
-      return LIBSBML_LEVEL_MISMATCH;
-    }    else if (getVersion() != i->getVersion()) {
-      return LIBSBML_VERSION_MISMATCH;
-    }    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const      SBase*>(i)) == false) {
-      return LIBSBML_NAMESPACES_MISMATCH;
-    }    else if (i->isSetId() && (mInputs.get(i->getId())) != NULL) {
-      return LIBSBML_DUPLICATE_OBJECT_ID;
-    } else {
-      mInputs.append(i);
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+  public boolean addInput(Input input) {
+    return getListOfInputs().add(input);
   }
 
   /**
-   * Get the number of Input objects in this Transition.
+   * @param output
+   * the output to add
+   * @return
    */
-  public unsigned int getNumInputs() {
-    return mInputs.size();
-  }
-
-  public Input* createInput() {
-    Input* i = NULL;
-
- try {
-      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-      i = new Input(qualns);
-      delete qualns;
-    }
-    catch (...) {
-    }
-    if (i != NULL) {
-      mInputs.appendAndOwn(i);
-    }
-    return i;
-  }
-
-  public Input* removeInput(unsigned int n) {
-    return mInputs.remove(n);
-  }
-
-  public Input* removeInput(const std::string& sid) {
-    return mInputs.remove(sid);
+  public boolean addOutput(Output output) {
+    return getListOfOutputs().add(output);
   }
 
   /**
-   * Returns the ListOfOutputs from this Transition.
+   * @param functionTerm
+   * the functionTerm to add
+   * @return
    */
-  public const ListOfOutputs* getListOfOutputs() {
-    return &mOutputs;
-  }
-
-  public Output* getOutput(unsigned int n) {
-    return mOutputs.get(n);
-  }
-
-  public int addOutput(const Output* o) {
-    if (o == NULL) {
-      return LIBSBML_OPERATION_FAILED;
-    }    else if (o->hasRequiredAttributes() == false) {
-      return LIBSBML_INVALID_OBJECT;
-    }    else if (getLevel() != o->getLevel()) {
-      return LIBSBML_LEVEL_MISMATCH;
-    }    else if (getVersion() != o->getVersion()) {
-      return LIBSBML_VERSION_MISMATCH;
-    }    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const      SBase*>(o)) == false) {
-      return LIBSBML_NAMESPACES_MISMATCH;
-    }    else if (o->isSetId() && (mOutputs.get(o->getId())) != NULL) {
-      return LIBSBML_DUPLICATE_OBJECT_ID;
-    } else {
-      mOutputs.append(o);
-      return LIBSBML_OPERATION_SUCCESS;
-    }
+  public boolean addFunctionTerm(FunctionTerm functionTerm) {
+    return getListOfFunctionTerms().add(functionTerm);
   }
 
   /**
-   * Get the number of Output objects in this Transition.
+   * Removes an element from the {@link #listOfInputs}
+   *  
+   * @param Input the element to be removed from the list.
+   * @return {@code true} if the list contained the specified element and it
+   * was removed.
+   * @see java.util.List#remove(Object)
    */
-  public unsigned int getNumOutputs() {
-    return mOutputs.size();
-  }
-
-  public Output* createOutput() {
-    Output* o = NULL;
-
- try {
-      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-      o = new Output(qualns);
-      delete qualns;
+  public boolean removeInput(int i) {
+    if (isSetListOfInputs()) {
+      throw new IndexOutOfBoundsException(Integer.toString(i));
     }
-    catch (...) {
-    }
-    if (o != NULL) {
-      mOutputs.appendAndOwn(o);
-    }
-    return o;
-  }
-
-  public Output* removeOutput(unsigned int n) {
-    return mOutputs.remove(n);
-  }
-
-  public Output* removeOutput(const std::string& sid) {
-    return mOutputs.remove(sid);
+    return getListOfInputs().remove(i);
   }
 
   /**
-   * Returns the ListOfFunctionTerms from this Transition.
+   * Removes an element from the {@link #listOfOutputs}
+   *  
+   * @param Output the element to be removed from the list.
+   * @return {@code true} if the list contained the specified element and it
+   * was removed.
+   * @see java.util.List#remove(Object)
    */
-  public const ListOfFunctionTerms* getListOfFunctionTerms() {
-    return &mFunctionTerms;
-  }
-
-  public FunctionTerm* getFunctionTerm(unsigned int n) {
-    return mFunctionTerms.get(n);
-  }
-
-  public int addFunctionTerm(const FunctionTerm* ft) {
-    if (ft == NULL) {
-      return LIBSBML_OPERATION_FAILED;
-    }    else if (ft->hasRequiredAttributes() == false) {
-      return LIBSBML_INVALID_OBJECT;
-    }    else if (ft->hasRequiredElements() == false) {
-      return LIBSBML_INVALID_OBJECT;
-    }    else if (getLevel() != ft->getLevel()) {
-      return LIBSBML_LEVEL_MISMATCH;
-    }    else if (getVersion() != ft->getVersion()) {
-      return LIBSBML_VERSION_MISMATCH;
-    }    else if (matchesRequiredSBMLNamespacesForAddition(static_cast<const      SBase*>(ft)) == false) {
-      return LIBSBML_NAMESPACES_MISMATCH;
-    } else {
-      mFunctionTerms.append(ft);
-      return LIBSBML_OPERATION_SUCCESS;
+  public boolean removeOutput(int i) {
+    if (isSetListOfOutputs()) {
+      throw new IndexOutOfBoundsException(Integer.toString(i));
     }
+    return getListOfOutputs().remove(i);
   }
 
   /**
-   * Get the number of FunctionTerm objects in this Transition.
+   * Removes an element from the {@link #listOfFunctionTerms}
+   *  
+   * @param FunctionTerm the element to be removed from the list.
+   * @return {@code true} if the list contained the specified element and it
+   * was removed.
+   * @see java.util.List#remove(Object)
    */
-  public unsigned int getNumFunctionTerms() {
-    return mFunctionTerms.size();
-  }
-
-  public FunctionTerm* createFunctionTerm() {
-    FunctionTerm* ft = NULL;
-
- try {
-      QUAL_CREATE_NS(qualns, getSBMLNamespaces());
-      ft = new FunctionTerm(qualns);
-      delete qualns;
+  public boolean removeFunctionTerm(int i) {
+    if (isSetListOfFunctionTerms()) {
+      throw new IndexOutOfBoundsException(Integer.toString(i));
     }
-    catch (...) {
-    }
-    if (ft != NULL) {
-      mFunctionTerms.appendAndOwn(ft);
-    }
-    return ft;
-  }
-
-  public FunctionTerm* removeFunctionTerm(unsigned int n) {
-    return mFunctionTerms.remove(n);
+    return getListOfFunctionTerms().remove(i);
   }
 
   /**
-   * @return the defaultTerm
+   * Removes an element from the {@link #listOfInputs}.
+   *  
+   * @param inputId the id of the element to be removed from the list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
    */
-  public DefaultTerm getDefaultTerm() {
-    if (isSetDefaultTerm()) {
-      return defaultTerm;
+  public Input removeInput(String inputId) {
+    if (isSetListOfInputs()) {
+      return getListOfInputs().remove(inputId);
     }
-    throw new PropertyUndefinedError(QualConstants.defaultTerm, this);
+    return null;
   }
 
   /**
-   * @return the defaultTerm
+   * Removes an element from the {@link #listOfOutputs}.
+   *  
+   * @param outputId the id of the element to be removed from the list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
    */
-  public DefaultTerm getDefaultTerm() {
-    if (isSetDefaultTerm()) {
-      return defaultTerm;
+  public Output removeOutput(String outputId) {
+    if (isSetListOfOutputs()) {
+      return getListOfOutputs().remove(outputId);
     }
-    throw new PropertyUndefinedError(QualConstants.defaultTerm, this);
+    return null;
   }
 
   /**
-   * @return 
+   * Returns the {@link listOfInputs}
+   * Creates it if it does not already exist.
+   *  
+   * @return the {@link listOfInputs}.
    */
-  public boolean isSetDefaultTerm() {
-    return (defaultTerm != NULL);
-  }
-
-  /**
-   * @param defaultTerm
-   */
-  public void setDefaultTerm(DefaultTerm defaultTerm) {
-    if (defaultTerm == defaultTerm) {
-      return LIBSBML_OPERATION_SUCCESS;
-    }    else if (defaultTerm == NULL) {
-      delete defaultTerm;
-      defaultTerm = NULL;
-      return LIBSBML_OPERATION_SUCCESS;
-    } else {
-      delete defaultTerm;
-      defaultTerm = (defaultTerm != NULL) ? defaultTerm->clone() : NULL;
-      if (defaultTerm != NULL) {
-        defaultTerm->connectToParent(this);
-      }
-      return LIBSBML_OPERATION_SUCCESS;
+  public ListOf<Input> getListOfInputs() {
+    if (listOfInputs == null) {
+      listOfInputs == new ListOf<Input>();
+      listOfInputs.setNamespace(QualConstants.namespaceURI);
+      listOfInputs.setSBaseListType(ListOf.Type.other);
+      registerChild(listOfInputs);
     }
+    return listOfInputs;
   }
 
   /**
-   * Creates a new DefaultTerm object, adds it to this Transition object and
-   * returns the DefaultTerm object created.
+   * Returns the {@link listOfOutputs}
+   * Creates it if it does not already exist.
+   *  
+   * @return the {@link listOfOutputs}.
    */
-  public DefaultTerm createDefaultTerm() {
+  public ListOf<Output> getListOfOutputs() {
+    if (listOfOutputs == null) {
+      listOfOutputs == new ListOf<Output>();
+      listOfOutputs.setNamespace(QualConstants.namespaceURI);
+      listOfOutputs.setSBaseListType(ListOf.Type.other);
+      registerChild(listOfOutputs);
+    }
+    return listOfOutputs;
   }
 
   /**
-   * @return {@code true} if the unset of the defaultTerm attribute was
-   * successful
+   * Returns the {@link listOfFunctionTerms}
+   * Creates it if it does not already exist.
+   *  
+   * @return the {@link listOfFunctionTerms}.
    */
-  public boolean unsetDefaultTerm() {
-    delete defaultTerm;
-    defaultTerm = NULL;
-    return LIBSBML_OPERATION_SUCCESS;
+  public ListOf<FunctionTerm> getListOfFunctionTerms() {
+    if (listOfFunctionTerms == null) {
+      listOfFunctionTerms == new ListOf<FunctionTerm>();
+      listOfFunctionTerms.setNamespace(QualConstants.namespaceURI);
+      listOfFunctionTerms.setSBaseListType(ListOf.Type.other);
+      registerChild(listOfFunctionTerms);
+    }
+    return listOfFunctionTerms;
+  }
+
+  /**
+   * Creates a new Input element and adds it to the
+   * {@link #listOf$Inputs} list.
+   *  
+   * @return the newly created element, i.e., the last item in the
+   * {@link #listOf$Inputs}
+   */
+  public Input createInput() {
+    return createInput(null);
+  }
+
+  /**
+   * Creates a new Output element and adds it to the
+   * {@link #listOf$Outputs} list.
+   *  
+   * @return the newly created element, i.e., the last item in the
+   * {@link #listOf$Outputs}
+   */
+  public Output createOutput() {
+    return createOutput(null);
+  }
+
+  /**
+   * Creates a new FunctionTerm element and adds it to the
+   * {@link #listOf$FunctionTerms} list.
+   *  
+   * @return the newly created element, i.e., the last item in the
+   * {@link #listOf$FunctionTerms}
+   */
+  public FunctionTerm createFunctionTerm() {
+    return createFunctionTerm(null);
+  }
+
+  /**
+   * Creates a new Input element and adds it to the
+   * {@link #listOf$Inputs} list.
+   *  
+   * @param id the identifier that is to be applied to the new element.
+   * @return the newly created element, which is the last item in the
+   * {@link #listOf$Inputs}
+   */
+  public Input createInput(String id) {
+    Input input = new Input(id);
+    addInput(input);
+    return input;
+  }
+
+  /**
+   * Creates a new Output element and adds it to the
+   * {@link #listOf$Outputs} list.
+   *  
+   * @param id the identifier that is to be applied to the new element.
+   * @return the newly created element, which is the last item in the
+   * {@link #listOf$Outputs}
+   */
+  public Output createOutput(String id) {
+    Output output = new Output(id);
+    addOutput(output);
+    return output;
+  }
+
+  /**
+   * Creates a new FunctionTerm element and adds it to the
+   * {@link #listOf$FunctionTerms} list.
+   *  
+   * @param id the identifier that is to be applied to the new element.
+   * @return the newly created element, which is the last item in the
+   * {@link #listOf$FunctionTerms}
+   */
+  public FunctionTerm createFunctionTerm(String id) {
+    FunctionTerm functionTerm = new FunctionTerm(id);
+    addFunctionTerm(functionTerm);
+    return functionTerm;
+  }
+
+  /**
+   * Returns the number of {@link Input}s in this
+   * {@link Qual}.
+   *  
+   * @return the number of {@link Input}s in this {@link Input}.
+   * @libsbml.deprecated same as {@link #getInputCount()}
+   */
+  public int getNumInputs() {
+    return getInputCount();
+  }
+
+  /**
+   * Returns the number of {@link Output}s in this
+   * {@link Qual}.
+   *  
+   * @return the number of {@link Output}s in this {@link Output}.
+   * @libsbml.deprecated same as {@link #getOutputCount()}
+   */
+  public int getNumOutputs() {
+    return getOutputCount();
+  }
+
+  /**
+   * Returns the number of {@link FunctionTerm}s in this
+   * {@link Qual}.
+   *  
+   * @return the number of {@link FunctionTerm}s in this {@link FunctionTerm}.
+   * @libsbml.deprecated same as {@link #getFunctionTermCount()}
+   */
+  public int getNumFunctionTerms() {
+    return getFunctionTermCount();
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfInputs} contains at least one
+   * element.
+   *  
+   * @return {@code true} if {@link listOfInputs} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean isSetListOfInputs() {
+    if ((listOfInputs == null) || listOfInputs.isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfOutputs} contains at least one
+   * element.
+   *  
+   * @return {@code true} if {@link listOfOutputs} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean isSetListOfOutputs() {
+    if ((listOfOutputs == null) || listOfOutputs.isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfFunctionTerms} contains at least one
+   * element.
+   *  
+   * @return {@code true} if {@link listOfFunctionTerms} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean isSetListOfFunctionTerms() {
+    if ((listOfFunctionTerms == null) || listOfFunctionTerms.isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Sets the given {@code ListOf<Input>}.
+   * If {@link listOfInputs} was defined before and contains some elements,
+   * they are all unset.
+   *  
+   * @param listOfInputs
+   */
+  public void setListOfInputs(ListOf<Input> listOfInputs) {
+    unsetlistOfInputs();
+    this.listOfInputs = listOfInputs;
+    this.listOfInputs.setSBaseListType(ListOf.Type.other);
+    registerChild(listOfInputs);
+
+    return listOfInputs;
+  }
+
+  /**
+   * Sets the given {@code ListOf<Output>}.
+   * If {@link listOfOutputs} was defined before and contains some elements,
+   * they are all unset.
+   *  
+   * @param listOfOutputs
+   */
+  public void setListOfOutputs(ListOf<Output> listOfOutputs) {
+    unsetlistOfOutputs();
+    this.listOfOutputs = listOfOutputs;
+    this.listOfOutputs.setSBaseListType(ListOf.Type.other);
+    registerChild(listOfOutputs);
+
+    return listOfOutputs;
+  }
+
+  /**
+   * Sets the given {@code ListOf<FunctionTerm>}.
+   * If {@link listOfFunctionTerms} was defined before and contains some
+   * elements, they are all unset.
+   *  
+   * @param listOfFunctionTerms
+   */
+  public void setListOfFunctionTerms(ListOf<FunctionTerm> listOfFunctionTerms) {
+    unsetlistOfFunctionTerms();
+    this.listOfFunctionTerms = listOfFunctionTerms;
+    this.listOfFunctionTerms.setSBaseListType(ListOf.Type.other);
+    registerChild(listOfFunctionTerms);
+
+    return listOfFunctionTerms;
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfInputs} contains at least one
+   * element, otherwise {@code false}.
+   *  
+   * @return {@code true} if {@link listOfInputs} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean unsetListOfInputs() {
+    if (isSetListOfInputs()) {
+      ListOf<Input> oldListOfInputs = this.listOfInputs;
+      this.listOfInputs = null;
+      oldListOfInputs.fireNodeRemovedEvent();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfOutputs} contains at least one
+   * element, otherwise {@code false}.
+   *  
+   * @return {@code true} if {@link listOfOutputs} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean unsetListOfOutputs() {
+    if (isSetListOfOutputs()) {
+      ListOf<Output> oldListOfOutputs = this.listOfOutputs;
+      this.listOfOutputs = null;
+      oldListOfOutputs.fireNodeRemovedEvent();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfFunctionTerms} contains at least one
+   * element, otherwise {@code false}.
+   *  
+   * @return {@code true} if {@link listOfFunctionTerms} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean unsetListOfFunctionTerms() {
+    if (isSetListOfFunctionTerms()) {
+      ListOf<FunctionTerm> oldListOfFunctionTerms = this.listOfFunctionTerms;
+      this.listOfFunctionTerms = null;
+      oldListOfFunctionTerms.fireNodeRemovedEvent();
+      return true;
+    }
+    return false;
   }
 
   /* hashcode method for Transition.
    */
   @Override
   public int hashCode() {
-    final int prime = 9882307;
+    final int prime = 5788129;
 
     int hashCode = super.hashCode();
 

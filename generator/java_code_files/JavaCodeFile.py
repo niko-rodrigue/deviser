@@ -406,6 +406,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.prime_numbers)
 
 
+
+
+
         code = gen_functions.write_hashcode()
         self.write_function_implementation(code)
 

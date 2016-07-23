@@ -36,7 +36,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 61582351871655668L;
+  private static final long serialVersionUID = 23638079210880741L;
   /**
    *
    */
@@ -256,6 +256,21 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
+   * @param transitionEffect std::string& of the "transitionEffect" attribute
+   * to be set.
+   */
+  public int setTransitionEffect(const std::string& transitionEffect) {
+    if (TransitionOutputEffect_isValidString(transitionEffect.c_str()) == 0) {
+      transitionEffect = TRANSITION_OUTPUT_EFFECT_INVALID;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    } else {
+      transitionEffect =
+        TransitionOutputEffect_fromString(transitionEffect.c_str());
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
    * @param outputLevel
    */
   public void setOutputLevel(int outputLevel) {
@@ -331,7 +346,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public int hashCode() {
-    final int prime = 4415753;
+    final int prime = 5341291;
 
     int hashCode = super.hashCode();
 

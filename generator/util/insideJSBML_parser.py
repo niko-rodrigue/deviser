@@ -1,5 +1,13 @@
 import os
+import sys
 import time
+
+
+file_path = os.path.dirname(os.path.abspath(__file__))
+
+#
+# print(sys.platform)
+
 
 # command = 'javap -p org.sbml.jsbml.CompartmentalizedSBase'
 
@@ -160,14 +168,17 @@ def parse_output(output):
 def get_class_information(class_name=None, individual_run=False):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
-    if individual_run == False:
-        command = 'javap -cp {0}{1}util{1}{2} -package {3}'.format(curr_dir, os.sep, jsbml_jar, class_name)
-    else:
-        command = 'javap -cp {0} -package {1}'.format(jsbml_jar, class_name)
+    # if individual_run == False:
+    #     command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
+    # else:
+    command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
     # print('command ',command)
     try:
         class_info = os.popen('{0}'.format(command))
         class_output = class_info.readlines()
+        if len(class_output) == 0:
+            print('Check if Java SDK is installed, deviser requires javap')
+            return
         dict_data = parse_output(class_output)
         class_info.close()
         return dict_data

@@ -36,7 +36,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 64135388172231821L;
+  private static final long serialVersionUID = 16118312987476852L;
   /**
    *
    */
@@ -266,6 +266,19 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   }
 
   /**
+   * @param sign std::string& of the "sign" attribute to be set.
+   */
+  public int setSign(const std::string& sign) {
+    if (Sign_isValidString(sign.c_str()) == 0) {
+      sign = SIGN_INVALID;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    } else {
+      sign = Sign_fromString(sign.c_str());
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
    * @param qualitativeSpecies
    */
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
@@ -293,6 +306,21 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       return LIBSBML_INVALID_ATTRIBUTE_VALUE;
     } else {
       transitionEffect = transitionEffect;
+      return LIBSBML_OPERATION_SUCCESS;
+    }
+  }
+
+  /**
+   * @param transitionEffect std::string& of the "transitionEffect" attribute
+   * to be set.
+   */
+  public int setTransitionEffect(const std::string& transitionEffect) {
+    if (TransitionInputEffect_isValidString(transitionEffect.c_str()) == 0) {
+      transitionEffect = TRANSITION_INPUT_EFFECT_INVALID;
+      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
+    } else {
+      transitionEffect =
+        TransitionInputEffect_fromString(transitionEffect.c_str());
       return LIBSBML_OPERATION_SUCCESS;
     }
   }
@@ -388,7 +416,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 6047177;
+    final int prime = 4941269;
 
     int hashCode = super.hashCode();
 
