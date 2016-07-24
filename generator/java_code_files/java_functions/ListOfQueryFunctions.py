@@ -1784,7 +1784,7 @@ class ListOfQueryFunctions():
             # implementation = ['return '
             #                   '&{0}'.format(self.class_object['memberName'])]
             # code = [self.create_code_block('line', implementation)]
-            implementation = ['unset{0}()'.format(loname_lower)]
+            implementation = ['unset{0}()'.format(loname)]
             implementation.append('this.{0} = {1}'.format(loname_lower, loname_lower))
             implementation.append('this.{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
 
