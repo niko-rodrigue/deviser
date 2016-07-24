@@ -811,10 +811,17 @@ class Constructors():
                     cap_att_name = attribute['capAttName']
                     if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                         member_name = attribute['name']
-                        # TODO changed to as jsbml example
+                        # # TODO changed to as jsbml example
                         reqd = str(attribute['reqd'])[:]
                         if reqd == 'True':
-                            line = '{0} = null'.format(member_name)
+                            attType = attribute['attType']
+                            if attType == 'lo_element':
+                                line = '{0} = null'.format(attribute['jsbmlName'])
+                            else:
+                                line = '{0} = null'.format(member_name)
+                        # reqd = str(attribute['reqd'])[:]
+                        # if reqd == 'True':
+                        #     line = '{0} = null'.format(member_name)
                             implementation.append(line)
 
 
@@ -1203,6 +1210,9 @@ class Constructors():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
+
+    ##############################################################################################
+    #TODO GSOC 2016
 
     # function to write copy constructor
     def write_copy_constructor(self):
