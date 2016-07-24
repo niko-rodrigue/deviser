@@ -683,7 +683,9 @@ class ListOfQueryFunctions():
                                                self.abbrev_parent))
         arguments.append('int i')
         # return_type = '{0}*'.format(self.object_child_name)
-        return_type = 'void'
+        # TODO QUESTION LOST void or type
+        # return_type = 'void'
+        return_type = '{0}'.format(used_java_name)
 
         code = []
         if not self.is_header:
