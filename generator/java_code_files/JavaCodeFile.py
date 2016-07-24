@@ -760,9 +760,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 self.write_function_implementation(code)
 
 
-            # getInputCount alternative
             if function_to_write == 'getNum':
                 code = lo_functions.write_get_num_element_function()
+                self.write_function_implementation(code)
+
+            if function_to_write == 'getCount':
+                code = lo_functions.write_get_element_function_count()
                 self.write_function_implementation(code)
 
             if function_to_write == 'createElement':
@@ -809,6 +812,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
         function_to_write = 'getNum'
+        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        function_to_write = 'getCount'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
         function_to_write = 'isSetListOf'

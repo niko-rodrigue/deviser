@@ -1337,7 +1337,7 @@ class ListOfQueryFunctions():
                      'implementation': code})
 
 
-
+    ####################################################################################################################
 
 
     # Functions for writing get num element functions
@@ -1373,7 +1373,7 @@ class ListOfQueryFunctions():
         if parameter:
             arguments.append('{0} {1}'.format(parameter['type'], parameter['name']))
         used_java_name_plural = strFunctions.remove_prefix(self.plural)
-        used_java_name =  strFunctions.remove_prefix(self.child_name)
+        used_java_name = strFunctions.remove_prefix(self.child_name)
         if self.is_java_api:
             function = 'getNum{0}'.format(used_java_name_plural)
         else:
@@ -1425,6 +1425,91 @@ class ListOfQueryFunctions():
                      'implementation': code})
 
     ########################################################################
+
+    # function to write get Count
+    def write_get_element_function_count(self, parameter=None):
+        # create comment parts
+        if parameter:
+            title_line = 'Get the number of {0} objects in ' \
+                         'this {1} with the given {2}' \
+                         '.'.format(self.object_child_name,
+                                    self.object_name,
+                                    parameter['name'])
+        else:
+            title_line = 'Get the number of {0} objects in ' \
+                         'this {1}.'.format(self.object_child_name,
+                                            self.object_name)
+        params = []
+        # if parameter:
+        #     params.append('@param {0} the {0} of the {1} to return.'
+        #                   ''.format(parameter['name'], self.object_child_name))
+        # if not self.is_java_api:
+        #     params.append('@param {0} the {1} structure to query.'
+        #                   .format(self.abbrev_parent, self.object_name))
+        return_lines = ['@return the number of {0} objects in '
+                        'this {1}.'.format(self.object_child_name,
+                                           self.object_name)]
+        additional = []
+
+        # create the function declaration
+        arguments = []
+        if parameter:
+            arguments.append('{0} {1}'.format(parameter['type'], parameter['name']))
+        used_java_name_plural = strFunctions.remove_prefix(self.plural)
+        used_java_name = strFunctions.remove_prefix(self.child_name)
+        if self.is_java_api:
+            function = 'get{0}Count()'.format(used_java_name)
+        else:
+            function = '{0}_getNum{1}'.format(self.class_name, used_java_name_plural)
+            arguments.append('{0}* {1}'.format(self.object_name,
+                                               self.abbrev_parent))
+        return_type = 'int'
+
+        params.append('Returns the number of {{@link {0}}}s in this {{@link {1}}}.'.format(used_java_name, self.package))
+        params.append(' ')
+        params.append('@return the number of {{@link {0}}}s in this  {{@link {0}}}.'.format(used_java_name,
+                                                                                            self.package))
+        params.append('@libsbml.deprecated same as {{@link #get{0}Count()}}'.format(used_java_name))
+        if self.is_java_api and self.is_list_of:
+            implementation = ['return isSetListOf{0}s() ? getListOf{1}s().size() : 0'.format(used_java_name,
+                                                                                             used_java_name)]
+        elif self.is_java_api and not self.is_list_of:
+            if not self.document:
+                implementation = ['return isSetListOf{0}s() ? getListOf{1}s().size() : 0'.format(used_java_name,
+                                                                                             used_java_name)]
+                # implementation = ['return {0}.'
+                #                   'size()'.format(self.class_object['memberName'])]
+            elif parameter:
+                implementation = ['return getErrorLog()->'
+                                  'getNumFailsWith{0}({1})'
+                                  ''.format(strFunctions.upper_first(parameter['name']),
+                                            parameter['name'])]
+            else:
+                implementation = ['return {0}.'
+                                  'getNumErrors()'.format(self.class_object['memberName'])]
+
+        else:
+            implementation = ['return ({0} != NULL) ? {0}->getNum{1}() : '
+                              '{2}_INT_MAX'.format(self.abbrev_parent,
+                                                   used_java_name_plural,
+                                                   self.cap_language)]
+        code = [self.create_code_block('line', implementation)]
+        # return the parts
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': True,
+                     'virtual': False,
+                     'object_name': self.struct_name,
+                     'implementation': code})
+
+    ########################################################################
+
+
 
     # Functions for writing getListOf
 

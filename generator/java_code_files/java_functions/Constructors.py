@@ -828,7 +828,7 @@ class Constructors():
                         # reqd = str(attribute['reqd'])[:]
                         # if reqd == 'True':
                         #     line = '{0} = null'.format(member_name)
-                            implementation.append(line)
+                        implementation.append(line)
 
 
                 # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
