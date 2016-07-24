@@ -64,7 +64,11 @@ class MandatoryFunctions():
                 self.object_name = self.class_name  #+ '_t'
             self.object_child_name = self.child_name  # + '_t'
 
-        self.attributes = class_object['class_attributes']
+
+        # class_attributes not suitable
+        # self.attributes = class_object['class_attributes']
+        self.attributes = class_object['attribs']
+
         self.child_elements = class_object['child_elements']
         if 'num_versions' in class_object and class_object['num_versions'] > 1:
             self.has_multiple_versions = True
@@ -133,7 +137,11 @@ class MandatoryFunctions():
         # # TODO fix bug no need isCompartment
         for attribute in self.attributes:
 
-            att_name = strFunctions.upper_first(attribute['name'])
+            att_type = attribute['attType']
+            if att_type == 'lo_element':
+                att_name = attribute['attTypeCode']
+            else:
+                att_name = strFunctions.upper_first(attribute['name'])
             method_name_one = str('is{0}Mandatory'.format(att_name))
             method_name_two= str('isSet{0}Mandatory'.format(att_name))
             for key in list(self.mandatory_data.keys()):
