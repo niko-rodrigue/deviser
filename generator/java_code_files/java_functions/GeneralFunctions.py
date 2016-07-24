@@ -213,7 +213,7 @@ class GeneralFunctions():
                           'return getListOf{0}s'.format(cap_name)]  # 3rd line
         #
         nested_if = self.create_code_block('if', implementation)
-        implementation = ['isSetListOf{0}s'.format(cap_name),
+        implementation = ['isSetListOf{0}s()'.format(cap_name),
                           nested_if, 'pos++']  # 2nd line
         # # print('implementation ',implementation)
         # # code.append(self.create_code_block('if', implementation))
