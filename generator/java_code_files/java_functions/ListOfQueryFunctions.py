@@ -683,7 +683,7 @@ class ListOfQueryFunctions():
                                                self.abbrev_parent))
         arguments.append('int i')
         # return_type = '{0}*'.format(self.object_child_name)
-        return_type = 'boolean'
+        return_type = 'void'
 
         code = []
         if not self.is_header:
@@ -1458,7 +1458,7 @@ class ListOfQueryFunctions():
         used_java_name_plural = strFunctions.remove_prefix(self.plural)
         used_java_name = strFunctions.remove_prefix(self.child_name)
         if self.is_java_api:
-            function = 'get{0}Count()'.format(used_java_name)
+            function = 'get{0}Count'.format(used_java_name)
         else:
             function = '{0}_getNum{1}'.format(self.class_name, used_java_name_plural)
             arguments.append('{0}* {1}'.format(self.object_name,
@@ -1579,6 +1579,8 @@ class ListOfQueryFunctions():
             implementation.append('{0} = new ListOf<{1}>()'.format(loname_lower, used_java_name))
             implementation.append('{0}.setNamespace({1}Constants.namespaceURI)'.format(loname_lower, self.package))
             implementation.append('{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
+
+
 
             if self.status != 'plugin':
                 implementation.append('registerChild({0})'.format(loname_lower))
@@ -1784,8 +1786,9 @@ class ListOfQueryFunctions():
             implementation.append('this.{0} = {1}'.format(loname_lower, loname_lower))
             implementation.append('this.{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
 
+            # TODO GSOC 2016 question: not in template,but yes in transition,etc
             if self.status != 'plugin':
-                implementation.append('registerChild({0})'.format(loname_lower))
+                implementation.append('registerChild(this.{0})'.format(loname_lower))
 
             temp_code = self.create_code_block('line', implementation)
             code.append(temp_code)
@@ -1887,9 +1890,9 @@ class ListOfQueryFunctions():
             #                   '&{0}'.format(self.class_object['memberName'])]
             # code = [self.create_code_block('line', implementation)]
             implementation = ['isSet{0}()'.format(loname)]
-            implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_name, loname, loname_lower))
+            implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_name, used_java_name, loname_lower))
             implementation.append('this.{0} = null'.format(loname_lower))
-            implementation.append('old{0}.fireNodeRemovedEvent()'.format(loname))
+            implementation.append('old{0}.fireNodeRemovedEvent()'.format(used_java_name))
             implementation.append('return true')
 
 
