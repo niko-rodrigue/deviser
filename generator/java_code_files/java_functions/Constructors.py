@@ -801,7 +801,13 @@ class Constructors():
 
         if global_variables.is_package:
             if self.is_java_api:
-                implementation = ['setPackageVersion(-1)']
+                implementation = []
+                # JSBML template start
+                implementation.append('addNamespace({0}Constants.namespaceURI)'.format(self.package))
+                # JSBML template end
+
+
+                implementation.append('setPackageVersion(-1)')
                 # TODO spacing wrong
                 implementation.append('packageName = {0}Constants.shortLabel'.format(self.package))
 
@@ -1312,13 +1318,22 @@ class Constructors():
         return temp_code
 
     def create_equals_if(self, index):
-        name = self.attributes[index]['capAttName']
-        member_name = self.attributes[index]['name']
+        attribute = self.attributes[index]
+        name = attribute['capAttName']
+        member_name = attribute['name']
 
-        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+        att_type = attribute['attType']
 
-        implement2 = ['equals && isSet{0}()'.format(name),
-                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, name, name)]  # 3rd line
+        # TODO GSOC 2016 changes
+        if att_type == 'lo_element':
+            to_write = attribute['attTypeCode']
+        else:
+            to_write = name
+
+        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, to_write, to_write)
+
+        implement2 = ['equals && isSet{0}()'.format(to_write),
+                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, to_write, to_write)]  # 3rd line
 
         # temp_code1 = self.create_code_block('line', implement1)
         temp_code2 = self.create_code_block('if', implement2)
@@ -1332,7 +1347,7 @@ class Constructors():
         if self.is_java_api is False:
             return
         # create doc string header
-        title_line = 'Assignment operator for {0}.'.format(self.object_name)
+        title_line = '(non-Javadoc)--@see java.lang.Object#equals(java.lang.Object)'.format(self.object_name)
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []

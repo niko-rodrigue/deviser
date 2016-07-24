@@ -451,6 +451,9 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.import_from_jsbml_modules.append('util.*')
         self.import_from_jsbml_modules.append('util.filters.*')
 
+        if self.has_children == True:
+            self.import_from_java_modules.append('javax.swing.tree.TreeNode')
+
         #self.import_from_jsbml_utils_modules = []
         if str(self.package).lower() == 'qual':
             if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
