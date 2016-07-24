@@ -802,13 +802,13 @@ class Constructors():
         if global_variables.is_package:
             if self.is_java_api:
                 implementation = []
-                # JSBML template start
-                implementation.append('addNamespace({0}Constants.namespaceURI)'.format(self.package))
+                # TODO JSBML template start Error for qualitativeSpecies
+                # implementation.append('addNamespace({0}Constants.namespaceURI)'.format(self.package))
                 # JSBML template end
 
 
                 implementation.append('setPackageVersion(-1)')
-                # TODO spacing wrong
+                # # TODO spacing wrong
                 implementation.append('packageName = {0}Constants.shortLabel'.format(self.package))
 
                 attributes = self.attributes
@@ -819,12 +819,12 @@ class Constructors():
                         member_name = attribute['name']
                         # # TODO changed to as jsbml example
                         reqd = str(attribute['reqd'])[:]
-                        if reqd == 'True':
-                            attType = attribute['attType']
-                            if attType == 'lo_element':
-                                line = '{0} = null'.format(attribute['jsbmlName'])
-                            else:
-                                line = '{0} = null'.format(member_name)
+                        # if reqd == 'True':
+                        attType = attribute['attType']
+                        if attType == 'lo_element':
+                            line = '{0} = null'.format(attribute['jsbmlName'])
+                        else:
+                            line = '{0} = null'.format(member_name)
                         # reqd = str(attribute['reqd'])[:]
                         # if reqd == 'True':
                         #     line = '{0} = null'.format(member_name)
@@ -1327,13 +1327,17 @@ class Constructors():
         # TODO GSOC 2016 changes
         if att_type == 'lo_element':
             to_write = attribute['attTypeCode']
+            implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, to_write, to_write)
+
+            implement2 = ['equals && isSet{0}()'.format(to_write),
+                          'equals &= {0}.get{1}().equals(get{2}())'.format(self.equals_short, to_write, to_write)]
         else:
             to_write = name
 
-        implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, to_write, to_write)
+            implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, to_write, to_write)
 
-        implement2 = ['equals && isSet{0}()'.format(to_write),
-                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, to_write, to_write)]  # 3rd line
+            implement2 = ['equals && isSet{0}()'.format(to_write),
+                              'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, to_write, to_write)]  # 3rd line
 
         # temp_code1 = self.create_code_block('line', implement1)
         temp_code2 = self.create_code_block('if', implement2)

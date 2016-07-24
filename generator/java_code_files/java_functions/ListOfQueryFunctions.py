@@ -529,6 +529,110 @@ class ListOfQueryFunctions():
 
     # Functions for writing remove element functions
 
+    # function to write remove  from a listOf
+    def write_remove_element(self):
+        # useful variables
+        virtual = True if self.is_list_of else False
+
+        # create comment parts
+        title_line = 'Removes the nth {0} from this {1} and returns a ' \
+                     'pointer to it.'.format(self.object_child_name,
+                                             self.object_name)
+        params = []
+        if not self.is_java_api:
+            params.append('@param {0} the {1} structure to search.'
+                          .format(self.abbrev_parent, self.object_name))
+        # params.append('@param n an unsigned int representing the index of '
+        #               'the {0} to remove.'.format(self.object_child_name))
+        return_lines = ['@return a pointer to the nth {0} in this {1}.'.format(
+            self.object_child_name, self.object_name)]
+        additional = []
+        # if self.is_java_api:
+        #     additional = ['@see size()'] if self.is_list_of \
+        #         else ['@see getNum{0}'.format(strFunctions.remove_prefix(self.plural))]
+        #     additional.append(' ')
+        #     additional.append('@note the caller owns the returned object and '
+        #                       'is responsible for deleting it.')
+        # create the function declaration
+        arguments = []
+        used_c_name = strFunctions.remove_prefix(self.child_name)
+        used_java_name = strFunctions.remove_prefix(self.object_child_name)
+        used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
+
+        params.append('Removes an element from the {{@link #listOf{0}s}}'.format(used_java_name))
+        params.append(' ')
+        params.append('@param {0} the element to be removed from the list.'.format(used_java_name))
+        params.append('@return {@code true} if the list contained the specified element and it was removed.')
+        params.append('@see java.util.List#remove(Object)')
+        if self.is_java_api:
+            function = 'remove' if self.is_list_of \
+                else 'remove{0}'.format(used_java_name)
+        else:
+            if self.is_list_of:
+                function = '{0}_remove'.format(self.class_name)
+            else:
+                function = '{0}_remove{1}'.format(self.class_name,
+                                                  used_c_name)
+
+            arguments.append('{0}* {1}'.format(self.object_name,
+                                               self.abbrev_parent))
+        arguments.append('{0} {1}'.format(used_java_name, used_java_name_lower))
+        # return_type = '{0}*'.format(self.object_child_name)
+        return_type = 'boolean'
+
+        code = []
+        if not self.is_header:
+            if self.status == 'java_list':
+                list_type = 'ListOf'
+                if not global_variables.is_package:
+                    list_type = strFunctions.prefix_name('ListOf')
+                implementation = ['return static_cast<{0}*>({1}::'
+                                  'remove(n))'.format(self.object_child_name,
+                                                      list_type)]
+                code = [self.create_code_block('line', implementation)]
+            elif self.status == 'cpp_not_list':
+                member = self.class_object['memberName']
+                implementation = ['return {0}.remove(n)'.format(member)]
+                code = [self.create_code_block('line', implementation)]
+            elif self.status == 'plugin':
+                name = self.class_object['memberName']
+                implementation = ['return static_cast<{0}*>({1}.remove'
+                                  '(n))'.format(self.child_name, name)]
+                code = [self.create_code_block('line', implementation)]
+            elif self.status == 'c_list':
+                line = ['{0} == NULL'.format(self.abbrev_parent), 'return NULL']
+                code = [self.create_code_block('if', line)]
+                line = ['return static_cast <{0}*>({1})->remove'
+                        '(n)'.format(self.class_name, self.abbrev_parent)]
+                code.append(self.create_code_block('line', line))
+            else:
+                # line = ['return ({0} != NULL) ? '
+                #         '{0}->remove{1}(n) : '
+                #         'NULL'.format(self.abbrev_parent, used_c_name)]
+                implementation = ['isSetListOf{0}s()'.format(used_java_name)]
+                implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name_lower))
+                # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
+                # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
+                code.append(self.create_code_block('if', implementation))
+
+        line = 'return false'
+        line_code = line  # self.create_code_block('line', line)
+        code.append(line_code)
+        # return the parts
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': virtual,
+                     'object_name': self.struct_name,
+             'implementation': code})
+
+
+
     # function to write remove by index from a listOf
     def write_remove_element_by_index(self):
         # useful variables
@@ -561,9 +665,10 @@ class ListOfQueryFunctions():
 
         params.append('Removes an element from the {{@link #listOf{0}s}}'.format(used_java_name))
         params.append(' ')
-        params.append('@param {0} the element to be removed from the list.'.format(used_java_name))
-        params.append('@return {@code true} if the list contained the specified element and it was removed.')
-        params.append('@see java.util.List#remove(Object)')
+        params.append('@param i the index where to remove the {{@link {0}}}.'.format(used_java_name))
+        params.append('@return the specified element if it was successfully found and removed.')
+        params.append('@throws IndexOutOfBoundsException if the listOf is not set or if the index \
+                        is out of bound ({{@code (i < 0) || (i > listOf{0}s)}})'.format(used_java_name))
         if self.is_java_api:
             function = 'remove' if self.is_list_of \
                 else 'remove{0}'.format(used_java_name)
@@ -1386,7 +1491,7 @@ class ListOfQueryFunctions():
             #                   '&{0}'.format(self.class_object['memberName'])]
             # code = [self.create_code_block('line', implementation)]
             implementation = ['{0} == null'.format(loname_lower)]
-            implementation.append('{0} == new ListOf<{1}>()'.format(loname_lower, used_java_name))
+            implementation.append('{0} = new ListOf<{1}>()'.format(loname_lower, used_java_name))
             implementation.append('{0}.setNamespace({1}Constants.namespaceURI)'.format(loname_lower, self.package))
             implementation.append('{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
 
