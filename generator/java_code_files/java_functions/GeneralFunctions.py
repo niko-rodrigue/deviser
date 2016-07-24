@@ -322,7 +322,7 @@ class GeneralFunctions():
         name = lo_element['name']
         cap_name = lo_element['capAttName']
         implementation = []
-        implementation.append('isSetListOf{0}s'.format(cap_name))
+        implementation.append('isSetListOf{0}s()'.format(cap_name))
         implementation.append('count++')
 
 
