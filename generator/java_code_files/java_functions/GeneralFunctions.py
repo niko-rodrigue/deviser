@@ -460,10 +460,15 @@ class GeneralFunctions():
     ########################################################################
 
     # Functions for writing hashCode
-    def create_hashcode_if(self, index):
-        name = self.attributes[index]['capAttName']
-        member_name = self.attributes[index]['name']
-        type = self.attributes[index]['type']
+    def create_hashcode_if(self, attribute):
+        name = attribute['capAttName']
+        member_name = attribute['name']
+        type = attribute['type']
+
+        if type == 'lo_element':
+            implementation = ['hashCode = prime * hashCode\
+        + (({0} == null) ? 0 : {1}.hashCode())'.format(attribute['jsbmlName'],attribute['jsbmlName'])]
+            return self.create_code_block('line', implementation)
 
         implementation = ['isSet{0}()'.format(name)]
         if str(type)[:] == 'bool':
@@ -535,9 +540,17 @@ class GeneralFunctions():
             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
                 continue
             else:
-                temp_code = self.create_hashcode_if(i)
+                temp_code = self.create_hashcode_if(attribute)
                 code.append(temp_code)
 
+        if self.has_children == True:
+            for i in range(0, len(self.child_lo_elements)):
+                attribute = self.child_lo_elements[i]
+                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                    continue
+                else:
+                    temp_code = self.create_hashcode_if(attribute)
+                    code.append(temp_code)
 
         temp = ['return hashCode']
         code.append(self.create_code_block('line', temp))
