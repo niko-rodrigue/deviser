@@ -1294,10 +1294,18 @@ class Constructors():
                      'constructor_args': constructor_args})
 
     def create_copy_if(self, index):
-        name = self.attributes[index]['capAttName']
-        member_name = self.attributes[index]['name']
+        attribute = self.attributes[index]
+        name = attribute['capAttName']
+        member_name = attribute['name']
 
-        implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
+        att_type = attribute['attType']
+
+        if att_type == 'lo_element':
+            implementation = ['{0}.isSet{1}()'.format(self.copy_name, attribute['attTypeCode'] ),
+                              'set{0}({1}.get{2}().clone())'.format(attribute['attTypeCode'],
+                                                            self.copy_name, attribute['attTypeCode'])]
+        else:
+            implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
                           'set{0}({1}.get{2}())'.format(name, self.copy_name, name)]  # 3rd line
 
         temp_code = self.create_code_block('if', implementation)
