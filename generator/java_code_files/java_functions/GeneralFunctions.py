@@ -210,7 +210,7 @@ class GeneralFunctions():
         #
         # # code = [dict({'code_type': 'line', 'code': 'TADA'})]
         implementation = ['pos == index',
-                          'return getListOf{0}s'.format(cap_name)]  # 3rd line
+                          'return getListOf{0}s()'.format(cap_name)]  # 3rd line
         #
         nested_if = self.create_code_block('if', implementation)
         implementation = ['isSetListOf{0}s()'.format(cap_name),
