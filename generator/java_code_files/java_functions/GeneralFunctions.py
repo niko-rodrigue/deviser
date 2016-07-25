@@ -832,6 +832,10 @@ class GeneralFunctions():
             implementation.append(
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}()))'.format(
                     self.package, self.package, member_name, jclass_type, name))
+        elif str(type)[:] == 'enum':
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, get{3}.toString())'.format(
+                    self.package, self.package, member_name, strFunctions.upper_first(member_name)))
         else:
             implementation.append('hashCode += prime')
 
