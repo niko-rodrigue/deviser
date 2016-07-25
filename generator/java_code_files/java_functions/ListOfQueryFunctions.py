@@ -1050,10 +1050,10 @@ class ListOfQueryFunctions():
 
 
         params.append('Creates a new {0} element and adds it to the'.format(child))
-        params.append('{{@link #listOf${0}s}} list.'.format(child))
+        params.append('{{@link listOf{0}s}} list.'.format(child))
         params.append(' ')
         params.append('@return the newly created element, i.e., the last item in the')
-        params.append('{{@link #listOf${0}s}}'.format(child))
+        params.append('{{@link listOf{0}s}}'.format(child))
 
         # create the function declaration
         arguments = []
@@ -1212,11 +1212,11 @@ class ListOfQueryFunctions():
 
 
         params.append('Creates a new {0} element and adds it to the'.format(child))
-        params.append('{{@link #listOf${0}s}} list.'.format(child))
+        params.append('{{@link listOf{0}s}} list.'.format(child))
         params.append(' ')
         params.append('@param id the identifier that is to be applied to the new element.')
         params.append('@return the newly created element, which is the last item in the')
-        params.append('{{@link #listOf${0}s}}'.format(child))
+        params.append('{{@link listOf{0}s}}'.format(child))
 
         # create the function declaration
         arguments = []
