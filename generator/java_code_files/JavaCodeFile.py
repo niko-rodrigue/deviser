@@ -78,13 +78,13 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_mandatory_functions()
 
 
-        self.write_child_element_functions()
+        # self.write_child_element_functions()
         self.write_listof_functions()
 
         # TODOs
         self.write_child_lo_element_functions()
 
-        self.write_concrete_functions()
+        # self.write_concrete_functions()
 
         # TODO write hash, read, write bugs
         self.write_general_functions()
@@ -327,11 +327,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
 
-            code = attrib_functions.write_set_string_for_enum(True, i)
-            self.write_function_implementation(code)
-
-            code = attrib_functions.write_add_element_for_vector(True, i)
-            self.write_function_implementation(code)
+            # TODO GSOC 2016 this part is not needed?
+            # code = attrib_functions.write_set_string_for_enum(True, i)
+            # self.write_function_implementation(code)
+            #
+            # code = attrib_functions.write_add_element_for_vector(True, i)
+            # self.write_function_implementation(code)
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_unset(True, i)

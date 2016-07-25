@@ -1068,8 +1068,7 @@ class SetGetFunctions():
                       .format(attribute['name'], att_type,
                               ob_type))
 
-        params = ['@param {0}'.format(attribute['name'])]
-                  # '       the {0} to set'.format(attribute['name'])]
+
 
         return_lines.append("@copydetails doc_returns_success_code")
         return_lines.append('@li @{0}constant{1}{2}, '
@@ -1094,9 +1093,15 @@ class SetGetFunctions():
                                            attribute['capAttName'])
             return_type = 'int'
 
+        # params = ['@param {0}'.format(attribute['name'])]
+        # # '       the {0} to set'.format(attribute['name'])]
 
+        params = ['Sets the value of {0}'.format(attribute['name'])]
+        params.append(' ')
+        params.append('@param {0} the value of {1} to be set.'.format(attribute['name'], attribute['name']))
+        # '       the {0} to set'.format(attribute['name'])]
 
-        # TODO write_set  implementation of return_type definition DONE
+        # TODO write_set  implementation of return_type definition?
         if attribute['type'] == 'SIdRef':
             return_type = 'boolean'
         else:
@@ -1118,6 +1123,13 @@ class SetGetFunctions():
                 arguments.append('{0}& {1}'
                                  .format(attribute['attTypeCode'],
                                          attribute['name']))
+            elif attribute['attType'] == 'enum':
+                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                if len(data) > 0:
+                    arg_type = data
+                else:
+                    arg_type = attribute['JClassType']
+                arguments.append('{0} {1}'.format(arg_type, attribute['name']))
             else:
                 arguments.append('{0} {1}'
                                  .format((attribute['attTypeCode']
@@ -2026,14 +2038,23 @@ class SetGetFunctions():
                               'return {0}'.format(self.success)]
             code = [dict({'code_type': 'line', 'code': implementation})]
         elif attribute['type'] == 'enum': # TODO setType setOperation setSig
-            implementation = ['{0}_isValid({1}) == '
-                              '0'.format(attribute['element'], name),
-                              '{0} = {1}'.format(member,
-                                                 attribute['default']),
-                              'return {0}'.format(self.invalid_att), 'else',
-                              '{0} = {1}'.format(member, name),
-                              'return {0}'.format(self.success)]
-            code = [dict({'code_type': 'if_else', 'code': implementation})]
+            # TODO maybe all should look like this
+            curr_att_type = attribute['JClassType']
+            implementation = []
+            implementation.append('{0} old{1} = this.{2}'.format(curr_att_type, attribute['capAttName'],
+                                                                 name))
+            implementation.append('this.{0} = null'.format(name))
+            implementation.append('firePropertyChange({0}Constants.{1}, old{1}, this.{1})'.format(self.package,
+                                                                                                  name))
+            code = [dict({'code_type': 'line', 'code': implementation})]
+            # implementation = ['{0}_isValid({1}) == '
+            #                   '0'.format(attribute['element'], name),
+            #                   '{0} = {1}'.format(member,
+            #                                      attribute['default']),
+            #                   'return {0}'.format(self.invalid_att), 'else',
+            #                   '{0} = {1}'.format(member, name),
+            #                   'return {0}'.format(self.success)]
+            # code = [dict({'code_type': 'if_else', 'code': implementation})]
         elif query.has_is_set_member(attribute):
             code = self.write_set_att_with_member(attribute, True)
 
