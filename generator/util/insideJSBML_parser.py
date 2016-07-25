@@ -168,15 +168,14 @@ def get_class_information(class_name=None, individual_run=False):
     try:
         class_info = os.popen('{0}'.format(command))
         class_output = class_info.readlines()
-        if len(class_output) == 0:
-            print('Check if Java SDK is installed, deviser requires javap')
-            return
+        #raise Exception('For bug testing')
+        assert len(class_output) > 0
         dict_data = parse_output(class_output)
         class_info.close()
         return dict_data
     except:
         print('Check if Java SDK is installed, deviser requires javap')
-        return
+        sys.exit(0)
     # print_output(class_output)
 
 
