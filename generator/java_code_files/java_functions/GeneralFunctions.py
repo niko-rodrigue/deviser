@@ -476,6 +476,8 @@ class GeneralFunctions():
             implementation.append('hashCode += prime + (get{0}() ? 1 : -1)'.format(name))
         elif str(type)[:] == 'SIdRef':
             implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
+        elif str(type)[:] == 'enum':
+            implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
         elif str(type)[:] == 'uint':
             implementation.append('hashCode += prime * get{0}()'.format(name))
         else:
