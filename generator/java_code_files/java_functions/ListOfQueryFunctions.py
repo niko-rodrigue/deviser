@@ -172,7 +172,7 @@ class ListOfQueryFunctions():
                       'of the {0} to retrieve.'.format(self.object_child_name))
         return_lines = ['@return the nth {0} {1}.'.format(
             self.object_child_name, return_string)]
-        additional = []
+        additional = ['Deprecated']
         if self.is_java_api:
             additional = ['@see size()'] if self.is_list_of \
                 else ['@see getNum{0}()'.format(strFunctions.remove_prefix(self.plural))]
@@ -195,7 +195,7 @@ class ListOfQueryFunctions():
         # if appropriate write the code
         code = []
         if not self.is_header:
-            if self.status == 'cpp_list':
+            if self.status == 'java_list':
                 list_type = 'ListOf'
                 if not global_variables.is_package:
                     list_type = strFunctions.prefix_name('ListOf')
@@ -1367,7 +1367,7 @@ class ListOfQueryFunctions():
         return_lines = ['@return the number of {0} objects in '
                         'this {1}.'.format(self.object_child_name,
                                            self.object_name)]
-        additional = []
+        additional = ['Deprecated']
 
 
         # create the function declaration

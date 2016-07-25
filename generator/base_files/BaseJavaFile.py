@@ -1005,6 +1005,9 @@ class BaseJavaFile(BaseFile.BaseFile):
     def write_override_statement(self):
         self.write_line_verbatim('@Override')
 
+    def write_deprecated_statement(self):
+        self.write_line_verbatim('@Deprecated')
+
     # TODO GSOC variable comment line
     def write_variable_comment(self):
         self.open_double_comment(self)
@@ -1050,9 +1053,13 @@ class BaseJavaFile(BaseFile.BaseFile):
             if exclude:
                 self.write_doxygen_start()
             if len(code['additional']) > 0:
-                if code['additional'][0] is'Override':
+                if code['additional'][0] is 'Override':
                     self.write_non_javadoc_header(code['title_line'])
                     self.write_override_statement()
+                elif code['additional'][0] == 'Deprecated':
+                    # self.write_non_javadoc_header(code['title_line'])
+                    self.write_class_params_header(code['params'])
+                    self.write_deprecated_statement()
             if len(code['params']) > 0 and len(code['additional']) == 0:
                 self.write_class_params_header(code['params'])
             else:
