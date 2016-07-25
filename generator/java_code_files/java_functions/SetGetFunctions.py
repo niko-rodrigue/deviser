@@ -1628,8 +1628,11 @@ class SetGetFunctions():
                                                                              functionArgs)
 
 
-
-                    # TODO GSOC 2016 write_unset return type definition
+        params = []
+        params.append('Unsets the variable {0}.'.format(attribute['name']))
+        params.append(' ')
+        params.append('@return {{@code true}} if {0} was set before, otherwise {{@code false}}.'.format(attribute['name']))
+         # TODO GSOC 2016 write_unset return type definition
         return_type = 'boolean'
         arguments = []
         if not self.is_java_api:
@@ -2207,10 +2210,33 @@ class SetGetFunctions():
             code = [dict({'code_type': 'line', 'code': implementation}),
                     dict({'code_type': 'if_else', 'code': implementation2})]
         elif attribute['attType'] == 'enum':
-            implementation = ['{0} = {1}'.format(attribute['name'],
-                                                 attribute['default']),
-                              'return {0}'.format(self.success)]
-            code = [dict({'code_type': 'line', 'code': implementation})]
+
+            data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            if len(data) > 0:
+                curr_att_type = data
+            else:
+                curr_att_type = attribute['JClassType']
+
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['name'],
+                                                                                       oldValue,
+                                                                                       attribute['name'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                               'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
+
+            temp = 'return false'
+            code.append(temp)
+            # implementation = ['{0} = {1}'.format(attribute['name'],
+            #                                      attribute['default']),
+            #                   'return {0}'.format(self.success)]
+            # code = [dict({'code_type': 'line', 'code': implementation})]
 
         # TODO GSOC 2016 modification unset query
         # TODO here's the problem
@@ -2244,6 +2270,7 @@ class SetGetFunctions():
                                'return true', 'else',
                                'return false']
             code = [dict({'code_type': 'if_else', 'code': implementation})]
+
 
         elif attribute['type'] == 'element':
             implementation = ['delete {0}'.format(attribute['name']),
