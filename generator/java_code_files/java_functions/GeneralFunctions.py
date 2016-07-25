@@ -465,6 +465,7 @@ class GeneralFunctions():
         member_name = attribute['name']
         type = attribute['type']
 
+        # TODO hashCode for enum and vectors
         if type == 'lo_element':
             implementation = ['hashCode = prime * hashCode\
         + (({0} == null) ? 0 : {1}.hashCode())'.format(attribute['jsbmlName'],attribute['jsbmlName'])]

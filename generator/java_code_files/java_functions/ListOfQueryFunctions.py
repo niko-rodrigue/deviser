@@ -1808,9 +1808,9 @@ class ListOfQueryFunctions():
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
 
-        line = 'return {0}'.format(loname_lower)
-        line_code = line  # self.create_code_block('line', line)
-        code.append(line_code)
+        # line = 'return {0}'.format(loname_lower)
+        # line_code = line  # self.create_code_block('line', line)
+        # code.append(line_code)
 
         return dict({'title_line': title_line,
                      'params': params,
