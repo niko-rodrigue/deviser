@@ -589,11 +589,18 @@ class GeneralFunctions():
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
         java_type_data = self.attributes[index]['JClassType']
+        type = self.attributes[index]['type']
 
         if java_type_data == 'Boolean':
             java_type = 'Boolean'
         elif java_type_data == 'Integer':
             java_type = 'Int'
+        elif type == 'enum':
+            data = self.jsbml_data_tree['Difference'][java_type_data]
+            if len(data) > 0:
+                java_type = data
+            else:
+                java_type = java_type_data
         else: #TODO needs to be modified
             java_type = java_type_data
 
@@ -604,10 +611,24 @@ class GeneralFunctions():
 
 
 
-        type = self.attributes[index]['type']
+
 
         if str(type)[:] == 'SIdRef':
             implementation.append('set{0}({1})'.format(name, self.value))
+        elif type == 'enum':
+            temp_implementation = []
+
+            temp_implementation.append('set{0}({1}.valueOf(value))'.format(name,java_type))
+            temp_implementation.append('catch')
+            temp_implementation.append('Exception e')
+            # temp_implementation.append('''throw new SBMLException("Could not recognized the value\'" + value + "\'for the attribute " + {0}Constants.{1} + " on the 'input' element.")'''.format(self.package, member_name))
+            temp_implementation.append('throw new SBMLException("Could not recognized '
+                                       'the value \'" +\
+                                        value + "\' for the attribute " + \
+                                        {0}Constants.{1} + " on the \'{2}\' element.")'.format(self.package, member_name, self.class_name))
+
+            implementation.append(self.create_code_block('try', temp_implementation))
+
         else:
             implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
 

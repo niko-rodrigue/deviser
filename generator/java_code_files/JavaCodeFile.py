@@ -417,19 +417,19 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = gen_functions.write_get_child_count()
         self.write_function_implementation(code)
 
-
         code = gen_functions.write_hashcode()
         self.write_function_implementation(code)
 
         code = gen_functions.write_to_string()
         self.write_function_implementation(code)
 
-        self.line_length = 100
+        self.line_length = 90
         code = gen_functions.write_read_attribute()
         self.write_function_implementation(code)
         self.line_length = 79
 
-        self.line_length = 150
+        # TODO Need to change this
+        self.line_length = 90
         code = gen_functions.write_write_xml_attribute()
         self.write_function_implementation(code)
         self.line_length = 79
@@ -929,10 +929,18 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         if len(attributes) > 0:
             for attribute in attributes:
                 #print(attribute['memberName'])
+                type = attribute['attType']
                 cap_att_name = attribute['capAttName']
                 if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                     self.write_variable_comment()
-                    return_type = attribute['JClassType']
+                    if type == 'enum':
+                        data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                        if len(data) >0:
+                            return_type = data
+                        else:
+                            return_type = attribute['JClassType']
+                    else:
+                        return_type = attribute['JClassType']
                     member_name = attribute['name']
                     line = 'private {0} {1};'.format(return_type, member_name)
                     self.write_line(line)

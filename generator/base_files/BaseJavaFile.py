@@ -1319,13 +1319,23 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_line_jsbml('{0} ({1})'.format(block_start, code[0]))
             #self.write_line('{')
             self.write_nested_implementation(code[1:len(code)])
-            self.write_line_jsbml_block_end('}')
+            if block_start == 'catch':
+                self.write_line_jsbml_block_end('}\n')
+            else:
+                self.write_line_jsbml_block_end('}')
             #self.write_line('}') # TODO almost but not yet there, crap!!!
         else:
-            self.write_line_jsbml_else(block_start)
-            #self.write_line('{')
-            self.write_nested_implementation(code)
-            self.write_line('}')
+            if block_start == 'try':
+                self.write_line_jsbml('{0}'.format(block_start))
+                self.write_nested_implementation(code)
+                self.write_line('}')
+            else:
+                self.write_line_jsbml_else(block_start)
+                #self.write_line('{')
+                self.write_nested_implementation(code)
+                self.write_line('}')
+
+
 
     def write_line_jsbml_else(self, line, space = 0):
         self.file_out.write(' {0} '.format(line))
@@ -1503,6 +1513,93 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
     ######################################################################
+
+    @staticmethod
+    def parse_lines(lines, words, max_length):
+        num_words = len(words)
+        in_quotes = False
+        words_are = words
+        quotes_closed = True
+        reopen_quotes = False
+        i = 1
+        temp = words[0]
+        if temp.startswith('\"'):
+            in_quotes = True
+        newline = words[0]
+        while i < num_words:
+            if len(newline) < max_length:
+                if not in_quotes:
+                    if words[i].startswith('\"'):
+                        in_quotes = True
+                        quotes_closed = False
+                    # check we dont also end
+                    if words[i].endswith('\"'):
+                        in_quotes = False
+                        quotes_closed = True
+                else:
+                    if words[i].endswith('\"'):
+                        in_quotes = False
+                if len(temp) > 0:
+                    temp = temp + ' ' + words[i]
+                else:
+                    if reopen_quotes:
+                        temp = '\"' + words[i]
+                        reopen_quotes = False
+                    else:
+                        temp = words[i]
+                i += 1
+                if len(temp) <= max_length:
+                    if temp.endswith('\"'):
+                        quotes_closed = True
+                    newline = temp
+                else:
+                    if len(newline) == 0:
+                        if in_quotes or not quotes_closed:
+                            temp += ' \"'
+                            quotes_closed = True
+                        if in_quotes and not quotes_closed:
+                            reopen_quotes = True
+                        lines.append(temp)
+                        temp = ''
+                    else:
+                        rollback = True
+                        if in_quotes:
+                            if words[i - 1] == '",':
+                                # special case for validation rule messages
+                                rollback = False
+                                newline = temp
+                            elif words[i - 1].startswith('\"'):
+                                # do not add the quotes as we are throwing
+                                # the word away
+                                in_quotes = False
+                                quotes_closed = True
+                            else:
+                                # newline += ' \"'
+                                # quotes_closed = True
+                                # reopen_quotes = True
+                                # TODO readAttribute enum stuff
+                                newline += ' \"+'
+                                quotes_closed = True
+                                reopen_quotes = True
+                        elif not quotes_closed:
+                            newline += ' \"'
+                            quotes_closed = True
+                            reopen_quotes = True
+                        lines.append(newline)
+                        newline = ''
+                        temp = ''
+                        if rollback:
+                            i -= 1
+            else:
+                if in_quotes or not quotes_closed:
+                    newline += ' \"'
+                    quotes_closed = True
+                    reopen_quotes = True
+                lines.append(newline)
+                newline = ''
+                temp = ''
+        if len(newline) > 0:
+            lines.append(newline)
 
     # HELPER FUNCTIONS
 

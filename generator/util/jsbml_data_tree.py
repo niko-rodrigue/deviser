@@ -1156,6 +1156,8 @@ jsbml_data_tree[pack_spatial]['SpatialPoints'] = [abstract_named_sbase, unique_n
 # jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['returnType'] = 'boolean'
 # jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['return'] = 'false'
 
+# GSOC 2016 TODO
+jsbml_data_tree['Difference']['TransitionInputEffect'] = 'InputTransitionEffect'
 
 
 # TODO approach for whole thing not effective
