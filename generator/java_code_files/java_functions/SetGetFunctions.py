@@ -155,8 +155,7 @@ class SetGetFunctions():
         #     .format(attribute['name'],
         #             ('attribute' if is_attribute else 'element'),
         #             (self.class_name if self.is_java_api else self.object_name))
-        title_line = '@return the {0}'.format(attribute['name'])
-
+        title_line = '' # '@return the {0}'.format(attribute['name'])
 
 
 
@@ -193,15 +192,26 @@ class SetGetFunctions():
                                              and attribute['isEnum'] is False)
                                          else attribute['attTypeCode'])))
 
+        params = []
+        params.append('Returns the value of {{@link {0}}}.'.format(attribute['name']))
+        params.append(' ')
+        params.append('@return the value of {{@link {0}}}.'.format(attribute['name']))
+
         # create the function declaration
         if self.is_java_api:
             function = 'get{0}'.format(attribute['capAttName'])
             if attribute['attType'] == 'string' \
                     or attribute['attType'] == 'element':
-                if const:
-                    return_type = attribute['attTypeCode'] # 'const ' +
+                # if const:
+                #     return_type = attribute['attTypeCode'] # 'const ' +
+                # else:
+                return_type = attribute['attTypeCode']
+            elif attribute['attType'] == 'enum':
+                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                if len(data) > 0:
+                    return_type = data
                 else:
-                    return_type = attribute['attTypeCode']
+                    return_type = attribute['JClassType']
             elif attribute['attType'] == 'vector':
                 return_type = 'const {0}&'.format(attribute['attTypeCode'])
             else:
