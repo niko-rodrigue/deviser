@@ -292,6 +292,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # self.write_function_implementation(code)
             self.write_function_java(code)
 
+            # TODO enum as string?
             # code = attrib_functions.write_get_string_for_enum(True, i)
             # self.write_function_implementation(code)
 

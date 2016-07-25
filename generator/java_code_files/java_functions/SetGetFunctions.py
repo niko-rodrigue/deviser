@@ -727,7 +727,7 @@ class SetGetFunctions():
         #              'this {1}\'s \"{2}\" {3} is set.' \
         #     .format(self.true, self.object_name, attribute['name'],
         #             ob_type)
-        title_line = '@return '
+        # title_line = '@return '
         if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
                           .format(self.abbrev_parent, self.object_name))
@@ -737,10 +737,10 @@ class SetGetFunctions():
                             .format(self.true, self.object_name,
                                     attribute['name'],
                                     ob_type, self.false))
-
-
-
-
+        title_line = ''
+        params.append('Returns whether {{@link {0}}} is set.'.format(attribute['name']))
+        params.append(' ')
+        params.append('@return whether {{@link {0}}} is set.'.format(attribute['name']))
         # create the function declaration
         if self.is_java_api:
             if 'isVector' in attribute and attribute['isVector']:
@@ -771,16 +771,18 @@ class SetGetFunctions():
         # create the function implementation
         if self.is_java_api:
             if query.is_string(attribute):
-                implementation = ['return {0} != null'.format(
+                implementation = ['return this.{0} != null'.format(
                     attribute['name'])] # USED
             elif attribute['attType'] == 'enum' or attribute['isArray']:
-                implementation = ['return ({0} != '
-                                  '{1})'.format(attribute['name'],
-                                                attribute['default'])]
+                # implementation = ['return ({0} != '
+                #                   '{1})'.format(attribute['name'],
+                #                                 attribute['default'])]
+                implementation = ['return this.{0} != null'.format(
+                    attribute['name'])]  # Used
             elif query.has_is_set_member(attribute):
                 # implementation = ['return '
                 #                   'mIsSet{0}'.format(attribute['capAttName'])]
-                implementation = ['return {0} != null'.format(
+                implementation = ['return this.{0} != null'.format(
                     attribute['name'])]   # Used
             elif attribute['type'] == 'element':
                 implementation = ['return ({0} != '
@@ -791,7 +793,7 @@ class SetGetFunctions():
                                   '> 0'.format(attribute['name'])]
 
             else:
-                implementation = ['return {0} != null'.format(
+                implementation = ['return this.{0} != null'.format(
                     attribute['name'])] # USED
         else:
             if not self.is_list_of:
