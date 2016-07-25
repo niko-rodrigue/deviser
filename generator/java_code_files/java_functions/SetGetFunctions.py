@@ -2042,13 +2042,18 @@ class SetGetFunctions():
             code = [dict({'code_type': 'line', 'code': implementation})]
         elif attribute['type'] == 'enum': # TODO setType setOperation setSig
             # TODO maybe all should look like this
-            curr_att_type = attribute['JClassType']
+            data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            if len(data) > 0:
+                curr_att_type = data
+            else:
+                curr_att_type = attribute['JClassType']
             implementation = []
             implementation.append('{0} old{1} = this.{2}'.format(curr_att_type, attribute['capAttName'],
                                                                  name))
             implementation.append('this.{0} = null'.format(name))
-            implementation.append('firePropertyChange({0}Constants.{1}, old{1}, this.{1})'.format(self.package,
-                                                                                                  name))
+            implementation.append('firePropertyChange({0}Constants.{1}, old{2}, this.{1})'.format(self.package,
+                                                                                                  name,
+                                                                                                  strFunctions.upper_first(name)))
             code = [dict({'code_type': 'line', 'code': implementation})]
             # implementation = ['{0}_isValid({1}) == '
             #                   '0'.format(attribute['element'], name),
