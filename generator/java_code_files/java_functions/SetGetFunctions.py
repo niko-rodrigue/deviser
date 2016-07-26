@@ -315,6 +315,9 @@ class SetGetFunctions():
         if attribute['type'] != 'SIdRef':
             return None
 
+        jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
+
+
         params = []
         return_lines = []
         additional = []

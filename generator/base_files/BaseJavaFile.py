@@ -477,16 +477,16 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.jsbml_methods = {}
         for module in self.extends_modules:
             data = insideJSBML_parser.get_class_information(module)
-            self.jsbml_methods.update({module: data})
+            self.jsbml_methods.update({module: data['modules']})
 
             if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
                 for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
                     interface = insideJSBML_parser.get_class_information(interface_class)
-                    self.jsbml_methods.update({interface_class: interface})
+                    self.jsbml_methods.update({interface_class: interface['modules']})
 
         for module in self.implements_modules:
             data = insideJSBML_parser.get_class_information(module)
-            self.jsbml_methods.update({module: data})
+            self.jsbml_methods.update({module: data['modules']})
 
         for i in range(0, len(self.attributes)):
             capname = strFunctions.upper_first(self.attributes[i]['name'])
@@ -496,7 +496,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             else:
                 data = insideJSBML_parser.get_class_information(capname)
                 # print('yahoo ',data)
-                self.jsbml_methods.update({capname: data})
+                self.jsbml_methods.update({capname: data['modules']})
 
 
         # print('YOLO ',self.jsbml_methods)

@@ -34,6 +34,7 @@ def extract_data(temp_data):
     of_type = ''
     of_type_args = []
 
+    # TODO this is the part that includes extends module
     if len(temp_data) == 1 and temp_data[-1] == '}':
         return 
 
@@ -131,13 +132,47 @@ def extract_data(temp_data):
     # print('------------------')           
 
 
+def parse_extends(extends):
+    data_extends = {}
+    data_extends.update({'accessType': extends[0]})
+
+    if extends[1] == 'interface':
+        is_interface = True
+    else:
+        is_interface = False
+    data_extends.update({'isInterface': is_interface})
+
+    if extends[1] == 'class':
+        is_class = True
+    else:
+        is_class = False
+    data_extends.update({'isClass': is_class})
+
+    data_extends.update({'extendsFull': extends[-2]})
+
+    extend_short = extends[-2].split('.')[-1]
+    data_extends.update({'extendsShort': extend_short})
+
+    data_extends.update({'fullText': extends})
+    return data_extends
+
+    # print(extends)
+    # print('--------------------------')
+
 def parse_output(output):
+    final_data = {}
     output_data = []
     for line in output:
         #print(line) 
         data_stage1 = line.split('\n')
         # print(data_stage1)       
         data_stage2 = data_stage1[0].split(' ')
+        #Need to catch extend here
+        if 'extends' in data_stage2:
+            final_data.update({'extends': parse_extends(data_stage2)})
+
+
+
         temp_data = clean_line(data_stage2)
         # print(line)
         # print(temp_data)
@@ -156,7 +191,8 @@ def parse_output(output):
         #     output_data.update({'methods':temp_data})
         # print('->'*20)
         # print('\n')
-    return output_data
+    final_data.update({'modules': output_data})
+    return final_data #output_data
 
 def get_class_information(class_name=None, individual_run=False):
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
@@ -168,6 +204,7 @@ def get_class_information(class_name=None, individual_run=False):
     try:
         class_info = os.popen('{0}'.format(command))
         class_output = class_info.readlines()
+        # print('class_ou', class_output)
         #raise Exception('For bug testing')
         assert len(class_output) > 0
         dict_data = parse_output(class_output)
@@ -189,5 +226,8 @@ def get_class_information(class_name=None, individual_run=False):
 # class_name = 'org.sbml.jsbml.AbstractNamedSBase'
 
 # class_name = 'CompartmentalizedSBase'
+# class_name = 'SBaseWithDerivedUnit'
+# class_name = 'Compartment'
+#
 # data = get_class_information(class_name, individual_run=True)
 # print(data)

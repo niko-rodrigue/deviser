@@ -68,6 +68,14 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
     return add, class_key, functionArgs
 
 
+def detect_abstract_methods(jsbml_data_tree, jsbml_methods, method_name = None):
+    for method in jsbml_methods:
+        print(method)
+        print('-------------------------')
+
+
+
+
 def get_javadoc_comments_and_state(additional_add, class_key, function, functionArgs):
     if additional_add is not None:
         title_line = '(non-Javadoc)--'

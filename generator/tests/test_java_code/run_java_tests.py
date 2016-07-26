@@ -291,13 +291,13 @@ def main():
     # test_case = 'an element on QualitativeSpecies'
     # fail += run_test(name, num, class_name, test_case)
     #
-    #
-    name = 'qual'
-    num = 1
-    class_name = 'Transition'
-    list_of = 'ListOfTransition'
-    test_case = 'an element on Transition'
-    fail += run_test(name, num, class_name, test_case)
+    # #
+    # name = 'qual'
+    # num = 1
+    # class_name = 'Transition'
+    # list_of = 'ListOfTransition'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
 
 
     name = 'qual'
@@ -308,13 +308,13 @@ def main():
     fail += run_test(name, num, class_name, test_case)
 
 
-    name = 'qual'
-    num = 3
-    class_name = 'Output'
-    list_of = 'ListOfOutput'
-    test_case = 'an element on Output'
-    fail += run_test(name, num, class_name, test_case)
-    #
+    # name = 'qual'
+    # num = 3
+    # class_name = 'Output'
+    # list_of = 'ListOfOutput'
+    # test_case = 'an element on Output'
+    # fail += run_test(name, num, class_name, test_case)
+    # #
     #
     # name = 'qual'
     # num = 4
