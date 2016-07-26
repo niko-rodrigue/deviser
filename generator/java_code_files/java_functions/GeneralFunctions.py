@@ -234,7 +234,11 @@ class GeneralFunctions():
             if self.jsbml_data_tree[interface_name]['writeAbstractMethods'] == True:
                 # print(self.jsbml_data_tree[interface_name])
                 self.abstract_methods_to_write = self.abstract_jsbml_methods[interface_name]
-        return len(self.abstract_methods_to_write['modules'])
+        try:
+            return_val = len(self.abstract_methods_to_write['modules'])
+        except:
+            return_val = 0
+        return return_val
 
 
 
@@ -897,6 +901,10 @@ class GeneralFunctions():
         elif str(type)[:] == 'enum':
             implementation.append(
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, get{3}().toString())'.format(
+                    self.package, self.package, member_name, strFunctions.upper_first(member_name)))
+        elif str(type)[:] == 'int':
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, Integer.toString(get{3}()))'.format(
                     self.package, self.package, member_name, strFunctions.upper_first(member_name)))
         else:
             implementation.append('hashCode += prime')

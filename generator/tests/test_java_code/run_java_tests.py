@@ -284,38 +284,47 @@ def main():
 
 
     # # TODO qual tests
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualitativeSpecies'
-    # list_of = 'ListOfQualitativeSpecies'
-    # test_case = 'an element on QualitativeSpecies'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # name = 'qual'
-    # num = 1
-    # class_name = 'Transition'
-    # list_of = 'ListOfTransition'
-    # test_case = 'an element on Transition'
-    # fail += run_test(name, num, class_name, test_case)
 
+    #TODO now there's a problem with this
+    #Instance problem
 
+    #Compiles
+    name = 'qual'
+    num = 0
+    class_name = 'QualitativeSpecies'
+    list_of = 'ListOfQualitativeSpecies'
+    test_case = 'an element on QualitativeSpecies'
+    fail += run_test(name, num, class_name, test_case)
+    #
+    # #
+
+    # #Compiles
+    name = 'qual'
+    num = 1
+    class_name = 'Transition'
+    list_of = 'ListOfTransition'
+    test_case = 'an element on Transition'
+    fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #Compiles
     name = 'qual'
     num = 2
     class_name = 'Input'
     list_of = 'ListOfInput'
     test_case = 'an element on Input'
     fail += run_test(name, num, class_name, test_case)
-
-
-    # name = 'qual'
-    # num = 3
-    # class_name = 'Output'
-    # list_of = 'ListOfOutput'
-    # test_case = 'an element on Output'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
     #
+    #
+    #Compiles
+    name = 'qual'
+    num = 3
+    class_name = 'Output'
+    list_of = 'ListOfOutput'
+    test_case = 'an element on Output'
+    fail += run_test(name, num, class_name, test_case)
+    #
+    # # Function Term poblem abstractMathContainer
     # name = 'qual'
     # num = 4
     # class_name = 'DefaultTerm'
@@ -324,6 +333,7 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
     #
     #
+    # #Function Term poblem abstractMathContainer
     # name = 'qual'
     # num = 5
     # class_name = 'FunctionTerm'

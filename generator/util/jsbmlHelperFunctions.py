@@ -71,8 +71,14 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
 def find_instance_method(abstract_jsbml_methods, method_name):
     for interface_class in abstract_jsbml_methods:
         methods = abstract_jsbml_methods[interface_class]
-        if method_name in list(methods):
-            return True
+        # if method_name in list(methods):
+        #     return True
+        for method in methods:
+            try:
+                if method_name == method['functionName']:
+                    return True
+            except:
+                continue
         # print(interface_class)
         # if method_name ==
     return False
