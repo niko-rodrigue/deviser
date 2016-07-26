@@ -391,7 +391,9 @@ class SetGetFunctions():
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
                                                                              class_key, function,  functionArgs)
 
-
+        write_status = jsbmlHelperFunctions.find_instance_method(self.abstract_jsbml_methods, function)
+        if write_status == False:
+            return
 
         arguments = []
         if not self.is_java_api:
@@ -892,6 +894,11 @@ class SetGetFunctions():
             function = '{0}_isSet{1}'.format(self.class_name,
                                              attribute['capAttName'])
             return_type = 'int'
+
+        write_status = jsbmlHelperFunctions.find_instance_method(self.abstract_jsbml_methods, function)
+        if write_status == False:
+            return
+
 
         # TODO detect if override
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(

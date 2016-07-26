@@ -68,7 +68,16 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
     return add, class_key, functionArgs
 
 
-def detect_abstract_methods(jsbml_data_tree, jsbml_methods, method_name = None):
+def find_instance_method(abstract_jsbml_methods, method_name):
+    for interface_class in abstract_jsbml_methods:
+        methods = abstract_jsbml_methods[interface_class]
+        if method_name in list(methods):
+            return True
+        # print(interface_class)
+        # if method_name ==
+    return False
+
+def detect_abstract_methods(jsbml_data_tree, jsbml_methods):
     abstract_methods = {}
     for method_name in jsbml_methods:
         module = jsbml_data_tree[method_name]
