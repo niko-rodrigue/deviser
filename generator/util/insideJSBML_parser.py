@@ -226,8 +226,11 @@ def get_class_information(class_name=None, individual_run=False):
 # class_name = 'org.sbml.jsbml.AbstractNamedSBase'
 
 # class_name = 'CompartmentalizedSBase'
-# class_name = 'SBaseWithDerivedUnit'
+
 # class_name = 'Compartment'
-#
+# class_name = 'SBaseWithDerivedUnit'
+# class_name = 'NamedSBaseWithDerivedUnit'
+
+# class_name = 'UniqueNamedSBase'
 # data = get_class_information(class_name, individual_run=True)
 # print(data)

@@ -137,6 +137,12 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.is_doc_plugin = False
 
 
+
+        #TODO GSOC 2016
+        self.jsbml_methods = {}
+        self.abstract_jsbml_methods = {}
+        # self.jsbml_data_tree = {}
+
     ########################################################################
 
     # TODO will be needed for interfaces create a modified copy of it
@@ -497,6 +503,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 data = insideJSBML_parser.get_class_information(capname)
                 # print('yahoo ',data)
                 self.jsbml_methods.update({capname: data['modules']})
+
+        self.abstract_jsbml_methods = jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
 
 
         # print('YOLO ',self.jsbml_methods)

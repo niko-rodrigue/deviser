@@ -276,7 +276,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.is_list_of,
                                                            self.class_object,
                                                            self.jsbml_data_tree,
-                                                           self.jsbml_methods)
+                                                           self.jsbml_methods,
+                                                           self.abstract_jsbml_methods)
         num_attributes = len(self.class_attributes)
 
 

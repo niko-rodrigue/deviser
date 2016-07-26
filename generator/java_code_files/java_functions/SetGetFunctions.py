@@ -46,7 +46,8 @@ from util.jsbml_data_tree import jsbml_data_tree
 class SetGetFunctions():
     """Class for all java  functions for set/get/isset/unset"""
 
-    def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None, jsbml_methods=None):
+    def __init__(self, language, is_java_api, is_list_of, class_object,
+                 jsbml_data_tree=None, jsbml_methods=None, abstract_jsbml_methods = None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -114,6 +115,8 @@ class SetGetFunctions():
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
             self.jsbml_methods = jsbml_methods
+        if abstract_jsbml_methods is not None:
+            self.abstract_jsbml_methods = abstract_jsbml_methods
 
         self.duplicate_methods = []
     ########################################################################
@@ -315,7 +318,6 @@ class SetGetFunctions():
         if attribute['type'] != 'SIdRef':
             return None
 
-        jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
 
 
         params = []
