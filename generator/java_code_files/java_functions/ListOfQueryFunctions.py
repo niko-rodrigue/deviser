@@ -1071,9 +1071,16 @@ class ListOfQueryFunctions():
         if self.is_java_api and not is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
-            implementation = ['return create{0}(null)'.format(child)]
+            # TODO GSOC 2016 old version
+            # implementation = ['return create{0}(null)'.format(child)]
+            # code = [self.create_code_block('line', implementation)]
+            implementation = ['{0} {1} = new {0}(getLevel(), getVersion())'.format(child,
+                                                                                    strFunctions.lower_first(child),
+                                                                                    child)]
+            implementation.append('return add{0}({1}) ? {1} : null'.format(child,strFunctions.lower_first(child) ))
             code = [self.create_code_block('line', implementation)]
 
+            # implementation = ['return create{0}(null)'.format(child)]
 
             # implementation = ['{0}* {1} = NULL'.format(self.child_name,
             #                                            self.abbrev_child)]

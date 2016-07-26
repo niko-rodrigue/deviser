@@ -810,8 +810,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         function_to_write = 'createElement'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
-        function_to_write = 'createElementID'
-        self.write_child_lo_element_functions_by_groups(function_to_write)
+
+        # TODO not necessary for deviser right now
+        # function_to_write = 'createElementID'
+        # self.write_child_lo_element_functions_by_groups(function_to_write)
 
         function_to_write = 'getNum'
         self.write_child_lo_element_functions_by_groups(function_to_write)
