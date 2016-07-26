@@ -406,7 +406,15 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.class_object,
                                                           self.jsbml_data_tree,
                                                           self.jsbml_methods,
-                                                          self.prime_numbers)
+                                                          self.prime_numbers,
+                                                          self.abstract_jsbml_methods)
+
+
+        #Write abstract methods from the interfaces
+        num_abstract = gen_functions.obtain_interface_abstract_methods()
+        for i in range(0, num_abstract):
+            code = gen_functions.write_interface_abstract_methods(i)
+            self.write_function_implementation(code)
 
 
         self.line_length = 79

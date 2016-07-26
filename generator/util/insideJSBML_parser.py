@@ -138,8 +138,10 @@ def parse_extends(extends):
 
     if extends[1] == 'interface':
         is_interface = True
+        data_extends.update({'extendsOriginal': extends[2]})
     else:
         is_interface = False
+        data_extends.update({'extendsOriginal': extends[3]})
     data_extends.update({'isInterface': is_interface})
 
     if extends[1] == 'class':
@@ -147,6 +149,7 @@ def parse_extends(extends):
     else:
         is_class = False
     data_extends.update({'isClass': is_class})
+
 
     data_extends.update({'extendsFull': extends[-2]})
 

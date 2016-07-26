@@ -615,6 +615,7 @@ jsbml_data_tree[callable_sbase]['childrenInterfaces'] = [quantity]
 jsbml_data_tree[callable_sbase]['isUniqueJSBML'] = True
 jsbml_data_tree[callable_sbase]['level'] = 4
 jsbml_data_tree[callable_sbase]['libSBML_analogue'] = None
+jsbml_data_tree[callable_sbase]['writeAbstractMethods'] = True
 
 # unique_named_sbase Interface
 jsbml_data_tree[unique_named_sbase]['name'] = unique_named_sbase

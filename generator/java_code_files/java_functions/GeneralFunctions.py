@@ -45,7 +45,7 @@ class GeneralFunctions():
     """Class for general functions"""
 
     def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None,
-                 jsbml_methods=None, prime_numbers = None):
+                 jsbml_methods=None, prime_numbers = None, abstract_jsbml_methods = None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -153,6 +153,8 @@ class GeneralFunctions():
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
             self.jsbml_methods = jsbml_methods
+        if abstract_jsbml_methods is not None:
+            self.abstract_jsbml_methods = abstract_jsbml_methods
         if prime_numbers is not None:
             self.prime_numbers = prime_numbers
 
@@ -226,7 +228,65 @@ class GeneralFunctions():
         return temp_code
 
 
+    def obtain_interface_abstract_methods(self):
+        self.abstract_methods_to_write = []
+        for interface_name in self.abstract_jsbml_methods:
+            if self.jsbml_data_tree[interface_name]['writeAbstractMethods'] == True:
+                # print(self.jsbml_data_tree[interface_name])
+                self.abstract_methods_to_write = self.abstract_jsbml_methods[interface_name]
+        return len(self.abstract_methods_to_write['modules'])
 
+
+
+
+    def write_interface_abstract_methods(self, index):
+        if self.is_java_api is False:
+            return
+
+        code = []
+
+        curr_method_original = self.abstract_methods_to_write['extends']['extendsOriginal']
+
+        curr_method = self.abstract_methods_to_write['modules'][index]
+        print(curr_method)
+
+
+        access_type = curr_method['accessType']
+        return_type = curr_method['returnType']
+        is_abstract = curr_method['isAbstract']
+        function = curr_method['functionName']
+        title_line = '(non-Javadoc)--@see {0}#{1}()'.format(curr_method_original, function)
+        params = []
+        arguments = []
+        constructor_args = []
+
+        return_lines = []
+        additional = []
+        if is_abstract == True:
+            additional.append('Override')
+
+        if return_type != 'boolean':
+            return_type = return_type.split('.')[-1]
+            return_statement = 'null'
+        else:
+            return_statement = 'false'
+
+        implementation = []
+        implementation.append('return {0}'.format(return_statement))
+        code.append(self.create_code_block('line', implementation))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
 
     def write_get_child_at(self):
         if len(self.child_lo_elements) == 0:
