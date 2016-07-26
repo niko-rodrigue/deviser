@@ -234,6 +234,8 @@ class Constructors():
                   '@param version']
 
 
+
+
         # if global_variables.is_package:
         #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
         #                   'Version to assign to this {2}.'
@@ -287,6 +289,14 @@ class Constructors():
         if global_variables.is_package:
             if self.is_java_api:
                 implementation = ['this(null, null, level, version)']
+
+                import_module = self.import_modules[0]
+                if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                    try:
+                        implementation = ['super(level, version)']
+                        implementation.append('initDefaults()')
+                    except:
+                        return
 
                 # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
                 #                   '(level, version, '
@@ -355,6 +365,11 @@ class Constructors():
             title_line = '@param level\n'  # .format(strFunctions.lower_first(self.package))
         else:
             title_line = ' and @ p version values.'
+
+        #Stop generating this constructor
+        import_module = self.import_modules[0]
+        if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+            return
 
         params = ['@param id']
 
@@ -530,12 +545,30 @@ class Constructors():
                 arguments_no_defaults = ['String id','int level',
                                          'int version']
 
+        # Stop generating this constructor
+
+
+
+
         # create the function implementation
         constructor_args = [] #self.write_constructor_args(None)
 
         if global_variables.is_package:
             if self.is_java_api:
                 implementation = ['this(id, null, level, version)']
+
+                import_module = self.import_modules[0]
+                if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                    try:
+                        if len(self.jsbml_data_tree[import_module]['include']) > 0:
+                            type_obj = self.jsbml_data_tree[import_module]['include'][0]
+                            arguments = ['{0} math'.format(type_obj), 'int level', 'int version']
+                            arguments_no_defaults = ['{0} math'.format(type_obj), 'int level', 'int version']
+                            implementation = ['super(math, level, version)']
+                            implementation.append('initDefaults()')
+                    except:
+                        return
+
 
                 # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
                 #                   '(level, version, '
@@ -608,6 +641,12 @@ class Constructors():
                   '@param name',
                   '@param level',
                   '@param version']
+
+        #Stop generating this constructor
+        import_module = self.import_modules[0]
+        if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
+                        'name' in self.jsbml_data_tree[import_module]['ignore']:
+            return
 
         # if global_variables.is_package:
         #     params.append('@param pkgVersion an unsigned int, the {0} {1} '

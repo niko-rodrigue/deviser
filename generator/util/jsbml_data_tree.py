@@ -687,7 +687,8 @@ jsbml_data_tree[abstract_math_container]['childrenInterfaces'] = None
 jsbml_data_tree[abstract_math_container]['isUniqueJSBML'] = True
 jsbml_data_tree[abstract_math_container]['level'] = 4
 jsbml_data_tree[abstract_math_container]['libSBML_analogue'] = None
-
+jsbml_data_tree[abstract_math_container]['ignore'] = ['id', 'name']
+jsbml_data_tree[abstract_math_container]['include'] = ['ASTNode']
 ########################################################################
 
 # Level 5
