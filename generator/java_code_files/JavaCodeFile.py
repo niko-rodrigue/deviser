@@ -407,7 +407,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.jsbml_data_tree,
                                                           self.jsbml_methods,
                                                           self.prime_numbers,
-                                                          self.abstract_jsbml_methods)
+                                                          self.abstract_jsbml_methods,
+                                                          self.extends_modules)
 
 
         #Write abstract methods from the interfaces
@@ -431,8 +432,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = gen_functions.write_hashcode()
         self.write_function_implementation(code)
 
+        self.line_length = 120
         code = gen_functions.write_to_string()
         self.write_function_implementation(code)
+        self.line_length = 79
+
 
         self.line_length = 90
         code = gen_functions.write_read_attribute()

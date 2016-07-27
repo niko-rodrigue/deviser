@@ -45,7 +45,7 @@ class GeneralFunctions():
     """Class for general functions"""
 
     def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None,
-                 jsbml_methods=None, prime_numbers = None, abstract_jsbml_methods = None):
+                 jsbml_methods=None, prime_numbers = None, abstract_jsbml_methods = None, import_modules=None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -157,6 +157,8 @@ class GeneralFunctions():
             self.abstract_jsbml_methods = abstract_jsbml_methods
         if prime_numbers is not None:
             self.prime_numbers = prime_numbers
+        if import_modules is not None:
+            self.import_modules = import_modules
 
         self.attributeName = 'attributeName'
         self.prefix = 'prefix'
@@ -994,22 +996,25 @@ class GeneralFunctions():
     def create_to_string(self):
 
         text = ''
-        if len(self.attributes) > 1:
+        if len(self.attributes) >= 1:
             for index in range(0, len(self.attributes)):
                 # print('i is ',i)s
                 attribute = self.attributes[index]
+                name = self.attributes[index]['capAttName']
+                member_name = self.attributes[index]['name']
+                type = self.attributes[index]['type']
                 if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
                     continue
+                elif type == 'int':
+                    continue
                 else:
-                    name = self.attributes[index]['capAttName']
-                    member_name = self.attributes[index]['name']
-                    type = self.attributes[index]['type']
+                    # Stop generating for math elements
 
                     text += '{0} = " + {1} + ", '.format(member_name, member_name)
                     # else_if_index = i
                     # break
                     # code.append(temp_code[-1])
-        return  text
+        return text
 
 
 
@@ -1055,9 +1060,17 @@ class GeneralFunctions():
         text = 'return "{0} ['.format(self.class_name)
 
         text_rest = self.create_to_string()
-        text += text_rest
 
-        text += 'id = " + getId() + ", name = " + getName() + "]"'
+
+        #For math element
+        import_module = self.import_modules[0]
+        if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
+                        'name' in self.jsbml_data_tree[import_module]['ignore']:
+            text += text_rest
+            text += 'isSetMath = " + isSetMath() + "]"'
+        else:
+            text += text_rest
+            text += 'id = " + getId() + ", name = " + getName() + "]"'
 
         temp = [text]
         code.append(self.create_code_block('line', temp))

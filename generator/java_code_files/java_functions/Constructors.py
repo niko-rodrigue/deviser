@@ -862,6 +862,9 @@ class Constructors():
                         attType = attribute['attType']
                         if attType == 'lo_element':
                             line = '{0} = null'.format(attribute['jsbmlName'])
+                        # TODO math element
+                        elif attType == 'element':
+                            break
                         else:
                             line = '{0} = null'.format(member_name)
                         # reqd = str(attribute['reqd'])[:]
