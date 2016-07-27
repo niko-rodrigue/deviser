@@ -461,12 +461,14 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.import_from_java_modules.append('javax.swing.tree.TreeNode')
 
         #self.import_from_jsbml_utils_modules = []
-        if str(self.package).lower() == 'qual':
-            if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
-                self.class_is_abstract = False
-                self.import_from_java_modules.append('java.util.Map')
-            if self.name in ['Transition']:
-                self.import_from_java_modules.append('java.text.MessageFormat')
+        self.import_from_java_modules.append('java.util.Map')
+        self.import_from_java_modules.append('java.text.MessageFormat')
+        # if str(self.package).lower() == 'qual':
+        #     # if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
+        #     #     self.class_is_abstract = False
+        #     #
+        #     if self.name in ['Transition']:
+        #         self.import_from_java_modules.append('java.text.MessageFormat')
         if len(self.jsbml_data_tree[self.pack][self.name]) > 0:
             self.extends_modules = [self.jsbml_data_tree[self.pack][self.name][0]]
         if len(self.jsbml_data_tree[self.pack][self.name]) > 1:
@@ -555,6 +557,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             attributes[i]['isVector'] = False
             attributes[i]['children_overwrite'] = False
             att_type = attributes[i]['type']
+            att_name = attributes[i]['name']
             if att_type == 'SId' or att_type == 'SIdRef' or att_type == 'IDREF':
                 attributes[i]['attType'] = 'String'
                 attributes[i]['attTypeCode'] = 'String'
@@ -671,6 +674,16 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'vector'
                 attributes[i]['attTypeCode'] = 'ArrayList<{0}>'.format(attributes[i]['element'])
                 # print("YOLUS ",attributes[i]['attTypeCode'])
+                attributes[i]['CType'] = attributes[i]['attTypeCode']
+                attributes[i]['JClassType'] = attributes[i]['attTypeCode']
+                attributes[i]['isNumber'] = False
+                attributes[i]['default'] = 'NULL'
+            elif att_name == 'spatialIndex':
+                # attributes[i]['isVector'] = True
+                attributes[i]['element'] = att_type
+                    # strFunctions.lower_first(attributes[i]['element'])
+                attributes[i]['attType'] = att_type
+                attributes[i]['attTypeCode'] = att_type
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False

@@ -1114,11 +1114,12 @@ class SetGetFunctions():
         # '       the {0} to set'.format(attribute['name'])]
 
         # TODO write_set  implementation of return_type definition?
-        if attribute['type'] == 'SIdRef':
-            return_type = 'boolean'
-        else:
-            return_type ='void'
-            # additional.append(['@YOLOALOHA'])
+        return_type = 'boolean'
+        # if attribute['type'] == 'SIdRef':
+        #     return_type = 'boolean'
+        # else:
+        #     return_type ='void'
+        #     # additional.append(['@YOLOALOHA'])
 
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
                                                                                         self.jsbml_methods,
@@ -1164,7 +1165,32 @@ class SetGetFunctions():
 
         # create the function implementation
         if self.is_java_api:
-            code = self.set_java_attribute(attribute)
+            # code = self.set_java_attribute(attribute)
+            code = []
+            curr_att_type = attribute['JClassType']
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.{0}'.format(attribute['name'])
+
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['name'],
+                                                                                       oldValue,
+                                                                                       currValue)
+
+            #code = [dict({'code_type': 'line', 'code': 'TADA'})]
+            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
+            #                       'this.{0} = null'.format(attribute['name']), 'else',
+            #
+
+            impl2 =  'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
+            implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
+                              implement_part1,
+                              impl2, implement_part3, 'return true']  # 2nd line
+            code = [self.create_code_block('if', implementation)]
+
+            implementationNext = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementationNext))
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent
@@ -1653,7 +1679,30 @@ class SetGetFunctions():
 
         # create the function implementation
         if self.is_java_api:
-            code = self.unset_java_attribute(attribute)
+            # code = self.unset_java_attribute(attribute)
+            code = []
+            data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            if len(data) > 0:
+                curr_att_type = data
+            else:
+                curr_att_type = attribute['JClassType']
+
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['name'],
+                                                                                       oldValue,
+                                                                                       attribute['name'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                               'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
+
+            temp = 'return false'
+            code.append(temp)
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent

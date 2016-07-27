@@ -156,7 +156,8 @@ class MandatoryFunctions():
                 att = str(att_name)[:]
 
                 if (test_method == test_key):
-                    self.mandatory_data[method_name].append(attribute)
+                    # self.mandatory_data[method_name].append(attribute)
+                    self.mandatory_data.update({method_name: attribute})
                 # here is  the problem but how to fix it
                 else: #(test_method != test_key):
                     if test_method not in self.mandatory_data:

@@ -642,6 +642,7 @@ class GeneralFunctions():
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
         java_type = self.attributes[index]['JClassType']
+        type = self.attributes[index]['attType']
 
         # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
@@ -683,6 +684,8 @@ class GeneralFunctions():
 
         if str(type)[:] == 'SIdRef':
             implementation.append('set{0}({1})'.format(name, self.value))
+        elif str(type)[:] == 'IDREF':
+            implementation.append('set{0}({1})'.format(name, self.value))
         elif type == 'enum':
             temp_implementation = []
 
@@ -696,7 +699,8 @@ class GeneralFunctions():
                                         {0}Constants.{1} + " on the \'{2}\' element.")'.format(self.package, member_name, self.class_name))
 
             implementation.append(self.create_code_block('try', temp_implementation))
-
+        elif type == 'SpatialKind':
+            implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
         else:
             implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
 
@@ -896,6 +900,9 @@ class GeneralFunctions():
         elif str(type)[:] == 'SIdRef':
             implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}())'.format(
                                                                         self.package, self.package, member_name, name))
+        elif str(type)[:] == 'IDREF':
+            implementation.append('attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2},  get{3}())'.format(
+                self.package, self.package, member_name, name))
         elif str(type)[:] == 'uint':
             implementation.append(
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString(get{4}()))'.format(
@@ -908,6 +915,11 @@ class GeneralFunctions():
             implementation.append(
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, Integer.toString(get{3}()))'.format(
                     self.package, self.package, member_name, strFunctions.upper_first(member_name)))
+        elif str(type)[:] == 'SpatialKind':
+            implementation.append('attributes.remove("{0}")'.format(member_name))
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString())'.format(
+                    self.package, self.package, member_name, member_name))
         else:
             implementation.append('hashCode += prime')
 

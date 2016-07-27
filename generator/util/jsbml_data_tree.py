@@ -1161,6 +1161,8 @@ jsbml_data_tree[pack_spatial]['SpatialPoints'] = [abstract_named_sbase, unique_n
 # GSOC 2016 TODO
 jsbml_data_tree['Difference']['TransitionInputEffect'] = 'InputTransitionEffect'
 jsbml_data_tree['Difference']['TransitionOutputEffect'] = 'OutputTransitionEffect'
+jsbml_data_tree['Difference']['FbcOperation'] = 'Operation'
+
 
 # TODO approach for whole thing not effective
 # keys = jsbml_data_tree.keys()
