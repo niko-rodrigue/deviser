@@ -390,7 +390,7 @@ def main():
     #
     #
     # # TODO distrib tests
-    #
+    # COmpilable
     name = 'distrib'
     num = 0
     class_name = 'DrawFromDistribution'
@@ -398,21 +398,21 @@ def main():
     test_case = 'an element on DrawFromDistribution'
     fail += run_test(name, num, class_name, test_case)
 
+    # Compilable
+    name = 'distrib'
+    num = 1
+    class_name = 'DistribInput'
+    list_of = 'ListOfDistribInput'
+    test_case = 'an element on DistribInput'
+    fail += run_test(name, num, class_name, test_case)
 
-    # name = 'distrib'
-    # num = 1
-    # class_name = 'DistribInput'
-    # list_of = 'ListOfDistribInput'
-    # test_case = 'an element on DistribInput'
-    # fail += run_test(name, num, class_name, test_case)
 
-
-    # name = 'distrib'
-    # num = 2
-    # class_name = 'Uncertainty'
-    # list_of = 'ListOfUncertainty'
-    # test_case = 'an element on Uncertainty'
-    # fail += run_test(name, num, class_name, test_case)
+    name = 'distrib'
+    num = 2
+    class_name = 'Uncertainty'
+    list_of = 'ListOfUncertainty'
+    test_case = 'an element on Uncertainty'
+    fail += run_test(name, num, class_name, test_case)
     # #
     # # TODO groups tests
     # name = 'groups'

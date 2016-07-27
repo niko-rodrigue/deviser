@@ -812,7 +812,12 @@ class GeneralFunctions():
             temp_code = self.create_read_attribute_else()
             implementation_else_if += temp_code
 
-            temp_code = self.create_code_block('else_if', implementation_else_if)
+            if len(implementation_else_if) == 4:
+                temp_code = self.create_code_block('if_else', implementation_else_if)
+            else:
+                temp_code = self.create_code_block('else_if', implementation_else_if)
+
+
             implementation.append(temp_code)
             code.append(self.create_code_block('if', implementation))
 
@@ -1022,7 +1027,7 @@ class GeneralFunctions():
                 else:
                     # Stop generating for math elements
                     if index == len(self.attributes)-1 and len(self.child_elements) == 0:
-                        text += '{0} = " + {1} + '.format(member_name, member_name)
+                        text += '{0} = " + {1} '.format(member_name, member_name)
                     else:
                         text += '{0} = " + {1} + ", '.format(member_name, member_name)
                     # else_if_index = i
@@ -1132,7 +1137,7 @@ class GeneralFunctions():
             text += text_rest
             result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
             if result == False:
-                text += 'id = " + getId() + ", name = " + getName() + "]"'
+                text += '+ "id = " + getId() + ", name = " + getName() + "]"'
             else:
                 text += '"]"'
 
