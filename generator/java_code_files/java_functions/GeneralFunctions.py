@@ -1021,11 +1021,59 @@ class GeneralFunctions():
                     continue
                 else:
                     # Stop generating for math elements
-
-                    text += '{0} = " + {1} + ", '.format(member_name, member_name)
+                    if index == len(self.attributes)-1 and len(self.child_elements) == 0:
+                        text += '{0} = " + {1} + '.format(member_name, member_name)
+                    else:
+                        text += '{0} = " + {1} + ", '.format(member_name, member_name)
                     # else_if_index = i
                     # break
                     # code.append(temp_code[-1])
+
+
+        if len(self.child_elements) >= 1:
+            for index in range(0, len(self.child_elements)):
+                # print('i is ',i)s
+                attribute = self.child_elements[index]
+                name = self.child_elements[index]['capAttName']
+                member_name = self.child_elements[index]['name']
+                type = self.child_elements[index]['type']
+                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                    continue
+                elif type == 'int':
+                    continue
+                else:
+                    # Stop generating for math elements
+                    if index == len(self.child_elements)-1 and len(self.child_lo_elements) == 0:
+                        text += '{0} = " + {1} + '.format(member_name, member_name)
+                    else:
+                        text += '{0} = " + {1} + ", '.format(member_name, member_name)
+
+                    # else_if_index = i
+                    # break
+                    # code.append(temp_code[-1])
+
+        if len(self.child_lo_elements) >= 1:
+            for index in range(0, len(self.child_lo_elements)):
+                # print('i is ',i)s
+                attribute = self.child_lo_elements[index]
+                name = self.child_lo_elements[index]['capAttName']
+                member_name = self.child_lo_elements[index]['name']
+                jsbml_name = self.child_lo_elements[index]['jsbmlName']
+                type = self.child_lo_elements[index]['type']
+                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                    continue
+                elif type == 'int':
+                    continue
+                else:
+                    # Stop generating for math elements
+                    if index == len(self.child_lo_elements)-1 :
+                        text += '{0} = " + {1} + '.format(jsbml_name, jsbml_name)
+                    else:
+                        text += '{0} = " + {1} + ", '.format(jsbml_name, jsbml_name)
+                    # else_if_index = i
+                    # break
+                    # code.append(temp_code[-1])
+
         return text
 
 
@@ -1082,7 +1130,11 @@ class GeneralFunctions():
             text += 'isSetMath = " + isSetMath() + "]"'
         else:
             text += text_rest
-            text += 'id = " + getId() + ", name = " + getName() + "]"'
+            result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
+            if result == False:
+                text += 'id = " + getId() + ", name = " + getName() + "]"'
+            else:
+                text += '"]"'
 
         temp = [text]
         code.append(self.create_code_block('line', temp))

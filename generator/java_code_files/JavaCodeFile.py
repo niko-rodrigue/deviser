@@ -78,7 +78,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_mandatory_functions()
 
 
-        # self.write_child_element_functions()
+        self.write_child_element_functions()
         # self.write_listof_functions()
 
         # TODOs
@@ -364,8 +364,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = attrib_functions.write_get(False, i)
             self.write_function_implementation(code)
 
-            code = attrib_functions.write_get(False, i, const=False)
-            self.write_function_implementation(code)
+            # code = attrib_functions.write_get(False, i, const=False)
+            # self.write_function_implementation(code)
 
         for i in range(0, num_elements):
             code = attrib_functions.write_is_set(False, i)
@@ -962,12 +962,18 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                     line = 'private {0} {1};'.format(return_type, member_name)
                     self.write_line(line)
 
+
+        #Uncert XMLNode
         child_elements = self.child_elements
         if len(child_elements) > 0:
             for child_element in child_elements:
                 #print(attribute['memberName'])
                 # print(child_element)
-                pass
+                return_type = child_element['JClassType']
+                member_name = child_element['name']
+                line = 'private {0} {1};'.format(return_type, member_name)
+                self.write_variable_comment()
+                self.write_line(line)
                 # cap_att_name = attribute['capAttName']
                 # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                 #     self.write_variable_comment()

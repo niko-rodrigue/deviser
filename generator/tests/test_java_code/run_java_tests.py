@@ -372,48 +372,48 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
     #
     # # TODO dyn tests
+    # # Compilable
+    # name = 'dyn'
+    # num = 0
+    # class_name = 'DynElement'
+    # list_of = 'ListOfDynElement'
+    # test_case = 'an element on DynElement'
+    # fail += run_test(name, num, class_name, test_case)
     #
-    name = 'dyn'
-    num = 0
-    class_name = 'DynElement'
-    list_of = 'ListOfDynElement'
-    test_case = 'an element on DynElement'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'dyn'
-    num = 1
-    class_name = 'SpatialComponent'
-    list_of = 'ListOfSpatialComponent'
-    test_case = 'an element on SpatialComponent'
-    fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'dyn'
+    # num = 1
+    # class_name = 'SpatialComponent'
+    # list_of = 'ListOfSpatialComponent'
+    # test_case = 'an element on SpatialComponent'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
     # # TODO distrib tests
     #
-    # name = 'distrib'
-    # num = 0
-    # class_name = 'DrawFromDistribution'
-    # list_of = 'ListOfDrawFromDistribution'
-    # test_case = 'an element on DrawFromDistribution'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
+    name = 'distrib'
+    num = 0
+    class_name = 'DrawFromDistribution'
+    list_of = 'ListOfDrawFromDistribution'
+    test_case = 'an element on DrawFromDistribution'
+    fail += run_test(name, num, class_name, test_case)
+
+
     # name = 'distrib'
     # num = 1
     # class_name = 'DistribInput'
     # list_of = 'ListOfDistribInput'
     # test_case = 'an element on DistribInput'
     # fail += run_test(name, num, class_name, test_case)
-    #
-    #
+
+
     # name = 'distrib'
-    # num = 1
+    # num = 2
     # class_name = 'Uncertainty'
     # list_of = 'ListOfUncertainty'
     # test_case = 'an element on Uncertainty'
     # fail += run_test(name, num, class_name, test_case)
-    #
+    # #
     # # TODO groups tests
     # name = 'groups'
     # num = 0

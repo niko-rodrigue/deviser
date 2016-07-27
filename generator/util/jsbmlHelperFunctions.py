@@ -68,6 +68,13 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
     return add, class_key, functionArgs
 
 
+def detect_ast_or_xml(attributes):
+    for attribute in attributes:
+        if attribute['JClassType'] == 'ASTNode' or attribute['JClassType'] == 'XMLNode':
+            return True
+    return False
+
+
 def find_instance_method(abstract_jsbml_methods, method_name):
     for interface_class in abstract_jsbml_methods:
         methods = abstract_jsbml_methods[interface_class]

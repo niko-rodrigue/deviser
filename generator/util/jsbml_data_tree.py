@@ -1092,7 +1092,7 @@ jsbml_data_tree[pack_dyn]['DynElement'] = [abstract_named_sbase, unique_named_sb
 jsbml_data_tree[pack_dyn]['SpatialComponent'] = [abstract_named_sbase, unique_named_sbase]
 
 # distrib package
-jsbml_data_tree[pack_distrib]['DrawFromDistribution'] = [abstract_sbase, 'IdManager']
+jsbml_data_tree[pack_distrib]['DrawFromDistribution'] = [abstract_sbase] #, 'IdManager'] # TODO IdManager tricky
 jsbml_data_tree[pack_distrib]['DistribInput'] = [abstract_named_sbase]
 jsbml_data_tree[pack_distrib]['Uncertainty'] = [abstract_named_sbase]
 

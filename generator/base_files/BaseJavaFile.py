@@ -457,6 +457,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.import_from_jsbml_modules.append('util.*')
         self.import_from_jsbml_modules.append('util.filters.*')
 
+        import_xml_node = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
+        if import_xml_node== True:
+            self.import_from_jsbml_modules.append('xml.XMLNode')
+
         if self.has_children == True:
             self.import_from_java_modules.append('javax.swing.tree.TreeNode')
 
@@ -493,8 +497,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                     self.jsbml_methods.update({interface_class: interface['modules']})
 
         for module in self.implements_modules:
-            data = insideJSBML_parser.get_class_information(module)
-            self.jsbml_methods.update({module: data['modules']})
+            if module in self.jsbml_data_tree:
+                data = insideJSBML_parser.get_class_information(module)
+                self.jsbml_methods.update({module: data['modules']})
 
         for i in range(0, len(self.attributes)):
             capname = strFunctions.upper_first(self.attributes[i]['name'])
@@ -630,17 +635,18 @@ class BaseJavaFile(BaseFile.BaseFile):
                     # else:
                     #     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
                     #     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
+                # TODO here for xmlnode uncertml
                 else:
-                    attributes[i]['attTypeCode'] = attributes[i]['element']+'*'
-                    attributes[i]['CType'] = attributes[i]['element']+'_t*'
-                    attributes[i]["JClassType"] = attributes[i]['element']
+                    attributes[i]['attTypeCode'] = 'XMLNode' #  attributes[i]['element']+'*'
+                    attributes[i]['CType'] = 'XMLNode'  #attributes[i]['element']+'_t*'
+                    attributes[i]["JClassType"] = 'XMLNode'  #attributes[i]['element']
                 if attributes[i]['attTypeCode'] == 'XMLNode*' and not global_variables.is_package:
                     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}*'.format(attributes[i]['element'])
                     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])
                     attributes[i]['JClassType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])
 
                 attributes[i]['isNumber'] = False
-                attributes[i]['default'] = 'NULL'
+                attributes[i]['default'] = 'null'
                 if strFunctions.compare_no_case(strFunctions.remove_prefix(el_name), at_name):
                     attributes[i]['children_overwrite'] = False
                 else:
@@ -656,7 +662,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['JClassType'] = 'ListOf'  # _t'
                 attributes[i]['memberName'] = 'm' + plural
                 attributes[i]['isNumber'] = False
-                attributes[i]['default'] = 'NULL'
+                attributes[i]['default'] = 'null'
             elif att_type == 'array':
                 attributes[i]['isArray'] = True
                 attributes[i]['element'] = \
@@ -666,7 +672,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
-                attributes[i]['default'] = 'NULL'
+                attributes[i]['default'] = 'null'
             elif att_type == 'vector':
                 attributes[i]['isVector'] = True
                 attributes[i]['element'] = \
@@ -677,7 +683,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
-                attributes[i]['default'] = 'NULL'
+                attributes[i]['default'] = 'null'
             elif att_name == 'spatialIndex':
                 # attributes[i]['isVector'] = True
                 attributes[i]['element'] = att_type
@@ -687,7 +693,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
-                attributes[i]['default'] = 'NULL'
+                attributes[i]['default'] = 'null'
             else:
                 global_variables.code_returned \
                     = global_variables.return_codes['unknown type used']

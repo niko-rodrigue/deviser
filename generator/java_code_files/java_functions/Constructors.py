@@ -291,7 +291,11 @@ class Constructors():
                 implementation = ['this(null, null, level, version)']
 
                 import_module = self.import_modules[0]
-                if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
+                if result == True:
+                    implementation = ['super(level, version)']
+                    implementation.append('initDefaults()')
+                elif 'id' in self.jsbml_data_tree[import_module]['ignore']:
                     try:
                         implementation = ['super(level, version)']
                         implementation.append('initDefaults()')
@@ -369,6 +373,10 @@ class Constructors():
         #Stop generating this constructor
         import_module = self.import_modules[0]
         if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+            return
+
+        result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
+        if result == True:
             return
 
         params = ['@param id']
@@ -548,7 +556,9 @@ class Constructors():
         # Stop generating this constructor
 
 
-
+        result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
+        if result == True:
+            return
 
         # create the function implementation
         constructor_args = [] #self.write_constructor_args(None)
@@ -558,6 +568,8 @@ class Constructors():
                 implementation = ['this(id, null, level, version)']
 
                 import_module = self.import_modules[0]
+
+
                 if 'id' in self.jsbml_data_tree[import_module]['ignore']:
                     try:
                         if len(self.jsbml_data_tree[import_module]['include']) > 0:
@@ -663,6 +675,10 @@ class Constructors():
                                              global_variables.document_class),
                         '@copydetails doc_note_setting_lv']
         additional = ''
+
+        result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
+        if result == True:
+            return
 
         # create the function declaration
         if self.is_java_api:
@@ -1347,11 +1363,16 @@ class Constructors():
         member_name = attribute['name']
 
         att_type = attribute['attType']
+        jclass_att_type = attribute['JClassType']
 
         if att_type == 'lo_element':
             implementation = ['{0}.isSet{1}()'.format(self.copy_name, attribute['attTypeCode'] ),
                               'set{0}({1}.get{2}().clone())'.format(attribute['attTypeCode'],
                                                             self.copy_name, attribute['attTypeCode'])]
+        elif jclass_att_type == 'XMLNode' or jclass_att_type == 'ASTNode':
+            implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
+                              'set{0}({1}.get{2}().clone())'.format(name,
+                                                                    self.copy_name, name)]
         else:
             implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
                           'set{0}({1}.get{2}())'.format(name, self.copy_name, name)]  # 3rd line

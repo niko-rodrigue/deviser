@@ -802,8 +802,8 @@ class SetGetFunctions():
                 implementation = ['return this.{0} != null'.format(
                     attribute['name'])]   # Used
             elif attribute['type'] == 'element':
-                implementation = ['return ({0} != '
-                                  '{1})'.format(attribute['name'],
+                implementation = ['return {0} != '
+                                  '{1}'.format(attribute['name'],
                                                 attribute['default'])]
             elif 'isVector' in attribute and attribute['isVector']:
                 implementation = ['return {0}.size() '
