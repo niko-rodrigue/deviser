@@ -95,16 +95,16 @@ def detect_abstract_methods(jsbml_data_tree, jsbml_methods):
             except Exception as e:
                 length = 0
             if length == 0:
-                print('method name ', method_name)
+                # print('method name ', method_name)
                 temp = insideJSBML_parser.get_class_information(method_name)
-                print(temp)
+                # print(temp)
                 new_length = len(temp['modules'])
                 while new_length == 0:
                     new_method = temp['extends']['extendsShort']
                     temp = insideJSBML_parser.get_class_information(new_method)
                     new_length = len(temp['modules'])
                     if new_length > 0:
-                        print(temp)
+                        # print(temp)
                         abstract_methods.update({method_name: temp})
             else:
                 abstract_methods.update({method_name: jsbml_methods[method_name]})

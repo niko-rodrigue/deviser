@@ -4,7 +4,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../')
-print(sys.path)
+# print(sys.path)
 
 from java_code_files import JavaFiles #, JavaExtensionFiles
 from parseXML import ParseXML
@@ -287,6 +287,8 @@ def main():
 
     #TODO now there's a problem with this
 
+
+    #All qual compile
     #Compiles
     name = 'qual'
     num = 0

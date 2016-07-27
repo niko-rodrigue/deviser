@@ -130,9 +130,12 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     packageName = QualConstants.shortLabel;
     compartment = null;
     constant = null;
+    initialLevel = null;
+    maxLevel = null;
   }
 
-  /* Assignment operator for QualitativeSpecies.
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
   public boolean equals(Object object) {
@@ -191,7 +194,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the constant
+   * Returns the value of {@link constant}.
+   *  
+   * @return the value of {@link constant}.
    */
   public boolean getConstant() {
     if (isSetConstant()) {
@@ -201,7 +206,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the initialLevel
+   * Returns the value of {@link initialLevel}.
+   *  
+   * @return the value of {@link initialLevel}.
    */
   public int getInitialLevel() {
     if (isSetInitialLevel()) {
@@ -211,7 +218,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return the maxLevel
+   * Returns the value of {@link maxLevel}.
+   *  
+   * @return the value of {@link maxLevel}.
    */
   public int getMaxLevel() {
     if (isSetMaxLevel()) {
@@ -225,7 +234,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public boolean isSetCompartment() {
-    return compartment != null;
+    return this.compartment != null;
   }
 
   /* (non-Javadoc)
@@ -237,24 +246,30 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return 
+   * Returns whether {@link constant} is set.
+   *  
+   * @return whether {@link constant} is set.
    */
   public boolean isSetConstant() {
-    return constant != null;
+    return this.constant != null;
   }
 
   /**
-   * @return 
+   * Returns whether {@link initialLevel} is set.
+   *  
+   * @return whether {@link initialLevel} is set.
    */
   public boolean isSetInitialLevel() {
-    return initialLevel != null;
+    return this.initialLevel != null;
   }
 
   /**
-   * @return 
+   * Returns whether {@link maxLevel} is set.
+   *  
+   * @return whether {@link maxLevel} is set.
    */
   public boolean isSetMaxLevel() {
-    return maxLevel != null;
+    return this.maxLevel != null;
   }
 
   /* (non-Javadoc)
@@ -289,7 +304,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param constant
+   * Sets the value of constant
+   *  
+   * @param constant the value of constant to be set.
    */
   public void setConstant(boolean constant) {
     Boolean oldConstant = this.constant;
@@ -298,7 +315,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param initialLevel
+   * Sets the value of initialLevel
+   *  
+   * @param initialLevel the value of initialLevel to be set.
    */
   public void setInitialLevel(int initialLevel) {
     Integer oldInitialLevel = this.initialLevel;
@@ -308,7 +327,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @param maxLevel
+   * Sets the value of maxLevel
+   *  
+   * @param maxLevel the value of maxLevel to be set.
    */
   public void setMaxLevel(int maxLevel) {
     Integer oldMaxLevel = this.maxLevel;
@@ -325,7 +346,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return {@code true} if the unset of the constant attribute was successful
+   * Unsets the variable constant.
+   *  
+   * @return {@code true} if constant was set before, otherwise {@code false}.
    */
   public boolean unsetConstant() {
     if (isSetConstant()) {
@@ -339,8 +362,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return {@code true} if the unset of the initialLevel attribute was
-   * successful
+   * Unsets the variable initialLevel.
+   *  
+   * @return {@code true} if initialLevel was set before, otherwise {@code
+   * false}.
    */
   public boolean unsetInitialLevel() {
     if (isSetInitialLevel()) {
@@ -355,7 +380,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /**
-   * @return {@code true} if the unset of the maxLevel attribute was successful
+   * Unsets the variable maxLevel.
+   *  
+   * @return {@code true} if maxLevel was set before, otherwise {@code false}.
    */
   public boolean unsetMaxLevel() {
     if (isSetMaxLevel()) {
@@ -433,9 +460,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public String toString() {
-    return "QualitativeSpecies [compartment = " + compartment + ", constant = "
-      + constant + ", initialLevel = " + initialLevel + ", maxLevel = " +
-        maxLevel + ", id = " + getId() + ", name = " + getName() + "]";
+    return "QualitativeSpecies [compartment = " + compartment + ", constant = " + constant + ", initialLevel = " +
+      initialLevel + ", maxLevel = " + maxLevel + ", id = " + getId() + ", name = " + getName() + "]";
   }
 
   /* (non-Javadoc)
@@ -479,16 +505,20 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       attributes.put(QualConstants.shortLabel + ":name", getName());
     }
     if (isSetCompartment()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.compartment, getCompartment());
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.compartment,
+        getCompartment());
     }
     if (isSetConstant()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.constant, Boolean.toString(getConstant()));
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.constant,
+        Boolean.toString(getConstant()));
     }
     if (isSetInitialLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.initialLevel, Integer.toString(getInitialLevel()));
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.initialLevel,
+        Integer.toString(getInitialLevel()));
     }
     if (isSetMaxLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.maxLevel, Integer.toString(getMaxLevel()));
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.maxLevel,
+        Integer.toString(getMaxLevel()));
     }
     return attributes;
   }
