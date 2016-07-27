@@ -1026,7 +1026,8 @@ class GeneralFunctions():
                     continue
                 else:
                     # Stop generating for math elements
-                    if index == len(self.attributes)-1 and len(self.child_elements) == 0:
+                    if index == len(self.attributes)-1 and len(self.child_elements) == 0\
+                            and len(self.child_lo_elements) == 0:
                         text += '{0} = " + {1} '.format(member_name, member_name)
                     else:
                         text += '{0} = " + {1} + ", '.format(member_name, member_name)
@@ -1072,7 +1073,7 @@ class GeneralFunctions():
                 else:
                     # Stop generating for math elements
                     if index == len(self.child_lo_elements)-1 :
-                        text += '{0} = " + {1} + '.format(jsbml_name, jsbml_name)
+                        text += '{0} = " + {1}'.format(jsbml_name, jsbml_name)
                     else:
                         text += '{0} = " + {1} + ", '.format(jsbml_name, jsbml_name)
                     # else_if_index = i

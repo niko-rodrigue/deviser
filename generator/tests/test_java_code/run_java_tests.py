@@ -389,32 +389,34 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # TODO distrib tests
-    # COmpilable
-    name = 'distrib'
-    num = 0
-    class_name = 'DrawFromDistribution'
-    list_of = 'ListOfDrawFromDistribution'
-    test_case = 'an element on DrawFromDistribution'
-    fail += run_test(name, num, class_name, test_case)
-
-    # Compilable
-    name = 'distrib'
-    num = 1
-    class_name = 'DistribInput'
-    list_of = 'ListOfDistribInput'
-    test_case = 'an element on DistribInput'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    name = 'distrib'
-    num = 2
-    class_name = 'Uncertainty'
-    list_of = 'ListOfUncertainty'
-    test_case = 'an element on Uncertainty'
-    fail += run_test(name, num, class_name, test_case)
+    # # # TODO distrib tests
+    # # COmpilable
+    # name = 'distrib'
+    # num = 0
+    # class_name = 'DrawFromDistribution'
+    # list_of = 'ListOfDrawFromDistribution'
+    # test_case = 'an element on DrawFromDistribution'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # # Compilable
+    # name = 'distrib'
+    # num = 1
+    # class_name = 'DistribInput'
+    # list_of = 'ListOfDistribInput'
+    # test_case = 'an element on DistribInput'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # # compilable
+    # name = 'distrib'
+    # num = 2
+    # class_name = 'Uncertainty'
+    # list_of = 'ListOfUncertainty'
+    # test_case = 'an element on Uncertainty'
+    # fail += run_test(name, num, class_name, test_case)
     # #
     # # TODO groups tests
+    #
+    # # Error kind is an enum
     # name = 'groups'
     # num = 0
     # class_name = 'Group'
@@ -422,8 +424,8 @@ def main():
     # test_case = 'an element on Group'
     # fail += run_test(name, num, class_name, test_case)
     #
-    #
-    #
+
+    # Compilable
     # name = 'groups'
     # num = 1
     # class_name = 'Member'
@@ -431,22 +433,23 @@ def main():
     # test_case = 'an element on Member'
     # fail += run_test(name, num, class_name, test_case)
     #
-    # # TODO spatial tests
-    # name = 'spatial'
-    # num = 0
-    # class_name = 'DomainType'
-    # list_of = 'ListOfDomainType'
-    # test_case = 'an element on DomainType'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    #
-    # name = 'spatial'
-    # num = 1
-    # class_name = 'Domain'
-    # list_of = 'ListOfDomain'
-    # test_case = 'an element on Domain'
-    # fail += run_test(name, num, class_name, test_case)
+
+    # TODO spatial tests
+    name = 'spatial'
+    num = 0
+    class_name = 'DomainType'
+    list_of = 'ListOfDomainType'
+    test_case = 'an element on DomainType'
+    fail += run_test(name, num, class_name, test_case)
+
+
+
+    name = 'spatial'
+    num = 1
+    class_name = 'Domain'
+    list_of = 'ListOfDomain'
+    test_case = 'an element on Domain'
+    fail += run_test(name, num, class_name, test_case)
     #
     #
     # name = 'spatial'
