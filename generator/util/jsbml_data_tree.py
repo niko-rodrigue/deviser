@@ -41,8 +41,51 @@ from collections import defaultdict
 from util import insideJSBML_parser
 
 
+class mydefaultdict(dict):
+    def __init__(self, default_factory=None, *a, **kw):
+        if (default_factory is not None and
+                not hasattr(default_factory, '__call__')):
+            raise TypeError('first argument must be callable')
+        dict.__init__(self, *a, **kw)
+        self.default_factory = default_factory
+
+    def __getitem__(self, key):
+        try:
+            return dict.__getitem__(self, key)
+        except KeyError:
+            return self.__missing__(key)
+
+    def __missing__(self, key):
+        if self.default_factory is None:
+            raise KeyError(key)
+        self[key] = value = self.default_factory()
+        return value
+
+    def __reduce__(self):
+        if self.default_factory is None:
+            args = tuple()
+        else:
+            args = self.default_factory,
+        return type(self), args, None, None, self.items()
+
+    def copy(self):
+        return self.__copy__()
+
+    def __copy__(self):
+        return type(self)(self.default_factory, self)
+
+    def __deepcopy__(self, memo):
+        import copy
+        return type(self)(self.default_factory,
+                          copy.deepcopy(self.items()))
+
+    def __repr__(self):
+        return 'defaultdict(%s, %s)' % (self.default_factory,
+                                        dict.__repr__(self))
+
+
 def tree():
-    return defaultdict(tree)
+    return mydefaultdict(tree)
 
 
 jsbml_data_tree = tree()
@@ -1104,42 +1147,42 @@ jsbml_data_tree[pack_groups]['Member'] = [abstract_named_sbase, unique_named_sba
 # spatial package
 abstract_spatial_named_sbase = 'AbstractSpatialNamedSBase'
 geometry_definition = 'GeometryDefinition'
-jsbml_data_tree[pack_spatial]['Geometry'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['Domain'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['InteriorPoint'] = [abstract_sbase]
-jsbml_data_tree[pack_spatial]['Boundary'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['AdjacentDomains'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial][geometry_definition] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['CompartmentMapping'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['CoordinateComponent'] = [abstract_spatial_named_sbase, sbase_with_unit]
-jsbml_data_tree[pack_spatial]['SampledFieldGeometry'] = [geometry_definition]
-jsbml_data_tree[pack_spatial]['SampledField'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['SampledVolume'] = [abstract_spatial_named_sbase]
-jsbml_data_tree[pack_spatial]['AnalyticGeometry'] = [geometry_definition]
-jsbml_data_tree[pack_spatial]['AnalyticVolume'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['ParametricGeometry'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['ParametricObject'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGeometry'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGObject'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGNode'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGTransformation'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGTranslation'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGRotation'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGScale'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGHomogeneousTransformation'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['TransformationComponents'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGPrimitive'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGPseudoPrimitive'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CSGSetOperator'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['SpatialSymbolReference'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['DiffusionCoefficient'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['AdvectionCoefficient'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['BoundaryCondition'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['Geometry'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['CoordinateReference'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['MixedGeometry'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['OrdinalMapping'] = [abstract_named_sbase, unique_named_sbase]
-jsbml_data_tree[pack_spatial]['SpatialPoints'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['Geometry'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['Domain'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['InteriorPoint'] = [abstract_sbase]
+# jsbml_data_tree[pack_spatial]['Boundary'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['AdjacentDomains'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial][geometry_definition] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['CompartmentMapping'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['CoordinateComponent'] = [abstract_spatial_named_sbase, sbase_with_unit]
+# jsbml_data_tree[pack_spatial]['SampledFieldGeometry'] = [geometry_definition]
+# jsbml_data_tree[pack_spatial]['SampledField'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['SampledVolume'] = [abstract_spatial_named_sbase]
+# jsbml_data_tree[pack_spatial]['AnalyticGeometry'] = [geometry_definition]
+# jsbml_data_tree[pack_spatial]['AnalyticVolume'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['ParametricGeometry'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['ParametricObject'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGeometry'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGObject'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGNode'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGTransformation'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGTranslation'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGRotation'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGScale'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGHomogeneousTransformation'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['TransformationComponents'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGPrimitive'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGPseudoPrimitive'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CSGSetOperator'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['SpatialSymbolReference'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['DiffusionCoefficient'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['AdvectionCoefficient'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['BoundaryCondition'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['Geometry'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['CoordinateReference'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['MixedGeometry'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['OrdinalMapping'] = [abstract_named_sbase, unique_named_sbase]
+# jsbml_data_tree[pack_spatial]['SpatialPoints'] = [abstract_named_sbase, unique_named_sbase]
 
 # # TODO GSOC 2016 Mandatory
 # mandatory_keyword = 'Mandatory'
@@ -1164,8 +1207,12 @@ jsbml_data_tree['Difference']['TransitionOutputEffect'] = 'OutputTransitionEffec
 jsbml_data_tree['Difference']['FbcOperation'] = 'Operation'
 
 
+jsbml_data_tree['Difference'] = dict(jsbml_data_tree['Difference'])
+
 # TODO approach for whole thing not effective
 # keys = jsbml_data_tree.keys()
 # for key in keys:
 #     class_methods = insideJSBML_parser.get_class_information(key)
 #     #print(class_methods)
+
+jsbml_data_tree = dict(jsbml_data_tree)

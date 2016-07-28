@@ -290,17 +290,21 @@ class Constructors():
             if self.is_java_api:
                 implementation = ['this(null, null, level, version)']
 
-                import_module = self.import_modules[0]
+                try:
+                    import_module = self.import_modules[0]
+                except:
+                    import_module = None
                 result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
                 if result == True:
                     implementation = ['super(level, version)']
                     implementation.append('initDefaults()')
-                elif 'id' in self.jsbml_data_tree[import_module]['ignore']:
-                    try:
-                        implementation = ['super(level, version)']
-                        implementation.append('initDefaults()')
-                    except:
-                        return
+                elif import_module in self.jsbml_data_tree:
+                    if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                        try:
+                            implementation = ['super(level, version)']
+                            implementation.append('initDefaults()')
+                        except:
+                            return
 
                 # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
                 #                   '(level, version, '
@@ -371,9 +375,16 @@ class Constructors():
             title_line = ' and @ p version values.'
 
         #Stop generating this constructor
-        import_module = self.import_modules[0]
-        if 'id' in self.jsbml_data_tree[import_module]['ignore']:
-            return
+        try:
+            import_module = self.import_modules[0]
+        except:
+            import_module = None
+        if import_module != None:
+            try:
+                if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                    return
+            except:
+                pass
 
         result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
         if result == True:
@@ -567,19 +578,22 @@ class Constructors():
             if self.is_java_api:
                 implementation = ['this(id, null, level, version)']
 
-                import_module = self.import_modules[0]
+                try:
+                    import_module = self.import_modules[0]
+                except:
+                    import_module = None
 
-
-                if 'id' in self.jsbml_data_tree[import_module]['ignore']:
-                    try:
-                        if len(self.jsbml_data_tree[import_module]['include']) > 0:
-                            type_obj = self.jsbml_data_tree[import_module]['include'][0]
-                            arguments = ['{0} math'.format(type_obj), 'int level', 'int version']
-                            arguments_no_defaults = ['{0} math'.format(type_obj), 'int level', 'int version']
-                            implementation = ['super(math, level, version)']
-                            implementation.append('initDefaults()')
-                    except:
-                        return
+                if import_module in self.jsbml_data_tree:
+                    if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                        try:
+                            if len(self.jsbml_data_tree[import_module]['include']) > 0:
+                                type_obj = self.jsbml_data_tree[import_module]['include'][0]
+                                arguments = ['{0} math'.format(type_obj), 'int level', 'int version']
+                                arguments_no_defaults = ['{0} math'.format(type_obj), 'int level', 'int version']
+                                implementation = ['super(math, level, version)']
+                                implementation.append('initDefaults()')
+                        except:
+                            return
 
 
                 # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
@@ -655,10 +669,16 @@ class Constructors():
                   '@param version']
 
         #Stop generating this constructor
-        import_module = self.import_modules[0]
-        if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
-                        'name' in self.jsbml_data_tree[import_module]['ignore']:
-            return
+        try:
+            import_module = self.import_modules[0]
+        except:
+            import_module = None
+        if import_module != None:
+            try:
+                if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+                    return
+            except:
+                pass
 
         # if global_variables.is_package:
         #     params.append('@param pkgVersion an unsigned int, the {0} {1} '

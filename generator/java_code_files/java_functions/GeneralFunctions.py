@@ -665,8 +665,11 @@ class GeneralFunctions():
         elif java_type_data == 'Integer':
             java_type = 'Int'
         elif type == 'enum':
-            data = self.jsbml_data_tree['Difference'][java_type_data]
-            if len(data) > 0:
+            if java_type_data in self.jsbml_data_tree['Difference']:
+                data = self.jsbml_data_tree['Difference'][java_type_data]
+            else:
+                data = None
+            if data is not None:
                 java_type = data
             else:
                 java_type = java_type_data
@@ -1127,20 +1130,25 @@ class GeneralFunctions():
 
         text_rest = self.create_to_string()
 
-
+        # TODO here are the biggest problems
         #For math element
-        import_module = self.import_modules[0]
-        if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
-                        'name' in self.jsbml_data_tree[import_module]['ignore']:
-            text += text_rest
-            text += 'isSetMath = " + isSetMath() + "]"'
-        else:
-            text += text_rest
-            result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
-            if result == False:
-                text += '+ "id = " + getId() + ", name = " + getName() + "]"'
+        try:
+            import_module = self.import_modules[0]
+        except:
+            import_module = None
+
+        if import_module in self.jsbml_data_tree:
+            if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
+                            'name' in self.jsbml_data_tree[import_module]['ignore']:
+                text += text_rest
+                text += 'isSetMath = " + isSetMath() + "]"'
             else:
-                text += '"]"'
+                text += text_rest
+                result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
+                if result == False:
+                    text += '+ "id = " + getId() + ", name = " + getName() + "]"'
+                else:
+                    text += '"]"'
 
         temp = [text]
         code.append(self.create_code_block('line', temp))

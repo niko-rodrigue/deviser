@@ -453,6 +453,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         #THis is the tricky part
         # self.get_general_includes()
 
+
+
         self.import_from_jsbml_modules.append('*')
         self.import_from_jsbml_modules.append('util.*')
         self.import_from_jsbml_modules.append('util.filters.*')
@@ -473,10 +475,18 @@ class BaseJavaFile(BaseFile.BaseFile):
         #     #
         #     if self.name in ['Transition']:
         #         self.import_from_java_modules.append('java.text.MessageFormat')
-        if len(self.jsbml_data_tree[self.pack][self.name]) > 0:
-            self.extends_modules = [self.jsbml_data_tree[self.pack][self.name][0]]
-        if len(self.jsbml_data_tree[self.pack][self.name]) > 1:
-            self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
+
+        # TODO bug here, apends new element to tree
+        if self.pack in self.jsbml_data_tree:
+            if self.name in self.jsbml_data_tree[self.pack]:
+                if len(self.jsbml_data_tree[self.pack][self.name]) > 0:
+                    self.extends_modules = [self.jsbml_data_tree[self.pack][self.name][0]]
+                if len(self.jsbml_data_tree[self.pack][self.name]) > 1:
+                    self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
+
+        if self.baseClass != 'SBase':
+            self.extends_modules.append(self.baseClass)
+
 
         self.jsbml_class_header_and_import = dict({'className': self.name,
                                                    'abstract': self.class_is_abstract,
@@ -488,13 +498,14 @@ class BaseJavaFile(BaseFile.BaseFile):
     def expand_jsbml_methods(self):
         self.jsbml_methods = {}
         for module in self.extends_modules:
-            data = insideJSBML_parser.get_class_information(module)
-            self.jsbml_methods.update({module: data['modules']})
+            if module in self.jsbml_data_tree:
+                data = insideJSBML_parser.get_class_information(module)
+                self.jsbml_methods.update({module: data['modules']})
 
-            if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
-                for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
-                    interface = insideJSBML_parser.get_class_information(interface_class)
-                    self.jsbml_methods.update({interface_class: interface['modules']})
+                if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
+                    for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
+                        interface = insideJSBML_parser.get_class_information(interface_class)
+                        self.jsbml_methods.update({interface_class: interface['modules']})
 
         for module in self.implements_modules:
             if module in self.jsbml_data_tree:

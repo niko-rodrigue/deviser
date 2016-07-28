@@ -210,8 +210,11 @@ class SetGetFunctions():
                 # else:
                 return_type = attribute['attTypeCode']
             elif attribute['attType'] == 'enum':
-                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                if len(data) > 0:
+                if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                    data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                else:
+                    data = None
+                if data is not None:
                     return_type = data
                 else:
                     return_type = attribute['JClassType']
@@ -1137,7 +1140,10 @@ class SetGetFunctions():
                                  .format(attribute['attTypeCode'],
                                          attribute['name']))
             elif attribute['attType'] == 'enum':
-                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                    data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                else:
+                    data = []
                 if len(data) > 0:
                     arg_type = data
                 else:
@@ -1681,8 +1687,11 @@ class SetGetFunctions():
         if self.is_java_api:
             # code = self.unset_java_attribute(attribute)
             code = []
-            data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-            if len(data) > 0:
+            if attribute['JClassType'] in  self.jsbml_data_tree['Difference']:
+                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            else:
+                data = None
+            if data is not None:
                 curr_att_type = data
             else:
                 curr_att_type = attribute['JClassType']
@@ -2276,8 +2285,11 @@ class SetGetFunctions():
             code = [dict({'code_type': 'line', 'code': implementation}),
                     dict({'code_type': 'if_else', 'code': implementation2})]
         elif attribute['attType'] == 'enum':
-
-            data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            # TODO need to change here
+            if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            else:
+                data = []
             if len(data) > 0:
                 curr_att_type = data
             else:
