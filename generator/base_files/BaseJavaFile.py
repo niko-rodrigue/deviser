@@ -1632,7 +1632,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if in_quotes or not quotes_closed:
                     newline += ' \"'
                     quotes_closed = True
-                    reopen_quotes = True
+                    # reopen_quotes = True
+                    reopen_quotes = False
                 lines.append(newline)
                 newline = ''
                 temp = ''

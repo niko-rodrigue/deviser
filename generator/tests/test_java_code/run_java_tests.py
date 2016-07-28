@@ -288,7 +288,7 @@ def main():
     #TODO now there's a problem with this
 
 
-    # # #All qual compile
+    # #All qual compile
     # #Compiles
     # name = 'qual'
     # num = 0
@@ -306,17 +306,17 @@ def main():
     # list_of = 'ListOfTransition'
     # test_case = 'an element on Transition'
     # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    #Compiles
-    name = 'qual'
-    num = 2
-    class_name = 'Input'
-    list_of = 'ListOfInput'
-    test_case = 'an element on Input'
-    fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
+    # # #
+    # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 2
+    # class_name = 'Input'
+    # list_of = 'ListOfInput'
+    # test_case = 'an element on Input'
+    # fail += run_test(name, num, class_name, test_case)
+    # # #
+    # # #
     # #Compiles
     # name = 'qual'
     # num = 3
@@ -335,14 +335,14 @@ def main():
     # test_case = 'an element on DefaultTerm'
     # fail += run_test(name, num, class_name, test_case)
     #
-    #
-    # #Compiles
-    # name = 'qual'
-    # num = 5
-    # class_name = 'FunctionTerm'
-    # list_of = 'ListOfFunctionTerm'
-    # test_case = 'an element on FunctionTerm'
-    # fail += run_test(name, num, class_name, test_case)
+
+    #Compiles
+    name = 'qual'
+    num = 5
+    class_name = 'FunctionTerm'
+    list_of = 'ListOfFunctionTerm'
+    test_case = 'an element on FunctionTerm'
+    fail += run_test(name, num, class_name, test_case)
     # #
     #
     # # # TODO fbc tests
