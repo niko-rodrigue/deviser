@@ -340,7 +340,7 @@ def generate_jsbml_code_files(name, ob):
     # os.chdir(extension_dir)
     # ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     # ext.write_constants()
-    # # ext.write_files()
+    # ext.write_files()
     #
     # # for i in range(0, len(ob['plugins'])+1):
     # #     ext.write_plugin_files(i)

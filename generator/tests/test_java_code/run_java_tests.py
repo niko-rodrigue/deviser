@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../')
 # print(sys.path)
 
-from java_code_files import JavaFiles #, JavaExtensionFiles
+from java_code_files import JavaFiles,  JavaEnumFiles#, JavaExtensionFiles
 from parseXML import ParseXML
 
 import test_functions
@@ -39,6 +39,15 @@ def generate_new_java_files(filename, num):
     working_class = ob['baseElements'][num]
     os.chdir('./temp')
     all_files = JavaFiles.JavaFiles(working_class, True)
+    all_files.write_files()
+    os.chdir('../.')
+
+def generate_new_enum_java_files(filename, num):
+    parser = ParseXML.ParseXML(filename)
+    ob = parser.parse_deviser_xml()
+    working_class = ob['enums'][num]
+    os.chdir('./temp')
+    all_files = JavaEnumFiles.JavaEnumFiles(working_class, True)
     all_files.write_files()
     os.chdir('../.')
 
@@ -186,6 +195,15 @@ def run_ext_test(name, class_name, test_case, test):
     fail = compare_ext_headers(class_name)
     if test == 0:
         fail += compare_ext_impl(class_name)
+    print('')
+    return fail
+
+
+def run_enum_test(name, num, enum_name, test_case):
+    filename = test_functions.set_up_test(name, enum_name, test_case)
+    generate_new_enum_java_files(filename, num)
+    # fail = compare_code_headers(class_name)
+    fail = compare_code_impl(enum_name)
     print('')
     return fail
 
@@ -344,6 +362,13 @@ def main():
     test_case = 'an element on FunctionTerm'
     fail += run_test(name, num, class_name, test_case)
     # #
+    name = 'qual'
+    num = 0
+    enum_name = 'Sign'
+    list_of = 'ListOfFunctionTerm'
+    test_case = 'an element on FunctionTerm'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
     #
     # # # TODO fbc tests
     # # # fbc PACKAGE PROBLEMS

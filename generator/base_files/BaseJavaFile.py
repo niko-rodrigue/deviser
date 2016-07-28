@@ -974,7 +974,38 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.down_indent()
 
 
-########################################################################
+
+    ########################################################################
+
+    # FUNCTIONS FOR WRITING ENUM
+
+    # TODO write open braces Done
+    def write_enum_header(self, enum_name,
+                                    return_type, is_const=False,
+                                    constructor_args=None):
+        is_java = self.is_java_api
+        # num_arguments = len(arguments)
+        if not is_java:
+            self.write_extern_decl()
+        # self.write_line(return_type) #Need to remove this part
+
+        # TODO GSOC 2016 change modified brackets
+        line = 'public' + ' ' + return_type + ' ' + enum_name
+        # if num_arguments == 0:
+        if is_java and is_const:
+            line += ')'  # const
+        else:
+            line += ')'
+        self.write_line_jsbml(line)
+        if constructor_args is not None:
+            self.up_indent()
+            for i in range(0, len(constructor_args)):
+                self.write_line_jsbml(constructor_args[i])
+            self.down_indent()
+
+
+
+            ########################################################################
 
 # FUNCTIONS FOR WRITING STANDARD DOC COMMENTS
 
@@ -1137,6 +1168,51 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line('}')
 
 
+
+            if exclude:
+                self.write_doxygen_end()
+                self.skip_line()
+            else:
+                self.skip_line()
+            self.down_indent()
+
+    # Function for writing a function implementation
+    def write_enum_implementation(self, code, exclude=False):
+        if code is not None:
+            self.up_indent()  # This is a problem
+
+
+            function_name = code['function']
+
+            # GSOC 2016 function name changes necessary -> u'QualitativeSpecies getId' Wrong
+            # TODO GSOC write param
+            if self.is_java_api:
+                if not code['object_name']:
+                    function_name = code['function']
+                else:
+                    function_name = code['function']  # code['object_name'] + ' ' \  +
+            # if 'args_no_defaults' in code:
+            #     arguments = code['args_no_defaults']
+            # else:
+            #     arguments = code['arguments']
+            # constructor_args = None
+            # print('function_name ', function_name) #both for constructors and functions, not suitable for JSBML
+            # print('->-')
+            if self.is_java_api:
+                if 'constructor_args' in code:
+                    constructor_args = code['constructor_args']
+            self.write_class_function_header(function_name, arguments,
+                                             code['return_type'],
+                                             code['constant'],
+                                             constructor_args)
+
+            if 'implementation' in code and code['implementation'] is not None:
+                self.write_implementation(code['implementation'])
+                # print("code implementation ",code['implementation'])
+                # print('---------------->')
+            # TODO this part ok
+            else:
+                self.write_line('}')
 
             if exclude:
                 self.write_doxygen_end()
