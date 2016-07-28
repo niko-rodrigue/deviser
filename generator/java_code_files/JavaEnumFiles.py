@@ -46,9 +46,10 @@ from util import strFunctions, query, global_variables
 class JavaEnumFiles():
     """Class for all Java files"""
 
-    def __init__(self, enum_object, verbose=False):
+    def __init__(self, enum_object, original_package, verbose=False):
         # members from object
         self.enum_object = enum_object
+        self.original_package = original_package
         # self.enum_object['is_list_of'] = False
         # self.enum_object['sid_refs'] = \
         #     query.get_sid_refs(enum_object['attribs'])
@@ -59,7 +60,7 @@ class JavaEnumFiles():
 
     def write_files(self):
         #self.write_header(self.class_object)
-        self.write_code(self.enum_object)
+        self.write_code(self.enum_object, self.original_package)
 
         # TODO what to do with listOf stuff
         # if self.class_object['hasListOf']:
@@ -74,12 +75,12 @@ class JavaEnumFiles():
     #     fileout.write_file()
     #     fileout.close_file()
 
-    def write_code(self, enum_object):
-        fileout = JavaEnumCodeFile.JavaEnumCodeFile(enum_object)
+    def write_code(self, enum_object, original_object):
+        fileout = JavaEnumCodeFile.JavaEnumCodeFile(enum_object, original_object)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
             print('---'*10)
-        # fileout.write_file()
+        fileout.write_file()
         fileout.close_file()
 
     def create_list_of_description(self):

@@ -45,9 +45,9 @@ def generate_new_java_files(filename, num):
 def generate_new_enum_java_files(filename, num):
     parser = ParseXML.ParseXML(filename)
     ob = parser.parse_deviser_xml()
-    working_class = ob['enums'][num]
+    working_enum = ob['enums'][num]
     os.chdir('./temp')
-    all_files = JavaEnumFiles.JavaEnumFiles(working_class, True)
+    all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob,  True)
     all_files.write_files()
     os.chdir('../.')
 
@@ -355,18 +355,29 @@ def main():
     #
 
     #Compiles
-    name = 'qual'
-    num = 5
-    class_name = 'FunctionTerm'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
-    fail += run_test(name, num, class_name, test_case)
-    # #
+    # name = 'qual'
+    # num = 5
+    # class_name = 'FunctionTerm'
+    # list_of = 'ListOfFunctionTerm'
+    # test_case = 'an element on FunctionTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    # # #
     name = 'qual'
     num = 0
     enum_name = 'Sign'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
+    test_case = 'an element on Sign Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 1
+    enum_name = 'TransitionOutputEffect'
+    test_case = 'an element on TransitionOutputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 2
+    enum_name = 'TransitionInputEffect'
+    test_case = 'an element on TransitionInputEffect Enum'
     fail += run_enum_test(name, num, enum_name, test_case)
 
     #
