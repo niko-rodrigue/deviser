@@ -468,6 +468,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         #self.import_from_jsbml_utils_modules = []
         self.import_from_java_modules.append('java.util.Map')
+        self.import_from_java_modules.append('java.util.Locale')
         self.import_from_java_modules.append('java.text.MessageFormat')
         # if str(self.package).lower() == 'qual':
         #     # if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:

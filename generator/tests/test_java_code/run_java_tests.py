@@ -306,110 +306,123 @@ def main():
     #TODO now there's a problem with this
 
 
-    # #All qual compile
-    #Compiles
-    name = 'qual'
-    num = 0
-    class_name = 'QualitativeSpecies'
-    list_of = 'ListOfQualitativeSpecies'
-    test_case = 'an element on QualitativeSpecies'
-    fail += run_test(name, num, class_name, test_case)
-    #
-    # #
-
+    # # #All qual compile
     # #Compiles
-    name = 'qual'
-    num = 1
-    class_name = 'Transition'
-    list_of = 'ListOfTransition'
-    test_case = 'an element on Transition'
-    fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 2
-    class_name = 'Input'
-    list_of = 'ListOfInput'
-    test_case = 'an element on Input'
-    fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 3
-    class_name = 'Output'
-    list_of = 'ListOfOutput'
-    test_case = 'an element on Output'
-    fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    #
-    # Compiles
-    name = 'qual'
-    num = 4
-    class_name = 'DefaultTerm'
-    list_of = 'ListOfDefaultTerm'
-    test_case = 'an element on DefaultTerm'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    # Compiles
-    name = 'qual'
-    num = 5
-    class_name = 'FunctionTerm'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
-    fail += run_test(name, num, class_name, test_case)
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualitativeSpecies'
+    # list_of = 'ListOfQualitativeSpecies'
+    # test_case = 'an element on QualitativeSpecies'
+    # fail += run_test(name, num, class_name, test_case)
     # #
-
-
-
-    # Qual Enum Types
-    name = 'qual'
-    num = 0
-    enum_name = 'Sign'
-    test_case = 'an element on Sign Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'qual'
-    num = 1
-    enum_name = 'TransitionOutputEffect'
-    test_case = 'an element on TransitionOutputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'qual'
-    num = 2
-    enum_name = 'TransitionInputEffect'
-    test_case = 'an element on TransitionInputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
+    # # #
+    #
+    # # #Compiles
+    # name = 'qual'
+    # num = 1
+    # class_name = 'Transition'
+    # list_of = 'ListOfTransition'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 2
+    # class_name = 'Input'
+    # list_of = 'ListOfInput'
+    # test_case = 'an element on Input'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 3
+    # class_name = 'Output'
+    # list_of = 'ListOfOutput'
+    # test_case = 'an element on Output'
+    # fail += run_test(name, num, class_name, test_case)
+    # #
+    # #
+    # #
+    # # Compiles
+    # name = 'qual'
+    # num = 4
+    # class_name = 'DefaultTerm'
+    # list_of = 'ListOfDefaultTerm'
+    # test_case = 'an element on DefaultTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # # Compiles
+    # name = 'qual'
+    # num = 5
+    # class_name = 'FunctionTerm'
+    # list_of = 'ListOfFunctionTerm'
+    # test_case = 'an element on FunctionTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    # # #
+    #
+    #
+    #
+    # # Qual Enum Types
+    # name = 'qual'
+    # num = 0
+    # enum_name = 'Sign'
+    # test_case = 'an element on Sign Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 1
+    # enum_name = 'TransitionOutputEffect'
+    # test_case = 'an element on TransitionOutputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 2
+    # enum_name = 'TransitionInputEffect'
+    # test_case = 'an element on TransitionInputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
 
     #
     # # # TODO fbc tests
-    # # # fbc PACKAGE PROBLEMS
-    # # name = 'fbc_v2'
-    # # num = 0
-    # # class_name = 'FluxBound'
-    # # list_of = 'ListOfFluxBound'
-    # # test_case = 'an element on FluxBound'
-    # # fail += run_test(name, num, class_name, test_case)
-    # # #
-    # #
-    # # name = 'fbc_v2'
-    # # num = 2
-    # # class_name = 'FluxObjective'
-    # # list_of = 'ListOfFluxObjective'
-    # # test_case = 'an element on FluxObjective'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # name = 'fbc_v2'
-    # # num = 1
-    # # class_name = 'Objective'
-    # # list_of = 'ListOfObjective'
-    # # test_case = 'an element on Objective'
-    # # fail += run_test(name, num, class_name, test_case)
+    # fbc PACKAGE PROBLEMS
+    name = 'fbc_v2'
+    num = 0
+    class_name = 'FluxBound'
+    list_of = 'ListOfFluxBound'
+    test_case = 'an element on FluxBound'
+    fail += run_test(name, num, class_name, test_case)
+    #
+
+    name = 'fbc_v2'
+    num = 1
+    class_name = 'Objective'
+    list_of = 'ListOfObjective'
+    test_case = 'an element on Objective'
+    fail += run_test(name, num, class_name, test_case)
+
+    name = 'fbc_v2'
+    num = 2
+    class_name = 'FluxObjective'
+    list_of = 'ListOfFluxObjective'
+    test_case = 'an element on FluxObjective'
+    fail += run_test(name, num, class_name, test_case)
+
+    # FBC Enum Types
+    name = 'fbc_v2'
+    num = 0
+    enum_name = 'FbcType'
+    test_case = 'an element on FbcType Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'fbc_v2'
+    num = 1
+    enum_name = 'FbcOperation'
+    test_case = 'an element on FbcOperation Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
     # #
     # # # TODO dyn tests
     # # Compilable

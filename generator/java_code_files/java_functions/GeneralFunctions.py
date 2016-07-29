@@ -546,6 +546,8 @@ class GeneralFunctions():
             implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
         elif str(type)[:] == 'uint':
             implementation.append('hashCode += prime * get{0}()'.format(name))
+        elif str(type)[:] == 'double':
+            implementation.append('hashCode += prime * get{0}()'.format(name))
         else:
             implementation.append('hashCode += prime')
 
@@ -923,6 +925,11 @@ class GeneralFunctions():
             implementation.append(
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, Integer.toString(get{3}()))'.format(
                     self.package, self.package, member_name, strFunctions.upper_first(member_name)))
+        elif str(type)[:] == 'double':
+            # TODO yay
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, StringTools.toString(Locale.ENGLISH, \
+                get{3}()))'.format(self.package, self.package, member_name, strFunctions.upper_first(member_name)))
         elif str(type)[:] == 'SpatialKind':
             implementation.append('attributes.remove("{0}")'.format(member_name))
             implementation.append(
