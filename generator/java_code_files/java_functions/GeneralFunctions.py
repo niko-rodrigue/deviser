@@ -665,14 +665,14 @@ class GeneralFunctions():
         elif java_type_data == 'Integer':
             java_type = 'Int'
         elif type == 'enum':
-            if java_type_data in self.jsbml_data_tree['Difference']:
-                data = self.jsbml_data_tree['Difference'][java_type_data]
-            else:
-                data = None
-            if data is not None:
-                java_type = data
-            else:
-                java_type = java_type_data
+            # if java_type_data in self.jsbml_data_tree['Difference']:
+            #     data = self.jsbml_data_tree['Difference'][java_type_data]
+            # else:
+            #     data = None
+            # if data is not None:
+            #     java_type = data
+            # else:
+            java_type = java_type_data
         else: #TODO needs to be modified
             java_type = java_type_data
 

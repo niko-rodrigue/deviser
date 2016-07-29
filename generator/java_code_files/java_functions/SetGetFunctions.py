@@ -210,14 +210,14 @@ class SetGetFunctions():
                 # else:
                 return_type = attribute['attTypeCode']
             elif attribute['attType'] == 'enum':
-                if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                    data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                else:
-                    data = None
-                if data is not None:
-                    return_type = data
-                else:
-                    return_type = attribute['JClassType']
+                # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                # else:
+                #     data = None
+                # if data is not None:
+                #     return_type = data
+                # else:
+                return_type = attribute['JClassType']
             elif attribute['attType'] == 'vector':
                 return_type = 'const {0}&'.format(attribute['attTypeCode'])
             else:
@@ -1140,15 +1140,15 @@ class SetGetFunctions():
                                  .format(attribute['attTypeCode'],
                                          attribute['name']))
             elif attribute['attType'] == 'enum':
-                if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                    data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                else:
-                    data = None
-                if data is not None:
-                    arg_type = data
-                    attribute['JClassType'] = arg_type
-                else:
-                    arg_type = attribute['JClassType']
+                # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                # else:
+                #     data = None
+                # if data is not None:
+                #     arg_type = data
+                #     attribute['JClassType'] = arg_type
+                # else:
+                arg_type = attribute['JClassType']
                 arguments.append('{0} {1}'.format(arg_type, attribute['name']))
             else:
                 arguments.append('{0} {1}'
@@ -1688,14 +1688,14 @@ class SetGetFunctions():
         if self.is_java_api:
             # code = self.unset_java_attribute(attribute)
             code = []
-            if attribute['JClassType'] in  self.jsbml_data_tree['Difference']:
-                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-            else:
-                data = None
-            if data is not None:
-                curr_att_type = data
-            else:
-                curr_att_type = attribute['JClassType']
+            # if attribute['JClassType'] in  self.jsbml_data_tree['Difference']:
+            #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            # else:
+            #     data = None
+            # if data is not None:
+            #     curr_att_type = data
+            # else:
+            curr_att_type = attribute['JClassType']
 
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
             currValue = 'this.old{0}'.format(attribute['name'])
@@ -2407,14 +2407,14 @@ class SetGetFunctions():
                     dict({'code_type': 'if_else', 'code': implementation2})]
         elif attribute['attType'] == 'enum':
             # TODO need to change here
-            if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-            else:
-                data = []
-            if len(data) > 0:
-                curr_att_type = data
-            else:
-                curr_att_type = attribute['JClassType']
+            # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+            #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+            # else:
+            #     data = []
+            # if len(data) > 0:
+            #     curr_att_type = data
+            # else:
+            curr_att_type = attribute['JClassType']
 
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
             currValue = 'this.old{0}'.format(attribute['name'])

@@ -326,22 +326,22 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
     # # #
     # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 2
-    # class_name = 'Input'
-    # list_of = 'ListOfInput'
-    # test_case = 'an element on Input'
-    # fail += run_test(name, num, class_name, test_case)
+    #Compiles
+    name = 'qual'
+    num = 2
+    class_name = 'Input'
+    list_of = 'ListOfInput'
+    test_case = 'an element on Input'
+    fail += run_test(name, num, class_name, test_case)
     # # #
     # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 3
-    # class_name = 'Output'
-    # list_of = 'ListOfOutput'
-    # test_case = 'an element on Output'
-    # fail += run_test(name, num, class_name, test_case)
+    #Compiles
+    name = 'qual'
+    num = 3
+    class_name = 'Output'
+    list_of = 'ListOfOutput'
+    test_case = 'an element on Output'
+    fail += run_test(name, num, class_name, test_case)
     #
     #
     #
@@ -362,6 +362,10 @@ def main():
     # test_case = 'an element on FunctionTerm'
     # fail += run_test(name, num, class_name, test_case)
     # # #
+
+
+
+    # Qual Enum Types
     name = 'qual'
     num = 0
     enum_name = 'Sign'

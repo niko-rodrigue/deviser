@@ -950,17 +950,17 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 cap_att_name = attribute['capAttName']
                 if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                     self.write_variable_comment()
-                    if type == 'enum':
-                        if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                            data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                        else:
-                            data = None
-                        if data is not None:
-                            return_type = data
-                        else:
-                            return_type = attribute['JClassType']
-                    else:
-                        return_type = attribute['JClassType']
+                    # if type == 'enum':
+                    #     if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                    #         data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                    #     else:
+                    #         data = None
+                    #     if data is not None:
+                    #         return_type = data
+                    #     else:
+                    #         return_type = attribute['JClassType']
+                    # else:
+                    return_type = attribute['JClassType']
                     member_name = attribute['name']
                     line = 'private {0} {1};'.format(return_type, member_name)
                     self.write_line(line)
