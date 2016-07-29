@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -397,9 +398,22 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   @Override
   public String toString() {
-    return "Output [qualitativeSpecies = " + qualitativeSpecies + ", "+
-      "transitionEffect = " + transitionEffect + ", outputLevel = " + outputLevel +
-        "id = " + getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("Output [");
+    builder.append("qualitativeSpecies = ");
+    builder.append(qualitativeSpecies);
+    builder.append(", ");
+    builder.append("transitionEffect = ");
+    builder.append(transitionEffect);
+    builder.append(", ");
+    builder.append("outputLevel = ");
+    builder.append(outputLevel);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

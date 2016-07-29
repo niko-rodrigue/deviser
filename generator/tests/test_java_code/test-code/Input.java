@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -470,10 +471,25 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public String toString() {
-    return "Input [sign = " + sign + ", qualitativeSpecies = " +
-      qualitativeSpecies + ", transitionEffect = " + transitionEffect + ", "+
-        "thresholdLevel = " + thresholdLevel + "id = " + getId() + ", name = " +
-          getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("Input [");
+    builder.append("sign = ");
+    builder.append(sign);
+    builder.append(", ");
+    builder.append("qualitativeSpecies = ");
+    builder.append(qualitativeSpecies);
+    builder.append(", ");
+    builder.append("transitionEffect = ");
+    builder.append(transitionEffect);
+    builder.append(", ");
+    builder.append("thresholdLevel = ");
+    builder.append(thresholdLevel);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

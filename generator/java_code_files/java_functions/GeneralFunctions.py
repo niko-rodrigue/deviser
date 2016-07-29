@@ -1022,6 +1022,8 @@ class GeneralFunctions():
     def create_to_string(self):
 
         text = ''
+
+        implementation_create = []
         if len(self.attributes) >= 1:
             for index in range(0, len(self.attributes)):
                 # print('i is ',i)s
@@ -1036,8 +1038,13 @@ class GeneralFunctions():
                     if index == len(self.attributes) - 1 and len(self.child_elements) == 0 \
                             and len(self.child_lo_elements) == 0:
                         text += '{0} = " + {1} '.format(member_name, member_name)
+                        implementation_create.append('builder.append("{0} = ")'.format(member_name))
+                        implementation_create.append('builder.append({0})'.format(member_name))
                     else:
                         text += '{0} = " + {1} + ", '.format(member_name, member_name)
+                        implementation_create.append('builder.append("{0} = ")'.format(member_name))
+                        implementation_create.append('builder.append({0})'.format(member_name))
+                        implementation_create.append('builder.append(", ")')
                         # else_if_index = i
                         # break
                         # code.append(temp_code[-1])
@@ -1055,8 +1062,13 @@ class GeneralFunctions():
                     # Stop generating for math elements
                     if index == len(self.child_elements) - 1 and len(self.child_lo_elements) == 0:
                         text += '{0} = " + {1}'.format(member_name, member_name)
+                        implementation_create.append('builder.append("{0} = ")'.format(member_name))
+                        implementation_create.append('builder.append({0})'.format(member_name))
                     else:
                         text += '{0} = " + {1} + ", '.format(member_name, member_name)
+                        implementation_create.append('builder.append("{0} = ")'.format(member_name))
+                        implementation_create.append('builder.append({0})'.format(member_name))
+                        implementation_create.append('builder.append(", ")')
 
                         # else_if_index = i
                         # break
@@ -1076,13 +1088,18 @@ class GeneralFunctions():
                     # Stop generating for math elements
                     if index == len(self.child_lo_elements) - 1:
                         text += '{0} = " + {1}'.format(jsbml_name, jsbml_name)
+                        implementation_create.append('builder.append("{0} = ")'.format(jsbml_name))
+                        implementation_create.append('builder.append({0})'.format(jsbml_name))
                     else:
                         text += '{0} = " + {1} + ", '.format(jsbml_name, jsbml_name)
+                        implementation_create.append('builder.append("{0} = ")'.format(jsbml_name))
+                        implementation_create.append('builder.append({0})'.format(jsbml_name))
+                        implementation_create.append('builder.append(", ")')
                         # else_if_index = i
                         # break
                         # code.append(temp_code[-1])
 
-        return text
+        return implementation_create #text
 
     def write_to_string(self):
         # do not write for C API
@@ -1123,7 +1140,14 @@ class GeneralFunctions():
 
         text = 'return "{0} ['.format(self.class_name)
 
-        text_rest = self.create_to_string()
+        #text_rest = self.create_to_string()
+        implementation_rest = self.create_to_string()
+
+        implementation = ['StringBuilder builder = new StringBuilder()']
+        implementation.append('builder.append("{0} [")'.format(self.class_name))
+
+        # implementation += implementation_rest
+
 
         # TODO here are the biggest problems
         # For math element
@@ -1135,18 +1159,35 @@ class GeneralFunctions():
         if import_module in self.jsbml_data_tree:
             if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
                             'name' in self.jsbml_data_tree[import_module]['ignore']:
-                text += text_rest
+                # text += text_rest
+                implementation += implementation_rest
                 text += '+ "isSetMath = " + isSetMath() + "]"'
+                implementation.append('builder.append("isSetMath = ")')
+                implementation.append('builder.append(isSetMath())')
+                implementation.append('builder.append("]")')
             else:
-                text += text_rest
+                # text += text_rest
+                implementation += implementation_rest
                 result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
                 if result == False:
-                    text += '+ "id = " + getId() + ", name = " + getName() + "]"'
+                    # text += '+ "id = " + getId() + ", name = " + getName() + "]"'
+                    implementation.append('builder.append(", id = ")')
+                    implementation.append('builder.append(getId())')
+                    implementation.append('builder.append(", name = ")')
+                    implementation.append('builder.append(getName())')
+                    implementation.append('builder.append("]")')
                 else:
-                    text += '"]"'
+                    # text += '"]"'
+                    implementation.append('builder.append("]")')
+        # temp = [text]
 
-        temp = [text]
-        code.append(self.create_code_block('line', temp))
+
+        # final return statement
+        text = 'return builder.toString()'
+        implementation.append(text)
+
+        # code.append(self.create_code_block('line', temp))
+        code.append(self.create_code_block('line', implementation))
 
         # for i in range(0, len(self.child_elements)):
         #     element = self.child_elements[i]

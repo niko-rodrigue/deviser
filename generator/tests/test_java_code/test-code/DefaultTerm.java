@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -189,8 +190,14 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public String toString() {
-    return "DefaultTerm [resultLevel = " + resultLevel + "isSetMath = " +
-      isSetMath() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("DefaultTerm [");
+    builder.append("resultLevel = ");
+    builder.append(resultLevel);
+    builder.append("isSetMath = ");
+    builder.append(isSetMath());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.tree.TreeNode;
 
@@ -174,7 +175,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#getMath
+   * @see org.sbml.jsbml.AbstractMathContainer#getMath
    */
   @Override
   public ASTNode getMath() {
@@ -182,7 +183,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#isSetMath
+   * @see org.sbml.jsbml.AbstractMathContainer#isSetMath
    */
   @Override
   public boolean isSetMath() {
@@ -190,7 +191,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#setMath
+   * @see org.sbml.jsbml.AbstractMathContainer#setMath
    */
   @Override
   public void setMath(ASTNode math) {
@@ -207,7 +208,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#unsetMath
+   * @see org.sbml.jsbml.AbstractMathContainer#unsetMath
    */
   @Override
   public void unsetMath() {
@@ -233,8 +234,17 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public String toString() {
-    return "FunctionTerm [resultLevel = " + resultLevel + ", math = " + math+
-      "isSetMath = " + isSetMath() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("FunctionTerm [");
+    builder.append("resultLevel = ");
+    builder.append(resultLevel);
+    builder.append(", ");
+    builder.append("math = ");
+    builder.append(math);
+    builder.append("isSetMath = ");
+    builder.append(isSetMath());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

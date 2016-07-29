@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.tree.TreeNode;
 
@@ -714,9 +715,22 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public String toString() {
-    return "Transition [listOfInputs = " + listOfInputs + ", listOfOutputs = " +
-      listOfOutputs + ", listOfFunctionTerms = " + listOfFunctionTerms+ "id = " +
-        getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("Transition [");
+    builder.append("listOfInputs = ");
+    builder.append(listOfInputs);
+    builder.append(", ");
+    builder.append("listOfOutputs = ");
+    builder.append(listOfOutputs);
+    builder.append(", ");
+    builder.append("listOfFunctionTerms = ");
+    builder.append(listOfFunctionTerms);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)
