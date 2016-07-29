@@ -1018,8 +1018,7 @@ class GeneralFunctions():
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
 
-    # Functions for writing renamesidref
-
+    # StringBuilder Approach
     def create_to_string(self):
 
         text = ''
@@ -1034,15 +1033,14 @@ class GeneralFunctions():
                     continue
                 else:
                     # Stop generating for math elements
-                    if index == len(self.attributes)-1 and len(self.child_elements) == 0\
+                    if index == len(self.attributes) - 1 and len(self.child_elements) == 0 \
                             and len(self.child_lo_elements) == 0:
                         text += '{0} = " + {1} '.format(member_name, member_name)
                     else:
                         text += '{0} = " + {1} + ", '.format(member_name, member_name)
-                    # else_if_index = i
-                    # break
-                    # code.append(temp_code[-1])
-
+                        # else_if_index = i
+                        # break
+                        # code.append(temp_code[-1])
 
         if len(self.child_elements) >= 1:
             for index in range(0, len(self.child_elements)):
@@ -1055,14 +1053,14 @@ class GeneralFunctions():
                     continue
                 else:
                     # Stop generating for math elements
-                    if index == len(self.child_elements)-1 and len(self.child_lo_elements) == 0:
+                    if index == len(self.child_elements) - 1 and len(self.child_lo_elements) == 0:
                         text += '{0} = " + {1}'.format(member_name, member_name)
                     else:
                         text += '{0} = " + {1} + ", '.format(member_name, member_name)
 
-                    # else_if_index = i
-                    # break
-                    # code.append(temp_code[-1])
+                        # else_if_index = i
+                        # break
+                        # code.append(temp_code[-1])
 
         if len(self.child_lo_elements) >= 1:
             for index in range(0, len(self.child_lo_elements)):
@@ -1076,17 +1074,15 @@ class GeneralFunctions():
                     continue
                 else:
                     # Stop generating for math elements
-                    if index == len(self.child_lo_elements)-1 :
+                    if index == len(self.child_lo_elements) - 1:
                         text += '{0} = " + {1}'.format(jsbml_name, jsbml_name)
                     else:
                         text += '{0} = " + {1} + ", '.format(jsbml_name, jsbml_name)
-                    # else_if_index = i
-                    # break
-                    # code.append(temp_code[-1])
+                        # else_if_index = i
+                        # break
+                        # code.append(temp_code[-1])
 
         return text
-
-
 
     def write_to_string(self):
         # do not write for C API
@@ -1097,7 +1093,6 @@ class GeneralFunctions():
         function = 'toString'
         if function not in self.methods_to_write:
             return
-
 
         # create doc string header
         title_line = '(non-Javadoc)--see java.lang.Object#toString()'.format(self.object_name)
@@ -1126,13 +1121,12 @@ class GeneralFunctions():
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
                                                                              function, function_args)
 
-
         text = 'return "{0} ['.format(self.class_name)
 
         text_rest = self.create_to_string()
 
         # TODO here are the biggest problems
-        #For math element
+        # For math element
         try:
             import_module = self.import_modules[0]
         except:
@@ -1187,6 +1181,179 @@ class GeneralFunctions():
                      'object_name': self.object_name,
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
+
+
+
+
+    # Functions for writing renamesidref
+    # not StringBuilderApproach
+    # def  create_to_string(self):
+    #
+    #     text = ''
+    #     if len(self.attributes) >= 1:
+    #         for index in range(0, len(self.attributes)):
+    #             # print('i is ',i)s
+    #             attribute = self.attributes[index]
+    #             name = self.attributes[index]['capAttName']
+    #             member_name = self.attributes[index]['name']
+    #             type = self.attributes[index]['type']
+    #             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+    #                 continue
+    #             else:
+    #                 # Stop generating for math elements
+    #                 if index == len(self.attributes)-1 and len(self.child_elements) == 0\
+    #                         and len(self.child_lo_elements) == 0:
+    #                     text += '{0} = " + {1} '.format(member_name, member_name)
+    #                 else:
+    #                     text += '{0} = " + {1} + ", '.format(member_name, member_name)
+    #                 # else_if_index = i
+    #                 # break
+    #                 # code.append(temp_code[-1])
+    #
+    #
+    #     if len(self.child_elements) >= 1:
+    #         for index in range(0, len(self.child_elements)):
+    #             # print('i is ',i)s
+    #             attribute = self.child_elements[index]
+    #             name = self.child_elements[index]['capAttName']
+    #             member_name = self.child_elements[index]['name']
+    #             type = self.child_elements[index]['type']
+    #             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+    #                 continue
+    #             else:
+    #                 # Stop generating for math elements
+    #                 if index == len(self.child_elements)-1 and len(self.child_lo_elements) == 0:
+    #                     text += '{0} = " + {1}'.format(member_name, member_name)
+    #                 else:
+    #                     text += '{0} = " + {1} + ", '.format(member_name, member_name)
+    #
+    #                 # else_if_index = i
+    #                 # break
+    #                 # code.append(temp_code[-1])
+    #
+    #     if len(self.child_lo_elements) >= 1:
+    #         for index in range(0, len(self.child_lo_elements)):
+    #             # print('i is ',i)s
+    #             attribute = self.child_lo_elements[index]
+    #             name = self.child_lo_elements[index]['capAttName']
+    #             member_name = self.child_lo_elements[index]['name']
+    #             jsbml_name = self.child_lo_elements[index]['jsbmlName']
+    #             type = self.child_lo_elements[index]['type']
+    #             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+    #                 continue
+    #             else:
+    #                 # Stop generating for math elements
+    #                 if index == len(self.child_lo_elements)-1 :
+    #                     text += '{0} = " + {1}'.format(jsbml_name, jsbml_name)
+    #                 else:
+    #                     text += '{0} = " + {1} + ", '.format(jsbml_name, jsbml_name)
+    #                 # else_if_index = i
+    #                 # break
+    #                 # code.append(temp_code[-1])
+    #
+    #     return text
+    #
+    #
+    #
+    # def write_to_string(self):
+    #     # do not write for C API
+    #     if self.is_java_api is False:
+    #         return
+    #
+    #     # Check if method is required
+    #     function = 'toString'
+    #     if function not in self.methods_to_write:
+    #         return
+    #
+    #
+    #     # create doc string header
+    #     title_line = '(non-Javadoc)--see java.lang.Object#toString()'.format(self.object_name)
+    #     params = ['@param rhs the {0} object whose values are to be used '
+    #               'as the basis of the assignment.'.format(self.object_name)]
+    #     return_lines = []
+    #     additional = []
+    #     additional.append('Override')
+    #
+    #     return_type = 'String'
+    #     arguments = ['']  # , 'String prefix', 'String value']
+    #     arguments_no_defaults = ['']
+    #     # create the function implementation
+    #     args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+    #     clone = 'clone'
+    #
+    #     code = []
+    #
+    #     additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+    #         self.jsbml_methods,
+    #         function=function,
+    #         return_type=return_type)
+    #
+    #     if additional_add is not None:
+    #         additional.append(additional_add)
+    #         title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+    #                                                                          function, function_args)
+    #
+    #
+    #     text = 'return "{0} ['.format(self.class_name)
+    #
+    #     text_rest = self.create_to_string()
+    #
+    #     # TODO here are the biggest problems
+    #     #For math element
+    #     try:
+    #         import_module = self.import_modules[0]
+    #     except:
+    #         import_module = None
+    #
+    #     if import_module in self.jsbml_data_tree:
+    #         if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
+    #                         'name' in self.jsbml_data_tree[import_module]['ignore']:
+    #             text += text_rest
+    #             text += '+ "isSetMath = " + isSetMath() + "]"'
+    #         else:
+    #             text += text_rest
+    #             result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
+    #             if result == False:
+    #                 text += '+ "id = " + getId() + ", name = " + getName() + "]"'
+    #             else:
+    #                 text += '"]"'
+    #
+    #     temp = [text]
+    #     code.append(self.create_code_block('line', temp))
+    #
+    #     # for i in range(0, len(self.child_elements)):
+    #     #     element = self.child_elements[i]
+    #     #     member = element['memberName']
+    #     #     args += ['delete {0}'.format(member)]
+    #     #     if element['element'] == 'ASTNode':
+    #     #         clone = 'deepCopy'
+    #     #     implementation = ['rhs.{0} != NULL'.format(member),
+    #     #                       '{0} = rhs.{0}->{1}()'.format(member,
+    #     #                                                     clone),
+    #     #                       'else', '{0} = NULL'.format(member)]
+    #     #     args += [self.create_code_block('if_else', implementation)]
+    #     # implementation = args
+    #     # if self.has_children:
+    #     #     implementation.append('connectToChild()')
+    #     # if self.document:
+    #     #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+    #     #
+    #     # implementation2 = ['return *this']
+    #     # code = [dict({'code_type': 'if', 'code': implementation}),
+    #     #         dict({'code_type': 'line', 'code': implementation2})]
+    #
+    #     return dict({'title_line': title_line,
+    #                  'params': params,
+    #                  'return_lines': return_lines,
+    #                  'additional': additional,
+    #                  'function': function,
+    #                  'return_type': return_type,
+    #                  'arguments': arguments,
+    #                  'constant': False,
+    #                  'virtual': False,
+    #                  'object_name': self.object_name,
+    #                  'args_no_defaults': arguments_no_defaults,
+    #                  'implementation': code})
 
 
     # function to write rename_sid_ref
