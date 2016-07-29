@@ -19,6 +19,7 @@
  */
 package org.sbml.jsbml.ext.qual;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -48,7 +49,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    *
    */
-  private InputTransitionEffect transitionEffect;
+  private TransitionInputEffect transitionEffect;
   /**
    *
    */
@@ -197,7 +198,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    *  
    * @return the value of {@link transitionEffect}.
    */
-  public InputTransitionEffect getTransitionEffect() {
+  public TransitionInputEffect getTransitionEffect() {
     if (isSetTransitionEffect()) {
       return transitionEffect;
     }
@@ -257,10 +258,14 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    *  
    * @param sign the value of sign to be set.
    */
-  public void setSign(Sign sign) {
-    Sign oldSign = this.sign;
-    this.sign = null;
-    firePropertyChange(QualConstants.sign, oldSign, this.sign);
+  public boolean setSign(Sign sign) {
+    if (sign != this.sign) {
+      Sign oldSign = this.sign;
+      this.sign = sign;
+      firePropertyChange(QualConstants.sign, oldSign, this.sign);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -271,12 +276,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   public boolean setQualitativeSpecies(String qualitativeSpecies) {
     if (qualitativeSpecies != this.qualitativeSpecies) {
       String oldQualitativeSpecies = this.qualitativeSpecies;
-      if ((qualitativeSpecies == null) || (qualitativeSpecies.isEmpty())) {
-        this.qualitativeSpecies = null;
-      } else {
-        this.qualitativeSpecies = qualitativeSpecies;
-      }
-
+      this.qualitativeSpecies = qualitativeSpecies;
       firePropertyChange(QualConstants.qualitativeSpecies,
         oldQualitativeSpecies, this.qualitativeSpecies);
       return true;
@@ -289,11 +289,15 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    *  
    * @param transitionEffect the value of transitionEffect to be set.
    */
-  public void setTransitionEffect(InputTransitionEffect transitionEffect) {
-    InputTransitionEffect oldTransitionEffect = this.transitionEffect;
-    this.transitionEffect = null;
-    firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
-      this.transitionEffect);
+  public boolean setTransitionEffect(TransitionInputEffect transitionEffect) {
+    if (transitionEffect != this.transitionEffect) {
+      TransitionInputEffect oldTransitionEffect = this.transitionEffect;
+      this.transitionEffect = transitionEffect;
+      firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
+        this.transitionEffect);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -301,11 +305,15 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    *  
    * @param thresholdLevel the value of thresholdLevel to be set.
    */
-  public void setThresholdLevel(int thresholdLevel) {
-    Integer oldThresholdLevel = this.thresholdLevel;
-    this.thresholdLevel = thresholdLevel;
-    firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
-      this.thresholdLevel);
+  public boolean setThresholdLevel(int thresholdLevel) {
+    if (thresholdLevel != this.thresholdLevel) {
+      Integer oldThresholdLevel = this.thresholdLevel;
+      this.thresholdLevel = thresholdLevel;
+      firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
+        this.thresholdLevel);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -330,7 +338,14 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    * {@code false}.
    */
   public boolean unsetQualitativeSpecies() {
-    return setQualitativeSpecies((String) null);
+    if (isSetQualitativeSpecies()) {
+      String oldQualitativeSpecies = qualitativeSpecies;
+      qualitativeSpecies = null;
+      firePropertyChange(QualConstants.qualitativeSpecies,
+        oldQualitativeSpecies, qualitativeSpecies);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -341,7 +356,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   public boolean unsetTransitionEffect() {
     if (isSetTransitionEffect()) {
-      InputTransitionEffect oldTransitionEffect = transitionEffect;
+      TransitionInputEffect oldTransitionEffect = transitionEffect;
       transitionEffect = null;
       firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
         transitionEffect);
@@ -363,9 +378,8 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
       firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
         thresholdLevel);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /* (non-Javadoc)
@@ -456,8 +470,10 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public String toString() {
-    return "Input [sign = " + sign + ", qualitativeSpecies = " + qualitativeSpecies + ", transitionEffect = " +
-      transitionEffect + ", thresholdLevel = " + thresholdLevel + ", id = " + getId() + ", name = " + getName() + "]";
+    return "Input [sign = " + sign + ", qualitativeSpecies = " +
+      qualitativeSpecies + ", transitionEffect = " + transitionEffect + ", "+
+        "thresholdLevel = " + thresholdLevel + "id = " + getId() + ", name = " +
+          getName() + "]";
   }
 
   /* (non-Javadoc)
@@ -482,7 +498,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
         setQualitativeSpecies(value);
       }      else if (attributeName.equals(QualConstants.transitionEffect)) {
         try {
-          setTransitionEffect(InputTransitionEffect.valueOf(value));
+          setTransitionEffect(TransitionInputEffect.valueOf(value));
         }
         catch (Exception e) {
           throw new SBMLException("Could not recognized the value '" + value + "' for the "+

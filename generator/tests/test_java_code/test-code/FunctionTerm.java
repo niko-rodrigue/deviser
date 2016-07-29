@@ -19,12 +19,14 @@
  */
 package org.sbml.jsbml.ext.qual;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
+import org.sbml.jsbml.xml.XMLNode;
 
 /**
  * @author Deviser
@@ -42,6 +44,10 @@ public class FunctionTerm extends AbstractMathContainer {
    *
    */
   private Integer resultLevel;
+  /**
+   *
+   */
+  private ASTNode math;
 
   /**
    *  
@@ -61,16 +67,6 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /**
-   * @param id
-   * @param level
-   * @param version
-   */
-  public FunctionTerm(ASTNode math, int level, int version) {
-    super(math, level, version);
-    initDefaults();
-  }
-
-  /**
    * @param orig the FunctionTerm instance to copy.
    */
   public FunctionTerm(FunctionTerm orig) {
@@ -80,7 +76,7 @@ public class FunctionTerm extends AbstractMathContainer {
       setResultLevel(orig.getResultLevel());
     }
     if (orig.isSetMath()) {
-      setMath(orig.getMath());
+      setMath(orig.getMath().clone());
     }
   }
 
@@ -149,11 +145,15 @@ public class FunctionTerm extends AbstractMathContainer {
    *  
    * @param resultLevel the value of resultLevel to be set.
    */
-  public void setResultLevel(int resultLevel) {
-    Integer oldResultLevel = this.resultLevel;
-    this.resultLevel = resultLevel;
-    firePropertyChange(QualConstants.resultLevel, oldResultLevel,
-      this.resultLevel);
+  public boolean setResultLevel(int resultLevel) {
+    if (resultLevel != this.resultLevel) {
+      Integer oldResultLevel = this.resultLevel;
+      this.resultLevel = resultLevel;
+      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+        this.resultLevel);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -169,9 +169,49 @@ public class FunctionTerm extends AbstractMathContainer {
       firePropertyChange(QualConstants.resultLevel, oldResultLevel,
         resultLevel);
       return true;
-    } else {
-      return false;
     }
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#getMath
+   */
+  @Override
+  public ASTNode getMath() {
+    return math;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#isSetMath
+   */
+  @Override
+  public boolean isSetMath() {
+    return math != null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#setMath
+   */
+  @Override
+  public void setMath(ASTNode math) {
+    ASTNode oldMath = this.math;
+
+    this.math = math;
+
+    if (oldMath != null) {
+      oldMath.fireNodeRemovedEvent();
+    }
+    if (this.math != null) {
+      firePropertyChange(TreeNodeChangeEvent.math, oldMath, math);
+    }
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.MathContainer#unsetMath
+   */
+  @Override
+  public void unsetMath() {
+    setMath(null);
   }
 
   /* hashcode method for FunctionTerm.
@@ -193,7 +233,8 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public String toString() {
-    return "FunctionTerm [resultLevel = " + resultLevel + ", isSetMath = " + isSetMath() + "]";
+    return "FunctionTerm [resultLevel = " + resultLevel + ", math = " + math+
+      "isSetMath = " + isSetMath() + "]";
   }
 
   /* (non-Javadoc)

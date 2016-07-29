@@ -262,7 +262,11 @@ class SetGetFunctions():
         # create the function implementation
         if self.is_java_api:
             if not self.document:
-                if curr_att_type == 'String':
+                if attribute['name'] == 'math':
+                    implement_string = ['return {0}'.format(attribute['name'])]
+                    code = [self.create_code_block('line', implement_string)]
+                    return_type = 'ASTNode'
+                elif curr_att_type == 'String':
                     implement_string = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'],
                                                                               attribute['name'])]
                     code = [self.create_code_block('line', implement_string)]
@@ -1172,8 +1176,7 @@ class SetGetFunctions():
 
         # create the function implementation
         if self.is_java_api:
-            code = self.set_java_attribute(attribute)
-            # code = []
+            code, return_type = self.set_java_attribute(attribute)
             # curr_att_type = attribute['JClassType']
             # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
             # currValue = 'this.{0}'.format(attribute['name'])
@@ -1659,10 +1662,11 @@ class SetGetFunctions():
         if self.is_java_api:
             function = 'unset{0}'.format(attribute['capAttName'])
             return_type = 'int'
-        else:
-            function = '{0}_unset{1}'.format(self.class_name,
-                                             attribute['capAttName'])
-            return_type = 'int'
+            return_type = 'boolean'
+        # else:
+        #     function = '{0}_unset{1}'.format(self.class_name,
+        #                                      attribute['capAttName'])
+        #     return_type = 'int'
 
         # TODO override unset need to change this part
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(self.jsbml_methods,
@@ -1678,7 +1682,7 @@ class SetGetFunctions():
         params.append(' ')
         params.append('@return {{@code true}} if {0} was set before, otherwise {{@code false}}.'.format(attribute['name']))
          # TODO GSOC 2016 write_unset return type definition
-        return_type = 'boolean'
+
         arguments = []
         if not self.is_java_api:
             arguments.append('{0} * {1}'
@@ -1686,8 +1690,8 @@ class SetGetFunctions():
 
         # create the function implementation
         if self.is_java_api:
-            # code = self.unset_java_attribute(attribute)
-            code = []
+            code, return_type = self.unset_java_attribute(attribute)
+            # code = []
             # if attribute['JClassType'] in  self.jsbml_data_tree['Difference']:
             #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
             # else:
@@ -1695,24 +1699,24 @@ class SetGetFunctions():
             # if data is not None:
             #     curr_att_type = data
             # else:
-            curr_att_type = attribute['JClassType']
-
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
-            part2 = '{0} = null'.format(attribute['name'])
-            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                                                                                       attribute['name'],
-                                                                                       oldValue,
-                                                                                       attribute['name'])
-            implementation = ['isSet{0}()'.format(attribute['capAttName']),
-                              part1, part2, part3,
-                               'return true']
-            # code = [dict({'code_type': 'if', 'code': implementation})]
-            code = [self.create_code_block('if', implementation)]
-
-            temp = 'return false'
-            code.append(temp)
+            # curr_att_type = attribute['JClassType']
+            #
+            # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            # currValue = 'this.old{0}'.format(attribute['name'])
+            # part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            # part2 = '{0} = null'.format(attribute['name'])
+            # part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+            #                                                                            attribute['name'],
+            #                                                                            oldValue,
+            #                                                                            attribute['name'])
+            # implementation = ['isSet{0}()'.format(attribute['capAttName']),
+            #                   part1, part2, part3,
+            #                    'return true']
+            # # code = [dict({'code_type': 'if', 'code': implementation})]
+            # code = [self.create_code_block('if', implementation)]
+            #
+            # temp = 'return false'
+            # code.append(temp)
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent
@@ -2026,6 +2030,7 @@ class SetGetFunctions():
     def set_java_attribute(self, attribute, write_for = 'String'):
         member = attribute['name']
         name = attribute['name']
+        return_type = 'boolean'
         if 'version_info' in attribute and False in attribute['version_info']:
             code = [self.create_code_block('line',
                                            ['unsigned int pkgVersion = '
@@ -2060,6 +2065,7 @@ class SetGetFunctions():
 
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
+            return_type = 'boolean'
             # if self.language == 'jsbml':
             #     implementation = ['return SyntaxChecker::'
             #                       'checkAndSetSId(id, mId)']
@@ -2107,6 +2113,7 @@ class SetGetFunctions():
 
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
+            return_type = 'boolean'
             # pass
             # # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
             # # TODO nested nested if
@@ -2173,6 +2180,7 @@ class SetGetFunctions():
 
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
+            return_type = 'boolean'
             # implementation = ['!(SyntaxChecker::isValidInternalUnitSId({0})'
             #                   ')'.format(name),
             #                   'return {0}'.format(self.invalid_att), 'else',
@@ -2204,6 +2212,7 @@ class SetGetFunctions():
 
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
+            return_type = 'boolean'
             # implementation = ['{0} = {1}'.format(member, name),
             #                   'return {0}'.format(self.success)]
             # code = [dict({'code_type': 'line', 'code': implementation})]
@@ -2232,6 +2241,7 @@ class SetGetFunctions():
 
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
+            return_type = 'boolean'
             # # TODO maybe all should look like this
             # data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
             # if len(data) > 0:
@@ -2280,6 +2290,7 @@ class SetGetFunctions():
                               'return {0}'.format(self.success)]
             code = [self.create_code_block('line', implementation)]
         elif attribute['type'] == 'element':
+            # TODO stuff
             if not self.is_plugin:
                 clone = 'clone'
                 nested_if = []
@@ -2291,31 +2302,75 @@ class SetGetFunctions():
                                   '{0} = NULL'.format(member),
                                   'return {0}'.format(self.success)]
                 if attribute['element'] == 'ASTNode':
-                    clone = 'deepCopy'
-                    implementation.append('else if')
-                    implementation.append('!({0}->isWellFormedASTNode()'
-                                          ')'.format(name))
-                    implementation.append('return {0}'.format(self.invalid_obj))
-                    line = ['{0} != NULL'.format(member),
-                            '{0}->setParent{1}Object'
-                            '(this)'.format(member, self.cap_language)]
-                    if global_variables.is_package:
-                        nested_if = self.create_code_block('if', line)
-                elif not attribute['is_ml']:
-                    line = ['{0} != NULL'.format(member)]
-                    if attribute['children_overwrite']:
-                        line.append('{0}->setElementName'
-                                    '(\"{1}\")'.format(member, name))
-                    line.append('{0}->connectToParent(this)'.format(member))
-                    nested_if = self.create_code_block('if', line)
-                implementation.append('else')
-                implementation.append('delete {0}'.format(member))
-                implementation.append('{0} = ({1} != NULL) ? {1}->{2}() '
-                                      ': NULL'.format(member, name, clone))
-                if len(nested_if) > 0:
-                    implementation.append(nested_if)
-                implementation.append('return {0}'.format(self.success))
-                code = [self.create_code_block('else_if', implementation)]
+                    # clone = 'deepCopy'
+                    # implementation.append('else if')
+                    # implementation.append('!({0}->isWellFormedASTNode()'
+                    #                       ')'.format(name))
+                    # implementation.append('return {0}'.format(self.invalid_obj))
+                    # line = ['{0} != NULL'.format(member),
+                    #         '{0}->setParent{1}Object'
+                    #         '(this)'.format(member, self.cap_language)]
+                    # if global_variables.is_package:
+                    #     nested_if = self.create_code_block('if', line)
+                    curr_att_type = attribute['JClassType']
+                    oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                    currValue = 'this.{0}'.format(attribute['name'])
+
+                    implement_part1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])]
+                    implement_part2 = ['{0} = {1}'.format(currValue, attribute['name'])]
+
+                    code.append(self.create_code_block('line', implement_part1))
+                    code.append(self.create_code_block('line', implement_part2))
+
+                    implementation = ['old{0} != null'.format(attribute['capAttName']),
+                                      'old{0}.fireNodeRemovedEvent()'.format(attribute['capAttName'])]  # 2nd line
+                    code.append(self.create_code_block('if', implementation))
+
+                    implementation = ['this.{0} != null'.format(attribute['name'])]
+                    # implementation.append(['ASTNode.setParentSBMLObject({0}, this)'.format(attribute['name'])])
+                    implementation.append('firePropertyChange(TreeNodeChangeEvent.{0}, {1}, {0})'.\
+                                          format(attribute['name'],  oldValue, currValue)) # 2nd line
+
+
+                    code.append(self.create_code_block('if', implementation))
+                    code.append(self.create_code_block('blank',''))
+                    return_type = 'void'
+
+                    # implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                    #                                                                            attribute['name'],
+                    #                                                                            oldValue,
+                    #                                                                            currValue)
+
+                    #code = [dict({'code_type': 'line', 'code': 'TADA'})]
+                    # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
+                    #                       'this.{0} = null'.format(attribute['name']), 'else',
+                    #
+
+                    # impl2 =  'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
+                    # implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
+                    #                   implement_part1,
+                    #                   impl2, implement_part3, 'return true']  # 2nd line
+                    # code = [self.create_code_block('if', implementation)]
+                    #
+                    # implementationNext = ['return false']  # 1st line
+                    # code.append(self.create_code_block('line', implementationNext))
+
+
+                # elif not attribute['is_ml']:
+                #     line = ['{0} != NULL'.format(member)]
+                #     if attribute['children_overwrite']:
+                #         line.append('{0}->setElementName'
+                #                     '(\"{1}\")'.format(member, name))
+                #     line.append('{0}->connectToParent(this)'.format(member))
+                #     nested_if = self.create_code_block('if', line)
+                # implementation.append('else')
+                # implementation.append('delete {0}'.format(member))
+                # implementation.append('{0} = ({1} != NULL) ? {1}->{2}() '
+                #                       ': NULL'.format(member, name, clone))
+                # if len(nested_if) > 0:
+                #     implementation.append(nested_if)
+                # implementation.append('return {0}'.format(self.success))
+                # code = [self.create_code_block('else_if', implementation)]
             else:
                 implementation = ['{0} == NULL'.format(name),
                                   'return {0}'.format(self.failed),
@@ -2343,7 +2398,7 @@ class SetGetFunctions():
                 code = [self.create_code_block('else_if', implementation)]
         else:
             code = [dict({'code_type': 'blank', 'code': []})]
-        return code
+        return code, return_type
 
 
 
@@ -2363,18 +2418,44 @@ class SetGetFunctions():
             curr_att_type = attribute['JClassType']
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
             currValue = 'this.{0}'.format(attribute['name'])
-            implementation1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])]
-            implementation2 = ['{0} = {1}'.format(currValue, attribute['name'])]
-            implementation3 = ['firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                                                                                       attribute['name'],
-                                                                                       oldValue,
-                                                                                       currValue)]
-            all_impl = implementation1 + implementation2 + implementation3
-            code = [dict({'code_type': 'line', 'code': all_impl})]
-            # code = [dict({'code_type': 'line', 'code': implementation1}),
-            #         dict({'code_type': 'line', 'code': implementation2}),
-            #         dict({'code_type': 'line', 'code': implementation3})]
-            return code  # implementation  #
+
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                      attribute['name'],
+                                                                                      oldValue,
+                                                                                      currValue)
+
+            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
+            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
+            #                       'this.{0} = null'.format(attribute['name']), 'else',
+            #
+
+            impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
+            implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
+                              implement_part1,
+                              impl2, implement_part3, 'return true']  # 2nd line
+            code = [self.create_code_block('if', implementation)]
+
+            implementationNext = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementationNext))
+            return_type = 'boolean'
+            return code
+            # curr_att_type = attribute['JClassType']
+            # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            # currValue = 'this.{0}'.format(attribute['name'])
+            # implementation1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])]
+            # implementation2 = ['{0} = {1}'.format(currValue, attribute['name'])]
+            # implementation3 = ['firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+            #                                                                            attribute['name'],
+            #                                                                            oldValue,
+            #                                                                            currValue)]
+            # all_impl = implementation1 + implementation2 + implementation3
+            # code = [dict({'code_type': 'line', 'code': all_impl})]
+            # # code = [dict({'code_type': 'line', 'code': implementation1}),
+            # #         dict({'code_type': 'line', 'code': implementation2}),
+            # #         dict({'code_type': 'line', 'code': implementation3})]
+            # return code  # implementation  #
         except Exception as error:
             print("write_set_att_with_member ", error)
             sys.exit(0)
@@ -2397,14 +2478,34 @@ class SetGetFunctions():
 
     # TODO GSOC 2016 unset Done
     def unset_java_attribute(self, attribute):
+        code = []
         if attribute['attType'] == 'string':
-            implementation = ['{0}.erase()'.format(attribute['name'])]
-            implementation2 = ['{0}.empty() == '
-                               'true'.format(attribute['name']),
-                               'return {0}'.format(self.success), 'else',
-                               'return {0}'.format(self.failed)]
-            code = [dict({'code_type': 'line', 'code': implementation}),
-                    dict({'code_type': 'if_else', 'code': implementation2})]
+            curr_att_type = attribute['JClassType']
+
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                       attribute['name'],
+                                                                                       oldValue,
+                                                                                       attribute['name'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                               'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
+
+            temp = 'return false'
+            code.append(temp)
+            return_type = 'boolean'
+            # implementation = ['{0}.erase()'.format(attribute['name'])]
+            # implementation2 = ['{0}.empty() == '
+            #                    'true'.format(attribute['name']),
+            #                    'return {0}'.format(self.success), 'else',
+            #                    'return {0}'.format(self.failed)]
+            # code = [dict({'code_type': 'line', 'code': implementation}),
+            #         dict({'code_type': 'if_else', 'code': implementation2})]
         elif attribute['attType'] == 'enum':
             # TODO need to change here
             # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
@@ -2432,6 +2533,7 @@ class SetGetFunctions():
 
             temp = 'return false'
             code.append(temp)
+            return_type = 'boolean'
             # implementation = ['{0} = {1}'.format(attribute['name'],
             #                                      attribute['default']),
             #                   'return {0}'.format(self.success)]
@@ -2440,22 +2542,89 @@ class SetGetFunctions():
         # TODO GSOC 2016 modification unset query
         # TODO here's the problem
         elif attribute['type'] == 'SIdRef':
-            implementation = ['return set{0}(({1}) null)'.format(attribute['capAttName'],
-                                                          attribute['JClassType'])]
-            code = [dict({'code_type': 'line', 'code': implementation})]
-        elif query.has_is_set_member(attribute):
-            # implementation = ['{0} = {1}'.format(attribute['name'],
-            #                                      attribute['default']),
-            #                   'mIsSet{0} = '
-            #                   'false'.format(attribute['capAttName'])]
-            # implementation2 = ['isSet{0}() == '
-            #                    'false'.format(attribute['capAttName']),
-            #                    'return {0}'.format(self.success), 'else',
-            #                    'return {0}'.format(self.failed)]
-            # code = [dict({'code_type': 'line', 'code': implementation}),
-            #         dict({'code_type': 'if_else', 'code': implementation2})]
-
             curr_att_type = attribute['JClassType']
+
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                            attribute['name'],
+                                                                            oldValue,
+                                                                            attribute['name'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                              'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
+
+            temp = 'return false'
+            code.append(temp)
+            return_type = 'boolean'
+            # implementation = ['return set{0}(({1}) null)'.format(attribute['capAttName'],
+            #                                               attribute['JClassType'])]
+            # code = [dict({'code_type': 'line', 'code': implementation})]
+        elif query.has_is_set_member(attribute):
+            curr_att_type = attribute['JClassType']
+
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                            attribute['name'],
+                                                                            oldValue,
+                                                                            attribute['name'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                              'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
+
+            temp = 'return false'
+            code.append(temp)
+            return_type = 'boolean'
+
+        elif attribute['type'] == 'element':
+            if attribute['name'] == 'math':
+
+                # curr_att_type = attribute['JClassType']
+                #
+                # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                # currValue = 'this.old{0}'.format(attribute['name'])
+                # part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+                # part2 = '{0} = null'.format(attribute['name'])
+                # part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                #                                                                 attribute['name'],
+                #                                                                 oldValue,
+                #                                                                 attribute['name'])
+                # implementation = [part1, part2, part3]
+                # code = [self.create_code_block('line', implementation)]
+                implementation = ['set{0}(null)'.format(attribute['capAttName'])]
+                code = [self.create_code_block('line', implementation)]
+                return_type = 'void'
+            else:
+                implementation = ['delete {0}'.format(attribute['name']),
+                                  '{0} = NULL'.format(attribute['name']),
+                                  'return {0}'.format(self.success)]
+                code = [dict({'code_type': 'line', 'code': implementation})]
+            return_type = 'void'
+        elif attribute['isArray']:
+            code = [self.create_code_block(
+                'if', ['{0} != NULL'.format(attribute['name']),
+                       'delete[] {0}'.format(attribute['name'])]),
+                    self.create_code_block('line', [
+                        '{0} = NULL'.format(attribute['name'])]),
+                    self.create_code_block('line', [
+                        'return unset{0}Length()'.format(
+                            strFunctions.upper_first(attribute['name']))])]
+            return_type = 'boolean'
+        # TODO unsetCompartment @Override problem? ALMOST DONE
+        else:
+            # implementation = ['TO DO']
+            # code = [dict({'code_type': 'line', 'code': implementation})]
+            curr_att_type = attribute['JClassType']
+
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
             currValue = 'this.old{0}'.format(attribute['name'])
             part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
@@ -2466,46 +2635,15 @@ class SetGetFunctions():
                                                                                        attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
-                               'return true', 'else',
-                               'return false']
-            code = [dict({'code_type': 'if_else', 'code': implementation})]
+                               'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
 
+            temp = 'return false'
+            code.append(temp)
+            return_type = 'boolean'
 
-        elif attribute['type'] == 'element':
-            implementation = ['delete {0}'.format(attribute['name']),
-                              '{0} = NULL'.format(attribute['name']),
-                              'return {0}'.format(self.success)]
-            code = [dict({'code_type': 'line', 'code': implementation})]
-        elif attribute['isArray']:
-            code = [self.create_code_block(
-                'if', ['{0} != NULL'.format(attribute['name']),
-                       'delete[] {0}'.format(attribute['name'])]),
-                    self.create_code_block('line', [
-                        '{0} = NULL'.format(attribute['name'])]),
-                    self.create_code_block('line', [
-                        'return unset{0}Length()'.format(
-                            strFunctions.upper_first(attribute['name']))])]
-        # TODO unsetCompartment @Override problem? ALMOST DONE
-        else:
-            # implementation = ['TO DO']
-            # code = [dict({'code_type': 'line', 'code': implementation})]
-            curr_att_type = attribute['JClassType']
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
-            #part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
-            part2 = '{0} = null'.format(attribute['name'])
-            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                                                                            attribute['name'],
-                                                                            oldValue,
-                                                                            attribute['name'])
-            implementation = ['isSet{0}()'.format(attribute['capAttName']),
-                               part2,part3,
-                               'return true', 'else',
-                               'return false']
-            code = [dict({'code_type': 'if_else', 'code': implementation})]
-
-
-        return code
+        return code, return_type
 
     @staticmethod
     def create_code_block(code_type, lines):

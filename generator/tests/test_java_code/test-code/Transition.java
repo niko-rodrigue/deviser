@@ -714,7 +714,9 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public String toString() {
-    return "Transition [id = " + getId() + ", name = " + getName() + "]";
+    return "Transition [listOfInputs = " + listOfInputs + ", listOfOutputs = " +
+      listOfOutputs + ", listOfFunctionTerms = " + listOfFunctionTerms+ "id = " +
+        getId() + ", name = " + getName() + "]";
   }
 
   /* (non-Javadoc)

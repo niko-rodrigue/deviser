@@ -19,6 +19,7 @@
  */
 package org.sbml.jsbml.ext.qual;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -141,11 +142,15 @@ public class DefaultTerm extends AbstractMathContainer {
    *  
    * @param resultLevel the value of resultLevel to be set.
    */
-  public void setResultLevel(int resultLevel) {
-    Integer oldResultLevel = this.resultLevel;
-    this.resultLevel = resultLevel;
-    firePropertyChange(QualConstants.resultLevel, oldResultLevel,
-      this.resultLevel);
+  public boolean setResultLevel(int resultLevel) {
+    if (resultLevel != this.resultLevel) {
+      Integer oldResultLevel = this.resultLevel;
+      this.resultLevel = resultLevel;
+      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+        this.resultLevel);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -161,9 +166,8 @@ public class DefaultTerm extends AbstractMathContainer {
       firePropertyChange(QualConstants.resultLevel, oldResultLevel,
         resultLevel);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /* hashcode method for DefaultTerm.
@@ -185,7 +189,8 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public String toString() {
-    return "DefaultTerm [resultLevel = " + resultLevel + ", isSetMath = " + isSetMath() + "]";
+    return "DefaultTerm [resultLevel = " + resultLevel + "isSetMath = " +
+      isSetMath() + "]";
   }
 
   /* (non-Javadoc)

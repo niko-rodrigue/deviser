@@ -19,6 +19,7 @@
  */
 package org.sbml.jsbml.ext.qual;
 
+import java.text.MessageFormat;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -279,12 +280,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   public boolean setCompartment(String compartment) {
     if (compartment != this.compartment) {
       String oldCompartment = this.compartment;
-      if ((compartment == null) || (compartment.isEmpty())) {
-        this.compartment = null;
-      } else {
-        this.compartment = compartment;
-      }
-
+      this.compartment = compartment;
       firePropertyChange(QualConstants.compartment, oldCompartment,
         this.compartment);
       return true;
@@ -308,10 +304,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    *  
    * @param constant the value of constant to be set.
    */
-  public void setConstant(boolean constant) {
-    Boolean oldConstant = this.constant;
-    this.constant = constant;
-    firePropertyChange(QualConstants.constant, oldConstant, this.constant);
+  public boolean setConstant(boolean constant) {
+    if (constant != this.constant) {
+      Boolean oldConstant = this.constant;
+      this.constant = constant;
+      firePropertyChange(QualConstants.constant, oldConstant, this.constant);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -319,11 +319,15 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    *  
    * @param initialLevel the value of initialLevel to be set.
    */
-  public void setInitialLevel(int initialLevel) {
-    Integer oldInitialLevel = this.initialLevel;
-    this.initialLevel = initialLevel;
-    firePropertyChange(QualConstants.initialLevel, oldInitialLevel,
-      this.initialLevel);
+  public boolean setInitialLevel(int initialLevel) {
+    if (initialLevel != this.initialLevel) {
+      Integer oldInitialLevel = this.initialLevel;
+      this.initialLevel = initialLevel;
+      firePropertyChange(QualConstants.initialLevel, oldInitialLevel,
+        this.initialLevel);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -331,10 +335,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    *  
    * @param maxLevel the value of maxLevel to be set.
    */
-  public void setMaxLevel(int maxLevel) {
-    Integer oldMaxLevel = this.maxLevel;
-    this.maxLevel = maxLevel;
-    firePropertyChange(QualConstants.maxLevel, oldMaxLevel, this.maxLevel);
+  public boolean setMaxLevel(int maxLevel) {
+    if (maxLevel != this.maxLevel) {
+      Integer oldMaxLevel = this.maxLevel;
+      this.maxLevel = maxLevel;
+      firePropertyChange(QualConstants.maxLevel, oldMaxLevel, this.maxLevel);
+      return true;
+    }
+    return false;
   }
 
   /* (non-Javadoc)
@@ -342,7 +350,14 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public boolean unsetCompartment() {
-    return setCompartment((String) null);
+    if (isSetCompartment()) {
+      String oldCompartment = compartment;
+      compartment = null;
+      firePropertyChange(QualConstants.compartment, oldCompartment,
+        compartment);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -356,9 +371,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       constant = null;
       firePropertyChange(QualConstants.constant, oldConstant, constant);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /**
@@ -374,9 +388,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       firePropertyChange(QualConstants.initialLevel, oldInitialLevel,
         initialLevel);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /**
@@ -390,9 +403,8 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       maxLevel = null;
       firePropertyChange(QualConstants.maxLevel, oldMaxLevel, maxLevel);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /* (non-Javadoc)
@@ -460,8 +472,9 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public String toString() {
-    return "QualitativeSpecies [compartment = " + compartment + ", constant = " + constant + ", initialLevel = " +
-      initialLevel + ", maxLevel = " + maxLevel + ", id = " + getId() + ", name = " + getName() + "]";
+    return "QualitativeSpecies [compartment = " + compartment + ", constant = " +
+      constant + ", initialLevel = " + initialLevel + ", maxLevel = " + maxLevel +
+        "id = " + getId() + ", name = " + getName() + "]";
   }
 
   /* (non-Javadoc)
