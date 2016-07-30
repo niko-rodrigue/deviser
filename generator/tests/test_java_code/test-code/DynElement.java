@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.dyn;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -288,8 +289,19 @@ public class DynElement extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public String toString() {
-    return "DynElement [idRef = " + idRef + ", metaIdRef = " + metaIdRef + ", id = " + getId() + ", name = " + getName()
-      + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("DynElement [");
+    builder.append("idRef = ");
+    builder.append(idRef);
+    builder.append(", ");
+    builder.append("metaIdRef = ");
+    builder.append(metaIdRef);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

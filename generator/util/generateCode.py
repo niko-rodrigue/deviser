@@ -336,10 +336,10 @@ def generate_jsbml_code_files(name, ob):
     # os.chdir(this_dir)
     # #
 
-    # TODO EXTENSION TOO EARLY RIGHT NOW
-    # os.chdir(extension_dir)
-    # ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
-    # ext.write_constants()
+    # TODO EXTENSION Time ofre
+    os.chdir(extension_dir)
+    ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    ext.write_constants()
     # ext.write_files()
     #
     # # for i in range(0, len(ob['plugins'])+1):

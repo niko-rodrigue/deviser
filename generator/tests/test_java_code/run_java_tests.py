@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../../')
 # print(sys.path)
 
-from java_code_files import JavaFiles,  JavaEnumFiles#, JavaExtensionFiles
+from java_code_files import JavaFiles,  JavaEnumFiles,  JavaExtensionFiles
 from parseXML import ParseXML
 
 import test_functions
@@ -52,6 +52,15 @@ def generate_new_enum_java_files(filename, num):
     os.chdir('../.')
 
 
+def generate_new_constant_java_files(filename):
+    parser = ParseXML.ParseXML(filename)
+    ob = parser.parse_deviser_xml()
+    os.chdir('./temp')
+    all_files = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    all_files.write_constants()
+    os.chdir('../.')
+
+
 def generate_extension_header(filename):
     parser = ParseXML.ParseXML(filename)
     ob = parser.parse_deviser_xml()
@@ -79,11 +88,20 @@ def generate_fwd_header(filename):
     os.chdir('../.')
 
 
+# def generate_plugin_header(filename, num):
+#     parser = ParseXML.ParseXML(filename)
+#     ob = parser.parse_deviser_xml()
+#     os.chdir('./temp')
+#     all_files = ExtensionFiles.ExtensionFiles(ob, '', True)
+#     all_files.write_plugin_files(num)
+#     os.chdir('../.')
+
+
 def generate_plugin_header(filename, num):
     parser = ParseXML.ParseXML(filename)
     ob = parser.parse_deviser_xml()
     os.chdir('./temp')
-    all_files = ExtensionFiles.ExtensionFiles(ob, '', True)
+    all_files = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     all_files.write_plugin_files(num)
     os.chdir('../.')
 
@@ -199,6 +217,15 @@ def run_ext_test(name, class_name, test_case, test):
     return fail
 
 
+def run_constant_test(name, constant_name, test_case):
+    filename = test_functions.set_up_test(name, constant_name, test_case)
+    generate_new_constant_java_files(filename)
+    # fail = compare_code_headers(class_name)
+    fail = compare_code_impl(constant_name)
+    print('')
+    return fail
+
+
 def run_enum_test(name, num, enum_name, test_case):
     filename = test_functions.set_up_test(name, enum_name, test_case)
     generate_new_enum_java_files(filename, num)
@@ -211,8 +238,8 @@ def run_enum_test(name, num, enum_name, test_case):
 def run_plug_test(name, class_name, test_case, num):
     filename = test_functions.set_up_test(name, class_name, test_case)
     generate_plugin_header(filename, num)
-    fail = compare_ext_headers(class_name)
-    fail += compare_ext_impl(class_name)
+    # fail = compare_ext_headers(class_name)
+    fail = compare_ext_impl(class_name)
     print('')
     return fail
 
@@ -318,71 +345,104 @@ def main():
     # # #
     #
     # #Compiles
-    name = 'qual'
-    num = 1
-    class_name = 'Transition'
-    list_of = 'ListOfTransition'
-    test_case = 'an element on Transition'
-    fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 2
-    class_name = 'Input'
-    list_of = 'ListOfInput'
-    test_case = 'an element on Input'
-    fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 3
-    class_name = 'Output'
-    list_of = 'ListOfOutput'
-    test_case = 'an element on Output'
-    fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    #
-    # Compiles
-    name = 'qual'
-    num = 4
-    class_name = 'DefaultTerm'
-    list_of = 'ListOfDefaultTerm'
-    test_case = 'an element on DefaultTerm'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    # Compiles
-    name = 'qual'
-    num = 5
-    class_name = 'FunctionTerm'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
-    fail += run_test(name, num, class_name, test_case)
+    # name = 'qual'
+    # num = 1
+    # class_name = 'Transition'
+    # list_of = 'ListOfTransition'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 2
+    # class_name = 'Input'
+    # list_of = 'ListOfInput'
+    # test_case = 'an element on Input'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 3
+    # class_name = 'Output'
+    # list_of = 'ListOfOutput'
+    # test_case = 'an element on Output'
+    # fail += run_test(name, num, class_name, test_case)
     # #
+    # #
+    # #
+    # # Compiles
+    # name = 'qual'
+    # num = 4
+    # class_name = 'DefaultTerm'
+    # list_of = 'ListOfDefaultTerm'
+    # test_case = 'an element on DefaultTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # # Compiles
+    # name = 'qual'
+    # num = 5
+    # class_name = 'FunctionTerm'
+    # list_of = 'ListOfFunctionTerm'
+    # test_case = 'an element on FunctionTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    # # #
+    #
+    #
+    #
+    # # Qual Enum Types
+    # name = 'qual'
+    # num = 0
+    # enum_name = 'Sign'
+    # test_case = 'an element on Sign Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 1
+    # enum_name = 'TransitionOutputEffect'
+    # test_case = 'an element on TransitionOutputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 2
+    # enum_name = 'TransitionInputEffect'
+    # test_case = 'an element on TransitionInputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+
+    # # Qual Constants
+    # name = 'qual'
+    # constants_name = 'QualConstant'
+    # test_case = 'Qual Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
 
-
-    # Qual Enum Types
     name = 'qual'
     num = 0
-    enum_name = 'Sign'
-    test_case = 'an element on Sign Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
+    class_name = 'QualModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
 
     name = 'qual'
     num = 1
-    enum_name = 'TransitionOutputEffect'
-    test_case = 'an element on TransitionOutputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
+    class_name = 'QualSBMLDocumentPlugin'
+    test_case = 'document plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
 
-    name = 'qual'
-    num = 2
-    enum_name = 'TransitionInputEffect'
-    test_case = 'an element on TransitionInputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+
+    # # name = 'spatial'
+    # # num = 3
+    # # class_name = 'SpatialParameterPlugin'
+    # # test_case = 'plugin with additional code'
+    # # fail += run_plug_test(name, class_name, test_case, num)
+
+    # # name = 'qual'
+    # # class_name = 'QualExtensionTypes'
+    # # test_case = 'the types '
+    # # fail += run_ext_test(name, class_name, test_case, 1)
 
     #
     # # # TODO fbc tests
@@ -425,7 +485,7 @@ def main():
 
     # #
     # # # TODO dyn tests
-    # # Compilable
+    # Compilable
     # name = 'dyn'
     # num = 0
     # class_name = 'DynElement'
@@ -434,16 +494,21 @@ def main():
     # fail += run_test(name, num, class_name, test_case)
     #
     #
+    # # TODO setSpatialIndex Error
     # name = 'dyn'
     # num = 1
     # class_name = 'SpatialComponent'
     # list_of = 'ListOfSpatialComponent'
     # test_case = 'an element on SpatialComponent'
     # fail += run_test(name, num, class_name, test_case)
-    #
+
+
+
     # #
     # # # # TODO distrib tests
-    # # COmpilable
+
+
+    # #Uncert unsetUncertML error
     # name = 'distrib'
     # num = 0
     # class_name = 'DrawFromDistribution'
@@ -459,23 +524,26 @@ def main():
     # test_case = 'an element on DistribInput'
     # fail += run_test(name, num, class_name, test_case)
     #
-    # # compilable
+    # # #Uncert unsetUncertML error
     # name = 'distrib'
     # num = 2
     # class_name = 'Uncertainty'
     # list_of = 'ListOfUncertainty'
     # test_case = 'an element on Uncertainty'
     # fail += run_test(name, num, class_name, test_case)
+
+
+
+
+    # # # # TODO groups tests
     # # #
-    # # # TODO groups tests
-    # #
-    # # # Error kind is an enum
-    # # name = 'groups'
-    # # num = 0
-    # # class_name = 'Group'
-    # # list_of = 'ListOfGroup'
-    # # test_case = 'an element on Group'
-    # # fail += run_test(name, num, class_name, test_case)
+    # # Error kind is an enum can't find in Constants?
+    # name = 'groups'
+    # num = 0
+    # class_name = 'Group'
+    # list_of = 'ListOfGroup'
+    # test_case = 'an element on Group'
+    # fail += run_test(name, num, class_name, test_case)
     # #
     #
     # # Compilable
@@ -485,7 +553,17 @@ def main():
     # list_of = 'ListOfMembern'
     # test_case = 'an element on Member'
     # fail += run_test(name, num, class_name, test_case)
-    # #
+    #
+    # # Groups Enum Types
+    # name = 'groups'
+    # num = 0
+    # enum_name = 'GroupKind'
+    # test_case = 'an element on GroupKind Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+
+
+
+    #
     #
     # # TODO spatial tests
     # # name = 'spatial'
@@ -807,11 +885,7 @@ def main():
     # # test_case = 'basic extension file'
     # # fail += run_ext_test(name, class_name, test_case, 0)
     # #
-    # # name = 'qual'
-    # # num = 0
-    # # class_name = 'QualModelPlugin'
-    # # test_case = 'basic plugin'
-    # # fail += run_plug_test(name, class_name, test_case, num)
+
     # #
     # # name = 'qual'
     # # class_name = 'QualExtensionTypes'
@@ -823,11 +897,8 @@ def main():
     # # test_case = 'forward declarations '
     # # fail += run_ext_test(name, class_name, test_case, 2)
     # #
-    # # name = 'qual'
-    # # num = 1
-    # # class_name = 'QualSBMLDocumentPlugin'
-    # # test_case = 'document plugin'
-    # # fail += run_plug_test(name, class_name, test_case, num)
+
+
     # #
     # # name = 'qual'
     # # class_name = 'QualSBMLError'

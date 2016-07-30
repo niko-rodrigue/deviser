@@ -103,6 +103,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.num_children = \
             len(self.child_lo_elements) + len(self.child_elements)
 
+        self.pack = ''
+
         self.concretes = []
 
         # default values
@@ -142,6 +144,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.jsbml_methods = {}
         self.abstract_jsbml_methods = {}
         # self.jsbml_data_tree = {}
+        # self.pack = str(self.package).lower()
 
     ########################################################################
 
@@ -442,7 +445,17 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
     # Function to expand import modules and extension
-    def expand_import_modules(self):
+    def expand_import_modules(self, package, is_package = False, is_constantsFile = False, is_classFile = False):
+
+        check_plugin = False
+        check_constants = False
+        check_class = False
+
+        #Constant, Plugin, and Extension require this.
+        if is_package is True or is_constantsFile is True:
+            self.pack = package['name']
+        else:
+            self.pack = self.package
 
 
         self.extends_modules = []
@@ -1716,6 +1729,139 @@ class BaseJavaFile(BaseFile.BaseFile):
                 temp = ''
         if len(newline) > 0:
             lines.append(newline)
+
+    # TODO add variable whether extension or parser
+    def write_package_include(self):
+        if global_variables.is_package:
+            curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
+            # print('curr_include_line is ', curr_include_line)
+            self.write_line_verbatim(curr_include_line)
+
+    def close_jsbml_class_header(self):
+        self.down_indent()
+        self.file_out.write('}\n')
+
+    def write_jsbml_class_variables(self):
+        self.up_indent()
+        self.write_serial_version_comment()
+        # TODO need to change serialVersionUID
+        line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
+        self.write_line(line)
+
+        attributes = self.class_attributes
+        if len(attributes) > 0:
+            for attribute in attributes:
+                # print(attribute['memberName'])
+                type = attribute['attType']
+                cap_att_name = attribute['capAttName']
+                if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                    self.write_variable_comment()
+                    # if type == 'enum':
+                    #     if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
+                    #         data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
+                    #     else:
+                    #         data = None
+                    #     if data is not None:
+                    #         return_type = data
+                    #     else:
+                    #         return_type = attribute['JClassType']
+                    # else:
+                    return_type = attribute['JClassType']
+                    member_name = attribute['name']
+                    line = 'private {0} {1};'.format(return_type, member_name)
+                    self.write_line(line)
+
+        # Uncert XMLNode
+        child_elements = self.child_elements
+        if len(child_elements) > 0:
+            for child_element in child_elements:
+                # print(attribute['memberName'])
+                # print(child_element)
+                return_type = child_element['JClassType']
+                member_name = child_element['name']
+                line = 'private {0} {1};'.format(return_type, member_name)
+                self.write_variable_comment()
+                self.write_line(line)
+                # cap_att_name = attribute['capAttName']
+                # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                #     self.write_variable_comment()
+                #     return_type = attribute['JClassType']
+                #     member_name = attribute['name']
+                #     line = 'private {0} {1};'.format(return_type, member_name)
+                #     self.write_line(line)
+
+        child_lo_elements = self.child_lo_elements
+        if len(child_lo_elements) > 0:
+            for child_lo_element in child_lo_elements:
+                # print(attribute['memberName'])
+                # cap_att_name = attribute['capAttName']
+                # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
+                self.write_variable_comment()
+                return_type = '{0}<{1}>'.format(child_lo_element['JClassType'], child_lo_element['capAttName'])
+                member_name = child_lo_element['jsbmlName']
+                line = 'private {0} {1};'.format(return_type, member_name)
+                self.write_line(line)
+
+        self.down_indent()
+
+    # TODO for writing imports
+
+    def write_jsbml_class_header(self):
+        abstract = self.jsbml_class_header_and_import['abstract']
+        class_name = self.jsbml_class_header_and_import['className']
+        extends = self.jsbml_class_header_and_import['extends']
+        implement_modules = self.jsbml_class_header_and_import['implements']
+        if abstract == False:
+            write_abstract = ''
+        else:
+            write_abstract = 'abstract '
+        line_to_write = 'public {0}class {1} '.format(write_abstract, class_name)
+        extends_len = len(extends)
+        if extends_len == 1:
+            line_to_write += 'extends {0}'.format(extends[0])
+        elif extends_len > 1:
+            line_to_write += ' extends'
+            for n in range(0, extends_len-1):
+                line_to_write = line_to_write + extends[n] + ', '
+
+        implement_len = len(implement_modules)
+        if implement_len == 1:
+            line_to_write += ' implements {0}'.format(implement_modules[0])
+        elif implement_len > 1:
+            line_to_write += ' implements '
+            for n in range(0, implement_len-1):
+                print(implement_modules[n])
+                line_to_write += implement_modules[n] + ', '
+            line_to_write = line_to_write + implement_modules[-1]
+            #print(line_to_write)
+
+        self.line_length = 120 # TODO not a great solution
+        self.write_line_jsbml(line_to_write) # TODO need to fix about spaces
+        #self.write_jsbml_line_verbatim(line_to_write)
+        self.file_out.write('\n') # TODO not a good solution
+        self.line_length = 79
+
+
+
+    def write_java_imports(self):
+        # TODO mockup function
+        self.skip_line()
+        java_modules = self.jsbml_class_header_and_import['javaModules']
+        if len(java_modules) > 0:
+            for module in java_modules:
+                javaModuleLine = 'import {0}'.format(module)
+                self.write_jsbml_line_verbatim(javaModuleLine)
+            self.skip_line()
+
+        jsbml_modules = self.jsbml_class_header_and_import['jsbmlModules']
+        if len(jsbml_modules) > 0:
+            for module in jsbml_modules:
+                jsbmlModuleLine = 'import org.sbml.jsbml.{0}'.format(module)
+                self.write_jsbml_line_verbatim(jsbmlModuleLine)
+            self.skip_line()
+
+
+
 
     # HELPER FUNCTIONS
 

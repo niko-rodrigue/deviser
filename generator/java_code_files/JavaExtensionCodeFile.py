@@ -66,7 +66,10 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         # members from object
         self.package = package['name']
         self.cap_package = package['name'].upper()
-        self.baseClass = '{0}Extension'.format(self.cap_language)
+
+
+        # TODO not useful for jsbml
+        # self.baseClass = '{0}Extension'.format(self.cap_language)
 
 
 
@@ -91,6 +94,13 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.class_object['has_children'] = False
         self.class_object['child_elements'] = []
         self.class_object['overwrites_children'] = False
+
+        # TODO GSOC 2016 JSBML
+        # TODO GSOC 2016
+        self.pack = self.package
+        self.expand_import_modules(self.original_package, is_constantsFile= True)
+        self.expand_jsbml_methods()
+
 
     ########################################################################
 
@@ -382,6 +392,18 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                 self.write_jsbml_line_verbatim(jsbmlModuleLine)
             self.skip_line()
 
+    # Write file
+
+    def write_file(self):
+        BaseJavaFile.BaseJavaFile.write_file(self)
+        # self.write_general_includes()
+        # self.write_cppns_begin()
+        # self.write_cpp_begin()
+        self.write_class()
+    #           self.write_extension_instance()
+    #         self.write_cpp_end()
+    #         self.write_type_defs()
+    #         self.write_cppns_end()
 
     def write_constants_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
@@ -391,20 +413,9 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         #self.write_general_includes()
 
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
-        # self.write_jsbml_class_header()
+        self.write_jsbml_class_header()
         # self.write_jsbml_class_variables()
         # self.write_class()
         self.close_jsbml_class_header()
 
-    # Write file
 
-    def write_file(self):
-        BaseJavaFile.BaseJavaFile.write_file(self)
-        # self.write_general_includes()
-        # self.write_cppns_begin()
-        # self.write_cpp_begin()
-        self.write_class()
-#        self.write_extension_instance()
-#         self.write_cpp_end()
-#         self.write_type_defs()
-#         self.write_cppns_end()
