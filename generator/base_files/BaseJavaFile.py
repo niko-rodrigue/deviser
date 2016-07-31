@@ -917,6 +917,20 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line(line)
 
 
+    def write_static(self, package):
+        # write static for constants
+        self.write_variable_comment()
+        line = 'static'
+        self.write_line_jsbml(line)
+        self.up_indent()
+        line = 'namespaces = new ArrayList<String>()'
+        self.write_jsbml_line_verbatim(line)
+        line = 'namespaces.add({0})'.format(package)
+        self.write_jsbml_line_verbatim(line)
+        self.down_indent()
+        self.write_line('}')
+
+
     # TODO write open braces Done
     def write_class_function_header(self, function_name, arguments,
                                     return_type, is_const=False,

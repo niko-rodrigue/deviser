@@ -419,6 +419,8 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.close_jsbml_class_header()
 
 
+
+
     def write_jsbml_constants(self):
         self.up_indent()
 
@@ -430,15 +432,15 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         title_line = 'The namespace URI of this parser for SBML level {0}, version {1} \
         and package version {2}.'.format(base_level, base_version, package_version)
         self.write_brief_header(title_line)
-        namespace_uri = 'namespaceURI_L{0}V{1}V{2}'.format(base_level, base_version, package_version)
+        self.namespace_uri = 'namespaceURI_L{0}V{1}V{2}'.format(base_level, base_version, package_version)
         line = 'public static final String {0} = "http://www.sbml.org/sbml/level{1}/version{2}/{4}/version{3}"'.\
-            format(namespace_uri, base_level, base_version, package_version, package_name)
+            format(self.namespace_uri, base_level, base_version, package_version, package_name)
         self.write_jsbml_line_verbatim(line)
 
 
         title_line = 'The latest namespace URI of this parser, this value can change between releases.'
         self.write_brief_header(title_line)
-        line = 'public static final String namespaceURI = {0}'.format(namespace_uri)
+        line = 'public static final String namespaceURI = {0}'.format(self.namespace_uri)
         self.write_jsbml_line_verbatim(line)
 
         self.write_variable_comment()
@@ -446,6 +448,16 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_line(line)
         self.write_jsbml_line_verbatim(line)
 
+
+        self.write_variable_comment()
+        line = 'public static final List<String> namespaces'
+        self.write_jsbml_line_verbatim(line)
+
+        #Write static
+        self.write_static(self.namespace_uri)
+
+
+        # Attributes part
         self.write_serial_version_comment()
         # TODO need to change serialVersionUID
         line = 'private static final long     serialVersionUID = {0}L'.format(self.serialVersionUID)
