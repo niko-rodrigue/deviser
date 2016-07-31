@@ -484,15 +484,23 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                 name = attribute['name']
                 if str(name) != 'id' and str(name) != 'name':
                     if name not in attribs_to_write:
-                        attribs_to_write.append(name)
+                        attribs_to_write.append(attribute)
 
-        for name in attribs_to_write:
+        for attribute in attribs_to_write:
             self.write_variable_comment()
             # return_type = attribute['JClassType']
             # member_name = attribute['memberName']
-            line = 'public static final String {0} = "{1}"'.format(name, name)
+            name = attribute['name']
+            write_name = strFunctions.lower_first(name)
+            line = 'public static final String {0} = "{1}"'.format(write_name, name)
             # self.write_line(line)
             self.write_jsbml_line_verbatim(line)
+            if attribute['type'] == 'lo_element':
+                self.write_variable_comment()
+                write_name = strFunctions.upper_first(name)
+                line = 'public static final String listOf{0}s = "listOf{0}s"'.format(write_name)
+                # self.write_line(line)
+                self.write_jsbml_line_verbatim(line)
 
         self.down_indent()
         get_namespace_uri_func = self.get_namespace_uri()
