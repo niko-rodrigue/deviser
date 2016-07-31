@@ -97,9 +97,9 @@ class JavaExtensionFiles():
     def write_constants(self):
         print('Time for some constants')
         custom_name = 'Constants'
-        self.class_object['is_plugin'] = False
-        self.class_object['is_constantFile'] = True
-        self.class_object['is_classFile'] = False
+        self.package['is_plugin'] = False
+        self.package['is_constantFile'] = True
+        self.package['is_classFile'] = False
         fileout = JavaExtensionCodeFile.JavaExtensionCodeFile(self.package, custom_name)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))

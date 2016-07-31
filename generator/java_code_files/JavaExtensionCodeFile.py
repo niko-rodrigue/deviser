@@ -376,7 +376,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
     def write_java_imports(self):
         # TODO mockup function
-        self.expand_import_modules()
+        # self.expand_import_modules()
         self.skip_line()
         java_modules = self.jsbml_class_header_and_import['javaModules']
         if len(java_modules) > 0:
@@ -409,13 +409,52 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         BaseJavaFile.BaseJavaFile.write_file(self)
 
         self.write_package_include()
-        # self.write_java_imports()
+        self.write_java_imports()
         #self.write_general_includes()
 
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         self.write_jsbml_class_header()
-        # self.write_jsbml_class_variables()
+        self.write_jsbml_constants()
         # self.write_class()
         self.close_jsbml_class_header()
 
 
+    def write_jsbml_constants(self):
+        self.up_indent()
+
+        self.write_variable_comment()
+        line = 'public static final String shortLabel = "{0}";'.format(self.original_package['name'])
+        self.write_line(line)
+
+
+        self.write_serial_version_comment()
+        # TODO need to change serialVersionUID
+        line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
+        self.write_line(line)
+
+
+        attribs_to_write = []
+        base_elements = self.original_package['baseElements']
+        for element in base_elements:
+            attributes = element['attribs']
+            for attribute in attributes:
+                # print(attribute['memberName'])
+                name = attribute['name']
+                if str(name) != 'id' and str(name) != 'name':
+                    if name not in attribs_to_write:
+                        attribs_to_write.append(name)
+                    # self.write_variable_comment()
+                    # # return_type = attribute['JClassType']
+                    # # member_name = attribute['memberName']
+                    # line = 'public static final String {0} = "{1}";'.format(name, name)
+                    # self.write_line(line)
+
+        for name in attribs_to_write:
+            self.write_variable_comment()
+            # return_type = attribute['JClassType']
+            # member_name = attribute['memberName']
+            line = 'public static final String {0} = "{1}";'.format(name, name)
+            self.write_line(line)
+
+
+        self.down_indent()

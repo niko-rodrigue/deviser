@@ -445,6 +445,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
     # Function to expand import modules and extension
+    # TODO for constants
     def expand_import_modules(self, package):
         self.extends_modules = []
         self.implements_modules = []
@@ -454,7 +455,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         #THis is the tricky part
         # self.get_general_includes()
 
-
+        if package['is_constantFile'] is  True:
+            self.import_from_java_modules.append('java.util.ArrayList')
+            self.import_from_java_modules.append('java.util.List')
+            self.import_from_java_modules.append('javax.swing.tree.TreeNode')
 
         self.import_from_jsbml_modules.append('*')
         self.import_from_jsbml_modules.append('util.*')
