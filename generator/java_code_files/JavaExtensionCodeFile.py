@@ -476,6 +476,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         attribs_to_write = []
+        attribs_name_to_write = []
         base_elements = self.original_package['baseElements']
         for element in base_elements:
             attributes = element['attribs']
@@ -483,8 +484,9 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                 # print(attribute['memberName'])
                 name = attribute['name']
                 if str(name) != 'id' and str(name) != 'name':
-                    if name not in attribs_to_write:
+                    if name not in attribs_name_to_write:
                         attribs_to_write.append(attribute)
+                        attribs_name_to_write.append(name)
 
         for attribute in attribs_to_write:
             self.write_variable_comment()
