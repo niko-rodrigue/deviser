@@ -518,13 +518,13 @@ def main():
     test_case = 'an element on DrawFromDistribution'
     fail += run_test(name, num, class_name, test_case)
 
-    # # Compilable
-    # name = 'distrib'
-    # num = 1
-    # class_name = 'DistribInput'
-    # list_of = 'ListOfDistribInput'
-    # test_case = 'an element on DistribInput'
-    # fail += run_test(name, num, class_name, test_case)
+    # Compilable
+    name = 'distrib'
+    num = 1
+    class_name = 'DistribInput'
+    list_of = 'ListOfDistribInput'
+    test_case = 'an element on DistribInput'
+    fail += run_test(name, num, class_name, test_case)
 
     # #Uncert unsetUncertML error
     name = 'distrib'
@@ -534,11 +534,11 @@ def main():
     test_case = 'an element on Uncertainty'
     fail += run_test(name, num, class_name, test_case)
 
-    # #Distrib constants
-    # name = 'distrib'
-    # constants_name = 'DistribConstants'
-    # test_case = 'DistribConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
+    #Distrib constants
+    name = 'distrib'
+    constants_name = 'DistribConstants'
+    test_case = 'DistribConstants'
+    fail += run_constant_test(name, constants_name, test_case)
 
 
 

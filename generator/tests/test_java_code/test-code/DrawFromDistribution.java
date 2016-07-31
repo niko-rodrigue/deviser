@@ -91,7 +91,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#equals
+   * @see org.sbml.jsbml.SBase#equals
    */
   @Override
   public boolean equals(Object object) {
@@ -114,7 +114,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#clone
+   * @see org.sbml.jsbml.SBase#clone
    */
   @Override
   public DrawFromDistribution clone() {
@@ -365,6 +365,9 @@ public class DrawFromDistribution extends AbstractSBase {
   public int getChildCount() {
     int count = super.getChildCount();
 
+    if (isSetUncertML()) {
+      count++;
+    }
     if (isSetListOfDistribInputs()) {
       count++;
     }
@@ -402,7 +405,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#readAttribute
+   * @see org.sbml.jsbml.SBase#readAttribute
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {
@@ -412,7 +415,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#writeXMLAttributes
+   * @see org.sbml.jsbml.SBase#writeXMLAttributes
    */
   @Override
   public Map <String, String> writeXMLAttributes() {

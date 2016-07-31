@@ -384,11 +384,14 @@ class GeneralFunctions():
 
     # Function for writing getChildCount
 
-    def create_if_for_get_child_count(self, lo_element):
+    def create_if_for_get_child_count(self, lo_element, type = 'element'):
         name = lo_element['name']
         cap_name = lo_element['capAttName']
         implementation = []
-        implementation.append('isSetListOf{0}s()'.format(cap_name))
+        if type == 'lo_element':
+            implementation.append('isSetListOf{0}s()'.format(cap_name))
+        else:
+            implementation.append('isSet{0}()'.format(cap_name))
         implementation.append('count++')
 
 
@@ -439,11 +442,16 @@ class GeneralFunctions():
         #     additional.append(additional_add)
         # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
         #                                                                      function, function_args)
-
+        for i in range(0, len(self.child_elements)):
+            element = self.child_elements[i]
+            type = 'element'
+            temp_code = self.create_if_for_get_child_count(element, type)
+            code.append(temp_code)
 
         for i in range(0, len(self.child_lo_elements)):
             lo_element = self.child_lo_elements[i]
-            temp_code = self.create_if_for_get_child_count(lo_element)
+            type = 'lo_element'
+            temp_code = self.create_if_for_get_child_count(lo_element, type)
             code.append(temp_code)
 
         # temp = ['return hashCode']

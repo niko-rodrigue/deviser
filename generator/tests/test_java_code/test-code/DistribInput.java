@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -221,7 +222,16 @@ public class DistribInput extends AbstractNamedSBase {
    */
   @Override
   public String toString() {
-    return "DistribInput [index = " + index + "id = " + getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("DistribInput [");
+    builder.append("index = ");
+    builder.append(index);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)
