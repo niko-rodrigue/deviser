@@ -422,15 +422,35 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
     def write_jsbml_constants(self):
         self.up_indent()
 
-        self.write_variable_comment()
-        line = 'public static final String shortLabel = "{0}";'.format(self.original_package['name'])
-        self.write_line(line)
+        base_level = self.original_package['base_level']
+        base_version = self.original_package['base_version']
+        package_version = self.original_package['pkg_version']
+        package_name = self.original_package['name']
 
+        title_line = 'The namespace URI of this parser for SBML level {0}, version {1} \
+        and package version {2}.'.format(base_level, base_version, package_version)
+        self.write_brief_header(title_line)
+        namespace_uri = 'namespaceURI_L{0}V{1}V{2}'.format(base_level, base_version, package_version)
+        line = 'public static final String {0} = "http://www.sbml.org/sbml/level{1}/version{2}/{4}/version{3}"'.\
+            format(namespace_uri, base_level, base_version, package_version, package_name)
+        self.write_jsbml_line_verbatim(line)
+
+
+        title_line = 'The latest namespace URI of this parser, this value can change between releases.'
+        self.write_brief_header(title_line)
+        line = 'public static final String namespaceURI = {0}'.format(namespace_uri)
+        self.write_jsbml_line_verbatim(line)
+
+        self.write_variable_comment()
+        line = 'public static final String shortLabel = "{0}"'.format(package_name)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
 
         self.write_serial_version_comment()
         # TODO need to change serialVersionUID
-        line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
-        self.write_line(line)
+        line = 'private static final long     serialVersionUID = {0}L'.format(self.serialVersionUID)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
 
 
         attribs_to_write = []
@@ -443,18 +463,13 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                 if str(name) != 'id' and str(name) != 'name':
                     if name not in attribs_to_write:
                         attribs_to_write.append(name)
-                    # self.write_variable_comment()
-                    # # return_type = attribute['JClassType']
-                    # # member_name = attribute['memberName']
-                    # line = 'public static final String {0} = "{1}";'.format(name, name)
-                    # self.write_line(line)
 
         for name in attribs_to_write:
             self.write_variable_comment()
             # return_type = attribute['JClassType']
             # member_name = attribute['memberName']
-            line = 'public static final String {0} = "{1}";'.format(name, name)
-            self.write_line(line)
-
+            line = 'public static final String {0} = "{1}"'.format(name, name)
+            # self.write_line(line)
+            self.write_jsbml_line_verbatim(line)
 
         self.down_indent()

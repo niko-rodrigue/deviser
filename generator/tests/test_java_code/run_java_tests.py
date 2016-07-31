@@ -335,8 +335,8 @@ def main():
     #TODO now there's a problem with this
 
 
-    # # # #All qual compile
-    # # #Compiles
+    # # # # #All qual compile
+    # # # #Compiles
     # name = 'qual'
     # num = 0
     # class_name = 'QualitativeSpecies'
