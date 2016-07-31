@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.dyn;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -193,11 +194,11 @@ public class SpatialComponent extends AbstractNamedSBase implements UniqueNamedS
    * @param spatialIndex the value of spatialIndex to be set.
    */
   public boolean setSpatialIndex(SpatialKind spatialIndex) {
-    if (spatialIndex != this.spatialIndex) {
-      SpatialKind oldSpatialIndex = this.spatialIndex;
-      this.spatialIndex = spatialIndex;
+    if (isSetSpatialIndex()) {
+      SpatialKind oldSpatialIndex = spatialIndex;
+      spatialIndex = null;
       firePropertyChange(DynConstants.spatialIndex, oldSpatialIndex,
-        this.spatialIndex);
+        spatialIndex);
       return true;
     }
     return false;
@@ -294,8 +295,19 @@ public class SpatialComponent extends AbstractNamedSBase implements UniqueNamedS
    */
   @Override
   public String toString() {
-    return "SpatialComponent [spatialIndex = " + spatialIndex + ", variable = " + variable + ", id = " + getId() + ", "+
-      "name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("SpatialComponent [");
+    builder.append("spatialIndex = ");
+    builder.append(spatialIndex);
+    builder.append(", ");
+    builder.append("variable = ");
+    builder.append(variable);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

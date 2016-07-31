@@ -337,87 +337,87 @@ def main():
 
     # # # # #All qual compile
     # # #Compiles
-    name = 'qual'
-    num = 0
-    class_name = 'QualitativeSpecies'
-    list_of = 'ListOfQualitativeSpecies'
-    test_case = 'an element on QualitativeSpecies'
-    fail += run_test(name, num, class_name, test_case)
-    #
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualitativeSpecies'
+    # list_of = 'ListOfQualitativeSpecies'
+    # test_case = 'an element on QualitativeSpecies'
+    # fail += run_test(name, num, class_name, test_case)
     # #
-
-    #Compiles
-    name = 'qual'
-    num = 1
-    class_name = 'Transition'
-    list_of = 'ListOfTransition'
-    test_case = 'an element on Transition'
-    fail += run_test(name, num, class_name, test_case)
     # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 2
-    class_name = 'Input'
-    list_of = 'ListOfInput'
-    test_case = 'an element on Input'
-    fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 3
-    class_name = 'Output'
-    list_of = 'ListOfOutput'
-    test_case = 'an element on Output'
-    fail += run_test(name, num, class_name, test_case)
     #
-    #
-    #
-    # Compiles
-    name = 'qual'
-    num = 4
-    class_name = 'DefaultTerm'
-    list_of = 'ListOfDefaultTerm'
-    test_case = 'an element on DefaultTerm'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    # Compiles
-    name = 'qual'
-    num = 5
-    class_name = 'FunctionTerm'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
-    fail += run_test(name, num, class_name, test_case)
+    # #Compiles
+    # name = 'qual'
+    # num = 1
+    # class_name = 'Transition'
+    # list_of = 'ListOfTransition'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 2
+    # class_name = 'Input'
+    # list_of = 'ListOfInput'
+    # test_case = 'an element on Input'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 3
+    # class_name = 'Output'
+    # list_of = 'ListOfOutput'
+    # test_case = 'an element on Output'
+    # fail += run_test(name, num, class_name, test_case)
     # #
-
-
-
-    # Qual Enum Types
-    name = 'qual'
-    num = 0
-    enum_name = 'Sign'
-    test_case = 'an element on Sign Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'qual'
-    num = 1
-    enum_name = 'TransitionOutputEffect'
-    test_case = 'an element on TransitionOutputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'qual'
-    num = 2
-    enum_name = 'TransitionInputEffect'
-    test_case = 'an element on TransitionInputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    # Qual Constants
-    name = 'qual'
-    constants_name = 'QualConstant'
-    test_case = 'Qual Constants'
-    fail += run_constant_test(name, constants_name, test_case)
+    # #
+    # #
+    # # Compiles
+    # name = 'qual'
+    # num = 4
+    # class_name = 'DefaultTerm'
+    # list_of = 'ListOfDefaultTerm'
+    # test_case = 'an element on DefaultTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # # Compiles
+    # name = 'qual'
+    # num = 5
+    # class_name = 'FunctionTerm'
+    # list_of = 'ListOfFunctionTerm'
+    # test_case = 'an element on FunctionTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    # # #
+    #
+    #
+    #
+    # # Qual Enum Types
+    # name = 'qual'
+    # num = 0
+    # enum_name = 'Sign'
+    # test_case = 'an element on Sign Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 1
+    # enum_name = 'TransitionOutputEffect'
+    # test_case = 'an element on TransitionOutputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 2
+    # enum_name = 'TransitionInputEffect'
+    # test_case = 'an element on TransitionInputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # # Qual Constants
+    # name = 'qual'
+    # constants_name = 'QualConstant'
+    # test_case = 'Qual Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
     #
     # name = 'qual'
@@ -435,7 +435,7 @@ def main():
 
 
     #
-    # # # TODO fbc tests
+    # # #
     # # # all pass
     # name = 'fbc_v2'
     # num = 0
@@ -479,7 +479,7 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
 
 
-    # #
+    # # #
     # # # TODO dyn tests
     # # #Compilable
     # name = 'dyn'
@@ -511,29 +511,34 @@ def main():
 
 
     # #Uncert unsetUncertML error
-    # name = 'distrib'
-    # num = 0
-    # class_name = 'DrawFromDistribution'
-    # list_of = 'ListOfDrawFromDistribution'
-    # test_case = 'an element on DrawFromDistribution'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # # Compilable
-    # name = 'distrib'
-    # num = 1
-    # class_name = 'DistribInput'
-    # list_of = 'ListOfDistribInput'
-    # test_case = 'an element on DistribInput'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # # #Uncert unsetUncertML error
-    # name = 'distrib'
-    # num = 2
-    # class_name = 'Uncertainty'
-    # list_of = 'ListOfUncertainty'
-    # test_case = 'an element on Uncertainty'
-    # fail += run_test(name, num, class_name, test_case)
+    name = 'distrib'
+    num = 0
+    class_name = 'DrawFromDistribution'
+    list_of = 'ListOfDrawFromDistribution'
+    test_case = 'an element on DrawFromDistribution'
+    fail += run_test(name, num, class_name, test_case)
 
+    # Compilable
+    name = 'distrib'
+    num = 1
+    class_name = 'DistribInput'
+    list_of = 'ListOfDistribInput'
+    test_case = 'an element on DistribInput'
+    fail += run_test(name, num, class_name, test_case)
+
+    # #Uncert unsetUncertML error
+    name = 'distrib'
+    num = 2
+    class_name = 'Uncertainty'
+    list_of = 'ListOfUncertainty'
+    test_case = 'an element on Uncertainty'
+    fail += run_test(name, num, class_name, test_case)
+
+    #Distrib constants
+    name = 'distrib'
+    constants_name = 'DistribConstants'
+    test_case = 'DistribConstants'
+    fail += run_constant_test(name, constants_name, test_case)
 
 
 
@@ -563,6 +568,11 @@ def main():
     # test_case = 'an element on GroupKind Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
 
+    # #Groups constants
+    # name = 'groups'
+    # constants_name = 'GroupsConstants'
+    # test_case = 'GroupsConstants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
 
     #

@@ -2397,7 +2397,29 @@ class SetGetFunctions():
                                   'return {0}'.format(self.success)]
                 code = [self.create_code_block('else_if', implementation)]
         else:
-            code = [dict({'code_type': 'blank', 'code': []})]
+            # TODO becareful this part
+            # implementation = ['TO DO']
+            # code = [dict({'code_type': 'line', 'code': implementation})]
+            curr_att_type = attribute['JClassType']
+
+            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            currValue = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            part2 = '{0} = null'.format(attribute['name'])
+            part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                            attribute['name'],
+                                                                            oldValue,
+                                                                            attribute['name'])
+            implementation = ['isSet{0}()'.format(attribute['capAttName']),
+                              part1, part2, part3,
+                              'return true']
+            # code = [dict({'code_type': 'if', 'code': implementation})]
+            code = [self.create_code_block('if', implementation)]
+
+            temp = 'return false'
+            code.append(temp)
+            return_type = 'boolean'
+            # code = [dict({'code_type': 'blank', 'code': []})]
         return code, return_type
 
 
