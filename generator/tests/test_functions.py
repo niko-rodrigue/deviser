@@ -70,9 +70,11 @@ def see_difference(data1, data2, show_data = False):
     # d = difflib.Differ()
     # diff = d.compare(data1.splitlines(1), data2.splitlines(1))
     # print('\n'.join(list(diff)))
-
+    print('---------------------Showing Differences---------------------')
     diff = difflib.unified_diff(data1.splitlines(1), data2.splitlines(1))
     print('\n'.join(list(diff)))
+    print('====================================================')
+    print('\n')
 
 
 # do a string comparison of the contents of two file
