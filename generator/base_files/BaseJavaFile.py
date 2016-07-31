@@ -445,19 +445,7 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
     # Function to expand import modules and extension
-    def expand_import_modules(self, package, is_package = False, is_constantsFile = False, is_classFile = False):
-
-        check_plugin = False
-        check_constants = False
-        check_class = False
-
-        #Constant, Plugin, and Extension require this.
-        if is_package is True or is_constantsFile is True:
-            self.pack = package['name']
-        else:
-            self.pack = self.package
-
-
+    def expand_import_modules(self, package):
         self.extends_modules = []
         self.implements_modules = []
         self.import_from_java_modules = []
@@ -492,11 +480,12 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         # TODO bug here, apends new element to tree
         if self.pack in self.jsbml_data_tree:
-            if self.name in self.jsbml_data_tree[self.pack]:
-                if len(self.jsbml_data_tree[self.pack][self.name]) > 0:
-                    self.extends_modules = [self.jsbml_data_tree[self.pack][self.name][0]]
-                if len(self.jsbml_data_tree[self.pack][self.name]) > 1:
-                    self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
+            if package['is_plugin'] is not True:
+                if self.name in self.jsbml_data_tree[self.pack]:
+                    if len(self.jsbml_data_tree[self.pack][self.name]) > 0:
+                        self.extends_modules = [self.jsbml_data_tree[self.pack][self.name][0]]
+                    if len(self.jsbml_data_tree[self.pack][self.name]) > 1:
+                        self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
 
         if self.baseClass != 'SBase':
             self.extends_modules.append(self.baseClass)

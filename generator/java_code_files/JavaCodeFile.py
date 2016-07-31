@@ -44,7 +44,7 @@ from util import query, strFunctions, global_variables
 class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     """Class for all Java Code files"""
 
-    def __init__(self, class_object, represents_class=True, is_plugin=False):
+    def __init__(self, class_object, represents_class=True):
 
         self.brief_description = \
             'Implementation  of the {0} class.'.format(class_object['name'])
@@ -52,13 +52,13 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                          class_object['attribs'])
 
         # members from object
-        self.is_plugin = is_plugin
+
         # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
 
             # TODO GSOC 2016 JSBML
-            self.expand_import_modules(class_object, is_classFile=True)
+            self.expand_import_modules(class_object)
             # self.expand_mandatory()
             self.expand_jsbml_methods()
 

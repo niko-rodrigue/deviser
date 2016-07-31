@@ -98,7 +98,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO GSOC 2016 JSBML
         # TODO GSOC 2016
         self.pack = self.package
-        self.expand_import_modules(self.original_package, is_constantsFile= True)
+        self.expand_import_modules(self.original_package)
         self.expand_jsbml_methods()
 
 

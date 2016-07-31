@@ -85,7 +85,9 @@ class JavaExtensionFiles():
     #     fileout.close_file()
 
     def write_plugin_code(self, class_descrip):
-        is_plugin = True
+        self.class_object['is_plugin'] = True
+        self.class_object['is_constantFile'] = False
+        self.class_object['is_classFile'] = False
         fileout = JavaCodeFile.JavaCodeFile(class_descrip)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
@@ -95,6 +97,9 @@ class JavaExtensionFiles():
     def write_constants(self):
         print('Time for some constants')
         custom_name = 'Constants'
+        self.class_object['is_plugin'] = False
+        self.class_object['is_constantFile'] = True
+        self.class_object['is_classFile'] = False
         fileout = JavaExtensionCodeFile.JavaExtensionCodeFile(self.package, custom_name)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
@@ -108,6 +113,8 @@ class JavaExtensionFiles():
         fileout.write_file()
         fileout.close_file()
 
+
+    #TODO use same idea for constants
     def create_class_description(self, num):
         if num >= len(self.package['plugins']):
             class_object = self.create_document_plugin_desc()

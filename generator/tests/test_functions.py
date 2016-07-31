@@ -6,6 +6,8 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/..')
 from util import global_variables
 
+# See string differences
+import difflib
 
 path_to_tests = ''
 function_table = {'binding': 'run_bindings_tests',
@@ -51,6 +53,28 @@ def read_file(path):
     return contents
 
 
+def see_difference(data1, data2, show_data = False):
+    if show_data is False:
+        return
+    # differences = difflib.ndiff(data1, data2)
+    # for i, s in enumerate(differences):
+    #     print(i,s)
+    # d = difflib.Differ()
+    # diff = d.compare(data1, data2)
+    # print('\n'.join(diff))
+    # diff = difflib.unified_diff(data1, data2, lineterm='\n')
+    # # diff = difflib.SequenceMatcher(None, data1, data2)
+    # print('\n'.join(list(diff)))
+
+    # diff = difflib.ndiff(data1.splitlines(1), data2.splitlines(1))
+    # d = difflib.Differ()
+    # diff = d.compare(data1.splitlines(1), data2.splitlines(1))
+    # print('\n'.join(list(diff)))
+
+    diff = difflib.unified_diff(data1.splitlines(1), data2.splitlines(1))
+    print('\n'.join(list(diff)))
+
+
 # do a string comparison of the contents of two file
 def compare_files(infile, outfile, fails, not_tested):
     ret = 0
@@ -69,9 +93,13 @@ def compare_files(infile, outfile, fails, not_tested):
         print('{0} .... PASSED'.format(outfile))
     else:
         fails.append(infile)
+        see_difference(indata, out, show_data=True)
         print('{0}=================>> FAILED'.format(outfile))
         ret = 1
     return ret
+
+
+
 
 
 def compare_return_codes(name, flag, expected_return, fails):
