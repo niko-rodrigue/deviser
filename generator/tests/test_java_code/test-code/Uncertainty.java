@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.tree.TreeNode;
 
@@ -189,7 +190,12 @@ public class Uncertainty extends AbstractNamedSBase {
    */
   @Override
   public String toString() {
-    return "Uncertainty [uncertML = " + uncertML + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("Uncertainty [");
+    builder.append("uncertML = ");
+    builder.append(uncertML);
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.tree.TreeNode;
 
@@ -389,7 +390,15 @@ public class DrawFromDistribution extends AbstractSBase {
    */
   @Override
   public String toString() {
-    return "DrawFromDistribution [uncertML = " + uncertML + ", listOfDistribInputs = " + listOfDistribInputs + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("DrawFromDistribution [");
+    builder.append("uncertML = ");
+    builder.append(uncertML);
+    builder.append(", ");
+    builder.append("listOfDistribInputs = ");
+    builder.append(listOfDistribInputs);
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)
