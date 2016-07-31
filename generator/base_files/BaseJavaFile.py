@@ -1867,7 +1867,45 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_jsbml_line_verbatim(jsbmlModuleLine)
             self.skip_line()
 
+    def get_namespace_uri(self):
+        function = 'getNamespaceURI'
+        title_line = ' '
+        additional = []
+        # additional.append('Override')
+        return_lines = []
+        params = []
+        object_name = ''
 
+        return_type = 'static String'
+        arguments = ['int level','int version']
+        arguments_no_defaults = ['int level','int version']
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+        implementation= []
+
+
+        text = 'return namespaceURI'
+        implementation.append(text)
+
+        # code.append(self.create_code_block('line', temp))
+        code.append(self.create_code_block('line', implementation))
+
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
 
 
     # HELPER FUNCTIONS
@@ -1893,3 +1931,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         for i in range(0, int(self.num_tabs)):
             tabs += '  '
         self.file_out.write('{0}{1}'.format(tabs, '/*'))
+
+    @staticmethod
+    def create_code_block(code_type, lines):
+        code = dict({'code_type': code_type, 'code': lines})
+        return code

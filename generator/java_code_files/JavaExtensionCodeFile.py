@@ -421,6 +421,9 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
 
 
+
+
+
     def write_jsbml_constants(self):
         self.up_indent()
 
@@ -453,6 +456,13 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         line = 'public static final List<String> namespaces'
         self.write_jsbml_line_verbatim(line)
 
+
+        self.write_variable_comment()
+        full_name = self.original_package['fullname']
+        line = 'public static final String packageName = "{0}"'.format(full_name)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
+
         #Write static
         self.write_static(self.namespace_uri)
 
@@ -483,5 +493,11 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
             line = 'public static final String {0} = "{1}"'.format(name, name)
             # self.write_line(line)
             self.write_jsbml_line_verbatim(line)
+
+        self.down_indent()
+        get_namespace_uri_func = self.get_namespace_uri()
+        self.write_function_implementation(get_namespace_uri_func)
+        self.up_indent()
+
 
         self.down_indent()
