@@ -20,6 +20,7 @@
 package org.sbml.jsbml.ext.qual;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -472,9 +473,25 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
    */
   @Override
   public String toString() {
-    return "QualitativeSpecies [compartment = " + compartment + ", constant = " +
-      constant + ", initialLevel = " + initialLevel + ", maxLevel = " + maxLevel +
-        "id = " + getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("QualitativeSpecies [");
+    builder.append("compartment = ");
+    builder.append(compartment);
+    builder.append(", ");
+    builder.append("constant = ");
+    builder.append(constant);
+    builder.append(", ");
+    builder.append("initialLevel = ");
+    builder.append(initialLevel);
+    builder.append(", ");
+    builder.append("maxLevel = ");
+    builder.append(maxLevel);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)

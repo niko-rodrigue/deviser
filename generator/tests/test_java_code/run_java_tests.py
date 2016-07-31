@@ -336,82 +336,82 @@ def main():
 
 
     # # # # #All qual compile
-    # # # #Compiles
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualitativeSpecies'
-    # list_of = 'ListOfQualitativeSpecies'
-    # test_case = 'an element on QualitativeSpecies'
-    # fail += run_test(name, num, class_name, test_case)
+    # # #Compiles
+    name = 'qual'
+    num = 0
+    class_name = 'QualitativeSpecies'
+    list_of = 'ListOfQualitativeSpecies'
+    test_case = 'an element on QualitativeSpecies'
+    fail += run_test(name, num, class_name, test_case)
+    #
     # #
+
+    #Compiles
+    name = 'qual'
+    num = 1
+    class_name = 'Transition'
+    list_of = 'ListOfTransition'
+    test_case = 'an element on Transition'
+    fail += run_test(name, num, class_name, test_case)
     # # #
-    #
-    # #Compiles
-    # name = 'qual'
-    # num = 1
-    # class_name = 'Transition'
-    # list_of = 'ListOfTransition'
-    # test_case = 'an element on Transition'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 2
-    # class_name = 'Input'
-    # list_of = 'ListOfInput'
-    # test_case = 'an element on Input'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 3
-    # class_name = 'Output'
-    # list_of = 'ListOfOutput'
-    # test_case = 'an element on Output'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # Compiles
-    # name = 'qual'
-    # num = 4
-    # class_name = 'DefaultTerm'
-    # list_of = 'ListOfDefaultTerm'
-    # test_case = 'an element on DefaultTerm'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    # # Compiles
-    # name = 'qual'
-    # num = 5
-    # class_name = 'FunctionTerm'
-    # list_of = 'ListOfFunctionTerm'
-    # test_case = 'an element on FunctionTerm'
-    # fail += run_test(name, num, class_name, test_case)
     # # #
+    #Compiles
+    name = 'qual'
+    num = 2
+    class_name = 'Input'
+    list_of = 'ListOfInput'
+    test_case = 'an element on Input'
+    fail += run_test(name, num, class_name, test_case)
+    # # #
+    # # #
+    #Compiles
+    name = 'qual'
+    num = 3
+    class_name = 'Output'
+    list_of = 'ListOfOutput'
+    test_case = 'an element on Output'
+    fail += run_test(name, num, class_name, test_case)
     #
     #
     #
-    # # Qual Enum Types
-    # name = 'qual'
-    # num = 0
-    # enum_name = 'Sign'
-    # test_case = 'an element on Sign Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 1
-    # enum_name = 'TransitionOutputEffect'
-    # test_case = 'an element on TransitionOutputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 2
-    # enum_name = 'TransitionInputEffect'
-    # test_case = 'an element on TransitionInputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
+    # Compiles
+    name = 'qual'
+    num = 4
+    class_name = 'DefaultTerm'
+    list_of = 'ListOfDefaultTerm'
+    test_case = 'an element on DefaultTerm'
+    fail += run_test(name, num, class_name, test_case)
+
+
+    # Compiles
+    name = 'qual'
+    num = 5
+    class_name = 'FunctionTerm'
+    list_of = 'ListOfFunctionTerm'
+    test_case = 'an element on FunctionTerm'
+    fail += run_test(name, num, class_name, test_case)
+    # #
+
+
+
+    # Qual Enum Types
+    name = 'qual'
+    num = 0
+    enum_name = 'Sign'
+    test_case = 'an element on Sign Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 1
+    enum_name = 'TransitionOutputEffect'
+    test_case = 'an element on TransitionOutputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 2
+    enum_name = 'TransitionInputEffect'
+    test_case = 'an element on TransitionInputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
 
     # Qual Constants
     name = 'qual'
@@ -434,21 +434,9 @@ def main():
 
 
 
-
-    # # name = 'spatial'
-    # # num = 3
-    # # class_name = 'SpatialParameterPlugin'
-    # # test_case = 'plugin with additional code'
-    # # fail += run_plug_test(name, class_name, test_case, num)
-
-    # # name = 'qual'
-    # # class_name = 'QualExtensionTypes'
-    # # test_case = 'the types '
-    # # fail += run_ext_test(name, class_name, test_case, 1)
-
     #
     # # # TODO fbc tests
-    # fbc PACKAGE PROBLEMS
+    # # # all pass
     # name = 'fbc_v2'
     # num = 0
     # class_name = 'FluxBound'
@@ -483,11 +471,17 @@ def main():
     # enum_name = 'FbcOperation'
     # test_case = 'an element on FbcOperation Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # # Qual Constants
+    # name = 'fbc_v2'
+    # constants_name = 'FbcConstants'
+    # test_case = 'Fbc Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
 
     # #
     # # # TODO dyn tests
-    # Compilable
+    # # #Compilable
     # name = 'dyn'
     # num = 0
     # class_name = 'DynElement'
@@ -503,6 +497,12 @@ def main():
     # list_of = 'ListOfSpatialComponent'
     # test_case = 'an element on SpatialComponent'
     # fail += run_test(name, num, class_name, test_case)
+    #
+    # # Dyn Constants
+    # name = 'dyn'
+    # constants_name = 'DynConstants'
+    # test_case = 'DynConstants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
 
 
