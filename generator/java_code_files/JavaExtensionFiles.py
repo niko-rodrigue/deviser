@@ -134,7 +134,8 @@ class JavaExtensionFiles():
             class_object['hasListOf'] = False
             class_object['package'] = self.package['name']
             class_object['typecode'] = ''
-            class_object['baseClass'] = 'SBasePlugin'
+            # class_object['baseClass'] = 'SBasePlugin'
+            class_object['baseClass'] = 'AbstractSBasePlugin'
             class_object['sid_refs'] = []
             class_object['unit_sid_refs'] = []
             class_object['hasMath'] = False

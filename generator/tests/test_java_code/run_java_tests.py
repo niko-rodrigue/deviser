@@ -420,11 +420,11 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
 
 
-    # #TESTING PhaSE
-    name = 'qual'
-    class_name = 'QualExtension'
-    test_case = 'default typecodes extension file'
-    fail += run_ext_test(name, class_name, test_case, 0)
+    # # #TESTING PhaSE
+    # name = 'qual'
+    # class_name = 'QualExtension'
+    # test_case = 'default typecodes extension file'
+    # fail += run_ext_test(name, class_name, test_case, 0)
 
     name = 'qual'
     num = 0
@@ -432,11 +432,14 @@ def main():
     test_case = 'basic plugin'
     fail += run_plug_test(name, class_name, test_case, num)
 
-    name = 'qual'
-    num = 1
-    class_name = 'QualSBMLDocumentPlugin'
-    test_case = 'document plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+
+
+    # TODO this looks more lie package-info.java?
+    # name = 'qual'
+    # num = 1
+    # class_name = 'QualSBMLDocumentPlugin'
+    # test_case = 'document plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
 
 

@@ -594,6 +594,7 @@ class ListOfQueryFunctions():
                 member = self.class_object['memberName']
                 implementation = ['return {0}.remove(n)'.format(member)]
                 code = [self.create_code_block('line', implementation)]
+
             elif self.status == 'plugin':
                 name = self.class_object['memberName']
                 implementation = ['return static_cast<{0}*>({1}.remove'
@@ -1595,6 +1596,7 @@ class ListOfQueryFunctions():
                 implementation.append('registerChild({0})'.format(loname_lower))
 
 
+
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
         else:
@@ -1611,6 +1613,7 @@ class ListOfQueryFunctions():
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
 
+        code.append(' ')
         line = 'return {0}'.format(loname_lower)
         line_code = line  # self.create_code_block('line', line)
         code.append(line_code)
@@ -1815,6 +1818,7 @@ class ListOfQueryFunctions():
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
 
+        code.append('')
         # line = 'return {0}'.format(loname_lower)
         # line_code = line  # self.create_code_block('line', line)
         # code.append(line_code)

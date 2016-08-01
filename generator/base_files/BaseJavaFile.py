@@ -514,11 +514,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if data is not None:
                     self.jsbml_methods.update({module: data['modules']})
 
-                if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
-                    for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
-                        interface = insideJSBML_parser.get_class_information(interface_class)
-                        if data is not None:
-                            self.jsbml_methods.update({interface_class: interface['modules']})
+                    if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
+                        for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
+                            interface = insideJSBML_parser.get_class_information(interface_class)
+                            if data is not None:
+                                self.jsbml_methods.update({interface_class: interface['modules']})
 
         for module in self.implements_modules:
             if module in self.jsbml_data_tree:

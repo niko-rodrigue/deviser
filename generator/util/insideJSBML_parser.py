@@ -270,10 +270,10 @@ def get_class_information(class_name=None, individual_run=False):
 # class_name = 'UniqueNamedSBase'
 
 
-#Exist but no data
-class_name = 'AbstractSBasePlugin'
-data = get_class_information(class_name, individual_run=True)
-print(data)
+# #Exist but no data
+# class_name = 'AbstractSBasePlugin'
+# data = get_class_information(class_name, individual_run=True)
+# print(data)
 
 
 
