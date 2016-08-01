@@ -511,17 +511,20 @@ class BaseJavaFile(BaseFile.BaseFile):
         for module in self.extends_modules:
             if module in self.jsbml_data_tree:
                 data = insideJSBML_parser.get_class_information(module)
-                self.jsbml_methods.update({module: data['modules']})
+                if data is not None:
+                    self.jsbml_methods.update({module: data['modules']})
 
                 if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
                     for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
                         interface = insideJSBML_parser.get_class_information(interface_class)
-                        self.jsbml_methods.update({interface_class: interface['modules']})
+                        if data is not None:
+                            self.jsbml_methods.update({interface_class: interface['modules']})
 
         for module in self.implements_modules:
             if module in self.jsbml_data_tree:
                 data = insideJSBML_parser.get_class_information(module)
-                self.jsbml_methods.update({module: data['modules']})
+                if data is not None:
+                    self.jsbml_methods.update({module: data['modules']})
 
         for i in range(0, len(self.attributes)):
             capname = strFunctions.upper_first(self.attributes[i]['name'])
@@ -530,8 +533,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                 continue
             else:
                 data = insideJSBML_parser.get_class_information(capname)
-                # print('yahoo ',data)
-                self.jsbml_methods.update({capname: data['modules']})
+                if data is not None:
+                    # print('yahoo ',data)
+                    self.jsbml_methods.update({capname: data['modules']})
 
         self.abstract_jsbml_methods = jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
 
