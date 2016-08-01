@@ -420,11 +420,11 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
 
 
-    # TESTING PhaSE
-    # name = 'qual'
-    # class_name = 'QualExtension'
-    # test_case = 'default typecodes extension file'
-    # fail += run_ext_test(name, class_name, test_case, 0)
+    # #TESTING PhaSE
+    name = 'qual'
+    class_name = 'QualExtension'
+    test_case = 'default typecodes extension file'
+    fail += run_ext_test(name, class_name, test_case, 0)
 
     name = 'qual'
     num = 0

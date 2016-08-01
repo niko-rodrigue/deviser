@@ -80,12 +80,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         self.write_child_element_functions()
-        # self.write_listof_functions()
+        self.write_listof_functions()
 
         # TODOs
         self.write_child_lo_element_functions()
 
-        # self.write_concrete_functions()
+        self.write_concrete_functions()
 
         # TODO write hash, read, write bugs
         self.write_general_functions()
