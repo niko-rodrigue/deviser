@@ -97,19 +97,21 @@ def extract_data(temp_data):
                             arg = type_of_name_step1[-1].split('>')[0]
                             of_type_args.append(arg)
 
-    if temp_data[0] in ['public', 'private', 'protected']:
-        access_type = temp_data[0]
+    if len(temp_data)>0:
+        if temp_data[0] in ['public', 'private', 'protected']:
+            access_type = temp_data[0]
 
     
 
     if len(temp_data) > 1 and temp_data[1] == 'abstract':
         is_abstract = True 
         return_type = temp_data[2]
-    elif temp_data[1] == 'void':
-        return_type = temp_data[1]
+    elif len(temp_data) > 0:
+        if temp_data[1] == 'void':
+            return_type = temp_data[1]
     else:
-        return_type = temp_data[1]
-
+        # return_type = temp_data[1]
+        return_type = None
 
     if function_name == '':
         return
@@ -212,22 +214,41 @@ def get_class_information(class_name=None, individual_run=False):
     comm4 = '-package'
     comm5 = '{0}'.format(class_name)
     total_command = [comm1, comm2, comm3, comm4, comm5]
-    try:
-        # class_info = os.popen('{0}'.format(command))
-        class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
-        stdout, stderr = class_info.communicate()
-        # class_output = class_info.readlines()
-        print('tada ', class_info.returncode)
-        # print('class_ou', class_output)
-        #raise Exception('For bug testing')
-        assert len(class_output) > 0
+    # try:
+    # class_info = os.popen('{0}'.format(command))
+    class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
+    stdout, stderr = class_info.communicate()
+    # out = class_info.stdout.readlines()
+    # print(stdout)
+    # print('tada ', stderr)
+    # print('tada ', class_info.returncode)
+
+    if stdout:
+        stdout_value = stdout.decode() #decode("utf-8")
+        class_output = stdout_value.split('\n')
         dict_data = parse_output(class_output)
-        class_info.close()
         return dict_data
-    except Exception as e:
-        print('Check if Java SDK is installed, deviser requires javap')
-        print(e)
-        sys.exit(0)
+    elif stderr:
+        error_txt = stderr.decode()
+        print(error_txt)
+        if 'Error: class not found:' in error_txt:
+            return
+        else:
+            print('Check if Java SDK is installed, deviser requires javap')
+            sys.exit(0)
+
+
+
+    # print('class_ou', class_output)
+    #raise Exception('For bug testing')
+    # assert len(class_output) > 0
+
+
+
+    # except Exception as e:
+    #     print('Check if Java SDK is installed, deviser requires javap')
+    #     print(e)
+    #     sys.exit(0)
     # print_output(class_output)
 
 
@@ -246,12 +267,16 @@ def get_class_information(class_name=None, individual_run=False):
 # class_name = 'SBaseWithDerivedUnit'
 # class_name = 'NamedSBaseWithDerivedUnit'
 
-class_name = 'UniqueNamedSBase'
+# class_name = 'UniqueNamedSBase'
+
+
+#Exist but no data
+class_name = 'AbstractSBasePlugin'
 data = get_class_information(class_name, individual_run=True)
 print(data)
 
 
 
-# class_name = 'AbstractSBasePlugin'
+
 # data = get_class_information(class_name, individual_run=True)
 # print(data)
