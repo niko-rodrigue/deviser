@@ -455,7 +455,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         #THis is the tricky part
         # self.get_general_includes()
 
-        if package['is_constantFile'] is  True:
+        if package['is_constantFile'] is True:
+            self.import_from_java_modules.append('java.util.ResourceBundle')
+            self.import_from_jsbml_modules.append('util.ResourceManager')
+
             self.import_from_java_modules.append('java.util.ArrayList')
             self.import_from_java_modules.append('java.util.List')
             self.import_from_java_modules.append('javax.swing.tree.TreeNode')

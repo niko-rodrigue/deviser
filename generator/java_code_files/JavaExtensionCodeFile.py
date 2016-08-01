@@ -446,6 +446,15 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         line = 'public static final String namespaceURI = {0}'.format(self.namespace_uri)
         self.write_jsbml_line_verbatim(line)
 
+
+
+        self.write_variable_comment()
+        line = 'public static final ResourceBundle bundle = ResourceManager' \
+               '.getBundle("org.sbml.jsbml.ext.{0}.Messages")'.format(package_name)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
+
+
         self.write_variable_comment()
         line = 'public static final String shortLabel = "{0}"'.format(package_name)
         # self.write_line(line)
