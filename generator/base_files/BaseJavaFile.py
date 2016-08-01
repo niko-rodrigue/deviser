@@ -495,6 +495,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                         self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
 
         if self.baseClass != 'SBase':
+            #If plugin  then do something else
             self.extends_modules.append(self.baseClass)
 
 

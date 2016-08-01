@@ -396,10 +396,12 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
-        # self.write_general_includes()
-        # self.write_cppns_begin()
-        # self.write_cpp_begin()
+        self.write_package_include()
+        self.write_java_imports()
+        BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
+        self.write_jsbml_class_header()
         self.write_class()
+        self.close_jsbml_class_header()
     #           self.write_extension_instance()
     #         self.write_cpp_end()
     #         self.write_type_defs()

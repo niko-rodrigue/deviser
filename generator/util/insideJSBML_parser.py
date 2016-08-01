@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import subprocess as sub
 
 
 file_path = os.path.dirname(os.path.abspath(__file__))
@@ -204,17 +205,28 @@ def get_class_information(class_name=None, individual_run=False):
 
     command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
     # print('command ',command)
+
+    comm1 = 'javap'
+    comm2 = '-cp'
+    comm3 = '{0}{1}{2}'.format(file_path, os.sep, jsbml_jar)
+    comm4 = '-package'
+    comm5 = '{0}'.format(class_name)
+    total_command = [comm1, comm2, comm3, comm4, comm5]
     try:
-        class_info = os.popen('{0}'.format(command))
-        class_output = class_info.readlines()
+        # class_info = os.popen('{0}'.format(command))
+        class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
+        stdout, stderr = class_info.communicate()
+        # class_output = class_info.readlines()
+        print('tada ', class_info.returncode)
         # print('class_ou', class_output)
         #raise Exception('For bug testing')
         assert len(class_output) > 0
         dict_data = parse_output(class_output)
         class_info.close()
         return dict_data
-    except:
+    except Exception as e:
         print('Check if Java SDK is installed, deviser requires javap')
+        print(e)
         sys.exit(0)
     # print_output(class_output)
 
@@ -234,6 +246,12 @@ def get_class_information(class_name=None, individual_run=False):
 # class_name = 'SBaseWithDerivedUnit'
 # class_name = 'NamedSBaseWithDerivedUnit'
 
-# class_name = 'UniqueNamedSBase'
+class_name = 'UniqueNamedSBase'
+data = get_class_information(class_name, individual_run=True)
+print(data)
+
+
+
+# class_name = 'AbstractSBasePlugin'
 # data = get_class_information(class_name, individual_run=True)
 # print(data)

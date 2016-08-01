@@ -413,13 +413,19 @@ def main():
     # test_case = 'an element on TransitionInputEffect Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
     #
-    # Qual Constants
-    name = 'qual'
-    constants_name = 'QualConstant'
-    test_case = 'Qual Constants'
-    fail += run_constant_test(name, constants_name, test_case)
+    # # Qual Constants
+    # name = 'qual'
+    # constants_name = 'QualConstant'
+    # test_case = 'Qual Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
-    #
+
+    # TESTING PhaSE
+    # name = 'qual'
+    # class_name = 'QualExtension'
+    # test_case = 'default typecodes extension file'
+    # fail += run_ext_test(name, class_name, test_case, 0)
+
     name = 'qual'
     num = 0
     class_name = 'QualModelPlugin'
