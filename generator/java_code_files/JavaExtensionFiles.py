@@ -85,9 +85,9 @@ class JavaExtensionFiles():
     #     fileout.close_file()
 
     def write_plugin_code(self, class_descrip):
-        self.class_object['is_plugin'] = True
-        self.class_object['is_constantFile'] = False
-        self.class_object['is_classFile'] = False
+        self.class_descrip['is_plugin'] = True
+        self.class_descrip['is_constantFile'] = False
+        self.class_descrip['is_classFile'] = False
         fileout = JavaCodeFile.JavaCodeFile(class_descrip)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))

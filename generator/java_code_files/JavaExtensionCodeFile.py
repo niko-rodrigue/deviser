@@ -451,6 +451,21 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_line(line)
         self.write_jsbml_line_verbatim(line)
 
+        self.write_variable_comment()
+        line = 'public static final int MIN_SBML_LEVEL = {0}'.format(base_level)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
+
+        self.write_variable_comment()
+        line = 'public static final int MIN_SBML_VERSION = {0}'.format(base_version)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
+
+        self.write_variable_comment()
+        line = 'public static final int PACKAGE_VERSION = {0}'.format(package_version)
+        # self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
+
 
         self.write_variable_comment()
         line = 'public static final List<String> namespaces'

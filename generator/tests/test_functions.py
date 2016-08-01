@@ -9,6 +9,8 @@ from util import global_variables
 # See string differences
 import difflib
 
+
+
 path_to_tests = ''
 function_table = {'binding': 'run_bindings_tests',
                   'cmake': 'run_cmake_tests',

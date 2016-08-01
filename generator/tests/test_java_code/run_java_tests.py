@@ -413,24 +413,24 @@ def main():
     # test_case = 'an element on TransitionInputEffect Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
     #
-    # # Qual Constants
-    # name = 'qual'
-    # constants_name = 'QualConstant'
-    # test_case = 'Qual Constants'
-    # fail += run_constant_test(name, constants_name, test_case)
+    # Qual Constants
+    name = 'qual'
+    constants_name = 'QualConstant'
+    test_case = 'Qual Constants'
+    fail += run_constant_test(name, constants_name, test_case)
 
     #
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualModelPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    # name = 'qual'
-    # num = 1
-    # class_name = 'QualSBMLDocumentPlugin'
-    # test_case = 'document plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
+    name = 'qual'
+    num = 0
+    class_name = 'QualModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'qual'
+    num = 1
+    class_name = 'QualSBMLDocumentPlugin'
+    test_case = 'document plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
 
 
 
@@ -510,41 +510,41 @@ def main():
     # # # # TODO distrib tests
 
 
-    # #Uncert unsetUncertML error
-    name = 'distrib'
-    num = 0
-    class_name = 'DrawFromDistribution'
-    list_of = 'ListOfDrawFromDistribution'
-    test_case = 'an element on DrawFromDistribution'
-    fail += run_test(name, num, class_name, test_case)
-
-    # Compilable
-    name = 'distrib'
-    num = 1
-    class_name = 'DistribInput'
-    list_of = 'ListOfDistribInput'
-    test_case = 'an element on DistribInput'
-    fail += run_test(name, num, class_name, test_case)
-
-    # #Uncert unsetUncertML error
-    name = 'distrib'
-    num = 2
-    class_name = 'Uncertainty'
-    list_of = 'ListOfUncertainty'
-    test_case = 'an element on Uncertainty'
-    fail += run_test(name, num, class_name, test_case)
-
-    #Distrib constants
-    name = 'distrib'
-    constants_name = 'DistribConstants'
-    test_case = 'DistribConstants'
-    fail += run_constant_test(name, constants_name, test_case)
+    # # #Uncert unsetUncertML error
+    # name = 'distrib'
+    # num = 0
+    # class_name = 'DrawFromDistribution'
+    # list_of = 'ListOfDrawFromDistribution'
+    # test_case = 'an element on DrawFromDistribution'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # # Compilable
+    # name = 'distrib'
+    # num = 1
+    # class_name = 'DistribInput'
+    # list_of = 'ListOfDistribInput'
+    # test_case = 'an element on DistribInput'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # # #Uncert unsetUncertML error
+    # name = 'distrib'
+    # num = 2
+    # class_name = 'Uncertainty'
+    # list_of = 'ListOfUncertainty'
+    # test_case = 'an element on Uncertainty'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # #Distrib constants
+    # name = 'distrib'
+    # constants_name = 'DistribConstants'
+    # test_case = 'DistribConstants'
+    # fail += run_constant_test(name, constants_name, test_case)
 
 
 
     # # # # TODO groups tests
     # # #
-    # # Error kind is an enum can't find in Constants?
+    # # Compilable
     # name = 'groups'
     # num = 0
     # class_name = 'Group'
@@ -567,7 +567,7 @@ def main():
     # enum_name = 'GroupKind'
     # test_case = 'an element on GroupKind Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
-
+    #
     # #Groups constants
     # name = 'groups'
     # constants_name = 'GroupsConstants'
@@ -577,295 +577,301 @@ def main():
 
     #
     #
-    # # TODO spatial tests
-    # # name = 'spatial'
-    # # num = 0
-    # # class_name = 'DomainType'
-    # # list_of = 'ListOfDomainType'
-    # # test_case = 'an element on DomainType'
-    # # fail += run_test(name, num, class_name, test_case)
+    # TODO spatial tests
+    # #Groups constants
+    # name = 'spatial'
+    # constants_name = 'SpatialConstants'
+    # test_case = 'SpatialConstants'
+    # fail += run_constant_test(name, constants_name, test_case)
+
+    # name = 'spatial'
+    # num = 0
+    # class_name = 'DomainType'
+    # list_of = 'ListOfDomainType'
+    # test_case = 'an element on DomainType'
+    # fail += run_test(name, num, class_name, test_case)
+
+
+
+    # name = 'spatial'
+    # num = 1
+    # class_name = 'Domain'
+    # list_of = 'ListOfDomain'
+    # test_case = 'an element on Domain'
+    # fail += run_test(name, num, class_name, test_case)
     # #
     # #
-    # #
-    # # name = 'spatial'
-    # # num = 1
-    # # class_name = 'Domain'
-    # # list_of = 'ListOfDomain'
-    # # test_case = 'an element on Domain'
-    # # fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    # # name = 'spatial'
-    # # num = 2
-    # # class_name = 'InteriorPoint'
-    # # list_of = 'ListOfInteriorPoint'
-    # # test_case = 'an element on InteriorPoint'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 3
-    # # class_name = 'Boundary'
-    # # list_of = 'ListOfBoundary'
-    # # test_case = 'an element on Boundary'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 4
-    # # class_name = 'AdjacentDomains'
-    # # list_of = 'ListOfAdjacentDomains'
-    # # test_case = 'an element on AdjacentDomains'
-    # # fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    # # name = 'spatial'
-    # # num = 5
-    # # class_name = 'GeometryDefinition'
-    # # list_of = 'ListOfGeometryDefinition'
-    # # test_case = 'an element on GeometryDefinition'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 6
-    # # class_name = 'CompartmentMapping'
-    # # list_of = 'ListOfCompartmentMapping'
-    # # test_case = 'an element on CompartmentMapping'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 7
-    # # class_name = 'CoordinateComponent'
-    # # list_of = 'ListOfCoordinateComponent'
-    # # test_case = 'an element on CoordinateComponent'
-    # # fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 2
+    # class_name = 'InteriorPoint'
+    # list_of = 'ListOfInteriorPoint'
+    # test_case = 'an element on InteriorPoint'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 8
-    # # class_name = 'SampledFieldGeometry'
-    # # list_of = 'ListOfSampledFieldGeometry'
-    # # test_case = 'an element on SampledFieldGeometry'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 9
-    # # class_name = 'SampledField'
-    # # list_of = 'ListOfSampledField'
-    # # test_case = 'an element on SampledField'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 10
-    # # class_name = 'SampledVolume'
-    # # list_of = 'ListOfSampledVolume'
-    # # test_case = 'an element on SampledVolume'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
+    # name = 'spatial'
+    # num = 3
+    # class_name = 'Boundary'
+    # list_of = 'ListOfBoundary'
+    # test_case = 'an element on Boundary'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 11
-    # # class_name = 'AnalyticGeometry'
-    # # list_of = 'ListOfAnalyticGeometry'
-    # # test_case = 'an element on AnalyticGeometry'
-    # # fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 4
+    # class_name = 'AdjacentDomains'
+    # list_of = 'ListOfAdjacentDomains'
+    # test_case = 'an element on AdjacentDomains'
+    # fail += run_test(name, num, class_name, test_case)
     # #
     # #
-    # #
-    # # name = 'spatial'
-    # # num = 12
-    # # class_name = 'AnalyticVolume'
-    # # list_of = 'ListOfAnalyticVolume'
-    # # test_case = 'an element on AnalyticVolume'
-    # # fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 5
+    # class_name = 'GeometryDefinition'
+    # list_of = 'ListOfGeometryDefinition'
+    # test_case = 'an element on GeometryDefinition'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 13
-    # # class_name = 'ParametricGeometry'
-    # # list_of = 'ListOfParametricGeometry'
-    # # test_case = 'an element on ParametricGeometry'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 14
-    # # class_name = 'ParametricObject'
-    # # list_of = 'ListOfParametricObject'
-    # # test_case = 'an element on ParametricObject'
-    # # fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 6
+    # class_name = 'CompartmentMapping'
+    # list_of = 'ListOfCompartmentMapping'
+    # test_case = 'an element on CompartmentMapping'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 15
-    # # class_name = 'CSGeometry'
-    # # list_of = 'ListOfCSGeometry'
-    # # test_case = 'an element on CSGeometry'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 16
-    # # class_name = 'CSGObject'
-    # # list_of = 'ListOfCSGObject'
-    # # test_case = 'an element on CSGObject'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 17
-    # # class_name = 'CSGNode'
-    # # list_of = 'ListOfCSGNode'
-    # # test_case = 'an element on CSGNode'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 18
-    # # class_name = 'CSGTransformation'
-    # # list_of = 'ListOfCSGTransformation'
-    # # test_case = 'an element on CSGTransformation'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 19
-    # # class_name = 'CSGTranslation'
-    # # list_of = 'ListOfCSGTranslation'
-    # # test_case = 'an element on CSGTranslation'
-    # # fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 7
+    # class_name = 'CoordinateComponent'
+    # list_of = 'ListOfCoordinateComponent'
+    # test_case = 'an element on CoordinateComponent'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 20
-    # # class_name = 'CSGRotation'
-    # # list_of = 'ListOfCSGRotation'
-    # # test_case = 'an element on CSGRotation'
-    # # fail += run_test(name, num, class_name, test_case)
+    # name = 'spatial'
+    # num = 8
+    # class_name = 'SampledFieldGeometry'
+    # list_of = 'ListOfSampledFieldGeometry'
+    # test_case = 'an element on SampledFieldGeometry'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 21
-    # # class_name = 'CSGScale'
-    # # list_of = 'ListOfCSGScale'
-    # # test_case = 'an element on CSGScale'
-    # # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'spatial'
+    # num = 9
+    # class_name = 'SampledField'
+    # list_of = 'ListOfSampledField'
+    # test_case = 'an element on SampledField'
+    # fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # name = 'spatial'
-    # # num = 22
-    # # class_name = 'CSGHomogeneousTransformation'
-    # # list_of = 'ListOfCSGHomogeneousTransformation'
-    # # test_case = 'an element on CSGHomogeneousTransformation'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 23
-    # # class_name = 'TransformationComponents'
-    # # list_of = 'ListOfTransformationComponents'
-    # # test_case = 'an element on Transition'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 24
-    # # class_name = 'CSGPrimitive'
-    # # list_of = 'ListOfCSGPrimitive'
-    # # test_case = 'an element on CSGPrimitive'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 25
-    # # class_name = 'CSGPseudoPrimitive'
-    # # list_of = 'ListOfCSGPseudoPrimitive'
-    # # test_case = 'an element on CSGPseudoPrimitive'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 26
-    # # class_name = 'CSGSetOperator'
-    # # list_of = 'ListOfCSGSetOperator'
-    # # test_case = 'an element on CSGSetOperator'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 27
-    # # class_name = 'SpatialSymbolReference'
-    # # list_of = 'ListOfSpatialSymbolReference'
-    # # test_case = 'an element on SpatialSymbolReference'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 28
-    # # class_name = 'DiffusionCoefficient'
-    # # list_of = 'ListOfDiffusionCoefficient'
-    # # test_case = 'an element on DiffusionCoefficient'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # # name = 'spatial'
-    # # num = 29
-    # # class_name = 'AdvectionCoefficient'
-    # # list_of = 'ListOfAdvectionCoefficient'
-    # # test_case = 'an element on AdvectionCoefficient'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 30
-    # # class_name = 'BoundaryCondition'
-    # # list_of = 'ListOfBoundaryCondition'
-    # # test_case = 'an element on BoundaryCondition'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 31
-    # # class_name = 'Geometry'
-    # # list_of = 'ListOfGeometry'
-    # # test_case = 'an element on Geometry'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # # name = 'spatial'
-    # # num = 32
-    # # class_name = 'CoordinateReference'
-    # # list_of = 'ListOfCoordinateReference'
-    # # test_case = 'an element on CoordinateReference'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # # name = 'spatial'
-    # # num = 33
-    # # class_name = 'MixedGeometry'
-    # # list_of = 'ListOfMixedGeometry'
-    # # test_case = 'an element on MixedGeometry'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # # name = 'spatial'
-    # # num = 34
-    # # class_name = 'OrdinalMapping'
-    # # list_of = 'ListOfOrdinalMapping'
-    # # test_case = 'an element on OrdinalMapping'
-    # # fail += run_test(name, num, class_name, test_case)
-    # #
-    # # name = 'spatial'
-    # # num = 35
-    # # class_name = 'SpatialPoints'
-    # # list_of = 'ListOfSpatialPoints'
-    # # test_case = 'an element on SpatialPoints'
-    # # fail += run_test(name, num, class_name, test_case)
     #
+    # name = 'spatial'
+    # num = 10
+    # class_name = 'SampledVolume'
+    # list_of = 'ListOfSampledVolume'
+    # test_case = 'an element on SampledVolume'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 11
+    # class_name = 'AnalyticGeometry'
+    # list_of = 'ListOfAnalyticGeometry'
+    # test_case = 'an element on AnalyticGeometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # name = 'spatial'
+    # num = 12
+    # class_name = 'AnalyticVolume'
+    # list_of = 'ListOfAnalyticVolume'
+    # test_case = 'an element on AnalyticVolume'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 13
+    # class_name = 'ParametricGeometry'
+    # list_of = 'ListOfParametricGeometry'
+    # test_case = 'an element on ParametricGeometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 14
+    # class_name = 'ParametricObject'
+    # list_of = 'ListOfParametricObject'
+    # test_case = 'an element on ParametricObject'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 15
+    # class_name = 'CSGeometry'
+    # list_of = 'ListOfCSGeometry'
+    # test_case = 'an element on CSGeometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 16
+    # class_name = 'CSGObject'
+    # list_of = 'ListOfCSGObject'
+    # test_case = 'an element on CSGObject'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 17
+    # class_name = 'CSGNode'
+    # list_of = 'ListOfCSGNode'
+    # test_case = 'an element on CSGNode'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 18
+    # class_name = 'CSGTransformation'
+    # list_of = 'ListOfCSGTransformation'
+    # test_case = 'an element on CSGTransformation'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 19
+    # class_name = 'CSGTranslation'
+    # list_of = 'ListOfCSGTranslation'
+    # test_case = 'an element on CSGTranslation'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 20
+    # class_name = 'CSGRotation'
+    # list_of = 'ListOfCSGRotation'
+    # test_case = 'an element on CSGRotation'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 21
+    # class_name = 'CSGScale'
+    # list_of = 'ListOfCSGScale'
+    # test_case = 'an element on CSGScale'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 22
+    # class_name = 'CSGHomogeneousTransformation'
+    # list_of = 'ListOfCSGHomogeneousTransformation'
+    # test_case = 'an element on CSGHomogeneousTransformation'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 23
+    # class_name = 'TransformationComponents'
+    # list_of = 'ListOfTransformationComponents'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 24
+    # class_name = 'CSGPrimitive'
+    # list_of = 'ListOfCSGPrimitive'
+    # test_case = 'an element on CSGPrimitive'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 25
+    # class_name = 'CSGPseudoPrimitive'
+    # list_of = 'ListOfCSGPseudoPrimitive'
+    # test_case = 'an element on CSGPseudoPrimitive'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 26
+    # class_name = 'CSGSetOperator'
+    # list_of = 'ListOfCSGSetOperator'
+    # test_case = 'an element on CSGSetOperator'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 27
+    # class_name = 'SpatialSymbolReference'
+    # list_of = 'ListOfSpatialSymbolReference'
+    # test_case = 'an element on SpatialSymbolReference'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 28
+    # class_name = 'DiffusionCoefficient'
+    # list_of = 'ListOfDiffusionCoefficient'
+    # test_case = 'an element on DiffusionCoefficient'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'spatial'
+    # num = 29
+    # class_name = 'AdvectionCoefficient'
+    # list_of = 'ListOfAdvectionCoefficient'
+    # test_case = 'an element on AdvectionCoefficient'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 30
+    # class_name = 'BoundaryCondition'
+    # list_of = 'ListOfBoundaryCondition'
+    # test_case = 'an element on BoundaryCondition'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 31
+    # class_name = 'Geometry'
+    # list_of = 'ListOfGeometry'
+    # test_case = 'an element on Geometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # name = 'spatial'
+    # num = 32
+    # class_name = 'CoordinateReference'
+    # list_of = 'ListOfCoordinateReference'
+    # test_case = 'an element on CoordinateReference'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'spatial'
+    # num = 33
+    # class_name = 'MixedGeometry'
+    # list_of = 'ListOfMixedGeometry'
+    # test_case = 'an element on MixedGeometry'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'spatial'
+    # num = 34
+    # class_name = 'OrdinalMapping'
+    # list_of = 'ListOfOrdinalMapping'
+    # test_case = 'an element on OrdinalMapping'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'spatial'
+    # num = 35
+    # class_name = 'SpatialPoints'
+    # list_of = 'ListOfSpatialPoints'
+    # test_case = 'an element on SpatialPoints'
+    # fail += run_test(name, num, class_name, test_case)
+
     #
     #
     #
