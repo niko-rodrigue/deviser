@@ -517,6 +517,10 @@ class Constructors():
                   '@param version']
 
 
+        if self.is_plugin is True:
+            return
+
+
         # if global_variables.is_package:
         #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
         #                   'Version to assign to this {2}.'

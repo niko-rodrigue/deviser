@@ -1409,7 +1409,7 @@ class GeneralFunctions():
 
 
 
-        temp = ['return getElementNamespace();']
+        temp = ['return getElementNamespace()']
         code.append(self.create_code_block('line', temp))
 
         return dict({'title_line': title_line,

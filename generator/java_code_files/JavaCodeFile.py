@@ -178,6 +178,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = constructor.write_init_defaults_constructor()
             self.write_function_implementation(code)
 
+            # TODO write_equals problematic
+            code = constructor.write_equals()
+            self.write_function_implementation(code)
+            #
+
+
             # code = constructor.write_namespace_constructor()
             # self.write_function_implementation(code)
         # elif self.is_plugin:
@@ -187,9 +193,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             for i in range(0, len(self.concretes)+1):
                 code = constructor.write_level_version_constructor(i)
                 self.write_function_implementation(code)
-        else:
-            code = constructor.write_level_version_constructor(-1)
-            self.write_function_implementation(code)
+        #Plugin
+        # else:
+        #     code = constructor.write_level_version_constructor(-1)
+        #     self.write_function_implementation(code)
 
 
         # TODO after main constructors
@@ -197,10 +204,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_function_implementation(code)
 
 
-        # TODO write_equals problematic
-        code = constructor.write_equals()
-        self.write_function_implementation(code)
-        #
 
         # Clone need @override
         code = constructor.write_clone()

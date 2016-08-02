@@ -1979,6 +1979,7 @@ class ListOfQueryFunctions():
         lo_name_lower = strFunctions.remove_prefix(loname_lower)
         used_java_name = strFunctions.upper_first(self.child_name)
         used_java_name_lower = strFunctions.lower_first(self.child_name)
+        used_java_type = strFunctions.remove_prefix(self.object_child_type)
 
         params.append('Returns {{@code true}} if {{@link {0}}} \
                       contains at least one element, otherwise {{@code false}}.'.format(loname_lower))
@@ -2011,7 +2012,13 @@ class ListOfQueryFunctions():
             #                   '&{0}'.format(self.class_object['memberName'])]
             # code = [self.create_code_block('line', implementation)]
             implementation = ['isSet{0}()'.format(loname)]
-            implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_name, used_java_name, loname_lower))
+
+            if self.is_plugin is True:
+                implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_type, used_java_name, loname_lower))
+            else:
+                implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_name, used_java_name, loname_lower))
+
+
             implementation.append('this.{0} = null'.format(loname_lower))
             implementation.append('old{0}.fireNodeRemovedEvent()'.format(used_java_name))
             implementation.append('return true')
