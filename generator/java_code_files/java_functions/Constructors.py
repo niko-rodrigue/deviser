@@ -87,7 +87,11 @@ class Constructors():
         if import_modules is not None:
             self.import_modules = import_modules
 
-        self.copy_name = 'orig'
+
+        if self.is_plugin is True:
+            self.copy_name = strFunctions.lower_first(self.package) + 'Model'
+        else:
+            self.copy_name = 'orig'
         self.equals_name = 'object'
         self.equals_short = 'obj'
 
@@ -1319,6 +1323,8 @@ class Constructors():
         arguments = ['{0} {1}'.format(self.object_name, self.copy_name)]
         # create the function implementation
 
+
+
         constructor_args = [] #arguments #self.write_copy_constructor_args(self)
         code = []
         clone = 'clone'
@@ -1380,6 +1386,9 @@ class Constructors():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
+
+
+
 
     def create_copy_if(self, index):
         attribute = self.attributes[index]
