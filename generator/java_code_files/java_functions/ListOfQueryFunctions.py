@@ -587,7 +587,7 @@ class ListOfQueryFunctions():
 
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
-        arguments.append('{0} {1}'.format(used_java_type, used_java_name_lower))
+        arguments.append('{0} {1}'.format(used_java_name, used_java_name_lower))
         # return_type = '{0}*'.format(self.object_child_name)
         return_type = 'boolean'
 
@@ -1653,8 +1653,9 @@ class ListOfQueryFunctions():
 
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
+            code.append(' ')
 
-        code.append(' ')
+
         line = 'return {0}'.format(loname_lower)
         line_code = line  # self.create_code_block('line', line)
         code.append(line_code)
@@ -1858,8 +1859,9 @@ class ListOfQueryFunctions():
 
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
+            code.append('')
 
-        code.append('')
+
         # line = 'return {0}'.format(loname_lower)
         # line_code = line  # self.create_code_block('line', line)
         # code.append(line_code)

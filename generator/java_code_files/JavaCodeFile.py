@@ -378,6 +378,19 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.extends_modules)
 
 
+
+        # Write AbstractSBase override Methods
+        if self.is_plugin is True:
+            code = gen_functions.write_get_package_name()
+            self.write_function_implementation(code)
+
+            code = gen_functions.write_get_prefix()
+            self.write_function_implementation(code)
+
+            code = gen_functions.write_get_uri()
+            self.write_function_implementation(code)
+
+
         #Write abstract methods from the interfaces
         num_abstract = gen_functions.obtain_interface_abstract_methods()
         for i in range(0, num_abstract):
