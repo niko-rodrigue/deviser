@@ -390,6 +390,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = gen_functions.write_get_uri()
             self.write_function_implementation(code)
 
+            code = gen_functions.write_get_parent()
+            self.write_function_implementation(code)
+
+            code = gen_functions.write_get_parent_sbml_object()
+            self.write_function_implementation(code)
+
 
         #Write abstract methods from the interfaces
         num_abstract = gen_functions.obtain_interface_abstract_methods()
