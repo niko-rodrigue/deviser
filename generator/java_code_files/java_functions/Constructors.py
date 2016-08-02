@@ -1307,6 +1307,50 @@ class Constructors():
     #TODO GSOC 2016
 
     # function to write copy constructor
+    def write_basic_plugin_copy_constructor(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        title_line = 'Copy constructor for {0}.'.format(self.object_name)
+        params = ['@param model the {0} instance to copy.'.format(
+                                                                self.object_name)]
+        return_lines = []
+        additional = []
+        # create function decl
+        function = '{0}'.format(self.object_name)
+        return_type = ''
+        arguments = ['Model model']
+        # create the function implementation
+
+
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        implementation = ['super(model)']
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+        # TODO temporary fix
+        line = self.create_code_block('line', '')
+        code.append(line)
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+    # function to write copy constructor
     def write_copy_constructor(self):
         # do not write for C API
         if self.is_java_api is False:

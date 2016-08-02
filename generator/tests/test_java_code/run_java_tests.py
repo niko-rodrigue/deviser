@@ -337,94 +337,90 @@ def main():
 
     # # # # # #All qual compile
     # # # #Compiles
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualitativeSpecies'
-    # list_of = 'ListOfQualitativeSpecies'
-    # test_case = 'an element on QualitativeSpecies'
-    # fail += run_test(name, num, class_name, test_case)
+    name = 'qual'
+    num = 0
+    class_name = 'QualitativeSpecies'
+    list_of = 'ListOfQualitativeSpecies'
+    test_case = 'an element on QualitativeSpecies'
+    fail += run_test(name, num, class_name, test_case)
+    #
     # #
+
+    #Compiles
+    name = 'qual'
+    num = 1
+    class_name = 'Transition'
+    list_of = 'ListOfTransition'
+    test_case = 'an element on Transition'
+    fail += run_test(name, num, class_name, test_case)
     # # #
-    #
-    # #Compiles
-    # name = 'qual'
-    # num = 1
-    # class_name = 'Transition'
-    # list_of = 'ListOfTransition'
-    # test_case = 'an element on Transition'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 2
-    # class_name = 'Input'
-    # list_of = 'ListOfInput'
-    # test_case = 'an element on Input'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 3
-    # class_name = 'Output'
-    # list_of = 'ListOfOutput'
-    # test_case = 'an element on Output'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # Compiles
-    # name = 'qual'
-    # num = 4
-    # class_name = 'DefaultTerm'
-    # list_of = 'ListOfDefaultTerm'
-    # test_case = 'an element on DefaultTerm'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    # # Compiles
-    # name = 'qual'
-    # num = 5
-    # class_name = 'FunctionTerm'
-    # list_of = 'ListOfFunctionTerm'
-    # test_case = 'an element on FunctionTerm'
-    # fail += run_test(name, num, class_name, test_case)
     # # #
+    #Compiles
+    name = 'qual'
+    num = 2
+    class_name = 'Input'
+    list_of = 'ListOfInput'
+    test_case = 'an element on Input'
+    fail += run_test(name, num, class_name, test_case)
+    # # #
+    # # #
+    #Compiles
+    name = 'qual'
+    num = 3
+    class_name = 'Output'
+    list_of = 'ListOfOutput'
+    test_case = 'an element on Output'
+    fail += run_test(name, num, class_name, test_case)
     #
     #
     #
-    # # Qual Enum Types
-    # name = 'qual'
-    # num = 0
-    # enum_name = 'Sign'
-    # test_case = 'an element on Sign Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 1
-    # enum_name = 'TransitionOutputEffect'
-    # test_case = 'an element on TransitionOutputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 2
-    # enum_name = 'TransitionInputEffect'
-    # test_case = 'an element on TransitionInputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # # Qual Constants
-    # name = 'qual'
-    # constants_name = 'QualConstant'
-    # test_case = 'Qual Constants'
-    # fail += run_constant_test(name, constants_name, test_case)
+    # Compiles
+    name = 'qual'
+    num = 4
+    class_name = 'DefaultTerm'
+    list_of = 'ListOfDefaultTerm'
+    test_case = 'an element on DefaultTerm'
+    fail += run_test(name, num, class_name, test_case)
 
 
-    # # #TESTING PhaSE
-    # name = 'qual'
-    # class_name = 'QualExtension'
-    # test_case = 'default typecodes extension file'
-    # fail += run_ext_test(name, class_name, test_case, 0)
+    # Compiles
+    name = 'qual'
+    num = 5
+    class_name = 'FunctionTerm'
+    list_of = 'ListOfFunctionTerm'
+    test_case = 'an element on FunctionTerm'
+    fail += run_test(name, num, class_name, test_case)
+    # #
+
+
+
+    # Qual Enum Types
+    name = 'qual'
+    num = 0
+    enum_name = 'Sign'
+    test_case = 'an element on Sign Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 1
+    enum_name = 'TransitionOutputEffect'
+    test_case = 'an element on TransitionOutputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 2
+    enum_name = 'TransitionInputEffect'
+    test_case = 'an element on TransitionInputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    # Qual Constants
+    name = 'qual'
+    constants_name = 'QualConstant'
+    test_case = 'Qual Constants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+
+
 
     name = 'qual'
     num = 0
@@ -432,6 +428,11 @@ def main():
     test_case = 'basic plugin'
     fail += run_plug_test(name, class_name, test_case, num)
 
+    # # #TESTING PhaSE
+    # name = 'qual'
+    # class_name = 'QualExtension'
+    # test_case = 'default typecodes extension file'
+    # fail += run_ext_test(name, class_name, test_case, 0)
 
 
     # TODO this looks more lie package-info.java?
