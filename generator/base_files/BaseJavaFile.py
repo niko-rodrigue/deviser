@@ -455,6 +455,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         #THis is the tricky part
         # self.get_general_includes()
 
+        if package['is_plugin'] is True:
+            self.import_from_jsbml_modules.append('ext.AbstractSBasePlugin')
+
+
         if package['is_constantFile'] is True:
             self.import_from_java_modules.append('java.util.ResourceBundle')
             self.import_from_jsbml_modules.append('util.ResourceManager')
@@ -1812,8 +1816,13 @@ class BaseJavaFile(BaseFile.BaseFile):
                 # cap_att_name = attribute['capAttName']
                 # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                 self.write_variable_comment()
-                return_type = '{0}<{1}>'.format(child_lo_element['JClassType'], child_lo_element['capAttName'])
-                member_name = child_lo_element['jsbmlName']
+                if self.is_plugin is True:
+                    return_type = '{0}<{1}>'.format(child_lo_element['JClassType'],
+                                                    child_lo_element['element'])
+                    member_name = child_lo_element['jsbmlName']
+                else:
+                    return_type = '{0}<{1}>'.format(child_lo_element['JClassType'], child_lo_element['capAttName'])
+                    member_name = child_lo_element['jsbmlName']
                 line = 'private {0} {1};'.format(return_type, member_name)
                 self.write_line(line)
 

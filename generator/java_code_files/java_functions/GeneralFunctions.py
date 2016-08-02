@@ -213,20 +213,38 @@ class GeneralFunctions():
         #                                                                           currValue)
         #
         # # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-        implementation = ['pos == index',
-                          'return getListOf{0}s()'.format(cap_name)]  # 3rd line
-        #
-        nested_if = self.create_code_block('if', implementation)
-        implementation = ['isSetListOf{0}s()'.format(cap_name),
-                          nested_if, 'pos++']  # 2nd line
-        # # print('implementation ',implementation)
-        # # code.append(self.create_code_block('if', implementation))
-        # code = [self.create_code_block('if', implementation)]
-        #
-        # implementationNext = ['return false']  # 1st line
-        # code.append(self.create_code_block('line', implementationNext))
-        #
-        temp_code = self.create_code_block('if', implementation)
+
+
+        if self.is_plugin is True:
+            implementation = ['pos == index',
+                              'return get{0}()'.format(cap_name)]  # 3rd line
+            #
+            nested_if = self.create_code_block('if', implementation)
+            implementation = ['isSet{0}()'.format(cap_name),
+                              nested_if, 'pos++']  # 2nd line
+            # # print('implementation ',implementation)
+            # # code.append(self.create_code_block('if', implementation))
+            # code = [self.create_code_block('if', implementation)]
+            #
+            # implementationNext = ['return false']  # 1st line
+            # code.append(self.create_code_block('line', implementationNext))
+            #
+            temp_code = self.create_code_block('if', implementation)
+        else:
+            implementation = ['pos == index',
+                              'return getListOf{0}s()'.format(cap_name)]  # 3rd line
+            #
+            nested_if = self.create_code_block('if', implementation)
+            implementation = ['isSetListOf{0}s()'.format(cap_name),
+                              nested_if, 'pos++']  # 2nd line
+            # # print('implementation ',implementation)
+            # # code.append(self.create_code_block('if', implementation))
+            # code = [self.create_code_block('if', implementation)]
+            #
+            # implementationNext = ['return false']  # 1st line
+            # code.append(self.create_code_block('line', implementationNext))
+            #
+            temp_code = self.create_code_block('if', implementation)
         return temp_code
 
 
@@ -329,17 +347,19 @@ class GeneralFunctions():
 
 
         implementation = []
-        implementation.append('int count = super.getChildCount(), pos = 0')
-        code.append(self.create_code_block('line', implementation))
+        if self.is_plugin is False:
+            implementation.append('int count = super.getChildCount(), pos = 0')
+            code.append(self.create_code_block('line', implementation))
 
 
-        implementation = ['index < count']
-        implementation.append('return super.getChildAt(index)')
-        implementation.append('else')
-        implementation.append('index -= count')
-
-        code.append(self.create_code_block('if_else', implementation))
-
+            implementation = ['index < count']
+            implementation.append('return super.getChildAt(index)')
+            implementation.append('else')
+            implementation.append('index -= count')
+            code.append(self.create_code_block('if_else', implementation))
+        else:
+            implementation.append('int pos = 0')
+            code.append(self.create_code_block('line', implementation))
 
         # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
         #     self.jsbml_methods,
@@ -389,7 +409,10 @@ class GeneralFunctions():
         cap_name = lo_element['capAttName']
         implementation = []
         if type == 'lo_element':
-            implementation.append('isSetListOf{0}s()'.format(cap_name))
+            if self.is_plugin is True:
+                implementation.append('isSet{0}()'.format(cap_name))
+            else:
+                implementation.append('isSetListOf{0}s()'.format(cap_name))
         else:
             implementation.append('isSet{0}()'.format(cap_name))
         implementation.append('count++')
@@ -427,8 +450,13 @@ class GeneralFunctions():
 
 
         implementation = []
-        implementation.append('int count = super.getChildCount()')
-        code.append(self.create_code_block('line', implementation))
+
+        if self.is_plugin is True:
+            implementation.append('int count = 0')
+            code.append(self.create_code_block('line', implementation))
+        else:
+            implementation.append('int count = super.getChildCount()')
+            code.append(self.create_code_block('line', implementation))
 
 
 
@@ -787,11 +815,17 @@ class GeneralFunctions():
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
                                                                              function, function_args)
 
-        implementation = ['boolean isAttributeRead = super.readAttribute({0}, {1}, {2})'.format(self.attributeName,
-                                                                                                self.prefix,
-                                                                                                self.value)]
-        line = self.create_code_block('line', implementation)
-        code.append(line)
+
+        if self.is_plugin is True:
+            implementation = ['boolean isAttributeRead = false']
+            line = self.create_code_block('line', implementation)
+            code.append(line)
+        else:
+            implementation = ['boolean isAttributeRead = super.readAttribute({0}, {1}, {2})'.format(self.attributeName,
+                                                                                                    self.prefix,
+                                                                                                    self.value)]
+            line = self.create_code_block('line', implementation)
+            code.append(line)
         # print('wahaha ', self.class_name)
         # print('len ', len(self.attributes))
 
@@ -1178,12 +1212,13 @@ class GeneralFunctions():
                 implementation += implementation_rest
                 result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
                 if result == False:
-                    # text += '+ "id = " + getId() + ", name = " + getName() + "]"'
-                    implementation.append('builder.append(", id = ")')
-                    implementation.append('builder.append(getId())')
-                    implementation.append('builder.append(", name = ")')
-                    implementation.append('builder.append(getName())')
-                    implementation.append('builder.append("]")')
+                    if self.is_plugin is False:
+                        # text += '+ "id = " + getId() + ", name = " + getName() + "]"'
+                        implementation.append('builder.append(", id = ")')
+                        implementation.append('builder.append(getId())')
+                        implementation.append('builder.append(", name = ")')
+                        implementation.append('builder.append(getName())')
+                        implementation.append('builder.append("]")')
                 else:
                     # text += '"]"'
                     implementation.append('builder.append("]")')
