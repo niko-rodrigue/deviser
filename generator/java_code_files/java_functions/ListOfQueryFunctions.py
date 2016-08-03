@@ -1203,42 +1203,46 @@ class ListOfQueryFunctions():
         elif self.is_java_api and is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
-            implementation = ['{0}* {1} = NULL'.format(child,
-                                                       abbrev_child)]
-            code = [self.create_code_block('line', implementation)]
-            if self.class_object['num_versions'] > 1:
-                line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
-                       'getPackageVersion())'.format(pack_up, pack_low,
-                                                     global_variables.prefix)
-            else:
-                line = '{0}_CREATE_NS({1}ns, ' \
-                       'get{2}Namespaces())'.format(pack_up, pack_low,
-                                                    global_variables.prefix)
-            if global_variables.is_package:
-                implementation = [line,
-                                  '{0} = new {1}({2}ns)'.format(abbrev_child,
-                                                                child,
-                                                                pack_low),
-                                  'delete {0}ns'.format(pack_low),
-                                  'catch', '...', '']
-            else:
-                implementation = ['{0} = new {1}(get{2}Namespaces())'
-                                  ''.format(abbrev_child,
-                                            child,
-                                            global_variables.prefix),
-                                  'catch', '...', '']
-            code.append(self.create_code_block('try', implementation))
-            implementation = ['{0} != NULL'.format(abbrev_child)]
-            if self.is_list_of:
-                implementation.append('appendAndOwn'
-                                      '({0})'.format(abbrev_child))
-            else:
-                member = self.class_object['memberName']
-                implementation.append('{0}.appendAndOwn'
-                                      '({1})'.format(member, abbrev_child))
-            code.append(self.create_code_block('if', implementation))
-            implementation = ['return {0}'.format(abbrev_child)]
-            code.append(self.create_code_block('line', implementation))
+            implementation = ['{0} {1} = new {0}(getLevel(), getVersion())'.format(used_java_type,
+                                                                                   strFunctions.lower_first(child),
+                                                                                   used_java_type)]
+            implementation.append('return add{0}({1}) ? {1} : null'.format(child, strFunctions.lower_first(child)))
+            # implementation = ['{0}* {1} = NULL'.format(child,
+            #                                            abbrev_child)]
+            # code = [self.create_code_block('line', implementation)]
+            # if self.class_object['num_versions'] > 1:
+            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
+            #            'getPackageVersion())'.format(pack_up, pack_low,
+            #                                          global_variables.prefix)
+            # else:
+            #     line = '{0}_CREATE_NS({1}ns, ' \
+            #            'get{2}Namespaces())'.format(pack_up, pack_low,
+            #                                         global_variables.prefix)
+            # if global_variables.is_package:
+            #     implementation = [line,
+            #                       '{0} = new {1}({2}ns)'.format(abbrev_child,
+            #                                                     child,
+            #                                                     pack_low),
+            #                       'delete {0}ns'.format(pack_low),
+            #                       'catch', '...', '']
+            # else:
+            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
+            #                       ''.format(abbrev_child,
+            #                                 child,
+            #                                 global_variables.prefix),
+            #                       'catch', '...', '']
+            # code.append(self.create_code_block('try', implementation))
+            # implementation = ['{0} != NULL'.format(abbrev_child)]
+            # if self.is_list_of:
+            #     implementation.append('appendAndOwn'
+            #                           '({0})'.format(abbrev_child))
+            # else:
+            #     member = self.class_object['memberName']
+            #     implementation.append('{0}.appendAndOwn'
+            #                           '({1})'.format(member, abbrev_child))
+            # code.append(self.create_code_block('if', implementation))
+            # implementation = ['return {0}'.format(abbrev_child)]
+            # code.append(self.create_code_block('line', implementation))
         else:
             implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
                               'NULL'.format(self.abbrev_parent,
@@ -1372,42 +1376,48 @@ class ListOfQueryFunctions():
         elif self.is_java_api and is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
-            implementation = ['{0}* {1} = NULL'.format(child,
-                                                       abbrev_child)]
+
+            implementation = ['{0} {1} = new {2}(id)'.format(child, used_java_name_lower, child)]
+            implementation.append('add{0}({1})'.format(child, used_java_name_lower))
+            implementation.append('return {0}'.format(used_java_name_lower))
             code = [self.create_code_block('line', implementation)]
-            if self.class_object['num_versions'] > 1:
-                line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
-                       'getPackageVersion())'.format(pack_up, pack_low,
-                                                     global_variables.prefix)
-            else:
-                line = '{0}_CREATE_NS({1}ns, ' \
-                       'get{2}Namespaces())'.format(pack_up, pack_low,
-                                                    global_variables.prefix)
-            if global_variables.is_package:
-                implementation = [line,
-                                  '{0} = new {1}({2}ns)'.format(abbrev_child,
-                                                                child,
-                                                                pack_low),
-                                  'delete {0}ns'.format(pack_low),
-                                  'catch', '...', '']
-            else:
-                implementation = ['{0} = new {1}(get{2}Namespaces())'
-                                  ''.format(abbrev_child,
-                                            child,
-                                            global_variables.prefix),
-                                  'catch', '...', '']
-            code.append(self.create_code_block('try', implementation))
-            implementation = ['{0} != NULL'.format(abbrev_child)]
-            if self.is_list_of:
-                implementation.append('appendAndOwn'
-                                      '({0})'.format(abbrev_child))
-            else:
-                member = self.class_object['memberName']
-                implementation.append('{0}.appendAndOwn'
-                                      '({1})'.format(member, abbrev_child))
-            code.append(self.create_code_block('if', implementation))
-            implementation = ['return {0}'.format(abbrev_child)]
-            code.append(self.create_code_block('line', implementation))
+
+            # implementation = ['{0}* {1} = NULL'.format(child,
+            #                                            abbrev_child)]
+            # code = [self.create_code_block('line', implementation)]
+            # if self.class_object['num_versions'] > 1:
+            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
+            #            'getPackageVersion())'.format(pack_up, pack_low,
+            #                                          global_variables.prefix)
+            # else:
+            #     line = '{0}_CREATE_NS({1}ns, ' \
+            #            'get{2}Namespaces())'.format(pack_up, pack_low,
+            #                                         global_variables.prefix)
+            # if global_variables.is_package:
+            #     implementation = [line,
+            #                       '{0} = new {1}({2}ns)'.format(abbrev_child,
+            #                                                     child,
+            #                                                     pack_low),
+            #                       'delete {0}ns'.format(pack_low),
+            #                       'catch', '...', '']
+            # else:
+            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
+            #                       ''.format(abbrev_child,
+            #                                 child,
+            #                                 global_variables.prefix),
+            #                       'catch', '...', '']
+            # code.append(self.create_code_block('try', implementation))
+            # implementation = ['{0} != NULL'.format(abbrev_child)]
+            # if self.is_list_of:
+            #     implementation.append('appendAndOwn'
+            #                           '({0})'.format(abbrev_child))
+            # else:
+            #     member = self.class_object['memberName']
+            #     implementation.append('{0}.appendAndOwn'
+            #                           '({1})'.format(member, abbrev_child))
+            # code.append(self.create_code_block('if', implementation))
+            # implementation = ['return {0}'.format(abbrev_child)]
+            # code.append(self.create_code_block('line', implementation))
         else:
             implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
                               'NULL'.format(self.abbrev_parent,

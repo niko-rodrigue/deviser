@@ -99,7 +99,7 @@ def generate_fwd_header(filename):
 #     os.chdir('../.')
 
 
-def generate_plugin_header(filename, num):
+def generate_plugin(filename, num):
     parser = ParseXML.ParseXML(filename)
     ob = parser.parse_deviser_xml()
     os.chdir('./temp')
@@ -251,7 +251,7 @@ def run_enum_test(name, num, enum_name, test_case):
 
 def run_plug_test(name, plugin_name, test_case, num):
     filename = test_functions.set_up_test(name, plugin_name, test_case)
-    generate_plugin_header(filename, num)
+    generate_plugin(filename, num)
     # fail = compare_ext_headers(class_name)
     fail = compare_plugin_impl(plugin_name)
     print('')
@@ -362,180 +362,180 @@ def main():
 
     # # # # # #All qual compile
     # # #Compiles
-    name = 'qual'
-    num = 0
-    class_name = 'QualitativeSpecies'
-    list_of = 'ListOfQualitativeSpecies'
-    test_case = 'an element on QualitativeSpecies'
-    fail += run_test(name, num, class_name, test_case)
-    #
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualitativeSpecies'
+    # list_of = 'ListOfQualitativeSpecies'
+    # test_case = 'an element on QualitativeSpecies'
+    # fail += run_test(name, num, class_name, test_case)
     # #
-
-    #Compiles
-    name = 'qual'
-    num = 1
-    class_name = 'Transition'
-    list_of = 'ListOfTransition'
-    test_case = 'an element on Transition'
-    fail += run_test(name, num, class_name, test_case)
     # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 2
-    class_name = 'Input'
-    list_of = 'ListOfInput'
-    test_case = 'an element on Input'
-    fail += run_test(name, num, class_name, test_case)
-    # # #
-    # # #
-    #Compiles
-    name = 'qual'
-    num = 3
-    class_name = 'Output'
-    list_of = 'ListOfOutput'
-    test_case = 'an element on Output'
-    fail += run_test(name, num, class_name, test_case)
     #
-    #
-    #
-    # Compiles
-    name = 'qual'
-    num = 4
-    class_name = 'DefaultTerm'
-    list_of = 'ListOfDefaultTerm'
-    test_case = 'an element on DefaultTerm'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    # Compiles
-    name = 'qual'
-    num = 5
-    class_name = 'FunctionTerm'
-    list_of = 'ListOfFunctionTerm'
-    test_case = 'an element on FunctionTerm'
-    fail += run_test(name, num, class_name, test_case)
-    # #
-
-
-
-    # Qual Enum Types
-    name = 'qual'
-    num = 0
-    enum_name = 'Sign'
-    test_case = 'an element on Sign Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'qual'
-    num = 1
-    enum_name = 'TransitionOutputEffect'
-    test_case = 'an element on TransitionOutputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'qual'
-    num = 2
-    enum_name = 'TransitionInputEffect'
-    test_case = 'an element on TransitionInputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    # Qual Constants
-    name = 'qual'
-    constants_name = 'QualConstants'
-    test_case = 'Qual Constants'
-    fail += run_constant_test(name, constants_name, test_case)
-
-    #
-    name = 'qual'
-    num = 0
-    class_name = 'QualModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-
-
-
-
-
-    #
-    # all pass
-    name = 'fbc_v2'
-    num = 0
-    class_name = 'FluxBound'
-    list_of = 'ListOfFluxBound'
-    test_case = 'an element on FluxBound'
-    fail += run_test(name, num, class_name, test_case)
-    #
-
-    name = 'fbc_v2'
-    num = 1
-    class_name = 'Objective'
-    list_of = 'ListOfObjective'
-    test_case = 'an element on Objective'
-    fail += run_test(name, num, class_name, test_case)
-
-    name = 'fbc_v2'
-    num = 2
-    class_name = 'FluxObjective'
-    list_of = 'ListOfFluxObjective'
-    test_case = 'an element on FluxObjective'
-    fail += run_test(name, num, class_name, test_case)
-
-    # FBC Enum Types
-    name = 'fbc_v2'
-    num = 0
-    enum_name = 'FbcType'
-    test_case = 'an element on FbcType Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    name = 'fbc_v2'
-    num = 1
-    enum_name = 'FbcOperation'
-    test_case = 'an element on FbcOperation Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
-
-    # Qual Constants
-    name = 'fbc_v2'
-    constants_name = 'FbcConstants'
-    test_case = 'Fbc Constants'
-    fail += run_constant_test(name, constants_name, test_case)
-
-    name = 'fbc_v2'
-    num = 0
-    class_name = 'FbcModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-    #
-    #
+    # #Compiles
+    # name = 'qual'
+    # num = 1
+    # class_name = 'Transition'
+    # list_of = 'ListOfTransition'
+    # test_case = 'an element on Transition'
+    # fail += run_test(name, num, class_name, test_case)
     # # # #
-    # # # # TODO dyn tests
-    # # # # #Compilable
-    name = 'dyn'
-    num = 0
-    class_name = 'DynElement'
-    list_of = 'ListOfDynElement'
-    test_case = 'an element on DynElement'
-    fail += run_test(name, num, class_name, test_case)
-
-
-    # TODO setSpatialIndex Error
-    name = 'dyn'
-    num = 1
-    class_name = 'SpatialComponent'
-    list_of = 'ListOfSpatialComponent'
-    test_case = 'an element on SpatialComponent'
-    fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 2
+    # class_name = 'Input'
+    # list_of = 'ListOfInput'
+    # test_case = 'an element on Input'
+    # fail += run_test(name, num, class_name, test_case)
+    # # # #
+    # # # #
+    # #Compiles
+    # name = 'qual'
+    # num = 3
+    # class_name = 'Output'
+    # list_of = 'ListOfOutput'
+    # test_case = 'an element on Output'
+    # fail += run_test(name, num, class_name, test_case)
+    # #
+    # #
+    # #
+    # # Compiles
+    # name = 'qual'
+    # num = 4
+    # class_name = 'DefaultTerm'
+    # list_of = 'ListOfDefaultTerm'
+    # test_case = 'an element on DefaultTerm'
+    # fail += run_test(name, num, class_name, test_case)
     #
-    # Dyn Constants
-    name = 'dyn'
-    constants_name = 'DynConstants'
-    test_case = 'DynConstants'
-    fail += run_constant_test(name, constants_name, test_case)
-
-    name = 'dyn'
-    num = 0
-    class_name = 'DynSBasePlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # # Compiles
+    # name = 'qual'
+    # num = 5
+    # class_name = 'FunctionTerm'
+    # list_of = 'ListOfFunctionTerm'
+    # test_case = 'an element on FunctionTerm'
+    # fail += run_test(name, num, class_name, test_case)
+    # # #
+    #
+    #
+    #
+    # # Qual Enum Types
+    # name = 'qual'
+    # num = 0
+    # enum_name = 'Sign'
+    # test_case = 'an element on Sign Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 1
+    # enum_name = 'TransitionOutputEffect'
+    # test_case = 'an element on TransitionOutputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'qual'
+    # num = 2
+    # enum_name = 'TransitionInputEffect'
+    # test_case = 'an element on TransitionInputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # # Qual Constants
+    # name = 'qual'
+    # constants_name = 'QualConstants'
+    # test_case = 'Qual Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
+    #
+    # #
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    #
+    #
+    #
+    #
+    #
+    # #
+    # # all pass
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FluxBound'
+    # list_of = 'ListOfFluxBound'
+    # test_case = 'an element on FluxBound'
+    # fail += run_test(name, num, class_name, test_case)
+    # #
+    #
+    # name = 'fbc_v2'
+    # num = 1
+    # class_name = 'Objective'
+    # list_of = 'ListOfObjective'
+    # test_case = 'an element on Objective'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 2
+    # class_name = 'FluxObjective'
+    # list_of = 'ListOfFluxObjective'
+    # test_case = 'an element on FluxObjective'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # # FBC Enum Types
+    # name = 'fbc_v2'
+    # num = 0
+    # enum_name = 'FbcType'
+    # test_case = 'an element on FbcType Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 1
+    # enum_name = 'FbcOperation'
+    # test_case = 'an element on FbcOperation Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # # Qual Constants
+    # name = 'fbc_v2'
+    # constants_name = 'FbcConstants'
+    # test_case = 'Fbc Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FbcModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    # #
+    # #
+    # # # # #
+    # # # # # TODO dyn tests
+    # # # # # #Compilable
+    # name = 'dyn'
+    # num = 0
+    # class_name = 'DynElement'
+    # list_of = 'ListOfDynElement'
+    # test_case = 'an element on DynElement'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    # # TODO setSpatialIndex Error
+    # name = 'dyn'
+    # num = 1
+    # class_name = 'SpatialComponent'
+    # list_of = 'ListOfSpatialComponent'
+    # test_case = 'an element on SpatialComponent'
+    # fail += run_test(name, num, class_name, test_case)
+    # #
+    # # Dyn Constants
+    # name = 'dyn'
+    # constants_name = 'DynConstants'
+    # test_case = 'DynConstants'
+    # fail += run_constant_test(name, constants_name, test_case)
+    #
+    # name = 'dyn'
+    # num = 0
+    # class_name = 'DynSBasePlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
 
 
@@ -543,7 +543,7 @@ def main():
     # # # # TODO distrib tests
 
 
-    # # #Uncert unsetUncertML error
+    # # # #Uncert unsetUncertML error
     # name = 'distrib'
     # num = 0
     # class_name = 'DrawFromDistribution'
@@ -572,6 +572,13 @@ def main():
     # constants_name = 'DistribConstants'
     # test_case = 'DistribConstants'
     # fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'distrib'
+    num = 0
+    class_name = 'DistribFunctionDefinitionPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
 
 
 

@@ -674,6 +674,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                     #     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
                     #     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
                 # TODO here for xmlnode uncertml
+                elif attributes[i]['name'] == 'drawFromDistribution':
+                    if global_variables.is_package:
+                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element']) # 'ASTNode*'
+                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  #'ASTNode_t*'
+                        attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
                 else:
                     attributes[i]['attTypeCode'] = 'XMLNode' #  attributes[i]['element']+'*'
                     attributes[i]['CType'] = 'XMLNode'  #attributes[i]['element']+'_t*'

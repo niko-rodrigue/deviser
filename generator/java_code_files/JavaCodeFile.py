@@ -79,6 +79,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_mandatory_functions()
 
 
+        #todo here is distrib create problem
         self.write_child_element_functions()
         self.write_listof_functions()
 
@@ -350,6 +351,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         for i in range(0, num_elements):
             code = attrib_functions.write_set(False, i)
             self.write_function_implementation(code)
+
 
         for i in range(0, num_elements):
             code = attrib_functions.write_create(False, i)

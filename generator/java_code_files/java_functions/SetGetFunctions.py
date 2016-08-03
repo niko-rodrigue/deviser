@@ -48,6 +48,7 @@ class SetGetFunctions():
 
     def __init__(self, language, is_java_api, is_list_of, class_object,
                  jsbml_data_tree=None, jsbml_methods=None, abstract_jsbml_methods = None):
+        self.original_class_object= class_object
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -1814,7 +1815,7 @@ class SetGetFunctions():
             att_name = attribute['element']
         else:
             att_type = attribute['CType']
-            att_name = attribute['element'] + '_t'
+            att_name = attribute['element'] # + '_t'
 
         # create comment parts
         title_line = 'Creates a new {0} object, adds it to this {1} object ' \
@@ -1829,6 +1830,11 @@ class SetGetFunctions():
         return_lines = ['@return a new {0} object '
                         'instance.'.format(att_name)]
         additional = []
+
+        used_java_name = strFunctions.upper_first(name)
+        used_java_name_lower = strFunctions.lower_first(name)
+        used_java_type = strFunctions.remove_prefix(attribute['JClassType'])
+        child = name
 
         # create the function declaration
         arguments = []
@@ -1845,34 +1851,41 @@ class SetGetFunctions():
             member = attribute['name']
             up_pack = self.package.upper()
             low_pack = self.package.lower()
-            implementation = ['{0} != NULL'.format(member),
-                              'delete {0}'.format(member)]
-            code = [self.create_code_block('if', implementation)]
-            if global_variables.is_package:
-                implementation = ['{0}_CREATE_NS({1}ns, '
-                                  'get{2}Namespaces'
-                                  '())'.format(up_pack, low_pack,
-                                               global_variables.prefix),
-                                  '{0} = new {1}'
-                                  '({2}ns)'.format(member, att_name, low_pack)]
-            else:
-                implementation = ['{0} = new {1}(get{2}Namespaces())'.format(member, att_name, global_variables.prefix)]
-            code.append(self.create_code_block('line', implementation))
-            if attribute['children_overwrite']:
-                line = ['{0}->setElementName(\"{1}\")'
-                        ''.format(member, attribute['xml_name'])]
-                code.append(self.create_code_block('line', line))
-            if self.is_plugin:
-                line = ['{0}->set{1}(this->get{1}'
-                        '())'.format(member, global_variables.document_class)]
-                code.append(self.create_code_block('line', line))
-            if global_variables.is_package:
-                code.append(self.create_code_block('line',
-                                                   ['delete {0}'
-                                                    'ns'.format(low_pack)]))
-            code.append(self.create_code_block('line', ['connectToChild()']))
-            code.append((self.create_code_block('line',
-                                                ['return {0}'.format(member)])))
+
+            implementation = ['{0} {1} = new {0}(getLevel(), getVersion())'.format(used_java_type,
+                                                                                   strFunctions.lower_first(child),
+                                                                                   used_java_type)]
+            implementation.append('return {0}'.format(strFunctions.lower_first(child)))
+            code = [self.create_code_block('line', implementation)]
+
+            # implementation = ['{0} != NULL'.format(member),
+            #                   'delete {0}'.format(member)]
+            # code = [self.create_code_block('if', implementation)]
+            # if global_variables.is_package:
+            #     implementation = ['{0}_CREATE_NS({1}ns, '
+            #                       'get{2}Namespaces'
+            #                       '())'.format(up_pack, low_pack,
+            #                                    global_variables.prefix),
+            #                       '{0} = new {1}'
+            #                       '({2}ns)'.format(member, att_name, low_pack)]
+            # else:
+            #     implementation = ['{0} = new {1}(get{2}Namespaces())'.format(member, att_name, global_variables.prefix)]
+            # code.append(self.create_code_block('line', implementation))
+            # if attribute['children_overwrite']:
+            #     line = ['{0}->setElementName(\"{1}\")'
+            #             ''.format(member, attribute['xml_name'])]
+            #     code.append(self.create_code_block('line', line))
+            # if self.is_plugin:
+            #     line = ['{0}->set{1}(this->get{1}'
+            #             '())'.format(member, global_variables.document_class)]
+            #     code.append(self.create_code_block('line', line))
+            # if global_variables.is_package:
+            #     code.append(self.create_code_block('line',
+            #                                        ['delete {0}'
+            #                                         'ns'.format(low_pack)]))
+            # code.append(self.create_code_block('line', ['connectToChild()']))
+            # code.append((self.create_code_block('line',
+            #                                     ['return {0}'.format(member)])))
         elif not self.is_header:
             implementation = ['{0} == NULL'.format(self.abbrev_parent),
                               'return NULL']
@@ -2397,30 +2410,55 @@ class SetGetFunctions():
                 # implementation.append('return {0}'.format(self.success))
                 # code = [self.create_code_block('else_if', implementation)]
             else:
-                implementation = ['{0} == NULL'.format(name),
-                                  'return {0}'.format(self.failed),
-                                  'else if', '{0}->hasRequiredElements() '
-                                             '== false'.format(name),
-                                  'return {0}'.format(self.invalid_obj),
-                                  'else if',
-                                  'getLevel() != {0}->getLevel()'.format(name),
-                                  'return '
-                                  '{0}'.format(global_variables.ret_level_mis),
-                                  'else if', 'getVersion() != {0}->'
-                                             'getVersion()'.format(name),
-                                  'return '
-                                  '{0}'.format(global_variables.ret_vers_mis),
-                                  'else if', 'getPackageVersion() != {0}->'
-                                             'getPackageVersion()'.format(name),
-                                  'return '
-                                  '{0}'.format(global_variables.ret_pkgv_mis),
-                                  'else', 'delete {0}'.format(member),
-                                  '{0} = static_cast<{1}>({2}->'
-                                  'clone())'.format(member,
-                                                    attribute['attTypeCode'],
-                                                    name),
-                                  'return {0}'.format(self.success)]
-                code = [self.create_code_block('else_if', implementation)]
+                curr_att_type = attribute['JClassType']
+                oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                currValue = 'this.{0}'.format(attribute['name'])
+
+                implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
+                implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+                implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
+                                                                                          attribute['name'],
+                                                                                          oldValue,
+                                                                                          currValue)
+
+                # code = [dict({'code_type': 'line', 'code': 'TADA'})]
+                # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
+                #                       'this.{0} = null'.format(attribute['name']), 'else',
+                #
+
+                impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
+                implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
+                                  implement_part1,
+                                  impl2, implement_part3, 'return true']  # 2nd line
+                code = [self.create_code_block('if', implementation)]
+
+                implementationNext = ['return false']  # 1st line
+                code.append(self.create_code_block('line', implementationNext))
+                return_type = 'boolean'
+                # implementation = ['{0} == NULL'.format(name),
+                #                   'return {0}'.format(self.failed),
+                #                   'else if', '{0}->hasRequiredElements() '
+                #                              '== false'.format(name),
+                #                   'return {0}'.format(self.invalid_obj),
+                #                   'else if',
+                #                   'getLevel() != {0}->getLevel()'.format(name),
+                #                   'return '
+                #                   '{0}'.format(global_variables.ret_level_mis),
+                #                   'else if', 'getVersion() != {0}->'
+                #                              'getVersion()'.format(name),
+                #                   'return '
+                #                   '{0}'.format(global_variables.ret_vers_mis),
+                #                   'else if', 'getPackageVersion() != {0}->'
+                #                              'getPackageVersion()'.format(name),
+                #                   'return '
+                #                   '{0}'.format(global_variables.ret_pkgv_mis),
+                #                   'else', 'delete {0}'.format(member),
+                #                   '{0} = static_cast<{1}>({2}->'
+                #                   'clone())'.format(member,
+                #                                     attribute['attTypeCode'],
+                #                                     name),
+                #                   'return {0}'.format(self.success)]
+                # code = [self.create_code_block('else_if', implementation)]
         else:
             # TODO becareful this part
             # implementation = ['TO DO']
