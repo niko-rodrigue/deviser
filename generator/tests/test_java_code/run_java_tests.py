@@ -336,7 +336,7 @@ def main():
 
 
     # # # # # #All qual compile
-    # # # #Compiles
+    # # #Compiles
     # name = 'qual'
     # num = 0
     # class_name = 'QualitativeSpecies'
@@ -479,18 +479,18 @@ def main():
     # enum_name = 'FbcOperation'
     # test_case = 'an element on FbcOperation Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
-
-    # Qual Constants
-    name = 'fbc_v2'
-    constants_name = 'FbcConstants'
-    test_case = 'Fbc Constants'
-    fail += run_constant_test(name, constants_name, test_case)
-
-    name = 'fbc_v2'
-    num = 0
-    class_name = 'FbcModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # # Qual Constants
+    # name = 'fbc_v2'
+    # constants_name = 'FbcConstants'
+    # test_case = 'Fbc Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FbcModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
 
     # # #
@@ -511,12 +511,18 @@ def main():
     # list_of = 'ListOfSpatialComponent'
     # test_case = 'an element on SpatialComponent'
     # fail += run_test(name, num, class_name, test_case)
-    #
-    # # Dyn Constants
-    # name = 'dyn'
-    # constants_name = 'DynConstants'
-    # test_case = 'DynConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
+
+    # Dyn Constants
+    name = 'dyn'
+    constants_name = 'DynConstants'
+    test_case = 'DynConstants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'dyn'
+    num = 0
+    class_name = 'DynModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
 
 
 

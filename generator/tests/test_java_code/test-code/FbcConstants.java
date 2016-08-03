@@ -24,8 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import javax.swing.tree.TreeNode;
 
+import org.sbml.jsbml.util.ResourceManager;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
@@ -51,7 +53,23 @@ public class FbcConstants {
   /**
    *
    */
+  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.fbc.Messages");
+  /**
+   *
+   */
   public static final String shortLabel = "fbc";
+  /**
+   *
+   */
+  public static final int MIN_SBML_LEVEL = 3;
+  /**
+   *
+   */
+  public static final int MIN_SBML_VERSION = 1;
+  /**
+   *
+   */
+  public static final int PACKAGE_VERSION = 1;
   /**
    *
    */
@@ -94,6 +112,10 @@ public class FbcConstants {
   /**
    *
    */
+  public static final String listOfFluxObjectives = "listOfFluxObjectives";
+  /**
+   *
+   */
   public static final String coefficient = "coefficient";
   /**
    *
@@ -111,6 +133,26 @@ public class FbcConstants {
    *
    */
   public static final String association = "association";
+  /**
+   *
+   */
+  public static final String strict = "strict";
+  /**
+   *
+   */
+  public static final String charge = "charge";
+  /**
+   *
+   */
+  public static final String chemicalFormula = "chemicalFormula";
+  /**
+   *
+   */
+  public static final String lowerFluxBound = "lowerFluxBound";
+  /**
+   *
+   */
+  public static final String upperFluxBound = "upperFluxBound";
   /**
    *  
    */

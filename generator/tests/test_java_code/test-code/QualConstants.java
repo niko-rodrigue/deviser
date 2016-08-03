@@ -24,8 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import javax.swing.tree.TreeNode;
 
+import org.sbml.jsbml.util.ResourceManager;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
@@ -51,7 +53,23 @@ public class QualConstants {
   /**
    *
    */
+  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.qual.Messages");
+  /**
+   *
+   */
   public static final String shortLabel = "qual";
+  /**
+   *
+   */
+  public static final int MIN_SBML_LEVEL = 3;
+  /**
+   *
+   */
+  public static final int MIN_SBML_VERSION = 1;
+  /**
+   *
+   */
+  public static final int PACKAGE_VERSION = 1;
   /**
    *
    */
@@ -94,11 +112,23 @@ public class QualConstants {
   /**
    *
    */
+  public static final String listOfInputs = "listOfInputs";
+  /**
+   *
+   */
   public static final String output = "output";
   /**
    *
    */
+  public static final String listOfOutputs = "listOfOutputs";
+  /**
+   *
+   */
   public static final String functionTerm = "functionTerm";
+  /**
+   *
+   */
+  public static final String listOfFunctionTerms = "listOfFunctionTerms";
   /**
    *
    */

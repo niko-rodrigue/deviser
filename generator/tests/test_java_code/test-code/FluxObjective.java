@@ -259,7 +259,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   * @see org.sbml.jsbml.Reaction#isIdMandatory
    */
   @Override
   public boolean isIdMandatory() {

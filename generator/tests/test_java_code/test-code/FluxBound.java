@@ -312,7 +312,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   * @see org.sbml.jsbml.Reaction#isIdMandatory
    */
   @Override
   public boolean isIdMandatory() {

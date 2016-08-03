@@ -470,6 +470,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.import_from_jsbml_modules.append('*')
         self.import_from_jsbml_modules.append('util.*')
         self.import_from_jsbml_modules.append('util.filters.*')
+        # TODO maybe a netter import statement for cboTerm
+        self.import_from_jsbml_modules.append('ontology.*')
 
         import_xml_node = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
         if import_xml_node== True:
@@ -714,6 +716,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'null'
+            # TODO specific for jsbml
             elif att_name == 'spatialIndex':
                 # attributes[i]['isVector'] = True
                 attributes[i]['element'] = att_type
@@ -722,6 +725,16 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attTypeCode'] = att_type
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
+                attributes[i]['isNumber'] = False
+                attributes[i]['default'] = 'null'
+            elif att_name == 'cboTerm':
+                # attributes[i]['isVector'] = True
+                attributes[i]['element'] = att_type
+                    # strFunctions.lower_first(attributes[i]['element'])
+                attributes[i]['attType'] = 'Term' #att_type
+                attributes[i]['attTypeCode'] = 'Term' # att_type
+                attributes[i]['CType'] ='Term' # attributes[i]['attTypeCode']
+                attributes[i]['JClassType'] = 'Term' # attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'null'
             else:
