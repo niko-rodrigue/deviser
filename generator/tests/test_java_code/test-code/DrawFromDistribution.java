@@ -91,7 +91,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#equals
+   * @see org.sbml.jsbml.AbstractSBase#equals
    */
   @Override
   public boolean equals(Object object) {
@@ -114,7 +114,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#clone
+   * @see org.sbml.jsbml.AbstractSBase#clone
    */
   @Override
   public DrawFromDistribution clone() {
@@ -405,7 +405,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#readAttribute
+   * @see org.sbml.jsbml.AbstractSBase#readAttribute
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {
@@ -415,7 +415,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#writeXMLAttributes
+   * @see org.sbml.jsbml.AbstractSBase#writeXMLAttributes
    */
   @Override
   public Map <String, String> writeXMLAttributes() {

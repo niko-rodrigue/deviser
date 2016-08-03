@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.qual;
+package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -38,13 +38,13 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class QualConstants {
+public class DistribConstants {
 
   /**
    * The namespace URI of this parser for SBML level 3, version 1 and package
    * version 1.
    */
-  public static final String namespaceURI_L3V1V1 = "http://www.sbml.org/sbml/level3/version1/qual/version1";
+  public static final String namespaceURI_L3V1V1 = "http://www.sbml.org/sbml/level3/version1/distrib/version1";
   /**
    * The latest namespace URI of this parser, this value can change between
    * releases.
@@ -53,11 +53,11 @@ public class QualConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.qual.Messages");
+  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.distrib.Messages");
   /**
    *
    */
-  public static final String shortLabel = "qual";
+  public static final String shortLabel = "distrib";
   /**
    *
    */
@@ -77,7 +77,7 @@ public class QualConstants {
   /**
    *
    */
-  public static final String packageName = "Qualitative Models";
+  public static final String packageName = "Distributions";
   /**
    *
    */
@@ -92,71 +92,27 @@ public class QualConstants {
   /**
    *
    */
-  public static final String compartment = "compartment";
+  public static final String distribInput = "distribInput";
   /**
    *
    */
-  public static final String constant = "constant";
+  public static final String listOfDistribInputs = "listOfDistribInputs";
   /**
    *
    */
-  public static final String initialLevel = "initialLevel";
+  public static final String uncertML = "UncertML";
   /**
    *
    */
-  public static final String maxLevel = "maxLevel";
+  public static final String index = "index";
   /**
    *
    */
-  public static final String input = "input";
+  public static final String drawFromDistribution = "DrawFromDistribution";
   /**
    *
    */
-  public static final String listOfInputs = "listOfInputs";
-  /**
-   *
-   */
-  public static final String output = "output";
-  /**
-   *
-   */
-  public static final String listOfOutputs = "listOfOutputs";
-  /**
-   *
-   */
-  public static final String functionTerm = "functionTerm";
-  /**
-   *
-   */
-  public static final String listOfFunctionTerms = "listOfFunctionTerms";
-  /**
-   *
-   */
-  public static final String sign = "sign";
-  /**
-   *
-   */
-  public static final String qualitativeSpecies = "qualitativeSpecies";
-  /**
-   *
-   */
-  public static final String transitionEffect = "transitionEffect";
-  /**
-   *
-   */
-  public static final String thresholdLevel = "thresholdLevel";
-  /**
-   *
-   */
-  public static final String outputLevel = "outputLevel";
-  /**
-   *
-   */
-  public static final String resultLevel = "resultLevel";
-  /**
-   *
-   */
-  public static final String math = "math";
+  public static final String uncertainty = "Uncertainty";
   /**
    *  
    */

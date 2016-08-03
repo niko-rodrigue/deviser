@@ -136,6 +136,30 @@ public class FbcConstants {
   /**
    *
    */
+  public static final String fluxBound = "FluxBound";
+  /**
+   *
+   */
+  public static final String objective = "Objective";
+  /**
+   *
+   */
+  public static final String geneProductRef = "GeneProductRef";
+  /**
+   *
+   */
+  public static final String fbcAnd = "FbcAnd";
+  /**
+   *
+   */
+  public static final String fbcOr = "FbcOr";
+  /**
+   *
+   */
+  public static final String geneProductAssociation = "GeneProductAssociation";
+  /**
+   *
+   */
   public static final String strict = "strict";
   /**
    *

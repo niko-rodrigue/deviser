@@ -108,6 +108,14 @@ public class DynConstants {
   /**
    *
    */
+  public static final String dynElement = "DynElement";
+  /**
+   *
+   */
+  public static final String spatialComponent = "SpatialComponent";
+  /**
+   *
+   */
   public static final String cboTerm = "cboTerm";
   /**
    *

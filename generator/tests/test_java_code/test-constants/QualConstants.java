@@ -158,6 +158,14 @@ public class QualConstants {
    */
   public static final String math = "math";
   /**
+   *
+   */
+  public static final String transition = "Transition";
+  /**
+   *
+   */
+  public static final String defaultTerm = "DefaultTerm";
+  /**
    *  
    */
   public static String getNamespaceURI(int level, int version) {
