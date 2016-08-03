@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.dyn;
+package org.sbml.jsbml.ext.fbc;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -38,13 +38,13 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class DynConstants {
+public class FbcConstants {
 
   /**
    * The namespace URI of this parser for SBML level 3, version 1 and package
    * version 1.
    */
-  public static final String namespaceURI_L3V1V1 = "http://www.sbml.org/sbml/level3/version1/dyn/version1";
+  public static final String namespaceURI_L3V1V1 = "http://www.sbml.org/sbml/level3/version1/fbc/version1";
   /**
    * The latest namespace URI of this parser, this value can change between
    * releases.
@@ -53,11 +53,11 @@ public class DynConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.dyn.Messages");
+  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.fbc.Messages");
   /**
    *
    */
-  public static final String shortLabel = "dyn";
+  public static final String shortLabel = "fbc";
   /**
    *
    */
@@ -77,7 +77,7 @@ public class DynConstants {
   /**
    *
    */
-  public static final String packageName = "Dynamic Processes";
+  public static final String packageName = "Flux Balance Constraints";
   /**
    *
    */
@@ -92,27 +92,67 @@ public class DynConstants {
   /**
    *
    */
-  public static final String idRef = "idRef";
+  public static final String reaction = "reaction";
   /**
    *
    */
-  public static final String metaIdRef = "metaIdRef";
+  public static final String operation = "operation";
   /**
    *
    */
-  public static final String spatialIndex = "spatialIndex";
+  public static final String value = "value";
   /**
    *
    */
-  public static final String variable = "variable";
+  public static final String type = "type";
   /**
    *
    */
-  public static final String cboTerm = "cboTerm";
+  public static final String fluxObjective = "fluxObjective";
   /**
    *
    */
-  public static final String applyToAll = "applyToAll";
+  public static final String listOfFluxObjectives = "listOfFluxObjectives";
+  /**
+   *
+   */
+  public static final String coefficient = "coefficient";
+  /**
+   *
+   */
+  public static final String label = "label";
+  /**
+   *
+   */
+  public static final String associatedSpecies = "associatedSpecies";
+  /**
+   *
+   */
+  public static final String geneProduct = "geneProduct";
+  /**
+   *
+   */
+  public static final String association = "association";
+  /**
+   *
+   */
+  public static final String strict = "strict";
+  /**
+   *
+   */
+  public static final String charge = "charge";
+  /**
+   *
+   */
+  public static final String chemicalFormula = "chemicalFormula";
+  /**
+   *
+   */
+  public static final String lowerFluxBound = "lowerFluxBound";
+  /**
+   *
+   */
+  public static final String upperFluxBound = "upperFluxBound";
   /**
    *  
    */
