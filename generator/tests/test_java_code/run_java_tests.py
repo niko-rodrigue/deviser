@@ -495,22 +495,22 @@ def main():
 
     # # #
     # # # TODO dyn tests
-    # # #Compilable
-    # name = 'dyn'
-    # num = 0
-    # class_name = 'DynElement'
-    # list_of = 'ListOfDynElement'
-    # test_case = 'an element on DynElement'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    # # TODO setSpatialIndex Error
-    # name = 'dyn'
-    # num = 1
-    # class_name = 'SpatialComponent'
-    # list_of = 'ListOfSpatialComponent'
-    # test_case = 'an element on SpatialComponent'
-    # fail += run_test(name, num, class_name, test_case)
+    # # # #Compilable
+    name = 'dyn'
+    num = 0
+    class_name = 'DynElement'
+    list_of = 'ListOfDynElement'
+    test_case = 'an element on DynElement'
+    fail += run_test(name, num, class_name, test_case)
+
+
+    # TODO setSpatialIndex Error
+    name = 'dyn'
+    num = 1
+    class_name = 'SpatialComponent'
+    list_of = 'ListOfSpatialComponent'
+    test_case = 'an element on SpatialComponent'
+    fail += run_test(name, num, class_name, test_case)
 
     # Dyn Constants
     name = 'dyn'

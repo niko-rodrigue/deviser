@@ -406,6 +406,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_function_implementation(code)
 
 
+
+
         #Write abstract methods from the interfaces
         num_abstract = gen_functions.obtain_interface_abstract_methods()
         for i in range(0, num_abstract):

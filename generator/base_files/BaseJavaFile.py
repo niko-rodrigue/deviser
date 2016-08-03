@@ -471,7 +471,13 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.import_from_jsbml_modules.append('util.*')
         self.import_from_jsbml_modules.append('util.filters.*')
         # TODO maybe a netter import statement for cboTerm
-        self.import_from_jsbml_modules.append('ontology.*')
+
+        #if term in plugin
+        if self.is_plugin:
+            if query.has_term(self.attributes):
+                self.import_from_jsbml_modules.append('ontology.*')
+                self.import_from_java_modules.append('javax.swing.tree.TreeNode')
+                self.has_children = True
 
         import_xml_node = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
         if import_xml_node== True:

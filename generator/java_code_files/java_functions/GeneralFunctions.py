@@ -312,9 +312,53 @@ class GeneralFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+    def write_get_child_at_special(self):
+        function = 'getChildAt'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.AbstractSBase#getChildAt(int)'
+        params = []
+
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'TreeNode'
+        arguments = ['int index']
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        implementation = []
+
+
+        temp = ['return null']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+
     def write_get_child_at(self):
         if len(self.child_lo_elements) == 0:
-            return
+            if self.is_plugin:
+                return self.write_get_child_at_special()
+            else:
+                return
         # do not write for C API
         if self.is_java_api is False:
             return
@@ -421,9 +465,55 @@ class GeneralFunctions():
         temp_code = self.create_code_block('if', implementation)
         return temp_code
 
+
+    def write_get_child_count_special(self):
+        function = 'getChildCount'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.AbstractSBase#getChildAt(int)'
+        params = []
+
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'int'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        implementation = []
+
+
+        temp = ['return 0']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+
+
     def write_get_child_count(self):
         if len(self.child_lo_elements) == 0:
-            return
+            if self.is_plugin:
+                return self.write_get_child_count_special()
+            else:
+                return
         # do not write for C API
         if self.is_java_api is False:
             return
@@ -508,10 +598,53 @@ class GeneralFunctions():
 
     ########################################################################
 
+    def write_get_allows_children_special(self):
+        function = 'getAllowsChildren'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.AbstractSBase#getChildAt(int)'
+        params = []
+
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'boolean'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        implementation = []
+
+
+        temp = ['return false']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
     # function for writing get allows children
     def write_get_allows_children(self):
         if len(self.child_lo_elements) == 0:
-            return
+            if self.is_plugin:
+                return self.write_get_allows_children_special()
+            else:
+                return
         # do not write for C API
         if self.is_java_api is False:
             return
@@ -977,6 +1110,10 @@ class GeneralFunctions():
             implementation.append('attributes.remove("{0}")'.format(member_name))
             implementation.append(
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.toString())'.format(
+                    self.package, self.package, member_name, member_name))
+        elif str(jclass_type)[:] == 'Term':
+            implementation.append(
+                'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.getId())'.format(
                     self.package, self.package, member_name, member_name))
         else:
             implementation.append('hashCode += prime')
