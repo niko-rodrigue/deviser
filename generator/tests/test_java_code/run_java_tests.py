@@ -567,17 +567,17 @@ def main():
     # test_case = 'an element on Uncertainty'
     # fail += run_test(name, num, class_name, test_case)
     #
-    # #Distrib constants
-    # name = 'distrib'
-    # constants_name = 'DistribConstants'
-    # test_case = 'DistribConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
-
+    #Distrib constants
     name = 'distrib'
-    num = 0
-    class_name = 'DistribFunctionDefinitionPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    constants_name = 'DistribConstants'
+    test_case = 'DistribConstants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    # name = 'distrib'
+    # num = 0
+    # class_name = 'DistribFunctionDefinitionPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
 
 

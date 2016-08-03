@@ -514,6 +514,16 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                         attribs_to_write.append(attribute)
                         attribs_name_to_write.append(name)
 
+        elements = self.original_package['elements']
+        for element in elements:
+            # print(attribute['memberName'])
+            name = strFunctions.lower_first(element['name'])
+            if str(name) != 'id' and str(name) != 'name':
+                if name not in attribs_name_to_write:
+                    attribs_to_write.append(element)
+                    attribs_name_to_write.append(name)
+
+
 
         plugin_elements = self.original_package['plugins']
         for element in plugin_elements:
@@ -526,6 +536,17 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                         attribs_to_write.append(attribute)
                         attribs_name_to_write.append(name)
 
+
+
+            # extensions = element['extension']
+            # for attribute in extensions:
+            #     # print(attribute['memberName'])
+            #     name = attribute['name']
+            #     if str(name) != 'id' and str(name) != 'name':
+            #         if name not in attribs_name_to_write:
+            #             attribs_to_write.append(attribute)
+            #             attribs_name_to_write.append(name)
+
         for attribute in attribs_to_write:
             self.write_variable_comment()
             # return_type = attribute['JClassType']
@@ -535,12 +556,13 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
             line = 'public static final String {0} = "{1}"'.format(write_name, name)
             # self.write_line(line)
             self.write_jsbml_line_verbatim(line)
-            if attribute['type'] == 'lo_element':
-                self.write_variable_comment()
-                write_name = strFunctions.upper_first(name)
-                line = 'public static final String listOf{0}s = "listOf{0}s"'.format(write_name)
-                # self.write_line(line)
-                self.write_jsbml_line_verbatim(line)
+            if 'type' in list(attribute.keys()):
+                if attribute['type'] == 'lo_element':
+                    self.write_variable_comment()
+                    write_name = strFunctions.upper_first(name)
+                    line = 'public static final String listOf{0}s = "listOf{0}s"'.format(write_name)
+                    # self.write_line(line)
+                    self.write_jsbml_line_verbatim(line)
 
         self.down_indent()
         get_namespace_uri_func = self.get_namespace_uri()
