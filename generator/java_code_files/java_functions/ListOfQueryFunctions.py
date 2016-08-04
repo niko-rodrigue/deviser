@@ -1136,7 +1136,7 @@ class ListOfQueryFunctions():
         else:
             return_type = '{0}'.format(child)
 
-        # code = []
+        code = []
         #Input, Output, FunctionTerm
         if self.is_java_api and not is_concrete:
             pack_up = self.package.upper()

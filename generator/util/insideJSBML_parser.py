@@ -106,7 +106,7 @@ def extract_data(temp_data):
     if len(temp_data) > 1 and temp_data[1] == 'abstract':
         is_abstract = True 
         return_type = temp_data[2]
-    elif len(temp_data) > 0:
+    elif len(temp_data) > 1:
         if temp_data[1] == 'void':
             return_type = temp_data[1]
     else:
@@ -201,6 +201,11 @@ def parse_output(output):
     return final_data #output_data
 
 def get_class_information(class_name=None, individual_run=False):
+    if class_name == 'AbstractSBasePlugin':
+        class_name = 'org.sbml.jsbml.ext.{0}'.format(class_name)
+    else:
+        class_name = 'org.sbml.jsbml.{0}'.format(class_name)
+
     class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
 
@@ -230,7 +235,7 @@ def get_class_information(class_name=None, individual_run=False):
         return dict_data
     elif stderr:
         error_txt = stderr.decode()
-        print(error_txt)
+        # print(error_txt)
         if 'Error: class not found:' in error_txt:
             return
         else:
