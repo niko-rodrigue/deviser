@@ -202,11 +202,12 @@ def parse_output(output):
 
 def get_class_information(class_name=None, individual_run=False):
     if class_name == 'AbstractSBasePlugin':
-        class_name = 'org.sbml.jsbml.ext.{0}'.format(class_name)
+        # class_name = 'org.sbml.jsbml.ext.{0}'.format(class_name)
+        return
     else:
         class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
-    class_name = 'org.sbml.jsbml.{0}'.format(class_name)
+    # class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
 
 
