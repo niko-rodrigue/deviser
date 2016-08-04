@@ -19,6 +19,8 @@
  */
 package org.sbml.jsbml.ext.qual;
 
+import java.text.MessageFormat;
+import java.util.Locale;
 import java.util.Map;
 
 import org.sbml.jsbml.*;
@@ -36,7 +38,7 @@ public class DefaultTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 23161970975108777L;
+  private static final long serialVersionUID = 1902673295521596L;
   /**
    *
    */
@@ -55,14 +57,7 @@ public class DefaultTerm extends AbstractMathContainer {
    * @param version
    */
   public DefaultTerm(int level, int version) {
-    this(null, null, level, version);
-  }
-
-  /**
-   * @param id
-   */
-  public DefaultTerm(String id) {
-    super(id);
+    super(level, version);
     initDefaults();
   }
 
@@ -71,22 +66,8 @@ public class DefaultTerm extends AbstractMathContainer {
    * @param level
    * @param version
    */
-  public DefaultTerm(String id, int level, int version) {
-    this(id, null, level, version);
-  }
-
-  /**
-   * @param id
-   * @param name
-   * @param level
-   * @param version
-   */
-  public DefaultTerm(String id, String name, int level, int version) {
-    super(id, name, level, version);
-
-    if (getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0) {
-      throw new LevelVersionError(getElementName(), level, version);
-    }
+  public DefaultTerm(ASTNode math, int level, int version) {
+    super(math, level, version);
     initDefaults();
   }
 
@@ -110,7 +91,8 @@ public class DefaultTerm extends AbstractMathContainer {
     resultLevel = null;
   }
 
-  /* Assignment operator for DefaultTerm.
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
   public boolean equals(Object object) {
@@ -127,16 +109,17 @@ public class DefaultTerm extends AbstractMathContainer {
     return equals;
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#clone
+  /**
+   * (non-Javadoc)
    */
-  @Override
   public DefaultTerm clone() {
     return new DefaultTerm(this);
   }
 
   /**
-   * @return the resultLevel
+   * Returns the value of {@link resultLevel}.
+   *  
+   * @return the value of {@link resultLevel}.
    */
   public int getResultLevel() {
     if (isSetResultLevel()) {
@@ -146,25 +129,35 @@ public class DefaultTerm extends AbstractMathContainer {
   }
 
   /**
-   * @return 
+   * Returns whether {@link resultLevel} is set.
+   *  
+   * @return whether {@link resultLevel} is set.
    */
   public boolean isSetResultLevel() {
-    return resultLevel != null;
+    return this.resultLevel != null;
   }
 
   /**
-   * @param resultLevel
+   * Sets the value of resultLevel
+   *  
+   * @param resultLevel the value of resultLevel to be set.
    */
-  public void setResultLevel(int resultLevel) {
-    Integer oldResultLevel = this.resultLevel;
-    this.resultLevel = resultLevel;
-    firePropertyChange(QualConstants.resultLevel, oldResultLevel,
-      this.resultLevel);
+  public boolean setResultLevel(int resultLevel) {
+    if (resultLevel != this.resultLevel) {
+      Integer oldResultLevel = this.resultLevel;
+      this.resultLevel = resultLevel;
+      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
+        this.resultLevel);
+      return true;
+    }
+    return false;
   }
 
   /**
-   * @return {@code true} if the unset of the resultLevel attribute was
-   * successful
+   * Unsets the variable resultLevel.
+   *  
+   * @return {@code true} if resultLevel was set before, otherwise {@code
+   * false}.
    */
   public boolean unsetResultLevel() {
     if (isSetResultLevel()) {
@@ -173,16 +166,15 @@ public class DefaultTerm extends AbstractMathContainer {
       firePropertyChange(QualConstants.resultLevel, oldResultLevel,
         resultLevel);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /* hashcode method for DefaultTerm.
    */
   @Override
   public int hashCode() {
-    final int prime = 7201211;
+    final int prime = 4747727;
 
     int hashCode = super.hashCode();
 
@@ -197,7 +189,14 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public String toString() {
-    return "DefaultTerm [id = " + getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("DefaultTerm [");
+    builder.append("resultLevel = ");
+    builder.append(resultLevel);
+    builder.append("isSetMath = ");
+    builder.append(isSetMath());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)
@@ -218,7 +217,8 @@ public class DefaultTerm extends AbstractMathContainer {
     Map <String, String> attributes = super.writeXMLAttributes();
 
     if (isSetResultLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.resultLevel, Integer.toString(getResultLevel()));
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.resultLevel,
+        Integer.toString(getResultLevel()));
     }
     return attributes;
   }

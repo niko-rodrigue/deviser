@@ -50,6 +50,7 @@ from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles
 from java_code_files import JavaExtensionFiles
 
 from java_code_files import JavaFiles
+from java_code_files import JavaEnumFiles
 # from java_code_files import ValidationFiles #Need to fix this part
 
 
@@ -341,10 +342,31 @@ def generate_jsbml_code_files(name, ob):
     ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     ext.write_constants()
     # ext.write_files()
-    #
-    # # for i in range(0, len(ob['plugins'])+1):
-    # #     ext.write_plugin_files(i)
-    # os.chdir(this_dir)
+
+
+    # Write plugins
+    for i in range(0, len(ob['plugins'])+1):
+        ext.write_plugin_files(i)
+
+    #Write enums
+    for i in range(0, len(ob['enums'])):
+        working_enum = ob['enums'][i]
+        all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob, True)
+        all_files.write_files()
+
+    try:
+        ## this will fail as we are already in the extension dir ... alternatively use full path
+        # os.chdir(extension_dir)
+        print("Saving files")
+        for working_class in ob['baseElements']:
+            all_files = JavaFiles.JavaFiles(working_class, True)
+            all_files.write_files()
+        os.chdir(this_dir)
+    except Exception as error:
+        print("Error is ", error)
+
+
+            # os.chdir(this_dir)
 
 
     # os.chdir(valid_dir)
@@ -359,16 +381,6 @@ def generate_jsbml_code_files(name, ob):
 
     # need to do this last so that the error table is populated
 
-    try:
-        ## this will fail as we are already in the extension dir ... alternatively use full path
-        # os.chdir(extension_dir)
-        print("Saving files")
-        for working_class in ob['baseElements']:
-            all_files = JavaFiles.JavaFiles(working_class, True)
-            all_files.write_files()
-        os.chdir(this_dir)
-    except Exception as error:
-        print("Error is ",error)
 
 
 

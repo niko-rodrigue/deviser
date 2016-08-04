@@ -33,12 +33,16 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class Output extends AbstractNamedSBase implements UniqueNamedSBase, CallableSBase {
+public class Input extends AbstractNamedSBase implements UniqueNamedSBase, CallableSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 17452460547354878L;
+  private static final long serialVersionUID = 4184730137711714L;
+  /**
+   *
+   */
+  private Sign sign;
   /**
    *
    */
@@ -46,16 +50,16 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    *
    */
-  private TransitionOutputEffect transitionEffect;
+  private TransitionInputEffect transitionEffect;
   /**
    *
    */
-  private Integer outputLevel;
+  private Integer thresholdLevel;
 
   /**
    *  
    */
-  public Output() {
+  public Input() {
     super();
     initDefaults();
   }
@@ -64,14 +68,14 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * @param level
    * @param version
    */
-  public Output(int level, int version) {
+  public Input(int level, int version) {
     this(null, null, level, version);
   }
 
   /**
    * @param id
    */
-  public Output(String id) {
+  public Input(String id) {
     super(id);
     initDefaults();
   }
@@ -81,7 +85,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * @param level
    * @param version
    */
-  public Output(String id, int level, int version) {
+  public Input(String id, int level, int version) {
     this(id, null, level, version);
   }
 
@@ -91,7 +95,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    * @param level
    * @param version
    */
-  public Output(String id, String name, int level, int version) {
+  public Input(String id, String name, int level, int version) {
     super(id, name, level, version);
 
     if (getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0) {
@@ -101,19 +105,22 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * @param orig the Output instance to copy.
+   * @param orig the Input instance to copy.
    */
-  public Output(Output orig) {
+  public Input(Input orig) {
     super(orig);
 
+    if (orig.isSetSign()) {
+      setSign(orig.getSign());
+    }
     if (orig.isSetQualitativeSpecies()) {
       setQualitativeSpecies(orig.getQualitativeSpecies());
     }
     if (orig.isSetTransitionEffect()) {
       setTransitionEffect(orig.getTransitionEffect());
     }
-    if (orig.isSetOutputLevel()) {
-      setOutputLevel(orig.getOutputLevel());
+    if (orig.isSetThresholdLevel()) {
+      setThresholdLevel(orig.getThresholdLevel());
     }
   }
 
@@ -123,9 +130,10 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = QualConstants.shortLabel;
+    sign = null;
     qualitativeSpecies = null;
     transitionEffect = null;
-    outputLevel = null;
+    thresholdLevel = null;
   }
 
   /* (non-Javadoc)
@@ -136,8 +144,12 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     boolean equals = super.equals(object);
 
     if (equals) {
-      Output obj = (Output) object;
+      Input obj = (Input) object;
 
+      equals &= obj.isSetSign() == isSetSign();
+      if (equals && isSetSign()) {
+        equals &= (obj.getSign() == getSign());
+      }
       equals &= obj.isSetQualitativeSpecies() == isSetQualitativeSpecies();
       if (equals && isSetQualitativeSpecies()) {
         equals &= (obj.getQualitativeSpecies() == getQualitativeSpecies());
@@ -146,9 +158,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       if (equals && isSetTransitionEffect()) {
         equals &= (obj.getTransitionEffect() == getTransitionEffect());
       }
-      equals &= obj.isSetOutputLevel() == isSetOutputLevel();
-      if (equals && isSetOutputLevel()) {
-        equals &= (obj.getOutputLevel() == getOutputLevel());
+      equals &= obj.isSetThresholdLevel() == isSetThresholdLevel();
+      if (equals && isSetThresholdLevel()) {
+        equals &= (obj.getThresholdLevel() == getThresholdLevel());
       }
     }
     return equals;
@@ -157,8 +169,20 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * (non-Javadoc)
    */
-  public Output clone() {
-    return new Output(this);
+  public Input clone() {
+    return new Input(this);
+  }
+
+  /**
+   * Returns the value of {@link sign}.
+   *  
+   * @return the value of {@link sign}.
+   */
+  public Sign getSign() {
+    if (isSetSign()) {
+      return sign;
+    }
+    throw new PropertyUndefinedError(QualConstants.sign, this);
   }
 
   /**
@@ -175,7 +199,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    *  
    * @return the value of {@link transitionEffect}.
    */
-  public TransitionOutputEffect getTransitionEffect() {
+  public TransitionInputEffect getTransitionEffect() {
     if (isSetTransitionEffect()) {
       return transitionEffect;
     }
@@ -183,15 +207,24 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Returns the value of {@link outputLevel}.
+   * Returns the value of {@link thresholdLevel}.
    *  
-   * @return the value of {@link outputLevel}.
+   * @return the value of {@link thresholdLevel}.
    */
-  public int getOutputLevel() {
-    if (isSetOutputLevel()) {
-      return outputLevel.intValue();
+  public int getThresholdLevel() {
+    if (isSetThresholdLevel()) {
+      return thresholdLevel.intValue();
     }
-    throw new PropertyUndefinedError(QualConstants.outputLevel, this);
+    throw new PropertyUndefinedError(QualConstants.thresholdLevel, this);
+  }
+
+  /**
+   * Returns whether {@link sign} is set.
+   *  
+   * @return whether {@link sign} is set.
+   */
+  public boolean isSetSign() {
+    return this.sign != null;
   }
 
   /**
@@ -213,12 +246,27 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Returns whether {@link outputLevel} is set.
+   * Returns whether {@link thresholdLevel} is set.
    *  
-   * @return whether {@link outputLevel} is set.
+   * @return whether {@link thresholdLevel} is set.
    */
-  public boolean isSetOutputLevel() {
-    return this.outputLevel != null;
+  public boolean isSetThresholdLevel() {
+    return this.thresholdLevel != null;
+  }
+
+  /**
+   * Sets the value of sign
+   *  
+   * @param sign the value of sign to be set.
+   */
+  public boolean setSign(Sign sign) {
+    if (sign != this.sign) {
+      Sign oldSign = this.sign;
+      this.sign = sign;
+      firePropertyChange(QualConstants.sign, oldSign, this.sign);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -242,9 +290,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    *  
    * @param transitionEffect the value of transitionEffect to be set.
    */
-  public boolean setTransitionEffect(TransitionOutputEffect transitionEffect) {
+  public boolean setTransitionEffect(TransitionInputEffect transitionEffect) {
     if (transitionEffect != this.transitionEffect) {
-      TransitionOutputEffect oldTransitionEffect = this.transitionEffect;
+      TransitionInputEffect oldTransitionEffect = this.transitionEffect;
       this.transitionEffect = transitionEffect;
       firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
         this.transitionEffect);
@@ -254,16 +302,31 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Sets the value of outputLevel
+   * Sets the value of thresholdLevel
    *  
-   * @param outputLevel the value of outputLevel to be set.
+   * @param thresholdLevel the value of thresholdLevel to be set.
    */
-  public boolean setOutputLevel(int outputLevel) {
-    if (outputLevel != this.outputLevel) {
-      Integer oldOutputLevel = this.outputLevel;
-      this.outputLevel = outputLevel;
-      firePropertyChange(QualConstants.outputLevel, oldOutputLevel,
-        this.outputLevel);
+  public boolean setThresholdLevel(int thresholdLevel) {
+    if (thresholdLevel != this.thresholdLevel) {
+      Integer oldThresholdLevel = this.thresholdLevel;
+      this.thresholdLevel = thresholdLevel;
+      firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
+        this.thresholdLevel);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Unsets the variable sign.
+   *  
+   * @return {@code true} if sign was set before, otherwise {@code false}.
+   */
+  public boolean unsetSign() {
+    if (isSetSign()) {
+      Sign oldSign = sign;
+      sign = null;
+      firePropertyChange(QualConstants.sign, oldSign, sign);
       return true;
     }
     return false;
@@ -294,7 +357,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
    */
   public boolean unsetTransitionEffect() {
     if (isSetTransitionEffect()) {
-      TransitionOutputEffect oldTransitionEffect = transitionEffect;
+      TransitionInputEffect oldTransitionEffect = transitionEffect;
       transitionEffect = null;
       firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
         transitionEffect);
@@ -304,38 +367,41 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   }
 
   /**
-   * Unsets the variable outputLevel.
+   * Unsets the variable thresholdLevel.
    *  
-   * @return {@code true} if outputLevel was set before, otherwise {@code
+   * @return {@code true} if thresholdLevel was set before, otherwise {@code
    * false}.
    */
-  public boolean unsetOutputLevel() {
-    if (isSetOutputLevel()) {
-      Integer oldOutputLevel = outputLevel;
-      outputLevel = null;
-      firePropertyChange(QualConstants.outputLevel, oldOutputLevel,
-        outputLevel);
+  public boolean unsetThresholdLevel() {
+    if (isSetThresholdLevel()) {
+      Integer oldThresholdLevel = thresholdLevel;
+      thresholdLevel = null;
+      firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
+        thresholdLevel);
       return true;
     }
     return false;
   }
 
-  /* hashcode method for Output.
+  /* hashcode method for Input.
    */
   @Override
   public int hashCode() {
-    final int prime = 2062153;
+    final int prime = 49843;
 
     int hashCode = super.hashCode();
 
+    if (isSetSign()) {
+      hashCode += prime * getSign().hashCode();
+    }
     if (isSetQualitativeSpecies()) {
       hashCode += prime * getQualitativeSpecies().hashCode();
     }
     if (isSetTransitionEffect()) {
       hashCode += prime * getTransitionEffect().hashCode();
     }
-    if (isSetOutputLevel()) {
-      hashCode += prime;
+    if (isSetThresholdLevel()) {
+      hashCode += prime * getThresholdLevel();
     }
     return hashCode;
   }
@@ -346,15 +412,18 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("Output [");
+    builder.append("Input [");
+    builder.append("sign = ");
+    builder.append(sign);
+    builder.append(", ");
     builder.append("qualitativeSpecies = ");
     builder.append(qualitativeSpecies);
     builder.append(", ");
     builder.append("transitionEffect = ");
     builder.append(transitionEffect);
     builder.append(", ");
-    builder.append("outputLevel = ");
-    builder.append(outputLevel);
+    builder.append("thresholdLevel = ");
+    builder.append(thresholdLevel);
     builder.append(", id = ");
     builder.append(getId());
     builder.append(", name = ");
@@ -373,18 +442,26 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     if (!isAttributeRead) {
       isAttributeRead = true;
 
-      if (attributeName.equals(QualConstants.qualitativeSpecies)) {
-        setQualitativeSpecies(value);
-      }      else if (attributeName.equals(QualConstants.transitionEffect)) {
+      if (attributeName.equals(QualConstants.sign)) {
         try {
-          setTransitionEffect(TransitionOutputEffect.valueOf(value));
+          setSign(Sign.valueOf(value));
         }
         catch (Exception e) {
           throw new SBMLException("Could not recognized the value '" + value + "' for the "+
-            "attribute " + QualConstants.transitionEffect + " on the 'Output' element.");
+            "attribute " + QualConstants.sign + " on the 'Input' element.");
         }
-      }      else if (attributeName.equals(QualConstants.outputLevel)) {
-        setOutputLevel(StringTools.parseSBMLInt(value));
+      }      else if (attributeName.equals(QualConstants.qualitativeSpecies)) {
+        setQualitativeSpecies(value);
+      }      else if (attributeName.equals(QualConstants.transitionEffect)) {
+        try {
+          setTransitionEffect(TransitionInputEffect.valueOf(value));
+        }
+        catch (Exception e) {
+          throw new SBMLException("Could not recognized the value '" + value + "' for the "+
+            "attribute " + QualConstants.transitionEffect + " on the 'Input' element.");
+        }
+      }      else if (attributeName.equals(QualConstants.thresholdLevel)) {
+        setThresholdLevel(StringTools.parseSBMLInt(value));
       } else {
         isAttributeRead = false;
       }
@@ -403,6 +480,14 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       attributes.remove("id");
       attributes.put(QualConstants.shortLabel + ":id", getId());
     }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(QualConstants.shortLabel + ":name", getName());
+    }
+    if (isSetSign()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.sign,
+        getSign().toString());
+    }
     if (isSetQualitativeSpecies()) {
       attributes.put(QualConstants.shortLabel + ":" + QualConstants.qualitativeSpecies,
         getQualitativeSpecies());
@@ -411,13 +496,9 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
       attributes.put(QualConstants.shortLabel + ":" + QualConstants.transitionEffect,
         getTransitionEffect().toString());
     }
-    if (isSetName()) {
-      attributes.remove("name");
-      attributes.put(QualConstants.shortLabel + ":name", getName());
-    }
-    if (isSetOutputLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.outputLevel,
-        Integer.toString(getOutputLevel()));
+    if (isSetThresholdLevel()) {
+      attributes.put(QualConstants.shortLabel + ":" + QualConstants.thresholdLevel,
+        Integer.toString(getThresholdLevel()));
     }
     return attributes;
   }
