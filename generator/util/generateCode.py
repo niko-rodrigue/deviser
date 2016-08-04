@@ -339,6 +339,9 @@ def generate_jsbml_code_files(name, ob):
 
     # TODO EXTENSION Time ofre
     os.chdir(extension_dir)
+
+
+    # Write Constants
     ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     ext.write_constants()
     # ext.write_files()

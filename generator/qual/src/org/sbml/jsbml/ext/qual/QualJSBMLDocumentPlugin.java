@@ -39,7 +39,7 @@ public class QualJSBMLDocumentPlugin extends JSBMLDocumentPlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 1261358254138429L;
+  private static final long serialVersionUID = 31800423133257913L;
 
   /**
    * @param model the QualJSBMLDocumentPlugin instance to copy.
@@ -135,7 +135,7 @@ public class QualJSBMLDocumentPlugin extends JSBMLDocumentPlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 1543103;
+    final int prime = 1321063;
 
     int hashCode = super.hashCode();
 

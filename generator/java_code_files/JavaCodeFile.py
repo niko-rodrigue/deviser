@@ -927,16 +927,21 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
     # TODO need to add import
     def write_file(self):
-        BaseJavaFile.BaseJavaFile.write_file(self)
-        self.write_package_include()
-        self.write_java_imports()
-        #self.write_general_includes()
-        BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
-        self.write_jsbml_class_header()
-        self.write_jsbml_class_variables()
-        self.write_class()
-        self.close_jsbml_class_header()
-        # self.write_cpp_end()
-        # if not self.is_plugin:
-        #     self.write_c_code()
-        # self.write_cppns_end()
+        if self.is_package_info_plugin:
+            BaseJavaFile.BaseJavaFile.write_file(self)
+            BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
+            self.write_package_include()
+        else:
+            BaseJavaFile.BaseJavaFile.write_file(self)
+            self.write_package_include()
+            self.write_java_imports()
+            #self.write_general_includes()
+            BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
+            self.write_jsbml_class_header()
+            self.write_jsbml_class_variables()
+            self.write_class()
+            self.close_jsbml_class_header()
+            # self.write_cpp_end()
+            # if not self.is_plugin:
+            #     self.write_c_code()
+            # self.write_cppns_end()

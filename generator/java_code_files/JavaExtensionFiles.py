@@ -123,7 +123,8 @@ class JavaExtensionFiles():
     #TODO use same idea for constants
     def create_class_description(self, num):
         if num >= len(self.package['plugins']):
-            class_object = self.create_document_plugin_desc()
+            # class_object = self.create_document_plugin_desc()
+            class_object = self.create_package_info_plugin_desc()
         else:
             class_object = self.package['plugins'][num]
             up_package = strFunctions.upper_first(self.package['name'])
@@ -156,6 +157,31 @@ class JavaExtensionFiles():
             class_object['attribs'] = []
 
         return class_object
+
+
+
+    def create_package_info_plugin_desc(self):
+        up_package = strFunctions.upper_first(self.package['name'])
+        up_language = self.language.upper()
+        doc_plug = dict({'attribs': [],
+                         'extension': [],
+                         'lo_extension': [],
+                         'sbase': '{0}Document'.format(up_language),
+                         'name': 'package-info',
+                         'is_plugin': True,
+                         'is_list_of': False,
+                         'hasListOf': False,
+                         'package': self.package['name'],
+                         'typecode': '',
+                         'baseClass': 'package-info',
+                         'sid_refs': [],
+                         'unit_sid_refs': [],
+                         'hasMath': False,
+                         'is_doc_plugin': False,
+                         'is_package_info_plugin': True,
+                         'reqd': self.package['required']})
+        return doc_plug
+
 
     def create_document_plugin_desc(self):
         up_package = strFunctions.upper_first(self.package['name'])

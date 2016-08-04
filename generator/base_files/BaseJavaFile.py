@@ -137,6 +137,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.has_parent_list_of = False
         self.is_plugin = False
         self.is_doc_plugin = False
+        self.is_package_info_plugin = False
 
 
 
@@ -172,6 +173,9 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.is_plugin = class_object['is_plugin']
         if 'is_doc_plugin' in class_object:
             self.is_doc_plugin = class_object['is_doc_plugin']
+        if 'is_package_info_plugin' in class_object:
+            self.is_package_info_plugin = class_object['is_package_info_plugin']
+
 
         # information about the base class
         self.baseClass = class_object['baseClass']
