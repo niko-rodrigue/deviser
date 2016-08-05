@@ -1952,6 +1952,27 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         self.down_indent()
 
+    def write_jsbml_parser_variables(self):
+        self.up_indent()
+        # self.write_serial_version_comment()
+        # # TODO need to change serialVersionUID
+        # line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
+        # self.write_line(line)
+
+        self.write_variable_comment()
+        line = 'private {0}List groupList = {0}List.none'.format(strFunctions.upper_first(
+                                                        self.expanded_package['original_name']))
+        self.write_line(line)
+
+        self.write_variable_comment()
+        line = 'private static final transient Logger logger = Logger.getLogger({0}Parser.class)'.format(strFunctions.upper_first(
+                                                        self.expanded_package['original_name']))
+        self.write_line(line)
+        self.down_indent()
+
+
+
+
     # TODO for writing imports
 
     def write_jsbml_class_header(self):

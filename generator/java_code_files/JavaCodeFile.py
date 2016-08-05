@@ -977,8 +977,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         self.write_jsbml_class_header()
-        # self.write_jsbml_class_variables()
+        self.write_jsbml_parser_variables()
         # self.write_class()
+        self.skip_line(1)
         self.close_jsbml_class_header()
         # self.write_cpp_end()
         # if not self.is_plugin:
