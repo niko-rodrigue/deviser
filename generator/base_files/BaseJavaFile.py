@@ -90,6 +90,9 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.serialVersionUID = jsbmlHelperFunctions.generate_uuid(self.run_tests) #-6048861420699176889
 
         self.jsbml_data_tree = jsbml_data_tree.jsbml_data_tree
+        # default values
+        self.is_java_api = True
+
         # TODO will need something similar for importing modules, but how?
 
 
@@ -98,9 +101,26 @@ class BaseJavaFile(BaseFile.BaseFile):
         if self.is_parser is False:
             self.initialize_base_class(name, extension, attributes, is_parser)
         else:
-            print('tada')
+            self.initialize_base_parser(name, extension, attributes, is_parser)
 
 
+
+    def initialize_base_parser(self, name, extension, package, is_parser = True):
+        # self.original_package = package
+
+
+        num_of_base_elements = len(package['baseElements'])
+        for base_element_index in range(0, num_of_base_elements):
+            base_element = package['baseElements'][base_element_index]
+            base_element_attributes = base_element['attribs']
+            self.attributes = self.expand_attributes(base_element_attributes)
+            self.child_elements = self.get_children()
+            self.child_lo_elements = self.get_lo_children()
+            package['baseElements'][base_element_index]['expanded_attributes'] = self.attributes
+            package['baseElements'][base_element_index]['expanded_child_elements'] = self.child_elements
+            package['baseElements'][base_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
+
+        self.expanded_package = package
 
 
 
@@ -123,8 +143,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         self.concretes = []
 
-        # default values
-        self.is_java_api = True
 
         self.class_object = {}
 
