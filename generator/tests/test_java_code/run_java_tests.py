@@ -476,6 +476,13 @@ def main():
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
 
+    # # FBC Constants
+    # name = 'fbc_v2'
+    # constants_name = 'FbcConstants'
+    # test_case = 'Fbc Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
+
+
     name = 'qual'
     num = 0
     class_name = 'QualParser'

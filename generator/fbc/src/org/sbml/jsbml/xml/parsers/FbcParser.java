@@ -17,20 +17,23 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.fbc;
+package org.sbml.jsbml.xml.parsers;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
 import javax.swing.tree.TreeNode;
 
-import org.sbml.jsbml.util.ResourceManager;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
+import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
+import org.sbml.jsbml.ext.SBasePlugin;
+import org.sbml.jsbml.ext.fbc.*;
 
 /**
  * @author Deviser
@@ -38,5 +41,17 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class FbcConstants {
+@ProviderFor(ReadingParser.class)
+public class FbcParser extends AbstractReaderWriter implements PackageParser {
 
+  /**
+   *
+   */
+  private FbcList groupList = FbcList.none
+  /**
+   *
+   */
+  private static final transient Logger logger =
+    Logger.getLogger(FbcParser.class)
+
+}
