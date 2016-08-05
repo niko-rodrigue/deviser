@@ -120,6 +120,17 @@ class BaseJavaFile(BaseFile.BaseFile):
             package['baseElements'][base_element_index]['expanded_child_elements'] = self.child_elements
             package['baseElements'][base_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
 
+        num_of_plugin_elements = len(package['plugins'])
+        for plugin_element_index in range(0, num_of_plugin_elements):
+            plugin_element = package['plugins'][plugin_element_index]
+            plugin_element_attributes = base_element['attribs']
+            self.attributes = self.expand_attributes(plugin_element_attributes)
+            self.child_elements = self.get_children()
+            self.child_lo_elements = self.get_lo_children()
+            package['plugins'][plugin_element_index]['expanded_attributes'] = self.attributes
+            package['plugins'][plugin_element_index]['expanded_child_elements'] = self.child_elements
+            package['plugins'][plugin_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
+
         self.expanded_package = package
 
 
