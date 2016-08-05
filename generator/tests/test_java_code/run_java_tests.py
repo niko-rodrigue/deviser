@@ -384,7 +384,7 @@ def main():
     # # TODO qual tests
 
     #
-    #
+
     # # # # #All qual compile
     # #Compiles
     # name = 'qual'
@@ -468,7 +468,7 @@ def main():
     # constants_name = 'QualConstants'
     # test_case = 'Qual Constants'
     # fail += run_constant_test(name, constants_name, test_case)
-
+    #
     #
     # name = 'qual'
     # num = 0

@@ -48,7 +48,7 @@ from util import strFunctions, query, global_variables, jsbml_data_tree, insideJ
 class BaseJavaFile(BaseFile.BaseFile):
     """Common base class for all java files"""
 
-    def __init__(self, name, extension, attributes):
+    def __init__(self, name, extension, attributes, is_parser=False):
         BaseFile.BaseFile.__init__(self, name, extension)
 
         # members that might get overridden if creating another library
@@ -78,6 +78,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.prime_numbers = global_variables.prime_numbers
 
 
+
+
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage
         self.library_name = global_variables.java_library_name
@@ -89,6 +91,20 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         self.jsbml_data_tree = jsbml_data_tree.jsbml_data_tree
         # TODO will need something similar for importing modules, but how?
+
+
+        #TODO adapting for parser
+        self.is_parser = is_parser
+        if self.is_parser is False:
+            self.initialize_base_class(name, extension, attributes, is_parser)
+        else:
+            print('tada')
+
+
+
+
+
+    def initialize_base_class(self,name, extension, attributes, is_parser=False):
         self.class_is_abstract = False
         # expand the information for the attributes
         if attributes:

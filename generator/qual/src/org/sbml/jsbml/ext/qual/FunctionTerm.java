@@ -40,7 +40,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 5358357540463861L;
+  private static final long serialVersionUID = 25982758621791988L;
   /**
    *
    */
@@ -175,7 +175,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#getMath
+   * @see org.sbml.jsbml.MathContainer#getMath
    */
   @Override
   public ASTNode getMath() {
@@ -183,7 +183,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#isSetMath
+   * @see org.sbml.jsbml.MathContainer#isSetMath
    */
   @Override
   public boolean isSetMath() {
@@ -191,7 +191,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#setMath
+   * @see org.sbml.jsbml.MathContainer#setMath
    */
   @Override
   public void setMath(ASTNode math) {
@@ -208,7 +208,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#unsetMath
+   * @see org.sbml.jsbml.MathContainer#unsetMath
    */
   @Override
   public void unsetMath() {
@@ -219,7 +219,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 5505889;
+    final int prime = 4240451;
 
     int hashCode = super.hashCode();
 

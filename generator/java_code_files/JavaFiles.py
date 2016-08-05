@@ -59,6 +59,7 @@ class JavaFiles():
 
     def write_files(self):
         #self.write_header(self.class_object)
+        self.class_object['is_parser'] = False
         self.class_object['is_plugin'] = False
         self.class_object['is_constantFile'] = False
         self.class_object['is_classFile'] = True

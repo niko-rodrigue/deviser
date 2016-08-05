@@ -47,11 +47,23 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     def __init__(self, class_object, represents_class=True):
 
 
-        # is_parser = class_object['is_parser']
-        #
-        # if is_parser:
-        #     filename =
+        self.is_parser = class_object['is_parser']
+        if self.is_parser:
+            self.initialize_parser(class_object)
+        else:
+            self.initialize_class(class_object, represents_class)
 
+
+    def initialize_parser(self, class_object):
+        self.brief_description = \
+            'Implementation  of the {0} parser.'.format(class_object['name'])
+        BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'java',
+                                         class_object, self.is_parser)
+
+
+
+    def initialize_class(self, class_object, represents_class=True):
+        # members from object
         self.brief_description = \
             'Implementation  of the {0} class.'.format(class_object['name'])
         BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'java',
