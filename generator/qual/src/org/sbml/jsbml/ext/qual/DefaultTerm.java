@@ -38,7 +38,7 @@ public class DefaultTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 45576387743661898L;
+  private static final long serialVersionUID = 34432913934411671L;
   /**
    *
    */
@@ -109,9 +109,10 @@ public class DefaultTerm extends AbstractMathContainer {
     return equals;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#clone
    */
+  @Override
   public DefaultTerm clone() {
     return new DefaultTerm(this);
   }
@@ -174,7 +175,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 9669619;
+    final int prime = 5812063;
 
     int hashCode = super.hashCode();
 

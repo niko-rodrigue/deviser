@@ -38,7 +38,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 10434767245488416L;
+  private static final long serialVersionUID = 64597062160122466L;
   /**
    *
    */
@@ -383,11 +383,71 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     return false;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isQualitativeSpeciesMandatory() {
+    return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isSignMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isThresholdLevelMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isTransitionEffectMandatory() {
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public boolean containsUndeclaredUnits() {
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public UnitDefinition getDerivedUnitDefinition() {
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.SBaseWithDerivedUnit#getDerivedUnits()
+   */
+  @Override
+  public String getDerivedUnits() {
+    return null;
+  }
+
   /* hashcode method for Input.
    */
   @Override
   public int hashCode() {
-    final int prime = 1564373;
+    final int prime = 6794899;
 
     int hashCode = super.hashCode();
 

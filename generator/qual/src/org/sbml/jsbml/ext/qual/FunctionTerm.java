@@ -40,7 +40,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 55616214571418829L;
+  private static final long serialVersionUID = 5358357540463861L;
   /**
    *
    */
@@ -112,9 +112,10 @@ public class FunctionTerm extends AbstractMathContainer {
     return equals;
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#clone
    */
+  @Override
   public FunctionTerm clone() {
     return new FunctionTerm(this);
   }
@@ -173,29 +174,26 @@ public class FunctionTerm extends AbstractMathContainer {
     return false;
   }
 
-  /**
-   * Returns the value of {@link math}.
-   *  
-   * @return the value of {@link math}.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#getMath
    */
+  @Override
   public ASTNode getMath() {
     return math;
   }
 
-  /**
-   * Returns whether {@link math} is set.
-   *  
-   * @return whether {@link math} is set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#isSetMath
    */
+  @Override
   public boolean isSetMath() {
     return math != null;
   }
 
-  /**
-   * Sets the value of math
-   *  
-   * @param math the value of math to be set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#setMath
    */
+  @Override
   public void setMath(ASTNode math) {
     ASTNode oldMath = this.math;
 
@@ -209,11 +207,10 @@ public class FunctionTerm extends AbstractMathContainer {
     }
   }
 
-  /**
-   * Unsets the variable math.
-   *  
-   * @return {@code true} if math was set before, otherwise {@code false}.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractMathContainer#unsetMath
    */
+  @Override
   public void unsetMath() {
     setMath(null);
   }
@@ -222,7 +219,7 @@ public class FunctionTerm extends AbstractMathContainer {
    */
   @Override
   public int hashCode() {
-    final int prime = 3278753;
+    final int prime = 5505889;
 
     int hashCode = super.hashCode();
 

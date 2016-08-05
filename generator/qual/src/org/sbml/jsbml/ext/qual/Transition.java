@@ -39,7 +39,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 63905986768412222L;
+  private static final long serialVersionUID = 19805347255863595L;
   /**
    *
    */
@@ -161,6 +161,35 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   public Transition clone() {
     return new Transition(this);
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isListOfFunctionTermsMandatory() {
+    return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isListOfInputsMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isListOfOutputsMandatory() {
+    return false;
   }
 
   /**
@@ -665,7 +694,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 9388559;
+    final int prime = 7184923;
 
     int hashCode = super.hashCode();
 

@@ -19,6 +19,10 @@
  */
 package org.sbml.jsbml.ext.fbc;
 
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.Map;
+
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
@@ -34,7 +38,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 56127520376395755L;
+  private static final long serialVersionUID = 45423331670404242L;
   /**
    *
    */
@@ -103,7 +107,8 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
     }
     if (orig.isSetCoefficient()) {
       setCoefficient(orig.getCoefficient());
-    }  }
+    }
+  }
 
   /**
    *  
@@ -112,9 +117,11 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
     setPackageVersion(-1);
     packageName = FbcConstants.shortLabel;
     reaction = null;
+    coefficient = null;
   }
 
-  /* Assignment operator for FluxObjective.
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
   public boolean equals(Object object) {
@@ -130,7 +137,8 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
       equals &= obj.isSetCoefficient() == isSetCoefficient();
       if (equals && isSetCoefficient()) {
         equals &= (obj.getCoefficient() == getCoefficient());
-      }    }
+      }
+    }
     return equals;
   }
 
@@ -142,27 +150,18 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   }
 
   /**
-   * @return the reaction
+   * Returns the value of {@link reaction}.
+   *  
+   * @return the value of {@link reaction}.
    */
   public String getReaction() {
     return isSetReaction() ? reaction : "";
   }
 
   /**
-   * @return the reaction
-   */
-  public Reaction getReactionInstance() {
-    if (isSetReaction()) {
-      Model model = getModel();
-      if (model != null) {
-        return model.getReaction(getReaction());
-      }
-    }
-    return null;
-  }
-
-  /**
-   * @return the coefficient
+   * Returns the value of {@link coefficient}.
+   *  
+   * @return the value of {@link coefficient}.
    */
   public double getCoefficient() {
     if (isSetCoefficient()) {
@@ -172,38 +171,32 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   }
 
   /**
-   * @return 
+   * Returns whether {@link reaction} is set.
+   *  
+   * @return whether {@link reaction} is set.
    */
   public boolean isSetReaction() {
-    return reaction != null;
+    return this.reaction != null;
   }
 
   /**
-   * @return 
-   */
-  public boolean isSetReactionInstance() {
-    return getReactionInstance() != null;
-  }
-
-  /**
-   * @return 
+   * Returns whether {@link coefficient} is set.
+   *  
+   * @return whether {@link coefficient} is set.
    */
   public boolean isSetCoefficient() {
-    return coefficient != null;
+    return this.coefficient != null;
   }
 
   /**
-   * @param reaction
+   * Sets the value of reaction
+   *  
+   * @param reaction the value of reaction to be set.
    */
   public boolean setReaction(String reaction) {
     if (reaction != this.reaction) {
       String oldReaction = this.reaction;
-      if ((reaction == null) || (reaction.isEmpty())) {
-        this.reaction = null;
-      } else {
-        this.reaction = reaction;
-      }
-
+      this.reaction = reaction;
       firePropertyChange(FbcConstants.reaction, oldReaction, this.reaction);
       return true;
     }
@@ -211,25 +204,41 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   }
 
   /**
-   * @param coefficient
+   * Sets the value of coefficient
+   *  
+   * @param coefficient the value of coefficient to be set.
    */
-  public void setCoefficient(double coefficient) {
-    Double oldCoefficient = this.coefficient;
-    this.coefficient = coefficient;
-    firePropertyChange(FbcConstants.coefficient, oldCoefficient,
-      this.coefficient);
+  public boolean setCoefficient(double coefficient) {
+    if (coefficient != this.coefficient) {
+      Double oldCoefficient = this.coefficient;
+      this.coefficient = coefficient;
+      firePropertyChange(FbcConstants.coefficient, oldCoefficient,
+        this.coefficient);
+      return true;
+    }
+    return false;
   }
 
   /**
-   * @return {@code true} if the unset of the reaction attribute was successful
+   * Unsets the variable reaction.
+   *  
+   * @return {@code true} if reaction was set before, otherwise {@code false}.
    */
   public boolean unsetReaction() {
-    return setReaction((String) null);
+    if (isSetReaction()) {
+      String oldReaction = reaction;
+      reaction = null;
+      firePropertyChange(FbcConstants.reaction, oldReaction, reaction);
+      return true;
+    }
+    return false;
   }
 
   /**
-   * @return {@code true} if the unset of the coefficient attribute was
-   * successful
+   * Unsets the variable coefficient.
+   *  
+   * @return {@code true} if coefficient was set before, otherwise {@code
+   * false}.
    */
   public boolean unsetCoefficient() {
     if (isSetCoefficient()) {
@@ -238,9 +247,8 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
       firePropertyChange(FbcConstants.coefficient, oldCoefficient,
         coefficient);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /**
@@ -269,7 +277,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    */
   @Override
   public int hashCode() {
-    final int prime = 9562649;
+    final int prime = 6280397;
 
     int hashCode = super.hashCode();
 
@@ -277,7 +285,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
       hashCode += prime * getReaction().hashCode();
     }
     if (isSetCoefficient()) {
-      hashCode += prime;
+      hashCode += prime * getCoefficient();
     }
     return hashCode;
   }
@@ -287,8 +295,19 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    */
   @Override
   public String toString() {
-    return "FluxObjective [reaction = " + reaction + ", coefficient = " +
-      coefficient + ", id = " + getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("FluxObjective [");
+    builder.append("reaction = ");
+    builder.append(reaction);
+    builder.append(", ");
+    builder.append("coefficient = ");
+    builder.append(coefficient);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)
@@ -328,10 +347,12 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
       attributes.put(FbcConstants.shortLabel + ":name", getName());
     }
     if (isSetReaction()) {
-      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction, getReaction());
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction,
+        getReaction());
     }
     if (isSetCoefficient()) {
-      hashCode += prime;
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.coefficient,
+        StringTools.toString(Locale.ENGLISH, getCoefficient()));
     }
     return attributes;
   }

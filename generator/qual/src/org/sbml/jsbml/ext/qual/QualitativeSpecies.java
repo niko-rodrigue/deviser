@@ -38,7 +38,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 49549077517665274L;
+  private static final long serialVersionUID = 66012609733639045L;
   /**
    *
    */
@@ -173,13 +173,26 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return new QualitativeSpecies(this);
   }
 
-  /**
-   * Returns the value of {@link compartment}.
-   *  
-   * @return the value of {@link compartment}.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#getCompartment
    */
+  @Override
   public String getCompartment() {
     return isSetCompartment() ? compartment : "";
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public Compartment getCompartmentInstance() {
+    if (isSetCompartment()) {
+      Model model = getModel();
+      if (model != null) {
+        return model.getCompartment(getCompartment());
+      }
+    }
+    return null;
   }
 
   /**
@@ -218,13 +231,20 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     throw new PropertyUndefinedError(QualConstants.maxLevel, this);
   }
 
-  /**
-   * Returns whether {@link compartment} is set.
-   *  
-   * @return whether {@link compartment} is set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#isSetCompartment
    */
+  @Override
   public boolean isSetCompartment() {
     return this.compartment != null;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public boolean isSetCompartmentInstance() {
+    return getCompartmentInstance() != null;
   }
 
   /**
@@ -254,11 +274,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return this.maxLevel != null;
   }
 
-  /**
-   * Sets the value of compartment
-   *  
-   * @param compartment the value of compartment to be set.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment
    */
+  @Override
   public boolean setCompartment(String compartment) {
     if (compartment != this.compartment) {
       String oldCompartment = this.compartment;
@@ -268,6 +287,17 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
       return true;
     }
     return false;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment
+   */
+  @Override
+  public boolean setCompartment(Compartment compartment) {
+    if (compartment != null) {
+      return setCompartment(compartment.getId());
+    }
+    return unsetCompartment();
   }
 
   /**
@@ -316,12 +346,10 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return false;
   }
 
-  /**
-   * Unsets the variable compartment.
-   *  
-   * @return {@code true} if compartment was set before, otherwise {@code
-   * false}.
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.CompartmentalizedSBase#unsetCompartment
    */
+  @Override
   public boolean unsetCompartment() {
     if (isSetCompartment()) {
       String oldCompartment = compartment;
@@ -380,11 +408,48 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     return false;
   }
 
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public boolean isCompartmentMandatory() {
+    return true;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return true;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isInitialLevelMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isMaxLevelMandatory() {
+    return false;
+  }
+
+  /**
+   * @return true
+   */
+  public boolean isSetConstantMandatory() {
+    return true;
+  }
+
   /* hashcode method for QualitativeSpecies.
    */
   @Override
   public int hashCode() {
-    final int prime = 8984707;
+    final int prime = 2049067;
 
     int hashCode = super.hashCode();
 

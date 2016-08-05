@@ -38,7 +38,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 749584172738405L;
+  private static final long serialVersionUID = 69717101646537220L;
   /**
    *
    */
@@ -320,11 +320,64 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     return false;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   */
+  @Override
+  public boolean isIdMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isOutputLevelMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isQualitativeSpeciesMandatory() {
+    return false;
+  }
+
+  /**
+   * @return false
+   */
+  public boolean isTransitionEffectMandatory() {
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public boolean containsUndeclaredUnits() {
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public UnitDefinition getDerivedUnitDefinition() {
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.SBaseWithDerivedUnit#getDerivedUnits()
+   */
+  @Override
+  public String getDerivedUnits() {
+    return null;
+  }
+
   /* hashcode method for Output.
    */
   @Override
   public int hashCode() {
-    final int prime = 8368207;
+    final int prime = 6415753;
 
     int hashCode = super.hashCode();
 

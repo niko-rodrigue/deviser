@@ -64,30 +64,35 @@ class JavaExtensionFiles():
         self.write_plugin_code(class_descrip)
         self.remove_class_description(num)
 
-    # def write_header(self):
-    #     types_fileout = JavaExtensionHeaderFile.ExtensionHeaderFile(self.package,
-    #                                                                 self.file_type)
-    #     if self.verbose:
-    #         print('Writing file {0}'.format(types_fileout.filename))
-    #     if self.file_type == '':
-    #         types_fileout.write_file()
-    #     elif self.file_type == 'types':
-    #         types_fileout.write_types_file()
-    #     elif self.file_type == 'fwd':
-    #         types_fileout.write_fwd_file()
-    #     types_fileout.close_file()
 
-    # def write_plugin_header(self, class_descrip):
-    #     fileout = JavaHeaderFile.JavaHeaderFile(class_descrip)
-    #     if self.verbose:
-    #         print('Writing file {0}'.format(fileout.filename))
-    #     fileout.write_file()
-    #     fileout.close_file()
+    def write_parser_file(self):
+        print('Time for parser ----YOOOOODSADSAD')
+        # class_descrip = self.create_class_description(num)
+        class_descrip = self.package
+        self.write_parser_code(class_descrip)
+
+    def write_parser_code(self, class_descrip):
+        # self.class_descrip['is_plugin'] = True
+        # self.class_descrip['is_constantFile'] = False
+        # self.class_descrip['is_classFile'] = False
+        class_descrip['name'] = strFunctions.upper_first(class_descrip['name']) +'Parser'
+        class_descrip.update({'is_parser': True})
+        class_descrip.update({'is_plugin': False})
+        class_descrip.update({'is_constantFile': False})
+        class_descrip.update({'is_classFile': False})
+        fileout = JavaCodeFile.JavaCodeFile(class_descrip)
+        if self.verbose:
+            print('Writing file {0}'.format(fileout.filename))
+        fileout.write_parser_file()
+        fileout.close_file()
+
+
 
     def write_plugin_code(self, class_descrip):
         # self.class_descrip['is_plugin'] = True
         # self.class_descrip['is_constantFile'] = False
         # self.class_descrip['is_classFile'] = False
+        class_descrip.update({'is_parser': False})
         class_descrip.update({'is_plugin': True})
         class_descrip.update({'is_constantFile': False})
         class_descrip.update({'is_classFile': False})
@@ -100,7 +105,9 @@ class JavaExtensionFiles():
     def write_constants(self):
         print('Time for some constants')
         custom_name = 'Constants'
+
         self.package['is_plugin'] = False
+        self.package['is_parser'] = False
         self.package['is_constantFile'] = True
         self.package['is_classFile'] = False
         fileout = JavaExtensionCodeFile.JavaExtensionCodeFile(self.package, custom_name)
@@ -110,6 +117,7 @@ class JavaExtensionFiles():
         fileout.close_file()
 
     def write_code(self):
+        self.package['is_parser'] = False
         self.package['is_plugin'] = False
         self.package['is_constantFile'] = False
         self.package['is_classFile'] = True
@@ -163,6 +171,29 @@ class JavaExtensionFiles():
     def create_package_info_plugin_desc(self):
         up_package = strFunctions.upper_first(self.package['name'])
         up_language = self.language.upper()
+        parser_info = dict({'attribs': [],
+                         'extension': [],
+                         'lo_extension': [],
+                         'sbase': '{0}Document'.format(up_language),
+                         'name': 'package-info',
+                         'is_plugin': True,
+                         'is_list_of': False,
+                         'hasListOf': False,
+                         'package': self.package['name'],
+                         'typecode': '',
+                         'baseClass': 'package-info',
+                         'sid_refs': [],
+                         'unit_sid_refs': [],
+                         'hasMath': False,
+                         'is_doc_plugin': False,
+                         'is_package_info_plugin': True,
+                         'reqd': self.package['required']})
+        return parser_info
+
+
+    def create_package_info_plugin_desc(self):
+        up_package = strFunctions.upper_first(self.package['name'])
+        up_language = self.language.upper()
         doc_plug = dict({'attribs': [],
                          'extension': [],
                          'lo_extension': [],
@@ -181,6 +212,7 @@ class JavaExtensionFiles():
                          'is_package_info_plugin': True,
                          'reqd': self.package['required']})
         return doc_plug
+
 
 
     def create_document_plugin_desc(self):
@@ -227,3 +259,24 @@ class JavaExtensionFiles():
                                'root': element['root']
                                })
         return attribute_dict
+
+
+    # def write_header(self):
+    #     types_fileout = JavaExtensionHeaderFile.ExtensionHeaderFile(self.package,
+    #                                                                 self.file_type)
+    #     if self.verbose:
+    #         print('Writing file {0}'.format(types_fileout.filename))
+    #     if self.file_type == '':
+    #         types_fileout.write_file()
+    #     elif self.file_type == 'types':
+    #         types_fileout.write_types_file()
+    #     elif self.file_type == 'fwd':
+    #         types_fileout.write_fwd_file()
+    #     types_fileout.close_file()
+
+    # def write_plugin_header(self, class_descrip):
+    #     fileout = JavaHeaderFile.JavaHeaderFile(class_descrip)
+    #     if self.verbose:
+    #         print('Writing file {0}'.format(fileout.filename))
+    #     fileout.write_file()
+    #     fileout.close_file()

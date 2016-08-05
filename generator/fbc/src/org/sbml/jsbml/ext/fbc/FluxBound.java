@@ -19,6 +19,10 @@
  */
 package org.sbml.jsbml.ext.fbc;
 
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.Map;
+
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
@@ -34,7 +38,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 47284266921901068L;
+  private static final long serialVersionUID = 11716095922910066L;
   /**
    *
    */
@@ -110,7 +114,8 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
     }
     if (orig.isSetValue()) {
       setValue(orig.getValue());
-    }  }
+    }
+  }
 
   /**
    *  
@@ -120,9 +125,11 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
     packageName = FbcConstants.shortLabel;
     reaction = null;
     operation = null;
+    value = null;
   }
 
-  /* Assignment operator for FluxBound.
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
    */
   @Override
   public boolean equals(Object object) {
@@ -142,7 +149,8 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
       equals &= obj.isSetValue() == isSetValue();
       if (equals && isSetValue()) {
         equals &= (obj.getValue() == getValue());
-      }    }
+      }
+    }
     return equals;
   }
 
@@ -154,27 +162,18 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @return the reaction
+   * Returns the value of {@link reaction}.
+   *  
+   * @return the value of {@link reaction}.
    */
   public String getReaction() {
     return isSetReaction() ? reaction : "";
   }
 
   /**
-   * @return the reaction
-   */
-  public Reaction getReactionInstance() {
-    if (isSetReaction()) {
-      Model model = getModel();
-      if (model != null) {
-        return model.getReaction(getReaction());
-      }
-    }
-    return null;
-  }
-
-  /**
-   * @return the operation
+   * Returns the value of {@link operation}.
+   *  
+   * @return the value of {@link operation}.
    */
   public FbcOperation getOperation() {
     if (isSetOperation()) {
@@ -184,7 +183,9 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @return the value
+   * Returns the value of {@link value}.
+   *  
+   * @return the value of {@link value}.
    */
   public double getValue() {
     if (isSetValue()) {
@@ -194,45 +195,41 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @return 
+   * Returns whether {@link reaction} is set.
+   *  
+   * @return whether {@link reaction} is set.
    */
   public boolean isSetReaction() {
-    return reaction != null;
+    return this.reaction != null;
   }
 
   /**
-   * @return 
-   */
-  public boolean isSetReactionInstance() {
-    return getReactionInstance() != null;
-  }
-
-  /**
-   * @return 
+   * Returns whether {@link operation} is set.
+   *  
+   * @return whether {@link operation} is set.
    */
   public boolean isSetOperation() {
-    return (operation != FBC_OPERATION_INVALID);
+    return this.operation != null;
   }
 
   /**
-   * @return 
+   * Returns whether {@link value} is set.
+   *  
+   * @return whether {@link value} is set.
    */
   public boolean isSetValue() {
-    return value != null;
+    return this.value != null;
   }
 
   /**
-   * @param reaction
+   * Sets the value of reaction
+   *  
+   * @param reaction the value of reaction to be set.
    */
   public boolean setReaction(String reaction) {
     if (reaction != this.reaction) {
       String oldReaction = this.reaction;
-      if ((reaction == null) || (reaction.isEmpty())) {
-        this.reaction = null;
-      } else {
-        this.reaction = reaction;
-      }
-
+      this.reaction = reaction;
       firePropertyChange(FbcConstants.reaction, oldReaction, this.reaction);
       return true;
     }
@@ -240,45 +237,69 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @param operation
+   * Sets the value of operation
+   *  
+   * @param operation the value of operation to be set.
    */
-  public void setOperation(FbcOperation operation) {
-    if (FbcOperation_isValid(operation) == 0) {
-      operation = FBC_OPERATION_INVALID;
-      return LIBSBML_INVALID_ATTRIBUTE_VALUE;
-    } else {
-      operation = operation;
-      return LIBSBML_OPERATION_SUCCESS;
+  public boolean setOperation(FbcOperation operation) {
+    if (operation != this.operation) {
+      FbcOperation oldOperation = this.operation;
+      this.operation = operation;
+      firePropertyChange(FbcConstants.operation, oldOperation, this.operation);
+      return true;
     }
+    return false;
   }
 
   /**
-   * @param value
+   * Sets the value of value
+   *  
+   * @param value the value of value to be set.
    */
-  public void setValue(double value) {
-    Double oldValue = this.value;
-    this.value = value;
-    firePropertyChange(FbcConstants.value, oldValue, this.value);
+  public boolean setValue(double value) {
+    if (value != this.value) {
+      Double oldValue = this.value;
+      this.value = value;
+      firePropertyChange(FbcConstants.value, oldValue, this.value);
+      return true;
+    }
+    return false;
   }
 
   /**
-   * @return {@code true} if the unset of the reaction attribute was successful
+   * Unsets the variable reaction.
+   *  
+   * @return {@code true} if reaction was set before, otherwise {@code false}.
    */
   public boolean unsetReaction() {
-    return setReaction((String) null);
+    if (isSetReaction()) {
+      String oldReaction = reaction;
+      reaction = null;
+      firePropertyChange(FbcConstants.reaction, oldReaction, reaction);
+      return true;
+    }
+    return false;
   }
 
   /**
-   * @return {@code true} if the unset of the operation attribute was
-   * successful
+   * Unsets the variable operation.
+   *  
+   * @return {@code true} if operation was set before, otherwise {@code false}.
    */
   public boolean unsetOperation() {
-    operation = FBC_OPERATION_INVALID;
-    return LIBSBML_OPERATION_SUCCESS;
+    if (isSetOperation()) {
+      FbcOperation oldOperation = operation;
+      operation = null;
+      firePropertyChange(FbcConstants.operation, oldOperation, operation);
+      return true;
+    }
+    return false;
   }
 
   /**
-   * @return {@code true} if the unset of the value attribute was successful
+   * Unsets the variable value.
+   *  
+   * @return {@code true} if value was set before, otherwise {@code false}.
    */
   public boolean unsetValue() {
     if (isSetValue()) {
@@ -286,9 +307,8 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
       value = null;
       firePropertyChange(FbcConstants.value, oldValue, value);
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   /* (non-Javadoc)
@@ -324,7 +344,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 4568777;
+    final int prime = 9792953;
 
     int hashCode = super.hashCode();
 
@@ -332,10 +352,10 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
       hashCode += prime * getReaction().hashCode();
     }
     if (isSetOperation()) {
-      hashCode += prime;
+      hashCode += prime * getOperation().hashCode();
     }
     if (isSetValue()) {
-      hashCode += prime;
+      hashCode += prime * getValue();
     }
     return hashCode;
   }
@@ -345,8 +365,22 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public String toString() {
-    return "FluxBound [reaction = " + reaction + ", operation = " + operation +
-      ", value = " + value + ", id = " + getId() + ", name = " + getName() + "]";
+    StringBuilder builder = new StringBuilder();
+    builder.append("FluxBound [");
+    builder.append("reaction = ");
+    builder.append(reaction);
+    builder.append(", ");
+    builder.append("operation = ");
+    builder.append(operation);
+    builder.append(", ");
+    builder.append("value = ");
+    builder.append(value);
+    builder.append(", id = ");
+    builder.append(getId());
+    builder.append(", name = ");
+    builder.append(getName());
+    builder.append("]");
+    return builder.toString();
   }
 
   /* (non-Javadoc)
@@ -362,7 +396,13 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
       if (attributeName.equals(FbcConstants.reaction)) {
         setReaction(value);
       }      else if (attributeName.equals(FbcConstants.operation)) {
-        setOperation(StringTools.parseSBMLFbcOperation(value));
+        try {
+          setOperation(FbcOperation.valueOf(value));
+        }
+        catch (Exception e) {
+          throw new SBMLException("Could not recognized the value '" + value + "' for the "+
+            "attribute " + FbcConstants.operation + " on the 'FluxBound' element.");
+        }
       }      else if (attributeName.equals(FbcConstants.value)) {
         setValue(StringTools.parseSBMLDouble(value));
       } else {
@@ -388,13 +428,16 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
       attributes.put(FbcConstants.shortLabel + ":name", getName());
     }
     if (isSetReaction()) {
-      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction, getReaction());
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction,
+        getReaction());
     }
     if (isSetOperation()) {
-      hashCode += prime;
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.operation,
+        getOperation().toString());
     }
     if (isSetValue()) {
-      hashCode += prime;
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.value,
+        StringTools.toString(Locale.ENGLISH, getValue()));
     }
     return attributes;
   }

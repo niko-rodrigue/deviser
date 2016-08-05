@@ -369,7 +369,10 @@ def generate_jsbml_code_files(name, ob):
         print("Error is ", error)
 
 
-            # os.chdir(this_dir)
+    os.chdir(parser_dir)
+    parser_file = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    parser_file.write_parser_file()
+    os.chdir(this_dir)
 
 
     # os.chdir(valid_dir)
