@@ -75,6 +75,7 @@ class JavaExtensionFiles():
         # self.class_descrip['is_plugin'] = True
         # self.class_descrip['is_constantFile'] = False
         # self.class_descrip['is_classFile'] = False
+        class_descrip['original_name'] = class_descrip['name']
         class_descrip['name'] = strFunctions.upper_first(class_descrip['name']) +'Parser'
         class_descrip.update({'is_parser': True})
         class_descrip.update({'is_plugin': False})

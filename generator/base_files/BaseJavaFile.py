@@ -490,7 +490,52 @@ class BaseJavaFile(BaseFile.BaseFile):
         # print('----------------------------')
 
     ########################################################################
+    def expand_parser_import_modules(self, package):
+        self.extends_modules = []
+        self.implements_modules = []
+        self.import_from_java_modules = []
+        self.import_from_jsbml_modules = []
 
+        self.class_is_abstract =False
+
+        # THis is the tricky part
+        # self.get_general_includes()
+
+        if package['is_parser'] is True:
+
+            self.import_from_java_modules.append('java.util.ArrayList')
+            self.import_from_java_modules.append('java.util.List')
+            self.import_from_java_modules.append('java.util.Map')
+            self.import_from_java_modules.append('java.util.Locale')
+            self.import_from_java_modules.append('java.text.MessageFormat')
+            self.import_from_java_modules.append('java.util.Enumeration')
+
+            self.import_from_java_modules.append('javax.swing.tree.TreeNode')
+
+
+            self.import_from_jsbml_modules.append('*')
+            self.import_from_jsbml_modules.append('util.*')
+            self.import_from_jsbml_modules.append('util.filters.*')
+            self.import_from_jsbml_modules.append('xml.stax.SBMLObjectForXML')
+            self.import_from_jsbml_modules.append('ext.ASTNodePlugin')
+            self.import_from_jsbml_modules.append('ext.SBasePlugin')
+
+            self.import_from_jsbml_modules.append('ext.{0}.*'.format(package['original_name']))
+
+
+
+            self.extends_modules = ['AbstractReaderWriter']
+            self.implements_modules = ['PackageParser']
+
+
+
+
+        self.jsbml_class_header_and_import = dict({'className': self.name,
+                                                   'abstract': self.class_is_abstract,
+                                                   'extends': self.extends_modules,
+                                                   'implements': self.implements_modules,
+                                                   'javaModules': sorted(self.import_from_java_modules),
+                                                   'jsbmlModules': self.import_from_jsbml_modules})
 
 
     # Function to expand import modules and extension
@@ -1827,8 +1872,12 @@ class BaseJavaFile(BaseFile.BaseFile):
     # TODO add variable whether extension or parser
     def write_package_include(self):
         if global_variables.is_package:
-            curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
-            # print('curr_include_line is ', curr_include_line)
+            if self.is_parser:
+                curr_include_line = 'package org.sbml.jsbml.xml.parsers;'
+                # print('curr_include_line is ', curr_include_line)
+            else:
+                curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
+                # print('curr_include_line is ', curr_include_line)
             self.write_line_verbatim(curr_include_line)
 
     def close_jsbml_class_header(self):

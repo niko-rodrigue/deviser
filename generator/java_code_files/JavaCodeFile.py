@@ -60,6 +60,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         BaseJavaFile.BaseJavaFile.__init__(self, class_object['name'], 'java',
                                          class_object, self.is_parser)
 
+        self.expand_parser_import_modules(class_object)
 
 
     def initialize_class(self, class_object, represents_class=True):
@@ -966,11 +967,16 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
     def write_parser_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
-        # self.write_package_include()
-        # self.write_java_imports()
+        self.write_package_include()
+        self.write_java_imports()
         # self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
-        # self.write_jsbml_class_header()
+
+        curr_include_line = '@ProviderFor(ReadingParser.class)'
+        self.write_line_verbatim(curr_include_line)
+
+
+        self.write_jsbml_class_header()
         # self.write_jsbml_class_variables()
         # self.write_class()
         self.close_jsbml_class_header()
