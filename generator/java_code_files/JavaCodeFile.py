@@ -1085,6 +1085,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_jsbml_class_header()
         self.write_jsbml_parser_variables()
+        self.skip_line(1)
+
+
         self.write_parser_class()
         self.skip_line(1)
         self.close_jsbml_class_header()
