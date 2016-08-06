@@ -965,6 +965,86 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             #     self.write_c_code()
             # self.write_cppns_end()
 
+    def write_parser_functions(self):
+        parser_functions = ParserFunctions.ParserFunctions(self.language,
+                                                          self.is_java_api,
+                                                          self.expanded_package,
+                                                          self.jsbml_data_tree,
+                                                          self.extends_modules)
+
+
+        code = parser_functions.write_get_namespace_uri()
+        self.write_function_implementation(code)
+
+        code = parser_functions.write_get_short_label()
+        self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_get_prefix()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_get_uri()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_get_parent()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_get_parent_sbml_object()
+        # self.write_function_implementation(code)
+        #
+        # # Write abstract methods from the interfaces
+        # num_abstract = gen_functions.obtain_interface_abstract_methods()
+        # for i in range(0, num_abstract):
+        #     code = gen_functions.write_interface_abstract_methods(i)
+        #     self.write_function_implementation(code)
+        #
+        # self.line_length = 79
+        # code = gen_functions.write_get_child_at()
+        # self.write_function_implementation(code)
+        # self.line_length = 79
+        #
+        # code = gen_functions.write_get_allows_children()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_get_child_count()
+        # self.write_function_implementation(code)
+        #
+        # code = gen_functions.write_hashcode()
+        # self.write_function_implementation(code)
+        #
+        # self.line_length = 81
+        # code = gen_functions.write_to_string()
+        # self.write_function_implementation(code)
+        # self.line_length = 79
+        #
+        # self.line_length = 90
+        # code = gen_functions.write_read_attribute()
+        # self.write_function_implementation(code)
+        # self.line_length = 79
+        #
+        # # TODO Need to change this
+        # self.line_length = 90
+        # code = gen_functions.write_write_xml_attribute()
+        # self.write_function_implementation(code)
+        # self.line_length = 79
+
+
+
+
+    def write_parser_class(self):
+        # self.write_forward_class()
+        # TODO for now only generate attribute functions
+        self.write_parser_functions()
+
+
+        # self.write_functions_to_retrieve()
+        # if self.document:
+        #     self.write_document_error_log_functions()
+        # self.write_protected_functions()
+        # if self.add_impl is not None and not self.is_list_of:
+        #     self.copy_additional_file(self.add_impl)
+
+
+
     def write_parser_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
@@ -978,7 +1058,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_jsbml_class_header()
         self.write_jsbml_parser_variables()
-        # self.write_class()
+        self.write_parser_class()
         self.skip_line(1)
         self.close_jsbml_class_header()
         # self.write_cpp_end()

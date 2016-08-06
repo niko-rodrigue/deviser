@@ -44,107 +44,16 @@ import random
 class ParserFunctions():
     """Class for general functions"""
 
-    def __init__(self, language, is_java_api, is_list_of, expanded_package_object, jsbml_data_tree=None,
+    def __init__(self, language, is_java_api, expanded_package_object, jsbml_data_tree=None,
                  jsbml_methods=None, prime_numbers = None, abstract_jsbml_methods = None, import_modules=None):
         self.language = language
         self.cap_language = language.upper()
-        self.package = expanded_package_object['package']
-        self.class_name = expanded_package_object['name']
-        self.has_std_base = expanded_package_object['has_std_base']
-        self.base_class = expanded_package_object['baseClass']
+        self.package =  expanded_package_object['original_name']
+        self.parser_name = expanded_package_object['name']
+        self.original_name =  expanded_package_object['original_name']
+        self.is_parser = True
         self.is_java_api = is_java_api
-        self.is_list_of = is_list_of
-        self.is_plugin = False
-        if 'is_plugin' in expanded_package_object:
-            self.is_plugin = expanded_package_object['is_plugin']
-        self.is_doc_plugin = False
-        if 'is_doc_plugin' in expanded_package_object:
-            self.is_doc_plugin = expanded_package_object['is_doc_plugin']
-        self.ext_class = ''
-        if self.is_plugin:
-            self.ext_class = expanded_package_object['sbase']
-        if is_list_of:
-            self.child_name = expanded_package_object['lo_child']
-        else:
-            self.child_name = ''
-        if is_java_api:
-            self.object_name = self.class_name
-            self.object_child_name = self.child_name
-        else:
-            if is_list_of:
-                self.object_name = 'ListOf_t'
-            else:
-                self.object_name = self.class_name + '_t'
-            self.object_child_name = self.child_name + '_t'
-        self.element_name = ''
-        self.override_name = False
-        if 'elementName' in expanded_package_object and not is_list_of:
-            self.element_name = expanded_package_object['elementName']
-            if self.element_name == '':
-                self.override_name = False
-            else:
-                self.override_name = not \
-                    strFunctions.compare_no_case(self.element_name,
-                                                 self.class_name)
-        if not global_variables.is_package:
-            self.override_name = True
-            if is_list_of:
-                self.element_name = \
-                    strFunctions.lower_list_of_name_no_prefix(expanded_package_object['elementName'])
-            else:
-                self.element_name = expanded_package_object['elementName']
 
-
-        self.typecode = expanded_package_object['typecode']
-        self.attributes = expanded_package_object['class_attributes']
-        self.sid_refs = expanded_package_object['sid_refs']
-        self.unit_sid_refs = expanded_package_object['unit_sid_refs']
-        self.child_lo_elements = expanded_package_object['child_lo_elements']
-        self.child_elements = expanded_package_object['child_elements']
-        self.has_math = expanded_package_object['has_math']
-        self.has_array = expanded_package_object['has_array']
-        self.overwrites_children = expanded_package_object['overwrites_children']
-        self.has_children = expanded_package_object['has_children']
-        self.has_only_math = expanded_package_object['has_only_math']
-        self.num_non_std_children = expanded_package_object['num_non_std_children']
-        self.num_children = expanded_package_object['num_children']
-        self.std_base = expanded_package_object['std_base']
-
-        self.required = 'false'
-        if 'is_doc_plugin' in expanded_package_object:
-            if expanded_package_object['reqd']:
-                self.required = 'true'
-
-        self.document = False
-        if 'document' in expanded_package_object:
-            self.document = expanded_package_object['document']
-
-        # useful variables
-        if not self.is_java_api and self.is_list_of:
-            self.struct_name = self.object_child_name
-        else:
-            self.struct_name = self.object_name
-        self.abbrev_parent = strFunctions.abbrev_name(self.object_name)
-        if self.is_java_api is False:
-            self.true = '@c 1'
-            self.false = '@c 0'
-        else:
-            self.true = '@c true'
-            self.false = '@c false'
-
-        # status
-        if self.is_java_api:
-            if self.is_list_of:
-                self.status = 'cpp_list'
-            else:
-                self.status = 'cpp_not_list'
-        else:
-            if self.is_list_of:
-                self.status = 'c_list'
-            else:
-                self.status = 'c_not_list'
-
-        # TODO GSOC 2016
 
         # For tests
         self.run_tests = global_variables.running_tests
@@ -160,6 +69,105 @@ class ParserFunctions():
         if import_modules is not None:
             self.import_modules = import_modules
 
+
+        # self.has_std_base = expanded_package_object['has_std_base']
+        # self.base_class = expanded_package_object['baseClass']
+        # self.is_java_api = is_java_api
+        # self.is_list_of = is_list_of
+        # self.is_plugin = False
+        # if 'is_plugin' in expanded_package_object:
+        #     self.is_plugin = expanded_package_object['is_plugin']
+        # self.is_doc_plugin = False
+        # if 'is_doc_plugin' in expanded_package_object:
+        #     self.is_doc_plugin = expanded_package_object['is_doc_plugin']
+        # self.ext_class = ''
+        # if self.is_plugin:
+        #     self.ext_class = expanded_package_object['sbase']
+        # if is_list_of:
+        #     self.child_name = expanded_package_object['lo_child']
+        # else:
+        #     self.child_name = ''
+        if is_java_api:
+            self.object_name = self.parser_name
+            # self.object_child_name = self.child_name
+        # else:
+        #     if is_list_of:
+        #         self.object_name = 'ListOf_t'
+        #     else:
+        #         self.object_name = self.class_name + '_t'
+        #     self.object_child_name = self.child_name + '_t'
+        # self.element_name = ''
+        # self.override_name = False
+        # if 'elementName' in expanded_package_object and not is_list_of:
+        #     self.element_name = expanded_package_object['elementName']
+        #     if self.element_name == '':
+        #         self.override_name = False
+        #     else:
+        #         self.override_name = not \
+        #             strFunctions.compare_no_case(self.element_name,
+        #                                          self.class_name)
+        # if not global_variables.is_package:
+        #     self.override_name = True
+        #     if is_list_of:
+        #         self.element_name = \
+        #             strFunctions.lower_list_of_name_no_prefix(expanded_package_object['elementName'])
+        #     else:
+        #         self.element_name = expanded_package_object['elementName']
+        #
+        #
+        # self.typecode = expanded_package_object['typecode']
+        # self.attributes = expanded_package_object['class_attributes']
+        # self.sid_refs = expanded_package_object['sid_refs']
+        # self.unit_sid_refs = expanded_package_object['unit_sid_refs']
+        # self.child_lo_elements = expanded_package_object['child_lo_elements']
+        # self.child_elements = expanded_package_object['child_elements']
+        # self.has_math = expanded_package_object['has_math']
+        # self.has_array = expanded_package_object['has_array']
+        # self.overwrites_children = expanded_package_object['overwrites_children']
+        # self.has_children = expanded_package_object['has_children']
+        # self.has_only_math = expanded_package_object['has_only_math']
+        # self.num_non_std_children = expanded_package_object['num_non_std_children']
+        # self.num_children = expanded_package_object['num_children']
+        # self.std_base = expanded_package_object['std_base']
+        #
+        # self.required = 'false'
+        # if 'is_doc_plugin' in expanded_package_object:
+        #     if expanded_package_object['reqd']:
+        #         self.required = 'true'
+        #
+        # self.document = False
+        # if 'document' in expanded_package_object:
+        #     self.document = expanded_package_object['document']
+        #
+        # # useful variables
+        # if not self.is_java_api and self.is_list_of:
+        #     self.struct_name = self.object_child_name
+        # else:
+        #     self.struct_name = self.object_name
+        # self.abbrev_parent = strFunctions.abbrev_name(self.object_name)
+        # if self.is_java_api is False:
+        #     self.true = '@c 1'
+        #     self.false = '@c 0'
+        # else:
+        #     self.true = '@c true'
+        #     self.false = '@c false'
+        #
+        # # status
+        # if self.is_java_api:
+        #     if self.is_list_of:
+        #         self.status = 'cpp_list'
+        #     else:
+        #         self.status = 'cpp_not_list'
+        # else:
+        #     if self.is_list_of:
+        #         self.status = 'c_list'
+        #     else:
+        #         self.status = 'c_not_list'
+        #
+        # # TODO GSOC 2016
+        #
+
+
         self.attributeName = 'attributeName'
         self.prefix = 'prefix'
         self.value = 'value'
@@ -168,12 +176,290 @@ class ParserFunctions():
         self.duplicate_methods = []
 
 
-        self.methods_to_write = ['readAttribute', 'toString', 'writeXMLAttributes', 'hashCode']
+        # self.methods_to_write = ['readAttribute', 'toString', 'writeXMLAttributes', 'hashCode']
 
         # if self.is_java_api == True:
         #     self.expand_methods_to_write()
 
     ########################################################################
+
+        # TODO JSBML PLUGIN FUNCTION
+
+    def write_get_short_label(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getShortLabel'
+
+        title_line = '(non-Javadoc)-- @see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'String'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+
+
+        temp = ['return {0}Constants.shortLabel'.format(strFunctions.upper_first(self.package))]
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+    def write_get_namespace_uri(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getNamespaceURI'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'String'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+
+
+        temp = ['return {0}Constants.namespaceURI'.format(strFunctions.upper_first(self.package))]
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+
+
+    def write_get_prefix(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getPrefix'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getPrefix()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'String'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+
+
+        temp = ['return {0}Constants.shortLabel'.format(self.package)]
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+
+    def write_get_parent(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getParent'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getParent()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'SBMLDocument'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+        implem = ['isSetExtendedSBase()', 'return (SBMLDocument) getExtendedSBase().getParent()']
+        code.append(self.create_code_block('if', implem))
+
+        temp = ['return null']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+    def write_get_parent_sbml_object(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getParentSBMLObject'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getParentSBMLObject()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'SBMLDocument'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+        temp = ['return getParent()']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # This look like it is not required
     def expand_methods_to_write(self):
@@ -1405,263 +1691,7 @@ class ParserFunctions():
                      'implementation': code})
 
     ############################################################################
-    # TODO JSBML PLUGIN FUNCTION
 
-    def write_get_package_name(self):
-        # do not write for C API
-        if self.is_java_api is False:
-            return
-        # create doc string header
-        function = 'getPackageName'
-
-
-        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getPackageName()'
-        params = ['@param None']
-        return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
-
-        return_type = 'String'
-        arguments = []
-        # create the function implementation
-
-        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
-        code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-        temp = ['return {0}Constants.shortLabel'.format(self.package)]
-        code.append(self.create_code_block('line', temp))
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.object_name,
-                     'implementation': code,
-                     'constructor_args': constructor_args})
-
-    def write_get_prefix(self):
-        # do not write for C API
-        if self.is_java_api is False:
-            return
-        # create doc string header
-        function = 'getPrefix'
-
-        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getPrefix()'
-        params = ['@param None']
-        return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
-
-        return_type = 'String'
-        arguments = []
-        # create the function implementation
-
-        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
-        code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-        temp = ['return {0}Constants.shortLabel'.format(self.package)]
-        code.append(self.create_code_block('line', temp))
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.object_name,
-                     'implementation': code,
-                     'constructor_args': constructor_args})
-
-
-    def write_get_uri(self):
-        # do not write for C API
-        if self.is_java_api is False:
-            return
-        # create doc string header
-        function = 'getURI'
-
-        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getURI()'
-        params = ['@param None']
-        return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
-
-        return_type = 'String'
-        arguments = []
-        # create the function implementation
-
-        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
-        code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-        temp = ['return getElementNamespace()']
-        code.append(self.create_code_block('line', temp))
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.object_name,
-                     'implementation': code,
-                     'constructor_args': constructor_args})
-
-    def write_get_parent(self):
-        # do not write for C API
-        if self.is_java_api is False:
-            return
-        # create doc string header
-        function = 'getParent'
-
-        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getParent()'
-        params = ['@param None']
-        return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
-
-        return_type = 'SBMLDocument'
-        arguments = []
-        # create the function implementation
-
-        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
-        code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-        implem = ['isSetExtendedSBase()', 'return (SBMLDocument) getExtendedSBase().getParent()']
-        code.append(self.create_code_block('if', implem))
-
-        temp = ['return null']
-        code.append(self.create_code_block('line', temp))
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.object_name,
-                     'implementation': code,
-                     'constructor_args': constructor_args})
-
-    def write_get_parent_sbml_object(self):
-        # do not write for C API
-        if self.is_java_api is False:
-            return
-        # create doc string header
-        function = 'getParentSBMLObject'
-
-        title_line = '(non-Javadoc)--@see org.sbml.jsbml.ext.SBasePlugin#getParentSBMLObject()'
-        params = ['@param None']
-        return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
-
-        return_type = 'SBMLDocument'
-        arguments = []
-        # create the function implementation
-
-        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
-        code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-        temp = ['return getParent()']
-        code.append(self.create_code_block('line', temp))
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.object_name,
-                     'implementation': code,
-                     'constructor_args': constructor_args})
 
     #############################################################################
 
@@ -2713,203 +2743,14 @@ class ParserFunctions():
 
     ########################################################################
 
-    # Functions for document plugin
 
-    # function to write is comp flattening done
-    def write_is_comp_flat(self):
-        if not self.is_doc_plugin:
-            return
 
-        # create comment parts
-        title_line = 'Predicate indicating whether \'comp\' flattening has ' \
-                     'been implemented for the {0} package.' \
-                     ''.format(self.package)
-        params = []
-        return_lines = []
-        additional = []
 
-        # create the function declaration
-        arguments = []
-        function = 'isCompFlatteningImplemented'
-        return_type = 'bool'
-
-        # create the function implementation
-        code = [dict({'code_type': 'line', 'code': ['return false']})]
-
-        # return the parts
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': True,
-                     'virtual': True,
-                     'object_name': self.struct_name,
-                     'implementation': code})
-
-    # function to write check consistency
-    def write_check_consistency(self):
-        if not self.is_doc_plugin:
-            return
-
-        # create comment parts
-        title_line = 'Calls check consistency for any relevant ' \
-                     '{0} validators.'.format(self.package)
-        params = []
-        return_lines = []
-        additional = []
-
-        # create the function declaration
-        arguments = []
-        function = 'checkConsistency'
-        return_type = 'unsigned int'
-
-        # create the function implementation
-        implementation = ['unsigned int nerrors = 0',
-                          'unsigned int total_errors = 0']
-        code = [self.create_code_block('line', implementation)]
-        implementation = ['{0}* doc = static_cast<{0}*>(this->'
-                          'getParent{1}'
-                          'Object())'.format(global_variables.document_class,
-                                             self.cap_language),
-                          '{0}ErrorLog* log = doc->getError'
-                          'Log()'.format(self.cap_language)]
-        code.append(self.create_code_block('line', implementation))
-        implementation = ['unsigned char applicableValidators = '
-                          'doc->getApplicableValidators()',
-                          'bool id = ((applicableValidators & 0x01) ==0x01)',
-                          'bool core = ((applicableValidators & 0x02) ==0x02)']
-        code.append(self.create_code_block('line', implementation))
-        implementation = ['{0}IdentifierConsistencyValidator '
-                          'id_validator'.format(self.package),
-                          '{0}ConsistencyValidator '
-                          'core_validator'.format(self.package)]
-        code.append(self.create_code_block('line', implementation))
-        implementation = self.get_validator_block('id')
-        code.append(self.create_code_block('if', implementation))
-        implementation = self.get_validator_block('core')
-        code.append(self.create_code_block('if', implementation))
-        code.append(self.create_code_block('line', ['return total_errors']))
-
-        # return the parts
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': True,
-                     'object_name': self.struct_name,
-                     'implementation': code})
-
-    # function to write read attributes
-    # note not the standard read attributes function; this is specific to
-    # the document plugin
-    def write_read_attributes(self):
-        if not self.is_doc_plugin:
-            return
-
-        # sort error names to be used
-        error = '{0}AttributeRequiredMustBeBoolean'.format(self.package)
-        req_error = '{0}AttributeRequiredMissing'.format(self.package)
-        value_error = '{0}AttributeRequiredMustHaveValue'.format(self.package)
-        # create comment parts
-        title_line = 'Reads the {0} attributes in the top-level ' \
-                     'element.'.format(self.package)
-        params = []
-        return_lines = []
-        additional = []
-
-        # create the function declaration
-        if global_variables.is_package:
-            arguments = ['const XMLAttributes& attributes',
-                         'const ExpectedAttributes& expectedAttributes']
-        else:
-            arguments = ['const LIBSBML_CPP_NAMESPACE_QUALIFIER XMLAttributes& attributes',
-                         'const LIBSBML_CPP_NAMESPACE_QUALIFIER ExpectedAttributes& expectedAttributes']
-        function = 'readAttributes'
-        return_type = 'void'
-
-        # create the function implementation
-        implementation = ['get{0}() != NULL && get{0}()->'
-                          'getLevel() < '
-                          '3'.format(global_variables.document_class),
-                          'return']
-        code = [dict({'code_type': 'if', 'code': implementation})]
-        if global_variables.is_package:
-            triple = 'XMLTriple'
-        else:
-            triple = 'LIBSBML_CPP_NAMESPACE_QUALIFIER XMLTriple'
-        implementation = ['{0}ErrorLog* log = getErrorLog'
-                          '()'.format(self.cap_language),
-                          'unsigned int numErrs = log->getNumErrors()',
-                          '{0} tripleReqd(\"required\", mURI, '
-                          'getPrefix())'.format(triple),
-                          'bool assigned = attributes.readInto(tripleReqd, '
-                          'mRequired)']
-        code.append(self.create_code_block('line', implementation))
-        implementation = ['log->getNumErrors() == numErrs + 1 && '
-                          'log->contains(XMLAttributeTypeMismatch)',
-                          'log->remove(XMLAttributeTypeMismatch)',
-                          'log->logPackageError(\"{0}\", {1}, '
-                          'getPackageVersion(), getLevel(), '
-                          'getVersion())'.format(self.package.lower(),
-                                                 error),
-                          'else',
-                          'log->logPackageError(\"{0}\", {1}, '
-                          'getPackageVersion(), getLevel(), '
-                          'getVersion())'.format(self.package.lower(),
-                                                 req_error)
-                          ]
-        nested_if = self.create_code_block('if_else', implementation)
-        implementation = ['mRequired != {0}'.format(self.required),
-                          'log->logPackageError(\"{0}\", {1}, '
-                          'getPackageVersion(), getLevel(), '
-                          'getVersion())'.format(self.package.lower(),
-                                                 value_error)
-                          ]
-        second_nested_if = self.create_code_block('if', implementation)
-        implementation = ['assigned == false', nested_if,
-                          'else', 'mIsSetRequired = true', second_nested_if]
-        code.append(self.create_code_block('if_else', implementation))
-
-        # return the parts
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': True,
-                     'object_name': self.struct_name,
-                     'implementation': code})
 
     ########################################################################
 
     # HELPER FUNCTIONS
 
-    def get_validator_block(self, valid_id):
-        bail_if = self.create_code_block('if',
-                                         ['log->getNumFailsWithSeverity(LIB{0}'
-                                          '_SEV_ERROR) > '
-                                          '0'.format(self.cap_language),
-                                          'return total_errors'])
-        errors_if = self.create_code_block('if',
-                                           ['nerrors > 0',
-                                            'log->add({0}_validator.get'
-                                            'Failures())'.format(valid_id),
-                                            bail_if])
-        code_block = ['{0}'.format(valid_id),
-                      '{0}_validator.init()'.format(valid_id),
-                      'nerrors = {0}_validator.validate(*doc)'.format(valid_id),
-                      'total_errors += nerrors', errors_if]
-        return code_block
 
     @staticmethod
     def create_code_block(code_type, lines):
