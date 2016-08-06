@@ -18,10 +18,75 @@
  * ----------------------------------------------------------------------------
  */
 package org.sbml.jsbml.xml.parsers;
+
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import javax.swing.tree.TreeNode;
+import org.apache.log4j.Logger;
+import org.mangosdk.spi.ProviderFor;
+
+import org.sbml.jsbml.*;
+import org.sbml.jsbml.util.*;
+import org.sbml.jsbml.util.filters.*;
+import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
+import org.sbml.jsbml.ext.SBasePlugin;
+import org.sbml.jsbml.ext.qual.*;
+
 /**
  * @author Deviser
  * @version $Rev: 2465 $
  * @since 1.2
  * @date $Date: $
  */
+@ProviderFor(ReadingParser.class)
+public class QualParser extends AbstractReaderWriter implements PackageParser {
+
+  /**
+   *
+   */
+  private QualList groupList = QualList.none;
+  /**
+   *
+   */
+  private static final transient Logger logger = Logger.getLogger(QualParser.class);
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public String getNamespaceURI() {
+    return QualConstants.namespaceURI;
+  }
+
+  /* (non-Javadoc)
+   *  @see
+   */
+  @Override
+  public String getShortLabel() {
+    return QualConstants.shortLabel;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public List<Object> getListOfSBMLElementsToWrite(Object sbase) {
+    if (logger.isDebugEnabled()) {
+      logger.debug("getListOfSBMLElementsToWrite: " +
+        sbase.getClass().getCanonicalName());
+    }
+    List<Object> listOfElementsToWrite = new ArrayList<Object>();
+
+    if (sbase instanceof Model) {
+      QualModelPlugin ModelPlugin = (QualModelPlugin) ((Model)
+        sbase).getExtension(QualConstants.namespaceURI);
+    }
+    return listOfElementsToWrite;
+  }
+
+
 }

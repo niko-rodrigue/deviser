@@ -982,6 +982,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
         self.write_function_implementation(code)
 
+        code = parser_functions.write_is_required()
+        self.write_function_implementation(code)
+
         #
         # code = gen_functions.write_get_prefix()
         # self.write_function_implementation(code)

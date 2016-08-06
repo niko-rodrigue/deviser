@@ -289,7 +289,60 @@ class ParserFunctions():
                      'constructor_args': constructor_args})
 
 
-        # Functions for writing hashCode
+    def write_is_required(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'isRequired'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.PackageParser#isRequired()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'boolean'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+
+
+        temp = ['return false']
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
+
+
+
 
     def create_read_attribute_if(self, index):
         name = self.attributes[index]['capAttName']
@@ -435,14 +488,19 @@ class ParserFunctions():
 
         plugins = self.expanded_package['plugins']
 
-
+        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         for plugin in plugins:
             implementation = []
             temp = 'sbase instanceof {0}'.format(plugin['sbase'])
             implementation.append(temp)
 
-            package_name = '{0}{1}Plugin'
-
+            package_name = '{0}'.format(plugin['package'])
+            lower_sbase = plugin['sbase']
+            upper_sbase = strFunctions.upper_first(plugin['sbase'])
+            temp = '{0} {1}Plugin = ({0}) (({2}) sbase).getExtension({3}Constants.namespaceURI)'.format(\
+                package_name, lower_sbase, upper_sbase, upper_original_name)
+            implementation.append(temp)
+            code.append(self.create_code_block('if',implementation))
 
 
         # # TODO here is the bug what to do?

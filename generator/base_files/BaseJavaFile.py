@@ -707,6 +707,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         # self.get_general_includes()
 
         if package['is_parser'] is True:
+            self.name = strFunctions.upper_first(self.expanded_package['original_name']) + 'Parser'
 
             self.import_from_java_modules.append('java.util.ArrayList')
             self.import_from_java_modules.append('java.util.List')
@@ -716,7 +717,8 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.import_from_java_modules.append('java.util.Enumeration')
 
             self.import_from_java_modules.append('javax.swing.tree.TreeNode')
-
+            self.import_from_java_modules.append('org.apache.log4j.Logger')
+            self.import_from_java_modules.append('org.mangosdk.spi.ProviderFor')
 
             self.import_from_jsbml_modules.append('*')
             self.import_from_jsbml_modules.append('util.*')
@@ -2164,15 +2166,17 @@ class BaseJavaFile(BaseFile.BaseFile):
         # line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
         # self.write_line(line)
 
+        self.line_length = 150
         self.write_variable_comment()
         line = 'private {0}List groupList = {0}List.none'.format(strFunctions.upper_first(
                                                         self.expanded_package['original_name']))
-        self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
 
         self.write_variable_comment()
         line = 'private static final transient Logger logger = Logger.getLogger({0}Parser.class)'.format(strFunctions.upper_first(
                                                         self.expanded_package['original_name']))
-        self.write_line(line)
+        self.write_jsbml_line_verbatim(line)
+        self.line_length = 79
         self.down_indent()
 
 
