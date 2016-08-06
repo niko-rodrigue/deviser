@@ -340,6 +340,57 @@ class ParserFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+    def write_get_package_name(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        function = 'getPackageName'
+
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.PackageParser#getPackageName()'
+        params = ['@param None']
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        # create function decl
+
+        return_type = 'String'
+        arguments = []
+        # create the function implementation
+
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
+        code = []
+        clone = 'clone'
+
+        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+        #     self.jsbml_methods,
+        #     function=function,
+        #     return_type=return_type)
+        #
+        # if additional_add is not None:
+        #     additional.append(additional_add)
+        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+        #                                                                      function, function_args)
+
+
+
+        temp = ['return {0}Constants.shortLabel'.format(strFunctions.upper_first(self.package))]
+        code.append(self.create_code_block('line', temp))
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'implementation': code,
+                     'constructor_args': constructor_args})
+
 
 
 

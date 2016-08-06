@@ -71,6 +71,22 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#isRequired()
+   */
+  @Override
+  public boolean isRequired() {
+    return false;
+  }
+
+  /* (non-Javadoc)
+   * @see
+   */
+  @Override
+  public String getPackageName() {
+    return QualConstants.shortLabel;
+  }
+
+  /* (non-Javadoc)
    * @see
    */
   @Override
