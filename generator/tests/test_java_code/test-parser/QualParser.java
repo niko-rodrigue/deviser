@@ -55,7 +55,7 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
    */
   private static final transient Logger logger = Logger.getLogger(QualParser.class);
   /* (non-Javadoc)
-   * @see
+   * @see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()
    */
   @Override
   public String getNamespaceURI() {
@@ -63,7 +63,7 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
-   *  @see
+   *  @see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()
    */
   @Override
   public String getShortLabel() {
@@ -79,11 +79,27 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
-   * @see
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#getPackageName()
    */
   @Override
   public String getPackageName() {
     return QualConstants.shortLabel;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#getPackageNamespaces()
+   */
+  @Override
+  public List<String> getPackageNamespaces() {
+    return getNamespaces();
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#getNamespaces()
+   */
+  @Override
+  public List<String> getNamespaces() {
+    return QualConstants.namespaces;
   }
 
   /* (non-Javadoc)
