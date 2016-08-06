@@ -113,28 +113,47 @@ class BaseJavaFile(BaseFile.BaseFile):
         for base_element_index in range(0, num_of_base_elements):
             base_element = package['baseElements'][base_element_index]
             base_element_attributes = base_element['attribs']
-            self.attributes = self.expand_attributes(base_element_attributes)
-            self.child_elements = self.get_children()
-            self.child_lo_elements = self.get_lo_children()
-            package['baseElements'][base_element_index]['expanded_attributes'] = self.attributes
-            package['baseElements'][base_element_index]['expanded_child_elements'] = self.child_elements
-            package['baseElements'][base_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
+
+            base_element['is_parser'] = False
+            base_element['is_plugin'] = False
+            base_element['is_constantFile'] = False
+            base_element['is_classFile'] = True
+
+            base_element['is_list_of'] = False
+            base_element['sid_refs'] = \
+                query.get_sid_refs(base_element['attribs'])
+            base_element['unit_sid_refs'] = \
+                query.get_sid_refs(base_element['attribs'], unit=True)
+
+
+            self.initialize_base_class(name, extension, base_element_attributes, is_parser)
+            self.expand_class(base_element)
+            # self.expand_class_for_parser(base_element)
+            self.updated_class_object = self.class_object
+            package['baseElements'][base_element_index] = self.updated_class_object
+
+            # self.attributes = self.expand_attributes(base_element_attributes)
+            # self.child_elements = self.get_children()
+            # self.child_lo_elements = self.get_lo_children()
+            # package['baseElements'][base_element_index]['expanded_attributes'] = self.attributes
+            # package['baseElements'][base_element_index]['expanded_child_elements'] = self.child_elements
+            # package['baseElements'][base_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
             # self.expand_class_for_parser(base_element)
 
         num_of_plugin_elements = len(package['plugins'])
         for plugin_element_index in range(0, num_of_plugin_elements):
+
+
             plugin_element = package['plugins'][plugin_element_index]
             plugin_element_attributes = base_element['attribs']
-            self.attributes = self.expand_attributes(plugin_element_attributes)
-            self.child_elements = self.get_children()
-            self.child_lo_elements = self.get_lo_children()
-            package['plugins'][plugin_element_index]['expanded_attributes'] = self.attributes
-            package['plugins'][plugin_element_index]['expanded_child_elements'] = self.child_elements
-            package['plugins'][plugin_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
-
             up_package = strFunctions.upper_first(package['original_name'])
             plugin_element['name'] = '{0}{1}Plugin'.format(up_package,
                                                          plugin_element ['sbase'])
+
+            plugin_element['is_parser'] = False
+            plugin_element['is_plugin'] = True
+            plugin_element['is_constantFile'] = False
+            plugin_element['is_classFile'] = False
             plugin_element ['is_plugin'] = True
             plugin_element ['is_list_of'] = False
             plugin_element ['hasListOf'] = False
@@ -152,12 +171,49 @@ class BaseJavaFile(BaseFile.BaseFile):
             for elem in plugin_element['lo_extension']:
                 plugin_element ['attribs'].append(self.get_attrib_descrip(elem))
 
+            self.initialize_base_class(name, extension, plugin_element_attributes, is_parser)
+            self.expand_class_for_parser(plugin_element)
 
-            package['plugins'][plugin_element_index]['expanded_plugin_name'] =\
-                strFunctions.upper_first(package['original_name']) + package['plugins'][plugin_element_index]['sbase']+'Plugin'
+            self.updated_class_object = self.class_object
+            package['plugins'][plugin_element_index] = self.updated_class_object
 
-            package['plugins'][plugin_element_index]['childrenNumber']= \
-                len(self.child_lo_elements) + len(self.child_elements)
+            # if plugin_element_attributes:
+            #     self.attributes = self.expand_attributes(plugin_element_attributes)
+            #     self.child_elements = self.get_children()
+            #     self.child_lo_elements = self.get_lo_children()
+            # else:
+            #     self.attributes = []
+            #     self.child_elements = []
+            #     self.child_lo_elements = []
+            #
+            # package['plugins'][plugin_element_index]['expanded_attributes'] = self.attributes
+            # package['plugins'][plugin_element_index]['expanded_child_elements'] = self.child_elements
+            # package['plugins'][plugin_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
+
+            # plugin_element['package'] = self.package
+            # plugin_element['class_attributes'] = self.class_attributes
+            # plugin_element['child_lo_elements'] = self.child_lo_elements
+            # plugin_element['child_elements'] = self.child_elements
+            # plugin_element['concretes'] = self.concretes
+            # plugin_element['has_array'] = query.has_array(self.class_attributes)
+            # plugin_element['has_vector'] = query.has_vector(self.class_attributes)
+            # plugin_element['has_math'] = self.has_math
+            # plugin_element['has_children'] = self.has_children
+            # plugin_element['has_only_math'] = self.has_only_math
+            # plugin_element['has_parent_list_of'] = self.has_parent_list_of
+            # plugin_element['num_children'] = self.num_children
+            # plugin_element['has_non_std_chilren'] = self.has_non_std_children
+            # plugin_element['num_non_std_children'] = self.num_non_std_children
+            # plugin_element['is_header'] = self.is_header
+            # plugin_element['document'] = self.document
+
+
+            # package['plugins'][plugin_element_index]['expanded_plugin_name'] =\
+            #     strFunctions.upper_first(package['original_name']) + package['plugins'][plugin_element_index]['sbase']+'Plugin'
+            #
+            # package['plugins'][plugin_element_index]['childrenNumber']= \
+            #     len(self.child_lo_elements) + len(self.child_elements)
+            # self.expand_class_for_parser(plugin_element)
 
 
         self.expanded_package = package
