@@ -993,10 +993,15 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         code = parser_functions.write_get_namespaces()
         self.write_function_implementation(code)
-        self.line_length = 79
+
+        code = parser_functions.write_get_namespace_for()
+        self.write_function_implementation(code)
+
+
 
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
         self.write_function_implementation(code)
+        self.line_length = 79
 
 
 

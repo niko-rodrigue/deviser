@@ -103,19 +103,28 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
-   * @see
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#getNamespaceFor (java.lang.String, java.lang.String, java.lang.String)
+   */
+  @Override
+  public String getNamespaceFor(int level, int version, int packageVersion) {
+    if (level == 3 && version == 1 && packageVersion == 1) {
+      return QualConstants.namespaceURI_L3V1V1;
+    }
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)
    */
   @Override
   public List<Object> getListOfSBMLElementsToWrite(Object sbase) {
     if (logger.isDebugEnabled()) {
-      logger.debug("getListOfSBMLElementsToWrite: " +
-        sbase.getClass().getCanonicalName());
+      logger.debug("getListOfSBMLElementsToWrite: " + sbase.getClass().getCanonicalName());
     }
     List<Object> listOfElementsToWrite = new ArrayList<Object>();
 
     if (sbase instanceof Model) {
-      QualModelPlugin ModelPlugin = (QualModelPlugin) ((Model)
-        sbase).getExtension(QualConstants.namespaceURI);
+      QualModelPlugin ModelPlugin = (QualModelPlugin) ((Model) sbase).getExtension(QualConstants.namespaceURI);
     }
     return listOfElementsToWrite;
   }
