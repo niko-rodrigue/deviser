@@ -48,6 +48,7 @@ class ParserFunctions():
                  jsbml_methods=None, prime_numbers = None, abstract_jsbml_methods = None, import_modules=None):
         self.language = language
         self.cap_language = language.upper()
+        self.expanded_package = expanded_package_object
         self.package =  expanded_package_object['original_name']
         self.parser_name = expanded_package_object['name']
         self.original_name =  expanded_package_object['original_name']
@@ -288,7 +289,260 @@ class ParserFunctions():
                      'constructor_args': constructor_args})
 
 
+        # Functions for writing hashCode
 
+    def create_read_attribute_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        java_type = self.attributes[index]['JClassType']
+        type = self.attributes[index]['attType']
+
+        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+
+        implement = ['{0}.equals({1}Constants.{2}'.format(self.attributeName, self.package, member_name),
+                     'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)]  # 3rd line
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        temp_code = self.create_code_block('if', implement)
+        return temp_code
+
+    def create_read_attribute_else_if(self, index):
+        name = self.attributes[index]['capAttName']
+        member_name = self.attributes[index]['name']
+        java_type_data = self.attributes[index]['JClassType']
+        type = self.attributes[index]['type']
+
+        if java_type_data == 'Boolean':
+            java_type = 'Boolean'
+        elif java_type_data == 'Integer':
+            java_type = 'Int'
+        elif type == 'enum':
+            # if java_type_data in self.jsbml_data_tree['Difference']:
+            #     data = self.jsbml_data_tree['Difference'][java_type_data]
+            # else:
+            #     data = None
+            # if data is not None:
+            #     java_type = data
+            # else:
+            java_type = java_type_data
+        else:  # TODO needs to be modified
+            java_type = java_type_data
+
+        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+
+        implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name)]
+
+        if str(type)[:] == 'SIdRef':
+            implementation.append('set{0}({1})'.format(name, self.value))
+        elif str(type)[:] == 'IDREF':
+            implementation.append('set{0}({1})'.format(name, self.value))
+        elif type == 'enum':
+            temp_implementation = []
+
+            temp_implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
+            temp_implementation.append('catch')
+            temp_implementation.append('Exception e')
+            # temp_implementation.append('''throw new SBMLException("Could not recognized the value\'" + value + "\'for the attribute " + {0}Constants.{1} + " on the 'input' element.")'''.format(self.package, member_name))
+            temp_implementation.append('throw new SBMLException("Could not recognized '
+                                       'the value \'" +\
+                                        value + "\' for the attribute " + \
+                                        {0}Constants.{1} + " on the \'{2}\' element.")'.format(self.package,
+                                                                                               member_name,
+                                                                                               self.class_name))
+
+            implementation.append(self.create_code_block('try', temp_implementation))
+        elif type == 'SpatialKind':
+            implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
+        else:
+            implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
+
+        try:
+            if index < len(self.attributes) - 1:
+                implementation.append('else if')
+        except Exception as e:
+            # print('Yolo ', e)
+            pass
+        # implementation.append('else if')
+
+
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        # temp_code = self.create_code_block('else_if', implementation)
+        # return temp_code
+        return implementation
+
+    def create_read_attribute_else(self):
+        # name = self.attributes[index]['capAttName']
+        # member_name = self.attributes[index]['name']
+        # java_type = self.attributes[index]['JClassType']
+
+        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
+
+        implementation = ['else', 'isAttributeRead = false']  # 3rd line
+
+        # temp_code1 = self.create_code_block('line', implement1)
+        # temp_code = self.create_code_block('else_if', implementation)
+        # return temp_code
+        return implementation
+
+
+        # Functions for writing readAttributes
+
+    def write_get_list_of_sbml_elements_to_write(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'getListOfSBMLElementsToWrite'
+        # if function not in self.methods_to_write:
+        #     return
+
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)'
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'List<Object>'
+        arguments = ['Object sbase']  # , 'String prefix', 'String value']
+        arguments_no_defaults = ['Object sbase']
+
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+
+
+
+
+        implementation = ['logger.isDebugEnabled()',
+                          '      logger.debug("getListOfSBMLElementsToWrite: " + sbase.getClass().getCanonicalName())']
+        line = self.create_code_block('if', implementation)
+        code.append(line)
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
+
+        # line = self.create_code_block('empty_line', '')
+        # code.append(line)
+
+        implementation = [' List<Object> listOfElementsToWrite = new ArrayList<Object>()']
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+
+        plugins = self.expanded_package['plugins']
+
+
+        for plugin in plugins:
+            implementation = []
+            temp = 'sbase instanceof {0}'.format(plugin['sbase'])
+            implementation.append(temp)
+
+            package_name = '{0}{1}Plugin'
+
+
+
+        # # TODO here is the bug what to do?
+        # implementation_else_if = []
+        # # each atribute has id and name, which are not a must for jsbml
+        # if len(self.attributes) > 2:
+        #     # if zone stuff
+        #     implementation = ['!isAttributeRead']
+        #
+        #     implement_inside = ['isAttributeRead = true']
+        #     line = self.create_code_block('line', implement_inside)
+        #     implementation.append(line)
+        #
+        #     for i in range(0, len(self.attributes)):
+        #         # print('i is ',i)s
+        #         attribute = self.attributes[i]
+        #         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+        #             continue
+        #         else:  # Here lies a bug
+        #             temp_code = self.create_read_attribute_else_if(i)
+        #             implementation_else_if += temp_code
+        #             # else_if_index = i
+        #             # break
+        #             # code.append(temp_code[-1])
+        #
+        #     temp_code = self.create_read_attribute_else()
+        #     implementation_else_if += temp_code
+        #
+        #     if len(implementation_else_if) == 4:
+        #         temp_code = self.create_code_block('if_else', implementation_else_if)
+        #     else:
+        #         temp_code = self.create_code_block('else_if', implementation_else_if)
+        #
+        #     implementation.append(temp_code)
+        #     code.append(self.create_code_block('if', implementation))
+        #
+        #
+        #     # else:
+        #     #     temp = ['return isAttributeRead']
+        #     #     code.append(self.create_code_block('line', temp))
+        #
+        #     # print('yahoo ',implementation_else_if)
+        #
+        #     # try:
+        #     #     if len(self.attributes) > 1:
+        #     #         temp_code = self.create_read_attribute_else()
+        #     #         implementation_else_if += temp_code
+        #     #
+        #     #         temp_code = self.create_code_block('else_if', implementation_else_if)
+        #     #         implementation.append(temp_code)
+        #     #         code.append(self.create_code_block('if', implementation))
+        #     # except:
+        #     #     pass
+        #     # temp_code = self.create_code_block('else_if', implementation_else_if)
+        #     # implementation.append(temp_code)
+        #     # code.append(self.create_code_block('if', implementation))
+        # #         #code.append(temp_code)
+        # #         implementation.append(temp_code)
+        # #     # implementation.append('')
+        # #         code.append(self.create_code_block('if', implementation))
+        # # except Exception as e:
+        # #     print('Yolo test ', e)
+        #
+        #
+        temp = ['return listOfElementsToWrite']
+        code.append(self.create_code_block('line', temp))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
 
     def write_get_prefix(self):
         # do not write for C API

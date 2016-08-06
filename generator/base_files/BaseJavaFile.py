@@ -119,6 +119,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             package['baseElements'][base_element_index]['expanded_attributes'] = self.attributes
             package['baseElements'][base_element_index]['expanded_child_elements'] = self.child_elements
             package['baseElements'][base_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
+            # self.expand_class_for_parser(base_element)
 
         num_of_plugin_elements = len(package['plugins'])
         for plugin_element_index in range(0, num_of_plugin_elements):
@@ -131,8 +132,155 @@ class BaseJavaFile(BaseFile.BaseFile):
             package['plugins'][plugin_element_index]['expanded_child_elements'] = self.child_elements
             package['plugins'][plugin_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
 
+            up_package = strFunctions.upper_first(package['original_name'])
+            plugin_element['name'] = '{0}{1}Plugin'.format(up_package,
+                                                         plugin_element ['sbase'])
+            plugin_element ['is_plugin'] = True
+            plugin_element ['is_list_of'] = False
+            plugin_element ['hasListOf'] = False
+            plugin_element['package'] = plugin_element['name']
+            plugin_element ['typecode'] = ''
+            # class_object['baseClass'] = 'SBasePlugin'
+            plugin_element ['baseClass'] = 'AbstractSBasePlugin'
+            plugin_element ['sid_refs'] = []
+            plugin_element ['unit_sid_refs'] = []
+            plugin_element ['hasMath'] = False
+            for i in range(0, len(plugin_element ['extension'])):
+                plugin_element ['attribs'].append(self.get_attrib_descrip
+                                               (plugin_element ['extension'][i]))
+
+            for elem in plugin_element['lo_extension']:
+                plugin_element ['attribs'].append(self.get_attrib_descrip(elem))
+
+
+            package['plugins'][plugin_element_index]['expanded_plugin_name'] =\
+                strFunctions.upper_first(package['original_name']) + package['plugins'][plugin_element_index]['sbase']+'Plugin'
+
+            package['plugins'][plugin_element_index]['childrenNumber']= \
+                len(self.child_lo_elements) + len(self.child_elements)
+
+
         self.expanded_package = package
 
+
+
+    ########################################################################
+    # TODO will be needed for interfaces create a modified copy of it
+    def expand_class_for_parser(self, class_object):
+        self.class_object = class_object
+        self.is_list_of = class_object['is_list_of']
+        self.has_parent_list_of = class_object['hasListOf']
+        self.name = class_object['name']
+        self.class_name = class_object['name']
+        self.package = class_object['package']
+        self.typecode = class_object['typecode']
+        if class_object['is_list_of']:
+            self.list_of_name = class_object['list_of_name']
+            self.list_of_child = class_object['lo_child']
+        else:
+            self.list_of_name = ''
+            self.list_of_child = ''
+        # check case of things where we assume upper/lower
+        if self.package[0].islower():
+            self.package = strFunctions.upper_first(class_object['package'])
+
+        # are we a plugin
+        if 'is_plugin' in class_object:
+            self.is_plugin = class_object['is_plugin']
+        if 'is_doc_plugin' in class_object:
+            self.is_doc_plugin = class_object['is_doc_plugin']
+        if 'is_package_info_plugin' in class_object:
+            self.is_package_info_plugin = class_object['is_package_info_plugin']
+
+        # information about the base class
+        self.baseClass = class_object['baseClass']
+        if self.language != 'jsbml':
+            if not self.is_list_of:
+                base = '{0}Base'.format(global_variables.prefix)
+            else:
+                base = '{0}ListOf'.format(global_variables.prefix)
+            if base != self.baseClass:
+                self.has_std_base = False
+
+        elif not self.is_list_of and not self.is_plugin \
+                and self.baseClass != 'SBase':
+            self.has_std_base = False
+        elif self.is_list_of and not self.is_plugin \
+                and self.baseClass != 'ListOf':
+            self.has_std_base = False
+        elif self.is_plugin and not self.is_doc_plugin \
+                and self.baseClass != 'SBasePlugin':
+            self.has_std_base = False
+        elif self.is_doc_plugin:
+            self.has_std_base = True
+            self.std_base = '{0}DocumentPlugin'.format(self.cap_language)
+        self.class_object['has_std_base'] = self.has_std_base
+        self.class_object['std_base'] = self.std_base
+
+        # references
+        self.sid_refs = class_object['sid_refs']
+        self.unit_sid_refs = class_object['unit_sid_refs']
+        if 'addDecls' in class_object:
+            self.add_decls = class_object['addDecls']
+        if 'addDefs' in class_object:
+            self.add_impl = class_object['addDefs']
+        # if 'childrenOverwriteElementName' in class_object:
+        #     self.overwrites_children = \
+        #         class_object['childrenOverwriteElementName']
+        if 'root' in class_object:
+            self.overwrites_children = \
+                query.overwrites_name(class_object['root'],
+                                      class_object['name'])
+        self.class_object['overwrites_children'] = self.overwrites_children
+
+        # child elements
+        self.has_math = class_object['hasMath']
+        self.has_children = query.has_children(class_object['attribs'])
+        if self.has_math and \
+                not query.has_children_not_math(class_object['attribs']):
+            self.has_only_math = True
+
+        # mark child elements as ML nodes
+        for i in range(0, len(self.child_elements)):
+            element = self.child_elements[i]
+            if element['element'].endswith('Node') \
+                    and not element['element'].endswith('CSGNode'):
+                self.child_elements[i]['is_ml'] = True
+                self.has_non_std_children = True
+                self.num_non_std_children += 1
+            else:
+                self.child_elements[i]['is_ml'] = False
+
+        if 'concrete' in class_object:
+            self.concretes = query.get_concretes(class_object['root'],
+                                                 class_object['concrete'])
+        # TODO I think it will be critical for import statements
+        self.class_attributes = query.separate_attributes(self.attributes)
+
+        # document class for other libraries
+        self.document = False
+        if 'document' in class_object:
+            self.document = class_object['document']
+        # add info back to the class_object so we can pass it on
+        self.class_object['package'] = self.package
+        self.class_object['class_attributes'] = self.class_attributes
+        self.class_object['child_lo_elements'] = self.child_lo_elements
+        self.class_object['child_elements'] = self.child_elements
+        self.class_object['concretes'] = self.concretes
+        self.class_object['has_array'] = query.has_array(self.class_attributes)
+        self.class_object['has_vector'] = query.has_vector(self.class_attributes)
+        self.class_object['has_math'] = self.has_math
+        self.class_object['has_children'] = self.has_children
+        self.class_object['has_only_math'] = self.has_only_math
+        self.class_object['has_parent_list_of'] = self.has_parent_list_of
+        self.class_object['num_children'] = self.num_children
+        self.class_object['has_non_std_chilren'] = self.has_non_std_children
+        self.class_object['num_non_std_children'] = self.num_non_std_children
+        self.class_object['is_header'] = self.is_header
+        self.class_object['document'] = self.document
+
+        # TODO GSOC 2016
+        self.pack = str(self.package).lower()
 
 
     def initialize_base_class(self,name, extension, attributes, is_parser=False):
@@ -192,7 +340,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         # self.jsbml_data_tree = {}
         # self.pack = str(self.package).lower()
 
-    ########################################################################
+
+
 
     # TODO will be needed for interfaces create a modified copy of it
     def expand_class(self, class_object):
@@ -2098,3 +2247,27 @@ class BaseJavaFile(BaseFile.BaseFile):
     def create_code_block(code_type, lines):
         code = dict({'code_type': code_type, 'code': lines})
         return code
+
+
+    @staticmethod
+    def get_attrib_descrip(element):
+        if element['isListOf']:
+            attr_name = strFunctions.list_of_name(element['name'])
+            attr_type = 'lo_element'
+            attr_element = element['name']
+        else:
+            attr_name = element['name']
+            attr_type = 'element'
+            attr_element = element['name']
+        attribute_dict = dict({'type': attr_type,
+                               'reqd': False,
+                               'name': attr_name,
+                               'element': attr_element,
+                               'abstract': False,
+                               'num_versions': 1,
+                               'version': 1,
+                               'version_info': [True],
+                               'parent': element,
+                               'root': element['root']
+                               })
+        return attribute_dict

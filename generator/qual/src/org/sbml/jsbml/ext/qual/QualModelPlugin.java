@@ -40,7 +40,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 42311250780349641L;
+  private static final long serialVersionUID = 14899639724951524L;
   /**
    *
    */
@@ -480,7 +480,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 3865523;
+    final int prime = 460987;
 
     int hashCode = super.hashCode();
 
