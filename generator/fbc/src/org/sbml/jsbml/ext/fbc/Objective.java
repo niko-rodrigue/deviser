@@ -39,7 +39,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 65586657007831496L;
+  private static final long serialVersionUID = 15149150848009702L;
   /**
    *
    */
@@ -211,10 +211,10 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * @return true
+   * @return false
    */
   public boolean isListOfFluxObjectivesMandatory() {
-    return true;
+    return false;
   }
 
   /**
@@ -428,7 +428,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 2891381;
+    final int prime = 6680111;
 
     int hashCode = super.hashCode();
 

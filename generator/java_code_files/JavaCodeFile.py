@@ -1005,8 +1005,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_process_attribute()
         self.write_function_implementation(code)
         #
-        # code = parser_functions.write_processEndElement()
-        # self.write_function_implementation(code)
+        code = parser_functions.write_process_end_element()
+        self.write_function_implementation(code)
         #
         # code = parser_functions.write_processStartElement()
         # self.write_function_implementation(code)

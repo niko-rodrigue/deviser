@@ -25,26 +25,46 @@ package org.sbml.jsbml.ext.fbc;
  * @since 1.2
  * @date $Date: $
  */
-public enum FbcOperation {
+public enum FbcList {
 
   /**
    *
    */
-  lessEqual,
+  listOfFluxBounds,
   /**
    *
    */
-  greaterEqual,
+  listOfObjectives,
   /**
    *
    */
-  less,
+  listOfFluxObjectives,
   /**
    *
    */
-  greater,
+  listOfGeneProducts,
   /**
    *
    */
-  equal
+  listOfGeneProductRefs,
+  /**
+   *
+   */
+  listOfFbcAnds,
+  /**
+   *
+   */
+  listOfFbcOrs,
+  /**
+   *
+   */
+  listOfAssociations,
+  /**
+   *
+   */
+  listOfGeneProductAssociations,
+  /**
+   *
+   */
+  none;
 }

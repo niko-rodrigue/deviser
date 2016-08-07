@@ -179,6 +179,31 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         #     self.write_c_code()
         # self.write_cppns_end()
 
+
+
+
+
+    def write_jsbml_list_enums(self):
+        self.up_indent()
+
+        #Still many things to do
+        enums = self.enums_data
+        # attributes = self.class_attributes
+        for i in range(0,len(enums)):
+            enum = enums[i]
+            self.write_variable_comment()
+            line = 'listOf{0},'.format(strFunctions.plural(enum['name']))
+            self.write_line(line)
+
+        self.write_variable_comment()
+        self.write_line('none;')
+
+        self.down_indent()
+
+
+
+
+
     def write_list_enum_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
@@ -186,7 +211,7 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         self.write_enum_header()
-        # self.write_jsbml_enums()
+        self.write_jsbml_list_enums()
         self.close_enum_header()
         # self.write_cpp_end()
         # if not self.is_plugin:

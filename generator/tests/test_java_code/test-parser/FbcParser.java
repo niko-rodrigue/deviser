@@ -169,25 +169,5 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
     super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject);
   }
 
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processAttribute(String elementName, String attributeName, String value, String
-   */
-  @Override
-  public void processAttribute(String elementName, 
-                               String attributeName, 
-                               String value, 
-                               String uri, 
-                               String prefix, 
-                               boolean isLastAttribute, 
-                               Object contextObject) {
-
-    logger.debug("processAttribute -> " + prefix + ":" + attributeName + " = " + value + " (" + contextObject.getClass().getName() + ")");
-
-
-    groupList = FBCList.none;
-
-    return true;
-  }
-
 
 }

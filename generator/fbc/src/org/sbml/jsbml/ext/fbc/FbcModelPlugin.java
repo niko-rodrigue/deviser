@@ -40,7 +40,15 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 70608148676002013L;
+  private static final long serialVersionUID = 21903363359848630L;
+  /**
+   *
+   */
+  private Boolean strict;
+  /**
+   *
+   */
+  private ListOf<Objective> listOfObjectives;
   /**
    *
    */
@@ -48,7 +56,7 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   /**
    *
    */
-  private ListOf<Objective> listOfObjectives;
+  private ListOf<GeneProduct> listOfGeneProducts;
 
   /**
    * @param model the FbcModelPlugin instance to copy.
@@ -64,11 +72,17 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   public FbcModelPlugin(FbcModelPlugin fbcModel) {
     super(fbcModel);
 
-    if (fbcModel.isSetListOfFluxBounds()) {
-      setListOfFluxBounds(fbcModel.getListOfFluxBounds().clone());
+    if (fbcModel.isSetStrict()) {
+      setStrict(fbcModel.getStrict());
     }
     if (fbcModel.isSetListOfObjectives()) {
       setListOfObjectives(fbcModel.getListOfObjectives().clone());
+    }
+    if (fbcModel.isSetListOfFluxBounds()) {
+      setListOfFluxBounds(fbcModel.getListOfFluxBounds().clone());
+    }
+    if (fbcModel.isSetListOfGeneProducts()) {
+      setListOfGeneProducts(fbcModel.getListOfGeneProducts().clone());
     }
   }
 
@@ -80,12 +94,54 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * @param listOfFluxBounds
-   * the listOfFluxBounds to add
-   * @return
+   * Returns the value of {@link strict}.
+   *  
+   * @return the value of {@link strict}.
    */
-  public boolean addFluxBounds(FluxBound listOfFluxBounds) {
-    return getListOfFluxBounds().add(listOfFluxBounds);
+  public boolean getStrict() {
+    if (isSetStrict()) {
+      return strict.booleanValue();
+    }
+    throw new PropertyUndefinedError(FbcConstants.strict, this);
+  }
+
+  /**
+   * Returns whether {@link strict} is set.
+   *  
+   * @return whether {@link strict} is set.
+   */
+  public boolean isSetStrict() {
+    return this.strict != null;
+  }
+
+  /**
+   * Sets the value of strict
+   *  
+   * @param strict the value of strict to be set.
+   */
+  public boolean setStrict(boolean strict) {
+    if (strict != this.strict) {
+      Boolean oldStrict = this.strict;
+      this.strict = strict;
+      firePropertyChange(FbcConstants.strict, oldStrict, this.strict);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Unsets the variable strict.
+   *  
+   * @return {@code true} if strict was set before, otherwise {@code false}.
+   */
+  public boolean unsetStrict() {
+    if (isSetStrict()) {
+      Boolean oldStrict = strict;
+      strict = null;
+      firePropertyChange(FbcConstants.strict, oldStrict, strict);
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -98,18 +154,21 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Removes an element from the {@link #listOfFluxBoundss}
-   *  
-   * @param FluxBounds the element to be removed from the list.
-   * @return {@code true} if the list contained the specified element and it
-   * was removed.
-   * @see java.util.List#remove(Object)
+   * @param listOfFluxBounds
+   * the listOfFluxBounds to add
+   * @return
    */
-  public boolean removeFluxBounds(FluxBound listOfFluxBounds) {
-    if (isSetListOfFluxBounds()) {
-      return getListOfFluxBounds().remove(listOfFluxBounds);
-    }
-    return false;
+  public boolean addFluxBounds(FluxBound listOfFluxBounds) {
+    return getListOfFluxBounds().add(listOfFluxBounds);
+  }
+
+  /**
+   * @param listOfGeneProducts
+   * the listOfGeneProducts to add
+   * @return
+   */
+  public boolean addGeneProducts(GeneProduct listOfGeneProducts) {
+    return getListOfGeneProducts().add(listOfGeneProducts);
   }
 
   /**
@@ -130,16 +189,31 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   /**
    * Removes an element from the {@link #listOfFluxBoundss}
    *  
-   * @param i the index where to remove the {@link FluxBounds}.
-   * @return the specified element if it was successfully found and removed.
-   * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfFluxBoundss)})
+   * @param FluxBounds the element to be removed from the list.
+   * @return {@code true} if the list contained the specified element and it
+   * was removed.
+   * @see java.util.List#remove(Object)
    */
-  public FluxBound removeFluxBounds(int i) {
+  public boolean removeFluxBounds(FluxBound listOfFluxBounds) {
     if (isSetListOfFluxBounds()) {
-      throw new IndexOutOfBoundsException(Integer.toString(i));
+      return getListOfFluxBounds().remove(listOfFluxBounds);
     }
-    return getListOfFluxBounds().remove(i);
+    return false;
+  }
+
+  /**
+   * Removes an element from the {@link #listOfGeneProductss}
+   *  
+   * @param GeneProducts the element to be removed from the list.
+   * @return {@code true} if the list contained the specified element and it
+   * was removed.
+   * @see java.util.List#remove(Object)
+   */
+  public boolean removeGeneProducts(GeneProduct listOfGeneProducts) {
+    if (isSetListOfGeneProducts()) {
+      return getListOfGeneProducts().remove(listOfGeneProducts);
+    }
+    return false;
   }
 
   /**
@@ -158,22 +232,33 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns the {@link listOfFluxBounds}
-   * Creates it if it does not already exist.
+   * Removes an element from the {@link #listOfFluxBoundss}
    *  
-   * @return the {@link listOfFluxBounds}.
+   * @param i the index where to remove the {@link FluxBounds}.
+   * @return the specified element if it was successfully found and removed.
+   * @throws IndexOutOfBoundsException if the listOf is not set or if the index
+   * is out of bound ({@code (i < 0) || (i > listOfFluxBoundss)})
    */
-  public ListOf<FluxBound> getListOfFluxBounds() {
-    if (listOfFluxBounds == null) {
-      listOfFluxBounds = new ListOf<FluxBound>();
-      listOfFluxBounds.setNamespace(FbcConstants.namespaceURI);
-      listOfFluxBounds.setSBaseListType(ListOf.Type.other);
+  public FluxBound removeFluxBounds(int i) {
+    if (isSetListOfFluxBounds()) {
+      throw new IndexOutOfBoundsException(Integer.toString(i));
     }
-    if (isSetExtendedSBase()) {
-      extendedSBase.registerChild(listOfFluxBounds);
+    return getListOfFluxBounds().remove(i);
+  }
+
+  /**
+   * Removes an element from the {@link #listOfGeneProductss}
+   *  
+   * @param i the index where to remove the {@link GeneProducts}.
+   * @return the specified element if it was successfully found and removed.
+   * @throws IndexOutOfBoundsException if the listOf is not set or if the index
+   * is out of bound ({@code (i < 0) || (i > listOfGeneProductss)})
+   */
+  public GeneProduct removeGeneProducts(int i) {
+    if (isSetListOfGeneProducts()) {
+      throw new IndexOutOfBoundsException(Integer.toString(i));
     }
-     ;
-    return listOfFluxBounds;
+    return getListOfGeneProducts().remove(i);
   }
 
   /**
@@ -196,15 +281,41 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Creates a new FluxBounds element and adds it to the
-   * {@link listOfFluxBoundss} list.
+   * Returns the {@link listOfFluxBounds}
+   * Creates it if it does not already exist.
    *  
-   * @return the newly created element, i.e., the last item in the
-   * {@link listOfFluxBoundss}
+   * @return the {@link listOfFluxBounds}.
    */
-  public FluxBound createFluxBounds() {
-    FluxBound fluxBounds = new FluxBound(getLevel(), getVersion());
-    return addFluxBounds(fluxBounds) ? fluxBounds : null;
+  public ListOf<FluxBound> getListOfFluxBounds() {
+    if (listOfFluxBounds == null) {
+      listOfFluxBounds = new ListOf<FluxBound>();
+      listOfFluxBounds.setNamespace(FbcConstants.namespaceURI);
+      listOfFluxBounds.setSBaseListType(ListOf.Type.other);
+    }
+    if (isSetExtendedSBase()) {
+      extendedSBase.registerChild(listOfFluxBounds);
+    }
+     ;
+    return listOfFluxBounds;
+  }
+
+  /**
+   * Returns the {@link listOfGeneProducts}
+   * Creates it if it does not already exist.
+   *  
+   * @return the {@link listOfGeneProducts}.
+   */
+  public ListOf<GeneProduct> getListOfGeneProducts() {
+    if (listOfGeneProducts == null) {
+      listOfGeneProducts = new ListOf<GeneProduct>();
+      listOfGeneProducts.setNamespace(FbcConstants.namespaceURI);
+      listOfGeneProducts.setSBaseListType(ListOf.Type.other);
+    }
+    if (isSetExtendedSBase()) {
+      extendedSBase.registerChild(listOfGeneProducts);
+    }
+     ;
+    return listOfGeneProducts;
   }
 
   /**
@@ -220,15 +331,27 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns the number of {@link FluxBounds}s in this
-   * {@link Fbc}.
+   * Creates a new FluxBounds element and adds it to the
+   * {@link listOfFluxBoundss} list.
    *  
-   * @return the number of {@link FluxBounds}s in this {@link FluxBounds}.
-   * @libsbml.deprecated same as {@link #getFluxBoundsCount()}
+   * @return the newly created element, i.e., the last item in the
+   * {@link listOfFluxBoundss}
    */
-  @Deprecated
-  public int getNumFluxBounds() {
-    return getFluxBoundsCount();
+  public FluxBound createFluxBounds() {
+    FluxBound fluxBounds = new FluxBound(getLevel(), getVersion());
+    return addFluxBounds(fluxBounds) ? fluxBounds : null;
+  }
+
+  /**
+   * Creates a new GeneProducts element and adds it to the
+   * {@link listOfGeneProductss} list.
+   *  
+   * @return the newly created element, i.e., the last item in the
+   * {@link listOfGeneProductss}
+   */
+  public GeneProduct createGeneProducts() {
+    GeneProduct geneProducts = new GeneProduct(getLevel(), getVersion());
+    return addGeneProducts(geneProducts) ? geneProducts : null;
   }
 
   /**
@@ -244,13 +367,27 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns the number of {@link FluxBounds}s in this {@link Fbc}.
+   * Returns the number of {@link FluxBounds}s in this
+   * {@link Fbc}.
    *  
    * @return the number of {@link FluxBounds}s in this {@link FluxBounds}.
    * @libsbml.deprecated same as {@link #getFluxBoundsCount()}
    */
-  public int getFluxBoundsCount() {
-    return isSetListOfFluxBounds() ? getListOfFluxBounds().size() : 0;
+  @Deprecated
+  public int getNumFluxBounds() {
+    return getFluxBoundsCount();
+  }
+
+  /**
+   * Returns the number of {@link GeneProducts}s in this
+   * {@link Fbc}.
+   *  
+   * @return the number of {@link GeneProducts}s in this {@link GeneProducts}.
+   * @libsbml.deprecated same as {@link #getGeneProductsCount()}
+   */
+  @Deprecated
+  public int getNumGeneProducts() {
+    return getGeneProductsCount();
   }
 
   /**
@@ -264,17 +401,23 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns {@code true} if {@link listOfFluxBounds} contains at least one
-   * element.
+   * Returns the number of {@link FluxBounds}s in this {@link Fbc}.
    *  
-   * @return {@code true} if {@link listOfFluxBounds} contains at least one
-   * element, otherwise {@code false}.
+   * @return the number of {@link FluxBounds}s in this {@link FluxBounds}.
+   * @libsbml.deprecated same as {@link #getFluxBoundsCount()}
    */
-  public boolean isSetListOfFluxBounds() {
-    if ((listOfFluxBounds == null) || listOfFluxBounds.isEmpty()) {
-      return false;
-    }
-    return true;
+  public int getFluxBoundsCount() {
+    return isSetListOfFluxBounds() ? getListOfFluxBounds().size() : 0;
+  }
+
+  /**
+   * Returns the number of {@link GeneProducts}s in this {@link Fbc}.
+   *  
+   * @return the number of {@link GeneProducts}s in this {@link GeneProducts}.
+   * @libsbml.deprecated same as {@link #getGeneProductsCount()}
+   */
+  public int getGeneProductsCount() {
+    return isSetListOfGeneProducts() ? getListOfGeneProducts().size() : 0;
   }
 
   /**
@@ -292,20 +435,31 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<FluxBounds>}.
-   * If {@link listOfFluxBounds} was defined before and contains some elements,
-   * they are all unset.
+   * Returns {@code true} if {@link listOfFluxBounds} contains at least one
+   * element.
    *  
-   * @param listOfFluxBounds
+   * @return {@code true} if {@link listOfFluxBounds} contains at least one
+   * element, otherwise {@code false}.
    */
-  public void setListOfFluxBounds(ListOf<FluxBound> listOfFluxBounds) {
-    unsetListOfFluxBounds();
-    this.listOfFluxBounds = listOfFluxBounds;
-    this.listOfFluxBounds.setSBaseListType(ListOf.Type.other);
-
-    if (isSetExtendedSBase()) {
-      extendedSBase.registerChild(listOfFluxBounds);
+  public boolean isSetListOfFluxBounds() {
+    if ((listOfFluxBounds == null) || listOfFluxBounds.isEmpty()) {
+      return false;
     }
+    return true;
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfGeneProducts} contains at least one
+   * element.
+   *  
+   * @return {@code true} if {@link listOfGeneProducts} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean isSetListOfGeneProducts() {
+    if ((listOfGeneProducts == null) || listOfGeneProducts.isEmpty()) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -326,6 +480,57 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
+   * Sets the given {@code ListOf<FluxBounds>}.
+   * If {@link listOfFluxBounds} was defined before and contains some elements,
+   * they are all unset.
+   *  
+   * @param listOfFluxBounds
+   */
+  public void setListOfFluxBounds(ListOf<FluxBound> listOfFluxBounds) {
+    unsetListOfFluxBounds();
+    this.listOfFluxBounds = listOfFluxBounds;
+    this.listOfFluxBounds.setSBaseListType(ListOf.Type.other);
+
+    if (isSetExtendedSBase()) {
+      extendedSBase.registerChild(listOfFluxBounds);
+    }
+  }
+
+  /**
+   * Sets the given {@code ListOf<GeneProducts>}.
+   * If {@link listOfGeneProducts} was defined before and contains some
+   * elements, they are all unset.
+   *  
+   * @param listOfGeneProducts
+   */
+  public void setListOfGeneProducts(ListOf<GeneProduct> listOfGeneProducts) {
+    unsetListOfGeneProducts();
+    this.listOfGeneProducts = listOfGeneProducts;
+    this.listOfGeneProducts.setSBaseListType(ListOf.Type.other);
+
+    if (isSetExtendedSBase()) {
+      extendedSBase.registerChild(listOfGeneProducts);
+    }
+  }
+
+  /**
+   * Returns {@code true} if {@link listOfObjectives} contains at least one
+   * element, otherwise {@code false}.
+   *  
+   * @return {@code true} if {@link listOfObjectives} contains at least one
+   * element, otherwise {@code false}.
+   */
+  public boolean unsetListOfObjectives() {
+    if (isSetListOfObjectives()) {
+      ListOf<Objective> oldObjectives = this.listOfObjectives;
+      this.listOfObjectives = null;
+      oldObjectives.fireNodeRemovedEvent();
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Returns {@code true} if {@link listOfFluxBounds} contains at least one
    * element, otherwise {@code false}.
    *  
@@ -343,17 +548,17 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns {@code true} if {@link listOfObjectives} contains at least one
+   * Returns {@code true} if {@link listOfGeneProducts} contains at least one
    * element, otherwise {@code false}.
    *  
-   * @return {@code true} if {@link listOfObjectives} contains at least one
+   * @return {@code true} if {@link listOfGeneProducts} contains at least one
    * element, otherwise {@code false}.
    */
-  public boolean unsetListOfObjectives() {
-    if (isSetListOfObjectives()) {
-      ListOf<Objective> oldObjectives = this.listOfObjectives;
-      this.listOfObjectives = null;
-      oldObjectives.fireNodeRemovedEvent();
+  public boolean unsetListOfGeneProducts() {
+    if (isSetListOfGeneProducts()) {
+      ListOf<GeneProduct> oldGeneProducts = this.listOfGeneProducts;
+      this.listOfGeneProducts = null;
+      oldGeneProducts.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -414,15 +619,21 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
     }
     int pos = 0;
 
+    if (isSetListOfObjectives()) {
+      if (pos == index) {
+        return getListOfObjectives();
+      }
+      pos++;
+    }
     if (isSetListOfFluxBounds()) {
       if (pos == index) {
         return getListOfFluxBounds();
       }
       pos++;
     }
-    if (isSetListOfObjectives()) {
+    if (isSetListOfGeneProducts()) {
       if (pos == index) {
-        return getListOfObjectives();
+        return getListOfGeneProducts();
       }
       pos++;
     }
@@ -446,10 +657,13 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   public int getChildCount() {
     int count = 0;
 
+    if (isSetListOfObjectives()) {
+      count++;
+    }
     if (isSetListOfFluxBounds()) {
       count++;
     }
-    if (isSetListOfObjectives()) {
+    if (isSetListOfGeneProducts()) {
       count++;
     }
     return count;
@@ -459,15 +673,21 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 882961;
+    final int prime = 6568223;
 
     int hashCode = super.hashCode();
+
+    if (isSetStrict()) {
+      hashCode += prime + (getStrict() ? 1 : -1);
+    }
+    hashCode = prime * hashCode + ((listOfObjectives == null) ? 0 :
+      listOfObjectives.hashCode());
 
     hashCode = prime * hashCode + ((listOfFluxBounds == null) ? 0 :
       listOfFluxBounds.hashCode());
 
-    hashCode = prime * hashCode + ((listOfObjectives == null) ? 0 :
-      listOfObjectives.hashCode());
+    hashCode = prime * hashCode + ((listOfGeneProducts == null) ? 0 :
+      listOfGeneProducts.hashCode());
 
     return hashCode;
   }
@@ -479,11 +699,17 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   public String toString() {
     StringBuilder builder = new StringBuilder();
     builder.append("FbcModelPlugin [");
-    builder.append("listOfFluxBounds = ");
-    builder.append(listOfFluxBounds);
+    builder.append("strict = ");
+    builder.append(strict);
     builder.append(", ");
     builder.append("listOfObjectives = ");
     builder.append(listOfObjectives);
+    builder.append(", ");
+    builder.append("listOfFluxBounds = ");
+    builder.append(listOfFluxBounds);
+    builder.append(", ");
+    builder.append("listOfGeneProducts = ");
+    builder.append(listOfGeneProducts);
     return builder.toString();
   }
 
@@ -504,6 +730,10 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes();
 
+    if (isSetStrict()) {
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.strict,
+        Boolean.toString(getStrict()));
+    }
     return attributes;
   }
 

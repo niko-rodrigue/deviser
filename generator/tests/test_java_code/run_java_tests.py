@@ -457,18 +457,26 @@ def main():
     # test_case = 'an element on Sign Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
     #
-    name = 'qual'
-    num = 1
-    enum_name = 'TransitionOutputEffect'
-    test_case = 'an element on TransitionOutputEffect Enum'
-    fail += run_enum_test(name, num, enum_name, test_case)
+    # name = 'qual'
+    # num = 1
+    # enum_name = 'TransitionOutputEffect'
+    # test_case = 'an element on TransitionOutputEffect Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
     #
     # name = 'qual'
     # num = 2
     # enum_name = 'TransitionInputEffect'
     # test_case = 'an element on TransitionInputEffect Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
-    #
+
+    # name = 'qual'
+    # num = 3
+    # enum_name = 'QualList'
+    # test_case = 'an element on QualList Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+
+
+
     # # Qual Constants
     # name = 'qual'
     # constants_name = 'QualConstants'
@@ -476,11 +484,11 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
     #
     #
-    name = 'qual'
-    num = 0
-    class_name = 'QualModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
     # # FBC Constants
     # name = 'fbc_v2'
@@ -489,11 +497,11 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
 
     #
-    name = 'qual'
-    num = 0
-    class_name = 'QualParser'
-    test_case = 'Qual Parser'
-    fail += run_parser_test(name, class_name, test_case)
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualParser'
+    # test_case = 'Qual Parser'
+    # fail += run_parser_test(name, class_name, test_case)
 
     # name = 'fbc_v2'
     # num = 0
@@ -546,6 +554,12 @@ def main():
     # test_case = 'an element on FbcOperation Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
     #
+    # name = 'fbc_v2'
+    # num = 2
+    # enum_name = 'FbcList'
+    # test_case = 'an element on FbcList Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
     # # Qual Constants
     # name = 'fbc_v2'
     # constants_name = 'FbcConstants'
@@ -569,7 +583,11 @@ def main():
     # class_name = 'FbcReactionPlugin'
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
-
+    #
+    name = 'fbc_v2'
+    class_name = 'FbcParser'
+    test_case = 'FbcParser'
+    fail += run_parser_test(name, class_name, test_case)
 
 
     # #

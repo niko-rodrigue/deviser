@@ -33,25 +33,25 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBase {
+public class GeneProduct extends AbstractNamedSBase implements UniqueNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 37837494643527601L;
+  private static final long serialVersionUID = 40836867945649005L;
   /**
    *
    */
-  private String reaction;
+  private String label;
   /**
    *
    */
-  private Double coefficient;
+  private String associatedSpecies;
 
   /**
    *  
    */
-  public FluxObjective() {
+  public GeneProduct() {
     super();
     initDefaults();
   }
@@ -60,14 +60,14 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    * @param level
    * @param version
    */
-  public FluxObjective(int level, int version) {
+  public GeneProduct(int level, int version) {
     this(null, null, level, version);
   }
 
   /**
    * @param id
    */
-  public FluxObjective(String id) {
+  public GeneProduct(String id) {
     super(id);
     initDefaults();
   }
@@ -77,7 +77,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    * @param level
    * @param version
    */
-  public FluxObjective(String id, int level, int version) {
+  public GeneProduct(String id, int level, int version) {
     this(id, null, level, version);
   }
 
@@ -87,7 +87,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    * @param level
    * @param version
    */
-  public FluxObjective(String id, String name, int level, int version) {
+  public GeneProduct(String id, String name, int level, int version) {
     super(id, name, level, version);
 
     if (getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0) {
@@ -97,16 +97,16 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   }
 
   /**
-   * @param orig the FluxObjective instance to copy.
+   * @param orig the GeneProduct instance to copy.
    */
-  public FluxObjective(FluxObjective orig) {
+  public GeneProduct(GeneProduct orig) {
     super(orig);
 
-    if (orig.isSetReaction()) {
-      setReaction(orig.getReaction());
+    if (orig.isSetLabel()) {
+      setLabel(orig.getLabel());
     }
-    if (orig.isSetCoefficient()) {
-      setCoefficient(orig.getCoefficient());
+    if (orig.isSetAssociatedSpecies()) {
+      setAssociatedSpecies(orig.getAssociatedSpecies());
     }
   }
 
@@ -116,8 +116,8 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   public void initDefaults() {
     setPackageVersion(-1);
     packageName = FbcConstants.shortLabel;
-    reaction = null;
-    coefficient = null;
+    label = null;
+    associatedSpecies = null;
   }
 
   /* (non-Javadoc)
@@ -128,15 +128,15 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
     boolean equals = super.equals(object);
 
     if (equals) {
-      FluxObjective obj = (FluxObjective) object;
+      GeneProduct obj = (GeneProduct) object;
 
-      equals &= obj.isSetReaction() == isSetReaction();
-      if (equals && isSetReaction()) {
-        equals &= (obj.getReaction() == getReaction());
+      equals &= obj.isSetLabel() == isSetLabel();
+      if (equals && isSetLabel()) {
+        equals &= (obj.getLabel() == getLabel());
       }
-      equals &= obj.isSetCoefficient() == isSetCoefficient();
-      if (equals && isSetCoefficient()) {
-        equals &= (obj.getCoefficient() == getCoefficient());
+      equals &= obj.isSetAssociatedSpecies() == isSetAssociatedSpecies();
+      if (equals && isSetAssociatedSpecies()) {
+        equals &= (obj.getAssociatedSpecies() == getAssociatedSpecies());
       }
     }
     return equals;
@@ -145,117 +145,114 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   /**
    * (non-Javadoc)
    */
-  public FluxObjective clone() {
-    return new FluxObjective(this);
+  public GeneProduct clone() {
+    return new GeneProduct(this);
   }
 
   /**
-   * Returns the value of {@link reaction}.
+   * Returns the value of {@link label}.
    *  
-   * @return the value of {@link reaction}.
+   * @return the value of {@link label}.
    */
-  public String getReaction() {
-    return isSetReaction() ? reaction : "";
+  public String getLabel() {
+    return isSetLabel() ? label : "";
   }
 
   /**
-   * Returns the value of {@link coefficient}.
+   * Returns the value of {@link associatedSpecies}.
    *  
-   * @return the value of {@link coefficient}.
+   * @return the value of {@link associatedSpecies}.
    */
-  public double getCoefficient() {
-    if (isSetCoefficient()) {
-      return coefficient.doubleValue();
-    }
-    throw new PropertyUndefinedError(FbcConstants.coefficient, this);
+  public String getAssociatedSpecies() {
+    return isSetAssociatedSpecies() ? associatedSpecies : "";
   }
 
   /**
-   * Returns whether {@link reaction} is set.
+   * Returns whether {@link label} is set.
    *  
-   * @return whether {@link reaction} is set.
+   * @return whether {@link label} is set.
    */
-  public boolean isSetReaction() {
-    return this.reaction != null;
+  public boolean isSetLabel() {
+    return this.label != null;
   }
 
   /**
-   * Returns whether {@link coefficient} is set.
+   * Returns whether {@link associatedSpecies} is set.
    *  
-   * @return whether {@link coefficient} is set.
+   * @return whether {@link associatedSpecies} is set.
    */
-  public boolean isSetCoefficient() {
-    return this.coefficient != null;
+  public boolean isSetAssociatedSpecies() {
+    return this.associatedSpecies != null;
   }
 
   /**
-   * Sets the value of reaction
+   * Sets the value of label
    *  
-   * @param reaction the value of reaction to be set.
+   * @param label the value of label to be set.
    */
-  public boolean setReaction(String reaction) {
-    if (reaction != this.reaction) {
-      String oldReaction = this.reaction;
-      this.reaction = reaction;
-      firePropertyChange(FbcConstants.reaction, oldReaction, this.reaction);
+  public boolean setLabel(String label) {
+    if (label != this.label) {
+      String oldLabel = this.label;
+      this.label = label;
+      firePropertyChange(FbcConstants.label, oldLabel, this.label);
       return true;
     }
     return false;
   }
 
   /**
-   * Sets the value of coefficient
+   * Sets the value of associatedSpecies
    *  
-   * @param coefficient the value of coefficient to be set.
+   * @param associatedSpecies the value of associatedSpecies to be set.
    */
-  public boolean setCoefficient(double coefficient) {
-    if (coefficient != this.coefficient) {
-      Double oldCoefficient = this.coefficient;
-      this.coefficient = coefficient;
-      firePropertyChange(FbcConstants.coefficient, oldCoefficient,
-        this.coefficient);
+  public boolean setAssociatedSpecies(String associatedSpecies) {
+    if (associatedSpecies != this.associatedSpecies) {
+      String oldAssociatedSpecies = this.associatedSpecies;
+      this.associatedSpecies = associatedSpecies;
+      firePropertyChange(FbcConstants.associatedSpecies, oldAssociatedSpecies,
+        this.associatedSpecies);
       return true;
     }
     return false;
   }
 
   /**
-   * Unsets the variable reaction.
+   * Unsets the variable label.
    *  
-   * @return {@code true} if reaction was set before, otherwise {@code false}.
+   * @return {@code true} if label was set before, otherwise {@code false}.
    */
-  public boolean unsetReaction() {
-    if (isSetReaction()) {
-      String oldReaction = reaction;
-      reaction = null;
-      firePropertyChange(FbcConstants.reaction, oldReaction, reaction);
+  public boolean unsetLabel() {
+    if (isSetLabel()) {
+      String oldLabel = label;
+      label = null;
+      firePropertyChange(FbcConstants.label, oldLabel, label);
       return true;
     }
     return false;
   }
 
   /**
-   * Unsets the variable coefficient.
+   * Unsets the variable associatedSpecies.
    *  
-   * @return {@code true} if coefficient was set before, otherwise {@code
+   * @return {@code true} if associatedSpecies was set before, otherwise {@code
    * false}.
    */
-  public boolean unsetCoefficient() {
-    if (isSetCoefficient()) {
-      Double oldCoefficient = coefficient;
-      coefficient = null;
-      firePropertyChange(FbcConstants.coefficient, oldCoefficient,
-        coefficient);
+  public boolean unsetAssociatedSpecies() {
+    if (isSetAssociatedSpecies()) {
+      String oldAssociatedSpecies = associatedSpecies;
+      associatedSpecies = null;
+      firePropertyChange(FbcConstants.associatedSpecies, oldAssociatedSpecies,
+        associatedSpecies);
       return true;
     }
     return false;
   }
 
   /**
-   * @return true
+   * @return false
    */
-  public boolean isCoefficientMandatory() {
-    return true;
+  public boolean isAssociatedSpeciesMandatory() {
+    return false;
   }
 
   /* (non-Javadoc)
@@ -263,29 +260,29 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    */
   @Override
   public boolean isIdMandatory() {
-    return false;
+    return true;
   }
 
   /**
    * @return true
    */
-  public boolean isReactionMandatory() {
+  public boolean isLabelMandatory() {
     return true;
   }
 
-  /* hashcode method for FluxObjective.
+  /* hashcode method for GeneProduct.
    */
   @Override
   public int hashCode() {
-    final int prime = 1036661;
+    final int prime = 2560417;
 
     int hashCode = super.hashCode();
 
-    if (isSetReaction()) {
-      hashCode += prime * getReaction().hashCode();
+    if (isSetLabel()) {
+      hashCode += prime;
     }
-    if (isSetCoefficient()) {
-      hashCode += prime * getCoefficient();
+    if (isSetAssociatedSpecies()) {
+      hashCode += prime * getAssociatedSpecies().hashCode();
     }
     return hashCode;
   }
@@ -296,12 +293,12 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("FluxObjective [");
-    builder.append("reaction = ");
-    builder.append(reaction);
+    builder.append("GeneProduct [");
+    builder.append("label = ");
+    builder.append(label);
     builder.append(", ");
-    builder.append("coefficient = ");
-    builder.append(coefficient);
+    builder.append("associatedSpecies = ");
+    builder.append(associatedSpecies);
     builder.append(", id = ");
     builder.append(getId());
     builder.append(", name = ");
@@ -320,10 +317,10 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
     if (!isAttributeRead) {
       isAttributeRead = true;
 
-      if (attributeName.equals(FbcConstants.reaction)) {
-        setReaction(value);
-      }      else if (attributeName.equals(FbcConstants.coefficient)) {
-        setCoefficient(StringTools.parseSBMLDouble(value));
+      if (attributeName.equals(FbcConstants.label)) {
+        setLabel(StringTools.parseSBMLString(value));
+      }      else if (attributeName.equals(FbcConstants.associatedSpecies)) {
+        setAssociatedSpecies(value);
       } else {
         isAttributeRead = false;
       }
@@ -346,13 +343,13 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
       attributes.remove("name");
       attributes.put(FbcConstants.shortLabel + ":name", getName());
     }
-    if (isSetReaction()) {
-      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.reaction,
-        getReaction());
+    if (isSetLabel()) {
+      attributes.remove("label");
+      attributes.put(FbcConstants.shortLabel + ":label", getLabel());
     }
-    if (isSetCoefficient()) {
-      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.coefficient,
-        StringTools.toString(Locale.ENGLISH, getCoefficient()));
+    if (isSetAssociatedSpecies()) {
+      attributes.put(FbcConstants.shortLabel + ":" + FbcConstants.associatedSpecies,
+        getAssociatedSpecies());
     }
     return attributes;
   }
