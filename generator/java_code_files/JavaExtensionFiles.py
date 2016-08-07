@@ -38,7 +38,7 @@
 
 from . import JavaExtensionCodeFile
 # from . import JavaExtensionHeaderFile
-from . import JavaCodeFile
+from . import JavaCodeFile, JavaEnumFiles
 # from . import JavaHeaderFile
 from util import strFunctions, global_variables
 
@@ -63,6 +63,13 @@ class JavaExtensionFiles():
         # self.write_plugin_header(class_descrip)
         self.write_plugin_code(class_descrip)
         self.remove_class_description(num)
+
+
+    def write_enums(self):
+        for i in range(0, len(self.package['enums'])):
+            working_enum = self.package['enums'][i]
+            all_files = JavaEnumFiles.JavaEnumFiles(working_enum, self.package, True)
+            all_files.write_files()
 
 
     def write_parser_file(self):

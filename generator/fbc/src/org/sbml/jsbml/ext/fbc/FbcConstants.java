@@ -40,3 +40,96 @@ import org.sbml.jsbml.util.filters.*;
  */
 public class FbcConstants {
 
+  /**
+   * The namespace URI of this parser for SBML level 0, version 0 and package
+   * version 1.
+   */
+  public static final String namespaceURI_L0V0V1 = "http://www.sbml.org/sbml/level0/version0/fbc/version1";
+  /**
+   * The latest namespace URI of this parser, this value can change between
+   * releases.
+   */
+  public static final String namespaceURI = namespaceURI_L0V0V1;
+  /**
+   *
+   */
+  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.fbc.Messages");
+  /**
+   *
+   */
+  public static final String shortLabel = "fbc";
+  /**
+   *
+   */
+  public static final int MIN_SBML_LEVEL = 0;
+  /**
+   *
+   */
+  public static final int MIN_SBML_VERSION = 0;
+  /**
+   *
+   */
+  public static final int PACKAGE_VERSION = 1;
+  /**
+   *
+   */
+  public static final List<String> namespaces;
+  /**
+   *
+   */
+  public static final String packageName = "Flux Balance Constraints";
+  /**
+   *
+   */
+  static {
+    namespaces = new ArrayList<String>();
+    namespaces.add(namespaceURI_L0V0V1);
+  }
+  /**
+   * Generated serial version identifier.
+   */
+  private static final long     serialVersionUID = 18507804571772396L;
+  /**
+   *
+   */
+  public static final String reaction = "reaction";
+  /**
+   *
+   */
+  public static final String operation = "operation";
+  /**
+   *
+   */
+  public static final String value = "value";
+  /**
+   *
+   */
+  public static final String coefficient = "coefficient";
+  /**
+   *
+   */
+  public static final String type = "type";
+  /**
+   *
+   */
+  public static final String fluxObjective = "fluxObjective";
+  /**
+   *
+   */
+  public static final String listOfFluxObjectives = "listOfFluxObjectives";
+  /**
+   *
+   */
+  public static final String fluxBound = "FluxBound";
+  /**
+   *
+   */
+  public static final String objective = "Objective";
+  /**
+   *  
+   */
+  public static String getNamespaceURI(int level, int version) {
+    return namespaceURI;
+  }
+
+}

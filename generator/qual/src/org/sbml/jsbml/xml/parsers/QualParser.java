@@ -130,5 +130,27 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
     return listOfElementsToWrite;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processAttribute(String elementName, String attributeName, String value, String
+   */
+  @Override
+  public void processAttribute(String elementName, 
+                               String attributeName, 
+                               String value, 
+                               String uri, 
+                               String prefix, 
+                               boolean isLastAttribute, 
+                               Object contextObject) {
+
+    logger.debug("processAttribute -> " + prefix + ":" + attributeName + " = " + value + " (" + contextObject.getClass().getName() + ")");
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      QualModelPlugin qualModel = (QualModelPlugin) qual.getPlugin(QualConstants.shortLabel);
+      contextObject = qualModel;
+    }
+    super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject);
+  }
+
 
 }

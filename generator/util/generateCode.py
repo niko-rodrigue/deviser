@@ -347,15 +347,17 @@ def generate_jsbml_code_files(name, ob):
     # ext.write_files()
 
 
+    #Write enums
+    ext.write_enums()
+
+    # for i in range(0, len(ob['enums'])):
+    #     working_enum = ob['enums'][i]
+    #     all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob, True)
+    #     all_files.write_files()
+
     # Write plugins
     for i in range(0, len(ob['plugins'])+1):
         ext.write_plugin_files(i)
-
-    #Write enums
-    for i in range(0, len(ob['enums'])):
-        working_enum = ob['enums'][i]
-        all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob, True)
-        all_files.write_files()
 
     try:
         ## this will fail as we are already in the extension dir ... alternatively use full path
