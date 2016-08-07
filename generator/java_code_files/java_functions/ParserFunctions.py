@@ -885,81 +885,34 @@ class ParserFunctions():
         plugins = self.expanded_package['plugins']
 
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
+        lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
         for plugin in plugins:
             implementation = []
-            temp = 'sbase instanceof {0}'.format(plugin['sbase'])
+            temp = 'contextObject  instanceof {0}'.format(plugin['sbase'])
             implementation.append(temp)
 
             package_name = '{0}'.format(plugin['package'])
-            lower_sbase = plugin['sbase']
+            lower_sbase = strFunctions.lower_first(plugin['sbase'])
             upper_sbase = strFunctions.upper_first(plugin['sbase'])
-            temp = '{0} {1}Plugin = ({0}) (({2}) sbase).getExtension({3}Constants.namespaceURI)'.format(\
-                package_name, lower_sbase, upper_sbase, upper_original_name)
+
+
+
+
+
+            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
             implementation.append(temp)
+
+
+            temp = '{0} {1}{2} = ({0}) {1}.getPlugin({3}Constants.shortLabel)'.format(\
+                package_name, lower_original_name, upper_sbase, upper_original_name)
+            implementation.append(temp)
+
+            temp = 'contextObject = {0}{1}'.format(lower_original_name, upper_sbase)
+            implementation.append(temp)
+
             code.append(self.create_code_block('if',implementation))
 
 
-        # # TODO here is the bug what to do?
-        # implementation_else_if = []
-        # # each atribute has id and name, which are not a must for jsbml
-        # if len(self.attributes) > 2:
-        #     # if zone stuff
-        #     implementation = ['!isAttributeRead']
-        #
-        #     implement_inside = ['isAttributeRead = true']
-        #     line = self.create_code_block('line', implement_inside)
-        #     implementation.append(line)
-        #
-        #     for i in range(0, len(self.attributes)):
-        #         # print('i is ',i)s
-        #         attribute = self.attributes[i]
-        #         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-        #             continue
-        #         else:  # Here lies a bug
-        #             temp_code = self.create_read_attribute_else_if(i)
-        #             implementation_else_if += temp_code
-        #             # else_if_index = i
-        #             # break
-        #             # code.append(temp_code[-1])
-        #
-        #     temp_code = self.create_read_attribute_else()
-        #     implementation_else_if += temp_code
-        #
-        #     if len(implementation_else_if) == 4:
-        #         temp_code = self.create_code_block('if_else', implementation_else_if)
-        #     else:
-        #         temp_code = self.create_code_block('else_if', implementation_else_if)
-        #
-        #     implementation.append(temp_code)
-        #     code.append(self.create_code_block('if', implementation))
-        #
-        #
-        #     # else:
-        #     #     temp = ['return isAttributeRead']
-        #     #     code.append(self.create_code_block('line', temp))
-        #
-        #     # print('yahoo ',implementation_else_if)
-        #
-        #     # try:
-        #     #     if len(self.attributes) > 1:
-        #     #         temp_code = self.create_read_attribute_else()
-        #     #         implementation_else_if += temp_code
-        #     #
-        #     #         temp_code = self.create_code_block('else_if', implementation_else_if)
-        #     #         implementation.append(temp_code)
-        #     #         code.append(self.create_code_block('if', implementation))
-        #     # except:
-        #     #     pass
-        #     # temp_code = self.create_code_block('else_if', implementation_else_if)
-        #     # implementation.append(temp_code)
-        #     # code.append(self.create_code_block('if', implementation))
-        # #         #code.append(temp_code)
-        # #         implementation.append(temp_code)
-        # #     # implementation.append('')
-        # #         code.append(self.create_code_block('if', implementation))
-        # # except Exception as e:
-        # #     print('Yolo test ', e)
-        #
         #
         temp = ['super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
         code.append(self.create_code_block('line', temp))
