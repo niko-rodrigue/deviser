@@ -1002,8 +1002,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
         self.write_function_implementation(code)
 
-        # code = parser_functions.write_processAttribute()
-        # self.write_function_implementation(code)
+        code = parser_functions.write_process_attribute()
+        self.write_function_implementation(code)
         #
         # code = parser_functions.write_processEndElement()
         # self.write_function_implementation(code)

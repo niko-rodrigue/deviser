@@ -1314,16 +1314,20 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if len(line) > self.line_length:
                     self.write_line_jsbml(saved_line)
                     line = '' + arguments[0] + ','
-                    self.write_line_jsbml(line, att_start)
+                    # self.write_line_jsbml(line, att_start)
+                    # self.write_line_jsbml_func_arguments(line, att_start)
                 else:
-                    self.write_line_jsbml(line)
+                    # self.write_line_jsbml(line)
+                    # TODO be very careful here
+                    self.write_line_jsbml_func_arguments(line)
                 for i in range(1, num_arguments - 1):
                     line = arguments[i] + ','
-                    self.write_line_jsbml(line, att_start)
+                    self.write_line_jsbml_func_arguments(line, att_start)
                 if is_java and is_const:
                     line = arguments[num_arguments - 1] + ')' # const
                 else:
                     line = arguments[num_arguments - 1] + ')'
+                # self.write_line_jsbml(line, att_start)
                 self.write_line_jsbml(line, att_start)
             else:
                 self.write_line_jsbml(line)
@@ -1829,6 +1833,22 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.file_out.write('{0}{1}'.format(tabs, lines[i]))
             #tabs += '  '
         #self.file_out.write('} ')
+
+
+    def write_line_jsbml_func_arguments(self, line, space=0):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        for i in range(0, space):
+            tabs += ' '
+        # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
+        lines = self.create_lines(line, len(tabs))
+        # print('tada' ,lines)
+        for i in range(0, len(lines)):
+            self.file_out.write('{0}{1}'.format(tabs, lines[i]))
+            tabs += '  '
+        self.file_out.write(' \n')
+
 
     def write_line_jsbml(self, line, space=0):
         tabs = ''

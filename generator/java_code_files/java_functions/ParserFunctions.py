@@ -833,6 +833,173 @@ class ParserFunctions():
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
 
+
+    def write_process_attribute(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'processAttribute'
+        # if function not in self.methods_to_write:
+        #     return
+
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.xml.parsers.ReadingParser#processAttribute(String elementName, String \
+        attributeName, String value, String prefix, boolean isLastAttribute, Object contextObject)'
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'void'
+        arguments = ['String elementName', 'String attributeName',
+                     'String value', 'String uri', 'String prefix',
+                     'boolean isLastAttribute',  'Object contextObject']  # , 'String prefix', 'String value']
+        arguments_no_defaults =  ['String elementName', 'String attributeName',
+                                  'String value', 'String uri', 'String prefix',
+                                  'boolean isLastAttribute',  'Object contextObject']
+
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = []
+
+
+
+
+        implementation = ['logger.debug("processAttribute -> " + prefix + ":" + attributeName \
+        + " = " + value + " (" + contextObject.getClass().getName() + ")")']
+        line = self.create_code_block('line', implementation)
+        code.append(line)
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
+
+        # line = self.create_code_block('empty_line', '')
+        # code.append(line)
+
+
+
+        plugins = self.expanded_package['plugins']
+
+        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
+        for plugin in plugins:
+            implementation = []
+            temp = 'sbase instanceof {0}'.format(plugin['sbase'])
+            implementation.append(temp)
+
+            package_name = '{0}'.format(plugin['package'])
+            lower_sbase = plugin['sbase']
+            upper_sbase = strFunctions.upper_first(plugin['sbase'])
+            temp = '{0} {1}Plugin = ({0}) (({2}) sbase).getExtension({3}Constants.namespaceURI)'.format(\
+                package_name, lower_sbase, upper_sbase, upper_original_name)
+            implementation.append(temp)
+            code.append(self.create_code_block('if',implementation))
+
+
+        # # TODO here is the bug what to do?
+        # implementation_else_if = []
+        # # each atribute has id and name, which are not a must for jsbml
+        # if len(self.attributes) > 2:
+        #     # if zone stuff
+        #     implementation = ['!isAttributeRead']
+        #
+        #     implement_inside = ['isAttributeRead = true']
+        #     line = self.create_code_block('line', implement_inside)
+        #     implementation.append(line)
+        #
+        #     for i in range(0, len(self.attributes)):
+        #         # print('i is ',i)s
+        #         attribute = self.attributes[i]
+        #         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+        #             continue
+        #         else:  # Here lies a bug
+        #             temp_code = self.create_read_attribute_else_if(i)
+        #             implementation_else_if += temp_code
+        #             # else_if_index = i
+        #             # break
+        #             # code.append(temp_code[-1])
+        #
+        #     temp_code = self.create_read_attribute_else()
+        #     implementation_else_if += temp_code
+        #
+        #     if len(implementation_else_if) == 4:
+        #         temp_code = self.create_code_block('if_else', implementation_else_if)
+        #     else:
+        #         temp_code = self.create_code_block('else_if', implementation_else_if)
+        #
+        #     implementation.append(temp_code)
+        #     code.append(self.create_code_block('if', implementation))
+        #
+        #
+        #     # else:
+        #     #     temp = ['return isAttributeRead']
+        #     #     code.append(self.create_code_block('line', temp))
+        #
+        #     # print('yahoo ',implementation_else_if)
+        #
+        #     # try:
+        #     #     if len(self.attributes) > 1:
+        #     #         temp_code = self.create_read_attribute_else()
+        #     #         implementation_else_if += temp_code
+        #     #
+        #     #         temp_code = self.create_code_block('else_if', implementation_else_if)
+        #     #         implementation.append(temp_code)
+        #     #         code.append(self.create_code_block('if', implementation))
+        #     # except:
+        #     #     pass
+        #     # temp_code = self.create_code_block('else_if', implementation_else_if)
+        #     # implementation.append(temp_code)
+        #     # code.append(self.create_code_block('if', implementation))
+        # #         #code.append(temp_code)
+        # #         implementation.append(temp_code)
+        # #     # implementation.append('')
+        # #         code.append(self.create_code_block('if', implementation))
+        # # except Exception as e:
+        # #     print('Yolo test ', e)
+        #
+        #
+        temp = ['return listOfElementsToWrite']
+        code.append(self.create_code_block('line', temp))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
+
+
+
     def write_get_prefix(self):
         # do not write for C API
         if self.is_java_api is False:
