@@ -1002,7 +1002,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_create_plugin_for_sbase()
         self.write_function_implementation(code)
         #
-        # code = parser_functions.write_createPluginFor() #dif argumnet ASTNode
+
+        # is it really necessary
+        # code = parser_functions.write_create_plugin_for_astnode() #dif argumnet ASTNode
         # self.write_function_implementation(code)
 
 
