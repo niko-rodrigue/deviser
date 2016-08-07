@@ -346,9 +346,9 @@ def generate_jsbml_code_files(name, ob):
     ext.write_constants()
     # ext.write_files()
 
-
     #Write enums
-    ext.write_enums()
+    for i in range(0, len(ob['enums'])+1):
+        ext.write_enums(i)
 
     # for i in range(0, len(ob['enums'])):
     #     working_enum = ob['enums'][i]

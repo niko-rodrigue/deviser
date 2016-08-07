@@ -62,6 +62,10 @@ class JavaEnumFiles():
         #self.write_header(self.class_object)
         self.write_code(self.enum_object, self.original_package)
 
+    def write_list_enum_files(self):
+        # self.write_header(self.class_object)
+        self.write_list_enum_code(self.enum_object, self.original_package)
+
         # TODO what to do with listOf stuff
         # if self.class_object['hasListOf']:
         #     lo_working_class = self.create_list_of_description()
@@ -81,6 +85,14 @@ class JavaEnumFiles():
             print('Writing file {0}'.format(fileout.filename))
             print('---'*10)
         fileout.write_file()
+        fileout.close_file()
+
+    def write_list_enum_code(self, enum_object, original_object):
+        fileout = JavaEnumCodeFile.JavaEnumCodeFile(enum_object, original_object)
+        if self.verbose:
+            print('Writing file {0}'.format(fileout.filename))
+            print('---' * 10)
+        fileout.write_list_enum_file()
         fileout.close_file()
 
     def create_list_of_description(self):

@@ -70,10 +70,7 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         self.cap_package = strFunctions.upper_first(original_package['name'])
 
 
-    # Functions for writing the class
-    def write_enum_file(self):
 
-        self.write_general_functions()
 
 
 
@@ -181,3 +178,18 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         # if not self.is_plugin:
         #     self.write_c_code()
         # self.write_cppns_end()
+
+    def write_list_enum_file(self):
+        BaseJavaFile.BaseJavaFile.write_file(self)
+        self.write_package_include()
+        # self.write_java_imports()
+        # self.write_general_includes()
+        BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
+        self.write_enum_header()
+        # self.write_jsbml_enums()
+        self.close_enum_header()
+        # self.write_cpp_end()
+        # if not self.is_plugin:
+        #     self.write_c_code()
+        # self.write_cppns_end()
+

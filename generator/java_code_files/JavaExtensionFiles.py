@@ -65,9 +65,23 @@ class JavaExtensionFiles():
         self.remove_class_description(num)
 
 
-    def write_enums(self):
-        for i in range(0, len(self.package['enums'])):
-            working_enum = self.package['enums'][i]
+    def create_element_list_enum(self):
+        up_package = strFunctions.upper_first(self.package['name'])
+        name = up_package + 'List'
+        list_info = dict({
+                         'name': name,
+                         'values': self.package['elements']})
+        return list_info
+
+
+    def write_enums(self, num ):
+        if num >= len(self.package['enums']):
+            # class_object = self.create_document_plugin_desc()
+            working_enum = self.create_element_list_enum()
+            all_files = JavaEnumFiles.JavaEnumFiles(working_enum, self.package, True)
+            all_files.write_list_enum_files()
+        else:
+            working_enum = self.package['enums'][num]
             all_files = JavaEnumFiles.JavaEnumFiles(working_enum, self.package, True)
             all_files.write_files()
 

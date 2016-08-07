@@ -45,12 +45,18 @@ def generate_new_java_files(filename, num):
     os.chdir('../.')
 
 def generate_new_enum_java_files(filename, num):
+#     parser = ParseXML.ParseXML(filename)
+#     ob = parser.parse_deviser_xml()
+#     working_enum = ob['enums'][num]
+#     os.chdir('./temp')
+#     all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob,  True)
+#     all_files.write_files()
+#     os.chdir('../.')
     parser = ParseXML.ParseXML(filename)
     ob = parser.parse_deviser_xml()
-    working_enum = ob['enums'][num]
     os.chdir('./temp')
-    all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob,  True)
-    all_files.write_files()
+    all_files = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    all_files.write_enums(num)
     os.chdir('../.')
 
 
@@ -451,11 +457,11 @@ def main():
     # test_case = 'an element on Sign Enum'
     # fail += run_enum_test(name, num, enum_name, test_case)
     #
-    # name = 'qual'
-    # num = 1
-    # enum_name = 'TransitionOutputEffect'
-    # test_case = 'an element on TransitionOutputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
+    name = 'qual'
+    num = 1
+    enum_name = 'TransitionOutputEffect'
+    test_case = 'an element on TransitionOutputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
     #
     # name = 'qual'
     # num = 2
@@ -470,12 +476,12 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
     #
     #
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualModelPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
+    name = 'qual'
+    num = 0
+    class_name = 'QualModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
     # # FBC Constants
     # name = 'fbc_v2'
     # constants_name = 'FbcConstants'
