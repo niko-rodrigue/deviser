@@ -999,6 +999,13 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         # TODO GSoC 2016 ultimate challenge
+        code = parser_functions.write_create_plugin_for_sbase()
+        self.write_function_implementation(code)
+        #
+        # code = parser_functions.write_createPluginFor() #dif argumnet ASTNode
+        # self.write_function_implementation(code)
+
+
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
         self.write_function_implementation(code)
 
@@ -1008,17 +1015,13 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_process_end_element()
         self.write_function_implementation(code)
         #
-        # code = parser_functions.write_processStartElement()
-        # self.write_function_implementation(code)
+        code = parser_functions.write_process_start_element()
+        self.write_function_implementation(code)
         #
         # code = parser_functions.write_writeElement()
         # self.write_function_implementation(code)
         #
-        # code = parser_functions.write_createPluginFor()
-        # self.write_function_implementation(code)
-        #
-        # code = parser_functions.write_createPluginFor() #dif argumnet ASTNode
-        # self.write_function_implementation(code)
+
 
         self.line_length = 79
 

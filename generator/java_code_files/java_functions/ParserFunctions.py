@@ -833,6 +833,111 @@ class ParserFunctions():
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
 
+    def write_create_plugin_for_sbase(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'createPluginFor'
+        # if function not in self.methods_to_write:
+        #     return
+
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor(org.sbml.jsbml.SBase)'
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'SBasePlugin'
+
+        arguments = ['SBase sbase']
+        arguments_no_defaults = ['SBase sbase']
+
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = [self.create_code_block('empty_line')]
+
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
+
+        # line = self.create_code_block('empty_line', '')
+        # code.append(line)
+
+
+
+        plugins = self.expanded_package['plugins']
+
+        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
+        lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
+        for plugin in plugins:
+            implementation = []
+            temp = 'contextObject  instanceof {0}'.format(plugin['sbase'])
+            implementation.append(temp)
+
+            package_name = '{0}'.format(plugin['package'])
+            lower_sbase = strFunctions.lower_first(plugin['sbase'])
+            upper_sbase = strFunctions.upper_first(plugin['sbase'])
+
+            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+            implementation.append(temp)
+
+            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+            implementation.append(temp)
+
+            temp = 'contextObject = {0}{1}'.format(lower_original_name, upper_sbase)
+            implementation.append(temp)
+
+            code.append(self.create_code_block('if', implementation))
+
+        code.append(self.create_code_block('empty_line'))
+
+        temp = ['return null']
+        code.append(self.create_code_block('line', temp))
+        # temp = [
+        #     'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
+        # code.append(self.create_code_block('line', temp))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
+
+
 
     def write_process_attribute(self):
         # do not write for C API
@@ -1060,8 +1165,110 @@ class ParserFunctions():
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
 
+    def write_process_start_element(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'processStartElement'
+        # if function not in self.methods_to_write:
+        #     return
+
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.xml.parsers.ReadingParser#processStartElement(java.lang.String, java.lang.String, \
+        boolean, boolean, java.lang.Object)'
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'Object'
+
+        arguments = ['String elementName', 'String uri', 'String prefix',
+                     'boolean hasAttributes', 'boolean hasNamespaces', 'Object contextObject']
+        arguments_no_defaults =['String elementName', 'String uri', 'String prefix',
+                                'boolean hasAttributes', 'boolean hasNamespaces', 'Object contextObject']
 
 
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = [self.create_code_block('empty_line')]
+
+        # print('wahaha ', self.class_name)
+        # print('len ', len(self.attributes))
+
+        # line = self.create_code_block('empty_line', '')
+        # code.append(line)
+
+
+
+        plugins = self.expanded_package['plugins']
+
+        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
+        lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
+        for plugin in plugins:
+            implementation = []
+            temp = 'contextObject  instanceof {0}'.format(plugin['sbase'])
+            implementation.append(temp)
+
+            package_name = '{0}'.format(plugin['package'])
+            lower_sbase = strFunctions.lower_first(plugin['sbase'])
+            upper_sbase = strFunctions.upper_first(plugin['sbase'])
+
+            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+            implementation.append(temp)
+
+            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+            implementation.append(temp)
+
+            temp = 'contextObject = {0}{1}'.format(lower_original_name, upper_sbase)
+            implementation.append(temp)
+
+            code.append(self.create_code_block('if', implementation))
+
+        code.append(self.create_code_block('empty_line'))
+        # temp = [
+        #     'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
+        # code.append(self.create_code_block('line', temp))
+
+        # for i in range(0, len(self.child_elements)):
+        #     element = self.child_elements[i]
+        #     member = element['memberName']
+        #     args += ['delete {0}'.format(member)]
+        #     if element['element'] == 'ASTNode':
+        #         clone = 'deepCopy'
+        #     implementation = ['rhs.{0} != NULL'.format(member),
+        #                       '{0} = rhs.{0}->{1}()'.format(member,
+        #                                                     clone),
+        #                       'else', '{0} = NULL'.format(member)]
+        #     args += [self.create_code_block('if_else', implementation)]
+        # implementation = args
+        # if self.has_children:
+        #     implementation.append('connectToChild()')
+        # if self.document:
+        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
+        #
+        # implementation2 = ['return *this']
+        # code = [dict({'code_type': 'if', 'code': implementation}),
+        #         dict({'code_type': 'line', 'code': implementation2})]
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
 
     def write_get_prefix(self):
         # do not write for C API
