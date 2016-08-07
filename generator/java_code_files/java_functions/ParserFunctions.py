@@ -865,7 +865,7 @@ class ParserFunctions():
         args = []  # ['&rhs != this'] + self.write_assignment_args(self)
         clone = 'clone'
 
-        code = []
+        code = [self.create_code_block('empty_line')]
 
 
 
@@ -961,7 +961,7 @@ class ParserFunctions():
         # #     print('Yolo test ', e)
         #
         #
-        temp = ['return listOfElementsToWrite']
+        temp = ['super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
         code.append(self.create_code_block('line', temp))
 
         # for i in range(0, len(self.child_elements)):
@@ -3463,6 +3463,6 @@ class ParserFunctions():
 
 
     @staticmethod
-    def create_code_block(code_type, lines):
+    def create_code_block(code_type, lines = ''):
         code = dict({'code_type': code_type, 'code': lines})
         return code

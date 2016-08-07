@@ -1734,7 +1734,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_line('{0};'.format(code[i]))
 
     def write_empty_line(self, code = ''):
-        self.write_line('\n')
+        self.write_line('')
 
 
     def write_comments(self, code):
