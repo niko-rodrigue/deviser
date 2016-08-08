@@ -1547,8 +1547,27 @@ class ParserFunctions():
         nested_if_level4.append('listOf.size() > 0')
         nested_if_level4.append(self.create_code_block('empty_line'))
 
+        # TODO level5
+        nested_if_level5 = []
+        nested_if_level5.append('listOf.get(0) instanceof FluxBound')
+        nested_if_level5.append('badoooo')
+        # nested_if_level5.append(self.create_code_block('empty_line')
+        nested_if_level5.append('else if')
+        nested_if_level5.append('listOf.get(0) instanceof FluxBoundSASDSAD')
+        nested_if_level5.append('test1')
+        nested_if_level5.append('else if')
+        nested_if_level5.append('listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD')
+        nested_if_level5.append('test2')
 
 
+        # #TODO bug here  doesn't write this one
+        # nested_if_level5.append('else if')
+        # nested_if_level5.append('listOf.get(0) yikes FluxBoundSASDSAD')
+
+        # Level 4 End
+        nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+        # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+        nested_if_level4.append(self.create_code_block('empty_line'))
 
         # Level 3 End
         nested_if_level3.append(self.create_code_block('if', nested_if_level4))

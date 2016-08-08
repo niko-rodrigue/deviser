@@ -38,7 +38,7 @@ public class GeneProductRef extends Association {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 43209662530471843L;
+  private static final long serialVersionUID = 58064072849031788L;
   /**
    *
    */
@@ -192,7 +192,7 @@ public class GeneProductRef extends Association {
    */
   @Override
   public int hashCode() {
-    final int prime = 4683149;
+    final int prime = 281927;
 
     int hashCode = super.hashCode();
 

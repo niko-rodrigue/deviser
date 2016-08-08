@@ -38,7 +38,7 @@ public class DynElement extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 10270903011922786L;
+  private static final long serialVersionUID = 33886213460338699L;
   /**
    *
    */
@@ -271,7 +271,7 @@ public class DynElement extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 6904901;
+    final int prime = 6922189;
 
     int hashCode = super.hashCode();
 

@@ -38,7 +38,7 @@ public class Association {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 612052785761829L;
+  private static final long serialVersionUID = 6357510778953447L;
 
   /**
    *  
@@ -153,7 +153,7 @@ public class Association {
    */
   @Override
   public int hashCode() {
-    final int prime = 5960957;
+    final int prime = 4489159;
 
     int hashCode = super.hashCode();
 

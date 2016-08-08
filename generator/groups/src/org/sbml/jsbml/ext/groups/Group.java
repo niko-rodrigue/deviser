@@ -39,7 +39,7 @@ public class Group extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 36359791896895429L;
+  private static final long serialVersionUID = 38452806395005400L;
   /**
    *
    */
@@ -425,7 +425,7 @@ public class Group extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 1545233;
+    final int prime = 4422343;
 
     int hashCode = super.hashCode();
 

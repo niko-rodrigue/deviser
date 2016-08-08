@@ -211,6 +211,17 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
 
         if (sbase instanceof ListOf<?>) {
           ListOf<?> listOf = (ListOf<?>) sbase;
+
+          if (listOf.size() > 0) {
+
+            if (listOf.get(0) instanceof FluxBound) {
+              badoooo;
+            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
+              test1;
+            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
+              test2;
+            }
+          }
         } else {
           xmlObject.setName(sbase.getElementName());
         }
