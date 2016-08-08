@@ -1301,6 +1301,8 @@ class ParserFunctions():
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
         implementation = []
         for plugin_index in range(0, len(plugins)):
+            if plugin_index > 0 and plugin_index < len(plugins):
+                implementation.append('else if')
 
             temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
             implementation.append(temp)
@@ -1321,56 +1323,90 @@ class ParserFunctions():
 
             # Here is a problem
 
-            lo_extensions = plugins[plugin_index]['lo_extension']
-            temp_impl = []
-            for list_of_index in range(0, len(lo_extensions)):
-                if lo_extensions[list_of_index]['isListOf'] is True:
-                    if list_of_index > 0 and list_of_index < len(lo_extensions):
-                        temp_impl.append('else if')
+            # lo_extensions = plugins[plugin_index]['lo_extension']
+            # temp_impl = []
+            # for list_of_index in range(0, len(lo_extensions)):
+            #     if lo_extensions[list_of_index]['isListOf'] is True:
+            #         if list_of_index > 0 and list_of_index < len(lo_extensions):
+            #             temp_impl.append('else if')
+            #
+            #
+            #         list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
+            #         type = lo_extensions[list_of_index]['name']
+            #         # temp_impl.append('else if')
+            #
+            #         temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
+            #         temp_impl.append(temp0)
+            #         temp_impl.append(self.create_code_block('empty_line'))
+            #
+            #         temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
+            #                                                            lower_original_name, upper_sbase,
+            #                                                            strFunctions.upper_first(list_of_name))
+            #
+            #         temp_impl.append(temp1)
+            #
+            #         temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+            #         temp_impl.append(temp2)
+            #
+            #         temp3 = 'return {0}'.format(list_of_name)
+            #         temp_impl.append(temp3)
+            #         #This part was giving a problem
+            #
+            # implementation.append(self.create_code_block('else_if', temp_impl))
+            # implementation.append(self.create_code_block('empty_line'))
 
 
-                    list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
-                    type = lo_extensions[list_of_index]['name']
-                    # temp_impl.append('else if')
+            # # # #TODO there is a problem here
+            # for data in self.data_to_write:
+            #     for attrib in plugins[plugin_index]['attribs']:
+            #         if data['parent'] == attrib['element']:
+            #             implementation_temp = ['else if']
+            #             temp = 'contextObject instanceof {0}'.format(data['parent'])
+            #             implementation_temp.append(temp)
+            #
+            #
+            #             object_name = strFunctions.lower_first(data['parent'])
+            #             temp = '{0} {1} = ({0}) contextObject'.format(data['parent'],
+            #                                                           object_name)
+            #             implementation_temp.append(temp)
+            #             implementation_temp.append(self.create_code_block('empty_line'))
+            #
+            #             actual_data = data['data']
+            #             temp_impl = []
+            #             for actual_index in range(0, len(actual_data)):
+            #                 if actual_index > 0 and actual_index < len(actual_data):
+            #                     temp_impl.append('else if')
+            #
+            #                 list_of_name = strFunctions.lower_first(actual_data[actual_index]['listName'])
+            #                 type = actual_data[actual_index]['type']
+            #                 # temp_impl.append('else if')
+            #
+            #                 temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
+            #                                                                         list_of_name)
+            #                 temp_impl.append(temp0)
+            #                 temp_impl.append(self.create_code_block('empty_line'))
+            #
+            #                 temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
+            #                                                                    object_name,
+            #                                                                    strFunctions.upper_first(
+            #                                                                        list_of_name))
+            #
+            #                 temp_impl.append(temp1)
+            #
+            #                 temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+            #                 temp_impl.append(temp2)
+            #
+            #                 temp3 = 'return {0}'.format(list_of_name)
+            #                 temp_impl.append(temp3)
+            #                 # This part was giving a problem
+            #
+            #             implementation_temp.append(self.create_code_block('else_if', temp_impl))
+            #             implementation_temp.append(self.create_code_block('empty_line'))
+            #
+            #             # temp_code = self.create_code_block('else_if', implementation_temp)
+            #             temp_code = implementation_temp
+            #             implementation += temp_code
 
-                    temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
-                    temp_impl.append(temp0)
-
-                    temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
-                                                                       lower_original_name, upper_sbase,
-                                                                       strFunctions.upper_first(list_of_name))
-
-                    temp_impl.append(temp1)
-
-                    temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-                    temp_impl.append(temp2)
-
-                    temp3 = 'return {0}'.format(list_of_name)
-                    temp_impl.append(temp3)
-                    #This part was giving a problem
-
-            implementation.append(self.create_code_block('else_if', temp_impl))
-            implementation.append(self.create_code_block('empty_line'))
-
-
-
-            for data in self.data_to_write:
-                for attrib in plugins[plugin_index]['attribs']:
-                    if data['parent'] == attrib['element']:
-                        implementation_temp = ['else if']
-                        temp = 'contextObject instanceof {0}'.format(data['parent'])
-                        implementation_temp.append(temp)
-
-                        temp = '{0} {1} = ({0}) contextObject'.format(data['parent'],
-                                                                      strFunctions.upper_first(data['parent']))
-                        implementation_temp.append(temp)
-
-                        for actual_data in data:
-                            pass
-
-                        # temp_code = self.create_code_block('else_if', implementation_temp)
-                        temp_code = implementation_temp
-                        implementation += temp_code
             #TODO
 
 

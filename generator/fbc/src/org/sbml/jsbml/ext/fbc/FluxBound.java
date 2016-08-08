@@ -38,7 +38,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 51526466239012708L;
+  private static final long serialVersionUID = 50347563600217370L;
   /**
    *
    */
@@ -344,7 +344,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 6141209;
+    final int prime = 1403257;
 
     int hashCode = super.hashCode();
 

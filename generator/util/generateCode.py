@@ -342,35 +342,35 @@ def generate_jsbml_code_files(name, ob):
 
 
     # Write Extension
-    os.chdir(extension_dir)
-    ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
-    #Write Constants
-    ext.write_constants()
-    # ext.write_files()
-
-    #Write enums
-    for i in range(0, len(ob['enums'])+1):
-        ext.write_enums(i)
-
-    # for i in range(0, len(ob['enums'])):
-    #     working_enum = ob['enums'][i]
-    #     all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob, True)
-    #     all_files.write_files()
-
-    # Write plugins
-    for i in range(0, len(ob['plugins'])+1):
-        ext.write_plugin_files(i)
-
-    try:
-        ## this will fail as we are already in the extension dir ... alternatively use full path
-        # os.chdir(extension_dir)
-        print("Saving files")
-        for working_class in ob['baseElements']:
-            all_files = JavaFiles.JavaFiles(working_class, True)
-            all_files.write_files()
-        os.chdir(this_dir)
-    except Exception as error:
-        print("Error is ", error)
+    # os.chdir(extension_dir)
+    # ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    # #Write Constants
+    # ext.write_constants()
+    # # ext.write_files()
+    #
+    # #Write enums
+    # for i in range(0, len(ob['enums'])+1):
+    #     ext.write_enums(i)
+    #
+    # # for i in range(0, len(ob['enums'])):
+    # #     working_enum = ob['enums'][i]
+    # #     all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob, True)
+    # #     all_files.write_files()
+    #
+    # # Write plugins
+    # for i in range(0, len(ob['plugins'])+1):
+    #     ext.write_plugin_files(i)
+    #
+    # try:
+    #     ## this will fail as we are already in the extension dir ... alternatively use full path
+    #     # os.chdir(extension_dir)
+    #     print("Saving files")
+    #     for working_class in ob['baseElements']:
+    #         all_files = JavaFiles.JavaFiles(working_class, True)
+    #         all_files.write_files()
+    #     os.chdir(this_dir)
+    # except Exception as error:
+    #     print("Error is ", error)
 
 
     os.chdir(parser_dir)

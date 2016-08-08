@@ -194,15 +194,35 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
       Model model = (Model) contextObject;
       QualModelPlugin qualModel = (QualModelPlugin) model.getPlugin(QualConstants.shortLabel);
 
-      if (elementName.equals(QualList.ListOfQualitativeSpecies.name())) {
-        ListOf<QualitativeSpecies> ListOfQualitativeSpecies = qualModel.getListOfQualitativeSpecies();
-        groupList = QualList.ListOfQualitativeSpecies;
-        return ListOfQualitativeSpecies;
+      if (elementName.equals(QualList.listOfQualitativeSpecies.name())) {
+
+        ListOf<QualitativeSpecies> listOfQualitativeSpecies = qualModel.getListOfQualitativeSpecies();
+        groupList = QualList.listOfQualitativeSpecies;
+        return listOfQualitativeSpecies;
+      }      else if (elementName.equals(QualList.listOfTransitions.name())) {
+
+        ListOf<Transition> listOfTransitions = qualModel.getListOfTransitions();
+        groupList = QualList.listOfTransitions;
+        return listOfTransitions;
       }
-      if (elementName.equals(QualList.ListOfTransitions.name())) {
-        ListOf<Transition> ListOfTransitions = qualModel.getListOfTransitions();
-        groupList = QualList.ListOfTransitions;
-        return ListOfTransitions;
+    }    else if (contextObject instanceof Transition) {
+      Transition transition = (Transition) contextObject;
+
+      if (elementName.equals(QualList.listOfInputs.name())) {
+
+        ListOf<Input> listOfInputs = transition.getListOfInputs();
+        groupList = QualList.listOfInputs;
+        return listOfInputs;
+      }      else if (elementName.equals(QualList.listOfOutputs.name())) {
+
+        ListOf<Output> listOfOutputs = transition.getListOfOutputs();
+        groupList = QualList.listOfOutputs;
+        return listOfOutputs;
+      }      else if (elementName.equals(QualList.listOfFunctionTerms.name())) {
+
+        ListOf<FunctionTerm> listOfFunctionTerms = transition.getListOfFunctionTerms();
+        groupList = QualList.listOfFunctionTerms;
+        return listOfFunctionTerms;
       }
     }
 

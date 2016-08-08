@@ -195,7 +195,7 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
-    if (elementName.equals("listOfFluxBounds") || elementName.equals("listOfObjectives") || elementName.equals("listOfGeneProducts")) {
+    if (elementName.equals("listOfFluxBounds") || elementName.equals("listOfObjectives") || elementName.equals("listOfFluxObjectives") ||      elementName.equals("listOfGeneProducts") || elementName.equals("listOfAssociations")) {
       groupList = FbcList.none;
     }
 
@@ -227,32 +227,12 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
-
-      if (elementName.equals(FbcList.ListOfObjectives.name())) {
-        ListOf<Objective> ListOfObjectives = fbcModel.getListOfObjectives();
-        groupList = FbcList.ListOfObjectives;
-        return ListOfObjectives;
-      }
-      if (elementName.equals(FbcList.ListOfFluxBounds.name())) {
-        ListOf<FluxBound> ListOfFluxBounds = fbcModel.getListOfFluxBounds();
-        groupList = FbcList.ListOfFluxBounds;
-        return ListOfFluxBounds;
-      }
-      if (elementName.equals(FbcList.ListOfGeneProducts.name())) {
-        ListOf<GeneProduct> ListOfGeneProducts = fbcModel.getListOfGeneProducts();
-        groupList = FbcList.ListOfGeneProducts;
-        return ListOfGeneProducts;
-      }
-    }
-    if (contextObject instanceof Species) {
+    }    else if (contextObject instanceof Species) {
       Species species = (Species) contextObject;
       FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Reaction) {
+    }    else if (contextObject instanceof Reaction) {
       Reaction reaction = (Reaction) contextObject;
       FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
-
     }
 
     return contextObject;
