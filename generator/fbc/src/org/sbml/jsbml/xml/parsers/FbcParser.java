@@ -227,12 +227,33 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
+
+
+      if (elementName.equals(FbcList.listOfObjectives.name())) {
+        ListOf<Objective> listOfObjectives = fbcModel.getListOfObjectives();
+        groupList = FbcList.listOfObjectives;
+        return listOfObjectives;
+      }
+
+      if (elementName.equals(FbcList.listOfFluxBounds.name())) {
+        ListOf<FluxBound> listOfFluxBounds = fbcModel.getListOfFluxBounds();
+        groupList = FbcList.listOfFluxBounds;
+        return listOfFluxBounds;
+      }
+
+      if (elementName.equals(FbcList.listOfGeneProducts.name())) {
+        ListOf<GeneProduct> listOfGeneProducts = fbcModel.getListOfGeneProducts();
+        groupList = FbcList.listOfGeneProducts;
+        return listOfGeneProducts;
+      }
     }    else if (contextObject instanceof Species) {
       Species species = (Species) contextObject;
       FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
+
     }    else if (contextObject instanceof Reaction) {
       Reaction reaction = (Reaction) contextObject;
       FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
+
     }
 
     return contextObject;
