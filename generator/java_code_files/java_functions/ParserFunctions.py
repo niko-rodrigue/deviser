@@ -1183,18 +1183,24 @@ class ParserFunctions():
                     if strFunctions.lower_first(element['listOfClassName']) in data['data']:
                         add = False
                 if add == True:
-                    name = strFunctions.lower_first(element['listOfClassName'])
-                    none_values.append(name)
+                    temp = {}
+                    list_of_name = strFunctions.lower_first(element['listOfClassName'])
+                    temp.update({'listOfName': list_of_name})
+                    temp.update({'name': element['name']})
+                    none_values.append(temp)
                 else:
                     add = True
 
+
+        self.none_values = none_values
+        self.data_to_write = data_to_write
 
         implementation = []
         text = ''
         for none_values_index in range(len(none_values)):
             if none_values_index >= 1 and none_values_index < len(none_values):
                 text += ' || '
-            text += 'elementName.equals("{0}")'.format(none_values[none_values_index])
+            text += 'elementName.equals("{0}")'.format(none_values[none_values_index]['listOfName'])
 
         implementation.append(text)
         temp = 'groupList = {0}List.none'.format(upper_original_name)
@@ -1315,7 +1321,31 @@ class ParserFunctions():
                 package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
             implementation.append(temp)
 
+            implementation.append(self.create_code_block('empty_line'))
 
+
+            for list_of in self.none_values:
+                temp_impl = []
+                list_of_name = list_of['listOfName']
+                type = list_of['name']
+
+                temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
+                temp_impl.append(temp0)
+
+                temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
+                                                                   lower_original_name, upper_sbase,
+                                                                   strFunctions.upper_first(list_of_name))
+
+                temp_impl.append(temp1)
+
+                temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+                temp_impl.append(temp2)
+
+                temp3 = 'return {0}'.format(list_of_name)
+                temp_impl.append(temp3)
+                implementation.append(self.create_code_block('else_if', temp_impl))
+
+            implementation.append(self.create_code_block('empty_line'))
 
             code.append(self.create_code_block('if', implementation))
 
