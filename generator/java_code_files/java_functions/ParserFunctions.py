@@ -1295,27 +1295,19 @@ class ParserFunctions():
         clone = 'clone'
 
         code = [self.create_code_block('empty_line')]
-
-        # print('wahaha ', self.class_name)
-        # print('len ', len(self.attributes))
-
-        # line = self.create_code_block('empty_line', '')
-        # code.append(line)
-
-
-
         plugins = self.expanded_package['plugins']
 
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
-        for plugin in plugins:
-            implementation = []
-            temp = 'contextObject  instanceof {0}'.format(plugin['sbase'])
+        implementation = []
+        for plugin_index in range(0, len(plugins)):
+
+            temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
             implementation.append(temp)
 
-            package_name = '{0}'.format(plugin['package'])
-            lower_sbase = strFunctions.lower_first(plugin['sbase'])
-            upper_sbase = strFunctions.upper_first(plugin['sbase'])
+            package_name = '{0}'.format(plugins[plugin_index]['package'])
+            lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
+            upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
 
             temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
             implementation.append(temp)
@@ -1328,11 +1320,18 @@ class ParserFunctions():
 
 
             # Here is a problem
-            for list_of in plugin['lo_extension']:
-                if list_of['isListOf'] is True:
-                    temp_impl = []
-                    list_of_name = strFunctions.lower_first(list_of['listOfClassName'])
-                    type = list_of['name']
+
+            lo_extensions = plugins[plugin_index]['lo_extension']
+            temp_impl = []
+            for list_of_index in range(0, len(lo_extensions)):
+                if lo_extensions[list_of_index]['isListOf'] is True:
+                    if list_of_index > 0 and list_of_index < len(lo_extensions):
+                        temp_impl.append('else if')
+
+
+                    list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
+                    type = lo_extensions[list_of_index]['name']
+                    # temp_impl.append('else if')
 
                     temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
                     temp_impl.append(temp0)
@@ -1349,23 +1348,38 @@ class ParserFunctions():
                     temp3 = 'return {0}'.format(list_of_name)
                     temp_impl.append(temp3)
                     #This part was giving a problem
-                    implementation.append(self.create_code_block('if', temp_impl))
+
+            implementation.append(self.create_code_block('else_if', temp_impl))
+            implementation.append(self.create_code_block('empty_line'))
 
 
-            for attrib in plugin['attribs']:
-                for data in self.data_to_write:
+
+            for data in self.data_to_write:
+                for attrib in plugins[plugin_index]['attribs']:
                     if data['parent'] == attrib['element']:
-                        print('yaya')
+                        implementation_temp = ['else if']
+                        temp = 'contextObject instanceof {0}'.format(data['parent'])
+                        implementation_temp.append(temp)
 
+                        temp = '{0} {1} = ({0}) contextObject'.format(data['parent'],
+                                                                      strFunctions.upper_first(data['parent']))
+                        implementation_temp.append(temp)
 
+                        for actual_data in data:
+                            pass
 
-
+                        # temp_code = self.create_code_block('else_if', implementation_temp)
+                        temp_code = implementation_temp
+                        implementation += temp_code
             #TODO
 
 
-            implementation.append(self.create_code_block('empty_line'))
+            # implementation.append(self.create_code_block('empty_line'))
+        # if plugin_index < len(plugins):
+        #     code.append(self.create_code_block('if', implementation))
+        # else:
+        code.append(self.create_code_block('else_if', implementation))
 
-            code.append(self.create_code_block('if', implementation))
 
         code.append(self.create_code_block('empty_line'))
         # temp = [
