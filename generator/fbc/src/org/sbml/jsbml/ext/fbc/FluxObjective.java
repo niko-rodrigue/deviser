@@ -38,7 +38,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 34427437734448443L;
+  private static final long serialVersionUID = 1480794872051813L;
   /**
    *
    */
@@ -259,7 +259,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.Reaction#isIdMandatory
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
   @Override
   public boolean isIdMandatory() {
@@ -277,7 +277,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    */
   @Override
   public int hashCode() {
-    final int prime = 9517357;
+    final int prime = 1757989;
 
     int hashCode = super.hashCode();
 

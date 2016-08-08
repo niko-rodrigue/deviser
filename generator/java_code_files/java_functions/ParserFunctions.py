@@ -1300,66 +1300,72 @@ class ParserFunctions():
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
         implementation = []
-        for plugin_index in range(0, len(plugins)):
-            if plugin_index > 0 and plugin_index < len(plugins):
-                implementation.append('else if')
 
-            temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
-            implementation.append(temp)
+        # for plugin_index in range(0, len(plugins)):
+        #     try:
+        #         if plugin_index > 0 and plugin_index < len(plugins):
+        #             implementation.append('else if')
+        #     except Exception as e:
+        #         print('Yolo ', e)
+        #         pass
+        #
+        #
+        #     temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
+        #     implementation.append(temp)
+        #
+        #     package_name = '{0}'.format(plugins[plugin_index]['package'])
+        #     lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
+        #     upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
+        #
+        #     temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+        #     implementation.append(temp)
+        #
+        #     temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+        #         package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+        #     implementation.append(temp)
 
-            package_name = '{0}'.format(plugins[plugin_index]['package'])
-            lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
-            upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
-
-            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
-            implementation.append(temp)
-
-            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
-                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
-            implementation.append(temp)
-
-            implementation.append(self.create_code_block('empty_line'))
-
-
-            # TODO Here is a problem
-            #TODO this solution works
-            lo_extensions = plugins[plugin_index]['lo_extension']
-            lo_impl = []
-            for list_of_index in range(0, len(lo_extensions)):
-                temp_impl = []
-                if lo_extensions[list_of_index]['isListOf'] is True:
-                    # if list_of_index >= 1 and list_of_index < len(lo_extensions):
-                    #     temp_impl.append('else if')
+            # implementation.append(self.create_code_block('empty_line'))
 
 
-                    list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
-                    type = lo_extensions[list_of_index]['name']
-                    # temp_impl.append('else if')
-
-                    temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
-                    temp_impl.append(temp0)
-                    # temp_impl.append(self.create_code_block('empty_line'))
-
-                    temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
-                                                                       lower_original_name, upper_sbase,
-                                                                       strFunctions.upper_first(list_of_name))
-
-                    temp_impl.append(temp1)
-
-                    temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-                    temp_impl.append(temp2)
-
-                    temp3 = 'return {0}'.format(list_of_name)
-                    temp_impl.append(temp3)
-                    #This part was giving a problem
-
-                    # lo_impl += temp_impl
-                    implementation.append(self.create_code_block('empty_line'))
-                    implementation.append(self.create_code_block('if', temp_impl))
+            # # TODO Here is a problem
+            # #TODO this solution works
+            # lo_extensions = plugins[plugin_index]['lo_extension']
+            # lo_impl = []
+            # for list_of_index in range(0, len(lo_extensions)):
+            #     temp_impl = []
+            #     if lo_extensions[list_of_index]['isListOf'] is True:
+            #         # if list_of_index >= 1 and list_of_index < len(lo_extensions):
+            #         #     temp_impl.append('else if')
+            #
+            #
+            #         list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
+            #         type = lo_extensions[list_of_index]['name']
+            #         # temp_impl.append('else if')
+            #
+            #         temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
+            #         temp_impl.append(temp0)
+            #         # temp_impl.append(self.create_code_block('empty_line'))
+            #
+            #         temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
+            #                                                            lower_original_name, upper_sbase,
+            #                                                            strFunctions.upper_first(list_of_name))
+            #
+            #         temp_impl.append(temp1)
+            #
+            #         temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+            #         temp_impl.append(temp2)
+            #
+            #         temp3 = 'return {0}'.format(list_of_name)
+            #         temp_impl.append(temp3)
+            #         #This part was giving a problem
+            #
+            #         # lo_impl += temp_impl
+            #         implementation.append(self.create_code_block('empty_line'))
+            #         implementation.append(self.create_code_block('if', temp_impl))
 
             # temp_impl.append(self.create_code_block('empty_line'))
             # implementation.append(self.create_code_block('else_if', lo_impl))
-            implementation.append(self.create_code_block('empty_line'))
+            # implementation.append(self.create_code_block('empty_line'))
 
 
             # # # #TODO there is a problem here
@@ -1379,39 +1385,42 @@ class ParserFunctions():
             #
             #             actual_data = data['data']
             #             temp_impl = []
-            #             for actual_index in range(0, len(actual_data)):
-            #                 if actual_index > 0 and actual_index < len(actual_data):
-            #                     temp_impl.append('else if')
-            #
-            #                 list_of_name = strFunctions.lower_first(actual_data[actual_index]['listName'])
-            #                 type = actual_data[actual_index]['type']
-            #                 # temp_impl.append('else if')
-            #
-            #                 temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
-            #                                                                         list_of_name)
-            #                 temp_impl.append(temp0)
-            #                 temp_impl.append(self.create_code_block('empty_line'))
-            #
-            #                 temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
-            #                                                                    object_name,
-            #                                                                    strFunctions.upper_first(
-            #                                                                        list_of_name))
-            #
-            #                 temp_impl.append(temp1)
-            #
-            #                 temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-            #                 temp_impl.append(temp2)
-            #
-            #                 temp3 = 'return {0}'.format(list_of_name)
-            #                 temp_impl.append(temp3)
-            #                 # This part was giving a problem
-            #
-            #             implementation_temp.append(self.create_code_block('else_if', temp_impl))
-            #             implementation_temp.append(self.create_code_block('empty_line'))
-            #
-            #             # temp_code = self.create_code_block('else_if', implementation_temp)
-            #             temp_code = implementation_temp
-            #             implementation += temp_code
+
+
+                        # TODO here's the error
+                        # for actual_index in range(0, len(actual_data)):
+                        #     if actual_index > 0 and actual_index < len(actual_data)-1:
+                        #         temp_impl.append('else if')
+                        #
+                        #     list_of_name = strFunctions.lower_first(actual_data[actual_index]['listName'])
+                        #     type = actual_data[actual_index]['type']
+                        #     # temp_impl.append('else if')
+                        #
+                        #     temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
+                        #                                                             list_of_name)
+                        #     temp_impl.append(temp0)
+                        #     temp_impl.append(self.create_code_block('empty_line'))
+                        #
+                        #     temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
+                        #                                                        object_name,
+                        #                                                        strFunctions.upper_first(
+                        #                                                            list_of_name))
+                        #
+                        #     temp_impl.append(temp1)
+                        #
+                        #     temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+                        #     temp_impl.append(temp2)
+                        #
+                        #     temp3 = 'return {0}'.format(list_of_name)
+                        #     temp_impl.append(temp3)
+                        #     # This part was giving a problem
+                        #
+                        # implementation_temp.append(self.create_code_block('else_if', temp_impl))
+                        # implementation_temp.append(self.create_code_block('empty_line'))
+                        #
+                        # # temp_code = self.create_code_block('else_if', implementation_temp)
+                        # temp_code = implementation_temp
+                        # implementation += temp_code
 
             #TODO
 
@@ -1420,10 +1429,12 @@ class ParserFunctions():
         # if plugin_index < len(plugins):
         #     code.append(self.create_code_block('if', implementation))
         # else:
-        test = 1
+        # test = 1
+
+
         # For the first if statement
-        code.append(self.create_code_block('else_if', implementation))
-        code.append(self.create_code_block('empty_line'))
+        # code.append(self.create_code_block('else_if', implementation))
+        # code.append(self.create_code_block('empty_line'))
         # temp = [
         #     'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
         # code.append(self.create_code_block('line', temp))
@@ -1466,6 +1477,86 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
+
+    def write_write_element_parser(self):
+        # do not write for C API
+        if self.is_java_api is False:
+            return
+        # create doc string header
+        # Check if method is required
+        function = 'writeElement'
+        # if function not in self.methods_to_write:
+        #     return
+
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)'
+        params = ['@param rhs the {0} object whose values are to be used '
+                  'as the basis of the assignment.'.format(self.object_name)]
+        return_lines = []
+        additional = []
+        additional.append('Override')
+
+        return_type = 'void'
+
+        arguments = ['SBMLObjectForXML xmlObject', 'Object sbmlElementToWrite']
+        arguments_no_defaults = ['SBMLObjectForXML xmlObject', 'Object sbmlElementToWrite']
+
+        # create the function implementation
+        args = []  # ['&rhs != this'] + self.write_assignment_args(self)
+        clone = 'clone'
+
+        code = [self.create_code_block('empty_line')]
+        plugins = self.expanded_package['plugins']
+
+        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
+        lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
+        implementation = []
+
+        # for plugin_index in range(0, len(plugins)):
+        #     try:
+        #         if plugin_index > 0 and plugin_index < len(plugins):
+        #             implementation.append('else if')
+        #     except Exception as e:
+        #         print('Yolo ', e)
+        #         pass
+        #
+        #
+        #     temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
+        #     implementation.append(temp)
+        #
+        #     package_name = '{0}'.format(plugins[plugin_index]['package'])
+        #     lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
+        #     upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
+        #
+        #     temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+        #     implementation.append(temp)
+        #
+        #     temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+        #         package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+        #     implementation.append(temp)
+
+        # implementation.append(self.create_code_block('empty_line'))
+
+
+
+
+
+
+        return dict({'title_line': title_line,
+                     'params': params,
+                     'return_lines': return_lines,
+                     'additional': additional,
+                     'function': function,
+                     'return_type': return_type,
+                     'arguments': arguments,
+                     'constant': False,
+                     'virtual': False,
+                     'object_name': self.object_name,
+                     'args_no_defaults': arguments_no_defaults,
+                     'implementation': code})
+
+
+
 
     def write_get_prefix(self):
         # do not write for C API

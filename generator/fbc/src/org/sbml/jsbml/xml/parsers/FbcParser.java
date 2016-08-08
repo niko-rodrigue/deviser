@@ -259,5 +259,3 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
     return contextObject;
   }
 
-
-}

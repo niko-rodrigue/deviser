@@ -41,7 +41,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 23629375516504801L;
+  private static final long serialVersionUID = 29939119734150539L;
   /**
    *
    */
@@ -326,7 +326,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 919013;
+    final int prime = 3591587;
 
     int hashCode = super.hashCode();
 

@@ -173,7 +173,7 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
   @Override
   public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
-    if (elementName.equals("listOfGroups")) {
+    if (elementName.equals("listOfGroups") || elementName.equals("listOfMembers")) {
       groupList = GroupsList.none;
     }
 
@@ -194,10 +194,14 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
       Model model = (Model) contextObject;
       GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel);
 
+
+      if (elementName.equals(GroupsList.listOfGroups.name())) {
+        ListOf<Group> listOfGroups = groupsModel.getListOfGroups();
+        groupList = GroupsList.listOfGroups;
+        return listOfGroups;
+      }
     }
 
     return contextObject;
   }
 
-
-}
