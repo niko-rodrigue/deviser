@@ -41,7 +41,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 13267330252028756L;
+  private static final long serialVersionUID = 41357198049908336L;
   /**
    *
    */
@@ -207,7 +207,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 8958479;
+    final int prime = 5341429;
 
     int hashCode = super.hashCode();
 

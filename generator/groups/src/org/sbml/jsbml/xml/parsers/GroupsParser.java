@@ -190,18 +190,33 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (contextObject instanceof Model) {
-      Model model = (Model) contextObject;
-      GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel);
-
-
-      if (elementName.equals(GroupsList.listOfGroups.name())) {
-        ListOf<Group> listOfGroups = groupsModel.getListOfGroups();
-        groupList = GroupsList.listOfGroups;
-        return listOfGroups;
-      }
-    }
-
     return contextObject;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("GroupsParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
+  }
+
+
+}

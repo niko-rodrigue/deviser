@@ -186,7 +186,7 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
   @Override
   public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
-    if () {
+    if (elementName.equals("listOfDistribInputs")) {
       groupList = DistribList.none;
     }
 
@@ -203,19 +203,32 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (contextObject instanceof FunctionDefinition) {
-      FunctionDefinition functionDefinition = (FunctionDefinition) contextObject;
-      DistribFunctionDefinitionPlugin distribFunctionDefinition = (DistribFunctionDefinitionPlugin)
-        functionDefinition.getPlugin(DistribConstants.shortLabel);
-
-    }
-    if (contextObject instanceof SBase) {
-      SBase sBase = (SBase) contextObject;
-      DistribSBasePlugin distribSBase = (DistribSBasePlugin) sBase.getPlugin(DistribConstants.shortLabel);
-
-    }
-
     return contextObject;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("DistribParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
   }
 
 

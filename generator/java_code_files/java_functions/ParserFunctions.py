@@ -1510,32 +1510,64 @@ class ParserFunctions():
 
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
+
+
         implementation = []
+        implementation.append('logger.isDebugEnabled()')
+        implementation.append('logger.debug("{0}Parser: writeElement")'.format(upper_original_name))
 
-        # for plugin_index in range(0, len(plugins)):
-        #     try:
-        #         if plugin_index > 0 and plugin_index < len(plugins):
-        #             implementation.append('else if')
-        #     except Exception as e:
-        #         print('Yolo ', e)
-        #         pass
-        #
-        #
-        #     temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
-        #     implementation.append(temp)
-        #
-        #     package_name = '{0}'.format(plugins[plugin_index]['package'])
-        #     lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
-        #     upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
-        #
-        #     temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
-        #     implementation.append(temp)
-        #
-        #     temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
-        #         package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
-        #     implementation.append(temp)
+        code.append(self.create_code_block('if', implementation))
+        code.append(self.create_code_block('empty_line'))
 
-        # implementation.append(self.create_code_block('empty_line'))
+
+
+
+        #Start of level 1
+        implementation = []
+        implementation.append('sbmlElementToWrite instanceof SBase')
+        implementation.append('SBase sbase = (SBase) sbmlElementToWrite')
+        implementation.append(self.create_code_block('empty_line'))
+
+
+        #Level 2
+        nested_if_level2 = []
+        nested_if_level2.append('!xmlObject.isSetName()')
+        nested_if_level2.append(self.create_code_block('empty_line'))
+        # nested_if_level2.append('SBase sbase = (SBase) sbmlElementToWrite')
+
+        #Level 3
+        nested_if_level3 = []
+        nested_if_level3.append('sbase instanceof ListOf<?>')
+        nested_if_level3.append('ListOf<?> listOf = (ListOf<?>) sbase')
+        nested_if_level3.append(self.create_code_block('empty_line'))
+
+
+        # TODO level4?
+
+
+
+        nested_if_level3.append('else')
+        nested_if_level3.append('xmlObject.setName(sbase.getElementName())')
+        nested_if_level3.append(self.create_code_block('empty_line'))
+
+
+
+        # nested_if_level2.append(self.create_code_block('empty_line'))
+        nested_if_level2.append(self.create_code_block('if_else', nested_if_level3))
+
+
+
+
+        # End of level 1
+        implementation.append(self.create_code_block('empty_line'))
+        implementation.append(self.create_code_block('if', nested_if_level2))
+        implementation.append(self.create_code_block('empty_line'))
+
+        code.append(self.create_code_block('if', implementation))
+        code.append(self.create_code_block('empty_line'))
+
+
+
 
 
 

@@ -224,38 +224,33 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (contextObject instanceof Model) {
-      Model model = (Model) contextObject;
-      FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
-
-
-      if (elementName.equals(FbcList.listOfObjectives.name())) {
-        ListOf<Objective> listOfObjectives = fbcModel.getListOfObjectives();
-        groupList = FbcList.listOfObjectives;
-        return listOfObjectives;
-      }
-
-      if (elementName.equals(FbcList.listOfFluxBounds.name())) {
-        ListOf<FluxBound> listOfFluxBounds = fbcModel.getListOfFluxBounds();
-        groupList = FbcList.listOfFluxBounds;
-        return listOfFluxBounds;
-      }
-
-      if (elementName.equals(FbcList.listOfGeneProducts.name())) {
-        ListOf<GeneProduct> listOfGeneProducts = fbcModel.getListOfGeneProducts();
-        groupList = FbcList.listOfGeneProducts;
-        return listOfGeneProducts;
-      }
-    }    else if (contextObject instanceof Species) {
-      Species species = (Species) contextObject;
-      FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
-
-    }    else if (contextObject instanceof Reaction) {
-      Reaction reaction = (Reaction) contextObject;
-      FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
-
-    }
-
     return contextObject;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("FbcParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
+  }
+
+
+}

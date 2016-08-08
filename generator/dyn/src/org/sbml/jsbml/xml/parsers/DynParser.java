@@ -208,23 +208,32 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (contextObject instanceof SBase) {
-      SBase sBase = (SBase) contextObject;
-      DynSBasePlugin dynSBase = (DynSBasePlugin) sBase.getPlugin(DynConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Event) {
-      Event event = (Event) contextObject;
-      DynEventPlugin dynEvent = (DynEventPlugin) event.getPlugin(DynConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Compartment) {
-      Compartment compartment = (Compartment) contextObject;
-      DynCompartmentPlugin dynCompartment = (DynCompartmentPlugin) compartment.getPlugin(DynConstants.shortLabel);
-
-    }
-
     return contextObject;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("DynParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
   }
 
 

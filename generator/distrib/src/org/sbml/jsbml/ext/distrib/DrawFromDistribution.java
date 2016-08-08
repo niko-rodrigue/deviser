@@ -40,7 +40,7 @@ public class DrawFromDistribution extends AbstractSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 70618571479972775L;
+  private static final long serialVersionUID = 44518662788906758L;
   /**
    *
    */
@@ -91,7 +91,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#equals
+   * @see org.sbml.jsbml.SBase#equals
    */
   @Override
   public boolean equals(Object object) {
@@ -114,7 +114,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#clone
+   * @see org.sbml.jsbml.SBase#clone
    */
   @Override
   public DrawFromDistribution clone() {
@@ -378,7 +378,7 @@ public class DrawFromDistribution extends AbstractSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 4141439;
+    final int prime = 5574713;
 
     int hashCode = super.hashCode();
 
@@ -405,7 +405,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#readAttribute
+   * @see org.sbml.jsbml.SBase#readAttribute
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {
@@ -415,7 +415,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#writeXMLAttributes
+   * @see org.sbml.jsbml.SBase#writeXMLAttributes
    */
   @Override
   public Map <String, String> writeXMLAttributes() {

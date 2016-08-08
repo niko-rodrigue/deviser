@@ -40,7 +40,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 54698303517298537L;
+  private static final long serialVersionUID = 40609784089828712L;
   /**
    *
    */
@@ -308,7 +308,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 4520909;
+    final int prime = 2764147;
 
     int hashCode = super.hashCode();
 

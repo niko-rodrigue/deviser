@@ -193,3 +193,30 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
     return contextObject;
   }
 
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("QualParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
+  }
+
+
+}
