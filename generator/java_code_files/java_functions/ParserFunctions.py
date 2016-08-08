@@ -1176,10 +1176,17 @@ class ParserFunctions():
 
         none_values = []
         elements = self.expanded_package['elements']
+        add = True
         for element in elements:
             if element['listOfClassName'] != '':
-                name = strFunctions.lower_first(element['listOfClassName'])
-                none_values.append(name)
+                for data in data_to_write:
+                    if strFunctions.lower_first(element['listOfClassName']) in data['data']:
+                        add = False
+                if add == True:
+                    name = strFunctions.lower_first(element['listOfClassName'])
+                    none_values.append(name)
+                else:
+                    add = True
 
 
         implementation = []
@@ -1308,8 +1315,7 @@ class ParserFunctions():
                 package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
             implementation.append(temp)
 
-            temp = 'contextObject = {0}{1}'.format(lower_original_name, upper_sbase)
-            implementation.append(temp)
+
 
             code.append(self.create_code_block('if', implementation))
 
@@ -1317,6 +1323,11 @@ class ParserFunctions():
         # temp = [
         #     'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
         # code.append(self.create_code_block('line', temp))
+
+
+        temp = ['return contextObject']
+        code.append(self.create_code_block('line', temp))
+
 
         # for i in range(0, len(self.child_elements)):
         #     element = self.child_elements[i]

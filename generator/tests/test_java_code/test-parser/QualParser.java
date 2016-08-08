@@ -33,7 +33,6 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
-import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.qual.*;
 
@@ -54,6 +53,7 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
    *
    */
   private static final transient Logger logger = Logger.getLogger(QualParser.class);
+
   /* (non-Javadoc)
    * @see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()
    */
@@ -114,6 +114,21 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor(org.sbml.jsbml.SBase)
+   */
+  @Override
+  public SBasePlugin createPluginFor(SBase sbase) {
+
+    if (sbase != null) {
+      if (sbase instanceof Model) {
+        return new QualModelPlugin((Model) sbase);
+      }
+    }
+
+    return null;
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)
    */
   @Override
@@ -127,6 +142,60 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
       QualModelPlugin ModelPlugin = (QualModelPlugin) ((Model) sbase).getExtension(QualConstants.namespaceURI);
     }
     return listOfElementsToWrite;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processAttribute(String elementName, String attributeName, String value, String
+   */
+  @Override
+  public void processAttribute(String elementName, 
+                               String attributeName, 
+                               String value, 
+                               String uri, 
+                               String prefix, 
+                               boolean isLastAttribute, 
+                               Object contextObject) {
+
+    logger.debug("processAttribute -> " + prefix + ":" + attributeName + " = " + value + " (" + contextObject.getClass().getName() + ")");
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      QualModelPlugin qualModel = (QualModelPlugin) model.getPlugin(QualConstants.shortLabel);
+      contextObject = qualModel;
+    }
+
+    super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject);
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processEndElement(java.lang.String, java.lang.String, boolean, java.lang.Object)
+   */
+  @Override
+  public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
+
+    if (elementName.equals("listOfQualitativeSpecies") || elementName.equals("listOfTransitions")) {
+      groupList = QualList.none;
+    }
+
+    if (elementName.equals("listOfInputs") || elementName.equals("listOfOutputs") || elementName.equals("listOfFunctionTerms")) {
+      groupList = QualList.listOfTransitions;
+    }
+
+    return true;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processStartElement(java.lang.String, java.lang.String, boolean, boolean,
+   */
+  @Override
+  public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      QualModelPlugin qualModel = (QualModelPlugin) model.getPlugin(QualConstants.shortLabel);
+    }
+
+    return contextObject;
   }
 
 
