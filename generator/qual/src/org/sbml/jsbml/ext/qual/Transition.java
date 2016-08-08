@@ -39,7 +39,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 29586625390735051L;
+  private static final long serialVersionUID = 56198007954580622L;
   /**
    *
    */
@@ -694,7 +694,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 2762941;
+    final int prime = 1345013;
 
     int hashCode = super.hashCode();
 

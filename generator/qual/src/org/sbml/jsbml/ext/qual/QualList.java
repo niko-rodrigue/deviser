@@ -27,4 +27,32 @@ package org.sbml.jsbml.ext.qual;
  */
 public enum QualList {
 
+  /**
+   *
+   */
+  listOfQualitativeSpecies,
+  /**
+   *
+   */
+  listOfTransitions,
+  /**
+   *
+   */
+  listOfInputs,
+  /**
+   *
+   */
+  listOfOutputs,
+  /**
+   *
+   */
+  listOfDefaultTerms,
+  /**
+   *
+   */
+  listOfFunctionTerms,
+  /**
+   *
+   */
+  none;
 }

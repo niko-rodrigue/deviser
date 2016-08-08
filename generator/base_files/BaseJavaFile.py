@@ -724,7 +724,9 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.import_from_jsbml_modules.append('util.*')
             self.import_from_jsbml_modules.append('util.filters.*')
             self.import_from_jsbml_modules.append('xml.stax.SBMLObjectForXML')
-            self.import_from_jsbml_modules.append('ext.ASTNodePlugin')
+
+            # Get Error
+            # self.import_from_jsbml_modules.append('ext.ASTNodePlugin')
             self.import_from_jsbml_modules.append('ext.SBasePlugin')
 
             self.import_from_jsbml_modules.append('ext.{0}.*'.format(package['original_name']))

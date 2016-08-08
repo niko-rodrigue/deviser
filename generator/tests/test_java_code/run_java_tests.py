@@ -497,11 +497,11 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
 
     #
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualParser'
-    # test_case = 'Qual Parser'
-    # fail += run_parser_test(name, class_name, test_case)
+    name = 'qual'
+    num = 0
+    class_name = 'QualParser'
+    test_case = 'Qual Parser'
+    fail += run_parser_test(name, class_name, test_case)
 
     # name = 'fbc_v2'
     # num = 0
@@ -584,10 +584,10 @@ def main():
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
     #
-    name = 'fbc_v2'
-    class_name = 'FbcParser'
-    test_case = 'FbcParser'
-    fail += run_parser_test(name, class_name, test_case)
+    # name = 'fbc_v2'
+    # class_name = 'FbcParser'
+    # test_case = 'FbcParser'
+    # fail += run_parser_test(name, class_name, test_case)
 
 
     # #
