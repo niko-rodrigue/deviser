@@ -1543,15 +1543,22 @@ class ParserFunctions():
 
 
         # TODO level4?
+        nested_if_level4 = []
+        nested_if_level4.append('listOf.size() > 0')
+        nested_if_level4.append(self.create_code_block('empty_line'))
 
 
 
+
+        # Level 3 End
+        nested_if_level3.append(self.create_code_block('if', nested_if_level4))
+        nested_if_level3.append(self.create_code_block('empty_line'))
         nested_if_level3.append('else')
         nested_if_level3.append('xmlObject.setName(sbase.getElementName())')
         nested_if_level3.append(self.create_code_block('empty_line'))
 
 
-
+        #Level 2 End
         # nested_if_level2.append(self.create_code_block('empty_line'))
         nested_if_level2.append(self.create_code_block('if_else', nested_if_level3))
 

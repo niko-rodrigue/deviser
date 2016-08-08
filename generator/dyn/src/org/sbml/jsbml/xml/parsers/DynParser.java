@@ -229,6 +229,10 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
 
         if (sbase instanceof ListOf<?>) {
           ListOf<?> listOf = (ListOf<?>) sbase;
+
+          if (listOf.size() > 0) {
+          } else {
+          }
         } else {
           xmlObject.setName(sbase.getElementName());
         }
