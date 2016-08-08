@@ -33,7 +33,6 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
-import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.fbc.*;
 
@@ -115,6 +114,27 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor(org.sbml.jsbml.SBase)
+   */
+  @Override
+  public SBasePlugin createPluginFor(SBase sbase) {
+
+    if (sbase != null) {
+      if (sbase instanceof Model) {
+        return new FbcModelPlugin((Model) sbase);
+      }
+      if (sbase instanceof Species) {
+        return new FbcSpeciesPlugin((Species) sbase);
+      }
+      if (sbase instanceof Reaction) {
+        return new FbcReactionPlugin((Reaction) sbase);
+      }
+    }
+
+    return null;
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)
    */
   @Override
@@ -170,23 +190,72 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processAttribute(String elementName, String attributeName, String value, String
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processEndElement(java.lang.String, java.lang.String, boolean, java.lang.Object)
    */
   @Override
-  public void processAttribute(String elementName, 
-                               String attributeName, 
-                               String value, 
-                               String uri, 
-                               String prefix, 
-                               boolean isLastAttribute, 
-                               Object contextObject) {
+  public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
-    logger.debug("processAttribute -> " + prefix + ":" + attributeName + " = " + value + " (" + contextObject.getClass().getName() + ")");
+    if (elementName.equals("listOfFluxBounds") || elementName.equals("listOfObjectives") || elementName.equals("listOfGeneProducts")) {
+      groupList = FbcList.none;
+    }
 
+    if (elementName.equals("listOfFluxObjectives")) {
+      groupList = FbcList.listOfObjectives;
+    }
 
-    groupList = FBCList.none;
+    if (elementName.equals("listOfAssociations")) {
+      groupList = FbcList.listOfFbcAnds;
+    }
+
+    if (elementName.equals("listOfAssociations")) {
+      groupList = FbcList.listOfFbcOrs;
+    }
+
+    if (elementName.equals("listOfAssociations")) {
+      groupList = FbcList.listOfGeneProductAssociations;
+    }
 
     return true;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.ReadingParser#processStartElement(java.lang.String, java.lang.String, boolean, boolean,
+   */
+  @Override
+  public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
+
+      if (elementName.equals(FbcList.ListOfObjectives.name())) {
+        ListOf<Objective> ListOfObjectives = fbcModel.getListOfObjectives();
+        groupList = FbcList.ListOfObjectives;
+        return ListOfObjectives;
+      }
+      if (elementName.equals(FbcList.ListOfFluxBounds.name())) {
+        ListOf<FluxBound> ListOfFluxBounds = fbcModel.getListOfFluxBounds();
+        groupList = FbcList.ListOfFluxBounds;
+        return ListOfFluxBounds;
+      }
+      if (elementName.equals(FbcList.ListOfGeneProducts.name())) {
+        ListOf<GeneProduct> ListOfGeneProducts = fbcModel.getListOfGeneProducts();
+        groupList = FbcList.ListOfGeneProducts;
+        return ListOfGeneProducts;
+      }
+    }
+    if (contextObject instanceof Species) {
+      Species species = (Species) contextObject;
+      FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
+
+    }
+    if (contextObject instanceof Reaction) {
+      Reaction reaction = (Reaction) contextObject;
+      FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
+
+    }
+
+    return contextObject;
   }
 
 

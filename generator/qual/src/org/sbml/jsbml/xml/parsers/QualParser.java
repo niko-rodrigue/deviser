@@ -173,8 +173,13 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
+    if (elementName.equals("listOfQualitativeSpecies") || elementName.equals("listOfTransitions")) {
+      groupList = QualList.none;
+    }
 
-    groupList = QualList.none;
+    if (elementName.equals("listOfInputs") || elementName.equals("listOfOutputs") || elementName.equals("listOfFunctionTerms")) {
+      groupList = QualList.listOfTransitions;
+    }
 
     return true;
   }
@@ -188,8 +193,20 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       QualModelPlugin qualModel = (QualModelPlugin) model.getPlugin(QualConstants.shortLabel);
-      contextObject = qualModel;
+
+      if (elementName.equals(QualList.ListOfQualitativeSpecies.name())) {
+        ListOf<QualitativeSpecies> ListOfQualitativeSpecies = qualModel.getListOfQualitativeSpecies();
+        groupList = QualList.ListOfQualitativeSpecies;
+        return ListOfQualitativeSpecies;
+      }
+      if (elementName.equals(QualList.ListOfTransitions.name())) {
+        ListOf<Transition> ListOfTransitions = qualModel.getListOfTransitions();
+        groupList = QualList.ListOfTransitions;
+        return ListOfTransitions;
+      }
     }
+
+    return contextObject;
   }
 
 

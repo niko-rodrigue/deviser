@@ -1169,8 +1169,11 @@ class ParserFunctions():
                             info_dict['parent'] = parent_name
 
                         element_name = child_lo_element['jsbmlName']
+                        element_type = child_lo_element['capAttName']
                         if element_name not in info_dict['data']:
-                            info_dict['data'].append(element_name)
+                            # info_dict['data'].append([element_name, element_type])
+                            info_dict['data'].append({'listName':element_name, 'type': element_type,
+                                                      'original':child_lo_element})
                 data_to_write.append(info_dict)
 
 
@@ -1214,7 +1217,7 @@ class ParserFunctions():
             for values_index in range(len(data['data'])):
                 if values_index >= 1 and values_index < len(data['data']):
                     text += ' || '
-                text += 'elementName.equals("{0}")'.format(data['data'][values_index])
+                text += 'elementName.equals("{0}")'.format(data['data'][values_index]['listName'])
             implementation.append(text)
             data_parent = 'listOf' + strFunctions.plural(data['parent'])
             temp = 'groupList = {0}List.{1}'.format(upper_original_name, data_parent)
@@ -1324,26 +1327,41 @@ class ParserFunctions():
             implementation.append(self.create_code_block('empty_line'))
 
 
-            for list_of in self.none_values:
-                temp_impl = []
-                list_of_name = list_of['listOfName']
-                type = list_of['name']
+            # Here is a problem
+            for list_of in plugin['lo_extension']:
+                if list_of['isListOf'] is True:
+                    temp_impl = []
+                    list_of_name = strFunctions.lower_first(list_of['listOfClassName'])
+                    type = list_of['name']
 
-                temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
-                temp_impl.append(temp0)
+                    temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
+                    temp_impl.append(temp0)
 
-                temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
-                                                                   lower_original_name, upper_sbase,
-                                                                   strFunctions.upper_first(list_of_name))
+                    temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
+                                                                       lower_original_name, upper_sbase,
+                                                                       strFunctions.upper_first(list_of_name))
 
-                temp_impl.append(temp1)
+                    temp_impl.append(temp1)
 
-                temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-                temp_impl.append(temp2)
+                    temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+                    temp_impl.append(temp2)
 
-                temp3 = 'return {0}'.format(list_of_name)
-                temp_impl.append(temp3)
-                implementation.append(self.create_code_block('else_if', temp_impl))
+                    temp3 = 'return {0}'.format(list_of_name)
+                    temp_impl.append(temp3)
+                    #This part was giving a problem
+                    implementation.append(self.create_code_block('if', temp_impl))
+
+
+            for attrib in plugin['attribs']:
+                for data in self.data_to_write:
+                    if data['parent'] == attrib['element']:
+                        print('yaya')
+
+
+
+
+            #TODO
+
 
             implementation.append(self.create_code_block('empty_line'))
 

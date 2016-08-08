@@ -39,7 +39,7 @@ public class FbcAnd extends Association {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 64370380044690646L;
+  private static final long serialVersionUID = 19539471422269379L;
   /**
    *
    */
@@ -344,7 +344,7 @@ public class FbcAnd extends Association {
    */
   @Override
   public int hashCode() {
-    final int prime = 1310389;
+    final int prime = 2328047;
 
     int hashCode = super.hashCode();
 
