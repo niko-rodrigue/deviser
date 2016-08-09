@@ -182,10 +182,13 @@ class ParserFunctions():
         self.none_values = self.expand_get_sbase_type_parent_elements_from_object()
 
 
+        self.lo_elements = self.get_all_lo_elements()
+
+
     ########################################################################
 
 
-
+    # Get Parent lo_element with childs
     def expand_get_parent_child_elements(self):
         baseElements = self.expanded_package['baseElements']
         #
@@ -216,7 +219,7 @@ class ParserFunctions():
 
         return data_to_write
 
-
+    # Get lo_elements of type SBase
     def expand_get_sbase_type_parent_elements_from_object(self):
         none_values = []
         elements = self.expanded_package['elements']
@@ -238,9 +241,32 @@ class ParserFunctions():
 
 
 
+    def get_all_lo_elements(self):
+        # baseElements = self.expanded_package['baseElements']
+        #
+        # child_lo_elements = []
+        # child_lo_elements_names  =[]
+        #
+        #
+        # for baseElement in baseElements:
+        #     for attribute in baseElement['attribs']:
+        #         if attribute['attType'] == 'lo_element':
+        #             if attribute['name'] not in child_lo_elements_names:
+        #                 child_lo_elements.append(attribute)
+        #                 child_lo_elements_names.append(attribute['name'])
+        list_of_elements = []
+
+        elements = self.expanded_package['elements']
+        for element in elements:
+            if element['isListOf'] is True:
+                list_of_elements.append(element)
 
 
-        # TODO JSBML PLUGIN FUNCTION
+        return list_of_elements
+
+
+
+        # TODO JSBML PARSER FUNCTIONS
 
     def write_get_short_label(self):
         # do not write for C API
@@ -1166,6 +1192,10 @@ class ParserFunctions():
 
     def write_process_end_element(self):
         # do not write for C API
+        if len(self.lo_elements) < 1:
+            return
+
+
         if self.is_java_api is False:
             return
         # create doc string header
@@ -1537,6 +1567,8 @@ class ParserFunctions():
 
     def write_write_element_parser(self):
         # do not write for C API
+        if len(self.lo_elements) < 1:
+            return
         if self.is_java_api is False:
             return
         # create doc string header
@@ -1605,26 +1637,39 @@ class ParserFunctions():
         nested_if_level4.append(self.create_code_block('empty_line'))
 
         # TODO level5
-        nested_if_level5 = []
-        nested_if_level5.append('listOf.get(0) instanceof FluxBound')
-        nested_if_level5.append('badoooo')
-        # nested_if_level5.append(self.create_code_block('empty_line')
-        nested_if_level5.append('else if')
-        nested_if_level5.append('listOf.get(0) instanceof FluxBoundSASDSAD')
-        nested_if_level5.append('test1')
-        nested_if_level5.append('else if')
-        nested_if_level5.append('listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD')
-        nested_if_level5.append('test2')
+        if len(self.lo_elements) >0:
+            nested_if_level5 = []
+
+            # Add lo_element for xmlObject
+            for lo_element_index in range(0,len(self.lo_elements)):
+                if lo_element_index>0 and lo_element_index < len(self.lo_elements):
+                    nested_if_level5.append('else if')
+
+                name = self.lo_elements[lo_element_index]['name']
+                list_of_name = strFunctions.lower_first(self.lo_elements[lo_element_index]['listOfClassName'])
+                nested_if_level5.append('listOf.get(0) instanceof {0}'.format(name))
+                nested_if_level5.append('xmlObject.setName({0}List.{1}.toString())'.format(upper_original_name,
+                                                                                           list_of_name))
+
+            # nested_if_level5.append('listOf.get(0) instanceof FluxBound')
+            # nested_if_level5.append('badoooo')
+            # # nested_if_level5.append(self.create_code_block('empty_line')
+            # nested_if_level5.append('else if')
+            # nested_if_level5.append('listOf.get(0) instanceof FluxBoundSASDSAD')
+            # nested_if_level5.append('test1')
+            # nested_if_level5.append('else if')
+            # nested_if_level5.append('listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD')
+            # nested_if_level5.append('test2')
 
 
-        # #TODO bug here  doesn't write this one
-        # nested_if_level5.append('else if')
-        # nested_if_level5.append('listOf.get(0) yikes FluxBoundSASDSAD')
+            # #TODO bug here  doesn't write this one
+            # nested_if_level5.append('else if')
+            # nested_if_level5.append('listOf.get(0) yikes FluxBoundSASDSAD')
 
-        # Level 4 End
-        nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
-        # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
-        nested_if_level4.append(self.create_code_block('empty_line'))
+            # Level 4 End
+            nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+            # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+            nested_if_level4.append(self.create_code_block('empty_line'))
 
         # Level 3 End
         nested_if_level3.append(self.create_code_block('if', nested_if_level4))
