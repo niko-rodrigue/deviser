@@ -217,7 +217,7 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
   @Override
   public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
-    if (elementName.equals("listOfCoordinateReferences")) {
+    if (elementName.equals("listOfDomainTypes") || elementName.equals("listOfDomains") || elementName.equals("listOfInteriorPoints") ||      elementName.equals("listOfAdjacentDomains") || elementName.equals("listOfGeometryDefinitions") || elementName.equals("listOfCoordinateComponents")        || elementName.equals("listOfSampledFields") || elementName.equals("listOfSampledVolumes") || elementName.equals("listOfAnalyticVolumes") ||          elementName.equals("listOfParametricObjects") || elementName.equals("listOfCSGObjects") || elementName.equals("listOfCSGNodes") ||            elementName.equals("listOfCoordinateReferences") || elementName.equals("listOfOrdinalMappings")) {
       groupList = SpatialList.none;
     }
 
@@ -262,33 +262,43 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (contextObject instanceof Model) {
-      Model model = (Model) contextObject;
-      SpatialModelPlugin spatialModel = (SpatialModelPlugin) model.getPlugin(SpatialConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Compartment) {
-      Compartment compartment = (Compartment) contextObject;
-      SpatialCompartmentPlugin spatialCompartment = (SpatialCompartmentPlugin) compartment.getPlugin(SpatialConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Species) {
-      Species species = (Species) contextObject;
-      SpatialSpeciesPlugin spatialSpecies = (SpatialSpeciesPlugin) species.getPlugin(SpatialConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Parameter) {
-      Parameter parameter = (Parameter) contextObject;
-      SpatialParameterPlugin spatialParameter = (SpatialParameterPlugin) parameter.getPlugin(SpatialConstants.shortLabel);
-
-    }
-    if (contextObject instanceof Reaction) {
-      Reaction reaction = (Reaction) contextObject;
-      SpatialReactionPlugin spatialReaction = (SpatialReactionPlugin) reaction.getPlugin(SpatialConstants.shortLabel);
-
-    }
-
     return contextObject;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("SpatialParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+
+          if (listOf.size() > 0) {
+
+            if (listOf.get(0) instanceof FluxBound) {
+              badoooo;
+            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
+              test1;
+            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
+              test2;
+            }
+          }
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
   }
 
 

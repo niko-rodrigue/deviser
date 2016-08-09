@@ -88,7 +88,7 @@ public class SpatialConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 25356833521934310L;
+  private static final long     serialVersionUID = 53594267730307435L;
   /**
    *
    */

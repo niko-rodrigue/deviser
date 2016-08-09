@@ -88,7 +88,7 @@ public class DistribConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 56028862621161752L;
+  private static final long     serialVersionUID = 24259994635860055L;
   /**
    *
    */

@@ -38,7 +38,7 @@ public class CSGNode {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 35184926636922136L;
+  private static final long serialVersionUID = 62198784967026509L;
 
   /**
    *  
@@ -184,7 +184,7 @@ public class CSGNode {
    */
   @Override
   public int hashCode() {
-    final int prime = 2340007;
+    final int prime = 3083209;
 
     int hashCode = super.hashCode();
 

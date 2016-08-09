@@ -39,7 +39,7 @@ public class Domain {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 58645528954325996L;
+  private static final long serialVersionUID = 44375802760822902L;
   /**
    *
    */
@@ -392,7 +392,7 @@ public class Domain {
    */
   @Override
   public int hashCode() {
-    final int prime = 4883311;
+    final int prime = 4226279;
 
     int hashCode = super.hashCode();
 

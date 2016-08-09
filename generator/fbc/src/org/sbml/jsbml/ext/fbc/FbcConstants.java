@@ -88,7 +88,7 @@ public class FbcConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 12780782744578782L;
+  private static final long     serialVersionUID = 64142297713613441L;
   /**
    *
    */

@@ -41,7 +41,7 @@ public class SpatialModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 50842262957860674L;
+  private static final long serialVersionUID = 64163277283626221L;
   /**
    *
    */
@@ -205,7 +205,7 @@ public class SpatialModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 8900981;
+    final int prime = 3008347;
 
     int hashCode = super.hashCode();
 

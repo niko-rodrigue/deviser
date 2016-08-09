@@ -40,7 +40,7 @@ public class CSGTransformation extends CSGNode {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 54245347801428811L;
+  private static final long serialVersionUID = 54376147995487044L;
   /**
    *
    */
@@ -321,7 +321,7 @@ public class CSGTransformation extends CSGNode {
    */
   @Override
   public int hashCode() {
-    final int prime = 1939169;
+    final int prime = 7178741;
 
     int hashCode = super.hashCode();
 

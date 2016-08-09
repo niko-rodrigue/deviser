@@ -39,7 +39,7 @@ public class Geometry {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 22450490757813473L;
+  private static final long serialVersionUID = 41705976617097950L;
   /**
    *
    */
@@ -1314,7 +1314,7 @@ public class Geometry {
    */
   @Override
   public int hashCode() {
-    final int prime = 6592393;
+    final int prime = 6381611;
 
     int hashCode = super.hashCode();
 
