@@ -41,7 +41,7 @@ public class SpatialCompartmentPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 29527675397111378L;
+  private static final long serialVersionUID = 48617998544263046L;
   /**
    *
    */
@@ -209,7 +209,7 @@ public class SpatialCompartmentPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 5089957;
+    final int prime = 7094303;
 
     int hashCode = super.hashCode();
 

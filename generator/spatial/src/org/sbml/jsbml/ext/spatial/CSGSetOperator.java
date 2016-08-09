@@ -39,7 +39,7 @@ public class CSGSetOperator extends CSGNode {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 21401767779584804L;
+  private static final long serialVersionUID = 38516705491326055L;
   /**
    *
    */
@@ -590,7 +590,7 @@ public class CSGSetOperator extends CSGNode {
    */
   @Override
   public int hashCode() {
-    final int prime = 1334491;
+    final int prime = 4166737;
 
     int hashCode = super.hashCode();
 

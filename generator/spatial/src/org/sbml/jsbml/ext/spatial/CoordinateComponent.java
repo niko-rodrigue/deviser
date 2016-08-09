@@ -40,7 +40,7 @@ public class CoordinateComponent {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 27285434930917975L;
+  private static final long serialVersionUID = 753520734102657L;
   /**
    *
    */
@@ -371,7 +371,7 @@ public class CoordinateComponent {
    */
   @Override
   public int hashCode() {
-    final int prime = 5126959;
+    final int prime = 8075257;
 
     int hashCode = super.hashCode();
 

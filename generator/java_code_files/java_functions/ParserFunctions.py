@@ -177,12 +177,68 @@ class ParserFunctions():
         self.duplicate_methods = []
 
 
-        # self.methods_to_write = ['readAttribute', 'toString', 'writeXMLAttributes', 'hashCode']
+        # get parent-child elements
+        self.data_to_write = self.expand_get_parent_child_elements()
+        self.none_values = self.expand_get_sbase_type_parent_elements_from_object()
 
-        # if self.is_java_api == True:
-        #     self.expand_methods_to_write()
 
     ########################################################################
+
+
+
+    def expand_get_parent_child_elements(self):
+        baseElements = self.expanded_package['baseElements']
+        #
+        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
+        # lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
+        data_to_write = []
+        for element in baseElements:
+            implementation = []
+
+            info_dict = {}
+            info_dict['data'] = []
+            if len(element['child_lo_elements']) > 0:
+                for child_lo_element in element['child_lo_elements']:
+
+                    if 'parent' in child_lo_element:
+                        parent = child_lo_element['parent']
+                        parent_name = parent['name']
+                        if parent_name not in info_dict:
+                            info_dict['parent'] = parent_name
+
+                        element_name = child_lo_element['jsbmlName']
+                        element_type = child_lo_element['capAttName']
+                        if element_name not in info_dict['data']:
+                            # info_dict['data'].append([element_name, element_type])
+                            info_dict['data'].append({'listName': element_name, 'type': element_type,
+                                                      'original': child_lo_element})
+                data_to_write.append(info_dict)
+
+        return data_to_write
+
+
+    def expand_get_sbase_type_parent_elements_from_object(self):
+        none_values = []
+        elements = self.expanded_package['elements']
+        add = True
+        for element in elements:
+            if element['listOfClassName'] != '':
+                for data in self.data_to_write:
+                    if strFunctions.lower_first(element['listOfClassName']) in data['data']:
+                        add = False
+                if add == True:
+                    temp = {}
+                    list_of_name = strFunctions.lower_first(element['listOfClassName'])
+                    temp.update({'listOfName': list_of_name})
+                    temp.update({'name': element['name']})
+                    none_values.append(temp)
+                else:
+                    add = True
+        return none_values
+
+
+
+
 
         # TODO JSBML PLUGIN FUNCTION
 
@@ -1152,51 +1208,52 @@ class ParserFunctions():
         #
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         # lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
-        data_to_write = []
-        for element in baseElements:
-            implementation = []
+        # data_to_write = []
+        # for element in baseElements:
+        #     implementation = []
+        #
+        #
+        #     info_dict = {}
+        #     info_dict['data'] = []
+        #     if len(element['child_lo_elements']) > 0:
+        #         for child_lo_element in element['child_lo_elements']:
+        #
+        #             if 'parent' in child_lo_element:
+        #                 parent = child_lo_element['parent']
+        #                 parent_name = parent['name']
+        #                 if parent_name not in info_dict:
+        #                     info_dict['parent'] = parent_name
+        #
+        #                 element_name = child_lo_element['jsbmlName']
+        #                 element_type = child_lo_element['capAttName']
+        #                 if element_name not in info_dict['data']:
+        #                     # info_dict['data'].append([element_name, element_type])
+        #                     info_dict['data'].append({'listName':element_name, 'type': element_type,
+        #                                               'original':child_lo_element})
+        #         data_to_write.append(info_dict)
 
 
-            info_dict = {}
-            info_dict['data'] = []
-            if len(element['child_lo_elements']) > 0:
-                for child_lo_element in element['child_lo_elements']:
-
-                    if 'parent' in child_lo_element:
-                        parent = child_lo_element['parent']
-                        parent_name = parent['name']
-                        if parent_name not in info_dict:
-                            info_dict['parent'] = parent_name
-
-                        element_name = child_lo_element['jsbmlName']
-                        element_type = child_lo_element['capAttName']
-                        if element_name not in info_dict['data']:
-                            # info_dict['data'].append([element_name, element_type])
-                            info_dict['data'].append({'listName':element_name, 'type': element_type,
-                                                      'original':child_lo_element})
-                data_to_write.append(info_dict)
+        # none_values = []
+        # elements = self.expanded_package['elements']
+        # add = True
+        # for element in elements:
+        #     if element['listOfClassName'] != '':
+        #         for data in data_to_write:
+        #             if strFunctions.lower_first(element['listOfClassName']) in data['data']:
+        #                 add = False
+        #         if add == True:
+        #             temp = {}
+        #             list_of_name = strFunctions.lower_first(element['listOfClassName'])
+        #             temp.update({'listOfName': list_of_name})
+        #             temp.update({'name': element['name']})
+        #             none_values.append(temp)
+        #         else:
+        #             add = True
 
 
-        none_values = []
-        elements = self.expanded_package['elements']
-        add = True
-        for element in elements:
-            if element['listOfClassName'] != '':
-                for data in data_to_write:
-                    if strFunctions.lower_first(element['listOfClassName']) in data['data']:
-                        add = False
-                if add == True:
-                    temp = {}
-                    list_of_name = strFunctions.lower_first(element['listOfClassName'])
-                    temp.update({'listOfName': list_of_name})
-                    temp.update({'name': element['name']})
-                    none_values.append(temp)
-                else:
-                    add = True
 
-
-        self.none_values = none_values
-        self.data_to_write = data_to_write
+        none_values = self.none_values
+        data_to_write = self.data_to_write
 
         implementation = []
         text = ''

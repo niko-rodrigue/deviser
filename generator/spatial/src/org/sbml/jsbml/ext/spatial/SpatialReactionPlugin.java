@@ -39,7 +39,7 @@ public class SpatialReactionPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 36450134337987382L;
+  private static final long serialVersionUID = 24075892659211806L;
   /**
    *
    */
@@ -193,7 +193,7 @@ public class SpatialReactionPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 1933247;
+    final int prime = 5298299;
 
     int hashCode = super.hashCode();
 

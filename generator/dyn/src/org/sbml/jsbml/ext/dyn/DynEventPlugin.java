@@ -40,7 +40,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 18045510007874340L;
+  private static final long serialVersionUID = 48469859775409448L;
   /**
    *
    */
@@ -363,7 +363,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 648917;
+    final int prime = 3004993;
 
     int hashCode = super.hashCode();
 
