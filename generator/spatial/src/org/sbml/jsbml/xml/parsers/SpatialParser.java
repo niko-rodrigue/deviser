@@ -262,6 +262,27 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+    if (logger.isDebugEnabled()) {
+      logger.debug("SpatialParser: writeElement");
+    }
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      SpatialModelPlugin spatialModel = (SpatialModelPlugin) model.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Compartment) {
+      Compartment compartment = (Compartment) contextObject;
+      SpatialCompartmentPlugin spatialCompartment = (SpatialCompartmentPlugin) compartment.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Species) {
+      Species species = (Species) contextObject;
+      SpatialSpeciesPlugin spatialSpecies = (SpatialSpeciesPlugin) species.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Parameter) {
+      Parameter parameter = (Parameter) contextObject;
+      SpatialParameterPlugin spatialParameter = (SpatialParameterPlugin) parameter.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Reaction) {
+      Reaction reaction = (Reaction) contextObject;
+      SpatialReactionPlugin spatialReaction = (SpatialReactionPlugin) reaction.getPlugin(SpatialConstants.shortLabel);
+    }
+
     return contextObject;
   }
 
@@ -286,12 +307,34 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
 
           if (listOf.size() > 0) {
 
-            if (listOf.get(0) instanceof FluxBound) {
-              badoooo;
-            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
-              test1;
-            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
-              test2;
+            if (listOf.get(0) instanceof DomainType) {
+              xmlObject.setName(SpatialList.listOfDomainTypes.toString());
+            }            else if (listOf.get(0) instanceof Domain) {
+              xmlObject.setName(SpatialList.listOfDomains.toString());
+            }            else if (listOf.get(0) instanceof InteriorPoint) {
+              xmlObject.setName(SpatialList.listOfInteriorPoints.toString());
+            }            else if (listOf.get(0) instanceof AdjacentDomains) {
+              xmlObject.setName(SpatialList.listOfAdjacentDomains.toString());
+            }            else if (listOf.get(0) instanceof GeometryDefinition) {
+              xmlObject.setName(SpatialList.listOfGeometryDefinitions.toString());
+            }            else if (listOf.get(0) instanceof CoordinateComponent) {
+              xmlObject.setName(SpatialList.listOfCoordinateComponents.toString());
+            }            else if (listOf.get(0) instanceof SampledField) {
+              xmlObject.setName(SpatialList.listOfSampledFields.toString());
+            }            else if (listOf.get(0) instanceof SampledVolume) {
+              xmlObject.setName(SpatialList.listOfSampledVolumes.toString());
+            }            else if (listOf.get(0) instanceof AnalyticVolume) {
+              xmlObject.setName(SpatialList.listOfAnalyticVolumes.toString());
+            }            else if (listOf.get(0) instanceof ParametricObject) {
+              xmlObject.setName(SpatialList.listOfParametricObjects.toString());
+            }            else if (listOf.get(0) instanceof CSGObject) {
+              xmlObject.setName(SpatialList.listOfCSGObjects.toString());
+            }            else if (listOf.get(0) instanceof CSGNode) {
+              xmlObject.setName(SpatialList.listOfCSGNodes.toString());
+            }            else if (listOf.get(0) instanceof CoordinateReference) {
+              xmlObject.setName(SpatialList.listOfCoordinateReferences.toString());
+            }            else if (listOf.get(0) instanceof OrdinalMapping) {
+              xmlObject.setName(SpatialList.listOfOrdinalMappings.toString());
             }
           }
         } else {

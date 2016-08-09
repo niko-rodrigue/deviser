@@ -38,7 +38,7 @@ public class OrdinalMapping {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 13075886804745459L;
+  private static final long serialVersionUID = 31251881265813701L;
   /**
    *
    */
@@ -255,7 +255,7 @@ public class OrdinalMapping {
    */
   @Override
   public int hashCode() {
-    final int prime = 7475089;
+    final int prime = 666773;
 
     int hashCode = super.hashCode();
 

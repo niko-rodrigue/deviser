@@ -38,7 +38,7 @@ public class CSGRotation extends CSGTransformation {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 45107772670971478L;
+  private static final long serialVersionUID = 27797995094915650L;
   /**
    *
    */
@@ -385,7 +385,7 @@ public class CSGRotation extends CSGTransformation {
    */
   @Override
   public int hashCode() {
-    final int prime = 3193633;
+    final int prime = 3690517;
 
     int hashCode = super.hashCode();
 

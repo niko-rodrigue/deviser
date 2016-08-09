@@ -1384,34 +1384,88 @@ class ParserFunctions():
         code = [self.create_code_block('empty_line')]
         plugins = self.expanded_package['plugins']
 
+
+        code = [self.create_code_block('empty_line')]
+        plugins = self.expanded_package['plugins']
+
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
+
+
+
+
         implementation = []
+        implementation.append('logger.isDebugEnabled()')
+        implementation.append('logger.debug("{0}Parser: writeElement")'.format(upper_original_name))
 
-        # for plugin_index in range(0, len(plugins)):
-        #     try:
-        #         if plugin_index > 0 and plugin_index < len(plugins):
-        #             implementation.append('else if')
-        #     except Exception as e:
-        #         print('Yolo ', e)
-        #         pass
-        #
-        #
-        #     temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
-        #     implementation.append(temp)
-        #
-        #     package_name = '{0}'.format(plugins[plugin_index]['package'])
-        #     lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
-        #     upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
-        #
-        #     temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
-        #     implementation.append(temp)
-        #
-        #     temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
-        #         package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
-        #     implementation.append(temp)
+        code.append(self.create_code_block('if', implementation))
+        code.append(self.create_code_block('empty_line'))
 
-            # implementation.append(self.create_code_block('empty_line'))
+
+        # TODO level1
+        nested_if_level1 = []
+        # nested_if_level1.append('listOf.size() > 0')
+        # nested_if_level1.append(self.create_code_block('empty_line'))
+
+        for plugin_index in range(0, len(plugins)):
+            try:
+                if plugin_index > 0 and plugin_index < len(plugins):
+                    nested_if_level1.append('else if')
+            except Exception as e:
+                print('Yolo ', e)
+
+
+            temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
+            nested_if_level1.append(temp)
+
+            package_name = '{0}'.format(plugins[plugin_index]['package'])
+            lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
+            upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
+
+            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+            nested_if_level1.append(temp)
+
+            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+
+
+            nested_if_level1.append(temp)
+
+            nested_if_level1.append(self.create_code_block('empty_line'))
+
+
+
+            # # TODO level2
+            # if len(self.lo_elements) > 0:
+            #     nested_if_level2 = []
+            #
+            #     # Add lo_element for xmlObject
+            #     for lo_element_index in range(0, len(self.lo_elements)):
+            #         if lo_element_index > 0 and lo_element_index < len(self.lo_elements):
+            #             nested_if_level2.append('else if')
+            #
+            #         name = self.lo_elements[lo_element_index]['name']
+            #         list_of_name = strFunctions.lower_first(self.lo_elements[lo_element_index]['listOfClassName'])
+            #         nested_if_level2.append('listOf.get(0) instanceof {0}'.format(name))
+            #         nested_if_level2.append('xmlObject.setName({0}List.{1}.toString())'.format(upper_original_name,
+            #                                                                                    list_of_name))
+
+                # # Level 2 End
+                # nested_if_level1.append(self.create_code_block('else_if', nested_if_level2))
+                # # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+                # nested_if_level1.append(self.create_code_block('empty_line'))
+
+
+
+        code.append(self.create_code_block('else_if', nested_if_level1))
+        code.append(self.create_code_block('empty_line'))
+
+
+
+
+
+        #
+
 
 
             # # TODO Here is a problem
@@ -1651,21 +1705,6 @@ class ParserFunctions():
                 nested_if_level5.append('xmlObject.setName({0}List.{1}.toString())'.format(upper_original_name,
                                                                                            list_of_name))
 
-            # nested_if_level5.append('listOf.get(0) instanceof FluxBound')
-            # nested_if_level5.append('badoooo')
-            # # nested_if_level5.append(self.create_code_block('empty_line')
-            # nested_if_level5.append('else if')
-            # nested_if_level5.append('listOf.get(0) instanceof FluxBoundSASDSAD')
-            # nested_if_level5.append('test1')
-            # nested_if_level5.append('else if')
-            # nested_if_level5.append('listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD')
-            # nested_if_level5.append('test2')
-
-
-            # #TODO bug here  doesn't write this one
-            # nested_if_level5.append('else if')
-            # nested_if_level5.append('listOf.get(0) yikes FluxBoundSASDSAD')
-
             # Level 4 End
             nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
             # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
@@ -1684,8 +1723,6 @@ class ParserFunctions():
         nested_if_level2.append(self.create_code_block('if_else', nested_if_level3))
 
 
-
-
         # End of level 1
         implementation.append(self.create_code_block('empty_line'))
         implementation.append(self.create_code_block('if', nested_if_level2))
@@ -1693,13 +1730,6 @@ class ParserFunctions():
 
         code.append(self.create_code_block('if', implementation))
         code.append(self.create_code_block('empty_line'))
-
-
-
-
-
-
-
 
 
         return dict({'title_line': title_line,

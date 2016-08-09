@@ -38,7 +38,7 @@ public class SpatialSymbolReference {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 25018740915379905L;
+  private static final long serialVersionUID = 58807839492959100L;
   /**
    *
    */
@@ -192,7 +192,7 @@ public class SpatialSymbolReference {
    */
   @Override
   public int hashCode() {
-    final int prime = 8304389;
+    final int prime = 4006529;
 
     int hashCode = super.hashCode();
 

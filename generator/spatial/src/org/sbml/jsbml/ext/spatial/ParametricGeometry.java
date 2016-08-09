@@ -40,7 +40,7 @@ public class ParametricGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 9635398169722829L;
+  private static final long serialVersionUID = 59409783624582015L;
   /**
    *
    */
@@ -394,7 +394,7 @@ public class ParametricGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 485411;
+    final int prime = 7847647;
 
     int hashCode = super.hashCode();
 

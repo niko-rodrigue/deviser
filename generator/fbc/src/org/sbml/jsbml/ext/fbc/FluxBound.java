@@ -38,7 +38,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 4737138045799461L;
+  private static final long serialVersionUID = 43559993923557133L;
   /**
    *
    */
@@ -312,7 +312,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
+   * @see org.sbml.jsbml.Reaction#isIdMandatory
    */
   @Override
   public boolean isIdMandatory() {
@@ -344,7 +344,7 @@ public class FluxBound extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 867253;
+    final int prime = 9005011;
 
     int hashCode = super.hashCode();
 

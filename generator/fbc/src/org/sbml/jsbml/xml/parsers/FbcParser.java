@@ -224,6 +224,21 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+    if (logger.isDebugEnabled()) {
+      logger.debug("FbcParser: writeElement");
+    }
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
+    }    else if (contextObject instanceof Species) {
+      Species species = (Species) contextObject;
+      FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
+    }    else if (contextObject instanceof Reaction) {
+      Reaction reaction = (Reaction) contextObject;
+      FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
+    }
+
     return contextObject;
   }
 
@@ -249,11 +264,15 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
           if (listOf.size() > 0) {
 
             if (listOf.get(0) instanceof FluxBound) {
-              badoooo;
-            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
-              test1;
-            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
-              test2;
+              xmlObject.setName(FbcList.listOfFluxBounds.toString());
+            }            else if (listOf.get(0) instanceof Objective) {
+              xmlObject.setName(FbcList.listOfObjectives.toString());
+            }            else if (listOf.get(0) instanceof FluxObjective) {
+              xmlObject.setName(FbcList.listOfFluxObjectives.toString());
+            }            else if (listOf.get(0) instanceof GeneProduct) {
+              xmlObject.setName(FbcList.listOfGeneProducts.toString());
+            }            else if (listOf.get(0) instanceof Association) {
+              xmlObject.setName(FbcList.listOfAssociations.toString());
             }
           }
         } else {
