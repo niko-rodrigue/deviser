@@ -1402,7 +1402,7 @@ class ParserFunctions():
         code.append(self.create_code_block('empty_line'))
 
 
-        # TODO level1
+        # TODO level1, good example for else_if statements
         nested_if_level1 = []
         # nested_if_level1.append('listOf.size() > 0')
         # nested_if_level1.append(self.create_code_block('empty_line'))
@@ -1436,6 +1436,41 @@ class ParserFunctions():
 
 
             # # TODO level2
+
+
+            # lo_extensions = plugins[plugin_index]['lo_extension']
+            # lo_impl = []
+            # for list_of_index in range(0, len(lo_extensions)):
+            #     temp_impl = []
+            #     if lo_extensions[list_of_index]['isListOf'] is True:
+            #         # if list_of_index >= 1 and list_of_index < len(lo_extensions):
+            #         #     temp_impl.append('else if')
+            #
+            #
+            #         list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
+            #         type = lo_extensions[list_of_index]['name']
+            #         # temp_impl.append('else if')
+            #
+            #         temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
+            #         temp_impl.append(temp0)
+            #         # temp_impl.append(self.create_code_block('empty_line'))
+            #
+            #         temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
+            #                                                            lower_original_name, upper_sbase,
+            #                                                            strFunctions.upper_first(list_of_name))
+            #
+            #         temp_impl.append(temp1)
+            #
+            #         temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+            #         temp_impl.append(temp2)
+            #
+            #         temp3 = 'return {0}'.format(list_of_name)
+            #         temp_impl.append(temp3)
+            #         #This part was giving a problem
+
+
+
+
             # if len(self.lo_elements) > 0:
             #     nested_if_level2 = []
             #
@@ -1470,35 +1505,7 @@ class ParserFunctions():
 
             # # TODO Here is a problem
             # #TODO this solution works
-            # lo_extensions = plugins[plugin_index]['lo_extension']
-            # lo_impl = []
-            # for list_of_index in range(0, len(lo_extensions)):
-            #     temp_impl = []
-            #     if lo_extensions[list_of_index]['isListOf'] is True:
-            #         # if list_of_index >= 1 and list_of_index < len(lo_extensions):
-            #         #     temp_impl.append('else if')
-            #
-            #
-            #         list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
-            #         type = lo_extensions[list_of_index]['name']
-            #         # temp_impl.append('else if')
-            #
-            #         temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
-            #         temp_impl.append(temp0)
-            #         # temp_impl.append(self.create_code_block('empty_line'))
-            #
-            #         temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
-            #                                                            lower_original_name, upper_sbase,
-            #                                                            strFunctions.upper_first(list_of_name))
-            #
-            #         temp_impl.append(temp1)
-            #
-            #         temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-            #         temp_impl.append(temp2)
-            #
-            #         temp3 = 'return {0}'.format(list_of_name)
-            #         temp_impl.append(temp3)
-            #         #This part was giving a problem
+
             #
             #         # lo_impl += temp_impl
             #         implementation.append(self.create_code_block('empty_line'))
@@ -1700,7 +1707,12 @@ class ParserFunctions():
                     nested_if_level5.append('else if')
 
                 name = self.lo_elements[lo_element_index]['name']
-                list_of_name = strFunctions.lower_first(self.lo_elements[lo_element_index]['listOfClassName'])
+
+                # In some cases doesn't work
+                # list_of_name = strFunctions.lower_first(self.lo_elements[lo_element_index]['listOfClassName'])
+                list_of_name = 'listOf' + strFunctions.plural(self.lo_elements[lo_element_index]['name'])
+
+
                 nested_if_level5.append('listOf.get(0) instanceof {0}'.format(name))
                 nested_if_level5.append('xmlObject.setName({0}List.{1}.toString())'.format(upper_original_name,
                                                                                            list_of_name))

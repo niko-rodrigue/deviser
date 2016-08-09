@@ -33,7 +33,6 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
-import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.fbc.*;
 
@@ -196,8 +195,25 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public boolean processEndElement(String elementName, String prefix, boolean isNested, Object contextObject) {
 
+    if (elementName.equals("listOfFluxBounds") || elementName.equals("listOfObjectives") || elementName.equals("listOfFluxObjectives") ||      elementName.equals("listOfGeneProducts") || elementName.equals("listOfAssociations")) {
+      groupList = FbcList.none;
+    }
 
-    groupList = FbcList.none;
+    if (elementName.equals("listOfFluxObjectives")) {
+      groupList = FbcList.listOfObjectives;
+    }
+
+    if (elementName.equals("listOfAssociations")) {
+      groupList = FbcList.listOfFbcAnds;
+    }
+
+    if (elementName.equals("listOfAssociations")) {
+      groupList = FbcList.listOfFbcOrs;
+    }
+
+    if (elementName.equals("listOfAssociations")) {
+      groupList = FbcList.listOfGeneProductAssociations;
+    }
 
     return true;
   }
@@ -208,20 +224,61 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+    if (logger.isDebugEnabled()) {
+      logger.debug("FbcParser: writeElement");
+    }
+
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
-      contextObject = fbcModel;
-    }
-    if (contextObject instanceof Species) {
+    }    else if (contextObject instanceof Species) {
       Species species = (Species) contextObject;
       FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
-      contextObject = fbcSpecies;
-    }
-    if (contextObject instanceof Reaction) {
+    }    else if (contextObject instanceof Reaction) {
       Reaction reaction = (Reaction) contextObject;
       FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
-      contextObject = fbcReaction;
+    }
+
+    return contextObject;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("FbcParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+
+          if (listOf.size() > 0) {
+
+            if (listOf.get(0) instanceof FluxBound) {
+              xmlObject.setName(FbcList.listOfFluxBounds.toString());
+            }            else if (listOf.get(0) instanceof Objective) {
+              xmlObject.setName(FbcList.listOfObjectives.toString());
+            }            else if (listOf.get(0) instanceof FluxObjective) {
+              xmlObject.setName(FbcList.listOfFluxObjectives.toString());
+            }            else if (listOf.get(0) instanceof GeneProduct) {
+              xmlObject.setName(FbcList.listOfGeneProducts.toString());
+            }            else if (listOf.get(0) instanceof Association) {
+              xmlObject.setName(FbcList.listOfAssociations.toString());
+            }
+          }
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
     }
   }
 
