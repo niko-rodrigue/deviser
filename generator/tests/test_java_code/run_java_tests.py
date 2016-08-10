@@ -385,6 +385,45 @@ def main():
 
     # TODO xml base elements
 
+    # # #TODO PARSER TESTS
+    name = 'qual'
+    num = 0
+    class_name = 'QualParser'
+    test_case = 'Qual Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+    name = 'fbc_v2'
+    num = 0
+    class_name = 'FbcParser'
+    test_case = 'Fbc Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+    name = 'distrib'
+    num = 0
+    class_name = 'DistribParser'
+    test_case = 'Distrib Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+    name = 'groups'
+    num = 0
+    class_name = 'GroupsParser'
+    test_case = 'Groups Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+    name = 'dyn'
+    num = 0
+    class_name = 'DynParser'
+    test_case = 'DynParser'
+    fail += run_parser_test(name, class_name, test_case)
+
+    name = 'spatial'
+    num = 0
+    class_name = 'SpatalParser'
+    test_case = 'SpatialParser'
+    fail += run_parser_test(name, class_name, test_case)
+
+
+
 
 
     # # TODO qual tests
@@ -497,23 +536,7 @@ def main():
     # fail += run_constant_test(name, constants_name, test_case)
 
     #
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualParser'
-    # test_case = 'Qual Parser'
-    # fail += run_parser_test(name, class_name, test_case)
 
-    name = 'fbc_v2'
-    num = 0
-    class_name = 'FbcParser'
-    test_case = 'Fbc Parser'
-    fail += run_parser_test(name, class_name, test_case)
-
-    # name = 'spatial'
-    # num = 0
-    # class_name = 'SpatalParser'
-    # test_case = 'SpatialParser'
-    # fail += run_parser_test(name, class_name, test_case)
 
 
 

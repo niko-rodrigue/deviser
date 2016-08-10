@@ -38,7 +38,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 49406184769317875L;
+  private static final long serialVersionUID = 69213767835414418L;
   /**
    *
    */
@@ -277,7 +277,7 @@ public class FluxObjective extends AbstractNamedSBase implements UniqueNamedSBas
    */
   @Override
   public int hashCode() {
-    final int prime = 8898551;
+    final int prime = 5861299;
 
     int hashCode = super.hashCode();
 

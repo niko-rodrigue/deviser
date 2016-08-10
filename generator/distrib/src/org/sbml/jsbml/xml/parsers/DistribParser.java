@@ -203,6 +203,19 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+    if (logger.isDebugEnabled()) {
+      logger.debug("DistribParser: writeElement");
+    }
+
+    if (contextObject instanceof FunctionDefinition) {
+      FunctionDefinition functionDefinition = (FunctionDefinition) contextObject;
+      DistribFunctionDefinitionPlugin distribFunctionDefinition = (DistribFunctionDefinitionPlugin)
+        functionDefinition.getPlugin(DistribConstants.shortLabel);
+    }    else if (contextObject instanceof SBase) {
+      SBase sBase = (SBase) contextObject;
+      DistribSBasePlugin distribSBase = (DistribSBasePlugin) sBase.getPlugin(DistribConstants.shortLabel);
+    }
+
     return contextObject;
   }
 
@@ -227,12 +240,8 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
 
           if (listOf.size() > 0) {
 
-            if (listOf.get(0) instanceof FluxBound) {
-              badoooo;
-            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
-              test1;
-            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
-              test2;
+            if (listOf.get(0) instanceof DistribInput) {
+              xmlObject.setName(DistribList.listOfDistribInputs.toString());
             }
           }
         } else {

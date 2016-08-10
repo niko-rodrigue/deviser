@@ -208,6 +208,10 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+    if (logger.isDebugEnabled()) {
+      logger.debug("DynParser: writeElement");
+    }
+
     return contextObject;
   }
 
@@ -232,12 +236,10 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
 
           if (listOf.size() > 0) {
 
-            if (listOf.get(0) instanceof FluxBound) {
-              badoooo;
-            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
-              test1;
-            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
-              test2;
+            if (listOf.get(0) instanceof DynElement) {
+              xmlObject.setName(DynList.listOfDynElements.toString());
+            }            else if (listOf.get(0) instanceof SpatialComponent) {
+              xmlObject.setName(DynList.listOfSpatialComponents.toString());
             }
           }
         } else {

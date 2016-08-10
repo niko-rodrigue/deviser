@@ -88,7 +88,7 @@ public class GroupsConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 50940608101489143L;
+  private static final long     serialVersionUID = 7787171323428694L;
   /**
    *
    */

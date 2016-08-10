@@ -190,6 +190,15 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+    if (logger.isDebugEnabled()) {
+      logger.debug("GroupsParser: writeElement");
+    }
+
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel);
+    }
+
     return contextObject;
   }
 
@@ -214,12 +223,10 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
 
           if (listOf.size() > 0) {
 
-            if (listOf.get(0) instanceof FluxBound) {
-              badoooo;
-            }            else if (listOf.get(0) instanceof FluxBoundSASDSAD) {
-              test1;
-            }            else if (listOf.get(0) instancedsadsadsadaof FluxBoundSASDSAD) {
-              test2;
+            if (listOf.get(0) instanceof Group) {
+              xmlObject.setName(GroupsList.listOfGroups.toString());
+            }            else if (listOf.get(0) instanceof Member) {
+              xmlObject.setName(GroupsList.listOfMembers.toString());
             }
           }
         } else {

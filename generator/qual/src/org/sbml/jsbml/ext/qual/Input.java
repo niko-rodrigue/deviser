@@ -38,7 +38,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 49296514676844009L;
+  private static final long serialVersionUID = 63863380186202802L;
   /**
    *
    */
@@ -447,7 +447,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
    */
   @Override
   public int hashCode() {
-    final int prime = 8698621;
+    final int prime = 1385561;
 
     int hashCode = super.hashCode();
 

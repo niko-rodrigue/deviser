@@ -1402,118 +1402,100 @@ class ParserFunctions():
         code.append(self.create_code_block('empty_line'))
 
 
-        # TODO level1, good example for else_if statements
-        nested_if_level1 = []
-        # nested_if_level1.append('listOf.size() > 0')
-        # nested_if_level1.append(self.create_code_block('empty_line'))
-
-        for plugin_index in range(0, len(plugins)):
-            try:
-                if plugin_index > 0 and plugin_index < len(plugins):
-                    nested_if_level1.append('else if')
-            except Exception as e:
-                print('Yolo ', e)
-
-
-            temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
-            nested_if_level1.append(temp)
-
-            package_name = '{0}'.format(plugins[plugin_index]['package'])
-            lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
-            upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
-
-            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
-            nested_if_level1.append(temp)
-
-            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
-                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
-
-
-            nested_if_level1.append(temp)
-
-            nested_if_level1.append(self.create_code_block('empty_line'))
-
-
-
-            # # TODO level2
-
-
-            # lo_extensions = plugins[plugin_index]['lo_extension']
-            # lo_impl = []
-            # for list_of_index in range(0, len(lo_extensions)):
-            #     temp_impl = []
-            #     if lo_extensions[list_of_index]['isListOf'] is True:
-            #         # if list_of_index >= 1 and list_of_index < len(lo_extensions):
-            #         #     temp_impl.append('else if')
-            #
-            #
-            #         list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
-            #         type = lo_extensions[list_of_index]['name']
-            #         # temp_impl.append('else if')
-            #
-            #         temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
-            #         temp_impl.append(temp0)
-            #         # temp_impl.append(self.create_code_block('empty_line'))
-            #
-            #         temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
-            #                                                            lower_original_name, upper_sbase,
-            #                                                            strFunctions.upper_first(list_of_name))
-            #
-            #         temp_impl.append(temp1)
-            #
-            #         temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-            #         temp_impl.append(temp2)
-            #
-            #         temp3 = 'return {0}'.format(list_of_name)
-            #         temp_impl.append(temp3)
-            #         #This part was giving a problem
-
-
-
-
-            # if len(self.lo_elements) > 0:
-            #     nested_if_level2 = []
-            #
-            #     # Add lo_element for xmlObject
-            #     for lo_element_index in range(0, len(self.lo_elements)):
-            #         if lo_element_index > 0 and lo_element_index < len(self.lo_elements):
-            #             nested_if_level2.append('else if')
-            #
-            #         name = self.lo_elements[lo_element_index]['name']
-            #         list_of_name = strFunctions.lower_first(self.lo_elements[lo_element_index]['listOfClassName'])
-            #         nested_if_level2.append('listOf.get(0) instanceof {0}'.format(name))
-            #         nested_if_level2.append('xmlObject.setName({0}List.{1}.toString())'.format(upper_original_name,
-            #                                                                                    list_of_name))
-
-                # # Level 2 End
-                # nested_if_level1.append(self.create_code_block('else_if', nested_if_level2))
-                # # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
-                # nested_if_level1.append(self.create_code_block('empty_line'))
-
-
-
-        code.append(self.create_code_block('else_if', nested_if_level1))
-        code.append(self.create_code_block('empty_line'))
-
-
-
-
-
+        # # TODO level1, good example for else_if statements, still problematic
+        # nested_if_level1 = []
         #
+        # plugin_length = len(plugins)
+        # for plugin_index in range(0, len(plugins)):
+        #     try:
+        #         if plugin_index > 0 and plugin_index < len(plugins):
+        #             nested_if_level1.append('else if')
+        #     except Exception as e:
+        #         print('Yolo ', e)
+        #
+        #
+        #     temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
+        #     nested_if_level1.append(temp)
+        #
+        #     package_name = '{0}'.format(plugins[plugin_index]['package'])
+        #     lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
+        #     upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
+        #
+        #     temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+        #     nested_if_level1.append(temp)
+        #
+        #     temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+        #         package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+        #
+        #
+        #     nested_if_level1.append(temp)
+        #
+        #     nested_if_level1.append(self.create_code_block('empty_line'))
+        #
+        #
+        #
+        #     # # # TODO level2
+        #     #
+        #     #
+        #     # lo_extensions = plugins[plugin_index]['lo_extension']
+        #     #
+        #     # # Check if plugin has lo_children
+        #     # if len(lo_extensions) >0:
+        #     #     nested_if_level2 = []
+        #     #     for list_of_index in range(0, len(lo_extensions)):
+        #     #         temp_impl = []
+        #     #         if lo_extensions[list_of_index]['isListOf'] is True:
+        #     #             if list_of_index > 0 and list_of_index < len(lo_extensions):
+        #     #                 temp_impl.append('else if')
+        #     #
+        #     #             # In some cases this is not useful
+        #     #             # list_of_name = strFunctions.lower_first(lo_extensions[list_of_index]['listOfClassName'])
+        #     #
+        #     #
+        #     #             list_of_name = 'listOf' + strFunctions.plural(lo_extensions[list_of_index]['name'])
+        #     #             type = lo_extensions[list_of_index]['name']
+        #     #             # temp_impl.append('else if')
+        #     #
+        #     #             temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name, list_of_name)
+        #     #             temp_impl.append(temp0)
+        #     #             # temp_impl.append(self.create_code_block('empty_line'))
+        #     #
+        #     #             temp1 = 'ListOf<{0}> {1} = {2}{3}.get{4}()'.format(type, list_of_name,
+        #     #                                                                lower_original_name, upper_sbase,
+        #     #                                                                strFunctions.upper_first(list_of_name))
+        #     #
+        #     #             temp_impl.append(temp1)
+        #     #
+        #     #             temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+        #     #             temp_impl.append(temp2)
+        #     #
+        #     #             temp3 = 'return {0}'.format(list_of_name)
+        #     #             temp_impl.append(temp3)
+        #     #             #This part was giving a problem
+        #     #
+        #     #             nested_if_level2 += temp_impl
+        #     #
+        #     #
+        #     #     # Level 2 End
+        #     #     nested_if_level1.append(self.create_code_block('else_if', nested_if_level2))
+        #     #     # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+        #     #     nested_if_level1.append(self.create_code_block('empty_line'))
+        #
+        #
+        #     # TODO level 1 continuation
+        #
+        #
+        # # TODO Else if problem when len == 1, check sum of plugin_length and data_to_write for elseIf
+        # if plugin_length >1:
+        #     code.append(self.create_code_block('else_if', nested_if_level1))
+        # else:
+        #     code.append(self.create_code_block('if', nested_if_level1))
+        #
+        #
+        # code.append(self.create_code_block('empty_line'))
 
 
 
-            # # TODO Here is a problem
-            # #TODO this solution works
-
-            #
-            #         # lo_impl += temp_impl
-            #         implementation.append(self.create_code_block('empty_line'))
-            #         implementation.append(self.create_code_block('if', temp_impl))
-
-            # temp_impl.append(self.create_code_block('empty_line'))
-            # implementation.append(self.create_code_block('else_if', lo_impl))
-            # implementation.append(self.create_code_block('empty_line'))
 
 
             # # # #TODO there is a problem here
@@ -1692,13 +1674,13 @@ class ParserFunctions():
         nested_if_level3.append(self.create_code_block('empty_line'))
 
 
-        # TODO level4?
+        # # TODO level4?
         nested_if_level4 = []
         nested_if_level4.append('listOf.size() > 0')
         nested_if_level4.append(self.create_code_block('empty_line'))
-
+        #
         # TODO level5
-        if len(self.lo_elements) >0:
+        if len(self.lo_elements) > 0:
             nested_if_level5 = []
 
             # Add lo_element for xmlObject
@@ -1718,7 +1700,11 @@ class ParserFunctions():
                                                                                            list_of_name))
 
             # Level 4 End
-            nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+            if 'else if' in nested_if_level5:
+                nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+            else:
+                nested_if_level4.append(self.create_code_block('if', nested_if_level5))
+
             # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
             nested_if_level4.append(self.create_code_block('empty_line'))
 

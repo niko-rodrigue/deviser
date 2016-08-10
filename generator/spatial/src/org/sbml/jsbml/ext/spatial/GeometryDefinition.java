@@ -38,7 +38,7 @@ public class GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 52799676101376331L;
+  private static final long serialVersionUID = 50247315881251649L;
   /**
    *
    */
@@ -233,7 +233,7 @@ public class GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 9951829;
+    final int prime = 8298221;
 
     int hashCode = super.hashCode();
 
