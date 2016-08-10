@@ -39,7 +39,7 @@ public class AnalyticGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 2505155307988124L;
+  private static final long serialVersionUID = 11706773491811081L;
   /**
    *
    */
@@ -346,7 +346,7 @@ public class AnalyticGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 5614957;
+    final int prime = 8549291;
 
     int hashCode = super.hashCode();
 

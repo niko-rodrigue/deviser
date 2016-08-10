@@ -212,6 +212,29 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
       logger.debug("DynParser: writeElement");
     }
 
+    if (contextObject instanceof SBase) {
+      SBase sBase = (SBase) contextObject;
+      DynSBasePlugin dynSBase = (DynSBasePlugin) sBase.getPlugin(DynConstants.shortLabel);
+    }    else if (contextObject instanceof Event) {
+      Event event = (Event) contextObject;
+      DynEventPlugin dynEvent = (DynEventPlugin) event.getPlugin(DynConstants.shortLabel);
+
+      if (elementName.equals(DynList.listOfDynElements.name())) {
+        ListOf<DynElement> listOfDynElements = dynEvent.getListOfDynElements();
+        groupList = DynList.listOfDynElements;
+        return listOfDynElements;
+      }
+    }    else if (contextObject instanceof Compartment) {
+      Compartment compartment = (Compartment) contextObject;
+      DynCompartmentPlugin dynCompartment = (DynCompartmentPlugin) compartment.getPlugin(DynConstants.shortLabel);
+
+      if (elementName.equals(DynList.listOfSpatialComponents.name())) {
+        ListOf<SpatialComponent> listOfSpatialComponents = dynCompartment.getListOfSpatialComponents();
+        groupList = DynList.listOfSpatialComponents;
+        return listOfSpatialComponents;
+      }
+    }
+
     return contextObject;
   }
 

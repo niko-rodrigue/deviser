@@ -197,6 +197,12 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel);
+
+      if (elementName.equals(GroupsList.listOfGroups.name())) {
+        ListOf<Group> listOfGroups = groupsModel.getListOfGroups();
+        groupList = GroupsList.listOfGroups;
+        return listOfGroups;
+      }
     }
 
     return contextObject;

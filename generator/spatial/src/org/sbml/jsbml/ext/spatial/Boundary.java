@@ -38,7 +38,7 @@ public class Boundary {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 46016166262805092L;
+  private static final long serialVersionUID = 23308205996860756L;
   /**
    *
    */
@@ -192,7 +192,7 @@ public class Boundary {
    */
   @Override
   public int hashCode() {
-    final int prime = 180437;
+    final int prime = 2812331;
 
     int hashCode = super.hashCode();
 

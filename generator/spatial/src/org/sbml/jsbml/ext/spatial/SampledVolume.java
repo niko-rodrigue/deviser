@@ -38,7 +38,7 @@ public class SampledVolume {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 26160166477975607L;
+  private static final long serialVersionUID = 52525946643861504L;
   /**
    *
    */
@@ -386,7 +386,7 @@ public class SampledVolume {
    */
   @Override
   public int hashCode() {
-    final int prime = 779531;
+    final int prime = 5760817;
 
     int hashCode = super.hashCode();
 

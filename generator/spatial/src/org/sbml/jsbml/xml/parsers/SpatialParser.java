@@ -266,6 +266,23 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
       logger.debug("SpatialParser: writeElement");
     }
 
+    if (contextObject instanceof Model) {
+      Model model = (Model) contextObject;
+      SpatialModelPlugin spatialModel = (SpatialModelPlugin) model.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Compartment) {
+      Compartment compartment = (Compartment) contextObject;
+      SpatialCompartmentPlugin spatialCompartment = (SpatialCompartmentPlugin) compartment.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Species) {
+      Species species = (Species) contextObject;
+      SpatialSpeciesPlugin spatialSpecies = (SpatialSpeciesPlugin) species.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Parameter) {
+      Parameter parameter = (Parameter) contextObject;
+      SpatialParameterPlugin spatialParameter = (SpatialParameterPlugin) parameter.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Reaction) {
+      Reaction reaction = (Reaction) contextObject;
+      SpatialReactionPlugin spatialReaction = (SpatialReactionPlugin) reaction.getPlugin(SpatialConstants.shortLabel);
+    }
+
     return contextObject;
   }
 

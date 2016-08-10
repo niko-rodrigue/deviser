@@ -38,7 +38,7 @@ public class TransformationComponents {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 3110320089347290L;
+  private static final long serialVersionUID = 1585031495318802L;
   /**
    *
    */
@@ -265,7 +265,7 @@ public class TransformationComponents {
    */
   @Override
   public int hashCode() {
-    final int prime = 1318193;
+    final int prime = 22129;
 
     int hashCode = super.hashCode();
 

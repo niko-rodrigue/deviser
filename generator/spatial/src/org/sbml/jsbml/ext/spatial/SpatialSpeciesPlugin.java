@@ -39,7 +39,7 @@ public class SpatialSpeciesPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 40498533411484694L;
+  private static final long serialVersionUID = 23034639597666858L;
   /**
    *
    */
@@ -194,7 +194,7 @@ public class SpatialSpeciesPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 3013817;
+    final int prime = 874373;
 
     int hashCode = super.hashCode();
 

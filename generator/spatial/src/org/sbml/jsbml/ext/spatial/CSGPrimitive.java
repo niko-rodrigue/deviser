@@ -38,7 +38,7 @@ public class CSGPrimitive extends CSGNode {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 8684483008223489L;
+  private static final long serialVersionUID = 19373967471588624L;
   /**
    *
    */
@@ -195,7 +195,7 @@ public class CSGPrimitive extends CSGNode {
    */
   @Override
   public int hashCode() {
-    final int prime = 4870367;
+    final int prime = 305377;
 
     int hashCode = super.hashCode();
 

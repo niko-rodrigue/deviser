@@ -40,7 +40,7 @@ public class CSGHomogeneousTransformation extends CSGTransformation {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 18594228683723328L;
+  private static final long serialVersionUID = 21670963714590000L;
   /**
    *
    */
@@ -256,7 +256,7 @@ public class CSGHomogeneousTransformation extends CSGTransformation {
    */
   @Override
   public int hashCode() {
-    final int prime = 4548293;
+    final int prime = 3309307;
 
     int hashCode = super.hashCode();
 

@@ -39,7 +39,7 @@ public class FbcSpeciesPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 21126340513650455L;
+  private static final long serialVersionUID = 62354080920165041L;
   /**
    *
    */
@@ -251,7 +251,7 @@ public class FbcSpeciesPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 6150127;
+    final int prime = 2356349;
 
     int hashCode = super.hashCode();
 

@@ -38,7 +38,7 @@ public class ParametricObject {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 35912302388306019L;
+  private static final long serialVersionUID = 34344909460360400L;
   /**
    *
    */
@@ -524,7 +524,7 @@ public class ParametricObject {
    */
   @Override
   public int hashCode() {
-    final int prime = 9189221;
+    final int prime = 2515103;
 
     int hashCode = super.hashCode();
 

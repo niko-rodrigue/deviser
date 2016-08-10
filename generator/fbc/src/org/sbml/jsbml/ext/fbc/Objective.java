@@ -39,7 +39,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 48813498963350062L;
+  private static final long serialVersionUID = 19097756364654377L;
   /**
    *
    */
@@ -428,7 +428,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 9182449;
+    final int prime = 147613;
 
     int hashCode = super.hashCode();
 
