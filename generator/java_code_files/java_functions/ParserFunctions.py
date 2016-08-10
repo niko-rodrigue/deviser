@@ -1394,11 +1394,13 @@ class ParserFunctions():
 
 
 
-        implementation = []
-        implementation.append('logger.isDebugEnabled()')
-        implementation.append('logger.debug("{0}Parser: writeElement")'.format(upper_original_name))
+        # implementation = []
+        # implementation.append('logger.isDebugEnabled()')
+        # implementation.append('logger.debug("{0}Parser: writeElement")'.format(upper_original_name))
+        #
+        # code.append(self.create_code_block('if', implementation))
 
-        code.append(self.create_code_block('if', implementation))
+
         code.append(self.create_code_block('empty_line'))
 
 
@@ -1486,11 +1488,107 @@ class ParserFunctions():
                 nested_if_level1.append(self.create_code_block('empty_line'))
 
 
-            # TODO level 1 continuation
+            # # TODO level 1 continuation
+            # Write parent lo_element for the plugin
+            for data in self.data_to_write:
+                for attrib in plugins[plugin_index]['attribs']:
+                    if data['parent'] == attrib['element']:
+                        nested_if_level1.append('else if')
+                        temp = 'contextObject instanceof {0}'.format(data['parent'])
+                        nested_if_level1.append(temp)
 
+
+                        object_name = strFunctions.lower_first(data['parent'])
+                        temp = '{0} {1} = ({0}) contextObject'.format(data['parent'],
+                                                                      object_name)
+                        nested_if_level1.append(temp)
+                        nested_if_level1.append(self.create_code_block('empty_line'))
+
+                        actual_list_of_data = data['data']
+                        temp_impl = []
+
+                        # # # TODO level2
+                        #
+                        # #
+                        # Check if plugin has lo_children
+                        if len(actual_list_of_data) > 0:
+                            nested_if_level2 = []
+                            for list_of_index in range(0, len(actual_list_of_data)):
+                                if actual_list_of_data[list_of_index]['original']['JClassType'] == 'ListOf':
+                                    if list_of_index > 0 and list_of_index < len(actual_list_of_data):
+                                        nested_if_level2.append('else if')
+
+                                    list_of_name = strFunctions.lower_first(actual_list_of_data[list_of_index]['listName'])
+                                    type = actual_list_of_data[list_of_index]['type']
+                                    # temp_impl.append('else if')
+
+                                    temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
+                                                                                            list_of_name)
+                                    nested_if_level2.append(temp0)
+                                    nested_if_level2.append(self.create_code_block('empty_line'))
+
+                                    temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
+                                                                                       object_name,
+                                                                                       strFunctions.upper_first(
+                                                                                           list_of_name))
+
+                                    nested_if_level2.append(temp1)
+
+                                    temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+                                    nested_if_level2.append(temp2)
+
+                                    temp3 = 'return {0}'.format(list_of_name)
+                                    nested_if_level2.append(temp3)
+                                    # This part was giving a problem
+
+                            # Level 2 End
+                            # if else if in nested_level2 than create else_if block
+                            if 'else if' in nested_if_level2:
+                                nested_if_level1.append(self.create_code_block('else_if', nested_if_level2))
+                            else:
+                                nested_if_level1.append(self.create_code_block('if', nested_if_level2))
+                            # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
+                            nested_if_level1.append(self.create_code_block('empty_line'))
+
+
+
+            # TODO here's the error
+            # for actual_index in range(0, len(actual_data)):
+            #     if actual_index > 0 and actual_index < len(actual_data)-1:
+            #         temp_impl.append('else if')
+            #
+            #     list_of_name = strFunctions.lower_first(actual_data[actual_index]['listName'])
+            #     type = actual_data[actual_index]['type']
+            #     # temp_impl.append('else if')
+            #
+            #     temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
+            #                                                             list_of_name)
+            #     temp_impl.append(temp0)
+            #     temp_impl.append(self.create_code_block('empty_line'))
+            #
+            #     temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
+            #                                                        object_name,
+            #                                                        strFunctions.upper_first(
+            #                                                            list_of_name))
+            #
+            #     temp_impl.append(temp1)
+            #
+            #     temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
+            #     temp_impl.append(temp2)
+            #
+            #     temp3 = 'return {0}'.format(list_of_name)
+            #     temp_impl.append(temp3)
+            #     # This part was giving a problem
+            #
+            # implementation_temp.append(self.create_code_block('else_if', temp_impl))
+            # implementation_temp.append(self.create_code_block('empty_line'))
+            #
+            # # temp_code = self.create_code_block('else_if', implementation_temp)
+            # temp_code = implementation_temp
+            # implementation += temp_code
 
         # TODO Else if problem when len == 1, check sum of plugin_length and data_to_write for elseIf
-        if plugin_length >1:
+        if 'else if' in nested_if_level1:
             code.append(self.create_code_block('else_if', nested_if_level1))
         else:
             code.append(self.create_code_block('if', nested_if_level1))
@@ -1502,59 +1600,6 @@ class ParserFunctions():
 
 
 
-            # # # #TODO there is a problem here
-            # for data in self.data_to_write:
-            #     for attrib in plugins[plugin_index]['attribs']:
-            #         if data['parent'] == attrib['element']:
-            #             implementation_temp = ['else if']
-            #             temp = 'contextObject instanceof {0}'.format(data['parent'])
-            #             implementation_temp.append(temp)
-            #
-            #
-            #             object_name = strFunctions.lower_first(data['parent'])
-            #             temp = '{0} {1} = ({0}) contextObject'.format(data['parent'],
-            #                                                           object_name)
-            #             implementation_temp.append(temp)
-            #             implementation_temp.append(self.create_code_block('empty_line'))
-            #
-            #             actual_data = data['data']
-            #             temp_impl = []
-
-
-                        # TODO here's the error
-                        # for actual_index in range(0, len(actual_data)):
-                        #     if actual_index > 0 and actual_index < len(actual_data)-1:
-                        #         temp_impl.append('else if')
-                        #
-                        #     list_of_name = strFunctions.lower_first(actual_data[actual_index]['listName'])
-                        #     type = actual_data[actual_index]['type']
-                        #     # temp_impl.append('else if')
-                        #
-                        #     temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
-                        #                                                             list_of_name)
-                        #     temp_impl.append(temp0)
-                        #     temp_impl.append(self.create_code_block('empty_line'))
-                        #
-                        #     temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
-                        #                                                        object_name,
-                        #                                                        strFunctions.upper_first(
-                        #                                                            list_of_name))
-                        #
-                        #     temp_impl.append(temp1)
-                        #
-                        #     temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-                        #     temp_impl.append(temp2)
-                        #
-                        #     temp3 = 'return {0}'.format(list_of_name)
-                        #     temp_impl.append(temp3)
-                        #     # This part was giving a problem
-                        #
-                        # implementation_temp.append(self.create_code_block('else_if', temp_impl))
-                        # implementation_temp.append(self.create_code_block('empty_line'))
-                        #
-                        # # temp_code = self.create_code_block('else_if', implementation_temp)
-                        # temp_code = implementation_temp
-                        # implementation += temp_code
 
             #TODO
 
