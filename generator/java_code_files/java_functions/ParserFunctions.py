@@ -1552,42 +1552,54 @@ class ParserFunctions():
 
 
 
-            # TODO here's the error
-            # for actual_index in range(0, len(actual_data)):
-            #     if actual_index > 0 and actual_index < len(actual_data)-1:
-            #         temp_impl.append('else if')
-            #
-            #     list_of_name = strFunctions.lower_first(actual_data[actual_index]['listName'])
-            #     type = actual_data[actual_index]['type']
-            #     # temp_impl.append('else if')
-            #
-            #     temp0 = 'elementName.equals({0}List.{1}.name())'.format(upper_original_name,
-            #                                                             list_of_name)
-            #     temp_impl.append(temp0)
-            #     temp_impl.append(self.create_code_block('empty_line'))
-            #
-            #     temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
-            #                                                        object_name,
-            #                                                        strFunctions.upper_first(
-            #                                                            list_of_name))
-            #
-            #     temp_impl.append(temp1)
-            #
-            #     temp2 = 'groupList = {0}List.{1}'.format(upper_original_name, list_of_name)
-            #     temp_impl.append(temp2)
-            #
-            #     temp3 = 'return {0}'.format(list_of_name)
-            #     temp_impl.append(temp3)
-            #     # This part was giving a problem
-            #
-            # implementation_temp.append(self.create_code_block('else_if', temp_impl))
-            # implementation_temp.append(self.create_code_block('empty_line'))
-            #
-            # # temp_code = self.create_code_block('else_if', implementation_temp)
-            # temp_code = implementation_temp
-            # implementation += temp_code
+        #Continue level1 nested_if for ListOf<?>
+        nested_if_level1.append('else if')
+        temp = 'contextObject instanceof ListOf<?>'
+        nested_if_level1.append(temp)
 
-        # TODO Else if problem when len == 1, check sum of plugin_length and data_to_write for elseIf
+        temp = 'ListOf<SBase> listOf = (ListOf<SBase>) contextObject'
+        nested_if_level1.append(temp)
+        nested_if_level1.append(self.create_code_block('empty_line'))
+
+
+        nested_if_level2 = []
+        #Write plugin return list_of elements
+        for plugin_index in range(0, len(plugins)):
+            if plugin_index > 0 and plugin_index < len(plugins):
+                nested_if_level2.append('else if')
+
+
+
+
+
+            temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
+            nested_if_level2.append(temp)
+
+            package_name = '{0}'.format(plugins[plugin_index]['package'])
+            lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
+            upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
+
+            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
+            nested_if_level2.append(temp)
+
+            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
+
+            nested_if_level2.append(temp)
+
+            nested_if_level2.append(self.create_code_block('empty_line'))
+
+        # Level 2 End
+        # if else if in nested_level2 than create else_if block
+        if 'else if' in nested_if_level2:
+            nested_if_level1.append(self.create_code_block('else_if', nested_if_level2))
+        else:
+            nested_if_level1.append(self.create_code_block('if', nested_if_level2))
+        nested_if_level1.append(self.create_code_block('empty_line'))
+
+
+
+        # if else if in nested list then create else_if block
         if 'else if' in nested_if_level1:
             code.append(self.create_code_block('else_if', nested_if_level1))
         else:
@@ -1601,48 +1613,12 @@ class ParserFunctions():
 
 
 
-            #TODO
 
-
-            # implementation.append(self.create_code_block('empty_line'))
-        # if plugin_index < len(plugins):
-        #     code.append(self.create_code_block('if', implementation))
-        # else:
-        # test = 1
-
-
-        # For the first if statement
-        # code.append(self.create_code_block('else_if', implementation))
-        # code.append(self.create_code_block('empty_line'))
-        # temp = [
-        #     'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
-        # code.append(self.create_code_block('line', temp))
-
-
+        # Write last return statement
         temp = ['return contextObject']
         code.append(self.create_code_block('line', temp))
 
 
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
