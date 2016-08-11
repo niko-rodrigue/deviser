@@ -38,7 +38,7 @@ public class BoundaryCondition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 71339495450816301L;
+  private static final long serialVersionUID = 32766193130447338L;
   /**
    *
    */
@@ -379,7 +379,7 @@ public class BoundaryCondition {
    */
   @Override
   public int hashCode() {
-    final int prime = 5044577;
+    final int prime = 2627123;
 
     int hashCode = super.hashCode();
 

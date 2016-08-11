@@ -38,7 +38,7 @@ public class InteriorPoint {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 13417311291093674L;
+  private static final long serialVersionUID = 52945410055631745L;
   /**
    *
    */
@@ -318,7 +318,7 @@ public class InteriorPoint {
    */
   @Override
   public int hashCode() {
-    final int prime = 7084417;
+    final int prime = 6780857;
 
     int hashCode = super.hashCode();
 

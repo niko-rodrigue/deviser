@@ -224,19 +224,83 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("FbcParser: writeElement");
-    }
 
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
+
+      if (elementName.equals(FbcList.listOfObjectives.name())) {
+        ListOf<Objective> listOfObjectives = fbcModel.getListOfObjectives();
+        groupList = FbcList.listOfObjectives;
+        return listOfObjectives;
+      }      else if (elementName.equals(FbcList.listOfFluxBounds.name())) {
+        ListOf<FluxBound> listOfFluxBounds = fbcModel.getListOfFluxBounds();
+        groupList = FbcList.listOfFluxBounds;
+        return listOfFluxBounds;
+      }      else if (elementName.equals(FbcList.listOfGeneProducts.name())) {
+        ListOf<GeneProduct> listOfGeneProducts = fbcModel.getListOfGeneProducts();
+        groupList = FbcList.listOfGeneProducts;
+        return listOfGeneProducts;
+      }
+    }    else if (contextObject instanceof Objective) {
+      Objective objective = (Objective) contextObject;
+
+      if (elementName.equals(FbcList.listOfFluxObjectives.name())) {
+
+        ListOf<FluxObjective> listOfFluxObjectives = objective.getListOfFluxObjectives();
+        groupList = FbcList.listOfFluxObjectives;
+        return listOfFluxObjectives;
+      }
     }    else if (contextObject instanceof Species) {
       Species species = (Species) contextObject;
       FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
     }    else if (contextObject instanceof Reaction) {
       Reaction reaction = (Reaction) contextObject;
       FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
+    }    else if (contextObject instanceof GeneProductAssociation) {
+      GeneProductAssociation geneProductAssociation = (GeneProductAssociation) contextObject;
+
+      if (elementName.equals(FbcList.listOfAssociations.name())) {
+
+        ListOf<Association> listOfAssociations = geneProductAssociation.getListOfAssociations();
+        groupList = FbcList.listOfAssociations;
+        return listOfAssociations;
+      }
+    }    else if (contextObject instanceof ListOf<?>) {
+      ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
+
+      if (elementName.equals(FbcConstants.objective) && groupList.equals(FbcList.listOfObjectives)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        FbcModelPlugin extendedModel = (FbcModelPlugin) model.getExtension (FbcConstants.shortLabel);
+
+        Objective objective = new Objective();
+        extendedModel.addObjective(objective);
+
+        return objective;
+      }      else if (elementName.equals(FbcConstants.objective) && groupList.equals(FbcList.listOfFluxObjectives)) {
+        Objective objective = (Objective) listOf.getParentSBMLObject();
+
+        FluxObjective fluxObjective = new FluxObjective();
+        objective.addFluxObjective(fluxObjective);
+
+        return fluxObjective;
+      }      else if (elementName.equals(FbcConstants.fluxBound) && groupList.equals(FbcList.listOfFluxBounds)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        FbcModelPlugin extendedModel = (FbcModelPlugin) model.getExtension (FbcConstants.shortLabel);
+
+        FluxBound fluxBound = new FluxBound();
+        extendedModel.addFluxBound(fluxBound);
+
+        return fluxBound;
+      }      else if (elementName.equals(FbcConstants.geneProduct) && groupList.equals(FbcList.listOfGeneProducts)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        FbcModelPlugin extendedModel = (FbcModelPlugin) model.getExtension (FbcConstants.shortLabel);
+
+        GeneProduct geneProduct = new GeneProduct();
+        extendedModel.addGeneProduct(geneProduct);
+
+        return geneProduct;
+      }
     }
 
     return contextObject;

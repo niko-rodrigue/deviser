@@ -203,17 +203,34 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("DistribParser: writeElement");
-    }
 
     if (contextObject instanceof FunctionDefinition) {
       FunctionDefinition functionDefinition = (FunctionDefinition) contextObject;
       DistribFunctionDefinitionPlugin distribFunctionDefinition = (DistribFunctionDefinitionPlugin)
         functionDefinition.getPlugin(DistribConstants.shortLabel);
+    }    else if (contextObject instanceof DrawFromDistribution) {
+      DrawFromDistribution drawFromDistribution = (DrawFromDistribution) contextObject;
+
+      if (elementName.equals(DistribList.listOfDistribInputs.name())) {
+
+        ListOf<DistribInput> listOfDistribInputs = drawFromDistribution.getListOfDistribInputs();
+        groupList = DistribList.listOfDistribInputs;
+        return listOfDistribInputs;
+      }
     }    else if (contextObject instanceof SBase) {
       SBase sBase = (SBase) contextObject;
       DistribSBasePlugin distribSBase = (DistribSBasePlugin) sBase.getPlugin(DistribConstants.shortLabel);
+    }    else if (contextObject instanceof ListOf<?>) {
+      ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
+
+      if (contextObject instanceof FunctionDefinition) {
+        FunctionDefinition functionDefinition = (FunctionDefinition) contextObject;
+        DistribFunctionDefinitionPlugin distribFunctionDefinition = (DistribFunctionDefinitionPlugin)
+          functionDefinition.getPlugin(DistribConstants.shortLabel);
+      }      else if (contextObject instanceof SBase) {
+        SBase sBase = (SBase) contextObject;
+        DistribSBasePlugin distribSBase = (DistribSBasePlugin) sBase.getPlugin(DistribConstants.shortLabel);
+      }
     }
 
     return contextObject;

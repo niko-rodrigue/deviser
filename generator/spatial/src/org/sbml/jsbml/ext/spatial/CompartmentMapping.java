@@ -38,7 +38,7 @@ public class CompartmentMapping {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 61145332781966888L;
+  private static final long serialVersionUID = 23687258871035629L;
   /**
    *
    */
@@ -256,7 +256,7 @@ public class CompartmentMapping {
    */
   @Override
   public int hashCode() {
-    final int prime = 2843747;
+    final int prime = 7305901;
 
     int hashCode = super.hashCode();
 

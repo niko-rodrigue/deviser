@@ -38,7 +38,7 @@ public class GeneProduct extends AbstractNamedSBase implements UniqueNamedSBase 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 36563086532444495L;
+  private static final long serialVersionUID = 50791401060028834L;
   /**
    *
    */
@@ -274,7 +274,7 @@ public class GeneProduct extends AbstractNamedSBase implements UniqueNamedSBase 
    */
   @Override
   public int hashCode() {
-    final int prime = 9948703;
+    final int prime = 8537801;
 
     int hashCode = super.hashCode();
 

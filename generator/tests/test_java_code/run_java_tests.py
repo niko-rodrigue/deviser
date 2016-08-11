@@ -386,11 +386,11 @@ def main():
     # TODO xml base elements
 
     # # #TODO PARSER TESTS
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualParser'
-    # test_case = 'Qual Parser'
-    # fail += run_parser_test(name, class_name, test_case)
+    name = 'qual'
+    num = 0
+    class_name = 'QualParser'
+    test_case = 'Qual Parser'
+    fail += run_parser_test(name, class_name, test_case)
 
     name = 'fbc_v2'
     num = 0

@@ -262,13 +262,44 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("SpatialParser: writeElement");
-    }
 
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       SpatialModelPlugin spatialModel = (SpatialModelPlugin) model.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof Geometry) {
+      Geometry geometry = (Geometry) contextObject;
+
+      if (elementName.equals(SpatialList.listOfCoordinateComponents.name())) {
+
+        ListOf<CoordinateComponent> listOfCoordinateComponents = geometry.getListOfCoordinateComponents();
+        groupList = SpatialList.listOfCoordinateComponents;
+        return listOfCoordinateComponents;
+      }      else if (elementName.equals(SpatialList.listOfDomainTypes.name())) {
+
+        ListOf<DomainType> listOfDomainTypes = geometry.getListOfDomainTypes();
+        groupList = SpatialList.listOfDomainTypes;
+        return listOfDomainTypes;
+      }      else if (elementName.equals(SpatialList.listOfDomains.name())) {
+
+        ListOf<Domain> listOfDomains = geometry.getListOfDomains();
+        groupList = SpatialList.listOfDomains;
+        return listOfDomains;
+      }      else if (elementName.equals(SpatialList.listOfAdjacentDomains.name())) {
+
+        ListOf<AdjacentDomains> listOfAdjacentDomains = geometry.getListOfAdjacentDomains();
+        groupList = SpatialList.listOfAdjacentDomains;
+        return listOfAdjacentDomains;
+      }      else if (elementName.equals(SpatialList.listOfGeometryDefinitions.name())) {
+
+        ListOf<GeometryDefinition> listOfGeometryDefinitions = geometry.getListOfGeometryDefinitions();
+        groupList = SpatialList.listOfGeometryDefinitions;
+        return listOfGeometryDefinitions;
+      }      else if (elementName.equals(SpatialList.listOfSampledFields.name())) {
+
+        ListOf<SampledField> listOfSampledFields = geometry.getListOfSampledFields();
+        groupList = SpatialList.listOfSampledFields;
+        return listOfSampledFields;
+      }
     }    else if (contextObject instanceof Compartment) {
       Compartment compartment = (Compartment) contextObject;
       SpatialCompartmentPlugin spatialCompartment = (SpatialCompartmentPlugin) compartment.getPlugin(SpatialConstants.shortLabel);
@@ -281,6 +312,25 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
     }    else if (contextObject instanceof Reaction) {
       Reaction reaction = (Reaction) contextObject;
       SpatialReactionPlugin spatialReaction = (SpatialReactionPlugin) reaction.getPlugin(SpatialConstants.shortLabel);
+    }    else if (contextObject instanceof ListOf<?>) {
+      ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
+
+      if (contextObject instanceof Model) {
+        Model model = (Model) contextObject;
+        SpatialModelPlugin spatialModel = (SpatialModelPlugin) model.getPlugin(SpatialConstants.shortLabel);
+      }      else if (contextObject instanceof Compartment) {
+        Compartment compartment = (Compartment) contextObject;
+        SpatialCompartmentPlugin spatialCompartment = (SpatialCompartmentPlugin) compartment.getPlugin(SpatialConstants.shortLabel);
+      }      else if (contextObject instanceof Species) {
+        Species species = (Species) contextObject;
+        SpatialSpeciesPlugin spatialSpecies = (SpatialSpeciesPlugin) species.getPlugin(SpatialConstants.shortLabel);
+      }      else if (contextObject instanceof Parameter) {
+        Parameter parameter = (Parameter) contextObject;
+        SpatialParameterPlugin spatialParameter = (SpatialParameterPlugin) parameter.getPlugin(SpatialConstants.shortLabel);
+      }      else if (contextObject instanceof Reaction) {
+        Reaction reaction = (Reaction) contextObject;
+        SpatialReactionPlugin spatialReaction = (SpatialReactionPlugin) reaction.getPlugin(SpatialConstants.shortLabel);
+      }
     }
 
     return contextObject;

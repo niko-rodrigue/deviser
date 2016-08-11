@@ -208,9 +208,6 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("DynParser: writeElement");
-    }
 
     if (contextObject instanceof SBase) {
       SBase sBase = (SBase) contextObject;
@@ -232,6 +229,19 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
         ListOf<SpatialComponent> listOfSpatialComponents = dynCompartment.getListOfSpatialComponents();
         groupList = DynList.listOfSpatialComponents;
         return listOfSpatialComponents;
+      }
+    }    else if (contextObject instanceof ListOf<?>) {
+      ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
+
+      if (contextObject instanceof SBase) {
+        SBase sBase = (SBase) contextObject;
+        DynSBasePlugin dynSBase = (DynSBasePlugin) sBase.getPlugin(DynConstants.shortLabel);
+      }      else if (contextObject instanceof Event) {
+        Event event = (Event) contextObject;
+        DynEventPlugin dynEvent = (DynEventPlugin) event.getPlugin(DynConstants.shortLabel);
+      }      else if (contextObject instanceof Compartment) {
+        Compartment compartment = (Compartment) contextObject;
+        DynCompartmentPlugin dynCompartment = (DynCompartmentPlugin) compartment.getPlugin(DynConstants.shortLabel);
       }
     }
 

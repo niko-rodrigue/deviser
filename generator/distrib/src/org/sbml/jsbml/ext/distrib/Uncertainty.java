@@ -40,7 +40,7 @@ public class Uncertainty extends AbstractNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 38896861618307996L;
+  private static final long serialVersionUID = 50639546498166858L;
   /**
    *
    */
@@ -178,7 +178,7 @@ public class Uncertainty extends AbstractNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 5399651;
+    final int prime = 3533963;
 
     int hashCode = super.hashCode();
 

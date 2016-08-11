@@ -1562,38 +1562,128 @@ class ParserFunctions():
         nested_if_level1.append(self.create_code_block('empty_line'))
 
 
+
+        # # TODO here is a problem
         nested_if_level2 = []
         #Write plugin return list_of elements
         for plugin_index in range(0, len(plugins)):
-            if plugin_index > 0 and plugin_index < len(plugins):
-                nested_if_level2.append('else if')
+            # if plugin_index > 0 and plugin_index < len(plugins):
+            #     nested_if_level2.append('else if')
+
+            #If plugin is not of type Model break
+            if 'Model' not in plugins[plugin_index]['name']:
+                break
+
+            plugin_name = plugins[plugin_index]['name']
+            plugin_attribs = plugins[plugin_index]['attribs']
+            #In some cases attribs has more than of type lo_elements
+            add_else_index = 0
+
+            for plugin_attribs_index in range(0, len(plugin_attribs)):
+
+
+                if plugin_attribs[plugin_attribs_index]['type'] == 'lo_element':
+                    try:
+                        if plugin_attribs_index > add_else_index and plugin_attribs_index < len(plugin_attribs):
+                            nested_if_level2.append('else if')
+                    except Exception as e:
+                        break
+
+
+                    name = strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element'])
+                    list_of_name = strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['name'])
+
+                    temp1 = 'elementName.equals({0}Constants.{1})'.format(upper_original_name, name)
+                    temp2 = ' && '
+                    temp3 = 'groupList.equals({0}List.{1})'.format(upper_original_name, list_of_name)
+                    temp_final = temp1 + temp2 + temp3
+                    nested_if_level2.append(temp_final)
+
+                    temp = ' Model model = (Model) listOf.getParentSBMLObject()'
+                    nested_if_level2.append(temp)
+                    temp = '{0} extendedModel = ({0}) model.getExtension\
+                            ({1}Constants.shortLabel)'.format(plugin_name,upper_original_name)
+                    nested_if_level2.append(temp)
+                    nested_if_level2.append(self.create_code_block('empty_line'))
+
+
+                    temp = '{0} {1} = new {0}()'.format(plugin_attribs[plugin_attribs_index]['element'],
+                                            strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
+                    nested_if_level2.append(temp)
+
+                    # TODO  change this part in Plugin generator so it's not plural
+                    add_method_name = plugin_attribs[plugin_attribs_index]['element']
+                    temp = 'extendedModel.add{0}({1})'.format(add_method_name,
+                                            strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
+                    nested_if_level2.append(temp)
+                    nested_if_level2.append(self.create_code_block('empty_line'))
+
+                    temp = 'return {0}'.format(strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
+                    nested_if_level2.append(temp)
 
 
 
 
+                    # # #TODO continue level2 write parent child
+                    # # #Write parent lo_element for the plugin parent lo_element
+                    for data in self.data_to_write:
+                        if data['parent'] == plugin_attribs[plugin_attribs_index]['element']:
 
-            temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
-            nested_if_level2.append(temp)
+                            actual_list_of_data = data['data']
+                            # Check if plugin has lo_children
+                            if len(actual_list_of_data) > 0:
+                                for list_of_index in range(0, len(actual_list_of_data)):
+                                    if actual_list_of_data[list_of_index]['original']['JClassType'] == 'ListOf':
+                                        # if list_of_index > 0 and list_of_index < len(actual_list_of_data):
+                                        nested_if_level2.append('else if')
 
-            package_name = '{0}'.format(plugins[plugin_index]['package'])
-            lower_sbase = strFunctions.lower_first(plugins[plugin_index]['sbase'])
-            upper_sbase = strFunctions.upper_first(plugins[plugin_index]['sbase'])
+                                        list_of_name = strFunctions.lower_first(
+                                            actual_list_of_data[list_of_index]['listName'])
+                                        type = actual_list_of_data[list_of_index]['type']
+                                        lower_name = strFunctions.lower_first(actual_list_of_data[list_of_index]['type'])
+                                        name = actual_list_of_data[list_of_index]['type']
+                                        parent_name = data['parent']
+                                        lower_parent_name = strFunctions.lower_first(data['parent'])
 
-            temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
-            nested_if_level2.append(temp)
+                                        temp1 = 'elementName.equals({0}Constants.{1})'.format(upper_original_name, lower_name)
+                                        temp2 = ' && '
+                                        temp3 = 'groupList.equals({0}List.{1})'.format(upper_original_name,
+                                                                                       list_of_name)
+                                        temp_final = temp1 + temp2 + temp3
+                                        nested_if_level2.append(temp_final)
 
-            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
-                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
 
-            nested_if_level2.append(temp)
+                                        temp = '{0} {1} = ({0}) listOf.getParentSBMLObject()'.format(parent_name,
+                                                                                                     lower_parent_name)
+                                        nested_if_level2.append(temp)
 
-            nested_if_level2.append(self.create_code_block('empty_line'))
+                                        nested_if_level2.append(self.create_code_block('empty_line'))
+
+
+
+                                        temp = '{0} {1} = new {0}()'.format(name, lower_name)
+                                        nested_if_level2.append(temp)
+
+                                        temp = '{0}.add{1}({2})'.format(lower_parent_name, name, lower_name)
+                                        nested_if_level2.append(temp)
+
+                                        nested_if_level2.append(self.create_code_block('empty_line'))
+
+                                        temp3 = 'return {0}'.format(lower_name)
+                                        nested_if_level2.append(temp3)
+
+
+
+
+                else:
+                    add_else_index += 1
 
         # Level 2 End
         # if else if in nested_level2 than create else_if block
         if 'else if' in nested_if_level2:
             nested_if_level1.append(self.create_code_block('else_if', nested_if_level2))
-        else:
+        # This is not a good state checker
+        elif len(nested_if_level2) > 0:
             nested_if_level1.append(self.create_code_block('if', nested_if_level2))
         nested_if_level1.append(self.create_code_block('empty_line'))
 

@@ -190,12 +190,123 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
+
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       QualModelPlugin qualModel = (QualModelPlugin) model.getPlugin(QualConstants.shortLabel);
+
+      if (elementName.equals(QualList.listOfQualitativeSpecies.name())) {
+        ListOf<QualitativeSpecies> listOfQualitativeSpecies = qualModel.getListOfQualitativeSpecies();
+        groupList = QualList.listOfQualitativeSpecies;
+        return listOfQualitativeSpecies;
+      }      else if (elementName.equals(QualList.listOfTransitions.name())) {
+        ListOf<Transition> listOfTransitions = qualModel.getListOfTransitions();
+        groupList = QualList.listOfTransitions;
+        return listOfTransitions;
+      }
+    }    else if (contextObject instanceof Transition) {
+      Transition transition = (Transition) contextObject;
+
+      if (elementName.equals(QualList.listOfInputs.name())) {
+
+        ListOf<Input> listOfInputs = transition.getListOfInputs();
+        groupList = QualList.listOfInputs;
+        return listOfInputs;
+      }      else if (elementName.equals(QualList.listOfOutputs.name())) {
+
+        ListOf<Output> listOfOutputs = transition.getListOfOutputs();
+        groupList = QualList.listOfOutputs;
+        return listOfOutputs;
+      }      else if (elementName.equals(QualList.listOfFunctionTerms.name())) {
+
+        ListOf<FunctionTerm> listOfFunctionTerms = transition.getListOfFunctionTerms();
+        groupList = QualList.listOfFunctionTerms;
+        return listOfFunctionTerms;
+      }
+    }    else if (contextObject instanceof ListOf<?>) {
+      ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
+
+      if (elementName.equals(QualConstants.qualitativeSpecies) && groupList.equals(QualList.listOfQualitativeSpecies)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        QualModelPlugin extendedModel = (QualModelPlugin) model.getExtension (QualConstants.shortLabel);
+
+        QualitativeSpecies qualitativeSpecies = new QualitativeSpecies();
+        extendedModel.addQualitativeSpecies(qualitativeSpecies);
+
+        return qualitativeSpecies;
+      }      else if (elementName.equals(QualConstants.transition) && groupList.equals(QualList.listOfTransitions)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        QualModelPlugin extendedModel = (QualModelPlugin) model.getExtension (QualConstants.shortLabel);
+
+        Transition transition = new Transition();
+        extendedModel.addTransition(transition);
+
+        return transition;
+      }      else if (elementName.equals(QualConstants.transition) && groupList.equals(QualList.listOfInputs)) {
+        Transition transition = (Transition) listOf.getParentSBMLObject();
+
+        Input input = new Input();
+        transition.addInput(input);
+
+        return input;
+      }      else if (elementName.equals(QualConstants.Input) && groupList.equals(QualList.listOfOutputs)) {
+        Transition transition = (Transition) listOf.getParentSBMLObject();
+
+        Output output = new Output();
+        transition.addOutput(output);
+
+        return output;
+      }      else if (elementName.equals(QualConstants.Output) && groupList.equals(QualList.listOfFunctionTerms)) {
+        Transition transition = (Transition) listOf.getParentSBMLObject();
+
+        FunctionTerm functionTerm = new FunctionTerm();
+        transition.addFunctionTerm(functionTerm);
+
+        return functionTerm;
+      }
     }
 
     return contextObject;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.WritingParser#writeElement(org.sbml.jsbml.xml.stax.SBMLObjectForXML, java.lang.Object)
+   */
+  @Override
+  public void writeElement(SBMLObjectForXML xmlObject, Object sbmlElementToWrite) {
+
+    if (logger.isDebugEnabled()) {
+      logger.debug("QualParser: writeElement");
+    }
+
+    if (sbmlElementToWrite instanceof SBase) {
+      SBase sbase = (SBase) sbmlElementToWrite;
+
+
+      if (!xmlObject.isSetName()) {
+
+        if (sbase instanceof ListOf<?>) {
+          ListOf<?> listOf = (ListOf<?>) sbase;
+
+          if (listOf.size() > 0) {
+
+            if (listOf.get(0) instanceof QualitativeSpecies) {
+              xmlObject.setName(QualList.listOfQualitativeSpecies.toString());
+            }            else if (listOf.get(0) instanceof Transition) {
+              xmlObject.setName(QualList.listOfTransitions.toString());
+            }            else if (listOf.get(0) instanceof Input) {
+              xmlObject.setName(QualList.listOfInputs.toString());
+            }            else if (listOf.get(0) instanceof Output) {
+              xmlObject.setName(QualList.listOfOutputs.toString());
+            }            else if (listOf.get(0) instanceof FunctionTerm) {
+              xmlObject.setName(QualList.listOfFunctionTerms.toString());
+            }
+          }
+        } else {
+          xmlObject.setName(sbase.getElementName());
+        }
+      }
+    }
   }
 
 
