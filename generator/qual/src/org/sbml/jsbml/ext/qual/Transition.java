@@ -39,7 +39,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 34397110964589894L;
+  private static final long serialVersionUID = 18258369218321314L;
   /**
    *
    */
@@ -220,7 +220,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfInputs}
+   * Removes an element from the {@link listOfInputs}
    *  
    * @param Input the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -235,7 +235,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfOutputs}
+   * Removes an element from the {@link listOfOutputs}
    *  
    * @param Output the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -250,7 +250,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfFunctionTerms}
+   * Removes an element from the {@link listOfFunctionTerms}
    *  
    * @param FunctionTerm the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -310,7 +310,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfInputs}.
+   * Removes an element from the {@link listOfInputs}.
    *  
    * @param inputId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -318,13 +318,13 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   public Input removeInput(String inputId) {
     if (isSetListOfInputs()) {
-      return getListOfInputs().remove(inputId);
+      return getListOfInputss().remove(inputId);
     }
     return null;
   }
 
   /**
-   * Removes an element from the {@link #listOfOutputs}.
+   * Removes an element from the {@link listOfOutputs}.
    *  
    * @param outputId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -332,7 +332,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   public Output removeOutput(String outputId) {
     if (isSetListOfOutputs()) {
-      return getListOfOutputs().remove(outputId);
+      return getListOfOutputss().remove(outputId);
     }
     return null;
   }
@@ -694,7 +694,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 1584389;
+    final int prime = 4931593;
 
     int hashCode = super.hashCode();
 

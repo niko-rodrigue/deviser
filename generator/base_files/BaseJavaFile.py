@@ -1265,7 +1265,7 @@ class BaseJavaFile(BaseFile.BaseFile):
     def write_deprecated_statement(self):
         self.write_line_verbatim('@Deprecated')
 
-    # TODO GSOC variable comment line
+    # Generate comment for variables
     def write_variable_comment(self):
         self.open_double_comment(self)
         self.write_blank_comment_line()

@@ -64,7 +64,10 @@ class ListOfQueryFunctions():
             # self.child_name_lower = class_object['name']
             # self.class_name = class_object['plugin']
             # self.child_name = class_object['capAttName']
-            self.child_name = strFunctions.upper_first(strFunctions.plural(class_object['element']))
+
+            # Old version
+            # self.child_name = strFunctions.upper_first(strFunctions.plural(class_object['element']))
+            self.child_name = strFunctions.upper_first(class_object['element'])
             self.child_type = strFunctions.upper_first(class_object['element'])
             self.child_name_lower = class_object['name']
             self.class_name = class_object['plugin']
@@ -568,9 +571,14 @@ class ListOfQueryFunctions():
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_java_name = strFunctions.remove_prefix(self.object_child_name)
         used_java_type = strFunctions.remove_prefix(self.object_child_type)
-        used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
+        used_java_name_plural = strFunctions.plural(self.object_child_name)
 
-        params.append('Removes an element from the {{@link #listOf{0}s}}'.format(used_java_name))
+
+        # Old version
+        # used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
+        used_java_name_lower = strFunctions.lower_first(used_java_name)
+
+        params.append('Removes an element from the {{@link listOf{0}s}}'.format(used_java_name))
         params.append(' ')
         params.append('@param {0} the element to be removed from the list.'.format(used_java_name))
         params.append('@return {@code true} if the list contained the specified element and it was removed.')
@@ -620,8 +628,8 @@ class ListOfQueryFunctions():
                 # implementation = ['return static_cast<{0}*>({1}.remove'
                 #                   '(n))'.format(self.child_name, name)]
                 # code = [self.create_code_block('line', implementation)]
-                implementation = ['isSetListOf{0}()'.format(used_java_name)]
-                implementation.append('return getListOf{0}().remove({1})'.format(used_java_name, used_java_name_lower))
+                implementation = ['isSetListOf{0}()'.format(used_java_name_plural)]
+                implementation.append('return getListOf{0}().remove({1})'.format(used_java_name_plural, used_java_name_lower))
                 # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
                 # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
                 code.append(self.create_code_block('if', implementation))
@@ -635,8 +643,8 @@ class ListOfQueryFunctions():
                 # line = ['return ({0} != NULL) ? '
                 #         '{0}->remove{1}(n) : '
                 #         'NULL'.format(self.abbrev_parent, used_c_name)]
-                implementation = ['isSetListOf{0}s()'.format(used_java_name)]
-                implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name_lower))
+                implementation = ['isSetListOf{0}()'.format(used_java_name_plural)]
+                implementation.append('return getListOf{0}().remove({1})'.format(used_java_name_plural, used_java_name_lower))
                 # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
                 # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
                 code.append(self.create_code_block('if', implementation))
@@ -819,11 +827,13 @@ class ListOfQueryFunctions():
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_java_name = strFunctions.remove_prefix(self.object_child_name)
         used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
+        used_java_name_plural = strFunctions.plural(self.object_child_name)
+
 
         # used_plugin_name = self.class_object['capAttName']
 
 
-        params.append('Removes an element from the {{@link #listOf{0}s}}.'.format(used_java_name))
+        params.append('Removes an element from the {{@link listOf{0}s}}.'.format(used_java_name))
         params.append(' ')
         params.append('@param {0}Id the id of the element to be removed from the list.'.format(used_java_name_lower))
         params.append('@return the removed element, if it was successfully found and removed or {@code null}.')
@@ -875,8 +885,8 @@ class ListOfQueryFunctions():
                 # implementation = ['return static_cast<{0}*>({1}.remove'
                 #                   '(sid))'.format(self.child_name, name)]
                 # code = [self.create_code_block('line', implementation)]
-                implementation= ['isSetListOf{0}()'.format(used_java_name)]
-                implementation.append('return getListOf{0}().remove({1}Id)'.format(used_java_name,
+                implementation= ['isSetListOf{0}()'.format(used_java_name_plural)]
+                implementation.append('return getListOf{0}().remove({1}Id)'.format(used_java_name_plural,
                                                                                     used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
             elif self.status == 'c_list':
@@ -887,8 +897,8 @@ class ListOfQueryFunctions():
                                               self.abbrev_parent)]
                 code.append(self.create_code_block('line', line))
             else:
-                implementation= ['isSetListOf{0}s()'.format(used_java_name)]
-                implementation.append('return getListOf{0}s().remove({1}Id)'.format(used_java_name,
+                implementation= ['isSetListOf{0}()'.format(used_java_name_plural)]
+                implementation.append('return getListOf{0}s().remove({1}Id)'.format(used_java_name_plural,
                                                                                     used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
 
@@ -955,7 +965,8 @@ class ListOfQueryFunctions():
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_java_name = strFunctions.remove_prefix(self.object_child_name)
         used_java_type = strFunctions.remove_prefix(self.object_child_type)
-        used_java_argument_name = strFunctions.remove_prefix(self.object_name_lower)
+        # used_java_argument_name = strFunctions.remove_prefix(self.object_name_lower)
+        used_java_argument_name = strFunctions.lower_first(used_java_name)
         if self.is_java_api:
             if self.is_plugin is True:
                 function = 'add{0}'.format(used_java_name)
@@ -1555,8 +1566,10 @@ class ListOfQueryFunctions():
         arguments = []
         if parameter:
             arguments.append('{0} {1}'.format(parameter['type'], parameter['name']))
-        used_java_name_plural = strFunctions.remove_prefix(self.plural)
+        # used_java_name_plural = strFunctions.remove_prefix(self.plural)
         used_java_name = strFunctions.remove_prefix(self.child_name)
+        used_java_name_plural = strFunctions.plural(self.object_child_name)
+
 
 
 
@@ -1575,19 +1588,19 @@ class ListOfQueryFunctions():
         params.append('@libsbml.deprecated same as {{@link #get{0}Count()}}'.format(used_java_name))
         if self.is_java_api and self.is_list_of:
             if self.is_plugin is True:
-                implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name,
-                                                                                                 used_java_name)]
+                implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
+                                                                                               used_java_name_plural)]
             else:
-                implementation = ['return isSetListOf{0}s() ? getListOf{1}s().size() : 0'.format(used_java_name,
-                                                                                                 used_java_name)]
+                implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
+                                                                                                 used_java_name_plural)]
         elif self.is_java_api and not self.is_list_of:
             if not self.document:
                 if self.is_plugin is True:
-                    implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name,
-                                                                                                   used_java_name)]
+                    implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
+                                                                                                   used_java_name_plural)]
                 else:
-                    implementation = ['return isSetListOf{0}s() ? getListOf{1}s().size() : 0'.format(used_java_name,
-                                                                                                     used_java_name)]
+                    implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
+                                                                                                     used_java_name_plural)]
             elif parameter:
                 implementation = ['return getErrorLog()->'
                                   'getNumFailsWith{0}({1})'

@@ -337,9 +337,9 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
     ########################################################################
 
-        # Write file
+    # Write file
 
-    # TODO add variable whether extension or parser
+    # Write JSBML package include
     def write_package_include(self):
         if global_variables.is_package:
             curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
@@ -407,6 +407,9 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
     #         self.write_type_defs()
     #         self.write_cppns_end()
 
+
+
+    # Write Constants File
     def write_constants_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
 
@@ -425,7 +428,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
 
 
-
+    # Write  JSBML Constants  for {}Constants.java
     def write_jsbml_constants(self):
         self.up_indent()
 
@@ -450,11 +453,12 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
 
 
-        self.write_variable_comment()
-        line = 'public static final ResourceBundle bundle = ResourceManager' \
-               '.getBundle("org.sbml.jsbml.ext.{0}.Messages")'.format(package_name)
-        # self.write_line(line)
-        self.write_jsbml_line_verbatim(line)
+        # This part is for write ResourceBundle variable
+        # self.write_variable_comment()
+        # line = 'public static final ResourceBundle bundle = ResourceManager' \
+        #        '.getBundle("org.sbml.jsbml.ext.{0}.Messages")'.format(package_name)
+        # # self.write_line(line)
+        # self.write_jsbml_line_verbatim(line)
 
 
         self.write_variable_comment()
@@ -501,6 +505,8 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_jsbml_line_verbatim(line)
 
 
+
+        # write attributes, but make sure that there are no duplicates
         attribs_to_write = []
         attribs_name_to_write = []
         base_elements = self.original_package['baseElements']
@@ -553,7 +559,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
             # member_name = attribute['memberName']
             name = attribute['name']
             write_name = strFunctions.lower_first(name)
-            line = 'public static final String {0} = "{1}"'.format(write_name, name)
+            line = 'public static final String {0} = "{1}"'.format(write_name, write_name)
             # self.write_line(line)
             self.write_jsbml_line_verbatim(line)
             if 'type' in list(attribute.keys()):

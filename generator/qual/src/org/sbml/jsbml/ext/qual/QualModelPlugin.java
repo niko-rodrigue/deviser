@@ -40,7 +40,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 51699803705844892L;
+  private static final long serialVersionUID = 33025369929345205L;
   /**
    *
    */
@@ -80,49 +80,49 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * @param listOfQualitativeSpecies
-   * the listOfQualitativeSpecies to add
+   * @param qualitativeSpecies
+   * the qualitativeSpecies to add
    * @return
    */
-  public boolean addQualitativeSpecies(QualitativeSpecies    listOfQualitativeSpecies) {
-    return getListOfQualitativeSpecies().add(listOfQualitativeSpecies);
+  public boolean addQualitativeSpecies(QualitativeSpecies qualitativeSpecies) {
+    return getListOfQualitativeSpecies().add(qualitativeSpecies);
   }
 
   /**
-   * @param listOfTransitions
-   * the listOfTransitions to add
+   * @param transition
+   * the transition to add
    * @return
    */
-  public boolean addTransitions(Transition listOfTransitions) {
-    return getListOfTransitions().add(listOfTransitions);
+  public boolean addTransition(Transition transition) {
+    return getListOfTransitions().add(transition);
   }
 
   /**
-   * Removes an element from the {@link #listOfQualitativeSpeciess}
+   * Removes an element from the {@link listOfQualitativeSpeciess}
    *  
    * @param QualitativeSpecies the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeQualitativeSpecies(QualitativeSpecies    listOfQualitativeSpecies) {
+  public boolean removeQualitativeSpecies(QualitativeSpecies    qualitativeSpecies) {
     if (isSetListOfQualitativeSpecies()) {
-      return getListOfQualitativeSpecies().remove(listOfQualitativeSpecies);
+      return getListOfQualitativeSpecies().remove(qualitativeSpecies);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfTransitionss}
+   * Removes an element from the {@link listOfTransitions}
    *  
-   * @param Transitions the element to be removed from the list.
+   * @param Transition the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeTransitions(Transition listOfTransitions) {
+  public boolean removeTransition(Transition transition) {
     if (isSetListOfTransitions()) {
-      return getListOfTransitions().remove(listOfTransitions);
+      return getListOfTransitions().remove(transition);
     }
     return false;
   }
@@ -143,14 +143,14 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Removes an element from the {@link #listOfTransitionss}
+   * Removes an element from the {@link #listOfTransitions}
    *  
-   * @param i the index where to remove the {@link Transitions}.
+   * @param i the index where to remove the {@link Transition}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfTransitionss)})
+   * is out of bound ({@code (i < 0) || (i > listOfTransitions)})
    */
-  public Transition removeTransitions(int i) {
+  public Transition removeTransition(int i) {
     if (isSetListOfTransitions()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
@@ -158,7 +158,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Removes an element from the {@link #listOfQualitativeSpeciess}.
+   * Removes an element from the {@link listOfQualitativeSpeciess}.
    *  
    * @param listOfQualitativeSpeciesId the id of the element to be removed from
    * the list.
@@ -168,6 +168,21 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   public QualitativeSpecies removeQualitativeSpecies(String    listOfQualitativeSpeciesId) {
     if (isSetListOfQualitativeSpecies()) {
       return getListOfQualitativeSpecies().remove(listOfQualitativeSpeciesId);
+    }
+    return null;
+  }
+
+  /**
+   * Removes an element from the {@link listOfTransitions}.
+   *  
+   * @param listOfTransitionsId the id of the element to be removed from the
+   * list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public Transition removeTransition(String listOfTransitionsId) {
+    if (isSetListOfTransitions()) {
+      return getListOfTransitions().remove(listOfTransitionsId);
     }
     return null;
   }
@@ -225,15 +240,15 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Creates a new Transitions element and adds it to the
-   * {@link listOfTransitionss} list.
+   * Creates a new Transition element and adds it to the
+   * {@link listOfTransitions} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfTransitionss}
+   * {@link listOfTransitions}
    */
-  public Transition createTransitions() {
-    Transition transitions = new Transition(getLevel(), getVersion());
-    return addTransitions(transitions) ? transitions : null;
+  public Transition createTransition() {
+    Transition transition = new Transition(getLevel(), getVersion());
+    return addTransition(transition) ? transition : null;
   }
 
   /**
@@ -250,15 +265,15 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns the number of {@link Transitions}s in this
+   * Returns the number of {@link Transition}s in this
    * {@link Qual}.
    *  
-   * @return the number of {@link Transitions}s in this {@link Transitions}.
-   * @libsbml.deprecated same as {@link #getTransitionsCount()}
+   * @return the number of {@link Transition}s in this {@link Transition}.
+   * @libsbml.deprecated same as {@link #getTransitionCount()}
    */
   @Deprecated
   public int getNumTransitions() {
-    return getTransitionsCount();
+    return getTransitionCount();
   }
 
   /**
@@ -274,12 +289,12 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Returns the number of {@link Transitions}s in this {@link Qual}.
+   * Returns the number of {@link Transition}s in this {@link Qual}.
    *  
-   * @return the number of {@link Transitions}s in this {@link Transitions}.
-   * @libsbml.deprecated same as {@link #getTransitionsCount()}
+   * @return the number of {@link Transition}s in this {@link Transition}.
+   * @libsbml.deprecated same as {@link #getTransitionCount()}
    */
-  public int getTransitionsCount() {
+  public int getTransitionCount() {
     return isSetListOfTransitions() ? getListOfTransitions().size() : 0;
   }
 
@@ -329,7 +344,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<Transitions>}.
+   * Sets the given {@code ListOf<Transition>}.
    * If {@link listOfTransitions} was defined before and contains some
    * elements, they are all unset.
    *  
@@ -372,9 +387,9 @@ public class QualModelPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfTransitions() {
     if (isSetListOfTransitions()) {
-      ListOf<Transition> oldTransitions = this.listOfTransitions;
+      ListOf<Transition> oldTransition = this.listOfTransitions;
       this.listOfTransitions = null;
-      oldTransitions.fireNodeRemovedEvent();
+      oldTransition.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -480,7 +495,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 7575511;
+    final int prime = 9205379;
 
     int hashCode = super.hashCode();
 

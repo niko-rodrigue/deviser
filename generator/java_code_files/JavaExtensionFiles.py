@@ -68,8 +68,7 @@ class JavaExtensionFiles():
     def create_element_list_enum(self):
         up_package = strFunctions.upper_first(self.package['name'])
         name = up_package + 'List'
-        list_info = dict({
-                         'name': name,
+        list_info = dict({'name': name,
                          'values': self.package['elements']})
         return list_info
 
@@ -124,9 +123,14 @@ class JavaExtensionFiles():
         fileout.write_file()
         fileout.close_file()
 
+
+
+    #Write Constants File
     def write_constants(self):
+
         custom_name = 'Constants'
 
+        # Add extra information for differentiation of file types
         self.package['is_plugin'] = False
         self.package['is_parser'] = False
         self.package['is_constantFile'] = True
