@@ -39,7 +39,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 18258369218321314L;
+  private static final long serialVersionUID = 6304978317244959L;
   /**
    *
    */
@@ -318,7 +318,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   public Input removeInput(String inputId) {
     if (isSetListOfInputs()) {
-      return getListOfInputss().remove(inputId);
+      return getListOfInputs().remove(inputId);
     }
     return null;
   }
@@ -332,7 +332,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   public Output removeOutput(String outputId) {
     if (isSetListOfOutputs()) {
-      return getListOfOutputss().remove(outputId);
+      return getListOfOutputs().remove(outputId);
     }
     return null;
   }
@@ -694,7 +694,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 4931593;
+    final int prime = 6971753;
 
     int hashCode = super.hashCode();
 

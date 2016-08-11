@@ -898,7 +898,7 @@ class ListOfQueryFunctions():
                 code.append(self.create_code_block('line', line))
             else:
                 implementation= ['isSetListOf{0}()'.format(used_java_name_plural)]
-                implementation.append('return getListOf{0}s().remove({1}Id)'.format(used_java_name_plural,
+                implementation.append('return getListOf{0}().remove({1}Id)'.format(used_java_name_plural,
                                                                                     used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
 
@@ -1567,6 +1567,7 @@ class ListOfQueryFunctions():
         if parameter:
             arguments.append('{0} {1}'.format(parameter['type'], parameter['name']))
         # used_java_name_plural = strFunctions.remove_prefix(self.plural)
+
         used_java_name = strFunctions.remove_prefix(self.child_name)
         used_java_name_plural = strFunctions.plural(self.object_child_name)
 
