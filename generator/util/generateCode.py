@@ -362,8 +362,6 @@ def generate_jsbml_code_files(name, ob):
 
     try:
         ## this will fail as we are already in the extension dir ... alternatively use full path
-        # os.chdir(extension_dir)
-        print("Saving files")
         for working_class in ob['baseElements']:
             all_files = JavaFiles.JavaFiles(working_class, True)
             all_files.write_files()

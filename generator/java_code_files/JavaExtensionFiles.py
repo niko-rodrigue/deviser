@@ -87,7 +87,6 @@ class JavaExtensionFiles():
 
 
     def write_parser_file(self):
-        print('Time for parser ----YOOOOODSADSAD')
         # class_descrip = self.create_class_description(num)
         class_descrip = self.package
         self.write_parser_code(class_descrip)
@@ -121,11 +120,11 @@ class JavaExtensionFiles():
         fileout = JavaCodeFile.JavaCodeFile(class_descrip)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
+            print('---' * 10)
         fileout.write_file()
         fileout.close_file()
 
     def write_constants(self):
-        print('Time for some constants')
         custom_name = 'Constants'
 
         self.package['is_plugin'] = False
@@ -135,6 +134,7 @@ class JavaExtensionFiles():
         fileout = JavaExtensionCodeFile.JavaExtensionCodeFile(self.package, custom_name)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
+            print('---' * 10)
         fileout.write_constants_file()
         fileout.close_file()
 

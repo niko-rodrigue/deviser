@@ -33,6 +33,7 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.qual.*;
 
@@ -129,6 +130,16 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
+   */
+  @Override
+  public ASTNodePlugin createPluginFor(ASTNode astNode) {
+    // This package does not extend ASTNode
+
+    return null;
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)
    */
   @Override
@@ -190,13 +201,80 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
   @Override
   public Object processStartElement(String elementName, String uri, String prefix, boolean hasAttributes, boolean hasNamespaces, Object contextObject) {
 
-    if (logger.isDebugEnabled()) {
-      logger.debug("QualParser: writeElement");
-    }
 
     if (contextObject instanceof Model) {
       Model model = (Model) contextObject;
       QualModelPlugin qualModel = (QualModelPlugin) model.getPlugin(QualConstants.shortLabel);
+
+      if (elementName.equals(QualList.listOfQualitativeSpecies.name())) {
+        ListOf<QualitativeSpecies> listOfQualitativeSpecies = qualModel.getListOfQualitativeSpecies();
+        groupList = QualList.listOfQualitativeSpecies;
+        return listOfQualitativeSpecies;
+      }      else if (elementName.equals(QualList.listOfTransitions.name())) {
+        ListOf<Transition> listOfTransitions = qualModel.getListOfTransitions();
+        groupList = QualList.listOfTransitions;
+        return listOfTransitions;
+      }
+    }    else if (contextObject instanceof Transition) {
+      Transition transition = (Transition) contextObject;
+
+      if (elementName.equals(QualList.listOfInputs.name())) {
+
+        ListOf<Input> listOfInputs = transition.getListOfInputs();
+        groupList = QualList.listOfInputs;
+        return listOfInputs;
+      }      else if (elementName.equals(QualList.listOfOutputs.name())) {
+
+        ListOf<Output> listOfOutputs = transition.getListOfOutputs();
+        groupList = QualList.listOfOutputs;
+        return listOfOutputs;
+      }      else if (elementName.equals(QualList.listOfFunctionTerms.name())) {
+
+        ListOf<FunctionTerm> listOfFunctionTerms = transition.getListOfFunctionTerms();
+        groupList = QualList.listOfFunctionTerms;
+        return listOfFunctionTerms;
+      }
+    }    else if (contextObject instanceof ListOf<?>) {
+      ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
+
+      if (elementName.equals(QualConstants.qualitativeSpecies) && groupList.equals(QualList.listOfQualitativeSpecies)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        QualModelPlugin extendedModel = (QualModelPlugin) model.getExtension (QualConstants.shortLabel);
+
+        QualitativeSpecies qualitativeSpecies = new QualitativeSpecies();
+        extendedModel.addQualitativeSpecies(qualitativeSpecies);
+
+        return qualitativeSpecies;
+      }      else if (elementName.equals(QualConstants.transition) && groupList.equals(QualList.listOfTransitions)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        QualModelPlugin extendedModel = (QualModelPlugin) model.getExtension (QualConstants.shortLabel);
+
+        Transition transition = new Transition();
+        extendedModel.addTransition(transition);
+
+        return transition;
+      }      else if (elementName.equals(QualConstants.input) && groupList.equals(QualList.listOfInputs)) {
+        Transition transition = (Transition) listOf.getParentSBMLObject();
+
+        Input input = new Input();
+        transition.addInput(input);
+
+        return input;
+      }      else if (elementName.equals(QualConstants.output) && groupList.equals(QualList.listOfOutputs)) {
+        Transition transition = (Transition) listOf.getParentSBMLObject();
+
+        Output output = new Output();
+        transition.addOutput(output);
+
+        return output;
+      }      else if (elementName.equals(QualConstants.functionTerm) && groupList.equals(QualList.listOfFunctionTerms)) {
+        Transition transition = (Transition) listOf.getParentSBMLObject();
+
+        FunctionTerm functionTerm = new FunctionTerm();
+        transition.addFunctionTerm(functionTerm);
+
+        return functionTerm;
+      }
     }
 
     return contextObject;
