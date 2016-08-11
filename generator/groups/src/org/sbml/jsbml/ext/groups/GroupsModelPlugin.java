@@ -40,7 +40,7 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 4293932251036018L;
+  private static final long serialVersionUID = 23697564660430696L;
   /**
    *
    */
@@ -303,7 +303,7 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 752489;
+    final int prime = 4594277;
 
     int hashCode = super.hashCode();
 

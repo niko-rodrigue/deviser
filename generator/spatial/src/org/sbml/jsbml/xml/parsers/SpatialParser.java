@@ -33,6 +33,7 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.spatial.*;
 
@@ -136,6 +137,16 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
         return new SpatialReactionPlugin((Reaction) sbase);
       }
     }
+
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
+   */
+  @Override
+  public ASTNodePlugin createPluginFor(ASTNode astNode) {
+    // This package does not extend ASTNode
 
     return null;
   }
@@ -315,22 +326,6 @@ public class SpatialParser extends AbstractReaderWriter implements PackageParser
     }    else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
-      if (contextObject instanceof Model) {
-        Model model = (Model) contextObject;
-        SpatialModelPlugin spatialModel = (SpatialModelPlugin) model.getPlugin(SpatialConstants.shortLabel);
-      }      else if (contextObject instanceof Compartment) {
-        Compartment compartment = (Compartment) contextObject;
-        SpatialCompartmentPlugin spatialCompartment = (SpatialCompartmentPlugin) compartment.getPlugin(SpatialConstants.shortLabel);
-      }      else if (contextObject instanceof Species) {
-        Species species = (Species) contextObject;
-        SpatialSpeciesPlugin spatialSpecies = (SpatialSpeciesPlugin) species.getPlugin(SpatialConstants.shortLabel);
-      }      else if (contextObject instanceof Parameter) {
-        Parameter parameter = (Parameter) contextObject;
-        SpatialParameterPlugin spatialParameter = (SpatialParameterPlugin) parameter.getPlugin(SpatialConstants.shortLabel);
-      }      else if (contextObject instanceof Reaction) {
-        Reaction reaction = (Reaction) contextObject;
-        SpatialReactionPlugin spatialReaction = (SpatialReactionPlugin) reaction.getPlugin(SpatialConstants.shortLabel);
-      }
     }
 
     return contextObject;

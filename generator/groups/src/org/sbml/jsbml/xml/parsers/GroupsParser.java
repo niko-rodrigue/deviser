@@ -33,6 +33,7 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.groups.*;
 
@@ -129,6 +130,16 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
+   */
+  @Override
+  public ASTNodePlugin createPluginFor(ASTNode astNode) {
+    // This package does not extend ASTNode
+
+    return null;
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)
    */
   @Override
@@ -212,9 +223,21 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
     }    else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
-      if (contextObject instanceof Model) {
-        Model model = (Model) contextObject;
-        GroupsModelPlugin groupsModel = (GroupsModelPlugin) model.getPlugin(GroupsConstants.shortLabel);
+      if (elementName.equals(GroupsConstants.group) && groupList.equals(GroupsList.listOfGroups)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        GroupsModelPlugin extendedModel = (GroupsModelPlugin) model.getExtension (GroupsConstants.shortLabel);
+
+        Group group = new Group();
+        extendedModel.addGroup(group);
+
+        return group;
+      }      else if (elementName.equals(GroupsConstants.member) && groupList.equals(GroupsList.listOfMembers)) {
+        Group group = (Group) listOf.getParentSBMLObject();
+
+        Member member = new Member();
+        group.addMember(member);
+
+        return member;
       }
     }
 

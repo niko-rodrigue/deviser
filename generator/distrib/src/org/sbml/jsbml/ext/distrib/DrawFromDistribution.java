@@ -40,7 +40,7 @@ public class DrawFromDistribution extends AbstractSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 4809176524271601L;
+  private static final long serialVersionUID = 1305338881495555L;
   /**
    *
    */
@@ -378,7 +378,7 @@ public class DrawFromDistribution extends AbstractSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 9012833;
+    final int prime = 683783;
 
     int hashCode = super.hashCode();
 

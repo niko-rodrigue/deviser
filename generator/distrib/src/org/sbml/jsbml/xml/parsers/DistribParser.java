@@ -33,6 +33,7 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.distrib.*;
 
@@ -132,6 +133,16 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
+   */
+  @Override
+  public ASTNodePlugin createPluginFor(ASTNode astNode) {
+    // This package does not extend ASTNode
+
+    return null;
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml.xml.WritingParser#getListOfSBMLElementsToWrite(Object sbase)
    */
   @Override
@@ -223,14 +234,6 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
     }    else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
-      if (contextObject instanceof FunctionDefinition) {
-        FunctionDefinition functionDefinition = (FunctionDefinition) contextObject;
-        DistribFunctionDefinitionPlugin distribFunctionDefinition = (DistribFunctionDefinitionPlugin)
-          functionDefinition.getPlugin(DistribConstants.shortLabel);
-      }      else if (contextObject instanceof SBase) {
-        SBase sBase = (SBase) contextObject;
-        DistribSBasePlugin distribSBase = (DistribSBasePlugin) sBase.getPlugin(DistribConstants.shortLabel);
-      }
     }
 
     return contextObject;

@@ -703,9 +703,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         self.class_is_abstract =False
 
-        # THis is the tricky part
-        # self.get_general_includes()
-
         if package['is_parser'] is True:
             self.name = strFunctions.upper_first(self.expanded_package['original_name']) + 'Parser'
 
@@ -725,8 +722,8 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.import_from_jsbml_modules.append('util.filters.*')
             self.import_from_jsbml_modules.append('xml.stax.SBMLObjectForXML')
 
-            # Get Error
-            # self.import_from_jsbml_modules.append('ext.ASTNodePlugin')
+            # TODO this part is tricky for ASTNodePlugin
+            self.import_from_jsbml_modules.append('ext.ASTNodePlugin')
             self.import_from_jsbml_modules.append('ext.SBasePlugin')
 
             self.import_from_jsbml_modules.append('ext.{0}.*'.format(package['original_name']))

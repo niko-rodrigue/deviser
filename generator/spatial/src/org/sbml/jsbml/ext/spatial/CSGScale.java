@@ -38,7 +38,7 @@ public class CSGScale extends CSGTransformation {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 34967763767790994L;
+  private static final long serialVersionUID = 61783807051199348L;
   /**
    *
    */
@@ -318,7 +318,7 @@ public class CSGScale extends CSGTransformation {
    */
   @Override
   public int hashCode() {
-    final int prime = 6399209;
+    final int prime = 5400097;
 
     int hashCode = super.hashCode();
 

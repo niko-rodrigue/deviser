@@ -201,14 +201,6 @@ def generate_uuid(run_tests=False):
         # http://stackoverflow.com/questions/24796654/python-uuid4-how-to-limit-the-length-of-unique-chars
         # value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF # 64bit
         value = uuid.uuid4().int & 0xFFFFFFFFFFFFFF   # 56 bit
-        # value = uuid.uuid4().int &  (1<<56)-1
-    print('uuid ', value)
-    print('uuid ', len(str(value)))
-    # jsbml_val_example = 3370025650545068132
-    # print('jsbml uuid ', jsbml_val_example)
-    # print('jsbml uuid ', len(str(jsbml_val_example)))
-    # value = uuid.uuid1().int  & (1<<68)-1
-    # str_val = str(value)[:19]
     return value
 
 # uid = generate_uuid()

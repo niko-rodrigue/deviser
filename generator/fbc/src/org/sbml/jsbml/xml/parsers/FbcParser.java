@@ -33,6 +33,7 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.fbc.*;
 
@@ -130,6 +131,16 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
         return new FbcReactionPlugin((Reaction) sbase);
       }
     }
+
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
+   */
+  @Override
+  public ASTNodePlugin createPluginFor(ASTNode astNode) {
+    // This package does not extend ASTNode
 
     return null;
   }
@@ -269,15 +280,37 @@ public class FbcParser extends AbstractReaderWriter implements PackageParser {
     }    else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
-      if (contextObject instanceof Model) {
-        Model model = (Model) contextObject;
-        FbcModelPlugin fbcModel = (FbcModelPlugin) model.getPlugin(FbcConstants.shortLabel);
-      }      else if (contextObject instanceof Species) {
-        Species species = (Species) contextObject;
-        FbcSpeciesPlugin fbcSpecies = (FbcSpeciesPlugin) species.getPlugin(FbcConstants.shortLabel);
-      }      else if (contextObject instanceof Reaction) {
-        Reaction reaction = (Reaction) contextObject;
-        FbcReactionPlugin fbcReaction = (FbcReactionPlugin) reaction.getPlugin(FbcConstants.shortLabel);
+      if (elementName.equals(FbcConstants.objective) && groupList.equals(FbcList.listOfObjectives)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        FbcModelPlugin extendedModel = (FbcModelPlugin) model.getExtension (FbcConstants.shortLabel);
+
+        Objective objective = new Objective();
+        extendedModel.addObjective(objective);
+
+        return objective;
+      }      else if (elementName.equals(FbcConstants.fluxObjective) && groupList.equals(FbcList.listOfFluxObjectives)) {
+        Objective objective = (Objective) listOf.getParentSBMLObject();
+
+        FluxObjective fluxObjective = new FluxObjective();
+        objective.addFluxObjective(fluxObjective);
+
+        return fluxObjective;
+      }      else if (elementName.equals(FbcConstants.fluxBound) && groupList.equals(FbcList.listOfFluxBounds)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        FbcModelPlugin extendedModel = (FbcModelPlugin) model.getExtension (FbcConstants.shortLabel);
+
+        FluxBound fluxBound = new FluxBound();
+        extendedModel.addFluxBound(fluxBound);
+
+        return fluxBound;
+      }      else if (elementName.equals(FbcConstants.geneProduct) && groupList.equals(FbcList.listOfGeneProducts)) {
+        Model model = (Model) listOf.getParentSBMLObject();
+        FbcModelPlugin extendedModel = (FbcModelPlugin) model.getExtension (FbcConstants.shortLabel);
+
+        GeneProduct geneProduct = new GeneProduct();
+        extendedModel.addGeneProduct(geneProduct);
+
+        return geneProduct;
       }
     }
 

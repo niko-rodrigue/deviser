@@ -257,8 +257,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.jsbml_methods)
 
         num_attributes = attrib_functions.get_num_attributes()
-        print('num attributes ', num_attributes)
-        #
         # # # TODO how to write instance methods
         for i in range(0, num_attributes):
             code = attrib_functions.write_mandatory(True, i)
@@ -1003,9 +1001,9 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_function_implementation(code)
         #
 
-        # is it really necessary
-        # code = parser_functions.write_create_plugin_for_astnode() #dif argumnet ASTNode
-        # self.write_function_implementation(code)
+        # It is necessary
+        code = parser_functions.write_create_plugin_for_astnode() #dif argumnet ASTNode
+        self.write_function_implementation(code)
 
 
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
