@@ -88,7 +88,7 @@ public class DynConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 59672220944909757L;
+  private static final long     serialVersionUID = 49340396797090941L;
   /**
    *
    */

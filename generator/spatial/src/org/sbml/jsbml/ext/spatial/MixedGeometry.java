@@ -39,7 +39,7 @@ public class MixedGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 38364532400927643L;
+  private static final long serialVersionUID = 32014313646971301L;
   /**
    *
    */
@@ -546,7 +546,7 @@ public class MixedGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 3695833;
+    final int prime = 6423649;
 
     int hashCode = super.hashCode();
 

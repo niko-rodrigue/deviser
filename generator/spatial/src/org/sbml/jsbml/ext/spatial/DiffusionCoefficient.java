@@ -38,7 +38,7 @@ public class DiffusionCoefficient {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 54449122552999977L;
+  private static final long serialVersionUID = 705811053505155L;
   /**
    *
    */
@@ -387,7 +387,7 @@ public class DiffusionCoefficient {
    */
   @Override
   public int hashCode() {
-    final int prime = 8069093;
+    final int prime = 165541;
 
     int hashCode = super.hashCode();
 

@@ -38,7 +38,7 @@ public class AdvectionCoefficient {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 45551089664242665L;
+  private static final long serialVersionUID = 32681806581217571L;
   /**
    *
    */
@@ -256,7 +256,7 @@ public class AdvectionCoefficient {
    */
   @Override
   public int hashCode() {
-    final int prime = 3123977;
+    final int prime = 2518309;
 
     int hashCode = super.hashCode();
 

@@ -39,7 +39,7 @@ public class CSGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 64385536569831551L;
+  private static final long serialVersionUID = 38526797281853004L;
   /**
    *
    */
@@ -340,7 +340,7 @@ public class CSGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 9278963;
+    final int prime = 2789669;
 
     int hashCode = super.hashCode();
 

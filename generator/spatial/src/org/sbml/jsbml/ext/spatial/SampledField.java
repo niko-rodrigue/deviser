@@ -38,7 +38,7 @@ public class SampledField {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 15682175129967974L;
+  private static final long serialVersionUID = 30145008550296779L;
   /**
    *
    */
@@ -658,7 +658,7 @@ public class SampledField {
    */
   @Override
   public int hashCode() {
-    final int prime = 5149699;
+    final int prime = 3090233;
 
     int hashCode = super.hashCode();
 
