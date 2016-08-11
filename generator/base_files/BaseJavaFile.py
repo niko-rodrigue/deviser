@@ -519,180 +519,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     ########################################################################
 
-    def get_general_includes(self):
-        lo_name = ''
-        if self.has_parent_list_of:
-            if 'lo_class_name' in self.class_object:
-                lo_name = self.class_object['lo_class_name']
-            if len(lo_name) == 0:
-                lo_name = strFunctions.list_of_name(self.class_name)
-        if global_variables.is_package:
-            folder = self.language if not self.is_plugin else 'extension'
-            print('folder', folder)
-            try:
-                curr_include_line = '#include <{0}/packages/{1}/{2}/{3}.h>'.format(self.language,
-                                                                                   self.package.lower(),
-                                                                                   folder, self.class_name)
-                print('curr_include_line is ', curr_include_line)
-                # self.write_line_verbatim(curr_include_line)
-            except Exception as error:
-                print("Error is ", error)
-            if self.has_parent_list_of and not self.is_list_of:
-                try:
-                    curr_include_line = '#include <{0}/packages/{1}/{0}/{2}.h>'.format(self.language,
-                                                                                       self.package.lower(),
-                                                                                       lo_name)
-                    print('curr_include_line Parent ', curr_include_line)
-                    # self.write_line_verbatim(curr_include_line)
-                except Exception as error:
-                    print("error in ", error)
-
-
-
-            line = '#include <{0}/packages/{1}/validator/'\
-                                     '{2}{3}Error'\
-                                     '.h>'.format(self.language,
-                                                  self.package.lower(),
-                                                  self.package,
-                                                  self.cap_language)
-            print(line)
-        else:
-            line = '#include <{0}/{1}'\
-                                     '.h>'.format(self.language,
-                                                  self.class_name)
-            if self.has_parent_list_of and not self.is_list_of:
-                line = '#include <{0}/{1}'\
-                                         '.h>'.format(self.language,
-                                                      lo_name)
-
-            line = '#include <sbml/xml/XMLInputStream.h>'
-
-        # determine whether we need to write other headers
-        write_element_filter = False
-        concrete_classes = []
-        write_model = False
-        write_validators = False
-        write_math = False
-
-        if len(self.child_lo_elements) > 0 and global_variables.is_package:
-            write_element_filter = True
-        elif global_variables.is_package:
-            for element in self.child_elements:
-                if 'concrete' in element:
-                    write_element_filter = True
-
-        if self.is_plugin and not self.is_doc_plugin \
-                and self.language == 'sbml':
-            write_model = True
-
-        if self.is_doc_plugin:
-            write_validators = True
-
-        if self.has_math:
-            write_math = True
-
-        for lo in self.child_lo_elements:
-            if 'concrete' in lo:
-                child_concretes = query.get_concretes(lo['root'],
-                                                      lo['concrete'])
-                for j in range(0, len(child_concretes)):
-                    element = child_concretes[j]['element']
-                    if element not in concrete_classes:
-                        concrete_classes.append(element)
-
-        for i in range(0, len(self.concretes)):
-            element = self.concretes[i]['element']
-            if element not in concrete_classes:
-                concrete_classes.append(element)
-
-        for child in self.child_elements:
-            if 'concrete' in child:
-                child_concretes = query.get_concretes(child['root'],
-                                                      child['concrete'])
-                for j in range(0, len(child_concretes)):
-                    element = child_concretes[j]['element']
-                    if element not in concrete_classes:
-                        concrete_classes.append(element)
-
-        if write_element_filter:
-            line = '#include <{0}/util/ElementFilter.'\
-                                     'h>'.format(self.language)
-        if write_model:
-            line = '#include <{0}/Model'\
-                                     '.h>'.format(self.language)
-
-        if write_validators:
-            line = '#include <{0}/packages/{1}/validator/{2}'\
-                                     'ConsistencyValidator'\
-                                     '.h>'.format(self.language,
-                                                  self.package.lower(),
-                                                  self.package)
-
-            line = '#include <{0}/packages/{1}/validator/{2}'\
-                                     'IdentifierConsistencyValidator.'\
-                                     'h>'.format(self.language,
-                                                 self.package.lower(),
-                                                 self.package)
-
-
-        if write_math:
-            line = '#include <sbml/math/MathML.h>'
-
-        if len(concrete_classes) > 0:
-            pass
-            #self.skip_line()
-        for element in concrete_classes:
-            if global_variables.is_package:
-                line = '#include <{0}/packages/{1}/{0}/{2}'\
-                                         '.h>'.format(self.language,
-                                                      self.package.lower(),
-                                                      element)
-            else:
-                line = '#include <{0}/{1}.h>'\
-                                         ''.format(self.language, element)
-
-        # # TODO for skipping lines
-        # self.skip_line(2)
-        # # self.write_line('using namespace std;')
-        # self.skip_line()
-
-
-        # #print(self.class_object)
-        # print(self.is_list_of)
-        # print(self.has_parent_list_of)
-        # print(self.name)
-        # print(self.class_name)
-        # print(self.package)
-        # print(self.typecode)
-        # print(self.baseClass)
-        # # print(self.list_of_name)
-        # # print(self.list_of_child)
-        # # print(self.baseClass)
-        # print(self.has_std_base)
-        # # print(self.sid_refs)
-        # # print(self.unit_sid_refs)
-        # print(self.add_decls)
-        # print(self.add_impl)
-        # print(self.has_math)
-        # print(self.has_children)
-        # # print(self.concretes)
-        # print(self.document)
-
-
-        # for attribute in self.attributes:
-        #     print('BADA ', attribute['name'])
-        #     print('YOLO ', attribute['type'])
-        #     #print(attribute)
-        #     if attribute['type'] == 'SIdRef':
-        #         key = 'AbstractNamedSBase'
-        #         children = self.jsbml_data_tree[key]['childrenNodes']
-        #         self.import_from_jsbml_modules += children
-        #         print(children)
-        #         for child in children:
-        #             interface = self.jsbml_data_tree[child]['parentInterfaces']
-        #             print(interface)
-        #             print('--------')
-        # print('----------------------------')
 
     ########################################################################
     def expand_parser_import_modules(self, package):
@@ -1063,7 +889,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     def create_lo_other_child_element_class(self, name, parent): #Critical becareful with it
         capname = strFunctions.upper_first(name)
-        print('Yolo capname ',capname)
         element = dict({'isArray': False,
                         'name': strFunctions.lower_first(capname),
                         'attTypeCode': capname,
@@ -2227,7 +2052,6 @@ class BaseJavaFile(BaseFile.BaseFile):
         elif implement_len > 1:
             line_to_write += ' implements '
             for n in range(0, implement_len-1):
-                print(implement_modules[n])
                 line_to_write += implement_modules[n] + ', '
             line_to_write = line_to_write + implement_modules[-1]
             #print(line_to_write)

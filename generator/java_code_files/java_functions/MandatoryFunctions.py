@@ -225,7 +225,7 @@ class MandatoryFunctions():
             else:
                 return_value = 'true'
         except Exception as e:
-            print('error ',e)
+            # print('error ',e)
             return_value = 'true'
 
 

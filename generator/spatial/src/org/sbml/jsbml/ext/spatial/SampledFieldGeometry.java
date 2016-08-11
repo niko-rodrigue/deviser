@@ -39,7 +39,7 @@ public class SampledFieldGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 18088627366189304L;
+  private static final long serialVersionUID = 755323588491462L;
   /**
    *
    */
@@ -406,7 +406,7 @@ public class SampledFieldGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 3689911;
+    final int prime = 2144843;
 
     int hashCode = super.hashCode();
 

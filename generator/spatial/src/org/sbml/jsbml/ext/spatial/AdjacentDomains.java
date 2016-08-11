@@ -38,7 +38,7 @@ public class AdjacentDomains {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 49312425905054147L;
+  private static final long serialVersionUID = 15638871477811040L;
   /**
    *
    */
@@ -249,7 +249,7 @@ public class AdjacentDomains {
    */
   @Override
   public int hashCode() {
-    final int prime = 8207897;
+    final int prime = 4857113;
 
     int hashCode = super.hashCode();
 

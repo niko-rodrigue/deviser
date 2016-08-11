@@ -38,7 +38,7 @@ public class Member extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 51929118996018838L;
+  private static final long serialVersionUID = 53173720309038730L;
   /**
    *
    */
@@ -272,7 +272,7 @@ public class Member extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 3890981;
+    final int prime = 615607;
 
     int hashCode = super.hashCode();
 

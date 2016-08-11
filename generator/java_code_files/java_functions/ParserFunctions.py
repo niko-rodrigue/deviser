@@ -1412,7 +1412,7 @@ class ParserFunctions():
                 if plugin_index > 0 and plugin_index < len(plugins):
                     nested_if_level1.append('else if')
             except Exception as e:
-                print('Yolo ', e)
+                print('Error is  ', e)
 
 
             temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
@@ -2042,7 +2042,7 @@ class ParserFunctions():
                     if function_name not in self.methods_to_write:
                         self.methods_to_write.append(function_name)
 
-        print('self write ', self.methods_to_write)
+        # print('self write ', self.methods_to_write)
 
 
     ########################################################################
@@ -2129,7 +2129,7 @@ class ParserFunctions():
         curr_method_original = self.abstract_methods_to_write['extends']['extendsOriginal']
 
         curr_method = self.abstract_methods_to_write['modules'][index]
-        print(curr_method)
+        # print(curr_method)
 
 
         access_type = curr_method['accessType']

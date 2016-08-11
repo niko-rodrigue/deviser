@@ -40,7 +40,7 @@ public class AnalyticVolume {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 33673342796048656L;
+  private static final long serialVersionUID = 58041744618756424L;
   /**
    *
    */
@@ -348,7 +348,7 @@ public class AnalyticVolume {
    */
   @Override
   public int hashCode() {
-    final int prime = 3220319;
+    final int prime = 7740757;
 
     int hashCode = super.hashCode();
 

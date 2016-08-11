@@ -38,7 +38,7 @@ public class SpatialComponent extends AbstractNamedSBase implements UniqueNamedS
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 19514062726687289L;
+  private static final long serialVersionUID = 68094298097743341L;
   /**
    *
    */
@@ -277,7 +277,7 @@ public class SpatialComponent extends AbstractNamedSBase implements UniqueNamedS
    */
   @Override
   public int hashCode() {
-    final int prime = 6720353;
+    final int prime = 886591;
 
     int hashCode = super.hashCode();
 

@@ -40,7 +40,7 @@ public class CSGObject {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 17726359067128742L;
+  private static final long serialVersionUID = 12527697519565118L;
   /**
    *
    */
@@ -415,7 +415,7 @@ public class CSGObject {
    */
   @Override
   public int hashCode() {
-    final int prime = 5528053;
+    final int prime = 1860289;
 
     int hashCode = super.hashCode();
 

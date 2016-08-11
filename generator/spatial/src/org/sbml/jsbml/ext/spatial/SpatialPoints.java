@@ -38,7 +38,7 @@ public class SpatialPoints {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 27547052846438825L;
+  private static final long serialVersionUID = 43680272119681906L;
   /**
    *
    */
@@ -394,7 +394,7 @@ public class SpatialPoints {
    */
   @Override
   public int hashCode() {
-    final int prime = 2002459;
+    final int prime = 7203883;
 
     int hashCode = super.hashCode();
 

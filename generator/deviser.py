@@ -105,7 +105,6 @@ def main(args):
     return global_variables.code_returned
   
 if __name__ == '__main__':
-    print('Main activated')
     if global_variables.code_returned == \
             global_variables.return_codes['success']:
         try:

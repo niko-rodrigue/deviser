@@ -38,7 +38,7 @@ public class CoordinateReference {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 56124102102043234L;
+  private static final long serialVersionUID = 67696460984125490L;
   /**
    *
    */
@@ -195,7 +195,7 @@ public class CoordinateReference {
    */
   @Override
   public int hashCode() {
-    final int prime = 9514013;
+    final int prime = 2736691;
 
     int hashCode = super.hashCode();
 

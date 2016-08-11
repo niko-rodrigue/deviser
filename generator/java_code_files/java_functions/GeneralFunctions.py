@@ -185,7 +185,7 @@ class GeneralFunctions():
                     if function_name not in self.methods_to_write:
                         self.methods_to_write.append(function_name)
 
-        print('self write ', self.methods_to_write)
+        # print('self write ', self.methods_to_write)
 
 
     ########################################################################
@@ -272,7 +272,7 @@ class GeneralFunctions():
         curr_method_original = self.abstract_methods_to_write['extends']['extendsOriginal']
 
         curr_method = self.abstract_methods_to_write['modules'][index]
-        print(curr_method)
+        # print(curr_method)
 
 
         access_type = curr_method['accessType']
