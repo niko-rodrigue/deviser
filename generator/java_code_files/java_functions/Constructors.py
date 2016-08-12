@@ -88,8 +88,13 @@ class Constructors():
             self.import_modules = import_modules
 
 
+        # if 'sbase' in class_object:
+        #     self.sbase_name_for_plugin = class_object['sbase']
+
+
+
         if self.is_plugin is True:
-            self.copy_name = strFunctions.lower_first(self.package) + 'Model'
+            self.copy_name = strFunctions.lower_first(self.package)  + 'Model' # + self.sbase_name_for_plugin
         else:
             self.copy_name = 'orig'
         self.equals_name = 'object'
@@ -1307,6 +1312,7 @@ class Constructors():
     #TODO GSOC 2016
 
     # function to write copy constructor
+    # TODO ths constructor onluy useful if Model but else, not useful anymor
     def write_basic_plugin_copy_constructor(self):
         # do not write for C API
         if self.is_java_api is False:
@@ -1318,6 +1324,9 @@ class Constructors():
         return_lines = []
         additional = []
         # create function decl
+
+
+        sbase_name = self.sb
         function = '{0}'.format(self.object_name)
         return_type = ''
         arguments = ['Model model']

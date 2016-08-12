@@ -53,10 +53,6 @@ public class FbcConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.fbc.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "fbc";
   /**
    *
@@ -88,7 +84,7 @@ public class FbcConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 47919512713496811L;
+  private static final long     serialVersionUID = 27983623937124337L;
   /**
    *
    */
@@ -136,27 +132,27 @@ public class FbcConstants {
   /**
    *
    */
-  public static final String fluxBound = "FluxBound";
+  public static final String fluxBound = "fluxBound";
   /**
    *
    */
-  public static final String objective = "Objective";
+  public static final String objective = "objective";
   /**
    *
    */
-  public static final String geneProductRef = "GeneProductRef";
+  public static final String geneProductRef = "geneProductRef";
   /**
    *
    */
-  public static final String fbcAnd = "FbcAnd";
+  public static final String fbcAnd = "fbcAnd";
   /**
    *
    */
-  public static final String fbcOr = "FbcOr";
+  public static final String fbcOr = "fbcOr";
   /**
    *
    */
-  public static final String geneProductAssociation = "GeneProductAssociation";
+  public static final String geneProductAssociation = "geneProductAssociation";
   /**
    *
    */

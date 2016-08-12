@@ -53,10 +53,6 @@ public class DistribConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.distrib.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "distrib";
   /**
    *
@@ -88,7 +84,7 @@ public class DistribConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 31116584282793376L;
+  private static final long     serialVersionUID = 41275950925364400L;
   /**
    *
    */
@@ -100,7 +96,7 @@ public class DistribConstants {
   /**
    *
    */
-  public static final String uncertML = "UncertML";
+  public static final String uncertML = "uncertML";
   /**
    *
    */
@@ -108,11 +104,11 @@ public class DistribConstants {
   /**
    *
    */
-  public static final String drawFromDistribution = "DrawFromDistribution";
+  public static final String drawFromDistribution = "drawFromDistribution";
   /**
    *
    */
-  public static final String uncertainty = "Uncertainty";
+  public static final String uncertainty = "uncertainty";
   /**
    *  
    */

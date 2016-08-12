@@ -40,7 +40,7 @@ public class DrawFromDistribution extends AbstractSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 47253551897924346L;
+  private static final long serialVersionUID = 10181770868953380L;
   /**
    *
    */
@@ -91,7 +91,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#equals
+   * @see org.sbml.jsbml.AbstractSBase#equals
    */
   @Override
   public boolean equals(Object object) {
@@ -114,7 +114,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#clone
+   * @see org.sbml.jsbml.AbstractSBase#clone
    */
   @Override
   public DrawFromDistribution clone() {
@@ -183,7 +183,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfDistribInputs}
+   * Removes an element from the {@link listOfDistribInputs}
    *  
    * @param DistribInput the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -213,7 +213,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfDistribInputs}.
+   * Removes an element from the {@link listOfDistribInputs}.
    *  
    * @param distribInputId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -378,7 +378,7 @@ public class DrawFromDistribution extends AbstractSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 765379;
+    final int prime = 203809;
 
     int hashCode = super.hashCode();
 
@@ -405,7 +405,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#readAttribute
+   * @see org.sbml.jsbml.AbstractSBase#readAttribute
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {
@@ -415,7 +415,7 @@ public class DrawFromDistribution extends AbstractSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.SBase#writeXMLAttributes
+   * @see org.sbml.jsbml.AbstractSBase#writeXMLAttributes
    */
   @Override
   public Map <String, String> writeXMLAttributes() {

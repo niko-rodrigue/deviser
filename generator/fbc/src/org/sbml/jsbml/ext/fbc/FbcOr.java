@@ -39,7 +39,7 @@ public class FbcOr extends Association {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 7237694118777931L;
+  private static final long serialVersionUID = 3304158227477157L;
   /**
    *
    */
@@ -148,7 +148,7 @@ public class FbcOr extends Association {
   }
 
   /**
-   * Removes an element from the {@link #listOfAssociations}
+   * Removes an element from the {@link listOfAssociations}
    *  
    * @param Association the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -291,35 +291,6 @@ public class FbcOr extends Association {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#getChildAt(int)
-   */
-  @Override
-  public TreeNode getChildAt(int index) {
-    if (index < 0) {
-      throw new
-        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
-          index, 0));
-    }
-    int count = super.getChildCount(), pos = 0;
-
-    if (index < count) {
-      return super.getChildAt(index);
-    } else {
-      index -= count;
-    }
-
-    if (isSetListOfAssociations()) {
-      if (pos == index) {
-        return getListOfAssociations();
-      }
-      pos++;
-    }
-    throw new IndexOutOfBoundsException(MessageFormat.format(
-      resourceBundle.getString("IndexExceedsBoundsException"), index,
-        Math.min(pos, 0)));
-  }
-
-  /* (non-Javadoc)
    * @see org.sbml.jsbml#getAllowsChildren()
    */
   @Override
@@ -344,7 +315,7 @@ public class FbcOr extends Association {
    */
   @Override
   public int hashCode() {
-    final int prime = 4759021;
+    final int prime = 9247339;
 
     int hashCode = super.hashCode();
 

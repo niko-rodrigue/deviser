@@ -343,51 +343,36 @@ def generate_jsbml_code_files(name, ob):
 
     # #Write Extension
     os.chdir(extension_dir)
+    #Initialize extension object
     ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
-    #Write Constants
+
+
+    # Write Constants
     ext.write_constants()
 
-    # #Write enums
+    # Write enums
     for i in range(0, len(ob['enums'])+1):
         ext.write_enums(i)
 
-    # for i in range(0, len(ob['enums'])):
-    #     working_enum = ob['enums'][i]
-    #     all_files = JavaEnumFiles.JavaEnumFiles(working_enum, ob, True)
-    #     all_files.write_files()
 
-    # Write plugins
-    for i in range(0, len(ob['plugins'])+1):
-        ext.write_plugin_files(i)
+    # # Write plugins TODO problem with plugins
+    # for i in range(0, len(ob['plugins'])+1):
+    #     ext.write_plugin_files(i)
 
-    try:
-        ## this will fail as we are already in the extension dir ... alternatively use full path
-        for working_class in ob['baseElements']:
-            all_files = JavaFiles.JavaFiles(working_class, True)
-            all_files.write_files()
-        os.chdir(this_dir)
-    except Exception as error:
-        print("Error is ", error)
+    # Write baseElements
+    for working_class in ob['baseElements']:
+        all_files = JavaFiles.JavaFiles(working_class, True)
+        all_files.write_files()
+    os.chdir(this_dir)
 
 
-    # TODO there are some bugs
+    # Write JSBML Parser
     os.chdir(parser_dir)
     parser_file = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     parser_file.write_parser_file()
     os.chdir(this_dir)
 
 
-    # os.chdir(valid_dir)
-    # all_files = ValidationFiles.ValidationFiles(ob, True)
-    # all_files.write_files()
-    # os.chdir(this_dir)
-    #
-    # os.chdir(constraints_dir)
-    # all_files = ValidationFiles.ValidationFiles(ob, True)
-    # all_files.write_constraint_files()
-    # os.chdir(this_dir)
-
-    # need to do this last so that the error table is populated
 
 
 

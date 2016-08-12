@@ -22,6 +22,8 @@ package org.sbml.jsbml.ext.fbc;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
 import org.sbml.jsbml.*;
@@ -39,7 +41,7 @@ public class FbcSpeciesPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 66272557677747498L;
+  private static final long serialVersionUID = 51118161869919299L;
   /**
    *
    */
@@ -228,7 +230,16 @@ public class FbcSpeciesPlugin extends AbstractSBasePlugin {
    */
   @Override
   public TreeNode getChildAt(int index) {
-    return null;
+    if (index < 0) {
+      throw new
+        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
+          index, 0));
+    }
+    int pos = 0;
+
+    throw new IndexOutOfBoundsException(MessageFormat.format(
+      resourceBundle.getString("IndexExceedsBoundsException"), index,
+        Math.min(pos, 0)));
   }
 
   /* (non-Javadoc)
@@ -251,7 +262,7 @@ public class FbcSpeciesPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 568787;
+    final int prime = 2224283;
 
     int hashCode = super.hashCode();
 

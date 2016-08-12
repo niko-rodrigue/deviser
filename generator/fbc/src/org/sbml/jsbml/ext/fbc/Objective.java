@@ -39,7 +39,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 44887406045214460L;
+  private static final long serialVersionUID = 41229336605999576L;
   /**
    *
    */
@@ -234,7 +234,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfFluxObjectives}
+   * Removes an element from the {@link listOfFluxObjectives}
    *  
    * @param FluxObjective the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -264,7 +264,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfFluxObjectives}.
+   * Removes an element from the {@link listOfFluxObjectives}.
    *  
    * @param fluxObjectiveId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -375,35 +375,6 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#getChildAt(int)
-   */
-  @Override
-  public TreeNode getChildAt(int index) {
-    if (index < 0) {
-      throw new
-        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
-          index, 0));
-    }
-    int count = super.getChildCount(), pos = 0;
-
-    if (index < count) {
-      return super.getChildAt(index);
-    } else {
-      index -= count;
-    }
-
-    if (isSetListOfFluxObjectives()) {
-      if (pos == index) {
-        return getListOfFluxObjectives();
-      }
-      pos++;
-    }
-    throw new IndexOutOfBoundsException(MessageFormat.format(
-      resourceBundle.getString("IndexExceedsBoundsException"), index,
-        Math.min(pos, 0)));
-  }
-
-  /* (non-Javadoc)
    * @see org.sbml.jsbml#getAllowsChildren()
    */
   @Override
@@ -428,7 +399,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 830363;
+    final int prime = 3227243;
 
     int hashCode = super.hashCode();
 

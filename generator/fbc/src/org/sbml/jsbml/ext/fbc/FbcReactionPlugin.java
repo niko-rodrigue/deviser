@@ -22,13 +22,14 @@ package org.sbml.jsbml.ext.fbc;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
-import org.sbml.jsbml.xml.XMLNode;
 
 /**
  * @author Deviser
@@ -41,7 +42,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 31365860679704387L;
+  private static final long serialVersionUID = 64385041432733515L;
   /**
    *
    */
@@ -53,7 +54,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
   /**
    *
    */
-  private XMLNode geneProductAssociation;
+  private GeneProductAssociation geneProductAssociation;
 
   /**
    * @param model the FbcReactionPlugin instance to copy.
@@ -76,7 +77,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
       setUpperFluxBound(fbcModel.getUpperFluxBound());
     }
     if (fbcModel.isSetGeneProductAssociation()) {
-      setGeneProductAssociation(fbcModel.getGeneProductAssociation().clone());
+      setGeneProductAssociation(fbcModel.getGeneProductAssociation());
     }
   }
 
@@ -194,7 +195,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    *  
    * @return the value of {@link geneProductAssociation}.
    */
-  public XMLNode getGeneProductAssociation() {
+  public GeneProductAssociation getGeneProductAssociation() {
     if (isSetGeneProductAssociation()) {
       return geneProductAssociation;
     }
@@ -217,9 +218,10 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    * @param geneProductAssociation the value of geneProductAssociation to be
    * set.
    */
-  public boolean setGeneProductAssociation(XMLNode geneProductAssociation) {
+  public boolean setGeneProductAssociation(GeneProductAssociation    geneProductAssociation) {
     if (geneProductAssociation != this.geneProductAssociation) {
-      XMLNode oldGeneProductAssociation = this.geneProductAssociation;
+      GeneProductAssociation oldGeneProductAssociation =
+        this.geneProductAssociation;
       this.geneProductAssociation = geneProductAssociation;
       firePropertyChange(FbcConstants.geneProductAssociation,
         oldGeneProductAssociation, this.geneProductAssociation);
@@ -233,8 +235,9 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    * FbcReactionPlugin object and returns the GeneProductAssociation object
    * created.
    */
-  public XMLNode createGeneProductAssociation() {
-    XMLNode geneProductAssociation = new XMLNode(getLevel(), getVersion());
+  public GeneProductAssociation createGeneProductAssociation() {
+    GeneProductAssociation geneProductAssociation = new
+      GeneProductAssociation(getLevel(), getVersion());
     return geneProductAssociation;
   }
 
@@ -246,7 +249,8 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetGeneProductAssociation() {
     if (isSetGeneProductAssociation()) {
-      XMLNode oldGeneProductAssociation = geneProductAssociation;
+      GeneProductAssociation oldGeneProductAssociation =
+        geneProductAssociation;
       geneProductAssociation = null;
       firePropertyChange(FbcConstants.geneProductAssociation,
         oldGeneProductAssociation, geneProductAssociation);
@@ -303,7 +307,16 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    */
   @Override
   public TreeNode getChildAt(int index) {
-    return null;
+    if (index < 0) {
+      throw new
+        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
+          index, 0));
+    }
+    int pos = 0;
+
+    throw new IndexOutOfBoundsException(MessageFormat.format(
+      resourceBundle.getString("IndexExceedsBoundsException"), index,
+        Math.min(pos, 0)));
   }
 
   /* (non-Javadoc)
@@ -326,7 +339,7 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 2841031;
+    final int prime = 9293423;
 
     int hashCode = super.hashCode();
 
@@ -354,7 +367,6 @@ public class FbcReactionPlugin extends AbstractSBasePlugin {
     builder.append(", ");
     builder.append("geneProductAssociation = ");
     builder.append(geneProductAssociation);
-    builder.append("]");
     return builder.toString();
   }
 

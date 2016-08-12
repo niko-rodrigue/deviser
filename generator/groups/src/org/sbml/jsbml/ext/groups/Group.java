@@ -39,7 +39,7 @@ public class Group extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 22205159219793502L;
+  private static final long serialVersionUID = 53844753609576107L;
   /**
    *
    */
@@ -233,7 +233,7 @@ public class Group extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfMembers}
+   * Removes an element from the {@link listOfMembers}
    *  
    * @param Member the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -263,7 +263,7 @@ public class Group extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfMembers}.
+   * Removes an element from the {@link listOfMembers}.
    *  
    * @param memberId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -425,7 +425,7 @@ public class Group extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 2267971;
+    final int prime = 2698853;
 
     int hashCode = super.hashCode();
 

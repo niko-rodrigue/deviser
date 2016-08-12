@@ -38,7 +38,7 @@ public class DistribInput extends AbstractNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 29378970158897538L;
+  private static final long serialVersionUID = 17635527080451768L;
   /**
    *
    */
@@ -207,7 +207,7 @@ public class DistribInput extends AbstractNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 4612277;
+    final int prime = 8819809;
 
     int hashCode = super.hashCode();
 

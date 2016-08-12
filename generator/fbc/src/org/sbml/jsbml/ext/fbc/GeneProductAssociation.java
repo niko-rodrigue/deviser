@@ -39,7 +39,7 @@ public class GeneProductAssociation {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 33985941176455226L;
+  private static final long serialVersionUID = 44290873634238190L;
   /**
    *
    */
@@ -148,7 +148,7 @@ public class GeneProductAssociation {
   }
 
   /**
-   * Removes an element from the {@link #listOfAssociations}
+   * Removes an element from the {@link listOfAssociations}
    *  
    * @param Association the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -291,35 +291,6 @@ public class GeneProductAssociation {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#getChildAt(int)
-   */
-  @Override
-  public TreeNode getChildAt(int index) {
-    if (index < 0) {
-      throw new
-        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
-          index, 0));
-    }
-    int count = super.getChildCount(), pos = 0;
-
-    if (index < count) {
-      return super.getChildAt(index);
-    } else {
-      index -= count;
-    }
-
-    if (isSetListOfAssociations()) {
-      if (pos == index) {
-        return getListOfAssociations();
-      }
-      pos++;
-    }
-    throw new IndexOutOfBoundsException(MessageFormat.format(
-      resourceBundle.getString("IndexExceedsBoundsException"), index,
-        Math.min(pos, 0)));
-  }
-
-  /* (non-Javadoc)
    * @see org.sbml.jsbml#getAllowsChildren()
    */
   @Override
@@ -344,7 +315,7 @@ public class GeneProductAssociation {
    */
   @Override
   public int hashCode() {
-    final int prime = 7754683;
+    final int prime = 1002931;
 
     int hashCode = super.hashCode();
 

@@ -22,6 +22,8 @@ package org.sbml.jsbml.ext.fbc;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
@@ -40,7 +42,7 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 32244523378599597L;
+  private static final long serialVersionUID = 70621849554177277L;
   /**
    *
    */
@@ -145,86 +147,86 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * @param listOfObjectives
-   * the listOfObjectives to add
+   * @param objective
+   * the objective to add
    * @return
    */
-  public boolean addObjectives(Objective listOfObjectives) {
-    return getListOfObjectives().add(listOfObjectives);
+  public boolean addObjective(Objective objective) {
+    return getListOfObjectives().add(objective);
   }
 
   /**
-   * @param listOfFluxBounds
-   * the listOfFluxBounds to add
+   * @param fluxBound
+   * the fluxBound to add
    * @return
    */
-  public boolean addFluxBounds(FluxBound listOfFluxBounds) {
-    return getListOfFluxBounds().add(listOfFluxBounds);
+  public boolean addFluxBound(FluxBound fluxBound) {
+    return getListOfFluxBounds().add(fluxBound);
   }
 
   /**
-   * @param listOfGeneProducts
-   * the listOfGeneProducts to add
+   * @param geneProduct
+   * the geneProduct to add
    * @return
    */
-  public boolean addGeneProducts(GeneProduct listOfGeneProducts) {
-    return getListOfGeneProducts().add(listOfGeneProducts);
+  public boolean addGeneProduct(GeneProduct geneProduct) {
+    return getListOfGeneProducts().add(geneProduct);
   }
 
   /**
-   * Removes an element from the {@link #listOfObjectivess}
+   * Removes an element from the {@link listOfObjectives}
    *  
-   * @param Objectives the element to be removed from the list.
+   * @param Objective the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeObjectives(Objective listOfObjectives) {
+  public boolean removeObjective(Objective objective) {
     if (isSetListOfObjectives()) {
-      return getListOfObjectives().remove(listOfObjectives);
+      return getListOfObjectives().remove(objective);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfFluxBoundss}
+   * Removes an element from the {@link listOfFluxBounds}
    *  
-   * @param FluxBounds the element to be removed from the list.
+   * @param FluxBound the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeFluxBounds(FluxBound listOfFluxBounds) {
+  public boolean removeFluxBound(FluxBound fluxBound) {
     if (isSetListOfFluxBounds()) {
-      return getListOfFluxBounds().remove(listOfFluxBounds);
+      return getListOfFluxBounds().remove(fluxBound);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfGeneProductss}
+   * Removes an element from the {@link listOfGeneProducts}
    *  
-   * @param GeneProducts the element to be removed from the list.
+   * @param GeneProduct the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeGeneProducts(GeneProduct listOfGeneProducts) {
+  public boolean removeGeneProduct(GeneProduct geneProduct) {
     if (isSetListOfGeneProducts()) {
-      return getListOfGeneProducts().remove(listOfGeneProducts);
+      return getListOfGeneProducts().remove(geneProduct);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfObjectivess}
+   * Removes an element from the {@link #listOfObjectives}
    *  
-   * @param i the index where to remove the {@link Objectives}.
+   * @param i the index where to remove the {@link Objective}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfObjectivess)})
+   * is out of bound ({@code (i < 0) || (i > listOfObjectives)})
    */
-  public Objective removeObjectives(int i) {
+  public Objective removeObjective(int i) {
     if (isSetListOfObjectives()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
@@ -232,14 +234,14 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Removes an element from the {@link #listOfFluxBoundss}
+   * Removes an element from the {@link #listOfFluxBounds}
    *  
-   * @param i the index where to remove the {@link FluxBounds}.
+   * @param i the index where to remove the {@link FluxBound}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfFluxBoundss)})
+   * is out of bound ({@code (i < 0) || (i > listOfFluxBounds)})
    */
-  public FluxBound removeFluxBounds(int i) {
+  public FluxBound removeFluxBound(int i) {
     if (isSetListOfFluxBounds()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
@@ -247,18 +249,63 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Removes an element from the {@link #listOfGeneProductss}
+   * Removes an element from the {@link #listOfGeneProducts}
    *  
-   * @param i the index where to remove the {@link GeneProducts}.
+   * @param i the index where to remove the {@link GeneProduct}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfGeneProductss)})
+   * is out of bound ({@code (i < 0) || (i > listOfGeneProducts)})
    */
-  public GeneProduct removeGeneProducts(int i) {
+  public GeneProduct removeGeneProduct(int i) {
     if (isSetListOfGeneProducts()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
     return getListOfGeneProducts().remove(i);
+  }
+
+  /**
+   * Removes an element from the {@link listOfObjectives}.
+   *  
+   * @param listOfObjectivesId the id of the element to be removed from the
+   * list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public Objective removeObjective(String listOfObjectivesId) {
+    if (isSetListOfObjectives()) {
+      return getListOfObjectives().remove(listOfObjectivesId);
+    }
+    return null;
+  }
+
+  /**
+   * Removes an element from the {@link listOfFluxBounds}.
+   *  
+   * @param listOfFluxBoundsId the id of the element to be removed from the
+   * list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public FluxBound removeFluxBound(String listOfFluxBoundsId) {
+    if (isSetListOfFluxBounds()) {
+      return getListOfFluxBounds().remove(listOfFluxBoundsId);
+    }
+    return null;
+  }
+
+  /**
+   * Removes an element from the {@link listOfGeneProducts}.
+   *  
+   * @param listOfGeneProductsId the id of the element to be removed from the
+   * list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public GeneProduct removeGeneProduct(String listOfGeneProductsId) {
+    if (isSetListOfGeneProducts()) {
+      return getListOfGeneProducts().remove(listOfGeneProductsId);
+    }
+    return null;
   }
 
   /**
@@ -319,104 +366,104 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Creates a new Objectives element and adds it to the
-   * {@link listOfObjectivess} list.
+   * Creates a new Objective element and adds it to the
+   * {@link listOfObjectives} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfObjectivess}
+   * {@link listOfObjectives}
    */
-  public Objective createObjectives() {
-    Objective objectives = new Objective(getLevel(), getVersion());
-    return addObjectives(objectives) ? objectives : null;
+  public Objective createObjective() {
+    Objective objective = new Objective(getLevel(), getVersion());
+    return addObjective(objective) ? objective : null;
   }
 
   /**
-   * Creates a new FluxBounds element and adds it to the
-   * {@link listOfFluxBoundss} list.
+   * Creates a new FluxBound element and adds it to the
+   * {@link listOfFluxBounds} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfFluxBoundss}
+   * {@link listOfFluxBounds}
    */
-  public FluxBound createFluxBounds() {
-    FluxBound fluxBounds = new FluxBound(getLevel(), getVersion());
-    return addFluxBounds(fluxBounds) ? fluxBounds : null;
+  public FluxBound createFluxBound() {
+    FluxBound fluxBound = new FluxBound(getLevel(), getVersion());
+    return addFluxBound(fluxBound) ? fluxBound : null;
   }
 
   /**
-   * Creates a new GeneProducts element and adds it to the
-   * {@link listOfGeneProductss} list.
+   * Creates a new GeneProduct element and adds it to the
+   * {@link listOfGeneProducts} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfGeneProductss}
+   * {@link listOfGeneProducts}
    */
-  public GeneProduct createGeneProducts() {
-    GeneProduct geneProducts = new GeneProduct(getLevel(), getVersion());
-    return addGeneProducts(geneProducts) ? geneProducts : null;
+  public GeneProduct createGeneProduct() {
+    GeneProduct geneProduct = new GeneProduct(getLevel(), getVersion());
+    return addGeneProduct(geneProduct) ? geneProduct : null;
   }
 
   /**
-   * Returns the number of {@link Objectives}s in this
+   * Returns the number of {@link Objective}s in this
    * {@link Fbc}.
    *  
-   * @return the number of {@link Objectives}s in this {@link Objectives}.
-   * @libsbml.deprecated same as {@link #getObjectivesCount()}
+   * @return the number of {@link Objective}s in this {@link Objective}.
+   * @libsbml.deprecated same as {@link #getObjectiveCount()}
    */
   @Deprecated
   public int getNumObjectives() {
-    return getObjectivesCount();
+    return getObjectiveCount();
   }
 
   /**
-   * Returns the number of {@link FluxBounds}s in this
+   * Returns the number of {@link FluxBound}s in this
    * {@link Fbc}.
    *  
-   * @return the number of {@link FluxBounds}s in this {@link FluxBounds}.
-   * @libsbml.deprecated same as {@link #getFluxBoundsCount()}
+   * @return the number of {@link FluxBound}s in this {@link FluxBound}.
+   * @libsbml.deprecated same as {@link #getFluxBoundCount()}
    */
   @Deprecated
   public int getNumFluxBounds() {
-    return getFluxBoundsCount();
+    return getFluxBoundCount();
   }
 
   /**
-   * Returns the number of {@link GeneProducts}s in this
+   * Returns the number of {@link GeneProduct}s in this
    * {@link Fbc}.
    *  
-   * @return the number of {@link GeneProducts}s in this {@link GeneProducts}.
-   * @libsbml.deprecated same as {@link #getGeneProductsCount()}
+   * @return the number of {@link GeneProduct}s in this {@link GeneProduct}.
+   * @libsbml.deprecated same as {@link #getGeneProductCount()}
    */
   @Deprecated
   public int getNumGeneProducts() {
-    return getGeneProductsCount();
+    return getGeneProductCount();
   }
 
   /**
-   * Returns the number of {@link Objectives}s in this {@link Fbc}.
+   * Returns the number of {@link Objective}s in this {@link Fbc}.
    *  
-   * @return the number of {@link Objectives}s in this {@link Objectives}.
-   * @libsbml.deprecated same as {@link #getObjectivesCount()}
+   * @return the number of {@link Objective}s in this {@link Objective}.
+   * @libsbml.deprecated same as {@link #getObjectiveCount()}
    */
-  public int getObjectivesCount() {
+  public int getObjectiveCount() {
     return isSetListOfObjectives() ? getListOfObjectives().size() : 0;
   }
 
   /**
-   * Returns the number of {@link FluxBounds}s in this {@link Fbc}.
+   * Returns the number of {@link FluxBound}s in this {@link Fbc}.
    *  
-   * @return the number of {@link FluxBounds}s in this {@link FluxBounds}.
-   * @libsbml.deprecated same as {@link #getFluxBoundsCount()}
+   * @return the number of {@link FluxBound}s in this {@link FluxBound}.
+   * @libsbml.deprecated same as {@link #getFluxBoundCount()}
    */
-  public int getFluxBoundsCount() {
+  public int getFluxBoundCount() {
     return isSetListOfFluxBounds() ? getListOfFluxBounds().size() : 0;
   }
 
   /**
-   * Returns the number of {@link GeneProducts}s in this {@link Fbc}.
+   * Returns the number of {@link GeneProduct}s in this {@link Fbc}.
    *  
-   * @return the number of {@link GeneProducts}s in this {@link GeneProducts}.
-   * @libsbml.deprecated same as {@link #getGeneProductsCount()}
+   * @return the number of {@link GeneProduct}s in this {@link GeneProduct}.
+   * @libsbml.deprecated same as {@link #getGeneProductCount()}
    */
-  public int getGeneProductsCount() {
+  public int getGeneProductCount() {
     return isSetListOfGeneProducts() ? getListOfGeneProducts().size() : 0;
   }
 
@@ -463,7 +510,7 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<Objectives>}.
+   * Sets the given {@code ListOf<Objective>}.
    * If {@link listOfObjectives} was defined before and contains some elements,
    * they are all unset.
    *  
@@ -480,7 +527,7 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<FluxBounds>}.
+   * Sets the given {@code ListOf<FluxBound>}.
    * If {@link listOfFluxBounds} was defined before and contains some elements,
    * they are all unset.
    *  
@@ -497,7 +544,7 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<GeneProducts>}.
+   * Sets the given {@code ListOf<GeneProduct>}.
    * If {@link listOfGeneProducts} was defined before and contains some
    * elements, they are all unset.
    *  
@@ -522,9 +569,9 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfObjectives() {
     if (isSetListOfObjectives()) {
-      ListOf<Objective> oldObjectives = this.listOfObjectives;
+      ListOf<Objective> oldObjective = this.listOfObjectives;
       this.listOfObjectives = null;
-      oldObjectives.fireNodeRemovedEvent();
+      oldObjective.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -539,9 +586,9 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfFluxBounds() {
     if (isSetListOfFluxBounds()) {
-      ListOf<FluxBound> oldFluxBounds = this.listOfFluxBounds;
+      ListOf<FluxBound> oldFluxBound = this.listOfFluxBounds;
       this.listOfFluxBounds = null;
-      oldFluxBounds.fireNodeRemovedEvent();
+      oldFluxBound.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -556,9 +603,9 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfGeneProducts() {
     if (isSetListOfGeneProducts()) {
-      ListOf<GeneProduct> oldGeneProducts = this.listOfGeneProducts;
+      ListOf<GeneProduct> oldGeneProduct = this.listOfGeneProducts;
       this.listOfGeneProducts = null;
-      oldGeneProducts.fireNodeRemovedEvent();
+      oldGeneProduct.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -673,7 +720,7 @@ public class FbcModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 6917959;
+    final int prime = 7099817;
 
     int hashCode = super.hashCode();
 

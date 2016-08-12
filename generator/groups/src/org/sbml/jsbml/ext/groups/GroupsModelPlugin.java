@@ -22,6 +22,8 @@ package org.sbml.jsbml.ext.groups;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
@@ -40,7 +42,7 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 44302283435860856L;
+  private static final long serialVersionUID = 44047003465569253L;
   /**
    *
    */
@@ -73,42 +75,56 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * @param listOfGroups
-   * the listOfGroups to add
+   * @param group
+   * the group to add
    * @return
    */
-  public boolean addGroups(Group listOfGroups) {
-    return getListOfGroups().add(listOfGroups);
+  public boolean addGroup(Group group) {
+    return getListOfGroups().add(group);
   }
 
   /**
-   * Removes an element from the {@link #listOfGroupss}
+   * Removes an element from the {@link listOfGroups}
    *  
-   * @param Groups the element to be removed from the list.
+   * @param Group the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeGroups(Group listOfGroups) {
+  public boolean removeGroup(Group group) {
     if (isSetListOfGroups()) {
-      return getListOfGroups().remove(listOfGroups);
+      return getListOfGroups().remove(group);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfGroupss}
+   * Removes an element from the {@link #listOfGroups}
    *  
-   * @param i the index where to remove the {@link Groups}.
+   * @param i the index where to remove the {@link Group}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfGroupss)})
+   * is out of bound ({@code (i < 0) || (i > listOfGroups)})
    */
-  public Group removeGroups(int i) {
+  public Group removeGroup(int i) {
     if (isSetListOfGroups()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
     return getListOfGroups().remove(i);
+  }
+
+  /**
+   * Removes an element from the {@link listOfGroups}.
+   *  
+   * @param listOfGroupsId the id of the element to be removed from the list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public Group removeGroup(String listOfGroupsId) {
+    if (isSetListOfGroups()) {
+      return getListOfGroups().remove(listOfGroupsId);
+    }
+    return null;
   }
 
   /**
@@ -131,36 +147,36 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Creates a new Groups element and adds it to the
-   * {@link listOfGroupss} list.
+   * Creates a new Group element and adds it to the
+   * {@link listOfGroups} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfGroupss}
+   * {@link listOfGroups}
    */
-  public Group createGroups() {
-    Group groups = new Group(getLevel(), getVersion());
-    return addGroups(groups) ? groups : null;
+  public Group createGroup() {
+    Group group = new Group(getLevel(), getVersion());
+    return addGroup(group) ? group : null;
   }
 
   /**
-   * Returns the number of {@link Groups}s in this
+   * Returns the number of {@link Group}s in this
    * {@link Groups}.
    *  
-   * @return the number of {@link Groups}s in this {@link Groups}.
-   * @libsbml.deprecated same as {@link #getGroupsCount()}
+   * @return the number of {@link Group}s in this {@link Group}.
+   * @libsbml.deprecated same as {@link #getGroupCount()}
    */
   @Deprecated
   public int getNumGroups() {
-    return getGroupsCount();
+    return getGroupCount();
   }
 
   /**
-   * Returns the number of {@link Groups}s in this {@link Groups}.
+   * Returns the number of {@link Group}s in this {@link Groups}.
    *  
-   * @return the number of {@link Groups}s in this {@link Groups}.
-   * @libsbml.deprecated same as {@link #getGroupsCount()}
+   * @return the number of {@link Group}s in this {@link Group}.
+   * @libsbml.deprecated same as {@link #getGroupCount()}
    */
-  public int getGroupsCount() {
+  public int getGroupCount() {
     return isSetListOfGroups() ? getListOfGroups().size() : 0;
   }
 
@@ -179,7 +195,7 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<Groups>}.
+   * Sets the given {@code ListOf<Group>}.
    * If {@link listOfGroups} was defined before and contains some elements,
    * they are all unset.
    *  
@@ -204,9 +220,9 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfGroups() {
     if (isSetListOfGroups()) {
-      ListOf<Group> oldGroups = this.listOfGroups;
+      ListOf<Group> oldGroup = this.listOfGroups;
       this.listOfGroups = null;
-      oldGroups.fireNodeRemovedEvent();
+      oldGroup.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -303,7 +319,7 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 4219651;
+    final int prime = 480569;
 
     int hashCode = super.hashCode();
 

@@ -600,6 +600,8 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         #if term in plugin
         if self.is_plugin:
+            self.import_from_java_modules.append('java.util.TreeMap')
+            self.import_from_java_modules.append('javax.swing.tree.TreeNode')
             if query.has_term(self.attributes):
                 self.import_from_jsbml_modules.append('ontology.*')
                 self.import_from_java_modules.append('javax.swing.tree.TreeNode')
@@ -802,15 +804,30 @@ class BaseJavaFile(BaseFile.BaseFile):
                     #     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
                     #     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
                 # TODO here for xmlnode uncertml
+
+
+                # Specific cases for JSBML
                 elif attributes[i]['name'] == 'drawFromDistribution':
                     if global_variables.is_package:
                         attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element']) # 'ASTNode*'
                         attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  #'ASTNode_t*'
                         attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
+                elif attributes[i]['name'] == 'geneProductAssociation':
+                    if global_variables.is_package:
+                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode*'
+                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode_t*'
+                        attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
+                elif attributes[i]['name'] == 'uncertainty':
+                    if global_variables.is_package:
+                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode*'
+                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode_t*'
+                        attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
                 else:
                     attributes[i]['attTypeCode'] = 'XMLNode' #  attributes[i]['element']+'*'
                     attributes[i]['CType'] = 'XMLNode'  #attributes[i]['element']+'_t*'
                     attributes[i]["JClassType"] = 'XMLNode'  #attributes[i]['element']
+
+
                 if attributes[i]['attTypeCode'] == 'XMLNode*' and not global_variables.is_package:
                     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}*'.format(attributes[i]['element'])
                     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])

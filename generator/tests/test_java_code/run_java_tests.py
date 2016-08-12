@@ -425,98 +425,98 @@ def main():
 
     # TODO Plugin Tests
 
-    name = 'qual'
-    num = 0
-    class_name = 'QualModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    # name = 'qual'
+    # num = 0
+    # class_name = 'QualModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    # #
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FbcModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'fbc_v2'
+    # num = 1
+    # class_name = 'FbcSpeciesPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'fbc_v2'
+    # num = 2
+    # class_name = 'FbcReactionPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'groups'
+    # num = 0
+    # class_name = 'GroupsModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
-    name = 'fbc_v2'
-    num = 0
-    class_name = 'FbcModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    # name = 'distrib'
+    # num = 0
+    # class_name = 'DistribFunctionDefinitionPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
-    name = 'fbc_v2'
-    num = 1
-    class_name = 'FbcSpeciesPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    # name = 'distrib'
+    # num = 1
+    # class_name = 'DistribSBasePluginPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
-    name = 'fbc_v2'
-    num = 2
-    class_name = 'FbcReactionPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'groups'
-    num = 0
-    class_name = 'GroupsModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'distrib'
-    num = 0
-    class_name = 'DistribFunctionDefinitionPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'distrib'
-    num = 1
-    class_name = 'DistribSBasePluginPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'dyn'
-    num = 0
-    class_name = 'DynSBasePluginPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'dyn'
-    num = 1
-    class_name = 'DynEventPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'dyn'
-    num = 2
-    class_name = 'DynCompartmentPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-
-    name = 'spatial'
-    num = 0
-    class_name = 'SpatialModelPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'spatial'
-    num = 1
-    class_name = 'SpatialCompartmentPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-
-    name = 'spatial'
-    num = 2
-    class_name = 'SpatialSpeciesPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-
-    name = 'spatial'
-    num = 3
-    class_name = 'SpatialParameterPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
-
-    name = 'spatial'
-    num = 4
-    class_name = 'SpatialReactionPlugin'
-    test_case = 'basic plugin'
-    fail += run_plug_test(name, class_name, test_case, num)
+    # name = 'dyn'
+    # num = 0
+    # class_name = 'DynSBasePluginPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'dyn'
+    # num = 1
+    # class_name = 'DynEventPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'dyn'
+    # num = 2
+    # class_name = 'DynCompartmentPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    #
+    # name = 'spatial'
+    # num = 0
+    # class_name = 'SpatialModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'spatial'
+    # num = 1
+    # class_name = 'SpatialCompartmentPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    #
+    # name = 'spatial'
+    # num = 2
+    # class_name = 'SpatialSpeciesPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    #
+    # name = 'spatial'
+    # num = 3
+    # class_name = 'SpatialParameterPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+    #
+    # name = 'spatial'
+    # num = 4
+    # class_name = 'SpatialReactionPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
 
 
     # # TODO qual tests
@@ -525,60 +525,60 @@ def main():
 
     # # # #All qual compile
     #Compiles
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualitativeSpecies'
-    # list_of = 'ListOfQualitativeSpecies'
-    # test_case = 'an element on QualitativeSpecies'
-    # fail += run_test(name, num, class_name, test_case)
+    name = 'qual'
+    num = 0
+    class_name = 'QualitativeSpecies'
+    list_of = 'ListOfQualitativeSpecies'
+    test_case = 'an element on QualitativeSpecies'
+    fail += run_test(name, num, class_name, test_case)
+    #
     # #
+
+    #Compiles
+    name = 'qual'
+    num = 1
+    class_name = 'Transition'
+    list_of = 'ListOfTransition'
+    test_case = 'an element on Transition'
+    fail += run_test(name, num, class_name, test_case)
     # # #
-    #
-    # #Compiles
-    # name = 'qual'
-    # num = 1
-    # class_name = 'Transition'
-    # list_of = 'ListOfTransition'
-    # test_case = 'an element on Transition'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 2
-    # class_name = 'Input'
-    # list_of = 'ListOfInput'
-    # test_case = 'an element on Input'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 3
-    # class_name = 'Output'
-    # list_of = 'ListOfOutput'
-    # test_case = 'an element on Output'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # Compiles
-    # name = 'qual'
-    # num = 4
-    # class_name = 'DefaultTerm'
-    # list_of = 'ListOfDefaultTerm'
-    # test_case = 'an element on DefaultTerm'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    # # Compiles
-    # name = 'qual'
-    # num = 5
-    # class_name = 'FunctionTerm'
-    # list_of = 'ListOfFunctionTerm'
-    # test_case = 'an element on FunctionTerm'
-    # fail += run_test(name, num, class_name, test_case)
     # # #
+    #Compiles
+    name = 'qual'
+    num = 2
+    class_name = 'Input'
+    list_of = 'ListOfInput'
+    test_case = 'an element on Input'
+    fail += run_test(name, num, class_name, test_case)
+    # # #
+    # # #
+    #Compiles
+    name = 'qual'
+    num = 3
+    class_name = 'Output'
+    list_of = 'ListOfOutput'
+    test_case = 'an element on Output'
+    fail += run_test(name, num, class_name, test_case)
+    #
+    #
+    #
+    # Compiles
+    name = 'qual'
+    num = 4
+    class_name = 'DefaultTerm'
+    list_of = 'ListOfDefaultTerm'
+    test_case = 'an element on DefaultTerm'
+    fail += run_test(name, num, class_name, test_case)
+
+
+    # Compiles
+    name = 'qual'
+    num = 5
+    class_name = 'FunctionTerm'
+    list_of = 'ListOfFunctionTerm'
+    test_case = 'an element on FunctionTerm'
+    fail += run_test(name, num, class_name, test_case)
+    # #
     #
     #
     #

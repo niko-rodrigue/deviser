@@ -22,13 +22,14 @@ package org.sbml.jsbml.ext.distrib;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
-import org.sbml.jsbml.xml.XMLNode;
 
 /**
  * @author Deviser
@@ -41,11 +42,11 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 55626949723147819L;
+  private static final long serialVersionUID = 44993673418109820L;
   /**
    *
    */
-  private XMLNode uncertainty;
+  private Uncertainty uncertainty;
 
   /**
    * @param model the DistribSBasePlugin instance to copy.
@@ -62,7 +63,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
     super(distribModel);
 
     if (distribModel.isSetUncertainty()) {
-      setUncertainty(distribModel.getUncertainty().clone());
+      setUncertainty(distribModel.getUncertainty());
     }
   }
 
@@ -78,7 +79,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    *  
    * @return the value of {@link uncertainty}.
    */
-  public XMLNode getUncertainty() {
+  public Uncertainty getUncertainty() {
     if (isSetUncertainty()) {
       return uncertainty;
     }
@@ -99,9 +100,9 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    *  
    * @param uncertainty the value of uncertainty to be set.
    */
-  public boolean setUncertainty(XMLNode uncertainty) {
+  public boolean setUncertainty(Uncertainty uncertainty) {
     if (uncertainty != this.uncertainty) {
-      XMLNode oldUncertainty = this.uncertainty;
+      Uncertainty oldUncertainty = this.uncertainty;
       this.uncertainty = uncertainty;
       firePropertyChange(DistribConstants.uncertainty, oldUncertainty,
         this.uncertainty);
@@ -114,8 +115,8 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    * Creates a new Uncertainty object, adds it to this DistribSBasePlugin
    * object and returns the Uncertainty object created.
    */
-  public XMLNode createUncertainty() {
-    XMLNode uncertainty = new XMLNode(getLevel(), getVersion());
+  public Uncertainty createUncertainty() {
+    Uncertainty uncertainty = new Uncertainty(getLevel(), getVersion());
     return uncertainty;
   }
 
@@ -127,7 +128,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    */
   public boolean unsetUncertainty() {
     if (isSetUncertainty()) {
-      XMLNode oldUncertainty = uncertainty;
+      Uncertainty oldUncertainty = uncertainty;
       uncertainty = null;
       firePropertyChange(DistribConstants.uncertainty, oldUncertainty,
         uncertainty);
@@ -184,7 +185,16 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public TreeNode getChildAt(int index) {
-    return null;
+    if (index < 0) {
+      throw new
+        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
+          index, 0));
+    }
+    int pos = 0;
+
+    throw new IndexOutOfBoundsException(MessageFormat.format(
+      resourceBundle.getString("IndexExceedsBoundsException"), index,
+        Math.min(pos, 0)));
   }
 
   /* (non-Javadoc)
@@ -207,7 +217,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 4746311;
+    final int prime = 7143319;
 
     int hashCode = super.hashCode();
 
@@ -223,7 +233,6 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
     builder.append("DistribSBasePlugin [");
     builder.append("uncertainty = ");
     builder.append(uncertainty);
-    builder.append("]");
     return builder.toString();
   }
 

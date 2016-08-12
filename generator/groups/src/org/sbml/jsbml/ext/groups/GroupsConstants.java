@@ -53,10 +53,6 @@ public class GroupsConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.groups.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "groups";
   /**
    *
@@ -88,7 +84,7 @@ public class GroupsConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 12759055235262130L;
+  private static final long     serialVersionUID = 24608932277842372L;
   /**
    *
    */
@@ -112,7 +108,7 @@ public class GroupsConstants {
   /**
    *
    */
-  public static final String group = "Group";
+  public static final String group = "group";
   /**
    *  
    */
