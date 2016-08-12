@@ -22,6 +22,8 @@ package org.sbml.jsbml.ext.dyn;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
@@ -40,7 +42,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 41494008535891324L;
+  private static final long serialVersionUID = 32135295050757308L;
   /**
    *
    */
@@ -51,24 +53,24 @@ public class DynEventPlugin extends AbstractSBasePlugin {
   private ListOf<DynElement> listOfDynElements;
 
   /**
-   * @param model the DynEventPlugin instance to copy.
+   * @param event the DynEventPlugin instance to copy.
    */
-  public DynEventPlugin(Model model) {
-    super(model);
+  public DynEventPlugin(Event event) {
+    super(event);
 
   }
 
   /**
-   * @param dynModel the DynEventPlugin instance to copy.
+   * @param dynEvent the DynEventPlugin instance to copy.
    */
-  public DynEventPlugin(DynEventPlugin dynModel) {
-    super(dynModel);
+  public DynEventPlugin(DynEventPlugin dynEvent) {
+    super(dynEvent);
 
-    if (dynModel.isSetApplyToAll()) {
-      setApplyToAll(dynModel.getApplyToAll());
+    if (dynEvent.isSetApplyToAll()) {
+      setApplyToAll(dynEvent.getApplyToAll());
     }
-    if (dynModel.isSetListOfDynElements()) {
-      setListOfDynElements(dynModel.getListOfDynElements().clone());
+    if (dynEvent.isSetListOfDynElements()) {
+      setListOfDynElements(dynEvent.getListOfDynElements().clone());
     }
   }
 
@@ -133,42 +135,57 @@ public class DynEventPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * @param listOfDynElements
-   * the listOfDynElements to add
+   * @param dynElement
+   * the dynElement to add
    * @return
    */
-  public boolean addDynElements(DynElement listOfDynElements) {
-    return getListOfDynElements().add(listOfDynElements);
+  public boolean addDynElement(DynElement dynElement) {
+    return getListOfDynElements().add(dynElement);
   }
 
   /**
-   * Removes an element from the {@link #listOfDynElementss}
+   * Removes an element from the {@link listOfDynElements}
    *  
-   * @param DynElements the element to be removed from the list.
+   * @param DynElement the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeDynElements(DynElement listOfDynElements) {
+  public boolean removeDynElement(DynElement dynElement) {
     if (isSetListOfDynElements()) {
-      return getListOfDynElements().remove(listOfDynElements);
+      return getListOfDynElements().remove(dynElement);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfDynElementss}
+   * Removes an element from the {@link #listOfDynElements}
    *  
-   * @param i the index where to remove the {@link DynElements}.
+   * @param i the index where to remove the {@link DynElement}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfDynElementss)})
+   * is out of bound ({@code (i < 0) || (i > listOfDynElements)})
    */
-  public DynElement removeDynElements(int i) {
+  public DynElement removeDynElement(int i) {
     if (isSetListOfDynElements()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
     return getListOfDynElements().remove(i);
+  }
+
+  /**
+   * Removes an element from the {@link listOfDynElements}.
+   *  
+   * @param listOfDynElementsId the id of the element to be removed from the
+   * list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public DynElement removeDynElement(String listOfDynElementsId) {
+    if (isSetListOfDynElements()) {
+      return getListOfDynElements().remove(listOfDynElementsId);
+    }
+    return null;
   }
 
   /**
@@ -191,36 +208,36 @@ public class DynEventPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Creates a new DynElements element and adds it to the
-   * {@link listOfDynElementss} list.
+   * Creates a new DynElement element and adds it to the
+   * {@link listOfDynElements} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfDynElementss}
+   * {@link listOfDynElements}
    */
-  public DynElement createDynElements() {
-    DynElement dynElements = new DynElement(getLevel(), getVersion());
-    return addDynElements(dynElements) ? dynElements : null;
+  public DynElement createDynElement() {
+    DynElement dynElement = new DynElement(getLevel(), getVersion());
+    return addDynElement(dynElement) ? dynElement : null;
   }
 
   /**
-   * Returns the number of {@link DynElements}s in this
+   * Returns the number of {@link DynElement}s in this
    * {@link Dyn}.
    *  
-   * @return the number of {@link DynElements}s in this {@link DynElements}.
-   * @libsbml.deprecated same as {@link #getDynElementsCount()}
+   * @return the number of {@link DynElement}s in this {@link DynElement}.
+   * @libsbml.deprecated same as {@link #getDynElementCount()}
    */
   @Deprecated
   public int getNumDynElements() {
-    return getDynElementsCount();
+    return getDynElementCount();
   }
 
   /**
-   * Returns the number of {@link DynElements}s in this {@link Dyn}.
+   * Returns the number of {@link DynElement}s in this {@link Dyn}.
    *  
-   * @return the number of {@link DynElements}s in this {@link DynElements}.
-   * @libsbml.deprecated same as {@link #getDynElementsCount()}
+   * @return the number of {@link DynElement}s in this {@link DynElement}.
+   * @libsbml.deprecated same as {@link #getDynElementCount()}
    */
-  public int getDynElementsCount() {
+  public int getDynElementCount() {
     return isSetListOfDynElements() ? getListOfDynElements().size() : 0;
   }
 
@@ -239,7 +256,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<DynElements>}.
+   * Sets the given {@code ListOf<DynElement>}.
    * If {@link listOfDynElements} was defined before and contains some
    * elements, they are all unset.
    *  
@@ -264,9 +281,9 @@ public class DynEventPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfDynElements() {
     if (isSetListOfDynElements()) {
-      ListOf<DynElement> oldDynElements = this.listOfDynElements;
+      ListOf<DynElement> oldDynElement = this.listOfDynElements;
       this.listOfDynElements = null;
-      oldDynElements.fireNodeRemovedEvent();
+      oldDynElement.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -363,7 +380,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 1304741;
+    final int prime = 26479;
 
     int hashCode = super.hashCode();
 

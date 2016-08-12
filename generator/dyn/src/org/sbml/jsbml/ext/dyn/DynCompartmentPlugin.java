@@ -22,6 +22,8 @@ package org.sbml.jsbml.ext.dyn;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
@@ -40,28 +42,28 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 37126666831084644L;
+  private static final long serialVersionUID = 19991841908550729L;
   /**
    *
    */
   private ListOf<SpatialComponent> listOfSpatialComponents;
 
   /**
-   * @param model the DynCompartmentPlugin instance to copy.
+   * @param compartment the DynCompartmentPlugin instance to copy.
    */
-  public DynCompartmentPlugin(Model model) {
-    super(model);
+  public DynCompartmentPlugin(Compartment compartment) {
+    super(compartment);
 
   }
 
   /**
-   * @param dynModel the DynCompartmentPlugin instance to copy.
+   * @param dynCompartment the DynCompartmentPlugin instance to copy.
    */
-  public DynCompartmentPlugin(DynCompartmentPlugin dynModel) {
-    super(dynModel);
+  public DynCompartmentPlugin(DynCompartmentPlugin dynCompartment) {
+    super(dynCompartment);
 
-    if (dynModel.isSetListOfSpatialComponents()) {
-      setListOfSpatialComponents(dynModel.getListOfSpatialComponents().clone());
+    if (dynCompartment.isSetListOfSpatialComponents()) {
+      setListOfSpatialComponents(dynCompartment.getListOfSpatialComponents().clone());
     }
   }
 
@@ -73,42 +75,57 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * @param listOfSpatialComponents
-   * the listOfSpatialComponents to add
+   * @param spatialComponent
+   * the spatialComponent to add
    * @return
    */
-  public boolean addSpatialComponents(SpatialComponent listOfSpatialComponents) {
-    return getListOfSpatialComponents().add(listOfSpatialComponents);
+  public boolean addSpatialComponent(SpatialComponent spatialComponent) {
+    return getListOfSpatialComponents().add(spatialComponent);
   }
 
   /**
-   * Removes an element from the {@link #listOfSpatialComponentss}
+   * Removes an element from the {@link listOfSpatialComponents}
    *  
-   * @param SpatialComponents the element to be removed from the list.
+   * @param SpatialComponent the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeSpatialComponents(SpatialComponent    listOfSpatialComponents) {
+  public boolean removeSpatialComponent(SpatialComponent spatialComponent) {
     if (isSetListOfSpatialComponents()) {
-      return getListOfSpatialComponents().remove(listOfSpatialComponents);
+      return getListOfSpatialComponents().remove(spatialComponent);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfSpatialComponentss}
+   * Removes an element from the {@link #listOfSpatialComponents}
    *  
-   * @param i the index where to remove the {@link SpatialComponents}.
+   * @param i the index where to remove the {@link SpatialComponent}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfSpatialComponentss)})
+   * is out of bound ({@code (i < 0) || (i > listOfSpatialComponents)})
    */
-  public SpatialComponent removeSpatialComponents(int i) {
+  public SpatialComponent removeSpatialComponent(int i) {
     if (isSetListOfSpatialComponents()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
     return getListOfSpatialComponents().remove(i);
+  }
+
+  /**
+   * Removes an element from the {@link listOfSpatialComponents}.
+   *  
+   * @param listOfSpatialComponentsId the id of the element to be removed from
+   * the list.
+   * @return the removed element, if it was successfully found and removed or
+   * {@code null}.
+   */
+  public SpatialComponent removeSpatialComponent(String    listOfSpatialComponentsId) {
+    if (isSetListOfSpatialComponents()) {
+      return getListOfSpatialComponents().remove(listOfSpatialComponentsId);
+    }
+    return null;
   }
 
   /**
@@ -131,39 +148,39 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Creates a new SpatialComponents element and adds it to the
-   * {@link listOfSpatialComponentss} list.
+   * Creates a new SpatialComponent element and adds it to the
+   * {@link listOfSpatialComponents} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfSpatialComponentss}
+   * {@link listOfSpatialComponents}
    */
-  public SpatialComponent createSpatialComponents() {
-    SpatialComponent spatialComponents = new SpatialComponent(getLevel(),
+  public SpatialComponent createSpatialComponent() {
+    SpatialComponent spatialComponent = new SpatialComponent(getLevel(),
       getVersion());
-    return addSpatialComponents(spatialComponents) ? spatialComponents : null;
+    return addSpatialComponent(spatialComponent) ? spatialComponent : null;
   }
 
   /**
-   * Returns the number of {@link SpatialComponents}s in this
+   * Returns the number of {@link SpatialComponent}s in this
    * {@link Dyn}.
    *  
-   * @return the number of {@link SpatialComponents}s in this {@link
-   * SpatialComponents}.
-   * @libsbml.deprecated same as {@link #getSpatialComponentsCount()}
+   * @return the number of {@link SpatialComponent}s in this {@link
+   * SpatialComponent}.
+   * @libsbml.deprecated same as {@link #getSpatialComponentCount()}
    */
   @Deprecated
   public int getNumSpatialComponents() {
-    return getSpatialComponentsCount();
+    return getSpatialComponentCount();
   }
 
   /**
-   * Returns the number of {@link SpatialComponents}s in this {@link Dyn}.
+   * Returns the number of {@link SpatialComponent}s in this {@link Dyn}.
    *  
-   * @return the number of {@link SpatialComponents}s in this {@link
-   * SpatialComponents}.
-   * @libsbml.deprecated same as {@link #getSpatialComponentsCount()}
+   * @return the number of {@link SpatialComponent}s in this {@link
+   * SpatialComponent}.
+   * @libsbml.deprecated same as {@link #getSpatialComponentCount()}
    */
-  public int getSpatialComponentsCount() {
+  public int getSpatialComponentCount() {
     return isSetListOfSpatialComponents() ? getListOfSpatialComponents().size()
       : 0;
   }
@@ -183,7 +200,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   }
 
   /**
-   * Sets the given {@code ListOf<SpatialComponents>}.
+   * Sets the given {@code ListOf<SpatialComponent>}.
    * If {@link listOfSpatialComponents} was defined before and contains some
    * elements, they are all unset.
    *  
@@ -208,10 +225,10 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    */
   public boolean unsetListOfSpatialComponents() {
     if (isSetListOfSpatialComponents()) {
-      ListOf<SpatialComponent> oldSpatialComponents =
+      ListOf<SpatialComponent> oldSpatialComponent =
         this.listOfSpatialComponents;
       this.listOfSpatialComponents = null;
-      oldSpatialComponents.fireNodeRemovedEvent();
+      oldSpatialComponent.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -308,7 +325,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 2919113;
+    final int prime = 2981189;
 
     int hashCode = super.hashCode();
 

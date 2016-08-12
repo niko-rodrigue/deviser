@@ -1362,6 +1362,7 @@ class Constructors():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+
     # function to write copy constructor
     def write_copy_constructor(self):
         # do not write for C API

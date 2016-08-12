@@ -53,10 +53,6 @@ public class DynConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.dyn.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "dyn";
   /**
    *
@@ -88,7 +84,7 @@ public class DynConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 49340396797090941L;
+  private static final long     serialVersionUID = 71401118737008521L;
   /**
    *
    */
@@ -108,11 +104,11 @@ public class DynConstants {
   /**
    *
    */
-  public static final String dynElement = "DynElement";
+  public static final String dynElement = "dynElement";
   /**
    *
    */
-  public static final String spatialComponent = "SpatialComponent";
+  public static final String spatialComponent = "spatialComponent";
   /**
    *
    */
