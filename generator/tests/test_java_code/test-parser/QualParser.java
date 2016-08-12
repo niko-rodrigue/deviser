@@ -33,6 +33,7 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
+import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.qual.*;
 
@@ -124,6 +125,16 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
         return new QualModelPlugin((Model) sbase);
       }
     }
+
+    return null;
+  }
+
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
+   */
+  @Override
+  public ASTNodePlugin createPluginFor(ASTNode astNode) {
+    // This package does not extend ASTNode
 
     return null;
   }
@@ -242,21 +253,21 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
         extendedModel.addTransition(transition);
 
         return transition;
-      }      else if (elementName.equals(QualConstants.transition) && groupList.equals(QualList.listOfInputs)) {
+      }      else if (elementName.equals(QualConstants.input) && groupList.equals(QualList.listOfInputs)) {
         Transition transition = (Transition) listOf.getParentSBMLObject();
 
         Input input = new Input();
         transition.addInput(input);
 
         return input;
-      }      else if (elementName.equals(QualConstants.Input) && groupList.equals(QualList.listOfOutputs)) {
+      }      else if (elementName.equals(QualConstants.output) && groupList.equals(QualList.listOfOutputs)) {
         Transition transition = (Transition) listOf.getParentSBMLObject();
 
         Output output = new Output();
         transition.addOutput(output);
 
         return output;
-      }      else if (elementName.equals(QualConstants.Output) && groupList.equals(QualList.listOfFunctionTerms)) {
+      }      else if (elementName.equals(QualConstants.functionTerm) && groupList.equals(QualList.listOfFunctionTerms)) {
         Transition transition = (Transition) listOf.getParentSBMLObject();
 
         FunctionTerm functionTerm = new FunctionTerm();

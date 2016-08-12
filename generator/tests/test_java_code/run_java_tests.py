@@ -326,64 +326,6 @@ def main():
         os.mkdir('temp')
     fail = 0
 
-    # # run the individual tests
-    # name = 'test_att'
-    # num = 1
-    # class_name = 'Unit'
-    # list_of = ''
-    # test_case = 'unit sid ref'
-    # fail += run_test(name, num, class_name, test_case, list_of)
-    #
-    # name = 'test_att'
-    # num = 2
-    # class_name = 'MyLoTest'
-    # list_of = 'ListOfMyLoTests'
-    # test_case = 'attribute on ListOf'
-    # fail += run_test(name, num, class_name, test_case, list_of)
-    #
-    # name = 'test_att'
-    # num = 0
-    # class_name = 'MyTestClass'
-    # list_of = ''
-    # test_case = 'all types of attributes'
-    # fail += run_test(name, num, class_name, test_case, list_of)
-    #
-    # name = 'test_att'
-    # num = 3
-    # class_name = 'MyRequiredClass'
-    # list_of = ''
-    # test_case = 'all types attributes required'
-    # fail += run_test(name, num, class_name, test_case, list_of)
-    #
-    # name = 'test_att'
-    # num = 4
-    # class_name = 'ArrayChild'
-    # list_of = ''
-    # test_case = 'child elements and arrays'
-    # fail += run_test(name, num, class_name, test_case, list_of)
-    #
-    # name = 'test_att'
-    # num = 5
-    # class_name = 'Container'
-    # list_of = ''
-    # test_case = 'a listOf child that uses listOfFoo as the name'
-    # fail += run_test(name, num, class_name, test_case, list_of)
-
-    #
-    # # #TESTING PhaSE
-    # name = 'qual'
-    # class_name = 'QualExtension'
-    # test_case = 'default typecodes extension file'
-    # fail += run_ext_test(name, class_name, test_case, 0)
-    #
-    # # # TODO this looks more lie package-info.java?
-    # name = 'qual'
-    # num = 1
-    # class_name = 'QualSBMLDocumentPlugin'
-    # test_case = 'document plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-
-    # TODO xml base elements
 
     # # #TODO PARSER TESTS
     # name = 'qual'
@@ -523,6 +465,9 @@ def main():
 
     #
 
+    # Whole package test
+
+
     # # # #All qual compile
     #Compiles
     name = 'qual'
@@ -578,146 +523,117 @@ def main():
     list_of = 'ListOfFunctionTerm'
     test_case = 'an element on FunctionTerm'
     fail += run_test(name, num, class_name, test_case)
-    # #
-    #
-    #
-    #
-    # # Qual Enum Types
-    # name = 'qual'
-    # num = 0
-    # enum_name = 'Sign'
-    # test_case = 'an element on Sign Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 1
-    # enum_name = 'TransitionOutputEffect'
-    # test_case = 'an element on TransitionOutputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 2
-    # enum_name = 'TransitionInputEffect'
-    # test_case = 'an element on TransitionInputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 3
-    # enum_name = 'QualList'
-    # test_case = 'an element on QualList Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    #
-    #
-    # # Qual Constants
-    # name = 'qual'
-    # constants_name = 'QualConstants'
-    # test_case = 'Qual Constants'
-    # fail += run_constant_test(name, constants_name, test_case)
-    #
-    #
 
-    #
-    # # FBC Constants
-    # name = 'fbc_v2'
-    # constants_name = 'FbcConstants'
-    # test_case = 'Fbc Constants'
-    # fail += run_constant_test(name, constants_name, test_case)
+    # Qual Enum Types
+    name = 'qual'
+    num = 0
+    enum_name = 'Sign'
+    test_case = 'an element on Sign Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
 
-    #
+    name = 'qual'
+    num = 1
+    enum_name = 'TransitionOutputEffect'
+    test_case = 'an element on TransitionOutputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 2
+    enum_name = 'TransitionInputEffect'
+    test_case = 'an element on TransitionInputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 3
+    enum_name = 'QualList'
+    test_case = 'an element on QualList Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+    # Qual Constants
+    name = 'qual'
+    constants_name = 'QualConstants'
+    test_case = 'Qual Constants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'qual'
+    num = 0
+    class_name = 'QualModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
 
 
 
+    name = 'qual'
+    num = 0
+    class_name = 'QualParser'
+    test_case = 'Qual Parser'
+    fail += run_parser_test(name, class_name, test_case)
 
 
-    # # all pass
-    # name = 'fbc_v2'
-    # num = 0
-    # class_name = 'FluxBound'
-    # list_of = 'ListOfFluxBound'
-    # test_case = 'an element on FluxBound'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    #
-    # name = 'fbc_v2'
-    # num = 1
-    # class_name = 'Objective'
-    # list_of = 'ListOfObjective'
-    # test_case = 'an element on Objective'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # name = 'fbc_v2'
-    # num = 2
-    # class_name = 'FluxObjective'
-    # list_of = 'ListOfFluxObjective'
-    # test_case = 'an element on FluxObjective'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # # FBC Enum Types
-    # name = 'fbc_v2'
-    # num = 0
-    # enum_name = 'FbcType'
-    # test_case = 'an element on FbcType Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'fbc_v2'
-    # num = 1
-    # enum_name = 'FbcOperation'
-    # test_case = 'an element on FbcOperation Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'fbc_v2'
-    # num = 2
-    # enum_name = 'FbcList'
-    # test_case = 'an element on FbcList Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # # Qual Constants
-    # name = 'fbc_v2'
-    # constants_name = 'FbcConstants'
-    # test_case = 'Fbc Constants'
-    # fail += run_constant_test(name, constants_name, test_case)
-    # # #
+    # # # # # TODO dyn tests
+    # # # # #Compilable
 
+    # Dyn Constants
+    name = 'dyn'
+    constants_name = 'DynConstants'
+    test_case = 'DynConstants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'dyn'
+    num = 0
+    enum_name = 'DynList'
+    test_case = 'an element on DynList Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+    name = 'dyn'
+    num = 0
+    class_name = 'DynElement'
+    list_of = 'ListOfDynElement'
+    test_case = 'an element on DynElement'
+    fail += run_test(name, num, class_name, test_case)
+
+
+    name = 'dyn'
+    num = 1
+    class_name = 'SpatialComponent'
+    list_of = 'ListOfSpatialComponent'
+    test_case = 'an element on SpatialComponent'
+    fail += run_test(name, num, class_name, test_case)
     #
-    # name = 'fbc_v2'
-    # class_name = 'FbcParser'
-    # test_case = 'FbcParser'
-    # fail += run_parser_test(name, class_name, test_case)
-    #
-    #
-    # #
-    # # # # #
-    # # # # # # TODO dyn tests
-    # # # # # #Compilable
-    # name = 'dyn'
-    # num = 0
-    # class_name = 'DynElement'
-    # list_of = 'ListOfDynElement'
-    # test_case = 'an element on DynElement'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # #
-    # # # TODO setSpatialIndex Error
-    # name = 'dyn'
-    # num = 1
-    # class_name = 'SpatialComponent'
-    # list_of = 'ListOfSpatialComponent'
-    # test_case = 'an element on SpatialComponent'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # # Dyn Constants
-    # name = 'dyn'
-    # constants_name = 'DynConstants'
-    # test_case = 'DynConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
-    #
-    # name = 'dyn'
-    # num = 0
-    # class_name = 'DynSBasePlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
+
+    name = 'dyn'
+    num = 0
+    class_name = 'DynSBasePlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'dyn'
+    num = 1
+    class_name = 'DynEventPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'dyn'
+    num = 2
+    class_name = 'DynCompartmentPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'dyn'
+    num = 3
+    class_name = 'package-info'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'dyn'
+    num = 0
+    class_name = 'DynParser'
+    test_case = 'Dyn Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+
     #
     #
     # # #
@@ -801,6 +717,86 @@ def main():
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
     #
+
+
+    #
+    # # FBC Constants
+    # name = 'fbc_v2'
+    # constants_name = 'FbcConstants'
+    # test_case = 'Fbc Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
+
+    #
+
+
+
+
+
+    # # all pass
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FluxBound'
+    # list_of = 'ListOfFluxBound'
+    # test_case = 'an element on FluxBound'
+    # fail += run_test(name, num, class_name, test_case)
+    # #
+    #
+    # name = 'fbc_v2'
+    # num = 1
+    # class_name = 'Objective'
+    # list_of = 'ListOfObjective'
+    # test_case = 'an element on Objective'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 2
+    # class_name = 'FluxObjective'
+    # list_of = 'ListOfFluxObjective'
+    # test_case = 'an element on FluxObjective'
+    # fail += run_test(name, num, class_name, test_case)
+    #
+    # # FBC Enum Types
+    # name = 'fbc_v2'
+    # num = 0
+    # enum_name = 'FbcType'
+    # test_case = 'an element on FbcType Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 1
+    # enum_name = 'FbcOperation'
+    # test_case = 'an element on FbcOperation Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # name = 'fbc_v2'
+    # num = 2
+    # enum_name = 'FbcList'
+    # test_case = 'an element on FbcList Enum'
+    # fail += run_enum_test(name, num, enum_name, test_case)
+    #
+    # # Qual Constants
+    # name = 'fbc_v2'
+    # constants_name = 'FbcConstants'
+    # test_case = 'Fbc Constants'
+    # fail += run_constant_test(name, constants_name, test_case)
+    # # #
+
+    #
+    # name = 'fbc_v2'
+    # class_name = 'FbcParser'
+    # test_case = 'FbcParser'
+    # fail += run_parser_test(name, class_name, test_case)
+
+
+
+
+
+
+
+
+
+
+
 
     #
     #
@@ -1447,6 +1443,57 @@ def main():
     # # list_of = ''
     # # test_case = 'element xml names differ'
     # # fail += run_test(name, num, class_name, test_case, list_of)
+
+    # # run the individual tests
+    # name = 'test_att'
+    # num = 1
+    # class_name = 'Unit'
+    # list_of = ''
+    # test_case = 'unit sid ref'
+    # fail += run_test(name, num, class_name, test_case, list_of)
+    #
+    # name = 'test_att'
+    # num = 2
+    # class_name = 'MyLoTest'
+    # list_of = 'ListOfMyLoTests'
+    # test_case = 'attribute on ListOf'
+    # fail += run_test(name, num, class_name, test_case, list_of)
+    #
+    # name = 'test_att'
+    # num = 0
+    # class_name = 'MyTestClass'
+    # list_of = ''
+    # test_case = 'all types of attributes'
+    # fail += run_test(name, num, class_name, test_case, list_of)
+    #
+    # name = 'test_att'
+    # num = 3
+    # class_name = 'MyRequiredClass'
+    # list_of = ''
+    # test_case = 'all types attributes required'
+    # fail += run_test(name, num, class_name, test_case, list_of)
+    #
+    # name = 'test_att'
+    # num = 4
+    # class_name = 'ArrayChild'
+    # list_of = ''
+    # test_case = 'child elements and arrays'
+    # fail += run_test(name, num, class_name, test_case, list_of)
+    #
+    # name = 'test_att'
+    # num = 5
+    # class_name = 'Container'
+    # list_of = ''
+    # test_case = 'a listOf child that uses listOfFoo as the name'
+    # fail += run_test(name, num, class_name, test_case, list_of)
+
+    #
+    # # #TESTING PhaSE
+    # name = 'qual'
+    # class_name = 'QualExtension'
+    # test_case = 'default typecodes extension file'
+    # fail += run_ext_test(name, class_name, test_case, 0)
+
 
     test_functions.report('JAVA', fail, fails, not_tested)
     return fail

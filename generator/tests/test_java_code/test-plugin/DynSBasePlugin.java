@@ -22,6 +22,8 @@ package org.sbml.jsbml.ext.dyn;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
 
@@ -49,21 +51,21 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   private Term cboTerm;
 
   /**
-   * @param model the DynSBasePlugin instance to copy.
+   * @param sBase the DynSBasePlugin instance to copy.
    */
-  public DynSBasePlugin(Model model) {
-    super(model);
+  public DynSBasePlugin(SBase sBase) {
+    super(sBase);
 
   }
 
   /**
-   * @param dynModel the DynSBasePlugin instance to copy.
+   * @param dynSBase the DynSBasePlugin instance to copy.
    */
-  public DynSBasePlugin(DynSBasePlugin dynModel) {
-    super(dynModel);
+  public DynSBasePlugin(DynSBasePlugin dynSBase) {
+    super(dynSBase);
 
-    if (dynModel.isSetCboTerm()) {
-      setCboTerm(dynModel.getCboTerm());
+    if (dynSBase.isSetCboTerm()) {
+      setCboTerm(dynSBase.getCboTerm());
     }
   }
 
@@ -173,7 +175,16 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public TreeNode getChildAt(int index) {
-    return null;
+    if (index < 0) {
+      throw new
+        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
+          index, 0));
+    }
+    int pos = 0;
+
+    throw new IndexOutOfBoundsException(MessageFormat.format(
+      resourceBundle.getString("IndexExceedsBoundsException"), index,
+        Math.min(pos, 0)));
   }
 
   /* (non-Javadoc)

@@ -220,7 +220,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfInputs}
+   * Removes an element from the {@link listOfInputs}
    *  
    * @param Input the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -235,7 +235,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfOutputs}
+   * Removes an element from the {@link listOfOutputs}
    *  
    * @param Output the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -250,7 +250,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfFunctionTerms}
+   * Removes an element from the {@link listOfFunctionTerms}
    *  
    * @param FunctionTerm the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -310,7 +310,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfInputs}.
+   * Removes an element from the {@link listOfInputs}.
    *  
    * @param inputId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -324,7 +324,7 @@ public class Transition extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /**
-   * Removes an element from the {@link #listOfOutputs}.
+   * Removes an element from the {@link listOfOutputs}.
    *  
    * @param outputId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or

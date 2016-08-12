@@ -1401,7 +1401,7 @@ class Constructors():
 
 
         # TODO temporary fix
-        line = self.create_code_block('line', '')
+        line = self.create_code_block('empty_line')
         code.append(line)
 
         # implementation = ['']
@@ -1556,7 +1556,7 @@ class Constructors():
 
         # TODO  temporary fix
 
-        line = self.create_code_block('line', '')
+        line = self.create_code_block('empty_line')
         implementation.append(line)
 
         code.append(self.create_code_block('if', implementation))
@@ -1774,6 +1774,6 @@ class Constructors():
         return line
 
     @staticmethod
-    def create_code_block(code_type, lines = ''):
+    def create_code_block(code_type, lines=''):
         code = dict({'code_type': code_type, 'code': lines})
         return code

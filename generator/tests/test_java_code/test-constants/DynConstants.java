@@ -53,10 +53,6 @@ public class DynConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.dyn.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "dyn";
   /**
    *
@@ -108,11 +104,11 @@ public class DynConstants {
   /**
    *
    */
-  public static final String dynElement = "DynElement";
+  public static final String dynElement = "dynElement";
   /**
    *
    */
-  public static final String spatialComponent = "SpatialComponent";
+  public static final String spatialComponent = "spatialComponent";
   /**
    *
    */

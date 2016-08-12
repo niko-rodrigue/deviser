@@ -53,10 +53,6 @@ public class QualConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.qual.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "qual";
   /**
    *
@@ -160,11 +156,11 @@ public class QualConstants {
   /**
    *
    */
-  public static final String transition = "Transition";
+  public static final String transition = "transition";
   /**
    *
    */
-  public static final String defaultTerm = "DefaultTerm";
+  public static final String defaultTerm = "defaultTerm";
   /**
    *  
    */
