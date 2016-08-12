@@ -39,7 +39,7 @@ public class FbcAnd extends Association {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 221752935164838L;
+  private static final long serialVersionUID = 65442022924514685L;
   /**
    *
    */
@@ -291,6 +291,35 @@ public class FbcAnd extends Association {
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractSBase#getChildAt(int)
+   */
+  @Override
+  public TreeNode getChildAt(int index) {
+    if (index < 0) {
+      throw new
+        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
+          index, 0));
+    }
+    int count = super.getChildCount(), pos = 0;
+
+    if (index < count) {
+      return super.getChildAt(index);
+    } else {
+      index -= count;
+    }
+
+    if (isSetListOfAssociations()) {
+      if (pos == index) {
+        return getListOfAssociations();
+      }
+      pos++;
+    }
+    throw new IndexOutOfBoundsException(MessageFormat.format(
+      resourceBundle.getString("IndexExceedsBoundsException"), index,
+        Math.min(pos, 0)));
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml#getAllowsChildren()
    */
   @Override
@@ -315,7 +344,7 @@ public class FbcAnd extends Association {
    */
   @Override
   public int hashCode() {
-    final int prime = 5417179;
+    final int prime = 9237539;
 
     int hashCode = super.hashCode();
 

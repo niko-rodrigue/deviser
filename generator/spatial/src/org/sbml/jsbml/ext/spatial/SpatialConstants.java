@@ -53,10 +53,6 @@ public class SpatialConstants {
   /**
    *
    */
-  public static final ResourceBundle bundle = ResourceManager.getBundle("org.sbml.jsbml.ext.spatial.Messages");
-  /**
-   *
-   */
   public static final String shortLabel = "spatial";
   /**
    *
@@ -88,7 +84,7 @@ public class SpatialConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 68970882155024806L;
+  private static final long     serialVersionUID = 32743194952977492L;
   /**
    *
    */
@@ -424,91 +420,91 @@ public class SpatialConstants {
   /**
    *
    */
-  public static final String boundary = "Boundary";
+  public static final String boundary = "boundary";
   /**
    *
    */
-  public static final String compartmentMapping = "CompartmentMapping";
+  public static final String compartmentMapping = "compartmentMapping";
   /**
    *
    */
-  public static final String sampledFieldGeometry = "SampledFieldGeometry";
+  public static final String sampledFieldGeometry = "sampledFieldGeometry";
   /**
    *
    */
-  public static final String analyticGeometry = "AnalyticGeometry";
+  public static final String analyticGeometry = "analyticGeometry";
   /**
    *
    */
-  public static final String parametricGeometry = "ParametricGeometry";
+  public static final String parametricGeometry = "parametricGeometry";
   /**
    *
    */
-  public static final String csgeometry = "CSGeometry";
+  public static final String csgeometry = "csgeometry";
   /**
    *
    */
-  public static final String csgTransformation = "CSGTransformation";
+  public static final String csgTransformation = "csgTransformation";
   /**
    *
    */
-  public static final String csgTranslation = "CSGTranslation";
+  public static final String csgTranslation = "csgTranslation";
   /**
    *
    */
-  public static final String csgRotation = "CSGRotation";
+  public static final String csgRotation = "csgRotation";
   /**
    *
    */
-  public static final String csgScale = "CSGScale";
+  public static final String csgScale = "csgScale";
   /**
    *
    */
-  public static final String csgHomogeneousTransformation = "CSGHomogeneousTransformation";
+  public static final String csgHomogeneousTransformation = "csgHomogeneousTransformation";
   /**
    *
    */
-  public static final String transformationComponents = "TransformationComponents";
+  public static final String transformationComponents = "transformationComponents";
   /**
    *
    */
-  public static final String csgPrimitive = "CSGPrimitive";
+  public static final String csgPrimitive = "csgPrimitive";
   /**
    *
    */
-  public static final String csgPseudoPrimitive = "CSGPseudoPrimitive";
+  public static final String csgPseudoPrimitive = "csgPseudoPrimitive";
   /**
    *
    */
-  public static final String csgSetOperator = "CSGSetOperator";
+  public static final String csgSetOperator = "csgSetOperator";
   /**
    *
    */
-  public static final String spatialSymbolReference = "SpatialSymbolReference";
+  public static final String spatialSymbolReference = "spatialSymbolReference";
   /**
    *
    */
-  public static final String diffusionCoefficient = "DiffusionCoefficient";
+  public static final String diffusionCoefficient = "diffusionCoefficient";
   /**
    *
    */
-  public static final String advectionCoefficient = "AdvectionCoefficient";
+  public static final String advectionCoefficient = "advectionCoefficient";
   /**
    *
    */
-  public static final String boundaryCondition = "BoundaryCondition";
+  public static final String boundaryCondition = "boundaryCondition";
   /**
    *
    */
-  public static final String geometry = "Geometry";
+  public static final String geometry = "geometry";
   /**
    *
    */
-  public static final String coordinateReference = "CoordinateReference";
+  public static final String coordinateReference = "coordinateReference";
   /**
    *
    */
-  public static final String mixedGeometry = "MixedGeometry";
+  public static final String mixedGeometry = "mixedGeometry";
   /**
    *
    */

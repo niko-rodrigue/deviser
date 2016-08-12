@@ -39,7 +39,7 @@ public class CSGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 38526797281853004L;
+  private static final long serialVersionUID = 32413848813028667L;
   /**
    *
    */
@@ -148,7 +148,7 @@ public class CSGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfCSGObjects}
+   * Removes an element from the {@link listOfCSGObjects}
    *  
    * @param CSGObject the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -178,7 +178,7 @@ public class CSGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfCSGObjects}.
+   * Removes an element from the {@link listOfCSGObjects}.
    *  
    * @param csgObjectId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -340,7 +340,7 @@ public class CSGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 2789669;
+    final int prime = 4847683;
 
     int hashCode = super.hashCode();
 

@@ -39,7 +39,7 @@ public class Geometry {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 31205381841129796L;
+  private static final long serialVersionUID = 25245139116494891L;
   /**
    *
    */
@@ -326,7 +326,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfCoordinateComponents}
+   * Removes an element from the {@link listOfCoordinateComponents}
    *  
    * @param CoordinateComponent the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -341,7 +341,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfDomainTypes}
+   * Removes an element from the {@link listOfDomainTypes}
    *  
    * @param DomainType the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -356,7 +356,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfDomains}
+   * Removes an element from the {@link listOfDomains}
    *  
    * @param Domain the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -371,7 +371,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfAdjacentDomainss}
+   * Removes an element from the {@link listOfAdjacentDomainss}
    *  
    * @param AdjacentDomains the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -379,14 +379,14 @@ public class Geometry {
    * @see java.util.List#remove(Object)
    */
   public boolean removeAdjacentDomains(AdjacentDomains adjacentDomains) {
-    if (isSetListOfAdjacentDomainss()) {
-      return getListOfAdjacentDomainss().remove(adjacentDomains);
+    if (isSetListOfAdjacentDomains()) {
+      return getListOfAdjacentDomains().remove(adjacentDomains);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfGeometryDefinitions}
+   * Removes an element from the {@link listOfGeometryDefinitions}
    *  
    * @param GeometryDefinition the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -401,7 +401,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfSampledFields}
+   * Removes an element from the {@link listOfSampledFields}
    *  
    * @param SampledField the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -506,7 +506,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfCoordinateComponents}.
+   * Removes an element from the {@link listOfCoordinateComponents}.
    *  
    * @param coordinateComponentId the id of the element to be removed from the
    * list.
@@ -521,7 +521,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfDomainTypes}.
+   * Removes an element from the {@link listOfDomainTypes}.
    *  
    * @param domainTypeId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -535,7 +535,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfDomains}.
+   * Removes an element from the {@link listOfDomains}.
    *  
    * @param domainId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -549,7 +549,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfAdjacentDomainss}.
+   * Removes an element from the {@link listOfAdjacentDomainss}.
    *  
    * @param adjacentDomainsId the id of the element to be removed from the
    * list.
@@ -557,14 +557,14 @@ public class Geometry {
    * {@code null}.
    */
   public AdjacentDomains removeAdjacentDomains(String adjacentDomainsId) {
-    if (isSetListOfAdjacentDomainss()) {
-      return getListOfAdjacentDomainss().remove(adjacentDomainsId);
+    if (isSetListOfAdjacentDomains()) {
+      return getListOfAdjacentDomains().remove(adjacentDomainsId);
     }
     return null;
   }
 
   /**
-   * Removes an element from the {@link #listOfGeometryDefinitions}.
+   * Removes an element from the {@link listOfGeometryDefinitions}.
    *  
    * @param geometryDefinitionId the id of the element to be removed from the
    * list.
@@ -579,7 +579,7 @@ public class Geometry {
   }
 
   /**
-   * Removes an element from the {@link #listOfSampledFields}.
+   * Removes an element from the {@link listOfSampledFields}.
    *  
    * @param sampledFieldId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -917,7 +917,7 @@ public class Geometry {
    * @libsbml.deprecated same as {@link #getAdjacentDomainsCount()}
    */
   public int getAdjacentDomainsCount() {
-    return isSetListOfAdjacentDomainss() ? getListOfAdjacentDomainss().size() :
+    return isSetListOfAdjacentDomains() ? getListOfAdjacentDomains().size() :
       0;
   }
 
@@ -1314,7 +1314,7 @@ public class Geometry {
    */
   @Override
   public int hashCode() {
-    final int prime = 986437;
+    final int prime = 5028299;
 
     int hashCode = super.hashCode();
 

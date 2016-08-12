@@ -354,17 +354,16 @@ def generate_jsbml_code_files(name, ob):
     for i in range(0, len(ob['enums'])+1):
         ext.write_enums(i)
 
-
-    # # Write plugins TODO problem with plugins
-    # for i in range(0, len(ob['plugins'])+1):
-    #     ext.write_plugin_files(i)
-
     # Write baseElements
     for working_class in ob['baseElements']:
         all_files = JavaFiles.JavaFiles(working_class, True)
         all_files.write_files()
-    os.chdir(this_dir)
 
+
+    # # Write plugins TODO problem with plugins
+    for i in range(0, len(ob['plugins'])+1):
+        ext.write_plugin_files(i)
+    os.chdir(this_dir)
 
     # Write JSBML Parser
     os.chdir(parser_dir)

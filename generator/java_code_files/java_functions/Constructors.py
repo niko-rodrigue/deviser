@@ -88,13 +88,16 @@ class Constructors():
             self.import_modules = import_modules
 
 
-        # if 'sbase' in class_object:
-        #     self.sbase_name_for_plugin = class_object['sbase']
+        if 'sbase' in class_object:
+            self.sbase_name_for_plugin = strFunctions.upper_first(class_object['sbase'])
+            self.sbase_name_for_plugin_lower = strFunctions.lower_first(class_object['sbase'])
+        else:
+            self.sbase_name_for_plugin = ''
 
 
 
         if self.is_plugin is True:
-            self.copy_name = strFunctions.lower_first(self.package)  + 'Model' # + self.sbase_name_for_plugin
+            self.copy_name = strFunctions.lower_first(self.package) + self.sbase_name_for_plugin
         else:
             self.copy_name = 'orig'
         self.equals_name = 'object'
@@ -1319,17 +1322,17 @@ class Constructors():
             return
         # create doc string header
         title_line = 'Copy constructor for {0}.'.format(self.object_name)
-        params = ['@param model the {0} instance to copy.'.format(
+        params = ['@param {0} the {1} instance to copy.'.format(self.sbase_name_for_plugin_lower,
                                                                 self.object_name)]
         return_lines = []
         additional = []
         # create function decl
 
 
-        sbase_name = self.sb
+        # sbase_name = self.sb
         function = '{0}'.format(self.object_name)
         return_type = ''
-        arguments = ['Model model']
+        arguments = ['{0} {1}'.format(self.sbase_name_for_plugin, self.sbase_name_for_plugin_lower)]
         # create the function implementation
 
 
@@ -1338,12 +1341,12 @@ class Constructors():
         code = []
         clone = 'clone'
 
-        implementation = ['super(model)']
+        implementation = ['super({0})'.format(self.sbase_name_for_plugin_lower)]
         line = self.create_code_block('line', implementation)
         code.append(line)
 
         # TODO temporary fix
-        line = self.create_code_block('line', '')
+        line = self.create_code_block('empty_line')
         code.append(line)
 
         return dict({'title_line': title_line,
@@ -1770,6 +1773,6 @@ class Constructors():
         return line
 
     @staticmethod
-    def create_code_block(code_type, lines):
+    def create_code_block(code_type, lines = ''):
         code = dict({'code_type': code_type, 'code': lines})
         return code

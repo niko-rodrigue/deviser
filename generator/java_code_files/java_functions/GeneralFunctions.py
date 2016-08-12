@@ -354,13 +354,6 @@ class GeneralFunctions():
 
 
     def write_get_child_at(self):
-        # TODO this needs to be solved
-        if len(self.child_lo_elements) == 0:
-            if self.is_plugin:
-                return self.write_get_child_at_special()
-            else:
-                return
-
         # if len(self.child_lo_elements) == 0:
         #     # if self.is_plugin:
         #     #     # TODO why did I do this?

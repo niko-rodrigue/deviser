@@ -39,7 +39,7 @@ public class MixedGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 32014313646971301L;
+  private static final long serialVersionUID = 45494289867468121L;
   /**
    *
    */
@@ -173,7 +173,7 @@ public class MixedGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfGeometryDefinitions}
+   * Removes an element from the {@link listOfGeometryDefinitions}
    *  
    * @param GeometryDefinition the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -188,7 +188,7 @@ public class MixedGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfOrdinalMappings}
+   * Removes an element from the {@link listOfOrdinalMappings}
    *  
    * @param OrdinalMapping the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -233,7 +233,7 @@ public class MixedGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfGeometryDefinitions}.
+   * Removes an element from the {@link listOfGeometryDefinitions}.
    *  
    * @param geometryDefinitionId the id of the element to be removed from the
    * list.
@@ -546,7 +546,7 @@ public class MixedGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 6423649;
+    final int prime = 3936631;
 
     int hashCode = super.hashCode();
 

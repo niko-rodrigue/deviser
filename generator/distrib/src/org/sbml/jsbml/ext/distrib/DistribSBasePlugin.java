@@ -42,28 +42,28 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 44993673418109820L;
+  private static final long serialVersionUID = 53883665004143599L;
   /**
    *
    */
   private Uncertainty uncertainty;
 
   /**
-   * @param model the DistribSBasePlugin instance to copy.
+   * @param sBase the DistribSBasePlugin instance to copy.
    */
-  public DistribSBasePlugin(Model model) {
-    super(model);
+  public DistribSBasePlugin(SBase sBase) {
+    super(sBase);
 
   }
 
   /**
-   * @param distribModel the DistribSBasePlugin instance to copy.
+   * @param distribSBase the DistribSBasePlugin instance to copy.
    */
-  public DistribSBasePlugin(DistribSBasePlugin distribModel) {
-    super(distribModel);
+  public DistribSBasePlugin(DistribSBasePlugin distribSBase) {
+    super(distribSBase);
 
-    if (distribModel.isSetUncertainty()) {
-      setUncertainty(distribModel.getUncertainty());
+    if (distribSBase.isSetUncertainty()) {
+      setUncertainty(distribSBase.getUncertainty());
     }
   }
 
@@ -217,7 +217,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 7143319;
+    final int prime = 9299441;
 
     int hashCode = super.hashCode();
 

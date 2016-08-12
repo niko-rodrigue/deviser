@@ -62,6 +62,8 @@ class JavaExtensionFiles():
         class_descrip = self.create_class_description(num)
         # self.write_plugin_header(class_descrip)
         self.write_plugin_code(class_descrip)
+
+        # What is the purpose of remove
         self.remove_class_description(num)
 
 

@@ -39,7 +39,7 @@ public class CSGSetOperator extends CSGNode {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 70967532735190077L;
+  private static final long serialVersionUID = 12628310889721473L;
   /**
    *
    */
@@ -340,7 +340,7 @@ public class CSGSetOperator extends CSGNode {
   }
 
   /**
-   * Removes an element from the {@link #listOfCSGNodes}
+   * Removes an element from the {@link listOfCSGNodes}
    *  
    * @param CSGNode the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -370,7 +370,7 @@ public class CSGSetOperator extends CSGNode {
   }
 
   /**
-   * Removes an element from the {@link #listOfCSGNodes}.
+   * Removes an element from the {@link listOfCSGNodes}.
    *  
    * @param csgNodeId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -590,7 +590,7 @@ public class CSGSetOperator extends CSGNode {
    */
   @Override
   public int hashCode() {
-    final int prime = 4438813;
+    final int prime = 7255961;
 
     int hashCode = super.hashCode();
 

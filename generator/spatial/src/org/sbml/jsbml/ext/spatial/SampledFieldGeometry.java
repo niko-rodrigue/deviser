@@ -39,7 +39,7 @@ public class SampledFieldGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 31486334208995640L;
+  private static final long serialVersionUID = 13343678351317102L;
   /**
    *
    */
@@ -212,7 +212,7 @@ public class SampledFieldGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfSampledVolumes}
+   * Removes an element from the {@link listOfSampledVolumes}
    *  
    * @param SampledVolume the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -242,7 +242,7 @@ public class SampledFieldGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfSampledVolumes}.
+   * Removes an element from the {@link listOfSampledVolumes}.
    *  
    * @param sampledVolumeId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -406,7 +406,7 @@ public class SampledFieldGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 2982779;
+    final int prime = 9232849;
 
     int hashCode = super.hashCode();
 

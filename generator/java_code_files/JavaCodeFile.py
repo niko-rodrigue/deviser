@@ -207,6 +207,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # code = constructor.write_namespace_constructor()
             # self.write_function_implementation(code)
         elif self.is_java_api and self.is_plugin:
+
+            # TODO here is the problem
             code = constructor.write_basic_plugin_copy_constructor()
             self.write_function_implementation(code)
 

@@ -39,7 +39,7 @@ public class Domain {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 28881187898015651L;
+  private static final long serialVersionUID = 33404031206523274L;
   /**
    *
    */
@@ -212,7 +212,7 @@ public class Domain {
   }
 
   /**
-   * Removes an element from the {@link #listOfInteriorPoints}
+   * Removes an element from the {@link listOfInteriorPoints}
    *  
    * @param InteriorPoint the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -392,7 +392,7 @@ public class Domain {
    */
   @Override
   public int hashCode() {
-    final int prime = 5776279;
+    final int prime = 9654947;
 
     int hashCode = super.hashCode();
 

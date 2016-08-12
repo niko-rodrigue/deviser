@@ -39,7 +39,7 @@ public class AnalyticGeometry extends GeometryDefinition {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 28073442117780296L;
+  private static final long serialVersionUID = 12861687057748397L;
   /**
    *
    */
@@ -150,7 +150,7 @@ public class AnalyticGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfAnalyticVolumes}
+   * Removes an element from the {@link listOfAnalyticVolumes}
    *  
    * @param AnalyticVolume the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
@@ -180,7 +180,7 @@ public class AnalyticGeometry extends GeometryDefinition {
   }
 
   /**
-   * Removes an element from the {@link #listOfAnalyticVolumes}.
+   * Removes an element from the {@link listOfAnalyticVolumes}.
    *  
    * @param analyticVolumeId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
@@ -346,7 +346,7 @@ public class AnalyticGeometry extends GeometryDefinition {
    */
   @Override
   public int hashCode() {
-    final int prime = 465887;
+    final int prime = 8900737;
 
     int hashCode = super.hashCode();
 

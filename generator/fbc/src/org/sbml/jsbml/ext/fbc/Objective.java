@@ -39,7 +39,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 41229336605999576L;
+  private static final long serialVersionUID = 36785532688389464L;
   /**
    *
    */
@@ -375,6 +375,35 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
   }
 
   /* (non-Javadoc)
+   * @see org.sbml.jsbml.AbstractSBase#getChildAt(int)
+   */
+  @Override
+  public TreeNode getChildAt(int index) {
+    if (index < 0) {
+      throw new
+        IndexOutOfBoundsException(MessageFormat.format(resourceBundle.getString("IndexSurpassesBoundsException"),
+          index, 0));
+    }
+    int count = super.getChildCount(), pos = 0;
+
+    if (index < count) {
+      return super.getChildAt(index);
+    } else {
+      index -= count;
+    }
+
+    if (isSetListOfFluxObjectives()) {
+      if (pos == index) {
+        return getListOfFluxObjectives();
+      }
+      pos++;
+    }
+    throw new IndexOutOfBoundsException(MessageFormat.format(
+      resourceBundle.getString("IndexExceedsBoundsException"), index,
+        Math.min(pos, 0)));
+  }
+
+  /* (non-Javadoc)
    * @see org.sbml.jsbml#getAllowsChildren()
    */
   @Override
@@ -399,7 +428,7 @@ public class Objective extends AbstractNamedSBase implements UniqueNamedSBase {
    */
   @Override
   public int hashCode() {
-    final int prime = 3227243;
+    final int prime = 6214177;
 
     int hashCode = super.hashCode();
 
