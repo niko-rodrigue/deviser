@@ -576,8 +576,7 @@ class GeneralFunctions():
             temp_code = self.create_if_for_get_child_count(lo_element, type)
             code.append(temp_code)
 
-        # temp = ['return hashCode']
-        # code.append(self.create_code_block('line', temp))
+
 
         implementation = ['return count']
 
@@ -698,7 +697,7 @@ class GeneralFunctions():
 
     ########################################################################
 
-    # Functions for writing hashCode
+    # Functions for writing hashCode  inside if statement
     def create_hashcode_if(self, attribute):
         name = attribute['capAttName']
         member_name = attribute['name']
@@ -714,6 +713,8 @@ class GeneralFunctions():
         if str(type)[:] == 'bool':
             implementation.append('hashCode += prime + (get{0}() ? 1 : -1)'.format(name))
         elif str(type)[:] == 'SIdRef':
+            implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
+        elif str(type)[:] == 'IDREF':
             implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
         elif str(type)[:] == 'enum':
             implementation.append('hashCode += prime * get{0}().hashCode()'.format(name))
@@ -1120,7 +1121,7 @@ class GeneralFunctions():
                 'attributes.put({0}Constants.shortLabel + ":" + {1}Constants.{2}, {3}.getId())'.format(
                     self.package, self.package, member_name, member_name))
         else:
-            implementation.append('hashCode += prime')
+            implementation.append('//Fix this part')
 
         temp_code = self.create_code_block('if', implementation)
         return temp_code
