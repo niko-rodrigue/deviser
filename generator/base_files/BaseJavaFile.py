@@ -607,6 +607,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.import_from_java_modules.append('javax.swing.tree.TreeNode')
                 self.has_children = True
 
+
         import_xml_node = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
         if import_xml_node== True:
             self.import_from_jsbml_modules.append('xml.XMLNode')
@@ -679,6 +680,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                     # print('yahoo ',data)
                     self.jsbml_methods.update({capname: data['modules']})
 
+
+        # Detect with jsbml methods are abstracts
         self.abstract_jsbml_methods = jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 # @file    jsbml_data_tree.py
-# @brief   tree structure for JSBML classes
+# @brief   tree structure for JSBML classes for GSoC 2016
 # @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
@@ -41,6 +41,8 @@ from collections import defaultdict
 from util import insideJSBML_parser
 
 
+
+# Custom dict for support of older Python versions
 class mydefaultdict(dict):
     def __init__(self, default_factory=None, *a, **kw):
         if (default_factory is not None and
@@ -84,6 +86,11 @@ class mydefaultdict(dict):
                                         dict.__repr__(self))
 
 
+
+# Custom tree that facilitates the assignment with JSON-esque way, but
+# the minus is  with no assignment at all, since merely referencing an entry creates an entry
+# That's why at the end the tree is converted to a dictionary
+# Here's link for more info: https://gist.github.com/hrldcpr/2012250
 def tree():
     return mydefaultdict(tree)
 
@@ -1097,15 +1104,11 @@ pack_distrib = 'distrib'
 pack_groups = 'groups'
 pack_spatial = 'spatial'
 
-# TODO GSOC 2016 qual package imports
-
-jsbml_data_tree[pack_qual]['files'] = ['input',
-                                     'output',
-                                     'qualitativespecies',
-                                     'transition',
-                                     'sign']
+############################################################################################
 
 
+# This part is responsible for the packages "extends" and "implements" information
+# at index [0] is the "extends" information, after index [1] is the "implements" information
 
 # qual package
 jsbml_data_tree[pack_qual]['Input'] = ['AbstractNamedSBase','UniqueNamedSBase',
@@ -1184,35 +1187,8 @@ geometry_definition = 'GeometryDefinition'
 # jsbml_data_tree[pack_spatial]['OrdinalMapping'] = [abstract_named_sbase, unique_named_sbase]
 # jsbml_data_tree[pack_spatial]['SpatialPoints'] = [abstract_named_sbase, unique_named_sbase]
 
-# # TODO GSOC 2016 Mandatory
-# mandatory_keyword = 'Mandatory'
-#
-# jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['Override'] = True
-# jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['returnType'] = 'boolean'
-# jsbml_data_tree[abstract_named_sbase][mandatory_keyword]['isIdMandatory']['return'] = 'true'
-#
-# jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['Override'] = True
-# jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['returnType'] = 'boolean'
-# jsbml_data_tree[compartment][mandatory_keyword]['isCompartmentMandatory']['return'] = 'true'
-# jsbml_data_tree[compartment]['isAbstract'] = True
-#
-# initial_level = 'InitialLevel'
-# jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['Override'] = False
-# jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['returnType'] = 'boolean'
-# jsbml_data_tree[initial_level][mandatory_keyword]['isInitialLevelMandatory']['return'] = 'false'
-
-# GSOC 2016 TODO
-jsbml_data_tree['Difference']['TransitionInputEffect'] = 'InputTransitionEffect'
-jsbml_data_tree['Difference']['TransitionOutputEffect'] = 'OutputTransitionEffect'
-jsbml_data_tree['Difference']['FbcOperation'] = 'Operation'
 
 
-jsbml_data_tree['Difference'] = dict(jsbml_data_tree['Difference'])
 
-# TODO approach for whole thing not effective
-# keys = jsbml_data_tree.keys()
-# for key in keys:
-#     class_methods = insideJSBML_parser.get_class_information(key)
-#     #print(class_methods)
-
+# To make sure dictionary does not get modified, because of custom dict structure
 jsbml_data_tree = dict(jsbml_data_tree)

@@ -1072,7 +1072,7 @@ class GeneralFunctions():
                      'implementation': code})
 
 
-    # Functions for writing hashCode
+    # Functions for creating if statements for writeXMLAttributes
     def create_xml_attributes_if(self, index):
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']

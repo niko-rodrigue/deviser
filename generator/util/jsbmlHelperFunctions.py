@@ -46,16 +46,36 @@ import itertools
 import random
 import uuid
 
+
+#########################################################################
+
+# Generate javadoc comment line
+def get_javadoc_comments_and_state(additional_add, class_key, function, functionArgs):
+    if additional_add is not None:
+        title_line = '(non-Javadoc)--'
+        title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+    return title_line
+
+
+#########################################################################
+
+
 # Determine override or or deprecated
 def determine_override_or_deprecated(jsbml_methods, function, attribute= None, return_type=None, att_type=None):
-    # TODO write_set  implementation of return_type definition DONE
+    #This is problematic
     add = None
     class_key = None
     functionArgs = None
-    for key in list(jsbml_methods.keys()):
+
+    keys_list = sorted(list(jsbml_methods.keys()))
+    found_object = False
+    for key in keys_list:
+        # if found_object is True:
+        #     break
         for method in jsbml_methods[key]:
             if function == method['functionName']:
                 class_key = key
+                # found_object = True
                 if method['isAbstract'] is True:
                     if att_type is not None and att_type in method['functionArgs']:
                         functionArgs = method['functionArgs']
@@ -67,7 +87,10 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
     #     add = None
     return add, class_key, functionArgs
 
+#########################################################################
 
+
+# Detect is ASTNode or XMLNode in attributes
 def detect_ast_or_xml(attributes):
     for attribute in attributes:
         if attribute['JClassType'] == 'ASTNode' or attribute['JClassType'] == 'XMLNode':
@@ -75,6 +98,11 @@ def detect_ast_or_xml(attributes):
     return False
 
 
+#########################################################################
+
+
+
+# Find if there is an instance version  of the method with same name
 def find_instance_method(abstract_jsbml_methods, method_name):
     for interface_class in abstract_jsbml_methods:
         methods = abstract_jsbml_methods[interface_class]
@@ -90,6 +118,11 @@ def find_instance_method(abstract_jsbml_methods, method_name):
         # if method_name ==
     return False
 
+#########################################################################
+
+
+
+# For the detection of abstract methods from jsbml_methods
 def detect_abstract_methods(jsbml_data_tree, jsbml_methods):
     abstract_methods = {}
     for method_name in jsbml_methods:
@@ -118,16 +151,14 @@ def detect_abstract_methods(jsbml_data_tree, jsbml_methods):
 
     return abstract_methods
 
+#########################################################################
 
 
-def get_javadoc_comments_and_state(additional_add, class_key, function, functionArgs):
-    if additional_add is not None:
-        title_line = '(non-Javadoc)--'
-        title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
-    return title_line
+#########################################################################
 
 
 
+#Helper function for find_function_with_diff_args
 def javap_arg_parser(argument):
     arg = argument
     # print('argus ',arg)
@@ -139,7 +170,9 @@ def javap_arg_parser(argument):
         # print('arg_type ', arg_type)
     return arg_type
 
-def find_function_with_diff_args(jsbml_methods, attribute, function ):
+
+# For finding functions with same name,but take different arguments
+def find_function_with_diff_args(jsbml_methods, attribute, function):
     # print('function ', function)
     # print('arguments ', attribute['attTypeCode'])
     orginal_attType = str(attribute['attTypeCode'])[:]
@@ -152,7 +185,8 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
     for key in list(jsbml_methods.keys()):
         for method in jsbml_methods[key]:
             if function_name == method['functionName']:
-                # print("YAHSHDASD", method)
+
+
                 arg_type = javap_arg_parser(method['functionArgs'])[:]
                 if arg_type is not None:
                     if arg_type != orginal_attType:
@@ -161,6 +195,9 @@ def find_function_with_diff_args(jsbml_methods, attribute, function ):
     # print('tada ',method_to_write)
     return method_to_write
 
+
+
+#########################################################################
 
 
 # Function for prime number generator
@@ -192,6 +229,10 @@ def select_prime_number(prime_numbers, run_tests=False):
     return random.choice(prime_numbers)
 
 
+
+#########################################################################
+
+# Generate random UUID using uuid4 from Pythons' library
 def generate_uuid(run_tests=False):
     if run_tests is True:
         # random.seed(0)
