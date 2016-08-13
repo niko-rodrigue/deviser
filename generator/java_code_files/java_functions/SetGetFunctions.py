@@ -232,7 +232,8 @@ class SetGetFunctions():
                 return_type = '{0}'.format(attribute['CType'])
 
         # TODO detect if override or not
-        additional_add, class_key, functionArgs= jsbmlHelperFunctions.determine_override_or_deprecated(self.jsbml_methods, function,attribute)
+        additional_add, class_key, functionArgs= jsbmlHelperFunctions.\
+            determine_override_or_deprecated(self.jsbml_methods, function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,

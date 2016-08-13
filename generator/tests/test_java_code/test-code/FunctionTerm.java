@@ -113,7 +113,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#clone
+   * @see org.sbml.jsbml.AbstractMathContainer#clone()
    */
   @Override
   public FunctionTerm clone() {
@@ -150,8 +150,7 @@ public class FunctionTerm extends AbstractMathContainer {
     if (resultLevel != this.resultLevel) {
       Integer oldResultLevel = this.resultLevel;
       this.resultLevel = resultLevel;
-      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
-        this.resultLevel);
+      firePropertyChange(QualConstants.resultLevel, oldResultLevel, this.resultLevel);
       return true;
     }
     return false;
@@ -175,7 +174,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#getMath
+   * @see org.sbml.jsbml.MathContainer#getMath()
    */
   @Override
   public ASTNode getMath() {
@@ -183,7 +182,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#isSetMath
+   * @see org.sbml.jsbml.MathContainer#isSetMath()
    */
   @Override
   public boolean isSetMath() {
@@ -191,7 +190,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#setMath
+   * @see org.sbml.jsbml.MathContainer#setMath(org.sbml.jsbml.ASTNode)
    */
   @Override
   public void setMath(ASTNode math) {
@@ -208,7 +207,7 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#unsetMath
+   * @see org.sbml.jsbml.MathContainer#unsetMath()
    */
   @Override
   public void unsetMath() {

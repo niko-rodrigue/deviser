@@ -234,7 +234,8 @@ class MandatoryFunctions():
 
         additional_add = []
         # TODO detect if override or not
-        additional_add, class_key, functionArgs= jsbmlHelperFunctions.determine_override_or_deprecated(self.jsbml_methods, attribute_key)
+        additional_add, class_key, functionArgs= jsbmlHelperFunctions.\
+            determine_override_or_deprecated(self.jsbml_methods, attribute_key)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'

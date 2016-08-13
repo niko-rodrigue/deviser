@@ -278,8 +278,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     if (qualitativeSpecies != this.qualitativeSpecies) {
       String oldQualitativeSpecies = this.qualitativeSpecies;
       this.qualitativeSpecies = qualitativeSpecies;
-      firePropertyChange(QualConstants.qualitativeSpecies,
-        oldQualitativeSpecies, this.qualitativeSpecies);
+      firePropertyChange(QualConstants.qualitativeSpecies, oldQualitativeSpecies, this.qualitativeSpecies);
       return true;
     }
     return false;
@@ -294,8 +293,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     if (transitionEffect != this.transitionEffect) {
       TransitionInputEffect oldTransitionEffect = this.transitionEffect;
       this.transitionEffect = transitionEffect;
-      firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
-        this.transitionEffect);
+      firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect, this.transitionEffect);
       return true;
     }
     return false;
@@ -310,8 +308,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
     if (thresholdLevel != this.thresholdLevel) {
       Integer oldThresholdLevel = this.thresholdLevel;
       this.thresholdLevel = thresholdLevel;
-      firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel,
-        this.thresholdLevel);
+      firePropertyChange(QualConstants.thresholdLevel, oldThresholdLevel, this.thresholdLevel);
       return true;
     }
     return false;

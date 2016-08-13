@@ -17,15 +17,17 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.qual;
+package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
+import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
+import org.sbml.jsbml.xml.XMLNode;
 
 /**
  * @author Deviser
@@ -33,21 +35,21 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class DefaultTerm extends AbstractMathContainer {
+public class Uncertainty extends AbstractNamedSBase {
 
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 9891207272440019L;
+  private static final long serialVersionUID = 43652286852557171L;
   /**
    *
    */
-  private Integer resultLevel;
+  private XMLNode uncertML;
 
   /**
    *  
    */
-  public DefaultTerm() {
+  public Uncertainty() {
     super();
     initDefaults();
   }
@@ -56,29 +58,19 @@ public class DefaultTerm extends AbstractMathContainer {
    * @param level
    * @param version
    */
-  public DefaultTerm(int level, int version) {
+  public Uncertainty(int level, int version) {
     super(level, version);
     initDefaults();
   }
 
   /**
-   * @param id
-   * @param level
-   * @param version
+   * @param orig the Uncertainty instance to copy.
    */
-  public DefaultTerm(ASTNode math, int level, int version) {
-    super(math, level, version);
-    initDefaults();
-  }
-
-  /**
-   * @param orig the DefaultTerm instance to copy.
-   */
-  public DefaultTerm(DefaultTerm orig) {
+  public Uncertainty(Uncertainty orig) {
     super(orig);
 
-    if (orig.isSetResultLevel()) {
-      setResultLevel(orig.getResultLevel());
+    if (orig.isSetUncertML()) {
+      setUncertML(orig.getUncertML().clone());
     }
   }
 
@@ -87,8 +79,7 @@ public class DefaultTerm extends AbstractMathContainer {
    */
   public void initDefaults() {
     setPackageVersion(-1);
-    packageName = QualConstants.shortLabel;
-    resultLevel = null;
+    packageName = DistribConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -99,88 +90,98 @@ public class DefaultTerm extends AbstractMathContainer {
     boolean equals = super.equals(object);
 
     if (equals) {
-      DefaultTerm obj = (DefaultTerm) object;
+      Uncertainty obj = (Uncertainty) object;
 
-      equals &= obj.isSetResultLevel() == isSetResultLevel();
-      if (equals && isSetResultLevel()) {
-        equals &= (obj.getResultLevel() == getResultLevel());
+      equals &= obj.isSetUncertML() == isSetUncertML();
+      if (equals && isSetUncertML()) {
+        equals &= (obj.getUncertML() == getUncertML());
       }
     }
     return equals;
   }
 
+  /**
+   * (non-Javadoc)
+   */
+  public Uncertainty clone() {
+    return new Uncertainty(this);
+  }
+
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractMathContainer#clone()
+   * @see org.sbml.jsbml.NamedSBase#isIdMandatory
    */
   @Override
-  public DefaultTerm clone() {
-    return new DefaultTerm(this);
+  public boolean isIdMandatory() {
+    return false;
   }
 
   /**
-   * Returns the value of {@link resultLevel}.
-   *  
-   * @return the value of {@link resultLevel}.
+   * @return true
    */
-  public int getResultLevel() {
-    if (isSetResultLevel()) {
-      return resultLevel.intValue();
+  public boolean isUncertMLMandatory() {
+    return true;
+  }
+
+  /**
+   * Returns the value of {@link uncertML}.
+   *  
+   * @return the value of {@link uncertML}.
+   */
+  public XMLNode getUncertML() {
+    if (isSetUncertML()) {
+      return uncertML;
     }
-    throw new PropertyUndefinedError(QualConstants.resultLevel, this);
+    throw new PropertyUndefinedError(DistribConstants.uncertML, this);
   }
 
   /**
-   * Returns whether {@link resultLevel} is set.
+   * Returns whether {@link uncertML} is set.
    *  
-   * @return whether {@link resultLevel} is set.
+   * @return whether {@link uncertML} is set.
    */
-  public boolean isSetResultLevel() {
-    return this.resultLevel != null;
+  public boolean isSetUncertML() {
+    return uncertML != null;
   }
 
   /**
-   * Sets the value of resultLevel
+   * Sets the value of uncertML
    *  
-   * @param resultLevel the value of resultLevel to be set.
+   * @param uncertML the value of uncertML to be set.
    */
-  public boolean setResultLevel(int resultLevel) {
-    if (resultLevel != this.resultLevel) {
-      Integer oldResultLevel = this.resultLevel;
-      this.resultLevel = resultLevel;
-      firePropertyChange(QualConstants.resultLevel, oldResultLevel, this.resultLevel);
+  public boolean setUncertML(XMLNode uncertML) {
+    if (uncertML != this.uncertML) {
+      XMLNode oldUncertML = this.uncertML;
+      this.uncertML = uncertML;
+      firePropertyChange(DistribConstants.uncertML, oldUncertML,
+        this.uncertML);
       return true;
     }
     return false;
   }
 
   /**
-   * Unsets the variable resultLevel.
+   * Unsets the variable uncertML.
    *  
-   * @return {@code true} if resultLevel was set before, otherwise {@code
-   * false}.
+   * @return {@code true} if uncertML was set before, otherwise {@code false}.
    */
-  public boolean unsetResultLevel() {
-    if (isSetResultLevel()) {
-      Integer oldResultLevel = resultLevel;
-      resultLevel = null;
-      firePropertyChange(QualConstants.resultLevel, oldResultLevel,
-        resultLevel);
+  public boolean unsetUncertML() {
+    if (isSetUncertML()) {
+      XMLNode oldUncertML = uncertML;
+      uncertML = null;
+      firePropertyChange(DistribConstants.uncertML, oldUncertML, uncertML);
       return true;
     }
     return false;
   }
 
-  /* hashcode method for DefaultTerm.
+  /* hashcode method for Uncertainty.
    */
   @Override
   public int hashCode() {
-    final int prime = 5861929;
+    final int prime = 7854571;
 
     int hashCode = super.hashCode();
 
-    if (isSetResultLevel()) {
-      hashCode += prime * getResultLevel();
-    }
     return hashCode;
   }
 
@@ -190,11 +191,9 @@ public class DefaultTerm extends AbstractMathContainer {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("DefaultTerm [");
-    builder.append("resultLevel = ");
-    builder.append(resultLevel);
-    builder.append("isSetMath = ");
-    builder.append(isSetMath());
+    builder.append("Uncertainty [");
+    builder.append("uncertML = ");
+    builder.append(uncertML);
     builder.append("]");
     return builder.toString();
   }
@@ -216,9 +215,13 @@ public class DefaultTerm extends AbstractMathContainer {
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes();
 
-    if (isSetResultLevel()) {
-      attributes.put(QualConstants.shortLabel + ":" + QualConstants.resultLevel,
-        Integer.toString(getResultLevel()));
+    if (isSetId()) {
+      attributes.remove("id");
+      attributes.put(DistribConstants.shortLabel + ":id", getId());
+    }
+    if (isSetName()) {
+      attributes.remove("name");
+      attributes.put(DistribConstants.shortLabel + ":name", getName());
     }
     return attributes;
   }

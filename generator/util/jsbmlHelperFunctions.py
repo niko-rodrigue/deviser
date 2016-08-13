@@ -53,19 +53,34 @@ import uuid
 def get_javadoc_comments_and_state(additional_add, class_key, function, functionArgs):
     if additional_add is not None:
         title_line = '(non-Javadoc)--'
-        title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
+        if functionArgs is not None and functionArgs != []:
+            if len(functionArgs) == 1:
+                arguments = functionArgs[0]
+            elif len(functionArgs) >1:
+                arguments = functionArgs[0]
+                for i in range(1, len(functionArgs)):
+                    arguments += ', {0}'.format(functionArgs[1])
+        else:
+            arguments = ''
+        title_line += '@see org.sbml.jsbml.{0}#{1}({2})'.format(class_key, function, arguments)
     return title_line
 
 
 #########################################################################
 
 
-# Determine override or or deprecated
-def determine_override_or_deprecated(jsbml_methods, function, attribute= None, return_type=None, att_type=None):
+# Determine override # or deprecate(not implemented yet)
+def determine_override_or_deprecated(jsbml_methods, function, attribute=None, return_type=None):
     #This is problematic
     add = None
     class_key = None
     functionArgs = None
+
+    attribute = attribute
+    if attribute is not None:
+        att_type = attribute['JClassType']
+    else:
+        att_type = None
 
     keys_list = sorted(list(jsbml_methods.keys()))
     found_object = False
@@ -77,14 +92,14 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute= None, r
                 class_key = key
                 # found_object = True
                 if method['isAbstract'] is True:
-                    if att_type is not None and att_type in method['functionArgs']:
-                        functionArgs = method['functionArgs']
+                    functionArgs = []
+                    if att_type is not None:
+                        for argument in method['functionArgs']:
+                            if att_type in argument :
+                                functionArgs.append(argument)
 
                     add = 'Override'
-    # if attribute['type'] == 'SIdRef':
-    #     add = 'Override'
-    # else:
-    #     add = None
+
     return add, class_key, functionArgs
 
 #########################################################################

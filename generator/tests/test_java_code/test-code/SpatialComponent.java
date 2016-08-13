@@ -197,8 +197,7 @@ public class SpatialComponent extends AbstractNamedSBase implements UniqueNamedS
     if (isSetSpatialIndex()) {
       SpatialKind oldSpatialIndex = spatialIndex;
       spatialIndex = null;
-      firePropertyChange(DynConstants.spatialIndex, oldSpatialIndex,
-        spatialIndex);
+      firePropertyChange(DynConstants.spatialIndex, oldSpatialIndex, spatialIndex);
       return true;
     }
     return false;

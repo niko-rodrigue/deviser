@@ -111,8 +111,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
     if (applyToAll != this.applyToAll) {
       Boolean oldApplyToAll = this.applyToAll;
       this.applyToAll = applyToAll;
-      firePropertyChange(DynConstants.applyToAll, oldApplyToAll,
-        this.applyToAll);
+      firePropertyChange(DynConstants.applyToAll, oldApplyToAll, this.applyToAll);
       return true;
     }
     return false;

@@ -230,8 +230,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     if (qualitativeSpecies != this.qualitativeSpecies) {
       String oldQualitativeSpecies = this.qualitativeSpecies;
       this.qualitativeSpecies = qualitativeSpecies;
-      firePropertyChange(QualConstants.qualitativeSpecies,
-        oldQualitativeSpecies, this.qualitativeSpecies);
+      firePropertyChange(QualConstants.qualitativeSpecies, oldQualitativeSpecies, this.qualitativeSpecies);
       return true;
     }
     return false;
@@ -246,8 +245,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     if (transitionEffect != this.transitionEffect) {
       TransitionOutputEffect oldTransitionEffect = this.transitionEffect;
       this.transitionEffect = transitionEffect;
-      firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect,
-        this.transitionEffect);
+      firePropertyChange(QualConstants.transitionEffect, oldTransitionEffect, this.transitionEffect);
       return true;
     }
     return false;
@@ -262,8 +260,7 @@ public class Output extends AbstractNamedSBase implements UniqueNamedSBase, Call
     if (outputLevel != this.outputLevel) {
       Integer oldOutputLevel = this.outputLevel;
       this.outputLevel = outputLevel;
-      firePropertyChange(QualConstants.outputLevel, oldOutputLevel,
-        this.outputLevel);
+      firePropertyChange(QualConstants.outputLevel, oldOutputLevel, this.outputLevel);
       return true;
     }
     return false;

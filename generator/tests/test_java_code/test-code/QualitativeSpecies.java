@@ -174,7 +174,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.CompartmentalizedSBase#getCompartment
+   * @see org.sbml.jsbml.CompartmentalizedSBase#getCompartment()
    */
   @Override
   public String getCompartment() {
@@ -232,7 +232,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.CompartmentalizedSBase#isSetCompartment
+   * @see
    */
   @Override
   public boolean isSetCompartment() {
@@ -275,22 +275,21 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment
+   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment(java.lang.String)
    */
   @Override
   public boolean setCompartment(String compartment) {
     if (compartment != this.compartment) {
       String oldCompartment = this.compartment;
       this.compartment = compartment;
-      firePropertyChange(QualConstants.compartment, oldCompartment,
-        this.compartment);
+      firePropertyChange(QualConstants.compartment, oldCompartment, this.compartment);
       return true;
     }
     return false;
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.CompartmentalizedSBase#setCompartment
+   * @see
    */
   @Override
   public boolean setCompartment(Compartment compartment) {
@@ -324,8 +323,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
     if (initialLevel != this.initialLevel) {
       Integer oldInitialLevel = this.initialLevel;
       this.initialLevel = initialLevel;
-      firePropertyChange(QualConstants.initialLevel, oldInitialLevel,
-        this.initialLevel);
+      firePropertyChange(QualConstants.initialLevel, oldInitialLevel, this.initialLevel);
       return true;
     }
     return false;
@@ -347,7 +345,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.CompartmentalizedSBase#unsetCompartment
+   * @see
    */
   @Override
   public boolean unsetCompartment() {

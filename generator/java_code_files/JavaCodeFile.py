@@ -313,9 +313,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             #print('Curr_attribute ', curr_attribute)
 
 
-
+            self.line_length = 160
             code = attrib_functions.write_set(True, i)
             self.write_function_java(code)
+            self.line_length = 79
 
             similar_num_attributes = attrib_functions.get_similar_num_attributes()
             for y in range(0, similar_num_attributes):
@@ -368,8 +369,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_function_implementation(code)
 
         for i in range(0, num_elements):
+            self.line_length = 150
             code = attrib_functions.write_set(False, i)
             self.write_function_implementation(code)
+            self.line_length = 79
 
 
         for i in range(0, num_elements):
