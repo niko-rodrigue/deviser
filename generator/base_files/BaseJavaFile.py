@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 #
-# @file    BaseCppFile.py
-# @brief   base class for cpp files to be generated
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @file    BaseJavaFile.py
+# @brief   base class for Java files to be generated
+# @brief   Code part of Google Summer of Code 2016
+# @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #
@@ -85,7 +85,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         # default values
         self.is_java_api = True
 
-        #TODO adapting for parser
+        # Different inialization for parser and classes
         self.is_parser = is_parser
         if self.is_parser is False:
             self.updated_class_object = {}
@@ -445,11 +445,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         # TODO GSOC 2016
         self.pack = str(self.package).lower()
 
-    ########################################################################
-
-
-    ########################################################################
-
+    ####################################################################################################################
 
     # Expand Parse import statements
     def expand_parser_import_modules(self, package):
@@ -479,19 +475,14 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.import_from_jsbml_modules.append('util.filters.*')
             self.import_from_jsbml_modules.append('xml.stax.SBMLObjectForXML')
 
-            # TODO this part is tricky for ASTNodePlugin
+            # This part is for newer version of JSBML
             self.import_from_jsbml_modules.append('ext.ASTNodePlugin')
             self.import_from_jsbml_modules.append('ext.SBasePlugin')
 
             self.import_from_jsbml_modules.append('ext.{0}.*'.format(package['original_name']))
 
-
-
             self.extends_modules = ['AbstractReaderWriter']
             self.implements_modules = ['PackageParser']
-
-
-
 
         self.jsbml_class_header_and_import = dict({'className': self.name,
                                                    'abstract': self.class_is_abstract,
@@ -502,19 +493,14 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
     # Function to expand import modules and extension
-    # TODO for constants
     def expand_import_modules(self, package):
         self.extends_modules = []
         self.implements_modules = []
         self.import_from_java_modules = []
         self.import_from_jsbml_modules = []
 
-        #THis is the tricky part
-        # self.get_general_includes()
-
         if package['is_plugin'] is True:
             self.import_from_jsbml_modules.append('ext.AbstractSBasePlugin')
-
 
         if package['is_constantFile'] is True:
             self.import_from_java_modules.append('java.util.ResourceBundle')
@@ -527,7 +513,6 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.import_from_jsbml_modules.append('*')
         self.import_from_jsbml_modules.append('util.*')
         self.import_from_jsbml_modules.append('util.filters.*')
-        # TODO maybe a netter import statement for cboTerm
 
         #if term in plugin
         if self.is_plugin:
@@ -538,26 +523,17 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.import_from_java_modules.append('javax.swing.tree.TreeNode')
                 self.has_children = True
 
-
         import_xml_node = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
-        if import_xml_node== True:
+        if import_xml_node is True:
             self.import_from_jsbml_modules.append('xml.XMLNode')
 
-        if self.has_children == True:
+        if self.has_children is True:
             self.import_from_java_modules.append('javax.swing.tree.TreeNode')
 
-        #self.import_from_jsbml_utils_modules = []
         self.import_from_java_modules.append('java.util.Map')
         self.import_from_java_modules.append('java.util.Locale')
         self.import_from_java_modules.append('java.text.MessageFormat')
-        # if str(self.package).lower() == 'qual':
-        #     # if self.name in ['QualitativeSpecies', 'Input', 'Output', 'FunctionTerm', 'DefaultTerm', 'Transition']:
-        #     #     self.class_is_abstract = False
-        #     #
-        #     if self.name in ['Transition']:
-        #         self.import_from_java_modules.append('java.text.MessageFormat')
 
-        # TODO bug here, apends new element to tree
         if self.pack in self.jsbml_data_tree:
             if package['is_plugin'] is not True:
                 if self.name in self.jsbml_data_tree[self.pack]:
@@ -567,9 +543,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                         self.implements_modules = self.jsbml_data_tree[self.pack][self.name][1:]
 
         if self.baseClass != 'SBase':
-            #If plugin  then do something else
+            # If baseClass not SBase, such is for spatial, where a module usees another inner module
             self.extends_modules.append(self.baseClass)
-
 
         self.jsbml_class_header_and_import = dict({'className': self.name,
                                                    'abstract': self.class_is_abstract,
@@ -577,7 +552,6 @@ class BaseJavaFile(BaseFile.BaseFile):
                                                    'implements': self.implements_modules,
                                                    'javaModules': sorted(self.import_from_java_modules),
                                                    'jsbmlModules': self.import_from_jsbml_modules})
-
 
     ##########################################################################################################
 
@@ -593,8 +567,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                     self.jsbml_methods.update({module: data['modules']})
 
                     if self.jsbml_data_tree[module]['parentInterfaces'] != None and \
-                        len(self.jsbml_data_tree[module]['parentInterfaces']) >0:
-                    # if len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
+                        len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
                         for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
                             interface = insideJSBML_parser.get_class_information(interface_class)
                             if data is not None:
@@ -616,45 +589,18 @@ class BaseJavaFile(BaseFile.BaseFile):
                     # print('yahoo ',data)
                     self.jsbml_methods.update({capname: data['modules']})
 
+        # Detect which jsbml methods are abstracts
+        self.abstract_jsbml_methods = jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree,
+                                                                                   self.jsbml_methods)
 
-        # Detect whih  jsbml methods are abstracts
-        self.abstract_jsbml_methods = jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
-
-
-
-
-
-    def expand_mandatory(self):
-
-        self.mandatory_data = []
-
-        keys = self.jsbml_data_tree[self.pack][self.name]
-
-
-        for import_key in keys:
-            data = self.jsbml_data_tree[import_key]['Mandatory']
-
-            if len(data) > 0:
-                self.mandatory_data.append(data)
-
-        attributes = self.attributes
-        for attribute in attributes:
-            att_key = strFunctions.upper_first(attribute['name'])
-            data = self.jsbml_data_tree[att_key]['Mandatory']
-
-            if len(data) > 0:
-                self.mandatory_data.append(data)
-
-
-
-
-
+    ####################################################################################################################
 
     # Function to expand the attribute information
     def expand_attributes(self, attributes):
         for i in range(0, len(attributes)):
             capname = strFunctions.upper_first(attributes[i]['name'])
             attributes[i]['name'] = strFunctions.lower_first(capname)
+            # Added additional key for jsbml, which is useful for ListOf elements
             attributes[i]['jsbmlName'] = strFunctions.lower_first(capname)
             attributes[i]['capAttName'] = capname
             attributes[i]['memberName'] = 'm' + capname
@@ -693,7 +639,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['CType'] = 'double'
                 attributes[i]["JClassType"] = 'Double'
                 attributes[i]['isNumber'] = True
-                attributes[i]['default'] = 'util_NaN()' #?
+                attributes[i]['default'] = 'util_NaN()'
             elif att_type == 'int':
                 attributes[i]['attType'] = 'integer'
                 attributes[i]['attTypeCode'] = 'int'
@@ -701,7 +647,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]["JClassType"] = 'Integer'
                 attributes[i]['isNumber'] = True
                 attributes[i]['default'] = '{0}_INT_' \
-                                           'MAX'.format(self.cap_language) #?
+                                           'MAX'.format(self.cap_language)
             elif att_type == 'uint':
                 attributes[i]['attType'] = 'unsigned integer'
                 attributes[i]['attTypeCode'] = 'int'
@@ -717,11 +663,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]["JClassType"] = 'Boolean'
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'False'
-            elif att_type == 'enum': #This is tricky
+            elif att_type == 'enum':
                 attributes[i]['isEnum'] = True
                 attributes[i]['attType'] = 'enum'
-                attributes[i]['attTypeCode'] = attributes[i]['element'] #+ '_t'
-                attributes[i]['CType'] = attributes[i]['element'] # + '_t'
+                attributes[i]['attTypeCode'] = attributes[i]['element']
+                attributes[i]['CType'] = attributes[i]['element']
                 attributes[i]["JClassType"] = attributes[i]['element']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = \
@@ -732,42 +678,34 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'element'
                 if attributes[i]['name'] == 'math':
                     if global_variables.is_package:
-                        attributes[i]['attTypeCode'] = 'ASTNode' # 'ASTNode*'
-                        attributes[i]['CType'] = 'ASTNode'  #'ASTNode_t*'
+                        attributes[i]['attTypeCode'] = 'ASTNode'
+                        attributes[i]['CType'] = 'ASTNode'
                         attributes[i]["JClassType"] = 'ASTNode'
-                    # else:
-                    #     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode*'
-                    #     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER ASTNode_t*'
-                # TODO here for xmlnode uncertml
-
-
                 # Specific cases for JSBML
                 elif attributes[i]['name'] == 'drawFromDistribution':
                     if global_variables.is_package:
-                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element']) # 'ASTNode*'
-                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  #'ASTNode_t*'
+                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])
+                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])
                         attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
                 elif attributes[i]['name'] == 'geneProductAssociation':
                     if global_variables.is_package:
-                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode*'
-                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode_t*'
+                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])
+                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])
                         attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
                 elif attributes[i]['name'] == 'uncertainty':
                     if global_variables.is_package:
-                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode*'
-                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])  # 'ASTNode_t*'
+                        attributes[i]['attTypeCode'] = strFunctions.upper_first(attributes[i]['element'])
+                        attributes[i]['CType'] = strFunctions.upper_first(attributes[i]['element'])
                         attributes[i]["JClassType"] = strFunctions.upper_first(attributes[i]['element'])
                 else:
-                    attributes[i]['attTypeCode'] = 'XMLNode' #  attributes[i]['element']+'*'
-                    attributes[i]['CType'] = 'XMLNode'  #attributes[i]['element']+'_t*'
-                    attributes[i]["JClassType"] = 'XMLNode'  #attributes[i]['element']
-
+                    attributes[i]['attTypeCode'] = 'XMLNode'
+                    attributes[i]['CType'] = 'XMLNode'
+                    attributes[i]["JClassType"] = 'XMLNode'
 
                 if attributes[i]['attTypeCode'] == 'XMLNode*' and not global_variables.is_package:
                     attributes[i]['attTypeCode'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}*'.format(attributes[i]['element'])
                     attributes[i]['CType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])
                     attributes[i]['JClassType'] = 'LIBSBML_CPP_NAMESPACE_QUALIFIER {0}_t*'.format(attributes[i]['element'])
-
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'null'
                 if strFunctions.compare_no_case(strFunctions.remove_prefix(el_name), at_name):
@@ -781,8 +719,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['attType'] = 'lo_element'
                 attributes[i]['attTypeCode'] = name
                 attributes[i]['jsbmlName'] = jsbml_name
-                attributes[i]['CType'] = 'ListOf'# _t'
-                attributes[i]['JClassType'] = 'ListOf'  # _t'
+                attributes[i]['CType'] = 'ListOf'
+                attributes[i]['JClassType'] = 'ListOf'
                 attributes[i]['memberName'] = 'm' + plural
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'null'
@@ -791,7 +729,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['element'] = \
                     strFunctions.lower_first(attributes[i]['element'])
                 attributes[i]['attType'] = 'array'
-                attributes[i]['attTypeCode'] = attributes[i]['element'] # + '*'
+                attributes[i]['attTypeCode'] = attributes[i]['element']
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
@@ -802,12 +740,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                     strFunctions.lower_first(attributes[i]['element'])
                 attributes[i]['attType'] = 'vector'
                 attributes[i]['attTypeCode'] = 'ArrayList<{0}>'.format(attributes[i]['element'])
-                # print("YOLUS ",attributes[i]['attTypeCode'])
                 attributes[i]['CType'] = attributes[i]['attTypeCode']
                 attributes[i]['JClassType'] = attributes[i]['attTypeCode']
                 attributes[i]['isNumber'] = False
                 attributes[i]['default'] = 'null'
-            # TODO specific for jsbml
+            # Again specific cases for JSBML
             elif att_name == 'spatialIndex':
                 # attributes[i]['isVector'] = True
                 attributes[i]['element'] = att_type
@@ -821,7 +758,6 @@ class BaseJavaFile(BaseFile.BaseFile):
             elif att_name == 'cboTerm':
                 # attributes[i]['isVector'] = True
                 attributes[i]['element'] = att_type
-                    # strFunctions.lower_first(attributes[i]['element'])
                 attributes[i]['attType'] = 'Term' #att_type
                 attributes[i]['attTypeCode'] = 'Term' # att_type
                 attributes[i]['CType'] ='Term' # attributes[i]['attTypeCode']
@@ -839,7 +775,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 attributes[i]['default'] = 'FIXME_{0}'.format(att_type)
         return attributes
 
-    def create_lo_other_child_element_class(self, name, parent): #Critical becareful with it
+    # Critical becareful with it
+    def create_lo_other_child_element_class(self, name, parent):
         capname = strFunctions.upper_first(name)
         element = dict({'isArray': False,
                         'name': strFunctions.lower_first(capname),
@@ -890,7 +827,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 listed_elements.append(name)
         return elements
 
-    ########################################################################
+    ####################################################################################################################
 
     # Functions to overwrite base class settings
     def set_base_class(self, base):
@@ -899,65 +836,9 @@ class BaseJavaFile(BaseFile.BaseFile):
     def set_std_base_class(self, base):
         self.std_base = base
 
-    ########################################################################
+    ####################################################################################################################
 
-    #   FUNCTIONS FOR WRITING STANDARD OPENING CLOSING ELEMENTS
-
-    # functions cpp ns
-    def write_cppns_begin(self):
-        self.skip_line(2)
-        self.write_line('{0}_CPP_NAMESPACE_BEGIN'
-                        .format(self.library_name.upper()))
-        self.skip_line(2)
-
-    def write_cppns_end(self):
-        self.skip_line(2)
-        self.write_line('{0}_CPP_NAMESPACE_END'
-                        .format(self.library_name.upper()))
-        self.skip_line(2)
-
-    def write_cppns_use(self):
-        self.skip_line(2)
-        self.write_line('{0}_CPP_NAMESPACE_USE'
-                        .format(self.library_name.upper()))
-        self.skip_line(2)
-
-    # functions c declaration
-    def write_cdecl_begin(self):
-        self.skip_line(2)
-        self.write_line('BEGIN_C_DECLS')
-        self.skip_line(2)
-
-    def write_cdecl_end(self):
-        self.skip_line(2)
-        self.write_line('END_C_DECLS')
-        self.skip_line(2)
-
-    # functions swig directive
-    def write_swig_begin(self):
-        self.skip_line(2)
-        self.write_line('#ifndef SWIG')
-        self.skip_line(2)
-
-    def write_swig_end(self):
-        self.skip_line(2)
-        self.write_line('#endif  /*  !SWIG  */')
-        self.skip_line(2)
-
-    # functions cplusplus directive
-    def write_cpp_begin(self):
-        self.skip_line(2)
-        self.write_line('#ifdef __cplusplus')
-        self.skip_line(2)
-
-    def write_cpp_end(self):
-        self.skip_line(2)
-        self.write_line('#endif  /*  __cplusplus  */')
-        self.skip_line(2)
-
-########################################################################
-
-# FUNCTIONS FOR WRITING STANDARD FUNCTION DECLARATIONS
+    # FUNCTIONS FOR WRITING STANDARD FUNCTION DECLARATIONS
 
     def write_function_header(self,
                               function_name, arguments, return_type,
@@ -1031,7 +912,6 @@ class BaseJavaFile(BaseFile.BaseFile):
             else:
                 self.write_line(line)
 
-
     def write_static(self, package):
         # write static for constants
         self.write_variable_comment()
@@ -1045,8 +925,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.down_indent()
         self.write_line('}')
 
-
-    # TODO write open braces Done
+    # Write JSBML class function header
     def write_class_function_header(self, function_name, arguments,
                                     return_type, is_const=False,
                                     constructor_args=None):
@@ -1054,9 +933,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         num_arguments = len(arguments)
         if not is_java:
             self.write_extern_decl()
-        #self.write_line(return_type) #Need to remove this part
 
-        # TODO GSOC 2016 change modified brackets
+        # This part was modified for java
         line = 'public' + ' ' + return_type + ' ' + function_name + '('
         if num_arguments == 0:
             if is_java and is_const:
@@ -1090,11 +968,7 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if len(line) > self.line_length:
                     self.write_line_jsbml(saved_line)
                     line = '' + arguments[0] + ','
-                    # self.write_line_jsbml(line, att_start)
-                    # self.write_line_jsbml_func_arguments(line, att_start)
                 else:
-                    # self.write_line_jsbml(line)
-                    # TODO be very careful here
                     self.write_line_jsbml_func_arguments(line)
                 for i in range(1, num_arguments - 1):
                     line = arguments[i] + ','
@@ -1113,13 +987,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line_jsbml(constructor_args[i])
             self.down_indent()
 
-
-
-    ########################################################################
+    ####################################################################################################################
 
     # FUNCTIONS FOR WRITING ENUM
 
-    # TODO write open braces Done
+    # Write JSBML enum header
     def write_enum_header(self, enum_name,
                                     return_type, is_const=False,
                                     constructor_args=None):
@@ -1127,9 +999,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         # num_arguments = len(arguments)
         if not is_java:
             self.write_extern_decl()
-        # self.write_line(return_type) #Need to remove this part
 
-        # TODO GSOC 2016 change modified brackets
         line = 'public' + ' ' + return_type + ' ' + enum_name
         # if num_arguments == 0:
         if is_java and is_const:
@@ -1143,11 +1013,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line_jsbml(constructor_args[i])
             self.down_indent()
 
+    ####################################################################################################################
 
-
-            ########################################################################
-
-# FUNCTIONS FOR WRITING STANDARD DOC COMMENTS
+    # FUNCTIONS FOR WRITING STANDARD DOC COMMENTS
 
     def write_comment_header(self, title_line, params, return_line,
                              object_name, additional=None):
@@ -1164,7 +1032,6 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.write_comment_line((return_line[i]))
         if len(additional) > 0:
             self.write_blank_comment_line()
-        # TODO maybe this part could be used for writing @Overrides?
         for i in range(0, len(additional)):
             if additional[i] == ' ':
                 self.write_blank_comment_line()
@@ -1191,7 +1058,6 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.file_out.write('{0}{1} {2}\n'
                                 .format(tabs, self.comment, lines[i]))
 
-
     # Need to add tabs
     def write_brief_header(self, title_line):
         self.open_double_comment(self)
@@ -1203,11 +1069,9 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_non_javadoc_comment_line(title_line)
         self.close_comment()
 
-
     def write_class_params_header(self, params):
         self.open_double_comment(self)
         for param in params:
-            #print('param ', param)
             self.write_comment_line(param)
         self.close_comment()
 
@@ -1223,15 +1087,16 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_blank_comment_line()
         self.close_comment()
 
-    # TODO GSOC variable comment line
+    # Write JSBML serial version comment
     def write_serial_version_comment(self):
         self.open_double_comment(self)
         line = 'Generated serial version identifier.'
         self.write_comment_line(line)
         self.close_comment()
-#########################################################################
 
-# Function for writing a function definition with comment
+    ####################################################################################################################
+
+    # Function for writing a function definition with comment
     def write_function_declaration(self, code, exclude=False):
         if code is not None:
             if exclude:
@@ -1276,21 +1141,18 @@ class BaseJavaFile(BaseFile.BaseFile):
                     self.write_brief_header(code['title_line'])
             function_name = code['function']
 
-
-            #GSOC 2016 function name changes necessary -> u'QualitativeSpecies getId' Wrong
-            # TODO GSOC write param
+            # Write params
             if self.is_java_api:
                 if not code['object_name']:
                     function_name = code['function']
                 else:
-                    function_name = code['function'] #code['object_name'] + ' ' \  +
+                    function_name = code['function']
             if 'args_no_defaults' in code:
                 arguments = code['args_no_defaults']
             else:
                 arguments = code['arguments']
             constructor_args = None
-            # print('function_name ', function_name) #both for constructors and functions, not suitable for JSBML
-            # print('->-')
+
             if self.is_java_api:
                 if 'constructor_args' in code:
                     constructor_args = code['constructor_args']
@@ -1301,56 +1163,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
             if 'implementation' in code and code['implementation'] is not None:
                 self.write_implementation(code['implementation'])
-                # print("code implementation ",code['implementation'])
-                # print('---------------->')
-            # TODO this part ok
-            else:
-                self.write_line('}')
-
-
-
-            if exclude:
-                self.write_doxygen_end()
-                self.skip_line()
-            else:
-                self.skip_line()
-            self.down_indent()
-
-    # Function for writing a function implementation
-    def write_enum_implementation(self, code, exclude=False):
-        if code is not None:
-            self.up_indent()  # This is a problem
-
-
-            function_name = code['function']
-
-            # GSOC 2016 function name changes necessary -> u'QualitativeSpecies getId' Wrong
-            # TODO GSOC write param
-            if self.is_java_api:
-                if not code['object_name']:
-                    function_name = code['function']
-                else:
-                    function_name = code['function']  # code['object_name'] + ' ' \  +
-            # if 'args_no_defaults' in code:
-            #     arguments = code['args_no_defaults']
-            # else:
-            #     arguments = code['arguments']
-            # constructor_args = None
-            # print('function_name ', function_name) #both for constructors and functions, not suitable for JSBML
-            # print('->-')
-            if self.is_java_api:
-                if 'constructor_args' in code:
-                    constructor_args = code['constructor_args']
-            self.write_class_function_header(function_name, arguments,
-                                             code['return_type'],
-                                             code['constant'],
-                                             constructor_args)
-
-            if 'implementation' in code and code['implementation'] is not None:
-                self.write_implementation(code['implementation'])
-                # print("code implementation ",code['implementation'])
-                # print('---------------->')
-            # TODO this part ok
             else:
                 self.write_line('}')
 
@@ -1362,6 +1174,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.down_indent()
 
     # Function for writing a function implementation
+    # This part has not been used for JSBML
     def write_inline_function_implementation(self, code, exclude=False):
         if code is not None:
             if exclude:
@@ -1426,51 +1239,19 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_comment_line('@copydetails doc_additional_typecode_details')
         self.close_comment()
 
-    # Function to write the header about the typecode enumeration
-    def write_enum(self, name, enum_no, enum_val, enum_str, length):
-        number = len(enum_val)
-        if len(enum_str) != number:
-            return
-        self.write_line('typedef enum')
-        self.write_line('{')
-        self.file_out.write('  {0:{width}}'.format(enum_val[0], width=length))
-        if enum_no != 0:
-            self.file_out.write('= {0:{width}}'.format(enum_no, width=5))
-            enum_no += 1
-        self.file_out.write('  /*!<{0} */\n'.format(enum_str[0]))
-        for i in range(1, number):
-            self.file_out.write(', {0:{width}}'.format(enum_val[i],
-                                                      width=length))
-            if enum_no != 0:
-                self.file_out.write('= {0:{width}}'.format(enum_no, width=5))
-                enum_no += 1
-            self.file_out.write('  /*!<{0} */\n'.format(enum_str[i]))
-        self.write_line('{0} {1};'.format('}', name))
-
-    # Function to write the header about the typecode enumeration
-    def write_enum_strings(self, name, enum_str):
-        number = len(enum_str)
-        self.write_line('static')
-        self.write_line('const char* {0}[] ='.format(name))
-        self.write_line('{')
-        self.file_out.write('  \"{0}\"\n'.format(enum_str[0]))
-        for i in range(1, number):
-            self.file_out.write(', \"{0}\"\n'.format(enum_str[i]))
-        self.write_line('};')
-
-    ########################################################################
+    ####################################################################################################################
 
     # FUNCTIONS FOR WRITING STANDARD FUNCTION Implementation
 
     def write_implementation(self, implementation):
-        #self.write_line('{') #TODO this one has to be moved
         self.write_nested_implementation(implementation)
         self.write_line('}')
 
     def write_implementation_block(self, code_type, code):
         if code_type == 'line':
             self.write_lines(code)
-        elif code_type == 'empty_line': # Prototype idea
+        # Write an empty line inside a function
+        elif code_type == 'empty_line':
             self.write_empty_line()
         elif code_type == 'comment':
             self.write_comments(code)
@@ -1509,9 +1290,9 @@ class BaseJavaFile(BaseFile.BaseFile):
         for i in range(0, len(code)):
             self.write_line('{0};'.format(code[i]))
 
-    def write_empty_line(self, code = ''):
+    # Wroite an empty line, used inside functions
+    def write_empty_line(self, code=''):
         self.write_line('')
-
 
     def write_comments(self, code):
         for i in range(0, len(code)):
@@ -1533,30 +1314,25 @@ class BaseJavaFile(BaseFile.BaseFile):
             if_code.append(code[i])
             i += 1
         self.write_block('if', if_code, True)
-        try:
-            i += 1
-            else_if_code = [code[i]]
-            i += 1
-            while i < len(code):
-                while i < len(code) and \
-                        (code[i] != 'else if' and code[i] != "else"):
-                    else_if_code.append(code[i])
-                    i += 1
-                self.write_block('else if', else_if_code, True)
-                if i < len(code):
-                    flag_else = (code[i] == 'else')
-                    if not flag_else:
-                        if i < len(code):
-                            i += 1
-                            else_if_code = [code[i]]
-                            i += 1
-                    else:
-                        self.write_block('else', code[i+1:len(code)], False)
-                        break
-        except Exception as e:
-            print('error ', e)
-            # pass
-
+        i += 1
+        else_if_code = [code[i]]
+        i += 1
+        while i < len(code):
+            while i < len(code) and \
+                    (code[i] != 'else if' and code[i] != "else"):
+                else_if_code.append(code[i])
+                i += 1
+            self.write_block('else if', else_if_code, True)
+            if i < len(code):
+                flag_else = (code[i] == 'else')
+                if not flag_else:
+                    if i < len(code):
+                        i += 1
+                        else_if_code = [code[i]]
+                        i += 1
+                else:
+                    self.write_block('else', code[i+1:len(code)], False)
+                    break
 
     def write_try_block(self, code):
         try_code = [code[0]]
@@ -1568,16 +1344,13 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.write_block('catch', code[i+1:len(code)], True)
 
     def write_block(self, block_start, code, condition):
-        #print('condition is ', condition)
         if condition:
             self.write_line_jsbml('{0} ({1})'.format(block_start, code[0]))
-            #self.write_line('{')
             self.write_nested_implementation(code[1:len(code)])
             if block_start == 'catch':
                 self.write_line_jsbml_block_end('}\n')
             else:
                 self.write_line_jsbml_block_end('}')
-            #self.write_line('}') # TODO almost but not yet there, crap!!!
         else:
             if block_start == 'try':
                 self.write_line_jsbml('{0}'.format(block_start))
@@ -1585,31 +1358,24 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line('}')
             else:
                 self.write_line_jsbml_else(block_start)
-                #self.write_line('{')
                 self.write_nested_implementation(code)
                 self.write_line('}')
 
-
-
-    def write_line_jsbml_else(self, line, space = 0):
+    # Special case for writing else for java
+    def write_line_jsbml_else(self, line, space=0):
         self.file_out.write(' {0} '.format(line))
         self.file_out.write('{\n')
 
-
-    def write_line_jsbml_block_end(self, line = '}', space=0):
+    # For writing Java block end
+    def write_line_jsbml_block_end(self, line='}', space=0):
         tabs = ''
-        # self.num_tabs -= 1 Dont use this it works fine
         for i in range(0, int(self.num_tabs)):
             tabs += '  '
         for i in range(0, space):
             tabs += ' '
-        # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
         lines = self.create_lines(line, len(tabs))
         for i in range(0, len(lines)):
             self.file_out.write('{0}{1}'.format(tabs, lines[i]))
-            #tabs += '  '
-        #self.file_out.write('} ')
-
 
     def write_line_jsbml_func_arguments(self, line, space=0):
         tabs = ''
@@ -1617,9 +1383,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             tabs += '  '
         for i in range(0, space):
             tabs += ' '
-        # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
         lines = self.create_lines(line, len(tabs))
-        # print('tada' ,lines)
         for i in range(0, len(lines)):
             self.file_out.write('{0}{1}'.format(tabs, lines[i]))
             tabs += '  '
@@ -1632,9 +1396,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             tabs += '  '
         for i in range(0, space):
             tabs += ' '
-        # TODO Looks like here's the bracket? '{0}{1}\n'.format(tabs, lines[i]) -> public String getName()
         lines = self.create_lines(line, len(tabs))
-        # print('tada' ,lines)
         for i in range(0, len(lines)):
             self.file_out.write('{0}{1}'.format(tabs, lines[i]))
             tabs += '  '
@@ -1645,11 +1407,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.add_file_header()
 
     def write_jsbml_licence(self):
-        # self.write_blank_comment_line()
-        # self.write_comment_line('<!-----------------------------------------'
-        #                         '---------------------------------')
         self.write_comment_line('----------------------------------------------------------------------------')
-        #self.write_blank_comment_line()
         self.write_comment_line('This file is part of JSBML. Please visit <http://sbml.org/Software/JSBML>')
         self.write_comment_line('for the latest version of JSBML and more information about SBML.')
         self.write_blank_comment_line()
@@ -1681,18 +1439,10 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.get_time_and_date()
         self.write_comment_line('$Id: {0} {1} {2}Z deviser $'.format(self.filename, self.file_version,
                                                           self.file_creation_time))
-        # TODO need to ask on Slack about URL
         self.write_comment_line('$URL: {0} $'.format(self.folder_and_filename))
 
     def add_file_header(self):
         self.open_license_comment()
-        #self.write_file_header_information() # TODO wait till SBML AND JSBML team decide
-        # self.write_comment_line('@file   {0}'.format(self.filename))
-        # self.write_comment_line('@brief  {0}'.format(self.brief_description))
-        # if global_variables.is_package:
-        #     self.write_comment_line('@author JSBMLTeam')
-        # else:
-        #     self.write_comment_line('@author DEVISER')
         if self.library_name == 'JSBML' and (self.extension != 'xml'
                                                and self.extension != 'rng'):
             self.write_jsbml_licence()
@@ -1708,8 +1458,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         self.close_comment()
 
-
-    # TODO how to deal with deprecated methods @deprecated use {@link QualModelPlugin} instead.
     def write_jsbml_types_doc(self):
         self.open_comment()
         self.write_comment_line('@author Deviser')
@@ -1779,11 +1527,9 @@ class BaseJavaFile(BaseFile.BaseFile):
                                                  self.close_br,
                                                  self.brief_description))
 
+    ####################################################################################################################
 
-
-
-    ######################################################################
-
+    # Modified version for Java
     @staticmethod
     def parse_lines(lines, words, max_length):
         num_words = len(words)
@@ -1872,15 +1618,13 @@ class BaseJavaFile(BaseFile.BaseFile):
         if len(newline) > 0:
             lines.append(newline)
 
-    # TODO add variable whether extension or parser
+    # Write package include for java
     def write_package_include(self):
         if global_variables.is_package:
             if self.is_parser:
                 curr_include_line = 'package org.sbml.jsbml.xml.parsers;'
-                # print('curr_include_line is ', curr_include_line)
             else:
                 curr_include_line = 'package org.sbml.{0}.ext.{1};'.format(self.language, self.package.lower())
-                # print('curr_include_line is ', curr_include_line)
             self.write_line_verbatim(curr_include_line)
 
     def close_jsbml_class_header(self):
@@ -1894,48 +1638,31 @@ class BaseJavaFile(BaseFile.BaseFile):
         line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
         self.write_line(line)
 
+        # Write variables for attributes
         attributes = self.class_attributes
         if len(attributes) > 0:
             for attribute in attributes:
-                # print(attribute['memberName'])
                 type = attribute['attType']
                 cap_att_name = attribute['capAttName']
                 if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                     self.write_variable_comment()
-                    # if type == 'enum':
-                    #     if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                    #         data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                    #     else:
-                    #         data = None
-                    #     if data is not None:
-                    #         return_type = data
-                    #     else:
-                    #         return_type = attribute['JClassType']
-                    # else:
                     return_type = attribute['JClassType']
                     member_name = attribute['name']
                     line = 'private {0} {1};'.format(return_type, member_name)
                     self.write_line(line)
 
-        # Uncert XMLNode
+        # Write variables for child_elements
         child_elements = self.child_elements
         if len(child_elements) > 0:
             for child_element in child_elements:
-                # print(attribute['memberName'])
-                # print(child_element)
+
                 return_type = child_element['JClassType']
                 member_name = child_element['name']
                 line = 'private {0} {1};'.format(return_type, member_name)
                 self.write_variable_comment()
                 self.write_line(line)
-                # cap_att_name = attribute['capAttName']
-                # if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
-                #     self.write_variable_comment()
-                #     return_type = attribute['JClassType']
-                #     member_name = attribute['name']
-                #     line = 'private {0} {1};'.format(return_type, member_name)
-                #     self.write_line(line)
 
+        # Write variables for child_lo_elements
         child_lo_elements = self.child_lo_elements
         if len(child_lo_elements) > 0:
             for child_lo_element in child_lo_elements:
@@ -1955,12 +1682,9 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         self.down_indent()
 
+    # Write jsbml parser variables
     def write_jsbml_parser_variables(self):
         self.up_indent()
-        # self.write_serial_version_comment()
-        # # TODO need to change serialVersionUID
-        # line = 'private static final long     serialVersionUID = {0}L;'.format(self.serialVersionUID)
-        # self.write_line(line)
 
         self.line_length = 150
         self.write_variable_comment()
@@ -1976,10 +1700,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.down_indent()
 
 
-
-
-    # TODO for writing imports
-
+    # This writes java class header and "extend" and "implements" part
     def write_jsbml_class_header(self):
         abstract = self.jsbml_class_header_and_import['abstract']
         class_name = self.jsbml_class_header_and_import['className']
@@ -2006,18 +1727,15 @@ class BaseJavaFile(BaseFile.BaseFile):
             for n in range(0, implement_len-1):
                 line_to_write += implement_modules[n] + ', '
             line_to_write = line_to_write + implement_modules[-1]
-            #print(line_to_write)
 
-        self.line_length = 120 # TODO not a great solution
-        self.write_line_jsbml(line_to_write) # TODO need to fix about spaces
-        #self.write_jsbml_line_verbatim(line_to_write)
-        self.file_out.write('\n') # TODO not a good solution
+
+        # Not a preferable solution
+        self.line_length = 120
+        self.write_line_jsbml(line_to_write)
+        self.file_out.write('\n')
         self.line_length = 79
 
-
-
     def write_java_imports(self):
-        # TODO mockup function
         self.skip_line()
         java_modules = self.jsbml_class_header_and_import['javaModules']
         if len(java_modules) > 0:
@@ -2037,28 +1755,25 @@ class BaseJavaFile(BaseFile.BaseFile):
         function = 'getNamespaceURI'
         title_line = ' '
         additional = []
-        # additional.append('Override')
         return_lines = []
         params = []
         object_name = ''
 
         return_type = 'static String'
-        arguments = ['int level','int version']
-        arguments_no_defaults = ['int level','int version']
-        # create the function implementation
+        arguments = ['int level', 'int version']
+        arguments_no_defaults = ['int level', 'int version']
+
         args = []  # ['&rhs != this'] + self.write_assignment_args(self)
         clone = 'clone'
 
         code = []
         implementation= []
 
-
         text = 'return namespaceURI'
         implementation.append(text)
 
         # code.append(self.create_code_block('line', temp))
         code.append(self.create_code_block('line', implementation))
-
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -2103,7 +1818,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         code = dict({'code_type': code_type, 'code': lines})
         return code
 
-
+    # Used for parser duing plugin expansion
     @staticmethod
     def get_attrib_descrip(element):
         if element['isListOf']:
