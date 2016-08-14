@@ -234,8 +234,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         # Clone need @override
+        self.line_length = 150
         code = constructor.write_clone()
         self.write_function_implementation(code)
+        self.line_length = 79
 
 
     ########################################################################

@@ -132,7 +132,7 @@ class Constructors():
     # Functions for writing constructors
 
 
-    # function to simple  constructor
+    # function to create  simple  constructor
     def write_simple_constructor(self, index=0):
         if (len(self.concretes) == 0 and index == 0) or index == -1:
             ob_name = self.object_name
@@ -174,7 +174,8 @@ class Constructors():
         constructor_args = []
         if global_variables.is_package:
             if self.is_java_api:
-                implementation = ['super()','initDefaults()']
+                implementation = ['super()',
+                                  'initDefaults()']
                 #implementation.append('initDefaults()')
                 # if self.has_children:
                 #     implementation.append('connectToChild()')
@@ -1621,16 +1622,23 @@ class Constructors():
         arguments = []
 
 
-        # TODO part  not clear
-        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-            self.jsbml_methods,
-            function=function,
-            return_type=return_type)
 
-        if additional_add is not None:
-            additional.append(additional_add)
-            title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-                                                                             function, function_args)
+
+        if self.is_plugin is True:
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()'
+            additional.append('Override')
+        else:
+            #  Find whether  class needs to be overriden or not
+            additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+                self.jsbml_methods,
+                function=function,
+                return_type=return_type)
+
+            if additional_add is not None:
+                additional.append(additional_add)
+                title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+                                                                                 function, function_args)
 
 
         if not self.is_java_api:

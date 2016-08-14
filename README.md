@@ -1,6 +1,49 @@
 ##Deviser
 
 
+## Google Summer of Code 2016
+
+
+*Fork Author*:      [Hovakim Grabski](https://github.com/hovo1990),
+
+*Fork Repository*:   [https://github.com/hovo1990/deviser](https://github.com/hovo1990/deviser)
+
+## Fork Background ##
+
+Computation modeling has become a crucial aspect of biological research, and [SBML](http://sbml.org) (the Systems Biology Markup Language) has become the de facto standard open format for exchanging models between software tools in systems biology.
+
+Since SBML Level 3 is being developed as a modular format with optional SBML Level 3 packages are available to extend the focus of the core SBML representation. Deviser is a new code generation system developed to facilitate the development of SBML L3 packages by helping to automate the generation of specifications, UML diagrams and library code.
+
+The current fork extends Deviser's code generator to produce Java code that can be integrated into JSBML, the pure Java API library for SBML. This allows Deviser to target both libSBML and JSBML. The work was done for Google Summer of Code 2016.
+
+
+## Using Deviser for Java Code Generation ##
+
+There is command line version of the function that can be used to invoke the deviser functionality on the XML file. This is the deviser.py file found in the generator directory.
+
+    deviser.py [--generatejsbml][--latex] input-file.xml  
+
+
+## Requirement for the fork
+Deviser requires javap for the java code generation at the current phase.
+Javap is available with the JDK and the following is required for Devisers' java code functionality. 
+
+[Java JDK is required for javap](Not all of the following are necessary as what is necessary depends on which operating system is being used and which Deviser functionality is required. These links are given as a quick reference.) 
+
+
+## Current State ##
+
+
+
+
+## Acknowledgments ##
+
+I am very grateful to my mentors Dr. Bergmann, Dr. Keating, Dr. Dräger and Dr. Rodriguez for the invaluable help and patience.
+
+
+
+## Original Information ##
+
 
 *Deviser* stands for *"Design Explorer and
 Viewer for Iterative SBML Enhancement of Representations"*. 
