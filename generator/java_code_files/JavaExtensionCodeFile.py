@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
 # @file    JavaExtensionCodeFile.py
-# @brief   class for generating code file for the given extension
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   class for generating code file for the given extension for Google Summer of Code 2016
+# @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #
@@ -67,14 +66,6 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.package = package['name']
         self.cap_package = package['name'].upper()
 
-
-        # TODO not useful for jsbml
-        # self.baseClass = '{0}Extension'.format(self.cap_language)
-
-
-
-
-
         self.elements = package['elements']
         self.number = package['number']
         self.enums = package['enums']
@@ -95,71 +86,19 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.class_object['child_elements'] = []
         self.class_object['overwrites_children'] = False
 
-        # TODO GSOC 2016 JSBML
-        # TODO GSOC 2016
+        # Expand java import statement
         self.pack = self.package
         self.expand_import_modules(self.original_package)
         self.expand_jsbml_methods()
 
-
-    ########################################################################
+    ####################################################################################################################
 
     # Functions for writing the class
     def write_class(self):
-        # self.write_forward_class()
         self.write_attribute_functions()
-        # self.write_extension_instance()
-        # self.write_constructors()
-        # self.write_virtual_functions()
-        # self.write_init_function()
 
-    ########################################################################
-    # Functions for writing specific includes and forward implementations
+    ####################################################################################################################
 
-    def write_general_includes(self):
-
-        self.write_line_verbatim('#include <{0}/extension/{1}'
-                                 'ExtensionRegister.h>'
-                                 ''.format(self.language,
-                                           self.cap_language))
-        self.write_line_verbatim('#include <{0}/extension/{1}'
-                                 'ExtensionRegistry.h>'
-                                 ''.format(self.language,
-                                           self.cap_language))
-        self.write_line_verbatim('#include <{0}/extension/{1}'
-                                 'PluginCreator.h>'.format(self.language,
-                                                           self.std_base))
-        self.write_line_verbatim('#include <{0}/extension/{1}'
-                                 'DocumentPlugin.h>'
-                                 ''.format(self.language,
-                                           self.cap_language))
-        self.skip_line()
-        self.write_line_verbatim('#include <{0}/packages/{1}/extension/{2}'
-                                 'Extension.h>'.format(self.language,
-                                                       self.package,
-                                                       self.up_package))
-        self.write_line_verbatim('#include <{0}/packages/{1}/extension/{2}'
-                                 '{3}DocumentPlugin.h>'
-                                 ''.format(self.language, self.package,
-                                           self.up_package, self.cap_language))
-        self.write_line_verbatim('#include <{0}/packages/{1}/validator/{2}'
-                                 '{3}ErrorTable.h>'
-                                 ''.format(self.language, self.package,
-                                           self.up_package,
-                                           self.cap_language))
-        for i in range(0, len(self.plugins)):
-            self.write_line_verbatim('#include <{0}/packages/{1}/extension/{2}'
-                                     '{3}Plugin.h>'
-                                     ''.format(self.language,
-                                               self.package,
-                                               self.up_package,
-                                               self.plugins[i]['sbase']))
-
-        self.skip_line(2)
-        self.write_line('using namespace std;')
-        self.skip_line()
-
-    ########################################################################
 
     # function to write the constructors
     def write_constructors(self):
@@ -172,16 +111,11 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         code = constructor.write_copy_constructor()
         self.write_function_implementation(code)
 
-        code = constructor.write_assignment_operator()
-        self.write_function_implementation(code)
-
         code = constructor.write_clone()
         self.write_function_implementation(code)
 
-        code = constructor.write_destructor()
-        self.write_function_implementation(code)
 
-    ########################################################################
+    ####################################################################################################################
 
     # function to write the static get functions
     def write_attribute_functions(self):
@@ -196,52 +130,8 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
             code = attrib_functions.write_static_extension_get(i, True, False)
             self.write_function_implementation(code)
 
-    ########################################################################
+    ####################################################################################################################
 
-    # Functions for writing virtual functions
-
-    def write_virtual_functions(self):
-        ext_functions = ExtensionFunctions.ExtensionFunctions(self.language,
-                                                              self.package,
-                                                              self.elements,
-                                                              self.offset,
-                                                              self.num_versions)
-
-        code = ext_functions.write_get_name()
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_uri()
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_other('Level')
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_other('Version')
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_other('PackageVersion')
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_namespaces()
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_string_typecode()
-        self.write_function_implementation(code)
-
-        code = ext_functions.write_get_error_table()
-        self.write_function_implementation(code, exclude=True)
-
-        code = ext_functions.write_get_error_table_index()
-        self.write_function_implementation(code, exclude=True)
-
-        code = ext_functions.write_get_error_offset()
-        self.write_function_implementation(code, exclude=True)
-
-        if self.num_versions > 1:
-            code = ext_functions.write_has_multiple_versions()
-            self.write_function_implementation(code, True)
-
-    ########################################################################
 
     # write the init function
     def write_init_function(self):
@@ -254,88 +144,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         code = init_functions.write_init_function(False)
         self.write_function_implementation(code, True)
 
-    ########################################################################
-
-    # write the instantiation
-    def write_extension_instance(self):
-        # this is a bit different from the header file
-        up_package = strFunctions.upper_first(self.package)
-        self.open_comment()
-        self.write_blank_comment_line()
-        self.write_comment_line('Adds this {0}Extension to the {1}'
-                                'ExtensionRegistry '
-                                'class'.format(up_package, self.cap_language))
-        self.write_blank_comment_line()
-        self.close_comment()
-        self.write_line('static {0}ExtensionRegister<{1}Extension> '
-                        '{2}ExtensionRegistry;'.format(self.cap_language,
-                                                       up_package,
-                                                       self.package))
-        self.skip_line()
-        self.write_line('static')
-        self.write_line('const char* {0}_{1}_TYPECODE_STRINGS[] ='
-                        ''.format(self.cap_language, self.cap_package))
-        self.write_line('{')
-        self.up_indent()
-        self.write_line('  \"{0}\"'.format(self.elements[0]['name']))
-        for i in range(1, len(self.elements)):
-            self.write_line('  , \"{0}\"'.format(self.elements[i]['name']))
-        self.down_indent()
-        self.write_line('};')
-        self.skip_line(2)
-        self.open_comment()
-        self.write_blank_comment_line()
-        self.write_comment_line('Instantiate {0}ExtensionNamespaces<{1}'
-                                'Extension> for DLL'.format(self.cap_language,
-                                                            up_package))
-        self.write_blank_comment_line()
-        self.close_comment()
-        self.write_line('template class LIB{0}_EXTERN {0}ExtensionNamespaces<'
-                        '{1}Extension>;'.format(self.cap_language,
-                                                up_package))
-        self.skip_line()
-
-    ########################################################################
-
-    # write the type defs
-
-    def write_type_defs(self):
-        # write the enum for typecodes
-        # self.write_type_code_enum_header(self.package)
-        # values = query.get_typecode_enum(self.elements)
-        # name = '{}{}TypeCode_t'.format(self.cap_language, self.up_package)
-        # self.write_enum(name, self.number, values[0], values[1], values[2]+5)
-        # self.skip_line(2)
-        #
-        num_enums = len(self.enums)
-        if num_enums == 0:
-            return
-        init_functions = \
-            ExtensionInitFunctions.ExtensionInitFunctions(self.language,
-                                                          self.package,
-                                                          self.std_base,
-                                                          self.enums,
-                                                          [])
-        self.is_java_api = False
-        for i in range(0, len(self.enums)):
-            name = query.get_typecode_format(self.enums[i]['name'],
-                                             self.language) + '_STRINGS'
-            values = query.get_enum(self.enums[i])
-            self.write_enum_strings(name, values[1])
-            self.skip_line(2)
-            code = init_functions.write_enum_to_string_function(i,
-                                                                values[0],
-                                                                name)
-            self.write_function_implementation(code)
-            code = init_functions.write_enum_from_string_function(i, values[0],
-                                                                  name)
-            self.write_function_implementation(code)
-            code = init_functions.write_is_valid_enum_function(i, values[0])
-            self.write_function_implementation(code)
-            code = init_functions.write_is_valid_enum_string_function(i)
-            self.write_function_implementation(code)
-
-    ########################################################################
+    ####################################################################################################################
 
     # Write file
 
@@ -372,11 +181,8 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                     self.write_line(line)
         self.down_indent()
 
-        # TODO for writing imports
-
     def write_java_imports(self):
-        # TODO mockup function
-        # self.expand_import_modules()
+
         self.skip_line()
         java_modules = self.jsbml_class_header_and_import['javaModules']
         if len(java_modules) > 0:
@@ -402,10 +208,6 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_jsbml_class_header()
         self.write_class()
         self.close_jsbml_class_header()
-    #           self.write_extension_instance()
-    #         self.write_cpp_end()
-    #         self.write_type_defs()
-    #         self.write_cppns_end()
 
 
 
@@ -415,18 +217,11 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_package_include()
         self.write_java_imports()
-        #self.write_general_includes()
 
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         self.write_jsbml_class_header()
         self.write_jsbml_constants()
-        # self.write_class()
         self.close_jsbml_class_header()
-
-
-
-
-
 
     # Write  JSBML Constants  for {}Constants.java
     def write_jsbml_constants(self):
@@ -445,13 +240,10 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
             format(self.namespace_uri, base_level, base_version, package_version, package_name)
         self.write_jsbml_line_verbatim(line)
 
-
         title_line = 'The latest namespace URI of this parser, this value can change between releases.'
         self.write_brief_header(title_line)
         line = 'public static final String namespaceURI = {0}'.format(self.namespace_uri)
         self.write_jsbml_line_verbatim(line)
-
-
 
         # This part is for write ResourceBundle variable
         # self.write_variable_comment()
@@ -459,7 +251,6 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         #        '.getBundle("org.sbml.jsbml.ext.{0}.Messages")'.format(package_name)
         # # self.write_line(line)
         # self.write_jsbml_line_verbatim(line)
-
 
         self.write_variable_comment()
         line = 'public static final String shortLabel = "{0}"'.format(package_name)
@@ -481,30 +272,23 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_line(line)
         self.write_jsbml_line_verbatim(line)
 
-
         self.write_variable_comment()
         line = 'public static final List<String> namespaces'
         self.write_jsbml_line_verbatim(line)
 
-
         self.write_variable_comment()
         full_name = self.original_package['fullname']
         line = 'public static final String packageName = "{0}"'.format(full_name)
-        # self.write_line(line)
         self.write_jsbml_line_verbatim(line)
 
         #Write static
         self.write_static(self.namespace_uri)
 
-
         # Attributes part
         self.write_serial_version_comment()
         # TODO need to change serialVersionUID
         line = 'private static final long     serialVersionUID = {0}L'.format(self.serialVersionUID)
-        # self.write_line(line)
         self.write_jsbml_line_verbatim(line)
-
-
 
         # write attributes, but make sure that there are no duplicates
         attribs_to_write = []
@@ -529,8 +313,6 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                     attribs_to_write.append(element)
                     attribs_name_to_write.append(name)
 
-
-
         plugin_elements = self.original_package['plugins']
         for element in plugin_elements:
             attributes = element['attribs']
@@ -542,38 +324,23 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
                         attribs_to_write.append(attribute)
                         attribs_name_to_write.append(name)
 
-
-
-            # extensions = element['extension']
-            # for attribute in extensions:
-            #     # print(attribute['memberName'])
-            #     name = attribute['name']
-            #     if str(name) != 'id' and str(name) != 'name':
-            #         if name not in attribs_name_to_write:
-            #             attribs_to_write.append(attribute)
-            #             attribs_name_to_write.append(name)
-
         for attribute in attribs_to_write:
             self.write_variable_comment()
-            # return_type = attribute['JClassType']
-            # member_name = attribute['memberName']
+
             name = attribute['name']
             write_name = strFunctions.lower_first(name)
             line = 'public static final String {0} = "{1}"'.format(write_name, write_name)
-            # self.write_line(line)
             self.write_jsbml_line_verbatim(line)
             if 'type' in list(attribute.keys()):
                 if attribute['type'] == 'lo_element':
                     self.write_variable_comment()
                     write_name = strFunctions.upper_first(name)
                     line = 'public static final String listOf{0}s = "listOf{0}s"'.format(write_name)
-                    # self.write_line(line)
                     self.write_jsbml_line_verbatim(line)
 
         self.down_indent()
         get_namespace_uri_func = self.get_namespace_uri()
         self.write_function_implementation(get_namespace_uri_func)
         self.up_indent()
-
 
         self.down_indent()

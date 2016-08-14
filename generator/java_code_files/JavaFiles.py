@@ -65,18 +65,11 @@ class JavaFiles():
         self.class_object['is_classFile'] = True
         self.write_code(self.class_object)
 
-        # TODO what to do with listOf stuff
+        # This part is left, maybe useful in the future
         # if self.class_object['hasListOf']:
         #     lo_working_class = self.create_list_of_description()
-        #     #self.write_header(lo_working_class)
         #     self.write_code(lo_working_class)
 
-    # def write_header(self, class_desc):
-    #     fileout = JavaHeaderFile.JavaHeaderFile(class_desc)
-    #     if self.verbose:
-    #         print('Writing file {0}'.format(fileout.filename))
-    #     fileout.write_file()
-    #     fileout.close_file()
 
     def write_code(self, class_desc):
         fileout = JavaCodeFile.JavaCodeFile(class_desc)
