@@ -28,11 +28,46 @@ There is command line version of the function that can be used to invoke the dev
 Deviser requires javap for the java code generation at the current phase.
 Javap is available with the JDK and the following is required for Devisers' java code functionality. 
 
-[Java JDK is required for javap](Not all of the following are necessary as what is necessary depends on which operating system is being used and which Deviser functionality is required. These links are given as a quick reference.) 
+[Java JDK is required for javap](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
 
 
 ## Current State ##
 
+At the current state Deviser  generates working compilable jsbml templates for:
+
+
+1.	Qualitative Models package (qual, for short) allows species in a model to have non-quantitative or non-continuous levels.
+([Chaouiya et al., 2013](http://bmcsystbiol.biomedcentral.com/articles/10.1186/1752-0509-7-135))
+2.	Groups ([groups, Hucka and Smith, 2013](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/groups)) agglomerates SBML model elements and can be linked to annotations and SBO terms (Courtot et al., 2011) to contextualize sets of objects for other
+programmers and modelers.
+3.	Distributions ([distrib, Moodie and Smith, 2013](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/distrib)) encodes statistical distributions and their sampling.
+4.	Dynamic Structures ([dyn, Gomez et al., 2014](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/dyn)), which supports the definition of dynamical behaviors for model entities.
+
+
+
+## Future Plans ##
+
+Specific parts of the packages are left to be implemented.
+
+1.	Flux Balance Constraints ([fbc, Olivier and Bergmann, 2013](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/fbc)) encodes components for constraints based modeling (Lewis et al., 2012), which employs a class of models
+in which the canonical stoichiometric relations between reactions and metabolites are specified as constraints for mathematical optimization.
+2.	Spatial Processes ([spatial, Schaff et al., 2014](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/spatial))  specifies geometric descriptions of biochemical models’ components using a cellular coordinate system that can describe non-uniform molecular distributions, diffusive transport and spatially localized
+reactions.
+
+
+I would also like to optimize imports part, as well as find an alternative to javap, which is used extensively, so deviser
+does not have any dependency for Java/JSBML code generation.
+
+
+## Java Tests ##
+
+
+For running Java code generation tests, please head to  generator/tests/test_java_code and run
+
+    run_java_tests.py
+
+
+If there are any errors, it will also show the code differences.
 
 
 
