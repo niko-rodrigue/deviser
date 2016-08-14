@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 # @file    JavaCodeFile.py
-# @brief   class for generating code file for the given class
+# @brief   class for generating code file for the given class for Google Summer of Code 2016
 # @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
@@ -55,9 +55,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         else:
             self.initialize_class(class_object, represents_class)
 
-
-
-
     def initialize_parser(self, class_object):
         self.brief_description = \
             'Implementation  of the {0} parser.'.format(class_object['name'])
@@ -65,7 +62,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                          class_object, self.is_parser)
 
         self.expand_parser_import_modules(class_object)
-
 
     def initialize_class(self, class_object, represents_class=True):
         # members from object
@@ -75,19 +71,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                          class_object['attribs'])
 
         # members from object
-
-        # TODO will need something similar for the import modules
         if represents_class:
             self.expand_class(class_object)
-
-            # TODO GSOC 2016 JSBML
             self.expand_import_modules(class_object)
-            # self.expand_mandatory()
             self.expand_jsbml_methods()
 
-
-        # self.jsbml_modules = jsbml_data_tree.jsbml_modules
-        #print(self.jsbml_data_tree)
     ########################################################################
 
     # Functions for writing the class
@@ -465,7 +453,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.line_length = 79
 
 
-        self.line_length = 90
+        self.line_length = 122
         code = gen_functions.write_read_attribute()
         self.write_function_implementation(code)
         self.line_length = 79

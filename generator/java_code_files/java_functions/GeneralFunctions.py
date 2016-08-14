@@ -740,7 +740,7 @@ class GeneralFunctions():
         if function not in self.methods_to_write:
             return
 
-        title_line = 'hashcode method for {0}.'.format(self.object_name)
+        title_line = '(non-Javadoc)--@see java.lang.Object#hashCode()'
         params = ['@param None']
         return_lines = []
         additional = []
@@ -828,10 +828,9 @@ class GeneralFunctions():
 
         # temp_code1 = self.create_code_block('line', implement1)
         temp_code = self.create_code_block('if', implement)
-        return  temp_code
+        return temp_code
 
-
-    def create_read_attribute_else_if(self, index):
+    def create_read_attribute_else_if(self, index, create_else=True):
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
         java_type_data = self.attributes[index]['JClassType']
@@ -842,25 +841,11 @@ class GeneralFunctions():
         elif java_type_data == 'Integer':
             java_type = 'Int'
         elif type == 'enum':
-            # if java_type_data in self.jsbml_data_tree['Difference']:
-            #     data = self.jsbml_data_tree['Difference'][java_type_data]
-            # else:
-            #     data = None
-            # if data is not None:
-            #     java_type = data
-            # else:
             java_type = java_type_data
-        else: #TODO needs to be modified
+        else:
             java_type = java_type_data
-
-
-        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
         implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name)]
-
-
-
-
 
         if str(type)[:] == 'SIdRef':
             implementation.append('set{0}({1})'.format(name, self.value))
@@ -886,18 +871,15 @@ class GeneralFunctions():
 
 
         try:
-            if index < len(self.attributes)-1:
+            if index > 1 and index < len(self.attributes)-1:
                 implementation.append('else if')
         except Exception as e:
-            # print('Yolo ', e)
+            print('error in create  create_read_attribute_else_if', e)
             pass
         # implementation.append('else if')
 
 
 
-        # temp_code1 = self.create_code_block('line', implement1)
-        # temp_code = self.create_code_block('else_if', implementation)
-        # return temp_code
         return implementation
 
     def create_read_attribute_else(self):
@@ -927,7 +909,7 @@ class GeneralFunctions():
             return
 
         title_line = '(non-Javadoc)--'
-        title_line += '@see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String, java.lang.String, java.lang.String)'
+        title_line += '@see org.sbml.jsbml.element.SBase#readAttribute(String attributeName, String prefix, String value)'
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
@@ -965,15 +947,10 @@ class GeneralFunctions():
                                                                                                     self.value)]
             line = self.create_code_block('line', implementation)
             code.append(line)
-        # print('wahaha ', self.class_name)
-        # print('len ', len(self.attributes))
 
-
-
-        # TODO here is the bug what to do?
         implementation_else_if = []
         #each atribute has id and name, which are not a must for jsbml
-        if len(self.attributes) > 2:
+        if len(self.attributes) > 0:
             # if zone stuff
             implementation = ['!isAttributeRead']
 
@@ -981,83 +958,34 @@ class GeneralFunctions():
             line = self.create_code_block('line', implement_inside)
             implementation.append(line)
 
-
-
             for i in range(0, len(self.attributes)):
-                #print('i is ',i)s
                 attribute = self.attributes[i]
                 if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
                     continue
                 else: #Here lies a bug
                     temp_code = self.create_read_attribute_else_if(i)
                     implementation_else_if += temp_code
-                    # else_if_index = i
-                    # break
-                    # code.append(temp_code[-1])
 
-            temp_code = self.create_read_attribute_else()
-            implementation_else_if += temp_code
+            if len(implementation_else_if) > 0:
+                temp_code = self.create_read_attribute_else()
+                implementation_else_if += temp_code
 
-            if len(implementation_else_if) == 4:
-                temp_code = self.create_code_block('if_else', implementation_else_if)
-            else:
+            if 'else if' in implementation_else_if:
                 temp_code = self.create_code_block('else_if', implementation_else_if)
-
+            elif 'else' in implementation_else_if:
+                temp_code = self.create_code_block('if_else', implementation_else_if)
+            elif len(implementation_else_if) == 2:
+                temp_code = self.create_code_block('if', implementation_else_if)
+            else:
+                temp_code = self.create_code_block('empty_line')
 
             implementation.append(temp_code)
+            implementation.append(self.create_code_block('empty_line'))
             code.append(self.create_code_block('if', implementation))
 
-
-        # else:
-        #     temp = ['return isAttributeRead']
-        #     code.append(self.create_code_block('line', temp))
-
-        # print('yahoo ',implementation_else_if)
-
-        # try:
-        #     if len(self.attributes) > 1:
-        #         temp_code = self.create_read_attribute_else()
-        #         implementation_else_if += temp_code
-        #
-        #         temp_code = self.create_code_block('else_if', implementation_else_if)
-        #         implementation.append(temp_code)
-        #         code.append(self.create_code_block('if', implementation))
-        # except:
-        #     pass
-            # temp_code = self.create_code_block('else_if', implementation_else_if)
-            # implementation.append(temp_code)
-            # code.append(self.create_code_block('if', implementation))
-        #         #code.append(temp_code)
-        #         implementation.append(temp_code)
-        #     # implementation.append('')
-        #         code.append(self.create_code_block('if', implementation))
-        # except Exception as e:
-        #     print('Yolo test ', e)
-
-
+        # Final  return statement
         temp = ['return isAttributeRead']
         code.append(self.create_code_block('line', temp))
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1143,7 +1071,7 @@ class GeneralFunctions():
             return
 
         title_line = '(non-Javadoc)--'
-        title_line += '@see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()'
+        title_line += '@see org.sbml.jsbml.element.SBase#writeXMLAttributes()'
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
@@ -2917,6 +2845,6 @@ class GeneralFunctions():
         return code_block
 
     @staticmethod
-    def create_code_block(code_type, lines):
+    def create_code_block(code_type, lines=''):
         code = dict({'code_type': code_type, 'code': lines})
         return code

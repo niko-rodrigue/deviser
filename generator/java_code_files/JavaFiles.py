@@ -70,7 +70,6 @@ class JavaFiles():
         #     lo_working_class = self.create_list_of_description()
         #     self.write_code(lo_working_class)
 
-
     def write_code(self, class_desc):
         fileout = JavaCodeFile.JavaCodeFile(class_desc)
         if self.verbose:
