@@ -48,10 +48,14 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
         self.is_parser = class_object['is_parser']
+
+        #Initialize whether jsbml parser o bjectis generated or class object
         if self.is_parser:
             self.initialize_parser(class_object)
         else:
             self.initialize_class(class_object, represents_class)
+
+
 
 
     def initialize_parser(self, class_object):

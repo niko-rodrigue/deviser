@@ -54,61 +54,49 @@ class BaseJavaFile(BaseFile.BaseFile):
         # members that might get overridden if creating another library
         self.baseClass = global_variables.javaBaseClass
 
-        # GSOC 2016 modifications
-
-
         # derived members for comments
         self.comment_start = '/**'
         self.comment = ' *'
         self.comment_end = '*/'
         self.license_comment_start = '/*'
 
-
-        # TODO GSOC license variables Almost Done
+        # Initialize license variables
         self.file_version = 2465
         self.file_creation_time = ''
         self.file_creation_time_jsbml_types = ''
         self.file_link = ''
         self.folder_and_filename = os.getcwd() + self.filename
         self.jsbml_version = 1.2
-        # TODO GSOC 2016 prime numbers
-        # n = 10000000
-        # self.prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
-        # print('prime ', len(self.prime_numbers))
+
+        # Get generated prime numbers
         self.prime_numbers = global_variables.prime_numbers
-
-
-
 
         # members that might get overridden if creating another library
         self.language = global_variables.javaLanguage
         self.library_name = global_variables.java_library_name
         self.cap_language = self.language.upper()
 
-        # TODO GSOC 2016 jsbml_data_tree
+        # Initialize  if it is running tests and unique ID for the file
+        # If run_tests is True, then generate fixed uuid
         self.run_tests = global_variables.running_tests
-        self.serialVersionUID = jsbmlHelperFunctions.generate_uuid(self.run_tests) #-6048861420699176889
+        self.serialVersionUID = jsbmlHelperFunctions.generate_uuid(self.run_tests)
 
         self.jsbml_data_tree = jsbml_data_tree.jsbml_data_tree
         # default values
         self.is_java_api = True
 
-        # TODO will need something similar for importing modules, but how?
-
-
         #TODO adapting for parser
         self.is_parser = is_parser
         if self.is_parser is False:
+            self.updated_class_object = {}
+            self.expanded_package = {}
             self.initialize_base_class(name, extension, attributes, is_parser)
         else:
             self.initialize_base_parser(name, extension, attributes, is_parser)
 
-
-
-    def initialize_base_parser(self, name, extension, package, is_parser = True):
-        # self.original_package = package
-
-
+    # Initialize base parser and expand attributes for all 'baseElements' and 'Plugins'
+    def initialize_base_parser(self, name, extension, package, is_parser=True):
+        # Expand baseElements attributes
         num_of_base_elements = len(package['baseElements'])
         for base_element_index in range(0, num_of_base_elements):
             base_element = package['baseElements'][base_element_index]
@@ -125,51 +113,38 @@ class BaseJavaFile(BaseFile.BaseFile):
             base_element['unit_sid_refs'] = \
                 query.get_sid_refs(base_element['attribs'], unit=True)
 
-
             self.initialize_base_class(name, extension, base_element_attributes, is_parser)
             self.expand_class(base_element)
             # self.expand_class_for_parser(base_element)
             self.updated_class_object = self.class_object
             package['baseElements'][base_element_index] = self.updated_class_object
 
-            # self.attributes = self.expand_attributes(base_element_attributes)
-            # self.child_elements = self.get_children()
-            # self.child_lo_elements = self.get_lo_children()
-            # package['baseElements'][base_element_index]['expanded_attributes'] = self.attributes
-            # package['baseElements'][base_element_index]['expanded_child_elements'] = self.child_elements
-            # package['baseElements'][base_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
-            # self.expand_class_for_parser(base_element)
-
+        # Expand plugin attributes
         num_of_plugin_elements = len(package['plugins'])
         for plugin_element_index in range(0, num_of_plugin_elements):
-
-
             plugin_element = package['plugins'][plugin_element_index]
             plugin_element_attributes = base_element['attribs']
             up_package = strFunctions.upper_first(package['original_name'])
             plugin_element['name'] = '{0}{1}Plugin'.format(up_package,
-                                                         plugin_element ['sbase'])
-
+                                                           plugin_element['sbase'])
             plugin_element['is_parser'] = False
             plugin_element['is_plugin'] = True
             plugin_element['is_constantFile'] = False
             plugin_element['is_classFile'] = False
-            plugin_element ['is_plugin'] = True
-            plugin_element ['is_list_of'] = False
-            plugin_element ['hasListOf'] = False
+            plugin_element['is_plugin'] = True
+            plugin_element['is_list_of'] = False
+            plugin_element['hasListOf'] = False
             plugin_element['package'] = plugin_element['name']
-            plugin_element ['typecode'] = ''
-            # class_object['baseClass'] = 'SBasePlugin'
-            plugin_element ['baseClass'] = 'AbstractSBasePlugin'
-            plugin_element ['sid_refs'] = []
-            plugin_element ['unit_sid_refs'] = []
-            plugin_element ['hasMath'] = False
-            for i in range(0, len(plugin_element ['extension'])):
-                plugin_element ['attribs'].append(self.get_attrib_descrip
-                                               (plugin_element ['extension'][i]))
+            plugin_element['typecode'] = ''
+            plugin_element['baseClass'] = 'AbstractSBasePlugin'
+            plugin_element['sid_refs'] = []
+            plugin_element['unit_sid_refs'] = []
+            plugin_element['hasMath'] = False
+            for i in range(0, len(plugin_element['extension'])):
+                plugin_element['attribs'].append(self.get_attrib_descrip(plugin_element['extension'][i]))
 
             for elem in plugin_element['lo_extension']:
-                plugin_element ['attribs'].append(self.get_attrib_descrip(elem))
+                plugin_element['attribs'].append(self.get_attrib_descrip(elem))
 
             self.initialize_base_class(name, extension, plugin_element_attributes, is_parser)
             self.expand_class_for_parser(plugin_element)
@@ -177,51 +152,11 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.updated_class_object = self.class_object
             package['plugins'][plugin_element_index] = self.updated_class_object
 
-            # if plugin_element_attributes:
-            #     self.attributes = self.expand_attributes(plugin_element_attributes)
-            #     self.child_elements = self.get_children()
-            #     self.child_lo_elements = self.get_lo_children()
-            # else:
-            #     self.attributes = []
-            #     self.child_elements = []
-            #     self.child_lo_elements = []
-            #
-            # package['plugins'][plugin_element_index]['expanded_attributes'] = self.attributes
-            # package['plugins'][plugin_element_index]['expanded_child_elements'] = self.child_elements
-            # package['plugins'][plugin_element_index]['expanded_child_lo_elements'] = self.child_lo_elements
-
-            # plugin_element['package'] = self.package
-            # plugin_element['class_attributes'] = self.class_attributes
-            # plugin_element['child_lo_elements'] = self.child_lo_elements
-            # plugin_element['child_elements'] = self.child_elements
-            # plugin_element['concretes'] = self.concretes
-            # plugin_element['has_array'] = query.has_array(self.class_attributes)
-            # plugin_element['has_vector'] = query.has_vector(self.class_attributes)
-            # plugin_element['has_math'] = self.has_math
-            # plugin_element['has_children'] = self.has_children
-            # plugin_element['has_only_math'] = self.has_only_math
-            # plugin_element['has_parent_list_of'] = self.has_parent_list_of
-            # plugin_element['num_children'] = self.num_children
-            # plugin_element['has_non_std_chilren'] = self.has_non_std_children
-            # plugin_element['num_non_std_children'] = self.num_non_std_children
-            # plugin_element['is_header'] = self.is_header
-            # plugin_element['document'] = self.document
-
-
-            # package['plugins'][plugin_element_index]['expanded_plugin_name'] =\
-            #     strFunctions.upper_first(package['original_name']) + package['plugins'][plugin_element_index]['sbase']+'Plugin'
-            #
-            # package['plugins'][plugin_element_index]['childrenNumber']= \
-            #     len(self.child_lo_elements) + len(self.child_elements)
-            # self.expand_class_for_parser(plugin_element)
-
-
+        # Save expanded and updated package
         self.expanded_package = package
 
-
-
     ########################################################################
-    # TODO will be needed for interfaces create a modified copy of it
+    # Expand individual class for parser
     def expand_class_for_parser(self, class_object):
         self.class_object = class_object
         self.is_list_of = class_object['is_list_of']
@@ -310,7 +245,6 @@ class BaseJavaFile(BaseFile.BaseFile):
         if 'concrete' in class_object:
             self.concretes = query.get_concretes(class_object['root'],
                                                  class_object['concrete'])
-        # TODO I think it will be critical for import statements
         self.class_attributes = query.separate_attributes(self.attributes)
 
         # document class for other libraries
@@ -335,7 +269,7 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.class_object['is_header'] = self.is_header
         self.class_object['document'] = self.document
 
-        # TODO GSOC 2016
+        # get lower name of the package
         self.pack = str(self.package).lower()
 
 
@@ -388,18 +322,12 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.is_doc_plugin = False
         self.is_package_info_plugin = False
 
-
-
-        #TODO GSOC 2016
+        #Initialize JSBML methods and abstract JSBML methods infomation
         self.jsbml_methods = {}
         self.abstract_jsbml_methods = {}
-        # self.jsbml_data_tree = {}
-        # self.pack = str(self.package).lower()
 
-
-
-
-    # TODO will be needed for interfaces create a modified copy of it
+    ####################################################################################################################
+    # Expand class object
     def expand_class(self, class_object):
         self.class_object = class_object
         self.is_list_of = class_object['is_list_of']
@@ -425,7 +353,6 @@ class BaseJavaFile(BaseFile.BaseFile):
             self.is_doc_plugin = class_object['is_doc_plugin']
         if 'is_package_info_plugin' in class_object:
             self.is_package_info_plugin = class_object['is_package_info_plugin']
-
 
         # information about the base class
         self.baseClass = class_object['baseClass']
@@ -489,7 +416,8 @@ class BaseJavaFile(BaseFile.BaseFile):
         if 'concrete' in class_object:
             self.concretes = query.get_concretes(class_object['root'],
                                                  class_object['concrete'])
-        # TODO I think it will be critical for import statements
+
+        # Separate attributes
         self.class_attributes = query.separate_attributes(self.attributes)
 
         # document class for other libraries
@@ -521,6 +449,9 @@ class BaseJavaFile(BaseFile.BaseFile):
 
 
     ########################################################################
+
+
+    # Expand Parse import statements
     def expand_parser_import_modules(self, package):
         self.extends_modules = []
         self.implements_modules = []
@@ -647,6 +578,12 @@ class BaseJavaFile(BaseFile.BaseFile):
                                                    'javaModules': sorted(self.import_from_java_modules),
                                                    'jsbmlModules': self.import_from_jsbml_modules})
 
+
+    ##########################################################################################################
+
+    # Obtains method information using javap parser based on imports "extend" and "implements" information
+    # This is used to get information about abstract methods that are required to be implemented and need to be
+    # overriden
     def expand_jsbml_methods(self):
         self.jsbml_methods = {}
         for module in self.extends_modules:
@@ -671,7 +608,6 @@ class BaseJavaFile(BaseFile.BaseFile):
 
         for i in range(0, len(self.attributes)):
             capname = strFunctions.upper_first(self.attributes[i]['name'])
-            # print('capname is ',capname)
             if capname not in list(self.jsbml_data_tree.keys()):
                 continue
             else:
@@ -681,26 +617,23 @@ class BaseJavaFile(BaseFile.BaseFile):
                     self.jsbml_methods.update({capname: data['modules']})
 
 
-        # Detect with jsbml methods are abstracts
+        # Detect whih  jsbml methods are abstracts
         self.abstract_jsbml_methods = jsbmlHelperFunctions.detect_abstract_methods(self.jsbml_data_tree, self.jsbml_methods)
 
-
-        # print('YOLO ',self.jsbml_methods)
 
 
 
 
     def expand_mandatory(self):
-        # print(self.name)
-        # print(self.pack)
+
         self.mandatory_data = []
 
         keys = self.jsbml_data_tree[self.pack][self.name]
-        #print(keys)
+
 
         for import_key in keys:
             data = self.jsbml_data_tree[import_key]['Mandatory']
-            #print(data)
+
             if len(data) > 0:
                 self.mandatory_data.append(data)
 
@@ -708,12 +641,11 @@ class BaseJavaFile(BaseFile.BaseFile):
         for attribute in attributes:
             att_key = strFunctions.upper_first(attribute['name'])
             data = self.jsbml_data_tree[att_key]['Mandatory']
-            #print(data)
+
             if len(data) > 0:
                 self.mandatory_data.append(data)
 
-        # print(self.mandatory_data)
-        # print('----------->>>>>>>-------')
+
 
 
 
