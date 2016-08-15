@@ -119,6 +119,10 @@ class SetGetFunctions():
         if abstract_jsbml_methods is not None:
             self.abstract_jsbml_methods = abstract_jsbml_methods
 
+
+        # It is for same methods but take different arguments
+        #Example QualitativeSpecies has setCompartment(String) and setCompartment(Compartment)
+        #from CompartmentalizedSBase
         self.duplicate_methods = []
     ########################################################################
 
@@ -1277,7 +1281,9 @@ class SetGetFunctions():
 
         return_type = dup_attribute[1]['returnType']
 
-        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+        duplicate_attribute = dup_attribute[1]
+
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods,
             function, attribute,
             return_type)
@@ -1285,14 +1291,15 @@ class SetGetFunctions():
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-                                                                             function, functionArgs)
+                                                                             function, function_args,
+                                                                             duplicate_attribute)
 
         # if self.duplicate_methods[duplic_index]['isAbstract'] is True:
         #     additional_add = 'Override
         #     additional.append(additional_add)
         #
         #     title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, functionArgs)
+        #                                                                      function, function_args)
 
         arguments.append('{0} {1}'
                          .format(dup_attribute[0], arg_name))
@@ -1311,6 +1318,10 @@ class SetGetFunctions():
         code.append(self.create_code_block('line', rest_code))
 
 
+        # It is for same methods but take different arguments
+        #Example QualitativeSpecies has setCompartment(String) and setCompartment(Compartment)
+        #from CompartmentalizedSBase
+        #Remove so doesn't get generated again
         self.duplicate_methods = []
         return dict({'title_line': title_line,
                      'params': params,
@@ -1693,32 +1704,6 @@ class SetGetFunctions():
         # create the function implementation
         if self.is_java_api:
             code, return_type = self.unset_java_attribute(attribute)
-            # code = []
-            # if attribute['JClassType'] in  self.jsbml_data_tree['Difference']:
-            #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-            # else:
-            #     data = None
-            # if data is not None:
-            #     curr_att_type = data
-            # else:
-            # curr_att_type = attribute['JClassType']
-            #
-            # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            # currValue = 'this.old{0}'.format(attribute['name'])
-            # part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
-            # part2 = '{0} = null'.format(attribute['name'])
-            # part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-            #                                                                            attribute['name'],
-            #                                                                            oldValue,
-            #                                                                            attribute['name'])
-            # implementation = ['isSet{0}()'.format(attribute['capAttName']),
-            #                   part1, part2, part3,
-            #                    'return true']
-            # # code = [dict({'code_type': 'if', 'code': implementation})]
-            # code = [self.create_code_block('if', implementation)]
-            #
-            # temp = 'return false'
-            # code.append(temp)
         else:
             if not self.is_list_of:
                 use_name = self.abbrev_parent

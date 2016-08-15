@@ -50,16 +50,25 @@ import uuid
 #########################################################################
 
 # Generate javadoc comment line
-def get_javadoc_comments_and_state(additional_add, class_key, function, functionArgs):
+def get_javadoc_comments_and_state(additional_add, class_key, function, function_args, duplicate_attribute=None):
     if additional_add is not None:
         title_line = '(non-Javadoc)--'
-        if functionArgs is not None and functionArgs != []:
-            if len(functionArgs) == 1:
-                arguments = functionArgs[0]
-            elif len(functionArgs) >1:
-                arguments = functionArgs[0]
-                for i in range(1, len(functionArgs)):
-                    arguments += ', {0}'.format(functionArgs[1])
+        if function_args is not None and function_args != [] and duplicate_attribute is None:
+            if len(function_args) == 1:
+                arguments = function_args[0]
+            elif len(function_args) > 1:
+                arguments = function_args[0]
+                for i in range(1, len(function_args)):
+                    arguments += ', {0}'.format(function_args[1])
+        elif duplicate_attribute is not None:
+            # arguments = '{0}'.format(functionArgs[1])
+            function_args = duplicate_attribute['functionArgs']
+            if len(function_args) == 1:
+                arguments = function_args[0]
+            elif len(function_args) > 1:
+                arguments = function_args[0]
+                for i in range(1, len(function_args)):
+                    arguments += ', {0}'.format(function_args[1])
         else:
             arguments = ''
         title_line += '@see org.sbml.jsbml.{0}#{1}({2})'.format(class_key, function, arguments)

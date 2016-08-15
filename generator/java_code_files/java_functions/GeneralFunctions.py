@@ -962,7 +962,8 @@ class GeneralFunctions():
                 attribute = self.attributes[i]
                 if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
                     continue
-                else: #Here lies a bug
+                else:
+                    # This part is tricky because else if
                     temp_code = self.create_read_attribute_else_if(i)
                     implementation_else_if += temp_code
 

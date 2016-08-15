@@ -40,7 +40,7 @@ public class FunctionTerm extends AbstractMathContainer {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 9891207272440019L;
+  private static final long serialVersionUID = 37011436634386125L;
   /**
    *
    */
@@ -214,11 +214,12 @@ public class FunctionTerm extends AbstractMathContainer {
     setMath(null);
   }
 
-  /* hashcode method for FunctionTerm.
+  /* (non-Javadoc)
+   * @see java.lang.Object#hashCode()
    */
   @Override
   public int hashCode() {
-    final int prime = 5861929;
+    final int prime = 2507383;
 
     int hashCode = super.hashCode();
 
@@ -247,17 +248,27 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   * @see org.sbml.jsbml.element.SBase#readAttribute(String attributeName, String prefix, String value)
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {
     boolean isAttributeRead = super.readAttribute(attributeName, prefix, value);
 
+    if (!isAttributeRead) {
+      isAttributeRead = true;
+
+      if (attributeName.equals(QualConstants.resultLevel)) {
+        setResultLevel(StringTools.parseSBMLInt(value));
+      } else {
+        isAttributeRead = false;
+      }
+
+    }
     return isAttributeRead;
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   * @see org.sbml.jsbml.element.SBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {

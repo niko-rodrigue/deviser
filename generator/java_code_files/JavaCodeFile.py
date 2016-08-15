@@ -254,10 +254,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         num_attributes = attrib_functions.get_num_attributes()
         # # # TODO how to write instance methods
+        self.line_length = 140
         for i in range(0, num_attributes):
             code = attrib_functions.write_mandatory(True, i)
             # self.write_function_implementation(code)
             self.write_function_java(code)
+        self.line_length = 79
 
     # function to write the get/set/isSet/unset functions for attributes
     def write_attribute_functions(self):
@@ -270,7 +272,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                            self.abstract_jsbml_methods)
         num_attributes = len(self.class_attributes)
 
-
+        self.line_length = 140
         #TODO how to write instance methods
         for i in range(0, num_attributes):
             code = attrib_functions.write_get(True, i)
@@ -279,9 +281,11 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
             # TODO GSOC 2016 get Object Instance
+
             code = attrib_functions.write_get_instance(True, i)
             # self.write_function_implementation(code)
             self.write_function_java(code)
+
 
             # TODO enum as string?
             # code = attrib_functions.write_get_string_for_enum(True, i)
@@ -294,6 +298,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
             code = attrib_functions.write_is_set_instance(True, i)
             self.write_function_java(code)
+
 
             # code = attrib_functions.write_get_num_for_vector(True, i) # IsSetID for JSBML not neccessary
             # self.write_function_implementation(code)
@@ -310,13 +315,13 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.line_length = 160
             code = attrib_functions.write_set(True, i)
             self.write_function_java(code)
-            self.line_length = 79
+
 
             similar_num_attributes = attrib_functions.get_similar_num_attributes()
             for y in range(0, similar_num_attributes):
                 code = attrib_functions.write_similar_functions(True, i, y)
                 self.write_function_java(code)
-
+            self.line_length = 79
 
 
             # TODO GSOC 2016 this part is not needed?
@@ -326,10 +331,15 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # code = attrib_functions.write_add_element_for_vector(True, i)
             # self.write_function_implementation(code)
 
+        self.line_length = 160
         for i in range(0, num_attributes):
             code = attrib_functions.write_unset(True, i)
             self.write_function_java(code)
             # self.write_function_implementation(code)
+
+        self.line_length = 79
+
+
 
     # function to write the get/set/isSet/unset functions for single
     # child elements

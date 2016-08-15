@@ -1629,16 +1629,19 @@ class Constructors():
             title_line += '@see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()'
             additional.append('Override')
         else:
-            #  Find whether  class needs to be overriden or not
-            additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-                self.jsbml_methods,
-                function=function,
-                return_type=return_type)
-
-            if additional_add is not None:
-                additional.append(additional_add)
-                title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-                                                                                 function, function_args)
+            title_line = '(non-Javadoc)--'
+            title_line += '@see org.sbml.jsbml.ext.AbstractSBase#clone()'
+            additional.append('Override')
+            # #  Find whether  class needs to be overriden or not
+            # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
+            #     self.jsbml_methods,
+            #     function=function,
+            #     return_type=return_type)
+            #
+            # if additional_add is not None:
+            #     additional.append(additional_add)
+            #     title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
+            #                                                                      function, function_args)
 
 
         if not self.is_java_api:

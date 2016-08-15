@@ -84,7 +84,7 @@ public class QualConstants {
   /**
    * Generated serial version identifier.
    */
-  private static final long     serialVersionUID = 9891207272440019L;
+  private static final long     serialVersionUID = 71726936285629491L;
   /**
    *
    */
