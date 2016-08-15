@@ -164,16 +164,32 @@ class GeneralFunctions():
         self.prefix = 'prefix'
         self.value = 'value'
 
-
+        # This is for methods with same name
         self.duplicate_methods = []
 
 
+        # What methods to write
         self.methods_to_write = ['readAttribute', 'toString', 'writeXMLAttributes', 'hashCode']
 
+
+        # Get class attributes without id and name attributes
+        self.attributes_excluding_id_name = self.get_attributes_excluding_id_name()
         # if self.is_java_api == True:
         #     self.expand_methods_to_write()
 
     ########################################################################
+
+    # This useful for readAttributes where name and id are not required
+    def get_attributes_excluding_id_name(self):
+        modified_attributes = []
+        for i in range(0, len(self.attributes)):
+            attribute = self.attributes[i]
+            if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
+                continue
+            else:
+                modified_attributes.append(attribute)
+        return modified_attributes
+
 
     # This look like it is not required
     def expand_methods_to_write(self):
@@ -185,7 +201,6 @@ class GeneralFunctions():
                     if function_name not in self.methods_to_write:
                         self.methods_to_write.append(function_name)
 
-        # print('self write ', self.methods_to_write)
 
 
     ########################################################################
@@ -819,10 +834,10 @@ class GeneralFunctions():
 
     # Functions for writing hashCode
     def create_read_attribute_if(self, index):
-        name = self.attributes[index]['capAttName']
-        member_name = self.attributes[index]['name']
-        java_type = self.attributes[index]['JClassType']
-        type = self.attributes[index]['attType']
+        name = self.attributes_excluding_id_name[index]['capAttName']
+        member_name = self.attributes_excluding_id_name[index]['name']
+        java_type = self.attributes_excluding_id_name[index]['JClassType']
+        type = self.attributes_excluding_id_name[index]['attType']
 
         # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
@@ -834,10 +849,10 @@ class GeneralFunctions():
         return temp_code
 
     def create_read_attribute_else_if(self, index, create_else=True):
-        name = self.attributes[index]['capAttName']
-        member_name = self.attributes[index]['name']
-        java_type_data = self.attributes[index]['JClassType']
-        type = self.attributes[index]['type']
+        name = self.attributes_excluding_id_name[index]['capAttName']
+        member_name = self.attributes_excluding_id_name[index]['name']
+        java_type_data = self.attributes_excluding_id_name[index]['JClassType']
+        type = self.attributes_excluding_id_name[index]['type']
 
         if java_type_data == 'Boolean':
             java_type = 'Boolean'
@@ -874,7 +889,7 @@ class GeneralFunctions():
 
 
         try:
-            if index > 1 and index < len(self.attributes)-1:
+            if index > 1 and index < len(self.attributes_excluding_id_name)-1:
                 implementation.append('else if')
         except Exception as e:
             print('error in create  create_read_attribute_else_if', e)
@@ -953,7 +968,9 @@ class GeneralFunctions():
 
         implementation_else_if = []
         #each atribute has id and name, which are not a must for jsbml
-        if len(self.attributes) > 0:
+
+
+        if len(self.attributes_excluding_id_name) > 0:
 
             implementation = ['!isAttributeRead']
 
@@ -961,14 +978,11 @@ class GeneralFunctions():
             line = self.create_code_block('line', implement_inside)
             implementation.append(line)
 
-            for i in range(0, len(self.attributes)):
-                attribute = self.attributes[i]
-                if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-                    continue
-                else:
-                    # This part is tricky because else if
-                    temp_code = self.create_read_attribute_else_if(i)
-                    implementation_else_if += temp_code
+            for i in range(0, len(self.attributes_excluding_id_name)):
+                attribute = self.attributes_excluding_id_name[i]
+                # This part is tricky because else if
+                temp_code = self.create_read_attribute_else_if(i)
+                implementation_else_if += temp_code
 
             if len(implementation_else_if) > 0:
                 temp_code = self.create_read_attribute_else()
