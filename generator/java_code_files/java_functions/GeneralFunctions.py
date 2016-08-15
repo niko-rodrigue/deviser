@@ -248,6 +248,8 @@ class GeneralFunctions():
         return temp_code
 
 
+    # Obtain abstract methods that have to be generated based on Imports
+    # E.g. getDerivedUnitDefinition, containsUndeclaredUnits
     def obtain_interface_abstract_methods(self):
         self.abstract_methods_to_write = []
         for interface_name in self.abstract_jsbml_methods:
@@ -262,7 +264,7 @@ class GeneralFunctions():
 
 
 
-
+    # Write interface abstract methods
     def write_interface_abstract_methods(self, index):
         if self.is_java_api is False:
             return
@@ -289,6 +291,7 @@ class GeneralFunctions():
         if is_abstract == True:
             additional.append('Override')
 
+        # Based on type modify return statement
         if return_type != 'boolean':
             return_type = return_type.split('.')[-1]
             return_statement = 'null'
@@ -951,7 +954,7 @@ class GeneralFunctions():
         implementation_else_if = []
         #each atribute has id and name, which are not a must for jsbml
         if len(self.attributes) > 0:
-            # if zone stuff
+
             implementation = ['!isAttributeRead']
 
             implement_inside = ['isAttributeRead = true']

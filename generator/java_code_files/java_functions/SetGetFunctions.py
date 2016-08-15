@@ -1281,6 +1281,7 @@ class SetGetFunctions():
 
         return_type = dup_attribute[1]['returnType']
 
+        # Get duplicate name function for non-javadoc documentation
         duplicate_attribute = dup_attribute[1]
 
         additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(

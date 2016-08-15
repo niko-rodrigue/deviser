@@ -99,7 +99,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.write_concrete_functions()
 
-        # TODO write hash, read, write bugs
+        # This is used for writing hashCode, readAttributes, writeXMLAttributes as
+        # well as missing function that have to be generated based on imports
         self.write_general_functions()
 
         # self.write_functions_to_retrieve()
@@ -257,7 +258,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.line_length = 140
         for i in range(0, num_attributes):
             code = attrib_functions.write_mandatory(True, i)
-            # self.write_function_implementation(code)
             self.write_function_java(code)
         self.line_length = 79
 
@@ -316,7 +316,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             code = attrib_functions.write_set(True, i)
             self.write_function_java(code)
 
-
+            self.line_length = 180
             similar_num_attributes = attrib_functions.get_similar_num_attributes()
             for y in range(0, similar_num_attributes):
                 code = attrib_functions.write_similar_functions(True, i, y)
@@ -324,12 +324,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.line_length = 79
 
 
-            # TODO GSOC 2016 this part is not needed?
-            # code = attrib_functions.write_set_string_for_enum(True, i)
-            # self.write_function_implementation(code)
-            #
-            # code = attrib_functions.write_add_element_for_vector(True, i)
-            # self.write_function_implementation(code)
 
         self.line_length = 160
         for i in range(0, num_attributes):
@@ -436,8 +430,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
 
 
 
-        #Write abstract methods from the interfaces
+        # Write abstract methods from the interfaces
+        # Obtain abstract methods that need to be overriden
         num_abstract = gen_functions.obtain_interface_abstract_methods()
+        self.line_length = 150
         for i in range(0, num_abstract):
             code = gen_functions.write_interface_abstract_methods(i)
             self.write_function_implementation(code)
@@ -868,9 +864,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         function_to_write = 'unsetListOf'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
-
-
-
         num_elements = len(self.child_lo_elements)
         for i in range(0, num_elements):
             element = self.child_lo_elements[i]
@@ -888,70 +881,17 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                       self.is_list_of,
                                       element)
 
-
-
-            # TODO
-
-
-            #getInputCount
-            # code = lo_functions.write_get_element_by_index(is_const=False)
-            # self.write_function_implementation(code)
-
-            # # ? same as previous
-            # code = lo_functions.write_get_element_by_index(is_const=True)
-            # self.write_function_implementation(code)
-
-            # code = lo_functions.write_get_element_by_id(is_const=False)
-            # self.write_function_implementation(code)
-            #
-            # code = lo_functions.write_get_element_by_id(is_const=True)
-            # self.write_function_implementation(code)
-
             sid_ref = query.get_sid_refs_for_class(element)
             for j in range(0, len(sid_ref)):
                 if self.is_list_of:
                     code = lo_functions.write_lookup(sid_ref[j])
                     self.write_function_verbatim(code)
 
-                # code = \
-                #     lo_functions.write_get_element_by_sidref(sid_ref[j],
-                #                                              const=True)
-                # self.write_function_implementation(code)
-
-                # code = \
-                #     lo_functions.write_get_element_by_sidref(sid_ref[j],
-                #                                              const=False)
-                # self.write_function_implementation(code)
-
-
-
-
-
-
-
-
-
-            # this tackles the situation where a listOfFoo class also
-            # contains an element of another type
-            # eg qual:ListOfFunctionTerms contains a DefaultTerm
-                
-            # if not self.is_plugin:
-            #     element_children = \
-            #         query.get_other_element_children(self.class_object, element)
-            #
-            #     for j in range(0, len(element_children)):
-            #         child_class = self.create_lo_other_child_element_class(
-            #             element_children[0], self.class_name)
-            #         self.write_child_element_functions(child_class)
-    ########################################################################
 
 
     ########################################################################
 
-    # Write file
-
-
-    # TODO need to add import
+    # Write  class file
     def write_file(self):
         if self.is_package_info_plugin:
             BaseJavaFile.BaseJavaFile.write_file(self)
@@ -967,10 +907,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_jsbml_class_variables()
             self.write_class()
             self.close_jsbml_class_header()
-            # self.write_cpp_end()
-            # if not self.is_plugin:
-            #     self.write_c_code()
-            # self.write_cppns_end()
 
     def write_parser_functions(self):
         parser_functions = ParserFunctions.ParserFunctions(self.language,
@@ -979,14 +915,12 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                           self.jsbml_data_tree,
                                                           self.extends_modules)
 
-
         self.line_length = 150
         code = parser_functions.write_get_namespace_uri()
         self.write_function_implementation(code)
 
         code = parser_functions.write_get_short_label()
         self.write_function_implementation(code)
-
 
         code = parser_functions.write_is_required()
         self.write_function_implementation(code)
@@ -997,23 +931,18 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_get_package_namespaces()
         self.write_function_implementation(code)
 
-
         code = parser_functions.write_get_namespaces()
         self.write_function_implementation(code)
 
         code = parser_functions.write_get_namespace_for()
         self.write_function_implementation(code)
 
-
-        # TODO GSoC 2016 ultimate challenge
         code = parser_functions.write_create_plugin_for_sbase()
         self.write_function_implementation(code)
-        #
 
         # It is necessary
         code = parser_functions.write_create_plugin_for_astnode() #dif argumnet ASTNode
         self.write_function_implementation(code)
-
 
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
         self.write_function_implementation(code)
@@ -1030,61 +959,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_write_element_parser()
         self.write_function_implementation(code)
         #
-
-
         self.line_length = 79
-
-
-
-        #
-        # code = gen_functions.write_get_prefix()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_get_uri()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_get_parent()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_get_parent_sbml_object()
-        # self.write_function_implementation(code)
-        #
-        # # Write abstract methods from the interfaces
-        # num_abstract = gen_functions.obtain_interface_abstract_methods()
-        # for i in range(0, num_abstract):
-        #     code = gen_functions.write_interface_abstract_methods(i)
-        #     self.write_function_implementation(code)
-        #
-        # self.line_length = 79
-        # code = gen_functions.write_get_child_at()
-        # self.write_function_implementation(code)
-        # self.line_length = 79
-        #
-        # code = gen_functions.write_get_allows_children()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_get_child_count()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_hashcode()
-        # self.write_function_implementation(code)
-        #
-        # self.line_length = 81
-        # code = gen_functions.write_to_string()
-        # self.write_function_implementation(code)
-        # self.line_length = 79
-        #
-        # self.line_length = 90
-        # code = gen_functions.write_read_attribute()
-        # self.write_function_implementation(code)
-        # self.line_length = 79
-        #
-        # # TODO Need to change this
-        # self.line_length = 90
-        # code = gen_functions.write_write_xml_attribute()
-        # self.write_function_implementation(code)
-        # self.line_length = 79
-
 
 
 
@@ -1092,15 +967,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # self.write_forward_class()
         # TODO for now only generate attribute functions
         self.write_parser_functions()
-
-
-        # self.write_functions_to_retrieve()
-        # if self.document:
-        #     self.write_document_error_log_functions()
-        # self.write_protected_functions()
-        # if self.add_impl is not None and not self.is_list_of:
-        #     self.copy_additional_file(self.add_impl)
-
 
 
     def write_parser_file(self):

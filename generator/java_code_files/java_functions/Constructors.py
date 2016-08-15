@@ -604,6 +604,11 @@ class Constructors():
                     if 'id' in self.jsbml_data_tree[import_module]['ignore']:
                         try:
                             if len(self.jsbml_data_tree[import_module]['include']) > 0:
+                                #This is for ASTNode
+                                params = ['@param math',
+                                          '@param level',
+                                          '@param version']
+
                                 type_obj = self.jsbml_data_tree[import_module]['include'][0]
                                 arguments = ['{0} math'.format(type_obj), 'int level', 'int version']
                                 arguments_no_defaults = ['{0} math'.format(type_obj), 'int level', 'int version']

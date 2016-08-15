@@ -468,25 +468,25 @@ def main():
     # Whole package test
 
 
-    # # # #All qual compile
-    # #Compiles
-    name = 'qual'
-    num = 0
-    class_name = 'QualitativeSpecies'
-    list_of = 'ListOfQualitativeSpecies'
-    test_case = 'an element on QualitativeSpecies'
-    fail += run_test(name, num, class_name, test_case)
-    #
-    # #
-
-    # #Compiles
+    # # # # #All qual compile
+    # # #Compiles
     # name = 'qual'
-    # num = 1
-    # class_name = 'Transition'
-    # list_of = 'ListOfTransition'
-    # test_case = 'an element on Transition'
+    # num = 0
+    # class_name = 'QualitativeSpecies'
+    # list_of = 'ListOfQualitativeSpecies'
+    # test_case = 'an element on QualitativeSpecies'
     # fail += run_test(name, num, class_name, test_case)
-    # # # #
+    # #
+    # # #
+
+    #Compiles
+    name = 'qual'
+    num = 1
+    class_name = 'Transition'
+    list_of = 'ListOfTransition'
+    test_case = 'an element on Transition'
+    fail += run_test(name, num, class_name, test_case)
+    # # #
     # # # #
     # #Compiles
     # name = 'qual'
