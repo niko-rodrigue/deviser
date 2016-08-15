@@ -239,6 +239,7 @@ public class DistribFunctionDefinitionPlugin extends AbstractSBasePlugin {
     builder.append("DistribFunctionDefinitionPlugin [");
     builder.append("drawFromDistribution = ");
     builder.append(drawFromDistribution);
+    builder.append("]");
     return builder.toString();
   }
 

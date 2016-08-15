@@ -340,6 +340,7 @@ public class GroupsModelPlugin extends AbstractSBasePlugin {
     builder.append("GroupsModelPlugin [");
     builder.append("listOfGroups = ");
     builder.append(listOfGroups);
+    builder.append("]");
     return builder.toString();
   }
 

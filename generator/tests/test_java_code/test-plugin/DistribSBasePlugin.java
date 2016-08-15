@@ -234,6 +234,7 @@ public class DistribSBasePlugin extends AbstractSBasePlugin {
     builder.append("DistribSBasePlugin [");
     builder.append("uncertainty = ");
     builder.append(uncertainty);
+    builder.append("]");
     return builder.toString();
   }
 

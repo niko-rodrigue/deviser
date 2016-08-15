@@ -346,6 +346,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
     builder.append("DynCompartmentPlugin [");
     builder.append("listOfSpatialComponents = ");
     builder.append(listOfSpatialComponents);
+    builder.append("]");
     return builder.toString();
   }
 

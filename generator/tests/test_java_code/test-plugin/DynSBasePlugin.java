@@ -228,6 +228,7 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
     builder.append("DynSBasePlugin [");
     builder.append("cboTerm = ");
     builder.append(cboTerm);
+    builder.append("]");
     return builder.toString();
   }
 

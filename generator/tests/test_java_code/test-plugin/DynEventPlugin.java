@@ -405,6 +405,7 @@ public class DynEventPlugin extends AbstractSBasePlugin {
     builder.append(", ");
     builder.append("listOfDynElements = ");
     builder.append(listOfDynElements);
+    builder.append("]");
     return builder.toString();
   }
 

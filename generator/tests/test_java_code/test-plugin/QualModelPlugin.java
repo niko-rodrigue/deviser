@@ -524,6 +524,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
     builder.append(", ");
     builder.append("listOfTransitions = ");
     builder.append(listOfTransitions);
+    builder.append("]");
     return builder.toString();
   }
 
