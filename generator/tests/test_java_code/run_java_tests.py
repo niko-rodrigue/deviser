@@ -367,42 +367,26 @@ def main():
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
     # #
-    # name = 'fbc_v2'
-    # num = 0
-    # class_name = 'FbcModelPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
     #
-    # name = 'fbc_v2'
-    # num = 1
-    # class_name = 'FbcSpeciesPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    # name = 'fbc_v2'
-    # num = 2
-    # class_name = 'FbcReactionPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
     #
     # name = 'groups'
     # num = 0
     # class_name = 'GroupsModelPlugin'
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
-
+    #
     # name = 'distrib'
     # num = 0
     # class_name = 'DistribFunctionDefinitionPlugin'
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
-
+    #
     # name = 'distrib'
     # num = 1
     # class_name = 'DistribSBasePluginPlugin'
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
-
+    #
     # name = 'dyn'
     # num = 0
     # class_name = 'DynSBasePluginPlugin'
@@ -420,8 +404,28 @@ def main():
     # class_name = 'DynCompartmentPlugin'
     # test_case = 'basic plugin'
     # fail += run_plug_test(name, class_name, test_case, num)
+    # #
+
+    # name = 'fbc_v2'
+    # num = 0
+    # class_name = 'FbcModelPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
     #
+    # name = 'fbc_v2'
+    # num = 1
+    # class_name = 'FbcSpeciesPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
     #
+    # name = 'fbc_v2'
+    # num = 2
+    # class_name = 'FbcReactionPlugin'
+    # test_case = 'basic plugin'
+    # fail += run_plug_test(name, class_name, test_case, num)
+
+
+
     # name = 'spatial'
     # num = 0
     # class_name = 'SpatialModelPlugin'
@@ -456,12 +460,12 @@ def main():
 
 
     # # TODO qual tests
-
     #
-
-    # Whole package test
-
-
+    # #
+    #
+    # # Whole package test
+    #
+    #
     # # # # #All qual compile
     # # #Compiles
     name = 'qual'
@@ -722,8 +726,6 @@ def main():
     list_of = 'ListOfMembern'
     test_case = 'an element on Member'
     fail += run_test(name, num, class_name, test_case)
-
-
 
 
     name = 'groups'

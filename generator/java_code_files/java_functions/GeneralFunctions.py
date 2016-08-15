@@ -1317,6 +1317,10 @@ class GeneralFunctions():
         # temp = [text]
 
 
+        #Check one more time
+        if 'builder.append("]")' not in implementation and len(implementation) > 1:
+            implementation.append('builder.append("]")')
+
         # final return statement
         text = 'return builder.toString()'
         implementation.append(text)
