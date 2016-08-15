@@ -42,7 +42,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   /**
    * Generated serial version identifier.
    */
-  private static final long serialVersionUID = 9891207272440019L;
+  private static final long serialVersionUID = 53059648698555870L;
   /**
    *
    */
@@ -302,7 +302,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractSBase#getAllowsChildren()
+   * @see org.sbml.jsbml#getAllowsChildren()
    */
   @Override
   public boolean getAllowsChildren() {
@@ -327,7 +327,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    */
   @Override
   public int hashCode() {
-    final int prime = 5861929;
+    final int prime = 3281149;
 
     int hashCode = super.hashCode();
 

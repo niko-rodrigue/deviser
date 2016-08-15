@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.dyn;
+package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -25,13 +25,11 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
-import org.sbml.jsbml.ontology.*;
 
 /**
  * @author Deviser
@@ -39,7 +37,7 @@ import org.sbml.jsbml.ontology.*;
  * @since 1.2
  * @date $Date: $
  */
-public class DynSBasePlugin extends AbstractSBasePlugin {
+public class DistribSBasePlugin extends AbstractSBasePlugin {
 
   /**
    * Generated serial version identifier.
@@ -48,24 +46,24 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   /**
    *
    */
-  private Term cboTerm;
+  private Uncertainty uncertainty;
 
   /**
-   * @param sBase the DynSBasePlugin instance to copy.
+   * @param sBase the DistribSBasePlugin instance to copy.
    */
-  public DynSBasePlugin(SBase sBase) {
+  public DistribSBasePlugin(SBase sBase) {
     super(sBase);
 
   }
 
   /**
-   * @param dynSBase the DynSBasePlugin instance to copy.
+   * @param distribSBase the DistribSBasePlugin instance to copy.
    */
-  public DynSBasePlugin(DynSBasePlugin dynSBase) {
-    super(dynSBase);
+  public DistribSBasePlugin(DistribSBasePlugin distribSBase) {
+    super(distribSBase);
 
-    if (dynSBase.isSetCboTerm()) {
-      setCboTerm(dynSBase.getCboTerm());
+    if (distribSBase.isSetUncertainty()) {
+      setUncertainty(distribSBase.getUncertainty());
     }
   }
 
@@ -73,56 +71,67 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    * @see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()
    */
   @Override
-  public DynSBasePlugin clone() {
-    return new DynSBasePlugin(this);
+  public DistribSBasePlugin clone() {
+    return new DistribSBasePlugin(this);
   }
 
   /**
-   * Returns the value of {@link cboTerm}.
+   * Returns the value of {@link uncertainty}.
    *  
-   * @return the value of {@link cboTerm}.
+   * @return the value of {@link uncertainty}.
    */
-  public Term getCboTerm() {
-    if (isSetCboTerm()) {
-      return cboTerm;
+  public Uncertainty getUncertainty() {
+    if (isSetUncertainty()) {
+      return uncertainty;
     }
-    throw new PropertyUndefinedError(DynConstants.cboTerm, this);
+    throw new PropertyUndefinedError(DistribConstants.uncertainty, this);
   }
 
   /**
-   * Returns whether {@link cboTerm} is set.
+   * Returns whether {@link uncertainty} is set.
    *  
-   * @return whether {@link cboTerm} is set.
+   * @return whether {@link uncertainty} is set.
    */
-  public boolean isSetCboTerm() {
-    return this.cboTerm != null;
+  public boolean isSetUncertainty() {
+    return uncertainty != null;
   }
 
   /**
-   * Sets the value of cboTerm
+   * Sets the value of uncertainty
    *  
-   * @param cboTerm the value of cboTerm to be set.
+   * @param uncertainty the value of uncertainty to be set.
    */
-  public boolean setCboTerm(Term cboTerm) {
-    if (isSetCboTerm()) {
-      Term oldCboTerm = cboTerm;
-      cboTerm = null;
-      firePropertyChange(DynConstants.cboTerm, oldCboTerm, cboTerm);
+  public boolean setUncertainty(Uncertainty uncertainty) {
+    if (uncertainty != this.uncertainty) {
+      Uncertainty oldUncertainty = this.uncertainty;
+      this.uncertainty = uncertainty;
+      firePropertyChange(DistribConstants.uncertainty, oldUncertainty, this.uncertainty);
       return true;
     }
     return false;
   }
 
   /**
-   * Unsets the variable cboTerm.
-   *  
-   * @return {@code true} if cboTerm was set before, otherwise {@code false}.
+   * Creates a new Uncertainty object, adds it to this DistribSBasePlugin
+   * object and returns the Uncertainty object created.
    */
-  public boolean unsetCboTerm() {
-    if (isSetCboTerm()) {
-      Term oldCboTerm = cboTerm;
-      cboTerm = null;
-      firePropertyChange(DynConstants.cboTerm, oldCboTerm, cboTerm);
+  public Uncertainty createUncertainty() {
+    Uncertainty uncertainty = new Uncertainty(getLevel(), getVersion());
+    return uncertainty;
+  }
+
+  /**
+   * Unsets the variable uncertainty.
+   *  
+   * @return {@code true} if uncertainty was set before, otherwise {@code
+   * false}.
+   */
+  public boolean unsetUncertainty() {
+    if (isSetUncertainty()) {
+      Uncertainty oldUncertainty = uncertainty;
+      uncertainty = null;
+      firePropertyChange(DistribConstants.uncertainty, oldUncertainty,
+        uncertainty);
       return true;
     }
     return false;
@@ -133,7 +142,7 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public String getPackageName() {
-    return DynConstants.shortLabel;
+    return DistribConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -141,7 +150,7 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public String getPrefix() {
-    return DynConstants.shortLabel;
+    return DistribConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -213,9 +222,6 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
 
     int hashCode = super.hashCode();
 
-    if (isSetCboTerm()) {
-      hashCode += prime;
-    }
     return hashCode;
   }
 
@@ -225,9 +231,9 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("DynSBasePlugin [");
-    builder.append("cboTerm = ");
-    builder.append(cboTerm);
+    builder.append("DistribSBasePlugin [");
+    builder.append("uncertainty = ");
+    builder.append(uncertainty);
     return builder.toString();
   }
 
@@ -238,16 +244,6 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   public boolean readAttribute(String attributeName, String prefix, String value) {
     boolean isAttributeRead = false;
 
-    if (!isAttributeRead) {
-      isAttributeRead = true;
-
-      if (attributeName.equals(DynConstants.cboTerm)) {
-        setCboTerm(CBO.getTerm(value));
-      } else {
-        isAttributeRead = false;
-      }
-
-    }
     return isAttributeRead;
   }
 
@@ -258,10 +254,6 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes();
 
-    if (isSetCboTerm()) {
-      attributes.put(DynConstants.shortLabel + ":" + DynConstants.cboTerm,
-        cboTerm.getId());
-    }
     return attributes;
   }
 

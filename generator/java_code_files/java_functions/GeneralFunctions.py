@@ -672,7 +672,7 @@ class GeneralFunctions():
         # create doc string header
         function = 'getAllowsChildren'
 
-        title_line = '(non-Javadoc)--@see org.sbml.jsbml#getAllowsChildren()'
+        title_line = '(non-Javadoc)--@see org.sbml.jsbml.AbstractSBase#getAllowsChildren()'
         params = []
 
         return_lines = []
@@ -884,6 +884,9 @@ class GeneralFunctions():
             implementation.append(self.create_code_block('try', temp_implementation))
         elif type == 'SpatialKind':
             implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
+        elif type == 'CBOTerm':
+            # TODO Here works needs to be done
+            implementation.append('set{0}(CBO.getTerm(value))'.format(name))
         else:
             implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
 

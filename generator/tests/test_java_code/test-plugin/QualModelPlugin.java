@@ -74,9 +74,10 @@ public class QualModelPlugin extends AbstractSBasePlugin {
     }
   }
 
-  /**
-   * (non-Javadoc)
+  /* (non-Javadoc)
+   * @see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()
    */
+  @Override
   public QualModelPlugin clone() {
     return new QualModelPlugin(this);
   }
@@ -470,7 +471,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml#getAllowsChildren()
+   * @see org.sbml.jsbml.AbstractSBase#getAllowsChildren()
    */
   @Override
   public boolean getAllowsChildren() {
@@ -493,7 +494,8 @@ public class QualModelPlugin extends AbstractSBasePlugin {
     return count;
   }
 
-  /* hashcode method for QualModelPlugin.
+  /* (non-Javadoc)
+   * @see java.lang.Object#hashCode()
    */
   @Override
   public int hashCode() {
@@ -526,7 +528,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractNamedSBase#readAttribute(java.lang.String,
+   * @see org.sbml.jsbml.element.SBase#readAttribute(String attributeName, String prefix, String value)
    */
   @Override
   public boolean readAttribute(String attributeName, String prefix, String value) {
@@ -536,7 +538,7 @@ public class QualModelPlugin extends AbstractSBasePlugin {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.AbstractNamedSBase#writeXMLAttributes()
+   * @see org.sbml.jsbml.element.SBase#writeXMLAttributes()
    */
   @Override
   public Map <String, String> writeXMLAttributes() {

@@ -22,12 +22,10 @@ package org.sbml.jsbml.ext.qual;
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.Map;
-import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
-import org.sbml.jsbml.xml.XMLNode;
 
 /**
  * @author Deviser
@@ -35,7 +33,7 @@ import org.sbml.jsbml.xml.XMLNode;
  * @since 1.2
  * @date $Date: $
  */
-public class FunctionTerm extends AbstractMathContainer {
+public class DefaultTerm extends AbstractMathContainer {
 
   /**
    * Generated serial version identifier.
@@ -45,15 +43,11 @@ public class FunctionTerm extends AbstractMathContainer {
    *
    */
   private Integer resultLevel;
-  /**
-   *
-   */
-  private ASTNode math;
 
   /**
    *  
    */
-  public FunctionTerm() {
+  public DefaultTerm() {
     super();
     initDefaults();
   }
@@ -62,22 +56,29 @@ public class FunctionTerm extends AbstractMathContainer {
    * @param level
    * @param version
    */
-  public FunctionTerm(int level, int version) {
+  public DefaultTerm(int level, int version) {
     super(level, version);
     initDefaults();
   }
 
   /**
-   * @param orig the FunctionTerm instance to copy.
+   * @param math
+   * @param level
+   * @param version
    */
-  public FunctionTerm(FunctionTerm orig) {
+  public DefaultTerm(ASTNode math, int level, int version) {
+    super(math, level, version);
+    initDefaults();
+  }
+
+  /**
+   * @param orig the DefaultTerm instance to copy.
+   */
+  public DefaultTerm(DefaultTerm orig) {
     super(orig);
 
     if (orig.isSetResultLevel()) {
       setResultLevel(orig.getResultLevel());
-    }
-    if (orig.isSetMath()) {
-      setMath(orig.getMath().clone());
     }
   }
 
@@ -98,15 +99,11 @@ public class FunctionTerm extends AbstractMathContainer {
     boolean equals = super.equals(object);
 
     if (equals) {
-      FunctionTerm obj = (FunctionTerm) object;
+      DefaultTerm obj = (DefaultTerm) object;
 
       equals &= obj.isSetResultLevel() == isSetResultLevel();
       if (equals && isSetResultLevel()) {
         equals &= (obj.getResultLevel() == getResultLevel());
-      }
-      equals &= obj.isSetMath() == isSetMath();
-      if (equals && isSetMath()) {
-        equals &= (obj.getMath() == getMath());
       }
     }
     return equals;
@@ -116,8 +113,8 @@ public class FunctionTerm extends AbstractMathContainer {
    * @see org.sbml.jsbml.ext.AbstractSBase#clone()
    */
   @Override
-  public FunctionTerm clone() {
-    return new FunctionTerm(this);
+  public DefaultTerm clone() {
+    return new DefaultTerm(this);
   }
 
   /**
@@ -172,47 +169,6 @@ public class FunctionTerm extends AbstractMathContainer {
   }
 
   /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#getMath()
-   */
-  @Override
-  public ASTNode getMath() {
-    return math;
-  }
-
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#isSetMath()
-   */
-  @Override
-  public boolean isSetMath() {
-    return math != null;
-  }
-
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#setMath(org.sbml.jsbml.ASTNode)
-   */
-  @Override
-  public void setMath(ASTNode math) {
-    ASTNode oldMath = this.math;
-
-    this.math = math;
-
-    if (oldMath != null) {
-      oldMath.fireNodeRemovedEvent();
-    }
-    if (this.math != null) {
-      firePropertyChange(TreeNodeChangeEvent.math, oldMath, math);
-    }
-  }
-
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.MathContainer#unsetMath()
-   */
-  @Override
-  public void unsetMath() {
-    setMath(null);
-  }
-
-  /* (non-Javadoc)
    * @see java.lang.Object#hashCode()
    */
   @Override
@@ -233,12 +189,9 @@ public class FunctionTerm extends AbstractMathContainer {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("FunctionTerm [");
+    builder.append("DefaultTerm [");
     builder.append("resultLevel = ");
     builder.append(resultLevel);
-    builder.append(", ");
-    builder.append("math = ");
-    builder.append(math);
     builder.append("isSetMath = ");
     builder.append(isSetMath());
     builder.append("]");

@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.dyn;
+package org.sbml.jsbml.ext.groups;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -37,7 +37,7 @@ import org.sbml.jsbml.util.filters.*;
  * @since 1.2
  * @date $Date: $
  */
-public class DynCompartmentPlugin extends AbstractSBasePlugin {
+public class GroupsModelPlugin extends AbstractSBasePlugin {
 
   /**
    * Generated serial version identifier.
@@ -46,24 +46,24 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   /**
    *
    */
-  private ListOf<SpatialComponent> listOfSpatialComponents;
+  private ListOf<Group> listOfGroups;
 
   /**
-   * @param compartment the DynCompartmentPlugin instance to copy.
+   * @param model the GroupsModelPlugin instance to copy.
    */
-  public DynCompartmentPlugin(Compartment compartment) {
-    super(compartment);
+  public GroupsModelPlugin(Model model) {
+    super(model);
 
   }
 
   /**
-   * @param dynCompartment the DynCompartmentPlugin instance to copy.
+   * @param groupsModel the GroupsModelPlugin instance to copy.
    */
-  public DynCompartmentPlugin(DynCompartmentPlugin dynCompartment) {
-    super(dynCompartment);
+  public GroupsModelPlugin(GroupsModelPlugin groupsModel) {
+    super(groupsModel);
 
-    if (dynCompartment.isSetListOfSpatialComponents()) {
-      setListOfSpatialComponents(dynCompartment.getListOfSpatialComponents().clone());
+    if (groupsModel.isSetListOfGroups()) {
+      setListOfGroups(groupsModel.getListOfGroups().clone());
     }
   }
 
@@ -71,165 +71,159 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    * @see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()
    */
   @Override
-  public DynCompartmentPlugin clone() {
-    return new DynCompartmentPlugin(this);
+  public GroupsModelPlugin clone() {
+    return new GroupsModelPlugin(this);
   }
 
   /**
-   * @param spatialComponent
-   * the spatialComponent to add
+   * @param group
+   * the group to add
    * @return
    */
-  public boolean addSpatialComponent(SpatialComponent spatialComponent) {
-    return getListOfSpatialComponents().add(spatialComponent);
+  public boolean addGroup(Group group) {
+    return getListOfGroups().add(group);
   }
 
   /**
-   * Removes an element from the {@link listOfSpatialComponents}
+   * Removes an element from the {@link listOfGroups}
    *  
-   * @param SpatialComponent the element to be removed from the list.
+   * @param Group the element to be removed from the list.
    * @return {@code true} if the list contained the specified element and it
    * was removed.
    * @see java.util.List#remove(Object)
    */
-  public boolean removeSpatialComponent(SpatialComponent spatialComponent) {
-    if (isSetListOfSpatialComponents()) {
-      return getListOfSpatialComponents().remove(spatialComponent);
+  public boolean removeGroup(Group group) {
+    if (isSetListOfGroups()) {
+      return getListOfGroups().remove(group);
     }
     return false;
   }
 
   /**
-   * Removes an element from the {@link #listOfSpatialComponents}
+   * Removes an element from the {@link #listOfGroups}
    *  
-   * @param i the index where to remove the {@link SpatialComponent}.
+   * @param i the index where to remove the {@link Group}.
    * @return the specified element if it was successfully found and removed.
    * @throws IndexOutOfBoundsException if the listOf is not set or if the index
-   * is out of bound ({@code (i < 0) || (i > listOfSpatialComponents)})
+   * is out of bound ({@code (i < 0) || (i > listOfGroups)})
    */
-  public SpatialComponent removeSpatialComponent(int i) {
-    if (isSetListOfSpatialComponents()) {
+  public Group removeGroup(int i) {
+    if (isSetListOfGroups()) {
       throw new IndexOutOfBoundsException(Integer.toString(i));
     }
-    return getListOfSpatialComponents().remove(i);
+    return getListOfGroups().remove(i);
   }
 
   /**
-   * Removes an element from the {@link listOfSpatialComponents}.
+   * Removes an element from the {@link listOfGroups}.
    *  
-   * @param listOfSpatialComponentsId the id of the element to be removed from
-   * the list.
+   * @param listOfGroupsId the id of the element to be removed from the list.
    * @return the removed element, if it was successfully found and removed or
    * {@code null}.
    */
-  public SpatialComponent removeSpatialComponent(String    listOfSpatialComponentsId) {
-    if (isSetListOfSpatialComponents()) {
-      return getListOfSpatialComponents().remove(listOfSpatialComponentsId);
+  public Group removeGroup(String listOfGroupsId) {
+    if (isSetListOfGroups()) {
+      return getListOfGroups().remove(listOfGroupsId);
     }
     return null;
   }
 
   /**
-   * Returns the {@link listOfSpatialComponents}
+   * Returns the {@link listOfGroups}
    * Creates it if it does not already exist.
    *  
-   * @return the {@link listOfSpatialComponents}.
+   * @return the {@link listOfGroups}.
    */
-  public ListOf<SpatialComponent> getListOfSpatialComponents() {
-    if (listOfSpatialComponents == null) {
-      listOfSpatialComponents = new ListOf<SpatialComponent>();
-      listOfSpatialComponents.setNamespace(DynConstants.namespaceURI);
-      listOfSpatialComponents.setSBaseListType(ListOf.Type.other);
+  public ListOf<Group> getListOfGroups() {
+    if (listOfGroups == null) {
+      listOfGroups = new ListOf<Group>();
+      listOfGroups.setNamespace(GroupsConstants.namespaceURI);
+      listOfGroups.setSBaseListType(ListOf.Type.other);
     }
     if (isSetExtendedSBase()) {
-      extendedSBase.registerChild(listOfSpatialComponents);
+      extendedSBase.registerChild(listOfGroups);
     }
      ;
-    return listOfSpatialComponents;
+    return listOfGroups;
   }
 
   /**
-   * Creates a new SpatialComponent element and adds it to the
-   * {@link listOfSpatialComponents} list.
+   * Creates a new Group element and adds it to the
+   * {@link listOfGroups} list.
    *  
    * @return the newly created element, i.e., the last item in the
-   * {@link listOfSpatialComponents}
+   * {@link listOfGroups}
    */
-  public SpatialComponent createSpatialComponent() {
-    SpatialComponent spatialComponent = new SpatialComponent(getLevel(),
-      getVersion());
-    return addSpatialComponent(spatialComponent) ? spatialComponent : null;
+  public Group createGroup() {
+    Group group = new Group(getLevel(), getVersion());
+    return addGroup(group) ? group : null;
   }
 
   /**
-   * Returns the number of {@link SpatialComponent}s in this
-   * {@link Dyn}.
+   * Returns the number of {@link Group}s in this
+   * {@link Groups}.
    *  
-   * @return the number of {@link SpatialComponent}s in this {@link
-   * SpatialComponent}.
-   * @libsbml.deprecated same as {@link #getSpatialComponentCount()}
+   * @return the number of {@link Group}s in this {@link Group}.
+   * @libsbml.deprecated same as {@link #getGroupCount()}
    */
   @Deprecated
-  public int getNumSpatialComponents() {
-    return getSpatialComponentCount();
+  public int getNumGroups() {
+    return getGroupCount();
   }
 
   /**
-   * Returns the number of {@link SpatialComponent}s in this {@link Dyn}.
+   * Returns the number of {@link Group}s in this {@link Groups}.
    *  
-   * @return the number of {@link SpatialComponent}s in this {@link
-   * SpatialComponent}.
-   * @libsbml.deprecated same as {@link #getSpatialComponentCount()}
+   * @return the number of {@link Group}s in this {@link Group}.
+   * @libsbml.deprecated same as {@link #getGroupCount()}
    */
-  public int getSpatialComponentCount() {
-    return isSetListOfSpatialComponents() ? getListOfSpatialComponents().size()
-      : 0;
+  public int getGroupCount() {
+    return isSetListOfGroups() ? getListOfGroups().size() : 0;
   }
 
   /**
-   * Returns {@code true} if {@link listOfSpatialComponents} contains at least
-   * one element.
+   * Returns {@code true} if {@link listOfGroups} contains at least one
+   * element.
    *  
-   * @return {@code true} if {@link listOfSpatialComponents} contains at least
-   * one element, otherwise {@code false}.
+   * @return {@code true} if {@link listOfGroups} contains at least one
+   * element, otherwise {@code false}.
    */
-  public boolean isSetListOfSpatialComponents() {
-    if ((listOfSpatialComponents == null) || listOfSpatialComponents.isEmpty()) {
+  public boolean isSetListOfGroups() {
+    if ((listOfGroups == null) || listOfGroups.isEmpty()) {
       return false;
     }
     return true;
   }
 
   /**
-   * Sets the given {@code ListOf<SpatialComponent>}.
-   * If {@link listOfSpatialComponents} was defined before and contains some
-   * elements, they are all unset.
+   * Sets the given {@code ListOf<Group>}.
+   * If {@link listOfGroups} was defined before and contains some elements,
+   * they are all unset.
    *  
-   * @param listOfSpatialComponents
+   * @param listOfGroups
    */
-  public void setListOfSpatialComponents(ListOf<SpatialComponent>    listOfSpatialComponents) {
-    unsetListOfSpatialComponents();
-    this.listOfSpatialComponents = listOfSpatialComponents;
-    this.listOfSpatialComponents.setSBaseListType(ListOf.Type.other);
+  public void setListOfGroups(ListOf<Group> listOfGroups) {
+    unsetListOfGroups();
+    this.listOfGroups = listOfGroups;
+    this.listOfGroups.setSBaseListType(ListOf.Type.other);
 
     if (isSetExtendedSBase()) {
-      extendedSBase.registerChild(listOfSpatialComponents);
+      extendedSBase.registerChild(listOfGroups);
     }
   }
 
   /**
-   * Returns {@code true} if {@link listOfSpatialComponents} contains at least
-   * one element, otherwise {@code false}.
+   * Returns {@code true} if {@link listOfGroups} contains at least one
+   * element, otherwise {@code false}.
    *  
-   * @return {@code true} if {@link listOfSpatialComponents} contains at least
-   * one element, otherwise {@code false}.
+   * @return {@code true} if {@link listOfGroups} contains at least one
+   * element, otherwise {@code false}.
    */
-  public boolean unsetListOfSpatialComponents() {
-    if (isSetListOfSpatialComponents()) {
-      ListOf<SpatialComponent> oldSpatialComponent =
-        this.listOfSpatialComponents;
-      this.listOfSpatialComponents = null;
-      oldSpatialComponent.fireNodeRemovedEvent();
+  public boolean unsetListOfGroups() {
+    if (isSetListOfGroups()) {
+      ListOf<Group> oldGroup = this.listOfGroups;
+      this.listOfGroups = null;
+      oldGroup.fireNodeRemovedEvent();
       return true;
     }
     return false;
@@ -240,7 +234,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    */
   @Override
   public String getPackageName() {
-    return DynConstants.shortLabel;
+    return GroupsConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -248,7 +242,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
    */
   @Override
   public String getPrefix() {
-    return DynConstants.shortLabel;
+    return GroupsConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -290,9 +284,9 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
     }
     int pos = 0;
 
-    if (isSetListOfSpatialComponents()) {
+    if (isSetListOfGroups()) {
       if (pos == index) {
-        return getListOfSpatialComponents();
+        return getListOfGroups();
       }
       pos++;
     }
@@ -316,7 +310,7 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   public int getChildCount() {
     int count = 0;
 
-    if (isSetListOfSpatialComponents()) {
+    if (isSetListOfGroups()) {
       count++;
     }
     return count;
@@ -331,8 +325,8 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
 
     int hashCode = super.hashCode();
 
-    hashCode = prime * hashCode + ((listOfSpatialComponents == null) ? 0 :
-      listOfSpatialComponents.hashCode());
+    hashCode = prime * hashCode + ((listOfGroups == null) ? 0 :
+      listOfGroups.hashCode());
 
     return hashCode;
   }
@@ -343,9 +337,9 @@ public class DynCompartmentPlugin extends AbstractSBasePlugin {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("DynCompartmentPlugin [");
-    builder.append("listOfSpatialComponents = ");
-    builder.append(listOfSpatialComponents);
+    builder.append("GroupsModelPlugin [");
+    builder.append("listOfGroups = ");
+    builder.append(listOfGroups);
     return builder.toString();
   }
 

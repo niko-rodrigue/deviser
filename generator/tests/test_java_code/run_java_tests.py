@@ -171,12 +171,6 @@ def compare_ext_headers(class_name):
     return compare_files(correct_file, temp_file)
 
 
-# What if folder slash wrong?
-# def compare_code_impl(class_name):
-#     correct_file = '.\\test-code\\{0}.java'.format(class_name)
-#     temp_file = '.\\temp\\{0}.java'.format(class_name)
-#     return compare_files(correct_file, temp_file)
-
 def compare_code_impl(class_name):
     correct_file = '.{0}test-code{1}{2}.java'.format(os_sep, os_sep, class_name)
     temp_file = '.{0}temp{1}{2}.java'.format(os_sep, os_sep, class_name)
@@ -188,11 +182,11 @@ def compare_plugin_impl(class_name):
     temp_file = '.{0}temp{1}{2}.java'.format(os_sep, os_sep, class_name)
     return compare_files(correct_file, temp_file)
 
+
 def compare_parser_impl(class_name):
     correct_file = '.{0}test-parser{1}{2}.java'.format(os_sep, os_sep, class_name)
     temp_file = '.{0}temp{1}{2}.java'.format(os_sep, os_sep, class_name)
     return compare_files(correct_file, temp_file)
-
 
 
 def compare_constants_impl(class_name):
@@ -470,14 +464,12 @@ def main():
 
     # # # # #All qual compile
     # # #Compiles
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualitativeSpecies'
-    # list_of = 'ListOfQualitativeSpecies'
-    # test_case = 'an element on QualitativeSpecies'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # # #
+    name = 'qual'
+    num = 0
+    class_name = 'QualitativeSpecies'
+    list_of = 'ListOfQualitativeSpecies'
+    test_case = 'an element on QualitativeSpecies'
+    fail += run_test(name, num, class_name, test_case)
 
     #Compiles
     name = 'qual'
@@ -488,230 +480,265 @@ def main():
     fail += run_test(name, num, class_name, test_case)
     # # #
     # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 2
-    # class_name = 'Input'
-    # list_of = 'ListOfInput'
-    # test_case = 'an element on Input'
-    # fail += run_test(name, num, class_name, test_case)
-    # # # #
-    # # # #
-    # #Compiles
-    # name = 'qual'
-    # num = 3
-    # class_name = 'Output'
-    # list_of = 'ListOfOutput'
-    # test_case = 'an element on Output'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    # #
-    # #
-    # # Compiles
-    # name = 'qual'
-    # num = 4
-    # class_name = 'DefaultTerm'
-    # list_of = 'ListOfDefaultTerm'
-    # test_case = 'an element on DefaultTerm'
-    # fail += run_test(name, num, class_name, test_case)
+    #Compiles
+    name = 'qual'
+    num = 2
+    class_name = 'Input'
+    list_of = 'ListOfInput'
+    test_case = 'an element on Input'
+    fail += run_test(name, num, class_name, test_case)
+    # # #
+    # # #
+    #Compiles
+    name = 'qual'
+    num = 3
+    class_name = 'Output'
+    list_of = 'ListOfOutput'
+    test_case = 'an element on Output'
+    fail += run_test(name, num, class_name, test_case)
     #
     #
-    # # Compiles
-    # name = 'qual'
-    # num = 5
-    # class_name = 'FunctionTerm'
-    # list_of = 'ListOfFunctionTerm'
-    # test_case = 'an element on FunctionTerm'
-    # fail += run_test(name, num, class_name, test_case)
+    #
+    # Compiles
+    name = 'qual'
+    num = 4
+    class_name = 'DefaultTerm'
+    list_of = 'ListOfDefaultTerm'
+    test_case = 'an element on DefaultTerm'
+    fail += run_test(name, num, class_name, test_case)
 
-    # # Qual Enum Types
-    # name = 'qual'
-    # num = 0
-    # enum_name = 'Sign'
-    # test_case = 'an element on Sign Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 1
-    # enum_name = 'TransitionOutputEffect'
-    # test_case = 'an element on TransitionOutputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 2
-    # enum_name = 'TransitionInputEffect'
-    # test_case = 'an element on TransitionInputEffect Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # name = 'qual'
-    # num = 3
-    # enum_name = 'QualList'
-    # test_case = 'an element on QualList Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    #
-    # # Qual Constants
-    # name = 'qual'
-    # constants_name = 'QualConstants'
-    # test_case = 'Qual Constants'
-    # fail += run_constant_test(name, constants_name, test_case)
-    #
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualModelPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    #
-    #
-    # name = 'qual'
-    # num = 0
-    # class_name = 'QualParser'
-    # test_case = 'Qual Parser'
-    # fail += run_parser_test(name, class_name, test_case)
-    #
+
+    # Compiles
+    name = 'qual'
+    num = 5
+    class_name = 'FunctionTerm'
+    list_of = 'ListOfFunctionTerm'
+    test_case = 'an element on FunctionTerm'
+    fail += run_test(name, num, class_name, test_case)
+
+    # Qual Enum Types
+    name = 'qual'
+    num = 0
+    enum_name = 'Sign'
+    test_case = 'an element on Sign Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 1
+    enum_name = 'TransitionOutputEffect'
+    test_case = 'an element on TransitionOutputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 2
+    enum_name = 'TransitionInputEffect'
+    test_case = 'an element on TransitionInputEffect Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'qual'
+    num = 3
+    enum_name = 'QualList'
+    test_case = 'an element on QualList Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+    # Qual Constants
+    name = 'qual'
+    constants_name = 'QualConstants'
+    test_case = 'Qual Constants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'qual'
+    num = 0
+    class_name = 'QualModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+
+
+    name = 'qual'
+    num = 0
+    class_name = 'QualParser'
+    test_case = 'Qual Parser'
+    fail += run_parser_test(name, class_name, test_case)
+    # #
     #
     # # # # TODO dyn tests
     # # # #Compilable
     #
-    # # Dyn Constants
-    # name = 'dyn'
-    # constants_name = 'DynConstants'
-    # test_case = 'DynConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
+    # Dyn Constants
+    name = 'dyn'
+    constants_name = 'DynConstants'
+    test_case = 'DynConstants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'dyn'
+    num = 0
+    enum_name = 'DynList'
+    test_case = 'an element on DynList Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+    name = 'dyn'
+    num = 0
+    class_name = 'DynElement'
+    list_of = 'ListOfDynElement'
+    test_case = 'an element on DynElement'
+    fail += run_test(name, num, class_name, test_case)
+
+
+    name = 'dyn'
+    num = 1
+    class_name = 'SpatialComponent'
+    list_of = 'ListOfSpatialComponent'
+    test_case = 'an element on SpatialComponent'
+    fail += run_test(name, num, class_name, test_case)
     #
-    # name = 'dyn'
-    # num = 0
-    # enum_name = 'DynList'
-    # test_case = 'an element on DynList Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
     #
+    name = 'dyn'
+    num = 0
+    class_name = 'DynSBasePlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'dyn'
+    num = 1
+    class_name = 'DynEventPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'dyn'
+    num = 2
+    class_name = 'DynCompartmentPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
     #
-    # name = 'dyn'
-    # num = 0
-    # class_name = 'DynElement'
-    # list_of = 'ListOfDynElement'
-    # test_case = 'an element on DynElement'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    #
-    # name = 'dyn'
-    # num = 1
-    # class_name = 'SpatialComponent'
-    # list_of = 'ListOfSpatialComponent'
-    # test_case = 'an element on SpatialComponent'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
-    #
-    # name = 'dyn'
-    # num = 0
-    # class_name = 'DynSBasePlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    # name = 'dyn'
-    # num = 1
-    # class_name = 'DynEventPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    # name = 'dyn'
-    # num = 2
-    # class_name = 'DynCompartmentPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    # #
-    # name = 'dyn'
-    # num = 0
-    # class_name = 'DynParser'
-    # test_case = 'Dyn Parser'
-    # fail += run_parser_test(name, class_name, test_case)
+    name = 'dyn'
+    num = 0
+    class_name = 'DynParser'
+    test_case = 'Dyn Parser'
+    fail += run_parser_test(name, class_name, test_case)
 
 
 
     #
     # # #
     # # # # TODO distrib tests
-    #
-    # #
-    # # # # #Uncert unsetUncertML error
-    # name = 'distrib'
-    # num = 0
-    # class_name = 'DrawFromDistribution'
-    # list_of = 'ListOfDrawFromDistribution'
-    # test_case = 'an element on DrawFromDistribution'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # # Compilable
-    # name = 'distrib'
-    # num = 1
-    # class_name = 'DistribInput'
-    # list_of = 'ListOfDistribInput'
-    # test_case = 'an element on DistribInput'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # # #Uncert unsetUncertML error
-    # name = 'distrib'
-    # num = 2
-    # class_name = 'Uncertainty'
-    # list_of = 'ListOfUncertainty'
-    # test_case = 'an element on Uncertainty'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # #Distrib constants
-    # name = 'distrib'
-    # constants_name = 'DistribConstants'
-    # test_case = 'DistribConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
-    #
-    # name = 'distrib'
-    # num = 0
-    # class_name = 'DistribFunctionDefinitionPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
-    #
-    #
-    #
+
+    #Distrib constants
+    name = 'distrib'
+    constants_name = 'DistribConstants'
+    test_case = 'DistribConstants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    name = 'distrib'
+    num = 0
+    enum_name = 'DistribList'
+    test_case = 'an element on DistribList Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+    name = 'distrib'
+    num = 0
+    class_name = 'DrawFromDistribution'
+    list_of = 'ListOfDrawFromDistribution'
+    test_case = 'an element on DrawFromDistribution'
+    fail += run_test(name, num, class_name, test_case)
+
+    # Compilable
+    name = 'distrib'
+    num = 1
+    class_name = 'DistribInput'
+    list_of = 'ListOfDistribInput'
+    test_case = 'an element on DistribInput'
+    fail += run_test(name, num, class_name, test_case)
+
+    name = 'distrib'
+    num = 2
+    class_name = 'Uncertainty'
+    list_of = 'ListOfUncertainty'
+    test_case = 'an element on Uncertainty'
+    fail += run_test(name, num, class_name, test_case)
+
+
+
+    name = 'distrib'
+    num = 0
+    class_name = 'DistribFunctionDefinitionPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'distrib'
+    num = 1
+    class_name = 'DistribSBasePlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'distrib'
+    num = 0
+    class_name = 'DistribParser'
+    test_case = 'Distrib Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+
+
     # # # # TODO groups tests
     # # #
-    # # Compilable
-    # name = 'groups'
-    # num = 0
-    # class_name = 'Group'
-    # list_of = 'ListOfGroup'
-    # test_case = 'an element on Group'
-    # fail += run_test(name, num, class_name, test_case)
-    # #
+
+    #Groups constants
+    name = 'groups'
+    constants_name = 'GroupsConstants'
+    test_case = 'GroupsConstants'
+    fail += run_constant_test(name, constants_name, test_case)
+
+    # Groups Enum Types
+    name = 'groups'
+    num = 0
+    enum_name = 'GroupKind'
+    test_case = 'an element on GroupKind Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+    name = 'groups'
+    num = 1
+    enum_name = 'GroupsList'
+    test_case = 'an element on GroupsList Enum'
+    fail += run_enum_test(name, num, enum_name, test_case)
+
+
+    # Compilable
+    name = 'groups'
+    num = 0
+    class_name = 'Group'
+    list_of = 'ListOfGroup'
+    test_case = 'an element on Group'
+    fail += run_test(name, num, class_name, test_case)
     #
-    # # Compilable
-    # name = 'groups'
-    # num = 1
-    # class_name = 'Member'
-    # list_of = 'ListOfMembern'
-    # test_case = 'an element on Member'
-    # fail += run_test(name, num, class_name, test_case)
-    #
-    # # Groups Enum Types
-    # name = 'groups'
-    # num = 0
-    # enum_name = 'GroupKind'
-    # test_case = 'an element on GroupKind Enum'
-    # fail += run_enum_test(name, num, enum_name, test_case)
-    #
-    # #Groups constants
-    # name = 'groups'
-    # constants_name = 'GroupsConstants'
-    # test_case = 'GroupsConstants'
-    # fail += run_constant_test(name, constants_name, test_case)
-    #
-    # name = 'groups'
-    # num = 0
-    # class_name = 'GroupsModelPlugin'
-    # test_case = 'basic plugin'
-    # fail += run_plug_test(name, class_name, test_case, num)
-    #
+
+    # Compilable
+    name = 'groups'
+    num = 1
+    class_name = 'Member'
+    list_of = 'ListOfMembern'
+    test_case = 'an element on Member'
+    fail += run_test(name, num, class_name, test_case)
+
+
+
+
+    name = 'groups'
+    num = 0
+    class_name = 'GroupsModelPlugin'
+    test_case = 'basic plugin'
+    fail += run_plug_test(name, class_name, test_case, num)
+
+    name = 'groups'
+    num = 0
+    class_name = 'GroupsParser'
+    test_case = 'Groups Parser'
+    fail += run_parser_test(name, class_name, test_case)
+
+
 
 
     #

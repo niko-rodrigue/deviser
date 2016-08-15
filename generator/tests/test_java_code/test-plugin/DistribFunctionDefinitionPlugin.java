@@ -17,7 +17,7 @@
  * and also available online as <http://sbml.org/Software/JSBML/License>.
  * ----------------------------------------------------------------------------
  */
-package org.sbml.jsbml.ext.dyn;
+package org.sbml.jsbml.ext.distrib;
 
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -25,13 +25,11 @@ import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreeNode;
 
 import org.sbml.jsbml.ext.AbstractSBasePlugin;
 import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
-import org.sbml.jsbml.ontology.*;
 
 /**
  * @author Deviser
@@ -39,7 +37,7 @@ import org.sbml.jsbml.ontology.*;
  * @since 1.2
  * @date $Date: $
  */
-public class DynSBasePlugin extends AbstractSBasePlugin {
+public class DistribFunctionDefinitionPlugin extends AbstractSBasePlugin {
 
   /**
    * Generated serial version identifier.
@@ -48,24 +46,26 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   /**
    *
    */
-  private Term cboTerm;
+  private DrawFromDistribution drawFromDistribution;
 
   /**
-   * @param sBase the DynSBasePlugin instance to copy.
+   * @param functionDefinition the DistribFunctionDefinitionPlugin instance to
+   * copy.
    */
-  public DynSBasePlugin(SBase sBase) {
-    super(sBase);
+  public DistribFunctionDefinitionPlugin(FunctionDefinition functionDefinition) {
+    super(functionDefinition);
 
   }
 
   /**
-   * @param dynSBase the DynSBasePlugin instance to copy.
+   * @param distribFunctionDefinition the DistribFunctionDefinitionPlugin
+   * instance to copy.
    */
-  public DynSBasePlugin(DynSBasePlugin dynSBase) {
-    super(dynSBase);
+  public DistribFunctionDefinitionPlugin(DistribFunctionDefinitionPlugin    distribFunctionDefinition) {
+    super(distribFunctionDefinition);
 
-    if (dynSBase.isSetCboTerm()) {
-      setCboTerm(dynSBase.getCboTerm());
+    if (distribFunctionDefinition.isSetDrawFromDistribution()) {
+      setDrawFromDistribution(distribFunctionDefinition.getDrawFromDistribution());
     }
   }
 
@@ -73,56 +73,70 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    * @see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()
    */
   @Override
-  public DynSBasePlugin clone() {
-    return new DynSBasePlugin(this);
+  public DistribFunctionDefinitionPlugin clone() {
+    return new DistribFunctionDefinitionPlugin(this);
   }
 
   /**
-   * Returns the value of {@link cboTerm}.
+   * Returns the value of {@link drawFromDistribution}.
    *  
-   * @return the value of {@link cboTerm}.
+   * @return the value of {@link drawFromDistribution}.
    */
-  public Term getCboTerm() {
-    if (isSetCboTerm()) {
-      return cboTerm;
+  public DrawFromDistribution getDrawFromDistribution() {
+    if (isSetDrawFromDistribution()) {
+      return drawFromDistribution;
     }
-    throw new PropertyUndefinedError(DynConstants.cboTerm, this);
+    throw new PropertyUndefinedError(DistribConstants.drawFromDistribution,
+      this);
   }
 
   /**
-   * Returns whether {@link cboTerm} is set.
+   * Returns whether {@link drawFromDistribution} is set.
    *  
-   * @return whether {@link cboTerm} is set.
+   * @return whether {@link drawFromDistribution} is set.
    */
-  public boolean isSetCboTerm() {
-    return this.cboTerm != null;
+  public boolean isSetDrawFromDistribution() {
+    return drawFromDistribution != null;
   }
 
   /**
-   * Sets the value of cboTerm
+   * Sets the value of drawFromDistribution
    *  
-   * @param cboTerm the value of cboTerm to be set.
+   * @param drawFromDistribution the value of drawFromDistribution to be set.
    */
-  public boolean setCboTerm(Term cboTerm) {
-    if (isSetCboTerm()) {
-      Term oldCboTerm = cboTerm;
-      cboTerm = null;
-      firePropertyChange(DynConstants.cboTerm, oldCboTerm, cboTerm);
+  public boolean setDrawFromDistribution(DrawFromDistribution drawFromDistribution) {
+    if (drawFromDistribution != this.drawFromDistribution) {
+      DrawFromDistribution oldDrawFromDistribution = this.drawFromDistribution;
+      this.drawFromDistribution = drawFromDistribution;
+      firePropertyChange(DistribConstants.drawFromDistribution, oldDrawFromDistribution, this.drawFromDistribution);
       return true;
     }
     return false;
   }
 
   /**
-   * Unsets the variable cboTerm.
-   *  
-   * @return {@code true} if cboTerm was set before, otherwise {@code false}.
+   * Creates a new DrawFromDistribution object, adds it to this
+   * DistribFunctionDefinitionPlugin object and returns the
+   * DrawFromDistribution object created.
    */
-  public boolean unsetCboTerm() {
-    if (isSetCboTerm()) {
-      Term oldCboTerm = cboTerm;
-      cboTerm = null;
-      firePropertyChange(DynConstants.cboTerm, oldCboTerm, cboTerm);
+  public DrawFromDistribution createDrawFromDistribution() {
+    DrawFromDistribution drawFromDistribution = new
+      DrawFromDistribution(getLevel(), getVersion());
+    return drawFromDistribution;
+  }
+
+  /**
+   * Unsets the variable drawFromDistribution.
+   *  
+   * @return {@code true} if drawFromDistribution was set before, otherwise
+   * {@code false}.
+   */
+  public boolean unsetDrawFromDistribution() {
+    if (isSetDrawFromDistribution()) {
+      DrawFromDistribution oldDrawFromDistribution = drawFromDistribution;
+      drawFromDistribution = null;
+      firePropertyChange(DistribConstants.drawFromDistribution,
+        oldDrawFromDistribution, drawFromDistribution);
       return true;
     }
     return false;
@@ -133,7 +147,7 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public String getPackageName() {
-    return DynConstants.shortLabel;
+    return DistribConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -141,7 +155,7 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
    */
   @Override
   public String getPrefix() {
-    return DynConstants.shortLabel;
+    return DistribConstants.shortLabel;
   }
 
   /* (non-Javadoc)
@@ -213,9 +227,6 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
 
     int hashCode = super.hashCode();
 
-    if (isSetCboTerm()) {
-      hashCode += prime;
-    }
     return hashCode;
   }
 
@@ -225,9 +236,9 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-    builder.append("DynSBasePlugin [");
-    builder.append("cboTerm = ");
-    builder.append(cboTerm);
+    builder.append("DistribFunctionDefinitionPlugin [");
+    builder.append("drawFromDistribution = ");
+    builder.append(drawFromDistribution);
     return builder.toString();
   }
 
@@ -238,16 +249,6 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   public boolean readAttribute(String attributeName, String prefix, String value) {
     boolean isAttributeRead = false;
 
-    if (!isAttributeRead) {
-      isAttributeRead = true;
-
-      if (attributeName.equals(DynConstants.cboTerm)) {
-        setCboTerm(CBO.getTerm(value));
-      } else {
-        isAttributeRead = false;
-      }
-
-    }
     return isAttributeRead;
   }
 
@@ -258,10 +259,6 @@ public class DynSBasePlugin extends AbstractSBasePlugin {
   public Map <String, String> writeXMLAttributes() {
     Map <String, String> attributes = super.writeXMLAttributes();
 
-    if (isSetCboTerm()) {
-      attributes.put(DynConstants.shortLabel + ":" + DynConstants.cboTerm,
-        cboTerm.getId());
-    }
     return attributes;
   }
 
