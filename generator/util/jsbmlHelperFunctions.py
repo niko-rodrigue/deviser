@@ -36,11 +36,10 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-try: 
-  from . import query, strFunctions, global_variables, insideJSBML_parser
-except: 
-  import query, strFunctions, global_variables, insideJSBML_parser
-
+try:
+    from . import query, strFunctions, global_variables, insideJSBML_parser
+except:
+    import query, strFunctions, global_variables, insideJSBML_parser
 
 import itertools
 import random
@@ -80,7 +79,7 @@ def get_javadoc_comments_and_state(additional_add, class_key, function, function
 
 # Determine override # or deprecate(not implemented yet)
 def determine_override_or_deprecated(jsbml_methods, function, attribute=None, return_type=None):
-    #This is problematic
+    # This is problematic
     add = None
     class_key = None
     functionArgs = None
@@ -104,12 +103,13 @@ def determine_override_or_deprecated(jsbml_methods, function, attribute=None, re
                     functionArgs = []
                     if att_type is not None:
                         for argument in method['functionArgs']:
-                            if att_type in argument :
+                            if att_type in argument:
                                 functionArgs.append(argument)
 
                     add = 'Override'
 
     return add, class_key, functionArgs
+
 
 #########################################################################
 
@@ -138,9 +138,10 @@ def find_instance_method(abstract_jsbml_methods, method_name):
                     return True
             except:
                 continue
-        # print(interface_class)
-        # if method_name ==
+                # print(interface_class)
+                # if method_name ==
     return False
+
 
 #########################################################################
 
@@ -175,30 +176,24 @@ def detect_abstract_methods(jsbml_data_tree, jsbml_methods):
 
     return abstract_methods
 
-#########################################################################
 
+########################################################################################################################
 
-#########################################################################
-
-
-
-#Helper function for find_function_with_diff_args
+# Helper function for find_function_with_diff_args
+# get argument type
+# E.g. 'org.sbml.jsbml.Compartment' -> Compartment
 def javap_arg_parser(argument):
     arg = argument
-    # print('argus ',arg)
     arg_type = None
-    if len(arg)>1:
+    if len(arg) > 1:
         pass
     else:
         arg_type = arg[0].split('.')[-1]
-        # print('arg_type ', arg_type)
     return arg_type
 
 
 # For finding functions with same name,but take different arguments
 def find_function_with_diff_args(jsbml_methods, attribute, function):
-    # print('function ', function)
-    # print('arguments ', attribute['attTypeCode'])
     orginal_attType = str(attribute['attTypeCode'])[:]
     function_name = str(function)[:]
     curr_attribute = attribute
@@ -210,48 +205,47 @@ def find_function_with_diff_args(jsbml_methods, attribute, function):
         for method in jsbml_methods[key]:
             if function_name == method['functionName']:
 
-
                 arg_type = javap_arg_parser(method['functionArgs'])[:]
                 if arg_type is not None:
                     if arg_type != orginal_attType:
                         method_to_write = [arg_type, method]
 
-    # print('tada ',method_to_write)
-    return method_to_write
 
+    return method_to_write
 
 
 #########################################################################
 
 
 # Function for prime number generator
-def erat2( ):
-    D = {  }
+def erat2():
+    d = {}
     yield 2
     for q in itertools.islice(itertools.count(3), 0, None, 2):
-        p = D.pop(q, None)
+        p = d.pop(q, None)
         if p is None:
-            D[q*q] = q
+            d[q * q] = q
             yield q
         else:
             x = p + q
-            while x in D or not (x&1):
+            while x in d or not (x & 1):
                 x += p
-            D[x] = p
+            d[x] = p
 
 
 # Generate prime number using sieve algorithm
 # param n - generate numbers of prime numbers,
 def generate_prime_numbers(n):
     """ Input n>=6, Returns a list of primes, 2 <= p < n """
-    return list(itertools.takewhile(lambda p: p<n, erat2()))
+    return list(itertools.takewhile(lambda p: p < n, erat2()))
 
 
+# Select a prime number from generated list of prime numbers
 def select_prime_number(prime_numbers, run_tests=False):
+    # if run_tests is True then set seed to 0
     if run_tests is True:
         random.seed(0)
     return random.choice(prime_numbers)
-
 
 
 #########################################################################
@@ -265,7 +259,7 @@ def generate_uuid(run_tests=False):
         # Possible solution
         # http://stackoverflow.com/questions/24796654/python-uuid4-how-to-limit-the-length-of-unique-chars
         # value = uuid.uuid4().int & 0xFFFFFFFFFFFFFFFF # 64bit
-        value = uuid.uuid4().int & 0xFFFFFFFFFFFFFF   # 56 bit
+        value = uuid.uuid4().int & 0xFFFFFFFFFFFFFF  # 56 bit
     return value
 
 # uid = generate_uuid()
@@ -273,5 +267,3 @@ def generate_uuid(run_tests=False):
 
 # tada = generate_prime_numbers(3000000)
 # print(tada)
-
-
