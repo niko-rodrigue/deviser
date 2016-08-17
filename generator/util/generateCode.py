@@ -345,7 +345,7 @@ def generate_jsbml_code_files(name, ob):
         all_files = JavaFiles.JavaFiles(working_class, True)
         all_files.write_files()
 
-    # # Write plugins TODO problem with plugins
+    # # Write plugins
     for i in range(0, len(ob['plugins']) + 1):
         ext.write_plugin_files(i)
     os.chdir(this_dir)

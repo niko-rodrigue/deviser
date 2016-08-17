@@ -336,6 +336,13 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.class_name = class_object['name']
         self.package = class_object['package']
         self.typecode = class_object['typecode']
+
+        # TODO this is for determination if file is an interface or class
+        if 'abstract' in class_object:
+            self.is_class_abstract = class_object['abstract']
+        else:
+            self.is_class_abstract = False
+
         if class_object['is_list_of']:
             self.list_of_name = class_object['list_of_name']
             self.list_of_child = class_object['lo_child']
@@ -1702,38 +1709,54 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     # This writes java class header and "extend" and "implements" part
     def write_jsbml_class_header(self):
-        abstract = self.jsbml_class_header_and_import['abstract']
-        class_name = self.jsbml_class_header_and_import['className']
-        extends = self.jsbml_class_header_and_import['extends']
-        implement_modules = self.jsbml_class_header_and_import['implements']
-        if abstract == False:
-            write_abstract = ''
+        # TODO what if class is an interface
+        if self.is_class_abstract is True:
+            # abstract = self.jsbml_class_header_and_import['abstract']
+            class_name = self.jsbml_class_header_and_import['className']
+            # extends = self.jsbml_class_header_and_import['extends']
+            # implement_modules = self.jsbml_class_header_and_import['implements']
+            line_to_write = 'public interface {0} extends SBase '.format(class_name)
+
+            # Not a preferable solution
+            self.line_length = 120
+            self.write_line_jsbml(line_to_write)
+            self.file_out.write('\n')
+            self.line_length = 79
         else:
-            write_abstract = 'abstract '
-        line_to_write = 'public {0}class {1} '.format(write_abstract, class_name)
-        extends_len = len(extends)
-        if extends_len == 1:
-            line_to_write += 'extends {0}'.format(extends[0])
-        elif extends_len > 1:
-            line_to_write += ' extends'
-            for n in range(0, extends_len-1):
-                line_to_write = line_to_write + extends[n] + ', '
+            abstract = self.jsbml_class_header_and_import['abstract']
+            class_name = self.jsbml_class_header_and_import['className']
+            extends = self.jsbml_class_header_and_import['extends']
+            implement_modules = self.jsbml_class_header_and_import['implements']
+            if abstract == False:
+                write_abstract = ''
+            else:
+                write_abstract = 'abstract '
+            line_to_write = 'public {0}class {1} '.format(write_abstract, class_name)
+            extends_len = len(extends)
+            if extends_len == 1:
+                line_to_write += 'extends {0}'.format(extends[0])
+            elif extends_len > 1:
+                line_to_write += ' extends'
+                for n in range(0, extends_len-1):
+                    line_to_write = line_to_write + extends[n] + ', '
 
-        implement_len = len(implement_modules)
-        if implement_len == 1:
-            line_to_write += ' implements {0}'.format(implement_modules[0])
-        elif implement_len > 1:
-            line_to_write += ' implements '
-            for n in range(0, implement_len-1):
-                line_to_write += implement_modules[n] + ', '
-            line_to_write = line_to_write + implement_modules[-1]
+            implement_len = len(implement_modules)
+            if implement_len == 1:
+                line_to_write += ' implements {0}'.format(implement_modules[0])
+            elif implement_len > 1:
+                line_to_write += ' implements '
+                for n in range(0, implement_len-1):
+                    line_to_write += implement_modules[n] + ', '
+                line_to_write = line_to_write + implement_modules[-1]
 
 
-        # Not a preferable solution
-        self.line_length = 120
-        self.write_line_jsbml(line_to_write)
-        self.file_out.write('\n')
-        self.line_length = 79
+            # Not a preferable solution
+            self.line_length = 120
+            self.write_line_jsbml(line_to_write)
+            self.file_out.write('\n')
+            self.line_length = 79
+
+
 
     def write_java_imports(self):
         self.skip_line()

@@ -86,6 +86,9 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
         self.class_object['child_elements'] = []
         self.class_object['overwrites_children'] = False
 
+        # TODO in case when class is abstract it has to be an interface,so this part needs to be changed
+        self.is_class_abstract = False
+
         # Expand java import statement
         self.pack = self.package
         self.expand_import_modules(self.original_package)
