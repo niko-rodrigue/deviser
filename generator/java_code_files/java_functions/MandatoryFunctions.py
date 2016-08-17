@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
 # @file    MandatoryFunctions.py
-# @brief   class to create functions to get/set attributes/elements
+# @brief   class to create functions to Mandatory functions for Java
 # @author  GSOC 2016 Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ import sys
 class MandatoryFunctions():
     """Class for all java  functions for mandatory functions"""
 
-    def __init__(self, language, is_java_api, is_list_of, class_object,  jsbml_data_tree=None, jsbml_methods=None):
+    def __init__(self, language, is_java_api, is_list_of, class_object, jsbml_data_tree=None, jsbml_methods=None):
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -59,11 +59,10 @@ class MandatoryFunctions():
             self.object_child_name = self.child_name
         else:
             if is_list_of:
-                self.object_name = 'ListOf'  #_t'
+                self.object_name = 'ListOf'
             else:
-                self.object_name = self.class_name  #+ '_t'
-            self.object_child_name = self.child_name  # + '_t'
-
+                self.object_name = self.class_name
+            self.object_child_name = self.child_name
 
         # class_attributes not suitable
         # self.attributes = class_object['class_attributes']
@@ -88,7 +87,7 @@ class MandatoryFunctions():
             self.true = '@c 1'
             self.false = '@c 0'
         else:
-            self.true = '{@code true}'  #For comments
+            self.true = '{@code true}'  # For comments
             self.false = '{@code false}'
         self.plural = strFunctions.plural(self.child_name)
         self.indef_name = strFunctions.get_indefinite(self.object_child_name)
@@ -109,22 +108,23 @@ class MandatoryFunctions():
         self.invalid_att = global_variables.ret_invalid_att
         self.invalid_obj = global_variables.ret_invalid_obj
 
-        # TODO GSOC 2016 mandatory functions
+        # JSBML unique helper data
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
             self.jsbml_methods = jsbml_methods
 
-
+        # Here it will hold mandatory functions informations
         self.mandatory_data = {}
 
+        # The order the mandatory function have to be written
         self.write_order = self.determine_mandatory_methods()
 
+    ####################################################################################################################
 
-    ########################################################################
 
-
-    # TODO GSOC 2016 determine mandatory methods to write
+    # TODO Tuning may be required for mandatory detector
+    # Determine  for which methods a mandatory methods needs to be generated
     def determine_mandatory_methods(self, function='Mandatory'):
         for key in list(self.jsbml_methods.keys()):
             for method in self.jsbml_methods[key]:
@@ -133,8 +133,6 @@ class MandatoryFunctions():
                     if 'Id' in function_name or 'Name' in function_name:
                         self.mandatory_data.update({method['functionName']: [method]})
 
-        #
-        # # TODO fix bug no need isCompartment
         for attribute in self.attributes:
 
             att_type = attribute['attType']
@@ -142,35 +140,35 @@ class MandatoryFunctions():
                 att_name = attribute['attTypeCode']
             else:
                 att_name = strFunctions.upper_first(attribute['name'])
+            # traditional JSBML name
             method_name_one = str('is{0}Mandatory'.format(att_name))
-            method_name_two= str('isSet{0}Mandatory'.format(att_name))
+
+            # method_name_two is  for type bool JSBML specific
+            method_name_two = str('isSet{0}Mandatory'.format(att_name))
             for key in list(self.mandatory_data.keys()):
-                # TODO isSetConstantMandatory
-                type = str(attribute['type'])[:]
-                if type == 'bool':
+                type_element = str(attribute['type'])[:]
+                if type_element == 'bool':
                     method_name = method_name_two
                 else:
                     method_name = method_name_one
+
                 test_key = str(key)[:]
                 test_method = str(method_name)[:]
                 att = str(att_name)[:]
 
-                if (test_method == test_key):
-                    # self.mandatory_data[method_name].append(attribute)
+                if test_method == test_key:
                     self.mandatory_data.update({method_name: attribute})
-                # here is  the problem but how to fix it
-                else: #(test_method != test_key):
+                else:  # (test_method != test_key):
                     if test_method not in self.mandatory_data:
                         if att not in ['Id', 'Name']:
                             self.mandatory_data.update({method_name: attribute})
 
-        # #
-        # # print('Mandatory Data ', list(self.mandatory_data.keys()))
         return sorted(list(self.mandatory_data.keys()))
 
+    # get number of mandatory function
     def get_num_attributes(self):
         try:
-            #print(self.write_order)
+            # print(self.write_order)
             return len(self.write_order)
         except:
             return 0
@@ -178,9 +176,6 @@ class MandatoryFunctions():
     # Functions for writing mandatory
 
 
-
-
-    # GSOC 2016 write_mandatory prototype v0.1
     # function to write mandatory functions
     def write_mandatory(self, is_attribute, index, const=True, virtual=False):
         if not self.is_java_api and not const:
@@ -191,32 +186,22 @@ class MandatoryFunctions():
             else:
                 return
 
-        # # TODO GSOC 2016 JSBML change
-
-
-        # attribute = self.mandatory_data[attribute_key]
-
         params = []
         arguments = []
         return_lines = []
         additional = []
-
-
 
         # create the function declaration
         if self.is_java_api:
             function = '{0}'.format(attribute_key)
             return_type = 'boolean'
 
-        # TODO GSOC 2016 FBC bug
         if len(self.mandatory_data[attribute_key]) > 2:
             curr_attribute = self.mandatory_data[attribute_key]
         elif len(self.mandatory_data[attribute_key]) == 2:
             curr_attribute = self.mandatory_data[attribute_key][1]
         else:
             curr_attribute = self.mandatory_data[attribute_key][0]
-
-
 
         try:
             return_value = str(curr_attribute['reqd'])[:]
@@ -228,42 +213,22 @@ class MandatoryFunctions():
             # print('error ',e)
             return_value = 'true'
 
-
-
         title_line = '@return {0}'.format(return_value)
 
         additional_add = []
-        # TODO detect if override or not
-        additional_add, class_key, functionArgs= jsbmlHelperFunctions.\
+
+        # detect if needs to be overriden
+        additional_add, class_key, functionArgs = jsbmlHelperFunctions. \
             determine_override_or_deprecated(self.jsbml_methods, attribute_key)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = '(non-Javadoc)--'
             title_line += '@see org.sbml.jsbml.{0}#{1}'.format(class_key, function)
 
-
         if self.is_java_api:
             implement_string = ['return {0}'.format(return_value)]
             code = [self.create_code_block('line', implement_string)]
-        #         else:
-        #             if curr_att_type in global_variables.javaTypeAttributes:
-        #                 implement_part2 = 'return {0}.{1}Value()'.format(attribute['memberName'], curr_att_type)
-        #             else:
-        #                 implement_part2 = 'return {0}'.format(attribute['memberName'])
-        #             implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
-        #             implementation = [
-        #                 'throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
-        #                                                                                   attribute['memberName'])]
-        #             code = [dict({'code_type': 'if', 'code': implementation2}),
-        #                     dict({'code_type': 'line', 'code': implementation})]
-        #     else:
-        #         implementation = self.write_get_for_doc_functions(attribute)
-        #         code = [self.create_code_block('line', implementation)]  # tricky
-        # else:
-        #     code = self.get_c_attribute(attribute)
 
-
-        # return the parts
         return dict({'title_line': title_line,
                      'params': params,
                      'return_lines': return_lines,
@@ -275,11 +240,6 @@ class MandatoryFunctions():
                      'virtual': virtual,
                      'object_name': self.struct_name,
                      'implementation': code})
-
-    # Functions for writing get functions
-
-
-
 
     @staticmethod
     def create_code_block(code_type, lines):

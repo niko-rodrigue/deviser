@@ -133,14 +133,11 @@ class GeneralFunctions():
         # status
         if self.is_java_api:
             if self.is_list_of:
-                self.status = 'cpp_list'
+                self.status = 'java_list'
             else:
-                self.status = 'cpp_not_list'
+                self.status = 'java_not_list'
         else:
-            if self.is_list_of:
-                self.status = 'c_list'
-            else:
-                self.status = 'c_not_list'
+            self.status = 'needs work to be done'
 
         # For tests
         self.run_tests = global_variables.running_tests
@@ -193,7 +190,6 @@ class GeneralFunctions():
                         self.methods_to_write.append(function_name)
 
     ########################################################################
-
 
     # Function for writing get_child_at
     def create_nested_if_for_get_child_at(self, lo_element):
