@@ -104,7 +104,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # well as missing function that have to be generated based on imports
         self.write_general_functions()
 
-
     ########################################################################
 
     # function to write the constructors
@@ -145,8 +144,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             self.write_function_implementation(code)
 
         elif self.is_java_api and self.is_plugin:
-
-            # TODO here is the problem
+            # This creates with the 'element' serving as argument
+            # E.g. (Compartment compartment)
             code = constructor.write_basic_plugin_copy_constructor()
             self.write_function_implementation(code)
 
@@ -158,7 +157,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                 code = constructor.write_level_version_constructor(i)
                 self.write_function_implementation(code)
 
-        # Clone need @override
+        #
         self.line_length = 150
         code = constructor.write_clone()
         self.write_function_implementation(code)
@@ -169,12 +168,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     # Functions for writing the attribute manipulation functions
     # these are for attributes and elements that occur as a single child
 
+    # This is for writing java code and gives another layer for control
     def write_function_java(self, code):
-        # print('Ylo friend')
         if code is not None:
             self.write_function_implementation(code)
-
-            # function to write the get/set/isSet/unset functions for attributes
 
     def write_mandatory_functions(self):
         attrib_functions = MandatoryFunctions.MandatoryFunctions(self.language,
@@ -185,7 +182,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                                  self.jsbml_methods)
 
         num_attributes = attrib_functions.get_num_attributes()
-        # # # TODO how to write instance methods
+
+        # Most of the time comments length is more than 79
         self.line_length = 140
         for i in range(0, num_attributes):
             code = attrib_functions.write_mandatory(True, i)
@@ -204,47 +202,32 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         num_attributes = len(self.class_attributes)
 
         self.line_length = 140
-        # TODO how to write instance methods
         for i in range(0, num_attributes):
             code = attrib_functions.write_get(True, i)
             # self.write_function_implementation(code)
             self.write_function_java(code)
 
-            # TODO GSOC 2016 get Object Instance
-
             code = attrib_functions.write_get_instance(True, i)
-            # self.write_function_implementation(code)
             self.write_function_java(code)
-
-
-            # TODO enum as string?
-            # code = attrib_functions.write_get_string_for_enum(True, i)
-            # self.write_function_implementation(code)
 
         for i in range(0, num_attributes):
             code = attrib_functions.write_is_set(True, i)
-            # self.write_function_implementation(code)
+
             self.write_function_java(code)
 
             code = attrib_functions.write_is_set_instance(True, i)
             self.write_function_java(code)
 
-
-            # code = attrib_functions.write_get_num_for_vector(True, i) # IsSetID for JSBML not neccessary
-            # self.write_function_implementation(code)
-
-        # TODO SIdRef write function 2 times (String, OriginalType)
         for i in range(0, num_attributes):
 
-            curr_attribute = attrib_functions.get_attribute(True, i)
-            # print('Curr_attribute ', curr_attribute)
-
+            # curr_attribute = attrib_functions.get_attribute(True, i)
 
             self.line_length = 160
             code = attrib_functions.write_set(True, i)
             self.write_function_java(code)
 
             self.line_length = 180
+            # Get number of function with identical names,but that take different arguments
             similar_num_attributes = attrib_functions.get_similar_num_attributes()
             for y in range(0, similar_num_attributes):
                 code = attrib_functions.write_similar_functions(True, i, y)
@@ -255,7 +238,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         for i in range(0, num_attributes):
             code = attrib_functions.write_unset(True, i)
             self.write_function_java(code)
-            # self.write_function_implementation(code)
 
         self.line_length = 79
 
@@ -282,9 +264,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         for i in range(0, num_elements):
             code = attrib_functions.write_get(False, i)
             self.write_function_implementation(code)
-
-            # code = attrib_functions.write_get(False, i, const=False)
-            # self.write_function_implementation(code)
 
         for i in range(0, num_elements):
             code = attrib_functions.write_is_set(False, i)
@@ -386,90 +365,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_function_implementation(code)
         self.line_length = 79
 
-        # code = gen_functions.write_rename_sidrefs()
-        # self.write_function_implementation(code)
-        #
-        # if not self.is_plugin:
-        #     code = gen_functions.write_get_element_name()
-        #     self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_set_element_name()
-        # self.write_function_implementation(code, exclude=True)
-        #
-        # if not self.is_plugin:
-        #     code = gen_functions.write_get_typecode()
-        #     self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_get_item_typecode()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_has_required_attributes()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_has_required_elements()
-        # self.write_function_implementation(code)
-        #
-        # code = gen_functions.write_write_elements()
-        # self.write_function_implementation(code, exclude=True)
-        #
-        # code = gen_functions.write_accept()
-        # self.write_function_implementation(code, exclude=True)
-        #
-        # code = gen_functions.write_set_document()
-        # self.write_function_implementation(code, exclude=True)
-        #
-        # code = gen_functions.write_write()
-        # self.write_function_implementation(code, exclude=True)
-        #
-        # code = gen_functions.write_connect_to_child()
-        # self.write_function_implementation(code, exclude=True)
-        #
-        # if self.is_plugin:
-        #     code = gen_functions.write_connect_to_parent()
-        #     self.write_function_implementation(code, exclude=True)
-        #
-        # if global_variables.is_package:
-        #     code = gen_functions.write_enable_package()
-        #     self.write_function_implementation(code, exclude=True)
-        #
-        # if self.is_doc_plugin:
-        #     code = gen_functions.write_is_comp_flat()
-        #     self.write_function_implementation(code, exclude=True)
-        #
-        #     code = gen_functions.write_check_consistency()
-        #     self.write_function_implementation(code, exclude=True)
-        #
-        #     code = gen_functions.write_read_attributes()
-        #     self.write_function_implementation(code, exclude=True)
-
-    ########################################################################
-
-    # Retrieve element functions
-
-    def write_functions_to_retrieve(self):
-        if not query.has_children(self.attributes):
-            return
-
-        gen_functions = \
-            GlobalQueryFunctions.GlobalQueryFunctions(self.language,
-                                                      self.is_java_api,
-                                                      self.is_list_of,
-                                                      self.class_object)
-        code = gen_functions.write_get_by_sid()
-        self.write_function_implementation(code)
-
-        code = gen_functions.write_get_by_metaid()
-        self.write_function_implementation(code)
-
-        code = gen_functions.write_get_all_elements()
-        self.write_function_implementation(code)
-
-        if self.is_plugin:
-            code = gen_functions.write_append_from()
-            self.write_function_implementation(code, True)
-
-    ####################################################################################################################
-
 
     ####################################################################################################################
 
@@ -541,6 +436,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
                                                              const=False)
                 self.write_function_implementation(code)
 
+    # This is for writing child_lo_elements functions in a group
     def write_child_lo_element_functions_by_groups(self, function_to_write):
         num_elements = len(self.child_lo_elements)
         for i in range(0, num_elements):
@@ -640,7 +536,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         function_to_write = 'createElement'
         self.write_child_lo_element_functions_by_groups(function_to_write)
 
-        # TODO not necessary for deviser right now
+        # TODO not necessary for deviser right now for child_lo_elements functions
         # function_to_write = 'createElementID'
         # self.write_child_lo_element_functions_by_groups(function_to_write)
 
@@ -733,9 +629,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         code = parser_functions.write_create_plugin_for_sbase()
         self.write_function_implementation(code)
 
-        # It is necessary
-        code = parser_functions.write_create_plugin_for_astnode()  # dif argumnet ASTNode
-        self.write_function_implementation(code)
+        # TODO ASTNodePlugin createPluginFor is for newer versions of JSBML
+        # So for the moment it has been turned off
+        # code = parser_functions.write_create_plugin_for_astnode()
+        # self.write_function_implementation(code)
 
         code = parser_functions.write_get_list_of_sbml_elements_to_write()
         self.write_function_implementation(code)
@@ -763,7 +660,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
         self.write_java_imports()
-        # self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
 
         curr_include_line = '@ProviderFor(ReadingParser.class)'
@@ -776,7 +672,3 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_parser_class()
         self.skip_line(1)
         self.close_jsbml_class_header()
-        # self.write_cpp_end()
-        # if not self.is_plugin:
-        #     self.write_c_code()
-        # self.write_cppns_end()
