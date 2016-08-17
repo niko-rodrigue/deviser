@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
 # @file    ListOfQueryFunctions.py
-# @brief   class to create functions to query a ListOf element
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   class to create functions to query a ListOf element for JAVA.
+# @author  Hovakim Grabski GSoC 2016
 #
 # <!--------------------------------------------------------------------------
 #
@@ -60,13 +59,6 @@ class ListOfQueryFunctions():
             self.child_type = strFunctions.upper_first(class_object['element'])
             self.class_name = class_object['name']
         elif self.is_plugin:
-            # self.child_name = strFunctions.upper_first(class_object['element'])
-            # self.child_name_lower = class_object['name']
-            # self.class_name = class_object['plugin']
-            # self.child_name = class_object['capAttName']
-
-            # Old version
-            # self.child_name = strFunctions.upper_first(strFunctions.plural(class_object['element']))
             self.child_name = strFunctions.upper_first(class_object['element'])
             self.child_type = strFunctions.upper_first(class_object['element'])
             self.child_name_lower = class_object['name']
@@ -85,12 +77,12 @@ class ListOfQueryFunctions():
         else:
             if is_list_of:
                 if global_variables.is_package:
-                    self.object_name = 'ListOf' #_t'
+                    self.object_name = 'ListOf'
                 else:
                     self.object_name = strFunctions.prefix_name('ListOf')
             else:
-                self.object_name = self.class_name # + '_t'
-            self.object_child_name = self.child_name # + '_t'
+                self.object_name = self.class_name
+            self.object_child_name = self.child_name
             self.object_child_type = self.child_type
             self.object_name_lower = self.child_name_lower
         self.std_base = class_object['std_base']
@@ -146,7 +138,7 @@ class ListOfQueryFunctions():
         self.close_br = '}'
 
 
-        # TODO GSOC 2016
+        # Additional java helper data for JSBML
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:

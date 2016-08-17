@@ -589,7 +589,7 @@ class Constructors():
             return
 
         # create the function implementation
-        constructor_args = [] #self.write_constructor_args(None)
+        constructor_args = []
 
         if global_variables.is_package:
             if self.is_java_api:

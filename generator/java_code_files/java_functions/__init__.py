@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
 # @file    __init__.py
-# @brief   init for cpp_functions directory
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   init for java_functions directory
+# @author  Hovakim Grabski for GSoC 2016
 #
 # <!--------------------------------------------------------------------------
 #
