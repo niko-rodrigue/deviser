@@ -235,7 +235,9 @@ def has_vector(attributes):
         return True
     return False
 
-# TODO GSOC 2016
+
+
+# @author Hovakim Grabski GSoC 2016
 # return True is any of the attributes are of type vector
 def has_term(attributes):
     if any(attribute['JClassType'] == 'Term' for attribute in attributes):

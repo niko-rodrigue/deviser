@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-# @file    JavaCodeFile.py
-# @brief   class for generating code file for the given class
+# @file    jsbmlHelperFunctions.py
+# @brief   class for generating code file for the given class for GSoC 2016
 # @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
@@ -262,6 +262,9 @@ def generate_uuid(run_tests=False):
         value = uuid.uuid4().int & 0xFFFFFFFFFFFFFF  # 56 bit
     return value
 
+
+
+# For testing purposes
 # uid = generate_uuid()
 # print(uid)
 

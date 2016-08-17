@@ -1,26 +1,64 @@
+#!/usr/bin/env python
+#
+# @file    insideJSBML_parser.py
+# @brief   JSBML classes parser using javap for GSoC 2016
+# @author  Hovakim Grabski
+#
+# <!--------------------------------------------------------------------------
+#
+# Copyright (c) 2013-2015 by the California Institute of Technology
+# (California, USA), the European Bioinformatics Institute (EMBL-EBI, UK)
+# and the University of Heidelberg (Germany), with support from the National
+# Institutes of Health (USA) under grant R01GM070923.  All rights reserved.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a
+# copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
+#
+# Neither the name of the California Institute of Technology (Caltech), nor
+# of the European Bioinformatics Institute (EMBL-EBI), nor of the University
+# of Heidelberg, nor the names of any contributors, may be used to endorse
+# or promote products derived from this software without specific prior
+# written permission.
+# ------------------------------------------------------------------------ -->
+
+
 import os
 import sys
 import time
 import subprocess as sub
 
-
 file_path = os.path.dirname(os.path.abspath(__file__))
 jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
 
 curr_dir = os.getcwd()
-# print('curr_dir ',curr_dir)
-
 
 def print_output(output):
     for line in output:
         print(line)
 
+
 def clean_line(data):
     temp = []
     for i in data:
-        if i !='':
+        if i != '':
             temp.append(i)
     return temp
+
 
 def extract_data(temp_data):
     # print('temp_data ',temp_data)
@@ -37,18 +75,18 @@ def extract_data(temp_data):
 
     # TODO this is the part that includes extends module
     if len(temp_data) == 1 and temp_data[-1] == '}':
-        return 
+        return
 
     for i in range(len(temp_data)):
         if temp_data[0] == 'Compiled':
             return
         if len(temp_data) == 1 and temp_data[-1] == '}':
-            return 
-        # Function Arguments extracter
+            return
+            # Function Arguments extracter
         if '(' in temp_data[i]:
-            #print('i is ',i)
-            function_name_step1  = temp_data[i].split('(')
-            #print('function_name_step1 ',function_name_step1)
+            # print('i is ',i)
+            function_name_step1 = temp_data[i].split('(')
+            # print('function_name_step1 ',function_name_step1)
             function_name = function_name_step1[0]
             function_index = i
             if function_name_step1[-1] != ');':
@@ -59,7 +97,7 @@ def extract_data(temp_data):
                     arg = function_name_step1[-1].split(',')[0]
                     arguments.append(arg)
                     for y in range(function_index, len(temp_data)):
-                        #print('y ',temp_data[y])
+                        # print('y ',temp_data[y])
                         if ',' in temp_data[y]:
                             arg = function_name_step1[-1].split(',')[0]
                             arguments.append(arg)
@@ -69,16 +107,16 @@ def extract_data(temp_data):
             elif function_name_step1[-1] == ');':
                 break
 
-            # else:
-            #     arg = function_name_step1[-1].split(',')[0]
-            #     arguments.append(arg)
-            #     for y in range(len(temp_data[function_index+1:])):
-            #         print('y is ',temp_data[y])
-            # print(function_name,'--', function_index) # THis works
-            # function_name_step2  = function_name_step1[-1].split(');')
-            # print(function_name_step2)
+                # else:
+                #     arg = function_name_step1[-1].split(',')[0]
+                #     arguments.append(arg)
+                #     for y in range(len(temp_data[function_index+1:])):
+                #         print('y is ',temp_data[y])
+                # print(function_name,'--', function_index) # THis works
+                # function_name_step2  = function_name_step1[-1].split(');')
+                # print(function_name_step2)
         elif '<' in temp_data[i]:
-            type_of_name_step1  = temp_data[i].split('<')
+            type_of_name_step1 = temp_data[i].split('<')
             of_type = type_of_name_step1[0]
             type_index = i
             if type_of_name_step1[-1] != '>':
@@ -89,7 +127,7 @@ def extract_data(temp_data):
                     arg = type_of_name_step1[-1].split(',')[0]
                     of_type_args.append(arg)
                     for y in range(type_index, len(temp_data)):
-                        #print('y ',temp_data[y])
+                        # print('y ',temp_data[y])
                         if ',' in temp_data[y]:
                             arg = type_of_name_step1[-1].split(',')[0]
                             of_type_args.append(arg)
@@ -97,14 +135,12 @@ def extract_data(temp_data):
                             arg = type_of_name_step1[-1].split('>')[0]
                             of_type_args.append(arg)
 
-    if len(temp_data)>0:
+    if len(temp_data) > 0:
         if temp_data[0] in ['public', 'private', 'protected']:
             access_type = temp_data[0]
 
-    
-
     if len(temp_data) > 1 and temp_data[1] == 'abstract':
-        is_abstract = True 
+        is_abstract = True
         return_type = temp_data[2]
     elif len(temp_data) > 1:
         if temp_data[1] == 'void':
@@ -124,12 +160,12 @@ def extract_data(temp_data):
 
     # print('of_type ',of_type)
     # print('of_type_args ',of_type_args)
-    
 
-    return {'accessType':access_type,'isAbstract':is_abstract, 
-            'returnType':return_type, 'functionName':function_name,
-            'functionArgs':arguments, 'of_type':of_type, 
-            'of_type_args':of_type_args, 'originalData':temp_data}
+
+    return {'accessType': access_type, 'isAbstract': is_abstract,
+            'returnType': return_type, 'functionName': function_name,
+            'functionArgs': arguments, 'of_type': of_type,
+            'of_type_args': of_type_args, 'originalData': temp_data}
     # function_name = function_name_step2[0] 
     # print('function_name ',function_name)
     # print('------------------')           
@@ -153,7 +189,6 @@ def parse_extends(extends):
         is_class = False
     data_extends.update({'isClass': is_class})
 
-
     data_extends.update({'extendsFull': extends[-2]})
 
     extend_short = extends[-2].split('.')[-1]
@@ -165,24 +200,23 @@ def parse_extends(extends):
     # print(extends)
     # print('--------------------------')
 
+
 def parse_output(output):
     final_data = {}
     output_data = []
     for line in output:
-        #print(line) 
+        # print(line)
         data_stage1 = line.split('\n')
         # print(data_stage1)       
         data_stage2 = data_stage1[0].split(' ')
-        #Need to catch extend here
+        # Need to catch extend here
         if 'extends' in data_stage2:
             final_data.update({'extends': parse_extends(data_stage2)})
-
-
 
         temp_data = clean_line(data_stage2)
         # print(line)
         # print(temp_data)
-    
+
         data = extract_data(temp_data)
 
         # print('data is ', data)
@@ -190,15 +224,16 @@ def parse_output(output):
         if data is not None:
             output_data.append(data)
 
-        
-        # if '{' in temp_data:
-        #     output_data.update({'classInfo':temp_data[:-1]})
-        # elif function_name in temp_data:
-        #     output_data.update({'methods':temp_data})
-        # print('->'*20)
-        # print('\n')
+
+            # if '{' in temp_data:
+            #     output_data.update({'classInfo':temp_data[:-1]})
+            # elif function_name in temp_data:
+            #     output_data.update({'methods':temp_data})
+            # print('->'*20)
+            # print('\n')
     final_data.update({'modules': output_data})
-    return final_data #output_data
+    return final_data  # output_data
+
 
 def get_class_information(class_name=None, individual_run=False):
     if class_name == 'AbstractSBasePlugin':
@@ -230,7 +265,7 @@ def get_class_information(class_name=None, individual_run=False):
     # print('tada ', class_info.returncode)
 
     if stdout:
-        stdout_value = stdout.decode() #decode("utf-8")
+        stdout_value = stdout.decode()  # decode("utf-8")
         class_output = stdout_value.split('\n')
         dict_data = parse_output(class_output)
         return dict_data
@@ -245,21 +280,17 @@ def get_class_information(class_name=None, individual_run=False):
 
 
 
-    # print('class_ou', class_output)
-    #raise Exception('For bug testing')
-    # assert len(class_output) > 0
+            # print('class_ou', class_output)
+            # raise Exception('For bug testing')
+            # assert len(class_output) > 0
 
 
 
-    # except Exception as e:
-    #     print('Check if Java SDK is installed, deviser requires javap')
-    #     print(e)
-    #     sys.exit(0)
-    # print_output(class_output)
-
-
-
-
+            # except Exception as e:
+            #     print('Check if Java SDK is installed, deviser requires javap')
+            #     print(e)
+            #     sys.exit(0)
+            # print_output(class_output)
 
 # get_class_information()
 
