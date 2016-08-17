@@ -2,8 +2,7 @@
 #
 # @file    ConcreteClassFunctions.py
 # @brief   class to create functions for concrete classes
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @author  Hovakim Grabski GSoC 2016
 #
 # <!--------------------------------------------------------------------------
 #
@@ -39,9 +38,9 @@
 
 from util import strFunctions
 
-
+# TODO Concrete Functions haven't been implemented for JSBML
 class ConcreteClassFunctions():
-    """Class for all protected functions"""
+    """Class for all concrete functions"""
 
     def __init__(self, language, is_cpp_api, is_list_of, class_object):
         self.language = language
@@ -112,20 +111,30 @@ class ConcreteClassFunctions():
         # create the function declaration
         if self.is_cpp_api:
             function = 'is{0}'.format(conc_name)
-            return_type = 'bool'
+            return_type = 'boolean'
             arguments = []
         else:
             function = '{0}_is{1}'.format(self.class_name, conc_name)
             return_type = 'int'
-            arguments = ['const {0} * '
+            arguments = ['{0} '
                          '{1}'.format(self.object_name, self.abbrev_parent)]
+        implementation = []
+        code = []
         if self.is_cpp_api:
-            line = ['return dynamic_cast<const {0}*>(this) != '
-                    'NULL'.format(conc_name)]
+            comment_line = self.create_code_block('comment', ['TODO adapt write_is_foo in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line',  throw_exception_temp)
+            implementation.append(throw_exception_line)
         else:
-            line = ['return ({0} != NULL) ? static_cast<int>({0}'
-                    '->is{1}()) : 0'.format(self.abbrev_parent, conc_name)]
-        code = [self.create_code_block('line', line)]
+            comment_line = self.create_code_block('comment', ['TODO adapt write_is_foo in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+        code = implementation
 
         # return the parts
         return dict({'title_line': title_line,
@@ -141,6 +150,6 @@ class ConcreteClassFunctions():
                      'implementation': code})
 
     @staticmethod
-    def create_code_block(code_type, lines):
+    def create_code_block(code_type, lines =''):
         code = dict({'code_type': code_type, 'code': lines})
         return code

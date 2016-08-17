@@ -97,7 +97,8 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         # write child_lo_element functions
         self.write_child_lo_element_functions()
 
-        # TODO concrete functions haven't been modified
+        # TODO concrete functions haven't been implemented
+        # Very important for fbc package
         self.write_concrete_functions()
 
         # This is used for writing hashCode, readAttributes, writeXMLAttributes as
@@ -369,7 +370,7 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
     ####################################################################################################################
 
     # concrete class functions
-
+    # TODO concrete functions are very important for fbc
     def write_concrete_functions(self):
         conc_functions = \
             ConcreteClassFunctions.ConcreteClassFunctions(self.language,

@@ -1406,36 +1406,10 @@ class Constructors():
                 code.append(temp_code)
 
 
-        # TODO temporary fix
+        # To fix }  } cases
         line = self.create_code_block('empty_line')
         code.append(line)
 
-        # implementation = ['']
-        # line = self.create_code_block('line', implementation)
-        # code.append(line)
-
-        # for i in range(0, len(self.attributes)):
-        #     if self.attributes[i]['isArray']:
-        #         line = self.write_set_array(i)
-        #         code.append(self.create_code_block('line', line))
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['orig.{0} != NULL'.format(member),
-        #                       '{0} = orig.{0}->{1}()'.format(member,
-        #                                                      clone)]
-        #     code.append(self.create_code_block('if', implementation))
-        # if self.document:
-        #     implementation = ['set{0}Document(this)'.format(global_variables.prefix)]
-        #     code.append(dict({'code_type': 'line', 'code': implementation}))
-        # if self.has_children:
-        #     implementation = ['connectToChild()']
-        #     code.append(dict({'code_type': 'line', 'code': implementation}))
-        # else:
-        #     implementation = ['']
-        #     code.append(dict({'code_type': 'blank', 'code': implementation}))
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1556,43 +1530,20 @@ class Constructors():
                 continue
             else:
                 temp_code = self.create_equals_if(i)
-                # code.append(temp_code[-1])
                 for y_code in temp_code:
                     implementation.append(y_code)
 
-        # TODO  temporary fix
 
+        # To fix '}  }' case
         line = self.create_code_block('empty_line')
         implementation.append(line)
 
         code.append(self.create_code_block('if', implementation))
 
         equals_return = ['return equals']
-        # implementation.append('')
+
 
         code.append(self.create_code_block('line', equals_return))
-
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
