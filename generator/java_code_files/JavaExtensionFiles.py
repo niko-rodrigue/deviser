@@ -73,9 +73,10 @@ class JavaExtensionFiles():
                           'values': self.package['elements']})
         return list_info
 
+    # Write Java Enum
     def write_enums(self, num):
         if num >= len(self.package['enums']):
-            # class_object = self.create_document_plugin_desc()
+            # Write java list enums
             working_enum = self.create_element_list_enum()
             all_files = JavaEnumFiles.JavaEnumFiles(working_enum, self.package, True)
             all_files.write_list_enum_files()
@@ -89,6 +90,7 @@ class JavaExtensionFiles():
         class_descrip = self.package
         self.write_parser_code(class_descrip)
 
+    # Write Parser code
     def write_parser_code(self, class_descrip):
         class_descrip['original_name'] = class_descrip['name']
         class_descrip['name'] = strFunctions.upper_first(class_descrip['name']) + 'Parser'
@@ -102,6 +104,7 @@ class JavaExtensionFiles():
         fileout.write_parser_file()
         fileout.close_file()
 
+    # Write Plugin Code
     def write_plugin_code(self, class_descrip):
         class_descrip.update({'is_parser': False})
         class_descrip.update({'is_plugin': True})
@@ -144,7 +147,6 @@ class JavaExtensionFiles():
     # Create class description for JSBML plugin
     def create_class_description(self, num):
         if num >= len(self.package['plugins']):
-            # class_object = self.create_document_plugin_desc()
             class_object = self.create_package_info_plugin_desc()
         else:
             class_object = self.package['plugins'][num]
@@ -201,28 +203,7 @@ class JavaExtensionFiles():
                             'reqd': self.package['required']})
         return parser_info
 
-    def create_package_info_plugin_desc(self):
-        up_package = strFunctions.upper_first(self.package['name'])
-        up_language = self.language.upper()
-        doc_plug = dict({'attribs': [],
-                         'extension': [],
-                         'lo_extension': [],
-                         'sbase': '{0}Document'.format(up_language),
-                         'name': 'package-info',
-                         'is_plugin': True,
-                         'is_list_of': False,
-                         'hasListOf': False,
-                         'package': self.package['name'],
-                         'typecode': '',
-                         'baseClass': 'package-info',
-                         'sid_refs': [],
-                         'unit_sid_refs': [],
-                         'hasMath': False,
-                         'is_doc_plugin': False,
-                         'is_package_info_plugin': True,
-                         'reqd': self.package['required']})
-        return doc_plug
-
+    # This is not used for java code generation
     def create_document_plugin_desc(self):
         up_package = strFunctions.upper_first(self.package['name'])
         up_language = self.language.upper()

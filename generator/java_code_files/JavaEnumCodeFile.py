@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
 # @file    JavaEnumCodeFile.py
-# @brief   class for generating code file for the given extension
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   class for generating java enum code file for the given extension
+# @author  Hovakim Grabski. Google Summer of Code 2016
 #
 # <!--------------------------------------------------------------------------
 #
@@ -38,7 +37,7 @@
 # ------------------------------------------------------------------------ -->
 
 from base_files import BaseJavaFile
-from . java_functions import *
+from .java_functions import *
 from util import query, strFunctions, global_variables
 
 
@@ -51,10 +50,9 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         # self.name = enum_package['name']
         self.enums_data = enum_package['values']
 
-        # TODO GSOC 2016
         self.original_enum_package = original_package
         self.custom_file = custom_file
-        if self.custom_file is  None:
+        if self.custom_file is None:
             self.filename = '{0}'.format(self.up_enum_package)
             self.name = '{0}'.format(self.up_enum_package)
         # else:
@@ -68,11 +66,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         # members from object
         self.package = original_package['name']
         self.cap_package = strFunctions.upper_first(original_package['name'])
-
-
-
-
-
 
     def write_enum_header(self):
         line_to_write = 'public enum {0} '.format(self.up_enum_package)
@@ -111,7 +104,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
 
             # function to write the get/set/isSet/unset functions for attributes
 
-
     ########################################################################
 
     # Write file
@@ -130,18 +122,16 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
     def write_jsbml_enums(self):
         self.up_indent()
 
-
         enums = self.enums_data
         # attributes = self.class_attributes
-        for i in range(0,len(enums)):
+        for i in range(0, len(enums)):
             enum = enums[i]
             self.write_variable_comment()
-            if i == len(enums)-1:
+            if i == len(enums) - 1:
                 line = '{0}'.format(enum['value'])
             else:
                 line = '{0},'.format(enum['value'])
             self.write_line(line)
-
 
         self.down_indent()
 
@@ -179,17 +169,13 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         #     self.write_c_code()
         # self.write_cppns_end()
 
-
-
-
-
     def write_jsbml_list_enums(self):
         self.up_indent()
 
-        #Still many things to do
+        # Still many things to do
         enums = self.enums_data
         # attributes = self.class_attributes
-        for i in range(0,len(enums)):
+        for i in range(0, len(enums)):
             enum = enums[i]
             self.write_variable_comment()
             line = 'listOf{0},'.format(strFunctions.plural(enum['name']))
@@ -199,10 +185,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_line('none;')
 
         self.down_indent()
-
-
-
-
 
     def write_list_enum_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
@@ -217,4 +199,3 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         # if not self.is_plugin:
         #     self.write_c_code()
         # self.write_cppns_end()
-

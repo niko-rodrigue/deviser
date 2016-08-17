@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
-# @file    CppFiles.py
-# @brief   class for generating cpp files
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @file    JavaEnumFiles.py
+# @brief   class for generating java enum files.
+# @author  Hovakim Grabski  Google Summer of Code 2016
 #
 # <!--------------------------------------------------------------------------
 #
@@ -38,7 +37,6 @@
 # ------------------------------------------------------------------------ -->
 
 import copy
-# from . import JavaHeaderFile # No need for header files
 from . import JavaEnumCodeFile
 from util import strFunctions, query, global_variables
 
@@ -50,43 +48,27 @@ class JavaEnumFiles():
         # members from object
         self.enum_object = enum_object
         self.original_package = original_package
-        # self.enum_object['is_list_of'] = False
-        # self.enum_object['sid_refs'] = \
-        #     query.get_sid_refs(enum_object['attribs'])
-        # self.enum_object['unit_sid_refs'] = \
-        #     query.get_sid_refs(enum_object['attribs'], unit=True)
 
         self.verbose = verbose
 
     def write_files(self):
-        #self.write_header(self.class_object)
+        # self.write_header(self.class_object)
         self.write_code(self.enum_object, self.original_package)
 
+    # Write list enum files
     def write_list_enum_files(self):
-        # self.write_header(self.class_object)
         self.write_list_enum_code(self.enum_object, self.original_package)
 
-        # TODO what to do with listOf stuff
-        # if self.class_object['hasListOf']:
-        #     lo_working_class = self.create_list_of_description()
-        #     #self.write_header(lo_working_class)
-        #     self.write_code(lo_working_class)
-
-    # def write_header(self, class_desc):
-    #     fileout = JavaHeaderFile.JavaHeaderFile(class_desc)
-    #     if self.verbose:
-    #         print('Writing file {0}'.format(fileout.filename))
-    #     fileout.write_file()
-    #     fileout.close_file()
-
+    # Write java enum files
     def write_code(self, enum_object, original_object):
         fileout = JavaEnumCodeFile.JavaEnumCodeFile(enum_object, original_object)
         if self.verbose:
             print('Writing file {0}'.format(fileout.filename))
-            print('---'*10)
+            print('---' * 10)
         fileout.write_file()
         fileout.close_file()
 
+    # Write java list enum files
     def write_list_enum_code(self, enum_object, original_object):
         fileout = JavaEnumCodeFile.JavaEnumCodeFile(enum_object, original_object)
         if self.verbose:
@@ -94,26 +76,3 @@ class JavaEnumFiles():
             print('---' * 10)
         fileout.write_list_enum_file()
         fileout.close_file()
-
-    def create_list_of_description(self):
-        # default list of name
-        lo_name = strFunctions.list_of_name(self.enum_object['name'])
-        # check that we have not specified this should be different
-        if 'lo_class_name' in self.enum_object and \
-                len(self.enum_object['lo_class_name']) > 0:
-            lo_name = self.enum_object['lo_class_name']
-        descrip = copy.deepcopy(self.enum_object)
-        descrip['is_list_of'] = True
-        descrip['attribs'] = self.enum_object['lo_attribs']
-        descrip['child_base_class'] = self.enum_object['baseClass']
-        if global_variables.is_package:
-            descrip['baseClass'] = 'ListOf'
-        else:
-            descrip['baseClass'] = strFunctions.prefix_name('ListOf')
-        descrip['list_of_name'] = lo_name
-        descrip['lo_child'] = self.enum_object['name']
-        descrip['name'] = lo_name
-        return descrip
-
-    def test_func(self):
-        self.write_files()

@@ -62,7 +62,7 @@ from util import global_variables, strFunctions
 directories = []
 
 
-def generate_code_for(filename,language = 'sbml', overwrite=True):
+def generate_code_for(filename, language='sbml', overwrite=True):
     global_variables.running_tests = False
     parser = ParseXML.ParseXML(filename)
     ob = []
@@ -70,23 +70,23 @@ def generate_code_for(filename,language = 'sbml', overwrite=True):
             global_variables.return_codes['success']:
         # catch a problem in the parsing
         try:
-            ob = parser.parse_deviser_xml()  #What to do with 'pkg_version' values?
+            ob = parser.parse_deviser_xml()  # What to do with 'pkg_version' values?
         except:
             global_variables.code_returned \
                 = global_variables.return_codes['parsing error']
     if global_variables.code_returned == \
             global_variables.return_codes['success']:
         name = ob['name'.lower()]
-        #language = global_variables.language
+        # language = global_variables.language
         # REMEMBER TO REMOVE
         # try:
         if global_variables.is_package:
             generate_package_code(name, language, overwrite, ob)
         else:
             generate_other_library_code(name, language, overwrite, ob)
-        # except:
-        #     global_variables.code_returned \
-        #         = global_variables.return_codes['unknown error - please report']
+            # except:
+            #     global_variables.code_returned \
+            #         = global_variables.return_codes['unknown error - please report']
 
 
 def generate_other_library_code(name, language, overwrite, ob):
@@ -126,7 +126,7 @@ def generate_package_code(name, language, overwrite, ob):
         print('re run with overwrite=True')
         return False
     if language == 'sbml':
-        global_variables.populate_error_list(ob) #Maybe tricky?
+        global_variables.populate_error_list(ob)  # Maybe tricky?
         generate_code_files(name, ob)
         generate_bindings_files(name, ob)
         generate_cmake_files(name, ob)
@@ -134,6 +134,7 @@ def generate_package_code(name, language, overwrite, ob):
         print('JSBML not fully implemented yet')
         print('In testing')
         generate_jsbml_code_files(name, ob)
+
 
 def generate_cmake_files(name, ob):
     os.chdir('{0}'.format(name))
@@ -287,14 +288,14 @@ def generate_code_files(name, ob):
     os.chdir(common_dir)
     ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
     ext.write_files()
-    ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True) #fwd? Type VIP
+    ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True)  # fwd? Type VIP
     ext.write_files()
     os.chdir(this_dir)
 
     os.chdir(extension_dir)
     ext = ExtensionFiles.ExtensionFiles(ob, '', True)
     ext.write_files()
-    for i in range(0, len(ob['plugins'])+1):
+    for i in range(0, len(ob['plugins']) + 1):
         ext.write_plugin_files(i)
     os.chdir(this_dir)
 
@@ -316,42 +317,27 @@ def generate_code_files(name, ob):
     os.chdir(this_dir)
 
 
-
-
 def generate_jsbml_code_files(name, ob):
     this_dir = os.getcwd()
     language = global_variables.javaLanguage
     extension_dir = '{0}{1}src{1}org{1}sbml{1}{2}{1}ext{1}{0}'.format(name, os.sep, language)
 
     parser_dir = '{0}{1}src{1}org{1}sbml{1}{2}{1}xml{1}parsers'.format(name, os.sep,
-                                                               language)
+                                                                       language)
 
-    print('extension_dir ', extension_dir)
-    print('parser_dir ',parser_dir)
-
-    # os.chdir(extension_dir)
-    # ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
-    # ext.write_files()
-    # ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True) #fwd? Type VIP
-    # ext.write_files()
-    # os.chdir(this_dir)
-    # #
-
-    # TODO EXTENSION Time ofre
-
-
+    # print('extension_dir ', extension_dir)
+    # print('parser_dir ', parser_dir)
 
     # #Write Extension
     os.chdir(extension_dir)
-    #Initialize extension object
+    # Initialize extension object
     ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
-
 
     # Write Constants
     ext.write_constants()
 
     # Write enums
-    for i in range(0, len(ob['enums'])+1):
+    for i in range(0, len(ob['enums']) + 1):
         ext.write_enums(i)
 
     # Write baseElements
@@ -359,9 +345,8 @@ def generate_jsbml_code_files(name, ob):
         all_files = JavaFiles.JavaFiles(working_class, True)
         all_files.write_files()
 
-
     # # Write plugins TODO problem with plugins
-    for i in range(0, len(ob['plugins'])+1):
+    for i in range(0, len(ob['plugins']) + 1):
         ext.write_plugin_files(i)
     os.chdir(this_dir)
 
@@ -370,11 +355,6 @@ def generate_jsbml_code_files(name, ob):
     parser_file = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
     parser_file.write_parser_file()
     os.chdir(this_dir)
-
-
-
-
-
 
 
 def generate_other_library_code_files(name, ob):
@@ -439,20 +419,20 @@ def populate_package_directories(name, lang):
                    'constraints'.format(name, sep, lang)]
 
 
+# Generate java JSBML package directories
 def populate_jsbml_package_directories(name, lang):
     global directories
     sep = os.sep
-    print('sep is ',sep)
     directories = ['{0}'.format(name),
                    '{0}{1}lib'.format(name, sep),
                    '{0}{1}doc'.format(name, sep),
-                   '{0}{1}doc{1}{2}'.format(name, sep,'img'),
+                   '{0}{1}doc{1}{2}'.format(name, sep, 'img'),
                    '{0}{1}test'.format(name, sep),
                    '{0}{1}resources'.format(name, sep),
                    '{0}{1}resources{1}org'.format(name, sep),
                    '{0}{1}resources{1}org{1}sbml'.format(name, sep),
                    '{0}{1}resources{1}org{1}sbml{1}jsbml'.format(name, sep),
-                   '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources'.format(name, sep), 
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources'.format(name, sep),
                    '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources{1}cfg'.format(name, sep),
                    '{0}{1}src'.format(name, sep),
                    '{0}{1}src{1}org'.format(name, sep, lang),
@@ -464,7 +444,7 @@ def populate_jsbml_package_directories(name, lang):
                    '{0}{1}src{1}org{1}sbml{1}{2}{1}xml{1}parsers'.format(name, sep, lang),
                    '{0}{1}test{1}org'.format(name, sep),
                    '{0}{1}test{1}org{1}sbml'.format(name, sep),
-                   '{0}{1}test{1}org{1}sbml{1}{2}'.format(name, sep,lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}'.format(name, sep, lang),
                    '{0}{1}test{1}org{1}sbml{1}{2}{1}ext'.format(name, sep, lang),
                    '{0}{1}test{1}org{1}sbml{1}{2}{1}ext{1}{0}'.format(name, sep, lang),
                    '{0}{1}test{1}org{1}sbml{1}{2}{1}ext{1}{0}{1}test'.format(name, sep, lang),
@@ -472,6 +452,7 @@ def populate_jsbml_package_directories(name, lang):
                    '{0}{1}test{1}org{1}sbml{1}{2}{1}xml{1}test'.format(name, sep, lang),
                    '{0}{1}test{1}org{1}sbml{1}{2}{1}xml{1}test{1}data'.format(name, sep, lang),
                    '{0}{1}test{1}org{1}sbml{1}{2}{1}xml{1}test{1}data{1}{0}'.format(name, sep, lang)]
+
 
 def populate_other_library_directories(name, lang):
     global directories
@@ -548,7 +529,7 @@ def main(args):
     if len(args) != 2:
         global_variables.code_returned = \
             global_variables.return_codes['missing function argument']
-        print ('Usage: generateCode.py xmlfile')
+        print('Usage: generateCode.py xmlfile')
     else:
         generate_code_for(args[1])
     if global_variables.code_returned == \
@@ -558,6 +539,7 @@ def main(args):
         print('writing code failed')
 
     return global_variables.code_returned
+
 
 if __name__ == '__main__':
     main(sys.argv)
