@@ -47,11 +47,13 @@ jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
 
 curr_dir = os.getcwd()
 
+
 def print_output(output):
     for line in output:
         print(line)
 
 
+# Clean string line from '' and return list
 def clean_line(data):
     temp = []
     for i in data:
@@ -106,15 +108,6 @@ def extract_data(temp_data):
                             arguments.append(arg)
             elif function_name_step1[-1] == ');':
                 break
-
-                # else:
-                #     arg = function_name_step1[-1].split(',')[0]
-                #     arguments.append(arg)
-                #     for y in range(len(temp_data[function_index+1:])):
-                #         print('y is ',temp_data[y])
-                # print(function_name,'--', function_index) # THis works
-                # function_name_step2  = function_name_step1[-1].split(');')
-                # print(function_name_step2)
         elif '<' in temp_data[i]:
             type_of_name_step1 = temp_data[i].split('<')
             of_type = type_of_name_step1[0]
@@ -152,23 +145,10 @@ def extract_data(temp_data):
     if function_name == '':
         return
 
-    # print('access_type ',access_type)
-    # print('is_abstract ',is_abstract)
-    # print('return_type ',return_type)
-    # print('function_name ',function_name)
-    # print('arguments ',arguments)
-
-    # print('of_type ',of_type)
-    # print('of_type_args ',of_type_args)
-
-
     return {'accessType': access_type, 'isAbstract': is_abstract,
             'returnType': return_type, 'functionName': function_name,
             'functionArgs': arguments, 'of_type': of_type,
             'of_type_args': of_type_args, 'originalData': temp_data}
-    # function_name = function_name_step2[0] 
-    # print('function_name ',function_name)
-    # print('------------------')           
 
 
 def parse_extends(extends):
@@ -197,9 +177,6 @@ def parse_extends(extends):
     data_extends.update({'fullText': extends})
     return data_extends
 
-    # print(extends)
-    # print('--------------------------')
-
 
 def parse_output(output):
     final_data = {}
@@ -214,23 +191,11 @@ def parse_output(output):
             final_data.update({'extends': parse_extends(data_stage2)})
 
         temp_data = clean_line(data_stage2)
-        # print(line)
-        # print(temp_data)
-
         data = extract_data(temp_data)
 
-        # print('data is ', data)
-        # print('-----------')
         if data is not None:
             output_data.append(data)
 
-
-            # if '{' in temp_data:
-            #     output_data.update({'classInfo':temp_data[:-1]})
-            # elif function_name in temp_data:
-            #     output_data.update({'methods':temp_data})
-            # print('->'*20)
-            # print('\n')
     final_data.update({'modules': output_data})
     return final_data  # output_data
 
@@ -242,12 +207,8 @@ def get_class_information(class_name=None, individual_run=False):
     else:
         class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
-    # class_name = 'org.sbml.jsbml.{0}'.format(class_name)
-
-
-
-    command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
-    # print('command ',command)
+    # Old version
+    # command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
 
     comm1 = 'javap'
     comm2 = '-cp'
@@ -259,10 +220,6 @@ def get_class_information(class_name=None, individual_run=False):
     # class_info = os.popen('{0}'.format(command))
     class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
     stdout, stderr = class_info.communicate()
-    # out = class_info.stdout.readlines()
-    # print(stdout)
-    # print('tada ', stderr)
-    # print('tada ', class_info.returncode)
 
     if stdout:
         stdout_value = stdout.decode()  # decode("utf-8")
@@ -278,23 +235,7 @@ def get_class_information(class_name=None, individual_run=False):
             print('Check if Java SDK is installed, deviser requires javap')
             sys.exit(0)
 
-
-
-            # print('class_ou', class_output)
-            # raise Exception('For bug testing')
-            # assert len(class_output) > 0
-
-
-
-            # except Exception as e:
-            #     print('Check if Java SDK is installed, deviser requires javap')
-            #     print(e)
-            #     sys.exit(0)
-            # print_output(class_output)
-
-# get_class_information()
-
-
+# For testing purposes
 
 # class_name = 'org.sbml.jsbml.AbstractNamedSBase'
 
@@ -311,9 +252,6 @@ def get_class_information(class_name=None, individual_run=False):
 # class_name = 'AbstractSBasePlugin'
 # data = get_class_information(class_name, individual_run=True)
 # print(data)
-
-
-
 
 # data = get_class_information(class_name, individual_run=True)
 # print(data)
