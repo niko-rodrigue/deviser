@@ -14,7 +14,7 @@ Computation modeling has become a crucial aspect of biological research, and [SB
 
 Since SBML Level 3 is being developed as a modular format with optional SBML Level 3 packages are available to extend the focus of the core SBML representation. Deviser is a new code generation system developed to facilitate the development of SBML L3 packages by helping to automate the generation of specifications, UML diagrams and library code.
 
-The current fork extends Deviser's code generator to produce Java code that can be integrated into JSBML, the pure Java API library for SBML. This allows Deviser to target both libSBML and JSBML. The work was done for Google Summer of Code 2016.
+The current fork extends Deviser's code generator to produce Java code that can be integrated into JSBML, the pure Java API library for SBML. This allows Deviser to target both libSBML and JSBML.At the current it generates the foundation of the packages, which facilitates the implementation of the packages.  The work was done for Google Summer of Code 2016.
 
 
 ## Using Deviser for Java Code Generation ##
@@ -33,7 +33,7 @@ Javap is available with the JDK and the following is required for Devisers' java
 
 ## Current State ##
 
-At the current state Deviser  generates working compilable jsbml templates for:
+At the current state Deviser generates compilable templates, which serve as a foundation and facilitates the implementation of the following packages :
 
 
 1.	Qualitative Models package (qual, for short) allows species in a model to have non-quantitative or non-continuous levels.
