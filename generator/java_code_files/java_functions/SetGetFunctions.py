@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 #
 # @file    SetGetFunctions.py
-# @brief   class to create functions to get/set attributes/elements
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   class to create functions to get/set attributes/elements for java code
+# @brief   for Google Summer of Code 2016
+# @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #
@@ -47,8 +47,8 @@ class SetGetFunctions():
     """Class for all java  functions for set/get/isset/unset"""
 
     def __init__(self, language, is_java_api, is_list_of, class_object,
-                 jsbml_data_tree=None, jsbml_methods=None, abstract_jsbml_methods = None):
-        self.original_class_object= class_object
+                 jsbml_data_tree=None, jsbml_methods=None, abstract_jsbml_methods=None):
+        self.original_class_object = class_object
         self.language = language
         self.cap_language = language.upper()
         self.package = class_object['package']
@@ -64,10 +64,10 @@ class SetGetFunctions():
             self.object_child_name = self.child_name
         else:
             if is_list_of:
-                self.object_name = 'ListOf'  #_t'
+                self.object_name = 'ListOf'
             else:
-                self.object_name = self.class_name  #+ '_t'
-            self.object_child_name = self.child_name  # + '_t'
+                self.object_name = self.class_name
+            self.object_child_name = self.child_name
 
         self.attributes = class_object['class_attributes']
         self.child_elements = class_object['child_elements']
@@ -89,7 +89,7 @@ class SetGetFunctions():
             self.true = '@c 1'
             self.false = '@c 0'
         else:
-            self.true = '{@code true}'  #For comments
+            self.true = '{@code true}'  # For comments
             self.false = '{@code false}'
         self.plural = strFunctions.plural(self.child_name)
         self.indef_name = strFunctions.get_indefinite(self.object_child_name)
@@ -110,8 +110,7 @@ class SetGetFunctions():
         self.invalid_att = global_variables.ret_invalid_att
         self.invalid_obj = global_variables.ret_invalid_obj
 
-
-        # TODO GSOC 2016
+        # Additional information for java code generation
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
@@ -119,17 +118,16 @@ class SetGetFunctions():
         if abstract_jsbml_methods is not None:
             self.abstract_jsbml_methods = abstract_jsbml_methods
 
-
         # It is for same methods but take different arguments
-        #Example QualitativeSpecies has setCompartment(String) and setCompartment(Compartment)
-        #from CompartmentalizedSBase
+        # Example QualitativeSpecies has setCompartment(String) and setCompartment(Compartment)
+        # from CompartmentalizedSBase
         self.duplicate_methods = []
+
     ########################################################################
 
     # Functions for writing get functions
 
 
-    # GSOC 2016 write_get prototype v0.1
     # function to write get functions
     def write_get(self, is_attribute, index, const=True, virtual=False):
         if not self.is_java_api and not const:
@@ -155,7 +153,6 @@ class SetGetFunctions():
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
-
         params = []
         return_lines = []
         additional = []
@@ -163,10 +160,7 @@ class SetGetFunctions():
         #     .format(attribute['name'],
         #             ('attribute' if is_attribute else 'element'),
         #             (self.class_name if self.is_java_api else self.object_name))
-        title_line = '' # '@return the {0}'.format(attribute['name'])
-
-
-
+        title_line = ''  # '@return the {0}'.format(attribute['name'])
 
         if not self.is_java_api:
             params.append('@param {0} the {1} structure whose {2} is sought.'
@@ -210,18 +204,10 @@ class SetGetFunctions():
             function = 'get{0}'.format(attribute['capAttName'])
             if attribute['attType'] == 'string' \
                     or attribute['attType'] == 'element':
-                # if const:
-                #     return_type = attribute['attTypeCode'] # 'const ' +
-                # else:
+
                 return_type = attribute['attTypeCode']
             elif attribute['attType'] == 'enum':
-                # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                # else:
-                #     data = None
-                # if data is not None:
-                #     return_type = data
-                # else:
+
                 return_type = attribute['JClassType']
             elif attribute['attType'] == 'vector':
                 return_type = 'const {0}&'.format(attribute['attTypeCode'])
@@ -236,21 +222,17 @@ class SetGetFunctions():
                 return_type = '{0}'.format(attribute['CType'])
 
         # TODO detect if override or not
-        additional_add, class_key, functionArgs= jsbmlHelperFunctions.\
+        additional_add, class_key, functionArgs = jsbmlHelperFunctions. \
             determine_override_or_deprecated(self.jsbml_methods, function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
-                                                                             class_key, function,  functionArgs)
-
-
+                                                                             class_key, function, functionArgs)
 
         arguments = []
         if not self.is_java_api:
             arguments.append('const {0} * {1}'
                              .format(self.object_name, self.abbrev_parent))
-
-
 
         # GSOC 2016 modification
         # Need PackageName for Constants, such as QualConstants.initialLevel
@@ -261,8 +243,7 @@ class SetGetFunctions():
         # cap_att_name = attribute['capAttName']
         curr_att_type = attribute['attTypeCode']
 
-
-        #code = [dict({'code_type': 'line', 'code': implementation})]
+        # code = [dict({'code_type': 'line', 'code': implementation})]
 
         # print('type ',curr_att_type)
         # create the function implementation
@@ -282,14 +263,14 @@ class SetGetFunctions():
                     else:
                         implement_part2 = 'return {0}'.format(attribute['name'])
                     implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
-                    implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute['name'])]
+                    implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
+                                                                                                        attribute[
+                                                                                                            'name'])]
                     code = [dict({'code_type': 'if', 'code': implementation2}),
                             dict({'code_type': 'line', 'code': implementation})]
             else:
                 implementation = self.write_get_for_doc_functions(attribute)
                 code = [self.create_code_block('line', implementation)]  # tricky
-        else:
-            code = self.get_c_attribute(attribute)
 
         # return the parts
         return dict({'title_line': title_line,
@@ -320,18 +301,15 @@ class SetGetFunctions():
                 attribute = self.child_elements[index]
             else:
                 return
-        if attribute['isArray'] and self.is_java_api:
-            return self.write_get_array(index, const)
+
         # create comment parts
 
-        # TODO GSOC 2016 JSBML change
+        # If attribute is ID or Name return None
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
         if attribute['type'] != 'SIdRef':
             return None
-
-
 
         params = []
         return_lines = []
@@ -378,31 +356,14 @@ class SetGetFunctions():
         if self.is_java_api:
             function = 'get{0}Instance'.format(attribute['capAttName'])
         return_type = attribute['capAttName']
-        #     if attribute['attType'] == 'string' \
-        #             or attribute['attType'] == 'element':
-        #         if const:
-        #             return_type = attribute['attTypeCode']  # 'const ' +
-        #         else:
-        #             return_type = attribute['attTypeCode']
-        #     elif attribute['attType'] == 'vector':
-        #         return_type = 'const {0}&'.format(attribute['attTypeCode'])
-        #     else:
-        #         return_type = attribute['attTypeCode']
-        # else:
-        #     function = '{0}_get{1}'.format(self.class_name,
-        #                                    attribute['capAttName'])
-        #     if attribute['attType'] == 'element':
-        #         return_type = 'const {0}'.format(attribute['CType'])
-        #     else:
-        #         return_type = '{0}'.format(attribute['CType'])
 
-        # TODO  GSOC 2016 get Object Instance
+        # check if it needs to be overriden
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods, function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
-                                                                             class_key, function,  functionArgs)
+                                                                             class_key, function, functionArgs)
 
         write_status = jsbmlHelperFunctions.find_instance_method(self.abstract_jsbml_methods, function)
         if write_status == False:
@@ -422,68 +383,26 @@ class SetGetFunctions():
         # cap_att_name = attribute['capAttName']
         curr_att_type = attribute['attTypeCode']
 
-        # code = [dict({'code_type': 'line', 'code': implementation})]
-
-        # print('type ',curr_att_type)
-        # create the function implementation
-
-
-
-        # TODO  getCompartmentInstance error
-        # QualitativeSpecies.java:176: error: incompatible types: String cannot be converted to boolean
-        # return model.getCompartment(getCompartment());
-
-
         curr_att_type = attribute['JClassType']
         oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
         currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
 
         object = strFunctions.upper_first(attribute['name'])
 
-        # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
         implement_part1 = 'Model model = getModel()'.format(curr_att_type, oldValue, attribute['name'])
 
-
-        # code = [dict({'code_type': 'line', 'code': 'TADA'})]
         implementation = ['model != null'.format(attribute['name'], attribute['name']),
                           'return model.get{0}(get{1}())'.format(object, object)]  # 3rd line
 
         nested_if = self.create_code_block('if', implementation)
         implementation = ['isSet{0}()'.format(object),
                           implement_part1,
-                          nested_if,'']  # 2nd line
-        # print('implementation ',implementation)
-        # code.append(self.create_code_block('if', implementation))
+                          nested_if, '']  # 2nd line
+
         code = [self.create_code_block('if', implementation)]
 
         implementationNext = ['return null']  # 1st line
         code.append(self.create_code_block('line', implementationNext))
-
-        # implementation = ['return get{0}()'.format(attribute['capAttName'])]
-        # code = [self.create_code_block('line', implementation)]  # [self.create_code_block('line', implementation)]
-
-        # if self.is_java_api:
-        #     if not self.document:
-        #         if curr_att_type == 'String':
-        #             implement_string = ['return isSet{0}() ? {1} : ""'.format(attribute['capAttName'],
-        #                                                                       attribute['name'])]
-        #             code = [self.create_code_block('line', implement_string)]
-        #         else:
-        #             if curr_att_type in global_variables.javaTypeAttributes:
-        #                 implement_part2 = 'return {0}.{1}Value()'.format(attribute['name'], curr_att_type)
-        #             else:
-        #                 implement_part2 = 'return {0}'.format(attribute['name'])
-        #             implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
-        #             implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
-        #                                                                                                 attribute[
-        #                                                                                                     'name'])]
-        #             code = [dict({'code_type': 'if', 'code': implementation2}),
-        #                     dict({'code_type': 'line', 'code': implementation})]
-        #     else:
-        #         implementation = self.write_get_for_doc_functions(attribute)
-        #         code = [self.create_code_block('line', implementation)]  # tricky
-        # else:
-        #     code = self.get_c_attribute(attribute)
 
         # return the parts
         return dict({'title_line': title_line,
@@ -510,78 +429,10 @@ class SetGetFunctions():
 
         return implementation
 
-    # function to write get functions
-    def write_get_string_for_enum(self, is_attribute, index):
-        if is_attribute and index < len(self.attributes):
-            attribute = self.attributes[index]
-        else:
-            return
-        if not attribute['isEnum']:
-            return
-
-        # create comment parts
-        params = []
-        return_lines = []
-        additional = []
-        title_line = 'Returns the value of the \"{0}\" attribute of this {1}.' \
-            .format(attribute['name'],
-                    (self.class_name if self.is_java_api else self.object_name))
-
-        if not self.is_java_api:
-            params.append('@param {0} the {1} structure whose {2} is sought.'
-                          .format(self.abbrev_parent, self.object_name,
-                                  attribute['name']))
-
-        if self.is_java_api:
-            return_lines.append('@return the value of the \"{0}\" attribute '
-                                'of this {1} as a string.'
-                                .format(attribute['name'], self.class_name))
-        else:
-            return_lines.append('@return the value of the \"{0}\" attribute '
-                                'of this {1} as a const char *.'
-                                .format(attribute['name'], self.object_name))
-
-        # create the function declaration
-        if self.is_java_api:
-            function = 'get{0}AsString'.format(attribute['capAttName'])
-            return_type = 'const std::string&'
-        else:
-            function = '{0}_get{1}AsString'.format(self.class_name,
-                                                   attribute['capAttName'])
-            return_type = 'const char *'
-
-        arguments = []
-        if not self.is_java_api:
-            arguments.append('const {0} * {1}'
-                             .format(self.object_name, self.abbrev_parent))
-        if self.is_java_api:
-            implementation = ['static const std::string code_str =  {0}_'
-                              'toString({1})'.format(attribute['element'],
-                                                     attribute['name']),
-                              'return code_str']
-        else:
-            implementation = ['return {0}_toString({1}->get{2}()'
-                              ')'.format(attribute['element'],
-                                         self.abbrev_parent,
-                                         attribute['capAttName'])]
-        code = [dict({'code_type': 'line', 'code': implementation})]
-
-        # return the parts
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': True,
-                     'virtual': False,
-                     'object_name': self.struct_name,
-                     'implementation': code})
-
     # function to write get function for an array
     # specialised c++ function to use an array pointer
     # as an argument to be read into
+    # TODO needs to be implemented, specially for spatial package
     def write_get_array(self, index, const):
         if index < len(self.attributes):
             attribute = self.attributes[index]
@@ -603,13 +454,17 @@ class SetGetFunctions():
         function = 'get{0}'.format(attribute['capAttName'])
         return_type = 'void'
         arguments = ['{0} outArray'.format(attribute['attTypeCode'])]
-        code = [self.create_code_block(
-            'if',
-            ['outArray == NULL || {0} == NULL'.format(attribute['name']),
-             'return'])]
-        line = ['memcpy(outArray, {0}, sizeof({1})*{0}'
-                'Length)'.format(attribute['name'], attribute['element'])]
-        code.append(self.create_code_block('line', line))
+
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO adapt write_get_array in deviser'])
+        implementation.append(comment_line)
+
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
+
+        code = implementation
 
         # return the parts
         return dict({'title_line': title_line,
@@ -625,6 +480,7 @@ class SetGetFunctions():
                      'implementation': code})
 
     # function to write get functions for extension
+    # TODO is it really necessary?
     def write_static_extension_get(self, index, const=True, static=True):
         if index < len(self.attributes):
             attribute = self.attributes[index]
@@ -704,7 +560,17 @@ class SetGetFunctions():
                               'return {0}'.format(name)]
         else:
             implementation = ['return {0}'.format(attribute['name'])]
-        code = [self.create_code_block('line', implementation)]
+
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO write_static_extension_get in deviser'])
+        implementation.append(comment_line)
+
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
+
+        code = implementation
 
         # return the parts
         return dict({'title_line': title_line,
@@ -723,9 +589,6 @@ class SetGetFunctions():
 
     # Functions for writing is set functions
 
-
-
-    # GSOC 2016 modifications, prototype not ready yet
     # function to write is set functions
     def write_is_set(self, is_attribute, index):
         if is_attribute:
@@ -745,7 +608,8 @@ class SetGetFunctions():
         else:
             ob_type = 'element'
 
-        # TODO GSOC 2016 JSBML change
+        # GSOC 2016 JSBML change
+        # generally in jsbml Id and Name are ignored
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
@@ -785,12 +649,11 @@ class SetGetFunctions():
 
         # TODO detect if override
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
-                                                    self.jsbml_methods, function, attribute)
+            self.jsbml_methods, function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
-                                                                             class_key, function,  functionArgs)
-
+                                                                             class_key, function, functionArgs)
 
         arguments = []
         if not self.is_java_api:
@@ -802,41 +665,38 @@ class SetGetFunctions():
         if self.is_java_api:
             if query.is_string(attribute):
                 implementation = ['return this.{0} != null'.format(
-                    attribute['name'])] # USED
+                    attribute['name'])]  # USED
+                code = [dict({'code_type': 'line', 'code': implementation})]
             elif attribute['attType'] == 'enum' or attribute['isArray']:
-                # implementation = ['return ({0} != '
-                #                   '{1})'.format(attribute['name'],
-                #                                 attribute['default'])]
                 implementation = ['return this.{0} != null'.format(
                     attribute['name'])]  # Used
+                code = [dict({'code_type': 'line', 'code': implementation})]
             elif query.has_is_set_member(attribute):
-                # implementation = ['return '
-                #                   'mIsSet{0}'.format(attribute['capAttName'])]
                 implementation = ['return this.{0} != null'.format(
-                    attribute['name'])]   # Used
+                    attribute['name'])]  # Used
+                code = [dict({'code_type': 'line', 'code': implementation})]
             elif attribute['type'] == 'element':
                 implementation = ['return {0} != '
                                   '{1}'.format(attribute['name'],
-                                                attribute['default'])]
+                                               attribute['default'])]
+                code = [dict({'code_type': 'line', 'code': implementation})]
+            # TODO  write_is_set needs to be adapted for isVector case
             elif 'isVector' in attribute and attribute['isVector']:
-                implementation = ['return {0}.size() '
-                                  '> 0'.format(attribute['name'])]
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment', ['TODO adapt  write_is_set --isVector-- in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+
+                code = implementation
 
             else:
                 implementation = ['return this.{0} != null'.format(
-                    attribute['name'])] # USED
-        else:
-            if not self.is_list_of:
-                use_name = self.abbrev_parent
-            else:
-                use_name = 'static_cast<const ' \
-                           '{0}*>({1})'.format(self.class_name,
-                                               self.abbrev_parent)
-            implementation = ['return ({0} != NULL) ? static_cast<int>({0}->is'
-                              'Set{1}()) : 0'.format(use_name,
-                                                     attribute['capAttName'])]
-
-        code = [dict({'code_type': 'line', 'code': implementation})]
+                    attribute['name'])]  # USED
+                code = [dict({'code_type': 'line', 'code': implementation})]
 
         # return the parts
         return dict({'title_line': title_line,
@@ -877,7 +737,6 @@ class SetGetFunctions():
         if attribute['type'] != 'SIdRef':
             return None
 
-
         params = []
         return_lines = []
         additional = []
@@ -912,7 +771,6 @@ class SetGetFunctions():
         if write_status == False:
             return
 
-
         # TODO detect if override
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods, function, attribute)
@@ -936,31 +794,32 @@ class SetGetFunctions():
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['name'],
                                                 attribute['default'])]
+                code = [dict({'code_type': 'line', 'code': implementation})]
             elif query.has_is_set_member(attribute):
-                # implementation = ['return '
-                #                   'mIsSet{0}'.format(attribute['capAttName'])]
+
                 implementation = ['return {0} != null'.format(
                     attribute['name'])]  # Used
+                code = [dict({'code_type': 'line', 'code': implementation})]
             elif attribute['type'] == 'element':
                 implementation = ['return ({0} != '
                                   '{1})'.format(attribute['name'],
                                                 attribute['default'])]
+                code = [dict({'code_type': 'line', 'code': implementation})]
+            # TODO write_is_set_instance for isVector case
             elif 'isVector' in attribute and attribute['isVector']:
-                implementation = ['return {0}.size() '
-                                  '> 0'.format(attribute['name'])]
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment', ['TODO adapt  write_is_set_instance --isVector-- in deviser'])
+                implementation.append(comment_line)
 
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+
+                code = implementation
             else:
                 implementation = ['return get{0}Instance() != null'.format(attribute['capAttName'])]  # USED
-        else:
-            if not self.is_list_of:
-                use_name = self.abbrev_parent
-            else:
-                use_name = 'static_cast<const ' \
-                           '{0}*>({1})'.format(self.class_name,
-                                               self.abbrev_parent)
-            implementation = ['return ({0} != NULL) ? static_cast<int>({0}->is'
-                              'Set{1}()) : 0'.format(use_name,
-                                                     attribute['capAttName'])]
+                code = [dict({'code_type': 'line', 'code': implementation})]
 
         code = [dict({'code_type': 'line', 'code': implementation})]
 
@@ -977,10 +836,8 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-
-
-
     # function for writing getNum for a vector type attribute
+    # So far it has  not been used for jsbml
     def write_get_num_for_vector(self, is_attribute, index):
         if not self.is_java_api:
             return
@@ -1006,16 +863,20 @@ class SetGetFunctions():
 
         # create the function declaration
         function = 'getNum{0}'.format(strFunctions.plural(attribute['capAttName']))
-        return_type = 'unsigned int'
+        return_type = 'int'
 
         arguments = []
 
-        # create the function implementation
-        implementation = ['return (unsigned int)({0}.size())'.format(
-            attribute['name'])]
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO adapt  write_get_num_for_vector in deviser'])
+        implementation.append(comment_line)
 
-        code = [dict({'code_type': 'line', 'code': implementation})]
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
 
+        code = implementation
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -1041,12 +902,8 @@ class SetGetFunctions():
             else:
                 return
 
-
-
-
-    # TODO Add changes to write SIdRef multiple times
     # function to write set functions
-    def write_set(self, is_attribute, index, write_for = "String"):
+    def write_set(self, is_attribute, index, write_for="String"):
         if is_attribute:
             if index < len(self.attributes):
                 attribute = self.attributes[index]
@@ -1060,8 +917,6 @@ class SetGetFunctions():
         if attribute['isArray']:
             if self.is_java_api:
                 return self.write_java_set_array(index)
-            else:
-                return self.write_c_set_array(index)
         if is_attribute:
             ob_type = 'attribute'
         else:
@@ -1093,8 +948,6 @@ class SetGetFunctions():
                       .format(attribute['name'], att_type,
                               ob_type))
 
-
-
         return_lines.append("@copydetails doc_returns_success_code")
         return_lines.append('@li @{0}constant{1}{2}, '
                             'OperationReturnValues_'
@@ -1105,8 +958,6 @@ class SetGetFunctions():
                             ' OperationReturnValues_'
                             't{3}'.format(self.language, self.open_br,
                                           self.invalid_att, self.close_br))
-
-
 
         # TODO JSBML return_type = 'void'
         # create the function declaration
@@ -1126,22 +977,17 @@ class SetGetFunctions():
         params.append('@param {0} the value of {1} to be set.'.format(attribute['name'], attribute['name']))
         # '       the {0} to set'.format(attribute['name'])]
 
-        # TODO write_set  implementation of return_type definition?
+        # TODO write_set  implementation of return_type definition
         return_type = 'boolean'
-        # if attribute['type'] == 'SIdRef':
-        #     return_type = 'boolean'
-        # else:
-        #     return_type ='void'
-        #     # additional.append(['@YOLOALOHA'])
 
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
-                                                                                        self.jsbml_methods,
-                                                                                        function, attribute,
-                                                                                        return_type)
+            self.jsbml_methods,
+            function, attribute,
+            return_type)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-                                                                             function,  functionArgs)
+                                                                             function, functionArgs)
 
         arguments = []
         if self.is_java_api:
@@ -1150,14 +996,6 @@ class SetGetFunctions():
                                  .format(attribute['attTypeCode'],
                                          attribute['name']))
             elif attribute['attType'] == 'enum':
-                # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-                #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-                # else:
-                #     data = None
-                # if data is not None:
-                #     arg_type = data
-                #     attribute['JClassType'] = arg_type
-                # else:
                 arg_type = attribute['JClassType']
                 arguments.append('{0} {1}'.format(arg_type, attribute['name']))
             else:
@@ -1168,67 +1006,17 @@ class SetGetFunctions():
                                               attribute['attType'] == 'element')
                                           else attribute['attTypeCode']),
                                          attribute['name']))
-        else:
-            arguments.append('{0} * {1}'
-                             .format(self.object_name, self.abbrev_parent))
-            if attribute['attType'] == 'element':
-                arguments.append('{0} {1}'
-                                 .format(attribute['CType'],
-                                         attribute['name']))
-            else:
-                arguments.append('{0} {1}'
-                                 .format(attribute['CType'],
-                                         attribute['name']))
 
         # create the function implementation
         if self.is_java_api:
             code, return_type = self.set_java_attribute(attribute)
-            # curr_att_type = attribute['JClassType']
-            # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            # currValue = 'this.{0}'.format(attribute['name'])
-            #
-            # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            # implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
-            # implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-            #                                                                            attribute['name'],
-            #                                                                            oldValue,
-            #                                                                            currValue)
-            #
-            # #code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            # #                       'this.{0} = null'.format(attribute['name']), 'else',
-            # #
-            #
-            # impl2 =  'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
-            # implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
-            #                   implement_part1,
-            #                   impl2, implement_part3, 'return true']  # 2nd line
-            # code = [self.create_code_block('if', implementation)]
-            #
-            # implementationNext = ['return false']  # 1st line
-            # code.append(self.create_code_block('line', implementationNext))
-        else:
-            if not self.is_list_of:
-                use_name = self.abbrev_parent
-            else:
-                use_name = 'static_cast<' \
-                           '{0}*>({1})'.format(self.class_name,
-                                               self.abbrev_parent)
-            implementation = ['return ({0} != NULL) ? {0}->set{1}({2}) : '
-                              'LIB{3}'
-                              '_INVALID_OBJECT'.format(use_name,
-                                                       attribute['capAttName'],
-                                                       attribute['name'],
-                                                       self.cap_language)]
-            code = [self.create_code_block('line', implementation)]
 
-
+        # Check if there is another function with same name but different argument
+        # E.g. SetCompartment(String) and SetCompartment(Compartment)
         similar_function = jsbmlHelperFunctions.find_function_with_diff_args(self.jsbml_methods,
                                                                              attribute, function)
         if similar_function is not None:
             self.duplicate_methods.append(similar_function)
-
-
 
         # return the parts
         return dict({'title_line': title_line,
@@ -1248,7 +1036,6 @@ class SetGetFunctions():
             return len(self.duplicate_methods)
         except Exception as e:
             return 0
-
 
     def write_similar_functions(self, is_attribute, att_index, duplic_index):
         if is_attribute:
@@ -1295,13 +1082,6 @@ class SetGetFunctions():
                                                                              function, function_args,
                                                                              duplicate_attribute)
 
-        # if self.duplicate_methods[duplic_index]['isAbstract'] is True:
-        #     additional_add = 'Override
-        #     additional.append(additional_add)
-        #
-        #     title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
         arguments.append('{0} {1}'
                          .format(dup_attribute[0], arg_name))
 
@@ -1312,17 +1092,15 @@ class SetGetFunctions():
         if_code = self.create_code_block('line', if_temp)
 
         implementation.append(if_code)
-        code = [self.create_code_block('if', implementation)] #[self.create_code_block('line', implementation)]
-
+        code = [self.create_code_block('if', implementation)]  # [self.create_code_block('line', implementation)]
 
         rest_code = ['return unset{}()'.format(attribute['capAttName'])]
         code.append(self.create_code_block('line', rest_code))
 
-
         # It is for same methods but take different arguments
-        #Example QualitativeSpecies has setCompartment(String) and setCompartment(Compartment)
-        #from CompartmentalizedSBase
-        #Remove so doesn't get generated again
+        # Example QualitativeSpecies has setCompartment(String) and setCompartment(Compartment)
+        # from CompartmentalizedSBase
+        # Remove so doesn't get generated again
         self.duplicate_methods = []
         return dict({'title_line': title_line,
                      'params': params,
@@ -1336,10 +1114,8 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-
-
-
     # function to write set functions
+    # It has not been used for java code generation
     def write_set_string_for_enum(self, is_attribute, index):
         if is_attribute and index < len(self.attributes):
             attribute = self.attributes[index]
@@ -1347,10 +1123,8 @@ class SetGetFunctions():
             return
         if not attribute['isEnum']:
             return
-        if not self.is_java_api:
-            att_type = 'const char *'
-        else:
-            att_type = 'std::string&'
+        if self.is_java_api:
+            att_type = 'String'
 
         # create comment parts
         params = []
@@ -1394,25 +1168,17 @@ class SetGetFunctions():
             arguments.append('const char * {0}'.format(attribute['name']))
 
         if self.is_java_api:
-            implementation = ['{0}_isValidString({1}.c_str()) == '
-                              '0'.format(attribute['element'],
-                                         attribute['name']),
-                              '{0} = {1}'.format(attribute['name'],
-                                                 attribute['default']),
-                              'return {0}'.format(self.invalid_att), 'else',
-                              '{0} = {1}_fromString'
-                              '({2}.c_str())'.format(attribute['name'],
-                                                     attribute['element'],
-                                                     attribute['name']),
-                              'return {0}'.format(self.success)]
-            code = [dict({'code_type': 'if_else', 'code': implementation})]
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->set{1}({2}): '
-                              '{3}'.format(self.abbrev_parent,
-                                           attribute['capAttName'],
-                                           attribute['name'],
-                                           self.invalid_obj)]
-            code = [dict({'code_type': 'line', 'code': implementation})]
+            implementation = []
+            comment_line = \
+                self.create_code_block('comment', ['TODO write_set_string_for_enum in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+
+            code = implementation
+
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -1427,8 +1193,7 @@ class SetGetFunctions():
                      'implementation': code})
 
     # function to write set function for an array
-    # specialised c++ function to use an array pointer
-    # as an argument to be read into
+    # TODO write_java_set_array needs to be adapted for java
     def write_java_set_array(self, index):
         if index < len(self.attributes):
             attribute = self.attributes[index]
@@ -1454,7 +1219,6 @@ class SetGetFunctions():
                                                              self.open_br,
                                                              self.invalid_att,
                                                              self.close_br)]
-
         additional = []
 
         # create the function declaration
@@ -1467,81 +1231,17 @@ class SetGetFunctions():
         ar_type = attribute['element']
         is_set_l = 'mIsSet' + strFunctions.upper_first(attribute['name']) \
                    + 'Length'
-        code = [self.create_code_block('if',
-                                       ['inArray == NULL',
-                                        'return {0}'.format(self.invalid_att)]),
-                self.create_code_block('if',
-                                       ['{0} != NULL'.format(member),
-                                        'delete[] {0}'.format(member)])]
-        implementation = ['{0} = new {1}[arrayLength]'.format(member, ar_type),
-                          'memcpy({0}, inArray, sizeof('
-                          '{1})*arrayLength)'.format(member, ar_type),
-                          '{0} = true'.format(is_set_l),
-                          '{0} = arrayLength'.format(length)]
-        code.append(self.create_code_block('line', implementation))
-        code.append(self.create_code_block(
-            'line', ['return {0}'.format(self.success)]))
 
-        # return the parts
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.struct_name,
-                     'implementation': code})
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO adapt   write_java_set_array in deviser'])
+        implementation.append(comment_line)
 
-    # function to write set function for an array
-    # specialised c function
-    def write_c_set_array(self, index):
-        if index < len(self.attributes):
-            attribute = self.attributes[index]
-        else:
-            return None
-        # create comment parts
-        title_line = 'Sets the value of the \"{0}\" attribute of this {1}.' \
-            .format(attribute['name'], self.object_name)
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
 
-        params = ['@param {0} the {1} structure.'.format(self.abbrev_parent,
-                                                         self.object_name),
-                  '@param {0} pointer value of the \"{0}\" '
-                  'attribute to be set.'.format(attribute['name']),
-                  '@param arrayLength int value for the length of '
-                  'the \"{0}\" attribute to be '
-                  'set.'.format(attribute['name'])]
-
-        return_lines = ["@copydetails doc_returns_success_code",
-                        '@li @{0}constant{1}{2}, '
-                        'OperationReturnValues_t{3}'.format(self.language,
-                                                            self.open_br,
-                                                            self.success,
-                                                            self.close_br),
-                        '@li @{0}constant{1}{2},'
-                        ' OperationReturnValues_t{3}'.format(self.language,
-                                                             self.open_br,
-                                                             self.invalid_att,
-                                                             self.close_br)]
-
-        additional = []
-
-        # create the function declaration
-        function = '{0}_set{1}'.format(self.class_name, attribute['capAttName'])
-        return_type = 'int'
-        arguments = ['{0}* {1}'.format(self.object_name, self.abbrev_parent),
-                     '{0} {1}'.format(attribute['attTypeCode'],
-                                      attribute['name']),
-                     'int arrayLength']
-        implementation = ['return ({0} != NULL) ? {0}->set{1}({2}, '
-                          'arrayLength)'
-                          ' : {3}'.format(self.abbrev_parent,
-                                          attribute['capAttName'],
-                                          attribute['name'],
-                                          global_variables.ret_invalid_obj)]
-        code = [self.create_code_block('line', implementation)]
+        code = implementation
 
         # return the parts
         return dict({'title_line': title_line,
@@ -1557,6 +1257,7 @@ class SetGetFunctions():
                      'implementation': code})
 
     # function to write set functions
+    # So it has not been used for java code generation
     def write_add_element_for_vector(self, is_attribute, index):
         if not self.is_java_api:
             return
@@ -1613,9 +1314,6 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-
-
-    # TODO GSOC 2016 write_unset changes
     #########################################################################
     # function to write unset functions
     def write_unset(self, is_attribute, index):
@@ -1634,14 +1332,11 @@ class SetGetFunctions():
         else:
             ob_type = 'element'
 
-        # TODO GSOC 2016 JSBML change
+        # igrore Id and Name unset methods
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
-
-
-
-        # TODO When does it get used?
+        # If unset 'isVector' needs to be adapted
         if 'isVector' in attribute and attribute['isVector']:
             code = self.write_clear(attribute)
         else:
@@ -1655,8 +1350,6 @@ class SetGetFunctions():
         additional = []
         title_line = '@return {{@code true}} if the unset of the {0} attribute was successful' \
             .format(attribute['name'])
-
-
 
         if not self.is_java_api:
             params.append('@param {0} the {1} structure.'
@@ -1677,25 +1370,22 @@ class SetGetFunctions():
             function = 'unset{0}'.format(attribute['capAttName'])
             return_type = 'int'
             return_type = 'boolean'
-        # else:
-        #     function = '{0}_unset{1}'.format(self.class_name,
-        #                                      attribute['capAttName'])
-        #     return_type = 'int'
 
         # TODO override unset need to change this part
-        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(self.jsbml_methods,
-                                                                                                        function, attribute)
+        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+            self.jsbml_methods,
+            function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key, function,
                                                                              functionArgs)
 
-
         params = []
         params.append('Unsets the variable {0}.'.format(attribute['name']))
         params.append(' ')
-        params.append('@return {{@code true}} if {0} was set before, otherwise {{@code false}}.'.format(attribute['name']))
-         # TODO GSOC 2016 write_unset return type definition
+        params.append(
+            '@return {{@code true}} if {0} was set before, otherwise {{@code false}}.'.format(attribute['name']))
+        # TODO GSOC 2016 write_unset return type definition
 
         arguments = []
         if not self.is_java_api:
@@ -1705,18 +1395,7 @@ class SetGetFunctions():
         # create the function implementation
         if self.is_java_api:
             code, return_type = self.unset_java_attribute(attribute)
-        else:
-            if not self.is_list_of:
-                use_name = self.abbrev_parent
-            else:
-                use_name = 'static_cast<' \
-                           '{0}*>({1})'.format(self.class_name,
-                                               self.abbrev_parent)
-            implementation = ['return ({0} != NULL) ? {0}->unset{1}() : LIB{2}'
-                              '_INVALID_OBJECT'.format(use_name,
-                                                       attribute['capAttName'],
-                                                       self.cap_language)]
-            code = [self.create_code_block('line', implementation)]
+
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -1730,7 +1409,7 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-
+    # TODO write_clear needs to be adapted for JSBML if required
     def write_clear(self, attribute):
         if not self.is_java_api:
             return None
@@ -1757,10 +1436,17 @@ class SetGetFunctions():
 
         arguments = []
 
-        # create the function implementation
-        implementation = ['{0}.clear()'.format(attribute['name']),
-                          'return {0}'.format(self.success)]
-        code = [self.create_code_block('line', implementation)]
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO adapt write_clear in deviser'])
+        implementation.append(comment_line)
+
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
+
+        code = implementation
+
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -1802,7 +1488,7 @@ class SetGetFunctions():
             att_name = attribute['element']
         else:
             att_type = attribute['CType']
-            att_name = attribute['element'] # + '_t'
+            att_name = attribute['element']  # + '_t'
 
         # create comment parts
         title_line = 'Creates a new {0} object, adds it to this {1} object ' \
@@ -1827,10 +1513,7 @@ class SetGetFunctions():
         arguments = []
         if self.is_java_api:
             function = 'create{0}'.format(name)
-        else:
-            function = '{0}_create{1}'.format(self.class_name, name)
-            arguments.append('{0}* {1}'.format(self.object_name,
-                                               self.abbrev_parent))
+
         return_type = '{0}'.format(att_type)
 
         code = []
@@ -1845,42 +1528,18 @@ class SetGetFunctions():
             implementation.append('return {0}'.format(strFunctions.lower_first(child)))
             code = [self.create_code_block('line', implementation)]
 
-            # implementation = ['{0} != NULL'.format(member),
-            #                   'delete {0}'.format(member)]
-            # code = [self.create_code_block('if', implementation)]
-            # if global_variables.is_package:
-            #     implementation = ['{0}_CREATE_NS({1}ns, '
-            #                       'get{2}Namespaces'
-            #                       '())'.format(up_pack, low_pack,
-            #                                    global_variables.prefix),
-            #                       '{0} = new {1}'
-            #                       '({2}ns)'.format(member, att_name, low_pack)]
-            # else:
-            #     implementation = ['{0} = new {1}(get{2}Namespaces())'.format(member, att_name, global_variables.prefix)]
-            # code.append(self.create_code_block('line', implementation))
-            # if attribute['children_overwrite']:
-            #     line = ['{0}->setElementName(\"{1}\")'
-            #             ''.format(member, attribute['xml_name'])]
-            #     code.append(self.create_code_block('line', line))
-            # if self.is_plugin:
-            #     line = ['{0}->set{1}(this->get{1}'
-            #             '())'.format(member, global_variables.document_class)]
-            #     code.append(self.create_code_block('line', line))
-            # if global_variables.is_package:
-            #     code.append(self.create_code_block('line',
-            #                                        ['delete {0}'
-            #                                         'ns'.format(low_pack)]))
-            # code.append(self.create_code_block('line', ['connectToChild()']))
-            # code.append((self.create_code_block('line',
-            #                                     ['return {0}'.format(member)])))
         elif not self.is_header:
-            implementation = ['{0} == NULL'.format(self.abbrev_parent),
-                              'return NULL']
-            code = [self.create_code_block('if', implementation)]
-            implementation = ['return ({0})({1}->'
-                              'create{2}())'.format(att_type,
-                                                    self.abbrev_parent, name)]
-            code.append(self.create_code_block('line', implementation))
+            # TODO write_create --if not is_header needs to be adapted
+            implementation = []
+            comment_line = \
+                self.create_code_block('comment', ['TODO write_create --not is_header-- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+
+            code = implementation
 
         # return the parts
         return dict({'title_line': title_line,
@@ -1896,15 +1555,13 @@ class SetGetFunctions():
                      'implementation': code})
 
     # function to write create functions
+    # TODO write_create_concrete_child has not been adapted for JSBML
     def write_create_concrete_child(self, attribute, member=''):
         # useful variables
         name = strFunctions.upper_first(attribute['element'])
         if self.is_java_api:
-            att_type = attribute['element']  # + '*'
+            att_type = attribute['element']
             att_name = attribute['element']
-        else:
-            att_type = attribute['element']  # + '_t*'
-            att_name = attribute['element']  # + '_t'
 
         # create comment parts
         title_line = 'Creates a new {0} object, adds it to this {1} object ' \
@@ -1924,43 +1581,22 @@ class SetGetFunctions():
         arguments = []
         if self.is_java_api:
             function = 'create{0}'.format(name)
-        else:
-            function = '{0}_create{1}'.format(self.class_name, name)
-            arguments.append('{0}* {1}'.format(self.object_name,
-                                               self.abbrev_parent))
+
         return_type = '{0}'.format(att_type)
 
         up_pack = self.package.upper()
         low_pack = self.package.lower()
         if self.is_java_api:
-            implementation = ['{0} != NULL'.format(member),
-                              'delete {0}'.format(member)]
-            code = [self.create_code_block('if', implementation)]
-            if global_variables.is_package:
-                implementation = ['{0}_CREATE_NS({1}ns, '
-                                  'get{2}Namespaces'
-                                  '())'.format(up_pack, low_pack,
-                                               global_variables.prefix),
-                                  '{0} = new {1}'
-                                  '({2}ns)'.format(member, att_name, low_pack)]
-            else:
-                implementation = ['{0} = new {1}(get{2}Namespaces())'.format(member, att_name, global_variables.prefix)]
+            implementation = []
+            comment_line = \
+                self.create_code_block('comment', ['TODO adapt  write_create_concrete_child in deviser'])
+            implementation.append(comment_line)
 
-            code.append(self.create_code_block('line', implementation))
-            if global_variables.is_package:
-                code.append(self.create_code_block('line',
-                                                   ['delete {0}'
-                                                    'ns'.format(low_pack)]))
-            code.append(self.create_code_block('line', ['connectToChild()']))
-            code.append((self.create_code_block('line',
-                                                ['return static_cast<{0}*>'
-                                                 '({1})'.format(att_name,
-                                                                member)])))
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
-                              'NULL'.format(self.abbrev_parent,
-                                            attribute['element'])]
-            code = [self.create_code_block('line', implementation)]
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+
+            code = implementation
 
         # return the parts
         return dict({'title_line': title_line,
@@ -1979,55 +1615,8 @@ class SetGetFunctions():
 
     # HELPER FUNCTIONS
 
-    def get_c_attribute(self, attribute):
-        if attribute['isArray']:
-            return
-        code = []
-        null_line = 'NULL'
-        if attribute['attType'] == 'enum':
-            null_line = '{0}'.format(attribute['default'])
-        if not attribute['isNumber'] and attribute['attType'] != 'boolean':
-            line = ['{0} == NULL'.format(self.abbrev_parent),
-                    'return {0}'.format(null_line)]
-            code = [self.create_code_block('if', line)]
-
-        if attribute['attType'] == 'enum':
-            line = ['return {0}->get{1}()'.format(self.abbrev_parent,
-                                                  attribute['capAttName'])]
-        elif attribute['attType'] == 'integer' \
-                or attribute['attType'] == 'unsigned integer':
-            line = ['return ({0} != NULL) ? {0}->get{1}() : '
-                    '{2}_INT_MAX'.format(self.abbrev_parent,
-                                         attribute['capAttName'],
-                                         self.cap_language)]
-        elif attribute['attType'] == 'double':
-            line = ['return ({0} != NULL) ? {0}->get{1}() : '
-                    'util_NaN()'.format(self.abbrev_parent,
-                                        attribute['capAttName'])]
-        elif attribute['attType'] == 'boolean':
-            line = ['return ({0} != NULL) ? static_cast<int>({0}->get{1}()) : '
-                    '0'.format(self.abbrev_parent,
-                               attribute['capAttName'])]
-        elif attribute['type'] == 'element':
-            line = ['return ({0})({1}->get{2}())'
-                    ''.format(attribute['CType'], self.abbrev_parent,
-                              attribute['capAttName'])]
-        else:
-            if not self.is_list_of:
-                use_name = self.abbrev_parent
-            else:
-                use_name = 'static_cast<const ' \
-                           '{0}*>({1})'.format(self.class_name,
-                                               self.abbrev_parent)
-            line = ['return {0}->get{1}().empty() ? NULL : safe_strdup({0}'
-                    '->get{1}().c_str())'.format(use_name,
-                                                 attribute['capAttName'])]
-        code.append(self.create_code_block('line', line))
-        return code
-
-
     # TODO for write_set  absolutely important
-    def set_java_attribute(self, attribute, write_for = 'String'):
+    def set_java_attribute(self, attribute, write_for='String'):
         member = attribute['name']
         name = attribute['name']
         return_type = 'boolean'
@@ -2052,11 +1641,6 @@ class SetGetFunctions():
                                                                                       oldValue,
                                                                                       currValue)
 
-            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #
-
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                               implement_part1,
@@ -2066,28 +1650,7 @@ class SetGetFunctions():
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
             return_type = 'boolean'
-            # if self.language == 'jsbml':
-            #     implementation = ['return SyntaxChecker::'
-            #                       'checkAndSetSId(id, mId)']
-            #     # TODO set
-            #     # if curr_att_type in global_variables.javaTypeAttributes:
-            #     #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['name'], curr_att_type)
-            #     # else:
-            #     #     implement_part2 = 'return {0}'.format(attribute['name'])
-            #     # implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
-            #     # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package, attribute[
-            #     #     'name'])]
-            #     # code = [dict({'code_type': 'if', 'code': implementation2}),
-            #     #         dict({'code_type': 'line', 'code': implementation})]
-            #
-            #
-            #
-            # else:
-            #     implementation = ['{0} = {1}'.format(member, name),
-            #                       'return {0}'.format(self.success)]
-            # code = [dict({'code_type': 'line', 'code': implementation})]
 
-        # TODO VERY IMPORTANT 2 fuctions with the same name, how to deal with them?
         elif attribute['type'] == 'SIdRef':
             curr_att_type = attribute['JClassType']
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
@@ -2100,11 +1663,6 @@ class SetGetFunctions():
                                                                                       oldValue,
                                                                                       currValue)
 
-            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #
-
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                               implement_part1,
@@ -2114,46 +1672,6 @@ class SetGetFunctions():
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
             return_type = 'boolean'
-            # pass
-            # # TODO Compartment style and type setQualitativeSpecies    SetReaction, setIdRef
-            # # TODO nested nested if
-            # # implementation = ['!(SyntaxChecker::isValidInternalSId({0})'
-            # #                   ')'.format(name),
-            # #                   'return {0}'.format(self.invalid_att), 'else',
-            # #                   '{0} = {1}'.format(member, name),
-            # #                   'return {0}'.format(self.success)]
-            # # code = [dict({'code_type': 'if_else', 'code': implementation})]
-            #
-            # curr_att_type = attribute['JClassType']
-            # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            # currValue = 'this.{0}'.format(attribute['name'])
-            #
-            # implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            # implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
-            # implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-            #                                                                            attribute['name'],
-            #                                                                            oldValue,
-            #                                                                            currValue)
-            #
-            # #code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #                       'this.{0} = {1}'.format(attribute['name'], attribute['name'])]  # 3rd line
-            #
-            #
-            # nested_if = self.create_code_block('if_else', implementation)
-            # implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
-            #                   implement_part1,
-            #                   nested_if, implement_part3, 'return true']  # 2nd line
-            # #print('implementation ',implementation)
-            # #code.append(self.create_code_block('if', implementation))
-            # code = [self.create_code_block('if', implementation)]
-            #
-            # implementationNext = ['return false']  # 1st line
-            # code.append(self.create_code_block('line', implementationNext))
-
-
-
         elif attribute['type'] == 'UnitSId' \
                 or attribute['type'] == 'UnitSIdRef':  # TODO Spatial coordinatecomponent setUnit
             curr_att_type = attribute['JClassType']
@@ -2166,11 +1684,6 @@ class SetGetFunctions():
                                                                                       attribute['name'],
                                                                                       oldValue,
                                                                                       currValue)
-
-            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #
 
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -2199,11 +1712,6 @@ class SetGetFunctions():
                                                                                       oldValue,
                                                                                       currValue)
 
-            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #
-
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                               implement_part1,
@@ -2216,7 +1724,7 @@ class SetGetFunctions():
             # implementation = ['{0} = {1}'.format(member, name),
             #                   'return {0}'.format(self.success)]
             # code = [dict({'code_type': 'line', 'code': implementation})]
-        elif attribute['type'] == 'enum': # TODO setType setOperation setSig
+        elif attribute['type'] == 'enum':  # TODO setType setOperation setSig
             curr_att_type = attribute['JClassType']
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
             currValue = 'this.{0}'.format(attribute['name'])
@@ -2228,11 +1736,6 @@ class SetGetFunctions():
                                                                                       oldValue,
                                                                                       currValue)
 
-            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #
-
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                               implement_part1,
@@ -2242,47 +1745,8 @@ class SetGetFunctions():
             implementationNext = ['return false']  # 1st line
             code.append(self.create_code_block('line', implementationNext))
             return_type = 'boolean'
-            # # TODO maybe all should look like this
-            # data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-            # if len(data) > 0:
-            #     curr_att_type = data
-            # else:
-            #     curr_att_type = attribute['JClassType']
-            # implementation = []
-            # implementation.append('{0} old{1} = this.{2}'.format(curr_att_type, attribute['capAttName'],
-            #                                                      name))
-            # implementation.append('this.{0} = null'.format(name))
-            # implementation.append('firePropertyChange({0}Constants.{1}, old{2}, this.{1})'.format(self.package,
-            #                                                                                       name,
-            #                                                                                       strFunctions.upper_first(name)))
-            # code = [dict({'code_type': 'line', 'code': implementation})]
-            # # implementation = ['{0}_isValid({1}) == '
-            # #                   '0'.format(attribute['element'], name),
-            # #                   '{0} = {1}'.format(member,
-            # #                                      attribute['default']),
-            # #                   'return {0}'.format(self.invalid_att), 'else',
-            # #                   '{0} = {1}'.format(member, name),
-            # #                   'return {0}'.format(self.success)]
-            # # code = [dict({'code_type': 'if_else', 'code': implementation})]
         elif query.has_is_set_member(attribute):
             code = self.write_set_att_with_member(attribute, True)
-
-            # if not deal_with_versions:
-            #     implementation = self.write_set_att_with_member(attribute, True)
-            #     code.append(self.create_code_block('line', implementation))
-            #     # code = self.write_set_att_with_member(attribute, True)
-            # else:
-            #     if attribute['num_versions'] == 2:
-            #         implementation = ['pkgVersion == 1']
-            #         atts = attribute['version_info'][0]
-            #         implementation += self.write_set_att_with_member(attribute,
-            #                                                          atts)
-            #         implementation.append('else')
-            #         atts = attribute['version_info'][1]
-            #         implementation += self.write_set_att_with_member(attribute,
-            #                                                          atts)
-            #         code.append(self.create_code_block('if_else',
-            #                                            implementation))
 
         # TODO here's some work that needs to be done element and vector
         elif 'isVector' in attribute and attribute['isVector']:
@@ -2290,28 +1754,21 @@ class SetGetFunctions():
                               'return {0}'.format(self.success)]
             code = [self.create_code_block('line', implementation)]
         elif attribute['type'] == 'element':
-            # TODO stuff
             if not self.is_plugin:
                 clone = 'clone'
                 nested_if = []
-                implementation = ['{0} == {1}'.format(member, name),
-                                  'return {0}'.format(self.success),
-                                  'else if',
-                                  '{0} == NULL'.format(name),
-                                  'delete {0}'.format(member),
-                                  '{0} = NULL'.format(member),
-                                  'return {0}'.format(self.success)]
+                # TODO set_java_attribute adapt for type element
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment', ['TODO adapt  write_is_set --isVector-- in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
                 if attribute['element'] == 'ASTNode':
                     # clone = 'deepCopy'
-                    # implementation.append('else if')
-                    # implementation.append('!({0}->isWellFormedASTNode()'
-                    #                       ')'.format(name))
-                    # implementation.append('return {0}'.format(self.invalid_obj))
-                    # line = ['{0} != NULL'.format(member),
-                    #         '{0}->setParent{1}Object'
-                    #         '(this)'.format(member, self.cap_language)]
-                    # if global_variables.is_package:
-                    #     nested_if = self.create_code_block('if', line)
+
                     curr_att_type = attribute['JClassType']
                     oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
                     currValue = 'this.{0}'.format(attribute['name'])
@@ -2328,9 +1785,8 @@ class SetGetFunctions():
 
                     implementation = ['this.{0} != null'.format(attribute['name'])]
                     # implementation.append(['ASTNode.setParentSBMLObject({0}, this)'.format(attribute['name'])])
-                    implementation.append('firePropertyChange(TreeNodeChangeEvent.{0}, {1}, {0})'.\
-                                          format(attribute['name'],  oldValue, currValue)) # 2nd line
-
+                    implementation.append('firePropertyChange(TreeNodeChangeEvent.{0}, {1}, {0})'. \
+                                          format(attribute['name'], oldValue, currValue))  # 2nd line
 
                     code.append(self.create_code_block('if', implementation))
                     code.append(self.create_code_block('blank', ''))
@@ -2347,11 +1803,6 @@ class SetGetFunctions():
                                                                                               oldValue,
                                                                                               currValue)
 
-                    # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-                    # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-                    #                       'this.{0} = null'.format(attribute['name']), 'else',
-                    #
-
                     impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
                     implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                                       implement_part1,
@@ -2361,41 +1812,6 @@ class SetGetFunctions():
                     implementationNext = ['return false']  # 1st line
                     code.append(self.create_code_block('line', implementationNext))
                     return_type = 'boolean'
-                    # implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                    #                                                                            attribute['name'],
-                    #                                                                            oldValue,
-                    #                                                                            currValue)
-
-                    #code = [dict({'code_type': 'line', 'code': 'TADA'})]
-                    # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-                    #                       'this.{0} = null'.format(attribute['name']), 'else',
-                    #
-
-                    # impl2 =  'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
-                    # implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
-                    #                   implement_part1,
-                    #                   impl2, implement_part3, 'return true']  # 2nd line
-                    # code = [self.create_code_block('if', implementation)]
-                    #
-                    # implementationNext = ['return false']  # 1st line
-                    # code.append(self.create_code_block('line', implementationNext))
-
-
-                # elif not attribute['is_ml']:
-                #     line = ['{0} != NULL'.format(member)]
-                #     if attribute['children_overwrite']:
-                #         line.append('{0}->setElementName'
-                #                     '(\"{1}\")'.format(member, name))
-                #     line.append('{0}->connectToParent(this)'.format(member))
-                #     nested_if = self.create_code_block('if', line)
-                # implementation.append('else')
-                # implementation.append('delete {0}'.format(member))
-                # implementation.append('{0} = ({1} != NULL) ? {1}->{2}() '
-                #                       ': NULL'.format(member, name, clone))
-                # if len(nested_if) > 0:
-                #     implementation.append(nested_if)
-                # implementation.append('return {0}'.format(self.success))
-                # code = [self.create_code_block('else_if', implementation)]
             else:
                 curr_att_type = attribute['JClassType']
                 oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
@@ -2408,11 +1824,6 @@ class SetGetFunctions():
                                                                                           oldValue,
                                                                                           currValue)
 
-                # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-                # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-                #                       'this.{0} = null'.format(attribute['name']), 'else',
-                #
-
                 impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
                 implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                                   implement_part1,
@@ -2422,34 +1833,7 @@ class SetGetFunctions():
                 implementationNext = ['return false']  # 1st line
                 code.append(self.create_code_block('line', implementationNext))
                 return_type = 'boolean'
-                # implementation = ['{0} == NULL'.format(name),
-                #                   'return {0}'.format(self.failed),
-                #                   'else if', '{0}->hasRequiredElements() '
-                #                              '== false'.format(name),
-                #                   'return {0}'.format(self.invalid_obj),
-                #                   'else if',
-                #                   'getLevel() != {0}->getLevel()'.format(name),
-                #                   'return '
-                #                   '{0}'.format(global_variables.ret_level_mis),
-                #                   'else if', 'getVersion() != {0}->'
-                #                              'getVersion()'.format(name),
-                #                   'return '
-                #                   '{0}'.format(global_variables.ret_vers_mis),
-                #                   'else if', 'getPackageVersion() != {0}->'
-                #                              'getPackageVersion()'.format(name),
-                #                   'return '
-                #                   '{0}'.format(global_variables.ret_pkgv_mis),
-                #                   'else', 'delete {0}'.format(member),
-                #                   '{0} = static_cast<{1}>({2}->'
-                #                   'clone())'.format(member,
-                #                                     attribute['attTypeCode'],
-                #                                     name),
-                #                   'return {0}'.format(self.success)]
-                # code = [self.create_code_block('else_if', implementation)]
         else:
-            # TODO becareful this part
-            # implementation = ['TO DO']
-            # code = [dict({'code_type': 'line', 'code': implementation})]
             curr_att_type = attribute['JClassType']
 
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
@@ -2472,17 +1856,8 @@ class SetGetFunctions():
             # code = [dict({'code_type': 'blank', 'code': []})]
         return code, return_type
 
-
-
     def write_set_att_with_member(self, attribute, in_version):
         # TODO in_version  what is it? how to deal with  GSOC 2016 write_set important
-
-        # if curr_att_type in global_variables.javaTypeAttributes:
-        #     implement_part2 = 'return {0}.{1}Value()'.format(attribute['name'], curr_att_type)
-        # else:
-        #     implement_part2 = 'return {0}'.format(attribute['name'])
-        # implementation2 = ['isSet{0}()'.format(attribute['capAttName']), implement_part2]
-
 
         # Here's the problem
 
@@ -2498,11 +1873,6 @@ class SetGetFunctions():
                                                                                       oldValue,
                                                                                       currValue)
 
-            # code = [dict({'code_type': 'line', 'code': 'TADA'})]
-            # implementation = ['({0} == null) || ({1}.isEmpty())'.format(attribute['name'],attribute['name']),
-            #                       'this.{0} = null'.format(attribute['name']), 'else',
-            #
-
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
                               implement_part1,
@@ -2513,42 +1883,12 @@ class SetGetFunctions():
             code.append(self.create_code_block('line', implementationNext))
             return_type = 'boolean'
             return code
-            # curr_att_type = attribute['JClassType']
-            # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            # currValue = 'this.{0}'.format(attribute['name'])
-            # implementation1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])]
-            # implementation2 = ['{0} = {1}'.format(currValue, attribute['name'])]
-            # implementation3 = ['firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-            #                                                                            attribute['name'],
-            #                                                                            oldValue,
-            #                                                                            currValue)]
-            # all_impl = implementation1 + implementation2 + implementation3
-            # code = [dict({'code_type': 'line', 'code': all_impl})]
-            # # code = [dict({'code_type': 'line', 'code': implementation1}),
-            # #         dict({'code_type': 'line', 'code': implementation2}),
-            # #         dict({'code_type': 'line', 'code': implementation3})]
-            # return code  # implementation  #
+
         except Exception as error:
             print("write_set_att_with_member ", error)
             sys.exit(0)
 
-        # if in_version:
-        #     implementation = ['{0} = {1}'.format(attribute['name'],
-        #                                          attribute['name']),
-        #                       'mIsSet{0} = true'
-        #                       ''.format(attribute['capAttName']),
-        #                       'return {0}'.format(self.success)]
-        # else:
-        #     implementation = ['{0} = {1}'.format(attribute['name'],
-        #                                          attribute['name']),
-        #                       'mIsSet{0} = '
-        #                       'false'.format(attribute['capAttName']),
-        #                       'return {0}'
-        #                       ''.format(global_variables.ret_att_unex)]
-
-
-
-    # TODO GSOC 2016 unset Done
+    # TODO
     def unset_java_attribute(self, attribute):
         code = []
         if attribute['attType'] == 'string':
@@ -2559,34 +1899,21 @@ class SetGetFunctions():
             part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                                                                                       attribute['name'],
-                                                                                       oldValue,
-                                                                                       attribute['name'])
+                                                                            attribute['name'],
+                                                                            oldValue,
+                                                                            attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
-                               'return true']
+                              'return true']
             # code = [dict({'code_type': 'if', 'code': implementation})]
             code = [self.create_code_block('if', implementation)]
 
             temp = 'return false'
             code.append(temp)
             return_type = 'boolean'
-            # implementation = ['{0}.erase()'.format(attribute['name'])]
-            # implementation2 = ['{0}.empty() == '
-            #                    'true'.format(attribute['name']),
-            #                    'return {0}'.format(self.success), 'else',
-            #                    'return {0}'.format(self.failed)]
-            # code = [dict({'code_type': 'line', 'code': implementation}),
-            #         dict({'code_type': 'if_else', 'code': implementation2})]
+
         elif attribute['attType'] == 'enum':
-            # TODO need to change here
-            # if attribute['JClassType'] in self.jsbml_data_tree['Difference']:
-            #     data = self.jsbml_data_tree['Difference'][attribute['JClassType']]
-            # else:
-            #     data = []
-            # if len(data) > 0:
-            #     curr_att_type = data
-            # else:
+
             curr_att_type = attribute['JClassType']
 
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
@@ -2594,25 +1921,19 @@ class SetGetFunctions():
             part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                                                                                       attribute['name'],
-                                                                                       oldValue,
-                                                                                       attribute['name'])
+                                                                            attribute['name'],
+                                                                            oldValue,
+                                                                            attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
-                               'return true']
+                              'return true']
             # code = [dict({'code_type': 'if', 'code': implementation})]
             code = [self.create_code_block('if', implementation)]
 
             temp = 'return false'
             code.append(temp)
             return_type = 'boolean'
-            # implementation = ['{0} = {1}'.format(attribute['name'],
-            #                                      attribute['default']),
-            #                   'return {0}'.format(self.success)]
-            # code = [dict({'code_type': 'line', 'code': implementation})]
 
-        # TODO GSOC 2016 modification unset query
-        # TODO here's the problem
         elif attribute['type'] == 'SIdRef':
             curr_att_type = attribute['JClassType']
 
@@ -2633,9 +1954,6 @@ class SetGetFunctions():
             temp = 'return false'
             code.append(temp)
             return_type = 'boolean'
-            # implementation = ['return set{0}(({1}) null)'.format(attribute['capAttName'],
-            #                                               attribute['JClassType'])]
-            # code = [dict({'code_type': 'line', 'code': implementation})]
         elif query.has_is_set_member(attribute):
             curr_att_type = attribute['JClassType']
 
@@ -2660,18 +1978,6 @@ class SetGetFunctions():
         elif attribute['type'] == 'element':
             if attribute['name'] == 'math':
 
-                # curr_att_type = attribute['JClassType']
-                #
-                # oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-                # currValue = 'this.old{0}'.format(attribute['name'])
-                # part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
-                # part2 = '{0} = null'.format(attribute['name'])
-                # part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                #                                                                 attribute['name'],
-                #                                                                 oldValue,
-                #                                                                 attribute['name'])
-                # implementation = [part1, part2, part3]
-                # code = [self.create_code_block('line', implementation)]
                 implementation = ['set{0}(null)'.format(attribute['capAttName'])]
                 code = [self.create_code_block('line', implementation)]
                 return_type = 'void'
@@ -2695,25 +2001,19 @@ class SetGetFunctions():
                 temp = 'return false'
                 code.append(temp)
                 return_type = 'boolean'
-                # implementation = ['delete {0}'.format(attribute['name']),
-                #                   '{0} = NULL'.format(attribute['name']),
-                #                   'return {0}'.format(self.success)]
-                # code = [dict({'code_type': 'line', 'code': implementation})]
-                # return_type = 'void'
+
         elif attribute['isArray']:
             code = [self.create_code_block(
                 'if', ['{0} != NULL'.format(attribute['name']),
                        'delete[] {0}'.format(attribute['name'])]),
-                    self.create_code_block('line', [
-                        '{0} = NULL'.format(attribute['name'])]),
-                    self.create_code_block('line', [
-                        'return unset{0}Length()'.format(
-                            strFunctions.upper_first(attribute['name']))])]
+                self.create_code_block('line', [
+                    '{0} = NULL'.format(attribute['name'])]),
+                self.create_code_block('line', [
+                    'return unset{0}Length()'.format(
+                        strFunctions.upper_first(attribute['name']))])]
             return_type = 'boolean'
-        # TODO unsetCompartment @Override problem? ALMOST DONE
         else:
-            # implementation = ['TO DO']
-            # code = [dict({'code_type': 'line', 'code': implementation})]
+
             curr_att_type = attribute['JClassType']
 
             oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
@@ -2721,12 +2021,12 @@ class SetGetFunctions():
             part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
-                                                                                       attribute['name'],
-                                                                                       oldValue,
-                                                                                       attribute['name'])
+                                                                            attribute['name'],
+                                                                            oldValue,
+                                                                            attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
-                               'return true']
+                              'return true']
             # code = [dict({'code_type': 'if', 'code': implementation})]
             code = [self.create_code_block('if', implementation)]
 
