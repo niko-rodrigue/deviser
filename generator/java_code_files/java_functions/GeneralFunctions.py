@@ -142,6 +142,7 @@ class GeneralFunctions():
         # For tests
         self.run_tests = global_variables.running_tests
 
+        # Additional information for java code generation
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
@@ -169,6 +170,7 @@ class GeneralFunctions():
     ########################################################################
 
     # This useful for readAttributes where name and id are not required
+    # It simply create a list without the Id and Name attributes
     def get_attributes_excluding_id_name(self):
         modified_attributes = []
         for i in range(0, len(self.attributes)):
@@ -179,7 +181,7 @@ class GeneralFunctions():
                 modified_attributes.append(attribute)
         return modified_attributes
 
-    # This look like it is not required
+    # This looks like it is not required
     def expand_methods_to_write(self):
         for class_name in self.jsbml_methods:
             for method in self.jsbml_methods[class_name]:
@@ -191,7 +193,7 @@ class GeneralFunctions():
 
     ########################################################################
 
-    # Function for writing get_child_at
+    # Function for writing  nested if statements for get_child_at
     def create_nested_if_for_get_child_at(self, lo_element):
         name = lo_element['name']
         cap_name = lo_element['capAttName']
@@ -278,6 +280,7 @@ class GeneralFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+    # a prototype that is not used anymore
     def write_get_child_at_special(self):
         function = 'getChildAt'
 
@@ -316,6 +319,7 @@ class GeneralFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
+    # write getChildAt method
     def write_get_child_at(self):
         if self.is_plugin is False and len(self.child_lo_elements) == 0:
             return
@@ -616,6 +620,7 @@ class GeneralFunctions():
         + (({0} == null) ? 0 : {1}.hashCode())'.format(attribute['jsbmlName'], attribute['jsbmlName'])]
             return self.create_code_block('line', implementation)
 
+        # TODO for hashcode_if maybe required for additional types
         implementation = ['isSet{0}()'.format(name)]
         if str(type)[:] == 'bool':
             implementation.append('hashCode += prime + (get{0}() ? 1 : -1)'.format(name))
@@ -704,21 +709,7 @@ class GeneralFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-    # Functions for writing hashCode
-    def create_read_attribute_if(self, index):
-        name = self.attributes_excluding_id_name[index]['capAttName']
-        member_name = self.attributes_excluding_id_name[index]['name']
-        java_type = self.attributes_excluding_id_name[index]['JClassType']
-        type = self.attributes_excluding_id_name[index]['attType']
-
-        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
-
-        implement = ['{0}.equals({1}Constants.{2}'.format(self.attributeName, self.package, member_name),
-                     'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)]  # 3rd line
-
-        temp_code = self.create_code_block('if', implement)
-        return temp_code
-
+    # Function for writing hashCode else if statements
     def create_read_attribute_else_if(self, index, create_else=True):
         name = self.attributes_excluding_id_name[index]['capAttName']
         member_name = self.attributes_excluding_id_name[index]['name']
@@ -736,6 +727,7 @@ class GeneralFunctions():
 
         implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name)]
 
+        # TODO for additonal data types, work may be required
         if str(type)[:] == 'SIdRef':
             implementation.append('set{0}({1})'.format(name, self.value))
         elif str(type)[:] == 'IDREF':
@@ -758,7 +750,7 @@ class GeneralFunctions():
         elif type == 'SpatialKind':
             implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
         elif type == 'CBOTerm':
-            # TODO Here works needs to be done
+            # TODO Here works needs to be done fo CBO term
             implementation.append('set{0}(CBO.getTerm(value))'.format(name))
         else:
             implementation.append('set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value))
@@ -840,8 +832,6 @@ class GeneralFunctions():
             implementation.append(line)
 
             for i in range(0, len(self.attributes_excluding_id_name)):
-                # attribute = self.attributes_excluding_id_name[i]
-                # # This part is tricky because else if
                 temp_code = self.create_read_attribute_else_if(i)
                 implementation_else_if += temp_code
 
@@ -886,6 +876,8 @@ class GeneralFunctions():
         type = self.attributes[index]['type']
         jclass_type = self.attributes[index]['JClassType']
 
+
+        # TODO work for additional types may be required for writeXMLAttributes if
         implementation = ['isSet{0}()'.format(name)]
         if str(type)[:] == 'SId' or str(type)[:] == 'string':
             implementation.append('attributes.remove("{0}")'.format(member_name))
@@ -1413,6 +1405,7 @@ class GeneralFunctions():
         code = []
         clone = 'clone'
 
+        # For future case when needs to be detected override or not
         # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
         #     self.jsbml_methods,
         #     function=function,

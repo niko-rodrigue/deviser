@@ -119,7 +119,6 @@ class ListOfQueryFunctions():
         if not global_variables.is_package:
             self.ideq = strFunctions.prefix_name('IdEq')
 
-
         # status
         if self.is_java_api:
             if self.is_list_of:
@@ -137,7 +136,6 @@ class ListOfQueryFunctions():
         self.open_br = '{'
         self.close_br = '}'
 
-
         # Additional java helper data for JSBML
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
@@ -145,11 +143,13 @@ class ListOfQueryFunctions():
             self.jsbml_methods = jsbml_methods
 
         self.duplicate_methods = []
+
     ########################################################################
 
     # Functions for writing get element functions
 
     # function to write get by index from a listOf
+    # TODO work to be done for write_get_element_by_index in ListOfQueryFunctions
     def write_get_element_by_index(self, is_const):
         # c api does not need a non constant version
         if not self.is_java_api and not is_const:
@@ -186,58 +186,73 @@ class ListOfQueryFunctions():
         arguments = []
         used_c_name = strFunctions.remove_prefix(self.child_name)
         if self.is_java_api:
-            function = 'get' if self.is_list_of else 'get{0}'\
+            function = 'get' if self.is_list_of else 'get{0}' \
                 .format(strFunctions.remove_prefix(self.object_child_name))
         else:
             function = '{0}_get{1}'.format(self.class_name, used_c_name)
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
-        arguments.append('unsigned int n')
+        arguments.append('int n')
+
         if is_const:
-            return_type = 'const {0}*'.format(self.object_child_name)
+            return_type = '{0}'.format(self.object_child_name)
         else:
-            return_type = '{0}*'.format(self.object_child_name)
+            return_type = '{0}'.format(self.object_child_name)
         # if appropriate write the code
         code = []
+        implementation = []
         if not self.is_header:
             if self.status == 'java_list':
                 list_type = 'ListOf'
                 if not global_variables.is_package:
                     list_type = strFunctions.prefix_name('ListOf')
-                const = 'const ' if is_const else ''
-                implementation = ['return static_cast<{0}{1}*>({2}::'
-                                  'get(n))'.format(const, self.child_name, list_type)]
-                code = [self.create_code_block('line', implementation)]
+                comment_line = \
+                    self.create_code_block('comment',
+                                           ['TODO  write_get_element_by_index --java_list-- in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
             elif self.status == 'cpp_not_list':
                 if not self.document:
-                    implementation = ['return {0}.get'
-                                      '(n)'.format(self.class_object['memberName'])]
-                else:
-                    if not is_const:
-                        implementation = ['return const_cast<{1}Error*>({0}.getError'
-                                          '(n))'.format(self.class_object['memberName'],
-                                                        global_variables.prefix)]
-                    else:
-                        implementation = ['return {0}.getError'
-                                          '(n)'.format(self.class_object['memberName'])]
+                    comment_line = \
+                        self.create_code_block('comment',
+                                               ['TODO  write_get_element_by_index --not self.document-- in deviser'])
+                    implementation.append(comment_line)
 
-                code = [self.create_code_block('line', implementation)]
+                    throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                    throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                    implementation.append(throw_exception_line)
+                else:
+                    comment_line = \
+                        self.create_code_block('comment',
+                                               ['TODO write_get_element_by_index cpp_not_list --else--in deviser'])
+                    implementation.append(comment_line)
+
+                    throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                    throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                    implementation.append(throw_exception_line)
+
+                code = implementation
             elif self.status == 'plugin':
-                const = 'const ' if is_const else ''
-                name = self.class_object['memberName']
-                implementation = ['return static_cast<{0} {1}*>({2}.get'
-                                  '(n))'.format(const, self.child_name, name)]
-                code = [self.create_code_block('line', implementation)]
-            elif self.status == 'c_list':
-                line = ['{0} == NULL'.format(self.abbrev_parent), 'return NULL']
-                code = [self.create_code_block('if', line)]
-                line = ['return static_cast <{0}*>({1})->get'
-                        '(n)'.format(self.class_name, self.abbrev_parent)]
-                code.append(self.create_code_block('line', line))
+                comment_line = \
+                    self.create_code_block('comment', ['TODO adapt write_get_element_by_index --plugin--in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
             else:
-                line = ['return ({0} != NULL) ? {0}->get{1}(n) : '
-                        'NULL'.format(self.abbrev_parent, used_c_name)]
-                code = [self.create_code_block('line', line)]
+                comment_line = \
+                    self.create_code_block('comment', ['TODO adapt write_get_element_by_index --else-- in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+
+        code = implementation
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -252,6 +267,7 @@ class ListOfQueryFunctions():
                      'implementation': code})
 
     # function to write get by id from a listOf
+    # TODO needs to be adapted
     def write_get_element_by_id(self, is_const):
         # c api does not need a non constant version
         if not self.is_java_api and not is_const:
@@ -272,7 +288,7 @@ class ListOfQueryFunctions():
                                          cap_list_of_name(self.child_name),
                                          self.class_name)
         # create comment
-        title_line = 'Get {0} {1} from the {2} based on its identifier.'\
+        title_line = 'Get {0} {1} from the {2} based on its identifier.' \
             .format(self.indef_name, self.object_child_name, self.object_name)
         params = []
         if not self.is_java_api:
@@ -282,7 +298,7 @@ class ListOfQueryFunctions():
                       'of the {0} to retrieve.'.format(self.object_child_name))
         return_lines = ['@return the {0} {1} with the given id'
                         ' or NULL if no such {0} exists.'
-                        .format(self.object_child_name, return_string)]
+                            .format(self.object_child_name, return_string)]
         additional = []
         if self.is_java_api:
             if self.is_list_of:
@@ -311,19 +327,15 @@ class ListOfQueryFunctions():
         code = []
         if not self.is_header:
             if self.status == 'cpp_list':
-                code = self.cpp_list_write_get_element_by_id(is_const)
+                code = self.java_list_write_get_element_by_id(is_const)
             elif self.status == 'cpp_not_list':
-                code = self.cpp_not_list_write_get_element_by_id()
+                code = self.java_not_list_write_get_element_by_id()
             elif self.status == 'plugin':
                 const = 'const ' if is_const else ''
                 name = self.class_object['memberName']
                 implementation = ['return static_cast<{0} {1}*>({2}.get'
                                   '(sid))'.format(const, self.child_name, name)]
                 code = [self.create_code_block('line', implementation)]
-            elif self.status == 'c_list':
-                code = self.c_list_write_get_element_by_id()
-            else:
-                code = self.c_not_list_write_get_element_by_id(used_c_name)
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -337,48 +349,41 @@ class ListOfQueryFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-    def cpp_list_write_get_element_by_id(self, const):
+    def java_list_write_get_element_by_id(self, const):
+        implementation = []
         if const:
-            implementation = ['vector<{0}*>::const_iterator '
-                              'result'.format(self.std_base),
-                              'result = find_if(mItems.begin(), mItems.end(), '
-                              '{1}<{0}>(sid))'.format(self.object_child_name,
-                                                      self.ideq),
-                              'return (result == mItems.end()) ? 0 : '
-                              'static_cast  <const {0}*> '
-                              '(*result)'.format(self.object_child_name)]
+            comment_line = \
+                self.create_code_block('comment', ['TODO java_list_write_get_element_by_id --const-- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
         else:
-            implementation = ['return const_cast<{0}*>(static_cast<const {1}&>'
-                              '(*this).get(sid))'.format(self.object_child_name,
-                                                         self.object_name)]
-        code = [self.create_code_block('line', implementation)]
+            comment_line = \
+                self.create_code_block('comment', ['TODO java_list_write_get_element_by_id --else- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+        code = implementation
         return code
 
-    def cpp_not_list_write_get_element_by_id(self):
-        implementation = ['return {0}.'
-                          'get(sid)'.format(self.class_object['memberName'])]
-        code = [self.create_code_block('line', implementation)]
-        return code
+    def java_not_list_write_get_element_by_id(self):
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO java_not_list_write_get_element_by_id in deviser'])
+        implementation.append(comment_line)
 
-    def c_list_write_get_element_by_id(self):
-        code = []
-        line = ['{0} == NULL'.format(self.abbrev_parent), 'return NULL']
-        code.append(self.create_code_block('if', line))
-        implementation = ['return (sid != NULL) ? static_cast <{0}*>({1})'
-                          '->get(sid) : NULL'.format(self.class_name,
-                                                     self.abbrev_parent)]
-        code.append(self.create_code_block('line', implementation))
-        return code
-
-    def c_not_list_write_get_element_by_id(self, name):
-        implementation = ['return ({0} != NULL && '
-                          'sid != NULL) ? {0}->get{1}'
-                          '(sid) : NULL'.format(self.abbrev_parent,
-                                                name)]
-        code = [self.create_code_block('line', implementation)]
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
+        code = implementation
         return code
 
     # function to write get by sidref from a listOf
+    # TODO write_get_element_by_sidref hasn't been modified
     def write_get_element_by_sidref(self, sid_ref, const):
         # c api does not need a non constant version
         if not self.is_java_api and not const:
@@ -386,11 +391,6 @@ class ListOfQueryFunctions():
 
         # useful variables
         element = strFunctions.upper_first(sid_ref['name'])
-        # if 'capAttName' in sid_ref:
-        #     element = sid_ref['capAttName']
-        # else:
-        #     element = sid_ref['element']
-        # if sid_ref['name']
         att_name = sid_ref['name']
         match = [element, const]
         if match in self.used_sidrefs:
@@ -413,54 +413,60 @@ class ListOfQueryFunctions():
                       'retrieve.'.format(att_name, self.object_child_name))
         return_lines = ['@return the first {0} in this {1} based on the '
                         'given {2} attribute or NULL if no such {0} exists.'
-                        .format(self.object_child_name, self.object_name,
-                                att_name)]
+                            .format(self.object_child_name, self.object_name,
+                                    att_name)]
         additional = []
 
         # create function declaration
         used_c_name = strFunctions.remove_prefix(self.child_name)
         used_cpp_name = strFunctions.remove_prefix(self.object_child_name)
+
+        implementation = []
         if self.is_java_api:
             if self.is_list_of:
                 function = 'getBy{0}'.format(element)
             else:
                 function = 'get{0}By{1}'.format(used_cpp_name, element)
             arguments = ['const std::string& sid']
-        else:
-            function = '{0}_get{1}By{2}'.format(self.class_name,
-                                                used_c_name, element)
-            arguments = ['{0}* {1}'.format(self.object_name,
-                                           self.abbrev_parent),
-                         'const char *sid']
+
         if const:
-            return_type = 'const {0}*'.format(self.object_child_name)
-        else:
-            return_type = '{0}*'.format(self.object_child_name)
+            return_type = 'const {0}'.format(self.object_child_name)
         up_name = strFunctions.abbrev_name(element).upper()
         if const and self.is_java_api and self.is_list_of:
-            implementation = ['vector<{0}*>::const_iterator '
-                              'result'.format(self.std_base),
-                              'result = find_if(mItems.begin(), mItems.end(), '
-                              '{1}{0}(sid))'.format(up_name, self.ideq),
-                              'return (result == mItems.end()) ? 0 : '
-                              'static_cast  <const {0}*> '
-                              '(*result)'.format(self.object_child_name)]
+            comment_line = \
+                self.create_code_block('comment', ['TODO write_get_element_by_sidref --const is_list_of-- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+
         elif self.is_java_api and not self.is_list_of:
-            implementation = ['return {0}.getBy{1}'
-                              '(sid)'.format(self.class_object['memberName'],
-                                             element)]
+            comment_line = \
+                self.create_code_block('comment', ['TODO write_get_element_by_sidref --not is_list_of-- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
         elif not const and self.is_java_api and self.is_list_of:
-            implementation = ['return const_cast<{0}*>(static_cast<const {1}'
-                              '&>(*this).getBy{2}(sid))'.format(self.child_name,
-                                                                self.class_name,
-                                                                element)]
+            comment_line = \
+                self.create_code_block('comment',
+                                       ['TODO write_get_element_by_sidref --not const & is_list_of-- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
         else:
-            implementation = ['return ({0} != NULL && '
-                              'sid != NULL) ? {0}->get{1}By{2}'
-                              '(sid) : NULL'.format(self.abbrev_parent,
-                                                    used_c_name,
-                                                    element)]
-        code = [self.create_code_block('line', implementation)]
+            comment_line = \
+                self.create_code_block('comment', ['TODO write_get_element_by_sidref --else-- in deviser'])
+            implementation.append(comment_line)
+
+            throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+            throw_exception_line = self.create_code_block('line', throw_exception_temp)
+            implementation.append(throw_exception_line)
+        code = implementation
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -475,6 +481,7 @@ class ListOfQueryFunctions():
                      'implementation': code})
 
     # function to write lookup by sidref from a listOf
+    # TODO is it required for java, needs to be adapted
     def write_lookup(self, sid_ref):
         # c api does not need it
         if not self.is_java_api:
@@ -511,12 +518,15 @@ class ListOfQueryFunctions():
                    '<{1}*, bool>'.format(eq_name, self.std_base)
         arguments = []
         return_type = ''
-        code = ['const string& id;', ' ',
-                '{0} (const string& id) : id(id) {1}  '
-                '{2}'.format(eq_name, open_b, close_b),
-                'bool operator() ({0}* sb)'.format(self.std_base), '{',
-                '        return (static_cast<{0}*>(sb)'
-                '->get{1}() == id);'.format(self.child_name, element), '}']
+        implementation = []
+        comment_line = \
+            self.create_code_block('comment', ['TODO write_lookup in deviser'])
+        implementation.append(comment_line)
+
+        throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+        throw_exception_line = self.create_code_block('line', throw_exception_temp)
+        implementation.append(throw_exception_line)
+        code = implementation
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -565,7 +575,6 @@ class ListOfQueryFunctions():
         used_java_type = strFunctions.remove_prefix(self.object_child_type)
         used_java_name_plural = strFunctions.plural(self.object_child_name)
 
-
         # Old version
         # used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
         used_java_name_lower = strFunctions.lower_first(used_java_name)
@@ -597,7 +606,6 @@ class ListOfQueryFunctions():
             arguments.append('{0} {1}'.format(used_java_name,
                                               used_java_name_lower))
 
-
         return_type = 'boolean'
 
         code = []
@@ -610,39 +618,26 @@ class ListOfQueryFunctions():
                                   'remove(n))'.format(self.object_child_name,
                                                       list_type)]
                 code = [self.create_code_block('line', implementation)]
-            elif self.status == 'cpp_not_list':
-                member = self.class_object['memberName']
-                implementation = ['return {0}.remove(n)'.format(member)]
-                code = [self.create_code_block('line', implementation)]
+
+            # TODO this is problematic when self.status java_not_list for Transition.java
+            # elif self.status == 'java_not_list':
+            #     member = self.class_object['memberName']
+            #     implementation = ['return {0}.remove(n)'.format(member)]
+            #     code = [self.create_code_block('line', implementation)]
 
             elif self.status == 'plugin':
-                # name = self.class_object['memberName']
-                # implementation = ['return static_cast<{0}*>({1}.remove'
-                #                   '(n))'.format(self.child_name, name)]
-                # code = [self.create_code_block('line', implementation)]
                 implementation = ['isSetListOf{0}()'.format(used_java_name_plural)]
-                implementation.append('return getListOf{0}().remove({1})'.format(used_java_name_plural, used_java_name_lower))
-                # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
-                # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
+                implementation.append(
+                    'return getListOf{0}().remove({1})'.format(used_java_name_plural, used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
-            elif self.status == 'c_list':
-                line = ['{0} == NULL'.format(self.abbrev_parent), 'return NULL']
-                code = [self.create_code_block('if', line)]
-                line = ['return static_cast <{0}*>({1})->remove'
-                        '(n)'.format(self.class_name, self.abbrev_parent)]
-                code.append(self.create_code_block('line', line))
             else:
-                # line = ['return ({0} != NULL) ? '
-                #         '{0}->remove{1}(n) : '
-                #         'NULL'.format(self.abbrev_parent, used_c_name)]
                 implementation = ['isSetListOf{0}()'.format(used_java_name_plural)]
-                implementation.append('return getListOf{0}().remove({1})'.format(used_java_name_plural, used_java_name_lower))
-                # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
-                # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
+                implementation.append(
+                    'return getListOf{0}().remove({1})'.format(used_java_name_plural, used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
 
         line = 'return false'
-        line_code = line  # self.create_code_block('line', line)
+        line_code = line
         code.append(line_code)
         # return the parts
         return dict({'title_line': title_line,
@@ -655,9 +650,7 @@ class ListOfQueryFunctions():
                      'constant': False,
                      'virtual': virtual,
                      'object_name': self.struct_name,
-             'implementation': code})
-
-
+                     'implementation': code})
 
     # function to write remove by index from a listOf
     def write_remove_element_by_index(self):
@@ -709,12 +702,11 @@ class ListOfQueryFunctions():
                 function = '{0}_remove{1}'.format(self.class_name,
                                                   used_c_name)
 
-            arguments.append('{0}* {1}'.format(self.object_name,
-                                               self.abbrev_parent))
+            arguments.append('{0} {1}'.format(self.object_name,
+                                              self.abbrev_parent))
+
+        # argument for java
         arguments.append('int i')
-        # return_type = '{0}*'.format(self.object_child_name)
-        # TODO QUESTION LOST void or type
-        # return_type = 'void'
 
         if self.is_plugin is True:
             return_type = '{0}'.format(used_java_type)
@@ -731,41 +723,27 @@ class ListOfQueryFunctions():
                                   'remove(n))'.format(self.object_child_name,
                                                       list_type)]
                 code = [self.create_code_block('line', implementation)]
-            elif self.status == 'cpp_not_list':
-                member = self.class_object['memberName']
-                implementation = ['return {0}.remove(n)'.format(member)]
+
+            # TODO should this be used or else is enough
+            # elif self.status == 'java_not_list':
+            #     member = self.class_object['memberName']
+            #     implementation = ['return {0}.remove(n)'.format(member)]
                 code = [self.create_code_block('line', implementation)]
             elif self.status == 'plugin':
-                # name = self.class_object['memberName']
-                # implementation = ['return static_cast<{0}*>({1}.remove'
-                #                   '(n))'.format(self.child_name, name)]
-                # code = [self.create_code_block('line', implementation)]
                 implementation = ['isSetListOf{0}()'.format(strFunctions.plural(used_java_type))]
                 implementation.append('throw new IndexOutOfBoundsException(Integer.toString(i))')
-                # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
-                # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
                 code.append(self.create_code_block('if', implementation))
-            elif self.status == 'c_list':
-                line = ['{0} == NULL'.format(self.abbrev_parent), 'return NULL']
-                code = [self.create_code_block('if', line)]
-                line = ['return static_cast <{0}*>({1})->remove'
-                        '(n)'.format(self.class_name, self.abbrev_parent)]
-                code.append(self.create_code_block('line', line))
             else:
-                # line = ['return ({0} != NULL) ? '
-                #         '{0}->remove{1}(n) : '
-                #         'NULL'.format(self.abbrev_parent, used_c_name)]
                 implementation = ['isSetListOf{0}s()'.format(used_java_name)]
                 implementation.append('throw new IndexOutOfBoundsException(Integer.toString(i))')
-                # implementation= ['isSetListOf{0}s()'.format(used_java_name)]
-                # implementation.append('return getListOf{0}s().remove({1})'.format(used_java_name, used_java_name))
+
                 code.append(self.create_code_block('if', implementation))
 
         if self.is_plugin is True:
             line = 'return getListOf{0}().remove(i)'.format(strFunctions.plural(used_java_type))
         else:
             line = 'return getListOf{0}s().remove(i)'.format(used_java_name)
-        line_code = line #self.create_code_block('line', line)
+        line_code = line  # self.create_code_block('line', line)
         code.append(line_code)
         # return the parts
         return dict({'title_line': title_line,
@@ -781,6 +759,7 @@ class ListOfQueryFunctions():
                      'implementation': code})
 
     # function to write remove by id from a listOf
+    # TODO write_remove_element_by_id  needs tuning
     def write_remove_element_by_id(self):
         if not self.is_list_of:
             child = query.get_class(self.child_name,
@@ -808,8 +787,6 @@ class ListOfQueryFunctions():
                         'exists.'.format(self.object_child_name,
                                          self.object_name)]
 
-
-
         additional = []
         # if self.is_java_api:
         #     additional.append('@note the caller owns the returned object and '
@@ -820,7 +797,6 @@ class ListOfQueryFunctions():
         used_java_name = strFunctions.remove_prefix(self.object_child_name)
         used_java_name_lower = strFunctions.remove_prefix(self.object_name_lower)
         used_java_name_plural = strFunctions.plural(self.object_child_name)
-
 
         # used_plugin_name = self.class_object['capAttName']
 
@@ -848,50 +824,40 @@ class ListOfQueryFunctions():
 
         code = []
         if not self.is_header:
-            if self.status == 'cpp_list':
-               implementation = ['{0}* item = NULL'.format(self.std_base),
+            if self.status == 'java_list':
+                implementation = ['{0}* item = NULL'.format(self.std_base),
                                   'vector<{0}*>::iterator '
                                   'result'.format(self.std_base)]
-               code = [self.create_code_block('line', implementation),
-                       self.create_code_block('line',
-                                              ['result = find_if('
-                                               'mItems.begin(), '
-                                               'mItems.end(), {1}<{0}>(sid)'
+                code = [self.create_code_block('line', implementation),
+                        self.create_code_block('line',
+                                               ['result = find_if('
+                                                'mItems.begin(), '
+                                                'mItems.end(), {1}<{0}>(sid)'
                                                 ')'.format(self.
                                                            object_child_name,
                                                            self.ideq)])]
-               implementation = ['result != mItems.end()', 'item = *result',
+                implementation = ['result != mItems.end()', 'item = *result',
                                   'mItems.erase(result)']
-               code.append(self.create_code_block('if', implementation))
-               code.append(
+                code.append(self.create_code_block('if', implementation))
+                code.append(
                     self.create_code_block(
                         'line',
                         ['return static_cast <{0}*> '
                          '(item)'.format(self.object_child_name)]))
-            elif self.status == 'cpp_not_list':
-                member = self.class_object['memberName']
-                implementation = ['return {0}.remove(sid)'.format(member)]
-                code = [self.create_code_block('line', implementation)]
+            # TODO needs fixing should this used or not
+            # elif self.status == 'java_not_list':
+            #     member = self.class_object['memberName']
+            #     implementation = ['return {0}.remove(sid)'.format(member)]
+            #     code = [self.create_code_block('line', implementation)]
             elif self.status == 'plugin':
-                # name = self.class_object['memberName']
-                # implementation = ['return static_cast<{0}*>({1}.remove'
-                #                   '(sid))'.format(self.child_name, name)]
-                # code = [self.create_code_block('line', implementation)]
-                implementation= ['isSetListOf{0}()'.format(used_java_name_plural)]
+                implementation = ['isSetListOf{0}()'.format(used_java_name_plural)]
                 implementation.append('return getListOf{0}().remove({1}Id)'.format(used_java_name_plural,
-                                                                                    used_java_name_lower))
+                                                                                   used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
-            elif self.status == 'c_list':
-                line = ['{0} == NULL'.format(self.abbrev_parent), 'return NULL']
-                code = [self.create_code_block('if', line)]
-                line = ['return (sid != NULL) ? static_cast <{0}*>({1})->remove'
-                        '(sid) : NULL'.format(self.class_name,
-                                              self.abbrev_parent)]
-                code.append(self.create_code_block('line', line))
             else:
-                implementation= ['isSetListOf{0}()'.format(used_java_name_plural)]
+                implementation = ['isSetListOf{0}()'.format(used_java_name_plural)]
                 implementation.append('return getListOf{0}().remove({1}Id)'.format(used_java_name_plural,
-                                                                                    used_java_name_lower))
+                                                                                   used_java_name_lower))
                 code.append(self.create_code_block('if', implementation))
 
             line = 'return null'.format(used_java_name)
@@ -941,10 +907,6 @@ class ListOfQueryFunctions():
                                                              self.open_br,
                                                              failed,
                                                              self.close_br)]
-
-
-
-
 
         # if self.is_java_api:
         #     additional.append('@copydetails doc_note_object_is_copied')
@@ -1004,55 +966,6 @@ class ListOfQueryFunctions():
             else:
                 implementation = ['return get{0}().add({1})'.format(self.attTypeCode, used_java_argument_name)]
                 code = [self.create_code_block('line', implementation)]
-            # implementation = ['{0} == NULL'.format(self.abbrev_child),
-            #                   'return {0}'.format(global_variables.ret_failed),
-            #                   'else if',
-            #                   '{0}->hasRequiredAttributes() == '
-            #                   'false'.format(self.abbrev_child),
-            #                   'return '
-            #                   '{0}'.format(global_variables.ret_invalid_obj)]
-            # if this_object and 'hasChildren' in this_object \
-            #         and this_object['hasChildren']:
-            #     ret = global_variables.ret_invalid_obj
-            #     implementation += ['else if',
-            #                        '{0}->hasRequiredElements() == '
-            #                        'false'.format(self.abbrev_child),
-            #                        'return {0}'.format(ret)]
-            # implementation += ['else if',
-            #                    'getLevel() != {0}->'
-            #                    'getLevel()'.format(self.abbrev_child),
-            #                    'return '
-            #                    '{0}'.format(global_variables.ret_level_mis),
-            #                    'else if',
-            #                    'getVersion() != {0}->'
-            #                    'getVersion()'.format(self.abbrev_child),
-            #                    'return '
-            #                    '{0}'.format(global_variables.ret_vers_mis),
-            #                    'else if']
-            # if self.is_plugin:
-            #     ret = global_variables.ret_pkgv_mis
-            #     implementation.append('getPackageVersion() != {0}->getPackage'
-            #                           'Version()'.format(self.abbrev_child))
-            #     implementation.append('return {0}'.format(ret))
-            # else:
-            #     implementation.append('matchesRequired{0}NamespacesForAddition'
-            #                           '(static_cast<const {1}*>({2})) == '
-            #                           'false'.format(global_variables.prefix,
-            #                                          self.std_base,
-            #                                          self.abbrev_child))
-            #     implementation.append('return '
-            #                           '{0}'.format(global_variables.ret_ns_mis))
-            # if not self.is_list_of and self.has_id:
-            #     implementation.append('else if')
-            #     implementation.append('{0}->isSetId() '
-            #                           '&& ({1}.get({0}->getId())) '
-            #                           '!= NULL'.format(self.abbrev_child,
-            #                                            member))
-            #     implementation.append('return '
-            #                           '{0}'.format(global_variables.ret_dup_id))
-            # implementation.append('else')
-            # implementation.append(self.create_code_block('line', else_lines))
-            # code = [self.create_code_block('else_if', implementation)]
         else:
             implementation = ['return ({0} != NULL) ? {0}->add{1}({2}) : '
                               '{3}'.format(self.abbrev_parent,
@@ -1097,20 +1010,9 @@ class ListOfQueryFunctions():
                      'and returns the {0} object ' \
                      'created.'.format(child, self.object_name)
         params = []
-        # if not self.is_java_api:
-        #     params.append('@param {0} the {1} structure '
-        #                   'to which the {2} should be '
-        #                   'added.'.format(self.abbrev_parent, self.object_name,
-        #                                   child))
         return_lines = ['@return a new {0} object '
                         'instance.'.format(child)]
         additional = []
-        # if self.is_java_api:
-        #     additional.append('@see add{0}(const {2}* {1})'
-        #                       .format(strFunctions.remove_prefix(self.object_child_name),
-        #                               self.abbrev_child,
-        #                               self.object_child_name))
-
 
         params.append('Creates a new {0} element and adds it to the'.format(child))
         params.append('{{@link listOf{0}s}} list.'.format(child))
@@ -1122,11 +1024,9 @@ class ListOfQueryFunctions():
         arguments = []
         used_c_name = strFunctions.remove_prefix(child_name)
 
-
         used_java_name = strFunctions.upper_first(self.child_name)
         used_java_name_lower = strFunctions.lower_first(self.child_name)
         used_java_type = strFunctions.remove_prefix(self.object_child_type)
-
 
         if self.is_java_api:
             function = 'create{0}'.format(strFunctions.remove_prefix(child))
@@ -1140,7 +1040,7 @@ class ListOfQueryFunctions():
             return_type = '{0}'.format(child)
 
         code = []
-        #Input, Output, FunctionTerm
+        # Input, Output, FunctionTerm
         if self.is_java_api and not is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
@@ -1149,9 +1049,9 @@ class ListOfQueryFunctions():
             # code = [self.create_code_block('line', implementation)]
             if self.is_plugin is True:
                 implementation = ['{0} {1} = new {0}(getLevel(), getVersion())'.format(used_java_type,
-                                                                                        strFunctions.lower_first(child),
-                                                                                        used_java_type)]
-                implementation.append('return add{0}({1}) ? {1} : null'.format(child,strFunctions.lower_first(child) ))
+                                                                                       strFunctions.lower_first(child),
+                                                                                       used_java_type)]
+                implementation.append('return add{0}({1}) ? {1} : null'.format(child, strFunctions.lower_first(child)))
                 code = [self.create_code_block('line', implementation)]
             else:
                 implementation = ['{0} {1} = new {0}(getLevel(), getVersion())'.format(child,
@@ -1160,49 +1060,6 @@ class ListOfQueryFunctions():
                 implementation.append('return add{0}({1}) ? {1} : null'.format(child, strFunctions.lower_first(child)))
                 code = [self.create_code_block('line', implementation)]
 
-
-
-
-
-            # implementation = ['return create{0}(null)'.format(child)]
-
-            # implementation = ['{0}* {1} = NULL'.format(self.child_name,
-            #                                            self.abbrev_child)]
-            # code = [self.create_code_block('line', implementation)]
-            #
-            # if self.class_object['num_versions'] > 1:
-            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
-            #            'getPackageVersion())'.format(pack_up, pack_low,
-            #                                          global_variables.prefix)
-            # else:
-            #     line = '{0}_CREATE_NS({1}ns, ' \
-            #            'get{2}Namespaces())'.format(pack_up, pack_low,
-            #                                         global_variables.prefix)
-            # if global_variables.is_package:
-            #     implementation = [line,
-            #                       '{0} = new {1}({2}ns)'.format(self.abbrev_child,
-            #                                                     self.child_name,
-            #                                                     pack_low),
-            #                       'delete {0}ns'.format(pack_low),
-            #                       'catch', '...', '']
-            # else:
-            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
-            #                       ''.format(self.abbrev_child,
-            #                                 self.child_name,
-            #                                 global_variables.prefix),
-            #                       'catch', '...', '']
-            # code.append(self.create_code_block('try', implementation))
-            # implementation = ['{0} != NULL'.format(self.abbrev_child)]
-            # if self.is_list_of:
-            #     implementation.append('appendAndOwn'
-            #                           '({0})'.format(self.abbrev_child))
-            # else:
-            #     member = self.class_object['memberName']
-            #     implementation.append('{0}.appendAndOwn'
-            #                           '({1})'.format(member, self.abbrev_child))
-            # code.append(self.create_code_block('if', implementation))
-            # implementation = ['return {0}'.format(self.abbrev_child)]
-            # code.append(self.create_code_block('line', implementation))
         elif self.is_java_api and is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
@@ -1210,42 +1067,6 @@ class ListOfQueryFunctions():
                                                                                    strFunctions.lower_first(child),
                                                                                    used_java_type)]
             implementation.append('return add{0}({1}) ? {1} : null'.format(child, strFunctions.lower_first(child)))
-            # implementation = ['{0}* {1} = NULL'.format(child,
-            #                                            abbrev_child)]
-            # code = [self.create_code_block('line', implementation)]
-            # if self.class_object['num_versions'] > 1:
-            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
-            #            'getPackageVersion())'.format(pack_up, pack_low,
-            #                                          global_variables.prefix)
-            # else:
-            #     line = '{0}_CREATE_NS({1}ns, ' \
-            #            'get{2}Namespaces())'.format(pack_up, pack_low,
-            #                                         global_variables.prefix)
-            # if global_variables.is_package:
-            #     implementation = [line,
-            #                       '{0} = new {1}({2}ns)'.format(abbrev_child,
-            #                                                     child,
-            #                                                     pack_low),
-            #                       'delete {0}ns'.format(pack_low),
-            #                       'catch', '...', '']
-            # else:
-            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
-            #                       ''.format(abbrev_child,
-            #                                 child,
-            #                                 global_variables.prefix),
-            #                       'catch', '...', '']
-            # code.append(self.create_code_block('try', implementation))
-            # implementation = ['{0} != NULL'.format(abbrev_child)]
-            # if self.is_list_of:
-            #     implementation.append('appendAndOwn'
-            #                           '({0})'.format(abbrev_child))
-            # else:
-            #     member = self.class_object['memberName']
-            #     implementation.append('{0}.appendAndOwn'
-            #                           '({1})'.format(member, abbrev_child))
-            # code.append(self.create_code_block('if', implementation))
-            # implementation = ['return {0}'.format(abbrev_child)]
-            # code.append(self.create_code_block('line', implementation))
         else:
             implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
                               'NULL'.format(self.abbrev_parent,
@@ -1439,7 +1260,6 @@ class ListOfQueryFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
-
     ####################################################################################################################
 
 
@@ -1470,7 +1290,6 @@ class ListOfQueryFunctions():
                                            self.object_name)]
         additional = ['Deprecated']
 
-
         # create the function declaration
         arguments = []
         if parameter:
@@ -1484,7 +1303,6 @@ class ListOfQueryFunctions():
             arguments.append('{0}* {1}'.format(self.object_name,
                                                self.abbrev_parent))
         return_type = 'int'
-
 
         params.append('Returns the number of {{@link {0}}}s in this'.format(used_java_name))
         params.append('{{@link {0}}}.'.format(self.package))
@@ -1563,9 +1381,6 @@ class ListOfQueryFunctions():
         used_java_name = strFunctions.remove_prefix(self.child_name)
         used_java_name_plural = strFunctions.plural(self.object_child_name)
 
-
-
-
         if self.is_java_api:
             function = 'get{0}Count'.format(used_java_name)
         else:
@@ -1574,7 +1389,8 @@ class ListOfQueryFunctions():
                                                self.abbrev_parent))
         return_type = 'int'
 
-        params.append('Returns the number of {{@link {0}}}s in this {{@link {1}}}.'.format(used_java_name, self.package))
+        params.append(
+            'Returns the number of {{@link {0}}}s in this {{@link {1}}}.'.format(used_java_name, self.package))
         params.append(' ')
         params.append('@return the number of {{@link {0}}}s in this  {{@link {0}}}.'.format(used_java_name,
                                                                                             self.package))
@@ -1585,15 +1401,17 @@ class ListOfQueryFunctions():
                                                                                                used_java_name_plural)]
             else:
                 implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
-                                                                                                 used_java_name_plural)]
+                                                                                               used_java_name_plural)]
         elif self.is_java_api and not self.is_list_of:
             if not self.document:
                 if self.is_plugin is True:
-                    implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
-                                                                                                   used_java_name_plural)]
+                    implementation = [
+                        'return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
+                                                                                     used_java_name_plural)]
                 else:
-                    implementation = ['return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
-                                                                                                     used_java_name_plural)]
+                    implementation = [
+                        'return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
+                                                                                     used_java_name_plural)]
             elif parameter:
                 implementation = ['return getErrorLog()->'
                                   'getNumFailsWith{0}({1})'
@@ -1653,15 +1471,12 @@ class ListOfQueryFunctions():
                             'ListOf_t *.'.format(loname, self.object_name)]
         additional = []
 
-
-
         # create the function declaration
         lo_name = strFunctions.remove_prefix(loname)
         lo_name_lower = strFunctions.remove_prefix(loname_lower)
         used_java_name = strFunctions.upper_first(self.child_name)
         used_java_name_lower = strFunctions.lower_first(self.child_name)
         used_java_type = strFunctions.remove_prefix(self.object_child_type)
-
 
         params.append('Returns the {{@link {0}}}'.format(loname_lower))
         params.append('Creates it if it does not already exist.')
@@ -1673,28 +1488,13 @@ class ListOfQueryFunctions():
         # used_java_name_lower = strFunctions.upper_first(strFunctions.remove_prefix(self.object_name_lower))
         if self.is_java_api:
             function = 'get{0}'.format(lo_name)
-            arguments = []#['{0}s'.format(used_java_name)]
+            arguments = []  # ['{0}s'.format(used_java_name)]
 
             if self.is_plugin is True:
                 return_type = 'ListOf<{0}>'.format(used_java_type)
             else:
                 return_type = 'ListOf<{0}>'.format(used_java_name)
-            # if is_const:
-            #     return_type = 'const {0}*'.format(loname)
-            # else:
-            #     return_type = '{0}*'.format(loname)
-        else:
-            function = '{0}_get{1}'.format(self.class_name, name_used)
-            arguments = ['{0}* {1}'.format(self.object_name,
-                                           self.abbrev_parent)]
-            if global_variables.is_package:
-                return_type = 'ListOf_t*'
-            else:
-                return_type = '{0}ListOf_t*'.format(global_variables.prefix)
         if self.is_java_api:
-            # implementation = ['return '
-            #                   '&{0}'.format(self.class_object['memberName'])]
-            # code = [self.create_code_block('line', implementation)]
             implementation = ['{0} == null'.format(loname_lower)]
 
             if self.is_plugin is True:
@@ -1702,25 +1502,14 @@ class ListOfQueryFunctions():
             else:
                 implementation.append('{0} = new ListOf<{1}>()'.format(loname_lower, used_java_name))
 
-
             implementation.append('{0}.setNamespace({1}Constants.namespaceURI)'.format(loname_lower, self.package))
             implementation.append('{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
-
-
 
             if self.status != 'plugin':
                 implementation.append('registerChild({0})'.format(loname_lower))
 
-
-
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->get{1}() : '
-                              'NULL'.format(self.abbrev_parent, name_used)]
-            code = [self.create_code_block('line', implementation)]
-        # return the parts
-
 
         if self.status == 'plugin':
             implementation = ['isSetExtendedSBase()']
@@ -1729,7 +1518,6 @@ class ListOfQueryFunctions():
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
             code.append(' ')
-
 
         line = 'return {0}'.format(loname_lower)
         line_code = line  # self.create_code_block('line', line)
@@ -1795,39 +1583,14 @@ class ListOfQueryFunctions():
             function = 'isSet{0}'.format(lo_name)
             arguments = []  # ['{0}s'.format(used_java_name)]
             return_type = 'boolean'
-            # if is_const:
-            #     return_type = 'const {0}*'.format(loname)
-            # else:
-            #     return_type = '{0}*'.format(loname)
-        else:
-            function = '{0}_get{1}'.format(self.class_name, name_used)
-            arguments = ['{0}* {1}'.format(self.object_name,
-                                           self.abbrev_parent)]
-            if global_variables.is_package:
-                return_type = 'ListOf_t*'
-            else:
-                return_type = '{0}ListOf_t*'.format(global_variables.prefix)
-
 
         if self.is_java_api:
-            # implementation = ['return '
-            #                   '&{0}'.format(self.class_object['memberName'])]
-            # code = [self.create_code_block('line', implementation)]
-            implementation = ['({0} == null) || {1}.isEmpty()'.format(loname_lower,loname_lower)]
+            implementation = ['({0} == null) || {1}.isEmpty()'.format(loname_lower, loname_lower)]
             implementation.append('return false'.format(loname_lower, used_java_name))
-
-
-
 
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->get{1}() : '
-                              'NULL'.format(self.abbrev_parent, name_used)]
-            code = [self.create_code_block('line', implementation)]
         # return the parts
-
-
 
         line = 'return true'.format(loname_lower)
         line_code = line  # self.create_code_block('line', line)
@@ -1882,7 +1645,6 @@ class ListOfQueryFunctions():
         used_java_name_lower = strFunctions.lower_first(self.child_name)
         used_java_type = strFunctions.remove_prefix(self.object_child_type)
 
-
         params.append('Sets the given {{@code ListOf<{0}>}}.'.format(used_java_name))
         params.append('If {{@link {0}}} was defined before \
                       and contains some elements, they are all unset.'.format(loname_lower))
@@ -1900,23 +1662,8 @@ class ListOfQueryFunctions():
             else:
                 arguments = ['ListOf<{0}> {1}'.format(used_java_name, loname_lower)]  # ['{0}s'.format(used_java_name)]
             return_type = 'void'
-            # if is_const:
-            #     return_type = 'const {0}*'.format(loname)
-            # else:
-            #     return_type = '{0}*'.format(loname)
-        else:
-            function = '{0}_get{1}'.format(self.class_name, name_used)
-            arguments = ['{0}* {1}'.format(self.object_name,
-                                           self.abbrev_parent)]
-            if global_variables.is_package:
-                return_type = 'ListOf_t*'
-            else:
-                return_type = '{0}ListOf_t*'.format(global_variables.prefix)
 
         if self.is_java_api:
-            # implementation = ['return '
-            #                   '&{0}'.format(self.class_object['memberName'])]
-            # code = [self.create_code_block('line', implementation)]
             implementation = ['unset{0}()'.format(loname)]
             implementation.append('this.{0} = {1}'.format(loname_lower, loname_lower))
             implementation.append('this.{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
@@ -1927,10 +1674,6 @@ class ListOfQueryFunctions():
 
             temp_code = self.create_code_block('line', implementation)
             code.append(temp_code)
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->get{1}() : '
-                              'NULL'.format(self.abbrev_parent, name_used)]
-            code = [self.create_code_block('line', implementation)]
         # return the parts
 
 
@@ -1943,10 +1686,6 @@ class ListOfQueryFunctions():
             code.append('')
 
 
-        # line = 'return {0}'.format(loname_lower)
-        # line_code = line  # self.create_code_block('line', line)
-        # code.append(line_code)
-
         return dict({'title_line': title_line,
                      'params': params,
                      'return_lines': return_lines,
@@ -1958,7 +1697,6 @@ class ListOfQueryFunctions():
                      'virtual': False,
                      'object_name': self.struct_name,
                      'implementation': code})
-
 
     ########################################################################
 
@@ -2010,45 +1748,23 @@ class ListOfQueryFunctions():
             function = 'unset{0}'.format(lo_name)
             arguments = []  # ['{0}s'.format(used_java_name)]
             return_type = 'boolean'
-            # if is_const:
-            #     return_type = 'const {0}*'.format(loname)
-            # else:
-            #     return_type = '{0}*'.format(loname)
-        else:
-            function = '{0}_get{1}'.format(self.class_name, name_used)
-            arguments = ['{0}* {1}'.format(self.object_name,
-                                           self.abbrev_parent)]
-            if global_variables.is_package:
-                return_type = 'ListOf_t*'
-            else:
-                return_type = '{0}ListOf_t*'.format(global_variables.prefix)
 
         if self.is_java_api:
-            # implementation = ['return '
-            #                   '&{0}'.format(self.class_object['memberName'])]
-            # code = [self.create_code_block('line', implementation)]
             implementation = ['isSet{0}()'.format(loname)]
 
             if self.is_plugin is True:
-                implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_type, used_java_name, loname_lower))
+                implementation.append(
+                    'ListOf<{0}> old{1} = this.{2}'.format(used_java_type, used_java_name, loname_lower))
             else:
-                implementation.append('ListOf<{0}> old{1} = this.{2}'.format(used_java_name, used_java_name, loname_lower))
-
+                implementation.append(
+                    'ListOf<{0}> old{1} = this.{2}'.format(used_java_name, used_java_name, loname_lower))
 
             implementation.append('this.{0} = null'.format(loname_lower))
             implementation.append('old{0}.fireNodeRemovedEvent()'.format(used_java_name))
             implementation.append('return true')
 
-
-
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->get{1}() : '
-                              'NULL'.format(self.abbrev_parent, name_used)]
-            code = [self.create_code_block('line', implementation)]
-        # return the parts
-
 
         line = 'return false'.format(loname_lower)
         line_code = line  # self.create_code_block('line', line)

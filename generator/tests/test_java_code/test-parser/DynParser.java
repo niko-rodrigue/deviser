@@ -33,7 +33,6 @@ import org.sbml.jsbml.*;
 import org.sbml.jsbml.util.*;
 import org.sbml.jsbml.util.filters.*;
 import org.sbml.jsbml.xml.stax.SBMLObjectForXML;
-import org.sbml.jsbml.ext.ASTNodePlugin;
 import org.sbml.jsbml.ext.SBasePlugin;
 import org.sbml.jsbml.ext.dyn.*;
 
@@ -131,16 +130,6 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
         return new DynCompartmentPlugin((Compartment) sbase);
       }
     }
-
-    return null;
-  }
-
-  /* (non-Javadoc)
-   * @see org.sbml.jsbml.xml.parsers.PackageParser#createPluginFor()
-   */
-  @Override
-  public ASTNodePlugin createPluginFor(ASTNode astNode) {
-    // This package does not extend ASTNode
 
     return null;
   }
