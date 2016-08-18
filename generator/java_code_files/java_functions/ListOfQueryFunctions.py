@@ -724,10 +724,10 @@ class ListOfQueryFunctions():
                                                       list_type)]
                 code = [self.create_code_block('line', implementation)]
 
-            # TODO should this be used or else is enough
-            # elif self.status == 'java_not_list':
-            #     member = self.class_object['memberName']
-            #     implementation = ['return {0}.remove(n)'.format(member)]
+                # TODO should this be used or else is enough
+                # elif self.status == 'java_not_list':
+                #     member = self.class_object['memberName']
+                #     implementation = ['return {0}.remove(n)'.format(member)]
                 code = [self.create_code_block('line', implementation)]
             elif self.status == 'plugin':
                 implementation = ['isSetListOf{0}()'.format(strFunctions.plural(used_java_type))]
@@ -825,25 +825,15 @@ class ListOfQueryFunctions():
         code = []
         if not self.is_header:
             if self.status == 'java_list':
-                implementation = ['{0}* item = NULL'.format(self.std_base),
-                                  'vector<{0}*>::iterator '
-                                  'result'.format(self.std_base)]
-                code = [self.create_code_block('line', implementation),
-                        self.create_code_block('line',
-                                               ['result = find_if('
-                                                'mItems.begin(), '
-                                                'mItems.end(), {1}<{0}>(sid)'
-                                                ')'.format(self.
-                                                           object_child_name,
-                                                           self.ideq)])]
-                implementation = ['result != mItems.end()', 'item = *result',
-                                  'mItems.erase(result)']
-                code.append(self.create_code_block('if', implementation))
-                code.append(
-                    self.create_code_block(
-                        'line',
-                        ['return static_cast <{0}*> '
-                         '(item)'.format(self.object_child_name)]))
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment', ['TODO write_remove_element_by_id status=java_list in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+                code.append(implementation)
             # TODO needs fixing should this used or not
             # elif self.status == 'java_not_list':
             #     member = self.class_object['memberName']
@@ -943,11 +933,6 @@ class ListOfQueryFunctions():
                   '       the {0} to add'.format(used_java_argument_name),
                   '@return']
 
-        # params = ['@param id',
-        #           '@param name',
-        #           '@param level',
-        #           '@param version']
-
         return_type = 'boolean'
         member = ''
         if not self.is_list_of:
@@ -966,13 +951,6 @@ class ListOfQueryFunctions():
             else:
                 implementation = ['return get{0}().add({1})'.format(self.attTypeCode, used_java_argument_name)]
                 code = [self.create_code_block('line', implementation)]
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->add{1}({2}) : '
-                              '{3}'.format(self.abbrev_parent,
-                                           used_c_name,
-                                           self.abbrev_child,
-                                           global_variables.ret_invalid_obj)]
-            code = [self.create_code_block('line', implementation)]
 
         # return the parts
         return dict({'title_line': title_line,
@@ -1044,9 +1022,6 @@ class ListOfQueryFunctions():
         if self.is_java_api and not is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
-            # TODO GSOC 2016 old version
-            # implementation = ['return create{0}(null)'.format(child)]
-            # code = [self.create_code_block('line', implementation)]
             if self.is_plugin is True:
                 implementation = ['{0} {1} = new {0}(getLevel(), getVersion())'.format(used_java_type,
                                                                                        strFunctions.lower_first(child),
@@ -1067,12 +1042,7 @@ class ListOfQueryFunctions():
                                                                                    strFunctions.lower_first(child),
                                                                                    used_java_type)]
             implementation.append('return add{0}({1}) ? {1} : null'.format(child, strFunctions.lower_first(child)))
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
-                              'NULL'.format(self.abbrev_parent,
-                                            used_c_name)]
-            code = [self.create_code_block('line', implementation)]
-        # return the parts
+
         return dict({'title_line': title_line,
                      'params': params,
                      'return_lines': return_lines,
@@ -1159,44 +1129,6 @@ class ListOfQueryFunctions():
             implementation.append('return {0}'.format(used_java_name_lower))
             code = [self.create_code_block('line', implementation)]
 
-
-            # implementation = ['{0}* {1} = NULL'.format(self.child_name,
-            #                                            self.abbrev_child)]
-            # code = [self.create_code_block('line', implementation)]
-            #
-            # if self.class_object['num_versions'] > 1:
-            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
-            #            'getPackageVersion())'.format(pack_up, pack_low,
-            #                                          global_variables.prefix)
-            # else:
-            #     line = '{0}_CREATE_NS({1}ns, ' \
-            #            'get{2}Namespaces())'.format(pack_up, pack_low,
-            #                                         global_variables.prefix)
-            # if global_variables.is_package:
-            #     implementation = [line,
-            #                       '{0} = new {1}({2}ns)'.format(self.abbrev_child,
-            #                                                     self.child_name,
-            #                                                     pack_low),
-            #                       'delete {0}ns'.format(pack_low),
-            #                       'catch', '...', '']
-            # else:
-            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
-            #                       ''.format(self.abbrev_child,
-            #                                 self.child_name,
-            #                                 global_variables.prefix),
-            #                       'catch', '...', '']
-            # code.append(self.create_code_block('try', implementation))
-            # implementation = ['{0} != NULL'.format(self.abbrev_child)]
-            # if self.is_list_of:
-            #     implementation.append('appendAndOwn'
-            #                           '({0})'.format(self.abbrev_child))
-            # else:
-            #     member = self.class_object['memberName']
-            #     implementation.append('{0}.appendAndOwn'
-            #                           '({1})'.format(member, self.abbrev_child))
-            # code.append(self.create_code_block('if', implementation))
-            # implementation = ['return {0}'.format(self.abbrev_child)]
-            # code.append(self.create_code_block('line', implementation))
         elif self.is_java_api and is_concrete:
             pack_up = self.package.upper()
             pack_low = self.package.lower()
@@ -1206,47 +1138,6 @@ class ListOfQueryFunctions():
             implementation.append('return {0}'.format(used_java_name_lower))
             code = [self.create_code_block('line', implementation)]
 
-            # implementation = ['{0}* {1} = NULL'.format(child,
-            #                                            abbrev_child)]
-            # code = [self.create_code_block('line', implementation)]
-            # if self.class_object['num_versions'] > 1:
-            #     line = '{0}_CREATE_NS_WITH_VERSION({1}ns, get{2}Namespaces(), ' \
-            #            'getPackageVersion())'.format(pack_up, pack_low,
-            #                                          global_variables.prefix)
-            # else:
-            #     line = '{0}_CREATE_NS({1}ns, ' \
-            #            'get{2}Namespaces())'.format(pack_up, pack_low,
-            #                                         global_variables.prefix)
-            # if global_variables.is_package:
-            #     implementation = [line,
-            #                       '{0} = new {1}({2}ns)'.format(abbrev_child,
-            #                                                     child,
-            #                                                     pack_low),
-            #                       'delete {0}ns'.format(pack_low),
-            #                       'catch', '...', '']
-            # else:
-            #     implementation = ['{0} = new {1}(get{2}Namespaces())'
-            #                       ''.format(abbrev_child,
-            #                                 child,
-            #                                 global_variables.prefix),
-            #                       'catch', '...', '']
-            # code.append(self.create_code_block('try', implementation))
-            # implementation = ['{0} != NULL'.format(abbrev_child)]
-            # if self.is_list_of:
-            #     implementation.append('appendAndOwn'
-            #                           '({0})'.format(abbrev_child))
-            # else:
-            #     member = self.class_object['memberName']
-            #     implementation.append('{0}.appendAndOwn'
-            #                           '({1})'.format(member, abbrev_child))
-            # code.append(self.create_code_block('if', implementation))
-            # implementation = ['return {0}'.format(abbrev_child)]
-            # code.append(self.create_code_block('line', implementation))
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->create{1}() : '
-                              'NULL'.format(self.abbrev_parent,
-                                            used_c_name)]
-            code = [self.create_code_block('line', implementation)]
         # return the parts
         return dict({'title_line': title_line,
                      'params': params,
@@ -1279,12 +1170,7 @@ class ListOfQueryFunctions():
                          'this {1}.'.format(self.object_child_name,
                                             self.object_name)
         params = []
-        # if parameter:
-        #     params.append('@param {0} the {0} of the {1} to return.'
-        #                   ''.format(parameter['name'], self.object_child_name))
-        # if not self.is_java_api:
-        #     params.append('@param {0} the {1} structure to query.'
-        #                   .format(self.abbrev_parent, self.object_name))
+
         return_lines = ['@return the number of {0} objects in '
                         'this {1}.'.format(self.object_child_name,
                                            self.object_name)]
@@ -1310,6 +1196,8 @@ class ListOfQueryFunctions():
         params.append('@return the number of {{@link {0}}}s in this  {{@link {0}}}.'.format(used_java_name,
                                                                                             self.package))
         params.append('@libsbml.deprecated same as {{@link #get{0}Count()}}'.format(used_java_name))
+
+        # TODO write_get_num_element_function works need to be done if parameter is True
         if self.is_java_api and self.is_list_of:
             implementation = ['return get{0}Count()'.format(used_java_name)]
         elif self.is_java_api and not self.is_list_of:
@@ -1318,19 +1206,25 @@ class ListOfQueryFunctions():
                 # implementation = ['return {0}.'
                 #                   'size()'.format(self.class_object['memberName'])]
             elif parameter:
-                implementation = ['return getErrorLog()->'
-                                  'getNumFailsWith{0}({1})'
-                                  ''.format(strFunctions.upper_first(parameter['name']),
-                                            parameter['name'])]
-            else:
-                implementation = ['return {0}.'
-                                  'getNumErrors()'.format(self.class_object['memberName'])]
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment', ['TODO write_get_num_element_function --parameter-- in deviser'])
+                implementation.append(comment_line)
 
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->getNum{1}() : '
-                              '{2}_INT_MAX'.format(self.abbrev_parent,
-                                                   used_java_name_plural,
-                                                   self.cap_language)]
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+
+            else:
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment', ['TODO write_get_num_element_function --else-- in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+
         code = [self.create_code_block('line', implementation)]
         # return the parts
         return dict({'title_line': title_line,
@@ -1361,12 +1255,7 @@ class ListOfQueryFunctions():
                          'this {1}.'.format(self.object_child_name,
                                             self.object_name)
         params = []
-        # if parameter:
-        #     params.append('@param {0} the {0} of the {1} to return.'
-        #                   ''.format(parameter['name'], self.object_child_name))
-        # if not self.is_java_api:
-        #     params.append('@param {0} the {1} structure to query.'
-        #                   .format(self.abbrev_parent, self.object_name))
+
         return_lines = ['@return the number of {0} objects in '
                         'this {1}.'.format(self.object_child_name,
                                            self.object_name)]
@@ -1412,20 +1301,28 @@ class ListOfQueryFunctions():
                     implementation = [
                         'return isSetListOf{0}() ? getListOf{1}().size() : 0'.format(used_java_name_plural,
                                                                                      used_java_name_plural)]
+            # TODO in case of parameter
             elif parameter:
-                implementation = ['return getErrorLog()->'
-                                  'getNumFailsWith{0}({1})'
-                                  ''.format(strFunctions.upper_first(parameter['name']),
-                                            parameter['name'])]
-            else:
-                implementation = ['return {0}.'
-                                  'getNumErrors()'.format(self.class_object['memberName'])]
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment',
+                                           ['TODO write_get_element_function_count --parameter-- in deviser'])
+                implementation.append(comment_line)
 
-        else:
-            implementation = ['return ({0} != NULL) ? {0}->getNum{1}() : '
-                              '{2}_INT_MAX'.format(self.abbrev_parent,
-                                                   used_java_name_plural,
-                                                   self.cap_language)]
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+            else:
+                implementation = []
+                comment_line = \
+                    self.create_code_block('comment',
+                                           ['TODO write_get_element_function_count --else-- in deviser'])
+                implementation.append(comment_line)
+
+                throw_exception_temp = ['throw new UnsupportedOperationException("Invalid operation")']
+                throw_exception_line = self.create_code_block('line', throw_exception_temp)
+                implementation.append(throw_exception_line)
+
         code = [self.create_code_block('line', implementation)]
         # return the parts
         return dict({'title_line': title_line,
@@ -1668,7 +1565,7 @@ class ListOfQueryFunctions():
             implementation.append('this.{0} = {1}'.format(loname_lower, loname_lower))
             implementation.append('this.{0}.setSBaseListType(ListOf.Type.other)'.format(loname_lower))
 
-            # TODO GSOC 2016 question: not in template,but yes in transition,etc
+            #  not in template,but yes in transition,etc
             if self.status != 'plugin':
                 implementation.append('registerChild(this.{0})'.format(loname_lower))
 
@@ -1684,7 +1581,6 @@ class ListOfQueryFunctions():
             temp_code = self.create_code_block('if', implementation)
             code.append(temp_code)
             code.append('')
-
 
         return dict({'title_line': title_line,
                      'params': params,
