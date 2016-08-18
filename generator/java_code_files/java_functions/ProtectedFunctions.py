@@ -39,7 +39,7 @@
 
 from util import strFunctions, query, global_variables
 
-
+# ProtectedFunctions is not used for java code generation
 class ProtectedFunctions():
     """Class for all protected functions"""
 

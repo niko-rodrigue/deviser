@@ -52,7 +52,7 @@ class Constructors():
         if is_java_api:
             self.object_name = class_object['name']
         else:
-            self.object_name = class_object['name'] # + '_t'
+            self.object_name = class_object['name']  # + '_t'
 
         self.concretes = class_object['concretes']
         self.base_class = class_object['baseClass']
@@ -79,7 +79,7 @@ class Constructors():
         if 'document' in class_object:
             self.document = class_object['document']
 
-        # TODO GSOC 2016
+        # Extra information for working with JSBML information
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
@@ -87,29 +87,27 @@ class Constructors():
         if import_modules is not None:
             self.import_modules = import_modules
 
-
+        # This is very important for getting the foundation
+        # specially for copy constructor
         if 'sbase' in class_object:
             self.sbase_name_for_plugin = strFunctions.upper_first(class_object['sbase'])
             self.sbase_name_for_plugin_lower = strFunctions.lower_first(class_object['sbase'])
         else:
             self.sbase_name_for_plugin = ''
 
-
-
+        # This is important for copy constructor
+        # if class then use orig, else
+        # combine package name with sbase_name
         if self.is_plugin is True:
             self.copy_name = strFunctions.lower_first(self.package) + self.sbase_name_for_plugin
         else:
             self.copy_name = 'orig'
+
         self.equals_name = 'object'
         self.equals_short = 'obj'
 
-
-        # TODO GSOC 2016 robot constructor
-        # if self.is_java_api:
-        #     self.expand_constructors()
-
-
         self.duplicate_methods = []
+
     ########################################################################
 
 
@@ -126,11 +124,9 @@ class Constructors():
                     print('import module ', import_module)
                     print(single_elem['functionName'])
                     print(single_elem['originalData'])
-            # print(data)
-
+                    # print(data)
 
     # Functions for writing constructors
-
 
     # function to create  simple  constructor
     def write_simple_constructor(self, index=0):
@@ -176,16 +172,6 @@ class Constructors():
             if self.is_java_api:
                 implementation = ['super()',
                                   'initDefaults()']
-                #implementation.append('initDefaults()')
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
-            # else:
-            #     if index == 0 or index == -1:
-            #         name = self.class_name
-            #     else:
-            #         name = self.concretes[index - 1]['element']
-            #     implementation = ['return new {0}(level, version, '
-            #                       'pkgVersion)'.format(name)]
         else:
             if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
@@ -217,8 +203,6 @@ class Constructors():
                      'args_no_defaults': arguments_no_defaults,
                      'constructor_args': constructor_args})
 
-
-
     # function to write level version constructor
     def write_level_version_constructor(self, index=0):
         if (len(self.concretes) == 0 and index == 0) or index == -1:
@@ -239,21 +223,12 @@ class Constructors():
         # title_line = 'Creates a new {0} using the given {1} Level' \
         #     .format(ob_name, self.cap_language)
         if global_variables.is_package:
-            title_line = '@param level\n' #.format(strFunctions.lower_first(self.package))
+            title_line = '@param level\n'  # .format(strFunctions.lower_first(self.package))
         else:
             title_line = ' and @ p version values.'
 
         params = ['@param level',
                   '@param version']
-
-
-
-
-        # if global_variables.is_package:
-        #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
-        #                   'Version to assign to this {2}.'
-        #                   .format(self.cap_language, self.package,
-        #                           self.object_name))
 
         return_lines = ['@throws {0}Constructor'
                         'Exception'.format(self.cap_language),
@@ -297,7 +272,7 @@ class Constructors():
                                          'int version']
 
         # create the function implementation
-        constructor_args = [] #self.write_constructor_args(None)
+        constructor_args = []  # self.write_constructor_args(None)
 
         if global_variables.is_package:
             if self.is_java_api:
@@ -318,31 +293,12 @@ class Constructors():
                             implementation.append('initDefaults()')
                         except:
                             return
-
-                # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
-                #                   '(level, version, '
-                #                   'pkgVersion))'.format(global_variables.prefix,
-                #                                         self.package)]
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
-            # else:
-            #     if index == 0 or index == -1:
-            #         name = self.class_name
-            #     else:
-            #         name = self.concretes[index-1]['element']
-            #     implementation = ['return new {0}(level, version, '
-            #                       'pkgVersion)'.format(name)]
         else:
             if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
                                   'level, '
                                   'version))'.format(global_variables.prefix)]
-                # if self.document:
-                #     implementation.append('setLevel(level)')
-                #     implementation.append('setVersion(version)')
-                #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
+                # TODO maybe should've used self.document
             else:
                 implementation = ['return new {0}(level, '
                                   'version)'.format(self.class_name)]
@@ -387,7 +343,7 @@ class Constructors():
         else:
             title_line = ' and @ p version values.'
 
-        #Stop generating this constructor
+        # Stop generating this constructor
         try:
             import_module = self.import_modules[0]
         except:
@@ -404,12 +360,6 @@ class Constructors():
             return
 
         params = ['@param id']
-
-        # if global_variables.is_package:
-        #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
-        #                   'Version to assign to this {2}.'
-        #                   .format(self.cap_language, self.package,
-        #                           self.object_name))
 
         return_lines = ['@throws {0}Constructor'
                         'Exception'.format(self.cap_language),
@@ -457,30 +407,12 @@ class Constructors():
             if self.is_java_api:
                 implementation = ['super(id)', 'initDefaults()']
 
-                # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
-                #                   '(level, version, '
-                #                   'pkgVersion))'.format(global_variables.prefix,
-                #                                         self.package)]
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
-                # else:
-                #     if index == 0 or index == -1:
-                #         name = self.class_name
-                #     else:
-                #         name = self.concretes[index-1]['element']
-                #     implementation = ['return new {0}(level, version, '
-                #                       'pkgVersion)'.format(name)]
         else:
             if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
                                   'level, '
                                   'version))'.format(global_variables.prefix)]
-                # if self.document:
-                #     implementation.append('setLevel(level)')
-                #     implementation.append('setVersion(version)')
-                #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
+
             else:
                 implementation = ['return new {0}(level, '
                                   'version)'.format(self.class_name)]
@@ -521,7 +453,7 @@ class Constructors():
         # title_line = 'Creates a new {0} using the given {1} Level' \
         #     .format(ob_name, self.cap_language)
         if global_variables.is_package:
-            title_line = '@param level\n' #.format(strFunctions.lower_first(self.package))
+            title_line = '@param level\n'  # .format(strFunctions.lower_first(self.package))
         else:
             title_line = ' and @ p version values.'
 
@@ -529,16 +461,8 @@ class Constructors():
                   '@param level',
                   '@param version']
 
-
         if self.is_plugin is True:
             return
-
-
-        # if global_variables.is_package:
-        #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
-        #                   'Version to assign to this {2}.'
-        #                   .format(self.cap_language, self.package,
-        #                           self.object_name))
 
         return_lines = ['@throws {0}Constructor'
                         'Exception'.format(self.cap_language),
@@ -578,7 +502,7 @@ class Constructors():
                                          'unsigned int version']
             else:
                 arguments = ['String id', 'int level', 'int version']
-                arguments_no_defaults = ['String id','int level',
+                arguments_no_defaults = ['String id', 'int level',
                                          'int version']
 
         # Stop generating this constructor
@@ -604,7 +528,7 @@ class Constructors():
                     if 'id' in self.jsbml_data_tree[import_module]['ignore']:
                         try:
                             if len(self.jsbml_data_tree[import_module]['include']) > 0:
-                                #This is for ASTNode
+                                # TODO id level version constructor. This is for ASTNode
                                 params = ['@param math',
                                           '@param level',
                                           '@param version']
@@ -617,20 +541,6 @@ class Constructors():
                         except:
                             return
 
-
-                # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
-                #                   '(level, version, '
-                #                   'pkgVersion))'.format(global_variables.prefix,
-                #                                         self.package)]
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
-            # else:
-            #     if index == 0 or index == -1:
-            #         name = self.class_name
-            #     else:
-            #         name = self.concretes[index-1]['element']
-            #     implementation = ['return new {0}(level, version, '
-            #                       'pkgVersion)'.format(name)]
         else:
             if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
@@ -690,7 +600,7 @@ class Constructors():
                   '@param level',
                   '@param version']
 
-        #Stop generating this constructor
+        # Stop generating this constructor
         try:
             import_module = self.import_modules[0]
         except:
@@ -759,51 +669,20 @@ class Constructors():
         if global_variables.is_package:
             if self.is_java_api:
                 implementation = ['super(id, name, level, version)']
-                # TODO spacing wrong
                 # if curr_att_type in global_variables.javaTypeAttributes:
                 implement_part2 = 'throw new LevelVersionError(getElementName(), level, version)'
-                # else:
-                #     implement_part2 = 'return {0}'.format(attribute['memberName'])
                 implementation2 = ['getLevelAndVersion().compareTo(Integer.valueOf(3), Integer.valueOf(1)) < 0',
                                    implement_part2]
-                # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
-                #                                                                                     attribute[
-                #                                                                                         'memberName'])]
-                # code = [dict({'code_type': 'if', 'code': implementation2}),
-                #         dict({'code_type': 'line', 'code': implementation})]
-
 
                 implementation3 = ['initDefaults()']
-
-                # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
-                #                   '(level, version, '
-                #                   'pkgVersion))'.format(global_variables.prefix,
-                #                                         self.package)]
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
-                # else:
-                #     if index == 0 or index == -1:
-                #         name = self.class_name
-                #     else:
-                #         name = self.concretes[index-1]['element']
-                #     implementation = ['return new {0}(level, version, '
-                #                       'pkgVersion)'.format(name)]
         else:
             if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
                                   'level, '
                                   'version))'.format(global_variables.prefix)]
-                # if self.document:
-                #     implementation.append('setLevel(level)')
-                #     implementation.append('setVersion(version)')
-                #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
             else:
                 implementation = ['return new {0}(level, '
                                   'version)'.format(self.class_name)]
-
-        # code = [dict({'code_type': 'line', 'code': implementation})]
 
         code = [dict({'code_type': 'line', 'code': implementation}),
                 dict({'code_type': 'if', 'code': implementation2}),
@@ -838,21 +717,12 @@ class Constructors():
             ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
                                          self.object_name)
             create = 'create{0}'.format(self.concretes[i]['element'])
-        # create doc string header
-        # title_line = 'Creates a new {0} using the given {1} Level' \
-        #     .format(ob_name, self.cap_language)
         if global_variables.is_package:
             title_line = '@param level\n'  # .format(strFunctions.lower_first(self.package))
         else:
             title_line = ' and @ p version values.'
 
         params = [' ']
-
-        # if global_variables.is_package:
-        #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
-        #                   'Version to assign to this {2}.'
-        #                   .format(self.cap_language, self.package,
-        #                           self.object_name))
 
         return_lines = ['@throws {0}Constructor'
                         'Exception'.format(self.cap_language),
@@ -866,7 +736,7 @@ class Constructors():
 
         # create the function declaration
         if self.is_java_api:
-            function = 'void initDefaults'#self.class_name
+            function = 'void initDefaults'  # self.class_name
             return_type = ''
         else:
             function = '{0}_{1}'.format(self.class_name, create)
@@ -899,13 +769,8 @@ class Constructors():
         if global_variables.is_package:
             if self.is_java_api:
                 implementation = []
-                # TODO JSBML template start Error for qualitativeSpecies
-                # implementation.append('addNamespace({0}Constants.namespaceURI)'.format(self.package))
-                # JSBML template end
-
 
                 implementation.append('setPackageVersion(-1)')
-                # # TODO spacing wrong
                 implementation.append('packageName = {0}Constants.shortLabel'.format(self.package))
 
                 attributes = self.attributes
@@ -914,7 +779,8 @@ class Constructors():
                     cap_att_name = attribute['capAttName']
                     if str(cap_att_name) != 'Id' and str(cap_att_name) != 'Name':
                         member_name = attribute['name']
-                        # # TODO changed to as jsbml example
+                        # TODO here requires to write only those that are required
+                        # but that proved to cause compilation errors for some of the packages
                         reqd = str(attribute['reqd'])[:]
                         # if reqd == 'True':
                         attType = attribute['attType']
@@ -925,54 +791,22 @@ class Constructors():
                             break
                         else:
                             line = '{0} = null'.format(member_name)
+
                         # reqd = str(attribute['reqd'])[:]
                         # if reqd == 'True':
                         #     line = '{0} = null'.format(member_name)
                         implementation.append(line)
 
-
-                # implementation = ['throw new PropertyUndefinedError({0}Constants.{1}, this)'.format(self.package,
-                #                                                                                     attribute[
-                #                                                                                         'memberName'])]
-                # code = [dict({'code_type': 'if', 'code': implementation2}),
-                #         dict({'code_type': 'line', 'code': implementation})]
-
-
-                implementation3 = ['initDefaults()']
-
-                # implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
-                #                   '(level, version, '
-                #                   'pkgVersion))'.format(global_variables.prefix,
-                #                                         self.package)]
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
-                # else:
-                #     if index == 0 or index == -1:
-                #         name = self.class_name
-                #     else:
-                #         name = self.concretes[index-1]['element']
-                #     implementation = ['return new {0}(level, version, '
-                #                       'pkgVersion)'.format(name)]
         else:
             if self.is_java_api:
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
                                   'level, '
                                   'version))'.format(global_variables.prefix)]
-                # if self.document:
-                #     implementation.append('setLevel(level)')
-                #     implementation.append('setVersion(version)')
-                #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
             else:
                 implementation = ['return new {0}(level, '
                                   'version)'.format(self.class_name)]
 
         code = [dict({'code_type': 'line', 'code': implementation})]
-
-        # code = [dict({'code_type': 'line', 'code': implementation}),
-        #         dict({'code_type': 'if', 'code': implementation2}),
-        #         dict({'code_type': 'line', 'code': implementation3})]
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -988,136 +822,8 @@ class Constructors():
                      'args_no_defaults': arguments_no_defaults,
                      'constructor_args': constructor_args})
 
-
-    # TODO BACKUP
-    #     # function to write level version constructor
-    #
-    # def write_level_version_constructor(self, index=0):
-    #     if (len(self.concretes) == 0 and index == 0) or index == -1:
-    #         ob_name = self.object_name
-    #         create = 'create'
-    #     elif self.is_java_api:
-    #         ob_name = self.object_name
-    #         create = 'create'
-    #     else:
-    #         if index == 0:
-    #             return
-    #         else:
-    #             i = index - 1
-    #         ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
-    #                                      self.object_name)
-    #         create = 'create{0}'.format(self.concretes[i]['element'])
-    #     # create doc string header
-    #     # title_line = 'Creates a new {0} using the given {1} Level' \
-    #     #     .format(ob_name, self.cap_language)
-    #     if global_variables.is_package:
-    #         title_line = '@param level\n @param version'  # .format(strFunctions.lower_first(self.package))
-    #     else:
-    #         title_line = ' and @ p version values.'
-    #
-    #     params = ['@param level an unsigned int, the {0} Level to '
-    #               'assign to this {1}.'.format(self.cap_language,
-    #                                            self.object_name),
-    #               '@param version an unsigned int, the {0} Version to '
-    #               'assign to this {1}.'.format(self.cap_language,
-    #                                            self.object_name)]
-    #     if global_variables.is_package:
-    #         params.append('@param pkgVersion an unsigned int, the {0} {1} '
-    #                       'Version to assign to this {2}.'
-    #                       .format(self.cap_language, self.package,
-    #                               self.object_name))
-    #
-    #     return_lines = ['@throws {0}Constructor'
-    #                     'Exception'.format(self.cap_language),
-    #                     'Thrown if the given @p level and @p version '
-    #                     'combination, or this kind of {0} object, are either '
-    #                     'invalid or mismatched with respect to the parent '
-    #                     '{1} object.'.format(self.cap_language,
-    #                                          global_variables.document_class),
-    #                     '@copydetails doc_note_setting_lv']
-    #     additional = ''
-    #
-    #     # create the function declaration
-    #     if self.is_java_api:
-    #         function = self.class_name
-    #         return_type = ''
-    #     else:
-    #         function = '{0}_{1}'.format(self.class_name, create)
-    #         return_type = '{0} *'.format(self.object_name)
-    #
-    #     if global_variables.is_package:
-    #         arguments = [
-    #             'int level = '
-    #             '{0}Extension::getDefaultLevel()'.format(self.package),
-    #             'nt version = '
-    #             '{0}Extension::getDefaultVersion()'.format(self.package),
-    #             'int pkgVersion = '
-    #             '{0}Extension::getDefaultPackageVersion()'.format(self.package)]
-    #         arguments_no_defaults = ['int level',
-    #                                  'int version',
-    #                                  'int pkgVersion']
-    #     else:
-    #         if self.is_java_api:
-    #             arguments = ['int level = {0}_DEFAULT_'
-    #                          'LEVEL'.format(global_variables.language.upper()),
-    #                          'int version = {0}_DEFAULT_VERSI'
-    #                          'ON'.format(global_variables.language.upper())]
-    #             arguments_no_defaults = ['int level',
-    #                                      'unsigned int version']
-    #         else:
-    #             arguments = ['int level', 'int version']
-    #             arguments_no_defaults = ['int level',
-    #                                      'int version']
-    #
-    #     # create the function implementation
-    #     constructor_args = self.write_constructor_args(None)
-    #     if global_variables.is_package:
-    #         if self.is_java_api:
-    #             implementation = ['set{0}NamespacesAndOwn(new {1}PkgNamespaces'
-    #                               '(level, version, '
-    #                               'pkgVersion))'.format(global_variables.prefix,
-    #                                                     self.package)]
-    #             if self.has_children:
-    #                 implementation.append('connectToChild()')
-    #         else:
-    #             if index == 0 or index == -1:
-    #                 name = self.class_name
-    #             else:
-    #                 name = self.concretes[index - 1]['element']
-    #             implementation = ['return new {0}(level, version, '
-    #                               'pkgVersion)'.format(name)]
-    #     else:
-    #         if self.is_java_api:
-    #             implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
-    #                               'level, '
-    #                               'version))'.format(global_variables.prefix)]
-    #             if self.document:
-    #                 implementation.append('setLevel(level)')
-    #                 implementation.append('setVersion(version)')
-    #                 implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-    #             if self.has_children:
-    #                 implementation.append('connectToChild()')
-    #         else:
-    #             implementation = ['return new {0}(level, '
-    #                               'version)'.format(self.class_name)]
-    #
-    #     code = [dict({'code_type': 'line', 'code': implementation})]
-    #
-    #     return dict({'title_line': title_line,
-    #                  'params': params,
-    #                  'return_lines': return_lines,
-    #                  'additional': additional,
-    #                  'function': function,
-    #                  'return_type': return_type,
-    #                  'arguments': arguments,
-    #                  'constant': False,
-    #                  'virtual': False,
-    #                  'object_name': self.object_name,
-    #                  'implementation': code,
-    #                  'args_no_defaults': arguments_no_defaults,
-    #                  'constructor_args': constructor_args})
-
     # function to write namespace constructor
+    # This is not used for java code generation
     def write_namespace_constructor(self, index=0):
         if len(self.concretes) == 0 and index == 0:
             ob_name = self.object_name
@@ -1134,7 +840,7 @@ class Constructors():
                                          self.object_name)
             create = 'create{0}'.format(self.concretes[i]['element'])
         # create doc string header
-        title_line = 'Creates a new {0} using the given'\
+        title_line = 'Creates a new {0} using the given' \
             .format(ob_name)
         if global_variables.is_package:
             title_line = title_line + ' {0}PkgNamespaces object.' \
@@ -1192,7 +898,7 @@ class Constructors():
 
         # create the function implementation
         constructor_args = self.write_constructor_args(ns)
-#        if global_variables.is_package:
+        #        if global_variables.is_package:
         implementation = ['setElementNamespace({0}'
                           '->getURI())'.format(ns)]
         if self.document:
@@ -1238,7 +944,7 @@ class Constructors():
             else:
                 i = index - 1
             ob_name = '{0} ({1})'.format(self.concretes[i]['element'],
-                                       self.object_name)
+                                         self.object_name)
             create = 'create{0}'.format(self.concretes[i]['element'])
         # create doc string header
         title_line = 'Creates a new {0} instance.'.format(ob_name)
@@ -1272,56 +978,10 @@ class Constructors():
                      'object_name': self.object_name,
                      'implementation': code})
 
-    # function to write uri constructor for plugins
-    def write_uri_constructor(self):
-        ob_name = self.object_name
-        package = self.package.lower()
-        up_package = strFunctions.upper_first(self.package)
-        # create doc string header
-        title_line = 'Creates a new {0} using the given uri, prefix and ' \
-                     'package namespace.'.format(ob_name)
-        params = ['@param uri a string, representing the uri of the package.',
-                  '@param prefix a string, the prefix to be used.',
-                  '@param {0}ns a pointer to the {1}PkgNamespaces object to '
-                  'be used.'.format(package, up_package)]
+    ####################################################################################################################
 
-        return_lines = []
-        additional = ''
 
-        # create the function declaration
-        function = self.class_name
-        return_type = ''
-
-        arguments = ['const std::string& uri', 'const std::string& prefix',
-                     '{0}PkgNamespaces* '
-                     '{1}ns'.format(up_package, package)]
-
-        ns = '{0}ns'.format(package)
-        constructor_args = self.write_constructor_args(ns)
-        # create the function implementation
-        if self.is_doc_plugin or not self.has_children:
-            code = []
-        else:
-            code = [dict({'code_type': 'line', 'code': ['connectToChild()']})]
-
-        return dict({'title_line': title_line,
-                     'params': params,
-                     'return_lines': return_lines,
-                     'additional': additional,
-                     'function': function,
-                     'return_type': return_type,
-                     'arguments': arguments,
-                     'constant': False,
-                     'virtual': False,
-                     'object_name': self.object_name,
-                     'implementation': code,
-                     'constructor_args': constructor_args})
-
-    ##############################################################################################
-    #TODO GSOC 2016
-
-    # function to write copy constructor
-    # TODO ths constructor onluy useful if Model but else, not useful anymor
+    # function to write copy constructor wtih svase_plugin_name
     def write_basic_plugin_copy_constructor(self):
         # do not write for C API
         if self.is_java_api is False:
@@ -1351,7 +1011,7 @@ class Constructors():
         line = self.create_code_block('line', implementation)
         code.append(line)
 
-        # TODO temporary fix
+        # This fixed cases when '} }'
         line = self.create_code_block('empty_line')
         code.append(line)
 
@@ -1368,7 +1028,6 @@ class Constructors():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-
     # function to write copy constructor
     def write_copy_constructor(self):
         # do not write for C API
@@ -1377,7 +1036,7 @@ class Constructors():
         # create doc string header
         title_line = 'Copy constructor for {0}.'.format(self.object_name)
         params = ['@param {0} the {1} instance to copy.'.format(self.copy_name,
-            self.object_name)]
+                                                                self.object_name)]
         return_lines = []
         additional = []
         # create function decl
@@ -1388,14 +1047,13 @@ class Constructors():
 
 
 
-        constructor_args = [] #arguments #self.write_copy_constructor_args(self)
+        constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
         clone = 'clone'
 
         implementation = ['super({0})'.format(self.copy_name)]
         line = self.create_code_block('line', implementation)
         code.append(line)
-
 
         for i in range(0, len(self.attributes)):
             attribute = self.attributes[i]
@@ -1405,11 +1063,9 @@ class Constructors():
                 temp_code = self.create_copy_if(i)
                 code.append(temp_code)
 
-
         # To fix }  } cases
         line = self.create_code_block('empty_line')
         code.append(line)
-
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1424,9 +1080,6 @@ class Constructors():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-
-
-
     def create_copy_if(self, index):
         attribute = self.attributes[index]
         name = attribute['capAttName']
@@ -1436,16 +1089,16 @@ class Constructors():
         jclass_att_type = attribute['JClassType']
 
         if att_type == 'lo_element':
-            implementation = ['{0}.isSet{1}()'.format(self.copy_name, attribute['attTypeCode'] ),
+            implementation = ['{0}.isSet{1}()'.format(self.copy_name, attribute['attTypeCode']),
                               'set{0}({1}.get{2}().clone())'.format(attribute['attTypeCode'],
-                                                            self.copy_name, attribute['attTypeCode'])]
+                                                                    self.copy_name, attribute['attTypeCode'])]
         elif jclass_att_type == 'XMLNode' or jclass_att_type == 'ASTNode':
             implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
                               'set{0}({1}.get{2}().clone())'.format(name,
                                                                     self.copy_name, name)]
         else:
             implementation = ['{0}.isSet{1}()'.format(self.copy_name, name),
-                          'set{0}({1}.get{2}())'.format(name, self.copy_name, name)]  # 3rd line
+                              'set{0}({1}.get{2}())'.format(name, self.copy_name, name)]  # 3rd line
 
         temp_code = self.create_code_block('if', implementation)
         return temp_code
@@ -1457,7 +1110,7 @@ class Constructors():
 
         att_type = attribute['attType']
 
-        # TODO GSOC 2016 changes
+        # TODO this part will require updates for additional types for equals if statement
         if att_type == 'lo_element':
             to_write = attribute['attTypeCode']
             implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, to_write, to_write)
@@ -1470,13 +1123,11 @@ class Constructors():
             implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, to_write, to_write)
 
             implement2 = ['equals && isSet{0}()'.format(to_write),
-                              'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, to_write, to_write)]  # 3rd line
+                          'equals &= ({0}.get{1}() == get{2}())'.format(self.equals_short, to_write,
+                                                                        to_write)]  # 3rd line
 
-        # temp_code1 = self.create_code_block('line', implement1)
         temp_code2 = self.create_code_block('if', implement2)
         return [implement1, temp_code2]
-
-
 
     # function to write assignment equals method
     def write_equals(self):
@@ -1515,12 +1166,10 @@ class Constructors():
 
         implementation = ['equals']
 
-
-
         implement_inside = ['{0} {1} = ({2}) {3}'.format(self.class_name,
-                                                       self.equals_short,
-                                                       self.class_name,
-                                                       self.equals_name)]
+                                                         self.equals_short,
+                                                         self.class_name,
+                                                         self.equals_name)]
         line = self.create_code_block('line', implement_inside)
         implementation.append(line)
 
@@ -1533,7 +1182,6 @@ class Constructors():
                 for y_code in temp_code:
                     implementation.append(y_code)
 
-
         # To fix '}  }' case
         line = self.create_code_block('empty_line')
         implementation.append(line)
@@ -1541,7 +1189,6 @@ class Constructors():
         code.append(self.create_code_block('if', implementation))
 
         equals_return = ['return equals']
-
 
         code.append(self.create_code_block('line', equals_return))
 
@@ -1577,9 +1224,6 @@ class Constructors():
         return_type = '{0}'.format(self.object_name)
         arguments = []
 
-
-
-
         if self.is_plugin is True:
             title_line = '(non-Javadoc)--'
             title_line += '@see org.sbml.jsbml.ext.AbstractSBasePlugin#clone()'
@@ -1588,6 +1232,8 @@ class Constructors():
             title_line = '(non-Javadoc)--'
             title_line += '@see org.sbml.jsbml.ext.AbstractSBase#clone()'
             additional.append('Override')
+
+            # TODO this part is not used for now, but maybe required
             # #  Find whether  class needs to be overriden or not
             # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
             #     self.jsbml_methods,
@@ -1599,10 +1245,9 @@ class Constructors():
             #     title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
             #                                                                      function, function_args)
 
-
         if not self.is_java_api:
             arguments.append('const {0}* {1}'.format(self.object_name,
-                                                   abbrev_object))
+                                                     abbrev_object))
         # create the function implementation
         if self.is_java_api:
             implementation = ['return new {0}(this)'.format(self.object_name)]
@@ -1659,8 +1304,8 @@ class Constructors():
             if attrib['attType'] == 'lo_element':
                 constructor_args.append('{0} {1} '
                                         '({2})'.format(sep,
-                                                      attrib['memberName'],
-                                                      parameters))
+                                                       attrib['memberName'],
+                                                       parameters))
                 sep = ','
             elif 'isVector' in attrib and attrib['isVector']:
                 constructor_args.append('{0} {1} '
@@ -1669,7 +1314,7 @@ class Constructors():
             else:
                 constructor_args.append('{0} {1} '
                                         '({2})'.format(sep, attrib['memberName'],
-                                                      attrib['default']))
+                                                       attrib['default']))
                 sep = ','
             if attrib['isNumber'] or attrib['attType'] == 'boolean':
                 constructor_args.append(', mIsSet{0} (false)'

@@ -39,7 +39,7 @@
 
 from util import strFunctions, global_variables, query
 
-
+# GlobalQueryFunctions is not used for java code generation
 class GlobalQueryFunctions():
     """Class for general functions"""
 

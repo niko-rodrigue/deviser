@@ -41,6 +41,7 @@
 from util import strFunctions, query
 
 
+# ExtensionInitFunctions isn't used for java code generation
 class ExtensionInitFunctions():
     """Class for extension functions"""
 

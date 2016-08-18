@@ -39,7 +39,9 @@
 
 from util import strFunctions, global_variables
 
-
+# ValidatorClassFunctions is not used for current java code
+# generation and hasn't been modified, but for future version
+# of jsbml with offline validation will be useful
 class ValidatorClassFunctions():
     """Class for all protected functions"""
 

@@ -40,6 +40,8 @@
 from util import strFunctions, global_variables
 
 
+# TODO maybe should have moved some functions from general functions to here
+# This hasn't been modified
 class ExtensionFunctions():
     """Class for extension functions"""
 

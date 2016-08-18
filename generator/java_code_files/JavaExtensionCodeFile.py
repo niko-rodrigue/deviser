@@ -135,7 +135,7 @@ class JavaExtensionCodeFile(BaseJavaFile.BaseJavaFile):
 
     ####################################################################################################################
 
-
+    # This is not used for java code generation
     # write the init function
     def write_init_function(self):
         init_functions = \
