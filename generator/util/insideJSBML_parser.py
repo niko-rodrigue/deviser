@@ -210,30 +210,42 @@ def get_class_information(class_name=None, individual_run=False):
     # Old version
     # command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
 
+
+
+    # TODO inside JSBML parser debugging test
+    # comm1 = 'javap_wrong'
+
     comm1 = 'javap'
     comm2 = '-cp'
     comm3 = '{0}{1}{2}'.format(file_path, os.sep, jsbml_jar)
     comm4 = '-package'
     comm5 = '{0}'.format(class_name)
     total_command = [comm1, comm2, comm3, comm4, comm5]
-    # try:
-    # class_info = os.popen('{0}'.format(command))
-    class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
-    stdout, stderr = class_info.communicate()
 
-    if stdout:
-        stdout_value = stdout.decode()  # decode("utf-8")
-        class_output = stdout_value.split('\n')
-        dict_data = parse_output(class_output)
-        return dict_data
-    elif stderr:
-        error_txt = stderr.decode()
-        # print(error_txt)
-        if 'Error: class not found:' in error_txt:
-            return
-        else:
-            print('Check if Java SDK is installed, deviser requires javap')
-            sys.exit(0)
+
+    try:
+        class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
+        stdout, stderr = class_info.communicate()
+
+        if stdout:
+            # For debugging purposes
+            # print(stdout)
+            stdout_value = stdout.decode()  # decode("utf-8")
+            class_output = stdout_value.split('\n')
+            dict_data = parse_output(class_output)
+            return dict_data
+        elif stderr:
+            error_txt = stderr.decode()
+            print('ERROR is', error_txt)
+            if 'Error: class not found:' in error_txt:
+                return
+            else:
+                print('Check if Java SDK is installed, deviser requires javap')
+                sys.exit(0)
+    except Exception as error:
+        print('Error is ', error)
+        print('Check if Java SDK is installed, deviser requires javap')
+        sys.exit(0)
 
 # For testing purposes
 
