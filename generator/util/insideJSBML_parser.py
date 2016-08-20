@@ -236,7 +236,7 @@ def get_class_information(class_name=None, individual_run=False):
             return dict_data
         elif stderr:
             error_txt = stderr.decode()
-            print('ERROR is', error_txt)
+            # print('ERROR is', error_txt)
             if 'Error: class not found:' in error_txt:
                 return
             else:
