@@ -782,14 +782,12 @@ def main():
     test_case = 'FbcParser'
     fail += run_parser_test(name, class_name, test_case)
 
-
     # TODO spatial tests
-    #Spatial constants
+    # Spatial constants
     name = 'spatial'
     constants_name = 'SpatialConstants'
     test_case = 'SpatialConstants'
     fail += run_constant_test(name, constants_name, test_case)
-
 
     name = 'spatial'
     num = 0
@@ -803,8 +801,6 @@ def main():
     list_of = 'ListOfDomainType'
     test_case = 'an element on DomainType'
     fail += run_test(name, num, class_name, test_case)
-
-
 
     name = 'spatial'
     num = 1
@@ -821,14 +817,12 @@ def main():
     test_case = 'an element on InteriorPoint'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 3
     class_name = 'Boundary'
     list_of = 'ListOfBoundary'
     test_case = 'an element on Boundary'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 4
@@ -845,14 +839,12 @@ def main():
     test_case = 'an element on GeometryDefinition'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 6
     class_name = 'CompartmentMapping'
     list_of = 'ListOfCompartmentMapping'
     test_case = 'an element on CompartmentMapping'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 7
@@ -861,15 +853,12 @@ def main():
     test_case = 'an element on CoordinateComponent'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 8
     class_name = 'SampledFieldGeometry'
     list_of = 'ListOfSampledFieldGeometry'
     test_case = 'an element on SampledFieldGeometry'
     fail += run_test(name, num, class_name, test_case)
-
-
 
     name = 'spatial'
     num = 9
@@ -878,16 +867,12 @@ def main():
     test_case = 'an element on SampledField'
     fail += run_test(name, num, class_name, test_case)
 
-
-
     name = 'spatial'
     num = 10
     class_name = 'SampledVolume'
     list_of = 'ListOfSampledVolume'
     test_case = 'an element on SampledVolume'
     fail += run_test(name, num, class_name, test_case)
-
-
 
     name = 'spatial'
     num = 11
@@ -896,15 +881,12 @@ def main():
     test_case = 'an element on AnalyticGeometry'
     fail += run_test(name, num, class_name, test_case)
 
-
-
     name = 'spatial'
     num = 12
     class_name = 'AnalyticVolume'
     list_of = 'ListOfAnalyticVolume'
     test_case = 'an element on AnalyticVolume'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 13
@@ -913,14 +895,12 @@ def main():
     test_case = 'an element on ParametricGeometry'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 14
     class_name = 'ParametricObject'
     list_of = 'ListOfParametricObject'
     test_case = 'an element on ParametricObject'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 15
@@ -929,14 +909,12 @@ def main():
     test_case = 'an element on CSGeometry'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 16
     class_name = 'CSGObject'
     list_of = 'ListOfCSGObject'
     test_case = 'an element on CSGObject'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 17
@@ -945,14 +923,12 @@ def main():
     test_case = 'an element on CSGNode'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 18
     class_name = 'CSGTransformation'
     list_of = 'ListOfCSGTransformation'
     test_case = 'an element on CSGTransformation'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 19
@@ -961,14 +937,12 @@ def main():
     test_case = 'an element on CSGTranslation'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 20
     class_name = 'CSGRotation'
     list_of = 'ListOfCSGRotation'
     test_case = 'an element on CSGRotation'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 21
@@ -977,14 +951,12 @@ def main():
     test_case = 'an element on CSGScale'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 22
     class_name = 'CSGHomogeneousTransformation'
     list_of = 'ListOfCSGHomogeneousTransformation'
     test_case = 'an element on CSGHomogeneousTransformation'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 23
@@ -993,14 +965,12 @@ def main():
     test_case = 'an element on Transition'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 24
     class_name = 'CSGPrimitive'
     list_of = 'ListOfCSGPrimitive'
     test_case = 'an element on CSGPrimitive'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 25
@@ -1009,7 +979,6 @@ def main():
     test_case = 'an element on CSGPseudoPrimitive'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 26
     class_name = 'CSGSetOperator'
@@ -1017,14 +986,12 @@ def main():
     test_case = 'an element on CSGSetOperator'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 27
     class_name = 'SpatialSymbolReference'
     list_of = 'ListOfSpatialSymbolReference'
     test_case = 'an element on SpatialSymbolReference'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 28
@@ -1040,7 +1007,6 @@ def main():
     test_case = 'an element on AdvectionCoefficient'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 30
     class_name = 'BoundaryCondition'
@@ -1048,14 +1014,12 @@ def main():
     test_case = 'an element on BoundaryCondition'
     fail += run_test(name, num, class_name, test_case)
 
-
     name = 'spatial'
     num = 31
     class_name = 'Geometry'
     list_of = 'ListOfGeometry'
     test_case = 'an element on Geometry'
     fail += run_test(name, num, class_name, test_case)
-
 
     name = 'spatial'
     num = 32

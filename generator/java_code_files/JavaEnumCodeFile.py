@@ -48,6 +48,8 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
 
         self.up_enum_package = strFunctions.upper_first(enum_package['name'])
         # self.name = enum_package['name']
+
+        # Get enums data
         self.enums_data = enum_package['values']
 
         self.original_enum_package = original_package
@@ -69,30 +71,11 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
 
     def write_enum_header(self):
         line_to_write = 'public enum {0} '.format(self.up_enum_package)
-        self.write_line_jsbml(line_to_write)  # TODO need to fix about spaces
-        # self.write_jsbml_line_verbatim(line_to_write)
-        self.file_out.write('\n')  # TODO not a good solution
+        self.write_line_jsbml(line_to_write)
+        self.file_out.write('\n')  # TODO not a good solution for writing enum header
         self.line_length = 79
 
-    # function to write the data members
-    def write_data_members(self, attributes):
-        for i in range(0, len(attributes)):
-            if attributes[i]['attType'] != 'string':
-                self.write_line('{0} {1};'.format(attributes[i]['attTypeCode'],
-                                                  attributes[i]['memberName']))
-            else:
-                self.write_line('std::string {0};'
-                                .format(attributes[i]['memberName']))
-            if attributes[i]['isNumber'] is True \
-                    or attributes[i]['attType'] == 'boolean':
-                self.write_line('bool mIsSet{0};'
-                                .format(attributes[i]['capAttName']))
-        if self.overwrites_children:
-            self.write_line('std::string mElementName;')
-
-    ########################################################################
-
-    ########################################################################
+    ###################################################################################################################
 
     # Functions for writing the attribute manipulation functions
     # these are for attributes and elements that occur as a single child
@@ -174,7 +157,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
 
         # Still many things to do
         enums = self.enums_data
-        # attributes = self.class_attributes
         for i in range(0, len(enums)):
             enum = enums[i]
             self.write_variable_comment()
@@ -189,13 +171,8 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
     def write_list_enum_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
-        # self.write_java_imports()
-        # self.write_general_includes()
+
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         self.write_enum_header()
         self.write_jsbml_list_enums()
         self.close_enum_header()
-        # self.write_cpp_end()
-        # if not self.is_plugin:
-        #     self.write_c_code()
-        # self.write_cppns_end()

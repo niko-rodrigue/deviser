@@ -360,7 +360,6 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
         self.write_function_implementation(code)
         self.line_length = 79
 
-        # TODO Need to change this
         self.line_length = 90
         code = gen_functions.write_write_xml_attribute()
         self.write_function_implementation(code)
