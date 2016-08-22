@@ -58,6 +58,7 @@ target/
 
 #mine
 testOutput/
+<<<<<<< HEAD
 
 # PyCharm IDE
 # User-specific stuff:
@@ -69,3 +70,10 @@ testOutput/
 .idea/deviser.iml
 .idea/misc.xml
 .idea/modules.xml
+=======
+.idea/
+>>>>>>> upstream/master
+.gitignore_BACKUP_21003
+.gitignore_BASE_21003
+.gitignore_LOCAL_21003
+.gitignore_REMOTE_21003

@@ -268,9 +268,8 @@ class CppHeaderFile(BaseCppFile.BaseCppFile):
                                                 self.is_cpp_api,
                                                 self.class_object)
         if self.is_cpp_api and not self.is_plugin:
-            if global_variables.has_level_version:
-                code = constructor.write_level_version_constructor()
-                self.write_function_declaration(code)
+            code = constructor.write_level_version_constructor()
+            self.write_function_declaration(code)
 
             code = constructor.write_namespace_constructor()
             self.write_function_declaration(code)
@@ -581,6 +580,15 @@ class CppHeaderFile(BaseCppFile.BaseCppFile):
         exclude = True
         code = protect_functions.write_create_object()
         self.write_function_declaration(code, exclude)
+
+        # if we are a listOf but occur as an inline list we
+        # need to be friends with our parent to allow this
+        # function to be called
+        if self.is_list_of and self.is_cpp_api:
+            [inline, parent] = query.is_inline_child(self.class_object)
+            if inline:
+                self.write_line('friend class {0};'.format(parent))
+
 
         code = protect_functions.write_add_expected_attributes()
         self.write_function_declaration(code, exclude)

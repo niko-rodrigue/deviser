@@ -97,6 +97,8 @@ class BaseTemplateFile:
                 i = self.print_block(fileout, lines, i)
             elif line.startswith('<sbml>'):
                 i = self.print_sbml_block(fileout, lines, i)
+            elif line.startswith('<if_'):
+                i = self.print_if_block(fileout, lines, i)
             elif line.startswith('<replace_only_sbase>'):
                 i = self.print_sbase_block(fileout, lines, i)
             elif line.startswith('<insert_class_includes/>'):
@@ -168,6 +170,8 @@ class BaseTemplateFile:
             elif line.startswith('<library_config/>'):
                 self.print_dependency_library_config(fileout)
                 i += 1
+            elif line.startswith('<omex_hack>'):
+                i = self.print_omex_hack(fileout, lines, i)
             elif line.startswith('<include_dependency_directories/>'):
                 self.print_include_dependency(fileout)
                 i += 1
@@ -179,6 +183,10 @@ class BaseTemplateFile:
     @staticmethod
     def adjust_line(line):
         lowerlibname = global_variables.library_name.lower()
+        nonlibname = lowerlibname
+        if lowerlibname.startswith('lib'):
+            nonlibname = lowerlibname[3:]
+        line = re.sub('nonlibsbml', nonlibname, line)
         line = re.sub('SBase', global_variables.std_base, line)
         line = re.sub('LIBSBML', global_variables.library_name.upper(), line)
         line = re.sub('LibSBML', strFunctions.upper_first(global_variables.library_name), line)
@@ -194,6 +202,7 @@ class BaseTemplateFile:
                                            strFunctions.remove_prefix(global_variables.document_class).upper())
         line = re.sub('SBML_DOCUMENT', doctype, line)
         line = re.sub('SBMLDocument', global_variables.document_class, line)
+        line = re.sub('toplevelname', strFunctions.lower_first(global_variables.top_level_element_name), line)
         line = re.sub('CAT_SBML',
                       'CAT_{0}'.format(global_variables.language.upper()), line)
         line = re.sub('SBML_Lang',
@@ -243,6 +252,56 @@ class BaseTemplateFile:
             i += 1
             line = lines[i]
         i += 1
+        return i
+
+    def print_if_block(self, fileout, lines, i):
+        line = lines[i]
+        length = len(line)
+        block = line[4:length-2]
+        end_block = '</if_{0}>'.format(block)
+        writeLines = self.write_lines(block)
+        i += 1
+        line = lines[i]
+        while not line.startswith(end_block):
+            if writeLines:
+                line = self.adjust_line(line)
+                fileout.copy_line_verbatim(line)
+            i += 1
+            line = lines[i]
+            if line.startswith('<else>'):
+                writeLines = not writeLines
+                i += 1
+                line = lines[i]
+        i += 1
+        return i
+
+    @staticmethod
+    def write_lines(block):
+        if block == 'package' and not global_variables.is_package:
+            return False
+        if block == 'has_level_version' and not global_variables.has_level_version:
+            return False
+        return True
+
+    @staticmethod
+    def print_omex_hack(fileout, lines, i):
+        if global_variables.language.lower() == 'omex':
+            fileout.copy_line_verbatim('add_subdirectory(src)')
+            i += 1
+            line = lines[i]
+            while not line.startswith('</omex_hack>'):
+                i += 1
+                line = lines[i]
+            i += 1
+        else:
+            i += 1
+            line = lines[i]
+            while not line.startswith('</omex_hack>'):
+                line = re.sub('sbml', global_variables.language, line)
+                fileout.copy_line_verbatim(line)
+                i += 1
+                line = lines[i]
+            i += 1
         return i
 
     @staticmethod

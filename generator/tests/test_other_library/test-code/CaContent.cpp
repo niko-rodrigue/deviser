@@ -48,6 +48,19 @@ LIBCOMBINE_CPP_NAMESPACE_BEGIN
 
 
 /*
+ * Creates a new CaContent instance.
+ */
+CaContent::CaContent()
+  : CaBase(1, 1)
+  , mLocation ("")
+  , mFormat ("")
+  , mMaster (false)
+  , mIsSetMaster (false)
+{
+}
+
+
+/*
  * Creates a new CaContent using the given CaNamespaces object @p omexns.
  */
 CaContent::CaContent(CaNamespaces *omexns)
@@ -399,10 +412,10 @@ CaContent::readAttributes(
     numErrs = log->getNumErrors();
     for (int n = numErrs-1; n >= 0; n--)
     {
-      if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+      if (log->getError(n)->getErrorId() == CaUnknownCoreAttribute)
       {
         const std::string details = log->getError(n)->getMessage();
-        log->remove(UnknownCoreAttribute);
+        log->remove(CaUnknownCoreAttribute);
         log->logError(CombineCaOmexManifestLOContentsAllowedCoreAttributes,
           level, version, details);
       }
@@ -414,10 +427,10 @@ CaContent::readAttributes(
 
   for (int n = numErrs-1; n >= 0; n--)
   {
-    if (log->getError(n)->getErrorId() == UnknownCoreAttribute)
+    if (log->getError(n)->getErrorId() == CaUnknownCoreAttribute)
     {
       const std::string details = log->getError(n)->getMessage();
-      log->remove(UnknownCoreAttribute);
+      log->remove(CaUnknownCoreAttribute);
       log->logError(CombineCaContentAllowedAttributes, level, version,
         details);
     }
@@ -510,13 +523,13 @@ CaContent::writeAttributes(LIBSBML_CPP_NAMESPACE_QUALIFIER XMLOutputStream&
 
 
 /*
- * Creates a new CaContent_t using the given OMEX Level and @ p version values.
+ * Creates a new CaContent_t instance.
  */
 LIBCOMBINE_EXTERN
 CaContent_t *
-CaContent_create(unsigned int level, unsigned int version)
+CaContent_create()
 {
-  return new CaContent(level, version);
+  return new CaContent();
 }
 
 

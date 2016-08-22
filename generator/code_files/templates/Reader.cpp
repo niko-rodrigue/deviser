@@ -188,10 +188,10 @@ SBMLReader::readInternal (const char* content, bool isFile)
   {
     XMLInputStream stream(content, isFile, "", d->getErrorLog());
 
-    if (stream.peek().isStart() && stream.peek().getName() != "sbml")
+    if (stream.peek().isStart() && stream.peek().getName() != "toplevelname")
     {
       // the root element ought to be an sbml element. 
-      d->getErrorLog()->logError(NotSchemaConformant);
+      d->getErrorLog()->logError(SBMLNotSchemaConformant);
 	  return d;
     }
 	
@@ -234,7 +234,7 @@ SBMLReader::readInternal (const char* content, bool isFile)
       }
       else if (strcmp_insensitive(stream.getEncoding().c_str(), "UTF-8") != 0)
       {
-        d->getErrorLog()->logError(NotUTF8);
+        d->getErrorLog()->logError(SBMLNotUTF8);
       }
 
       if (stream.getVersion() == "")

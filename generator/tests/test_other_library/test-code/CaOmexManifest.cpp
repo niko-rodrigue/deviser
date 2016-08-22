@@ -47,6 +47,18 @@ LIBCOMBINE_CPP_NAMESPACE_BEGIN
 
 
 /*
+ * Creates a new CaOmexManifest instance.
+ */
+CaOmexManifest::CaOmexManifest()
+  : CaBase(1, 1)
+  , mContents ()
+{
+  setCaOmexManifest(this);
+  connectToChild();
+}
+
+
+/*
  * Creates a new CaOmexManifest using the given CaNamespaces object @p omexns.
  */
 CaOmexManifest::CaOmexManifest(CaNamespaces *omexns)
@@ -275,9 +287,9 @@ CaOmexManifest::writeElements(LIBSBML_CPP_NAMESPACE_QUALIFIER XMLOutputStream&
 {
   CaBase::writeElements(stream);
 
-  if (getNumContents() > 0)
+  for (unsigned int i = 0; i < getNumContents(); i++)
   {
-    mContents.write(stream);
+    getContent(i)->write(stream);
   }
 }
 
@@ -498,14 +510,13 @@ CaOmexManifest::writeXMLNS(LIBSBML_CPP_NAMESPACE_QUALIFIER XMLOutputStream&
 
 
 /*
- * Creates a new CaOmexManifest_t using the given OMEX Level and @ p version
- * values.
+ * Creates a new CaOmexManifest_t instance.
  */
 LIBCOMBINE_EXTERN
 CaOmexManifest_t *
-CaOmexManifest_create(unsigned int level, unsigned int version)
+CaOmexManifest_create()
 {
-  return new CaOmexManifest(level, version);
+  return new CaOmexManifest();
 }
 
 

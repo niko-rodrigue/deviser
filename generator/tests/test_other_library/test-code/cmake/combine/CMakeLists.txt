@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(libsedml)
+project(libcombine)
 
 include (CMakeTestCCompiler)
 include (CheckCSourceCompiles)
@@ -17,10 +17,10 @@ include (CheckTypeSize)
 # Parse VERSION.txt to determine the package version
 #
 
-set(LIBSEDML_VERSION_MAJOR)
-set(LIBSEDML_VERSION_MINOR)
-set(LIBSEDML_VERSION_PATCH)
-set(LIBSEDML_VERSION_RELEASE)
+set(LIBCOMBINE_VERSION_MAJOR)
+set(LIBCOMBINE_VERSION_MINOR)
+set(LIBCOMBINE_VERSION_PATCH)
+set(LIBCOMBINE_VERSION_RELEASE)
 
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
 
@@ -29,19 +29,19 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/VERSION.txt")
     string(REPLACE "." ";" VersionString "${VersionString}" )
     string(REPLACE "-" ";" VersionString "${VersionString}" )
     list(LENGTH VersionString versionLength)
-    list(GET VersionString 0 LIBSEDML_VERSION_MAJOR )
-    list(GET VersionString 1 LIBSEDML_VERSION_MINOR )
-    list(GET VersionString 2 LIBSEDML_VERSION_PATCH )
+    list(GET VersionString 0 LIBCOMBINE_VERSION_MAJOR )
+    list(GET VersionString 1 LIBCOMBINE_VERSION_MINOR )
+    list(GET VersionString 2 LIBCOMBINE_VERSION_PATCH )
 
     if(${versionLength} GREATER 3)
-        list(GET VersionString 3 LIBSEDML_VERSION_RELEASE )
+        list(GET VersionString 3 LIBCOMBINE_VERSION_RELEASE )
     endif()
 
 endif()
 
-MATH(EXPR LIBSEDML_VERSION_NUMERIC "${LIBSEDML_VERSION_MAJOR} * 10000 + ${LIBSEDML_VERSION_MINOR} * 100 + ${LIBSEDML_VERSION_PATCH}" )
-set(PACKAGE_VERSION "${LIBSEDML_VERSION_MAJOR}.${LIBSEDML_VERSION_MINOR}.${LIBSEDML_VERSION_PATCH}${LIBSEDML_VERSION_RELEASE}")
-set(PACKAGE_NAME "libSEDML")
+MATH(EXPR LIBCOMBINE_VERSION_NUMERIC "${LIBCOMBINE_VERSION_MAJOR} * 10000 + ${LIBCOMBINE_VERSION_MINOR} * 100 + ${LIBCOMBINE_VERSION_PATCH}" )
+set(PACKAGE_VERSION "${LIBCOMBINE_VERSION_MAJOR}.${LIBCOMBINE_VERSION_MINOR}.${LIBCOMBINE_VERSION_PATCH}${LIBCOMBINE_VERSION_RELEASE}")
+set(PACKAGE_NAME "libCombine")
 
 # add make dist and make check target as they are already familiar for
 # everyone using the gnumake build
@@ -56,20 +56,20 @@ add_custom_target(dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 
 include(InstallRequiredSystemLibraries)
 
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating SEDML.")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An API library for reading/writing/manipulating OMEX.")
 set(CPACK_PACKAGE_NAME "${PACKAGE_NAME}")
 set(CPACK_PACKAGE_VENDOR "The SBML Team")
 set(CPACK_PACKAGE_CONTACT "LibSBML Team <libsbml-team@caltech.edu>")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${LIBSEDML_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${LIBSEDML_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${LIBSEDML_VERSION_PATCH}")
+set(CPACK_PACKAGE_VERSION_MAJOR "${LIBCOMBINE_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${LIBCOMBINE_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${LIBCOMBINE_VERSION_PATCH}")
 set(CPACK_RPM_PACKAGE_LICENSE "BSD")
 set(CPACK_RPM_PACKAGE_GROUP "Libraries/Development")
 set(CPACK_DEBIAN_PACKAGE_SECTION "Libraries")
 
-set(CPACK_SOURCE_IGNORE_FILES "${CMAKE_CURRENT_BINARY_DIR};/out/;/.git/;/.svn/;/.libs/;/.deps/;/.bzr/;.*.pyc$;.*.o$;.*.lo$;.*.la$;${CPACK_SOURCE_IGNORE_FILES};/.DS_Store;/.svnignore;blib;libsedml-dist")
+set(CPACK_SOURCE_IGNORE_FILES "${CMAKE_CURRENT_BINARY_DIR};/out/;/.git/;/.svn/;/.libs/;/.deps/;/.bzr/;.*.pyc$;.*.o$;.*.lo$;.*.la$;${CPACK_SOURCE_IGNORE_FILES};/.DS_Store;/.svnignore;blib;libcombine-dist")
 
 if(UNIX)
     set(CPACK_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
@@ -89,14 +89,14 @@ include(CPack)
 
 ###############################################################################
 #
-# Here we have the main configuration options for libsedml.
+# Here we have the main configuration options for libcombine.
 #
 
 # Build static / shared library
 # option(BUILD_SHARED_LIBS  "Build shared library. (Set to OFF to build static libraries.)" OFF)
 
 # Whether to compile examples
-option(WITH_EXAMPLES "Compile the libSEDML example programs."  OFF)
+option(WITH_EXAMPLES "Compile the libCombine example programs."  OFF)
 
 # Which language bindings should be built
 option(WITH_CSHARP   "Generate C# language bindings."     OFF)
@@ -121,21 +121,21 @@ if(WITH_WALL)
 endif()
 
 
-set(LIBSEDML_BUILD_TYPE "native")
+set(LIBCOMBINE_BUILD_TYPE "native")
 if (CMAKE_SIZEOF_VOID_P EQUAL 4)
-  set(LIBSEDML_BUILD_TYPE "32bit")
+  set(LIBCOMBINE_BUILD_TYPE "32bit")
 else()
-  set(LIBSEDML_BUILD_TYPE "64bit")
+  set(LIBCOMBINE_BUILD_TYPE "64bit")
 endif()
 if (APPLE AND ENABLE_UNIVERSAL)
-  set(LIBSEDML_BUILD_TYPE "universal")
+  set(LIBCOMBINE_BUILD_TYPE "universal")
 endif()
 
 
 # Use the version number in the shared library.
 #
-option (LIBSEDML_SHARED_VERSION "Build the libsedml shared library with version information" ON)
-mark_as_advanced(LIBSEDML_SHARED_VERSION)
+option (LIBCOMBINE_SHARED_VERSION "Build the libcombine shared library with version information" ON)
+mark_as_advanced(LIBCOMBINE_SHARED_VERSION)
 
 # Enable the generation of unit tests. If enabled, all test runners
 # will be created and can be run with "make test" or ctest.
@@ -146,16 +146,16 @@ if(NOT ${CMAKE_GENERATOR} MATCHES "Visual Studio 6" AND NOT ${CMAKE_GENERATOR} M
 endif()
 
 # Use C++ namespace.
-option(WITH_CPP_NAMESPACE "Use a C++ namespace for libSEDML."   OFF)
+option(WITH_CPP_NAMESPACE "Use a C++ namespace for libCombine."   OFF)
 
 # Generate documentation.
-option(WITH_DOXYGEN  "Generate documentation for libSEDML using Doxygen."  OFF )
+option(WITH_DOXYGEN  "Generate documentation for libCombine using Doxygen."  OFF )
 # marks as advanced, so as to hide documentation generation
 mark_as_advanced(WITH_DOXYGEN)
 
 # Re-generate the swig bindings? This really should be on by default
 # otherwise one might have the wrong wrapper code without support for
-# the libsedml packages one wants.
+# the libcombine packages one wants.
 option(WITH_SWIG     "Regenerate SWIG-based language bindings."  ON )
 
 # Set build type default.
@@ -169,11 +169,11 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "")
 endif()
 
 # Set the default dependency directory.
-set(LIBSEDML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
-    "Directory containing libraries that libSEDML depends upon. (Particularly important on Windows.)")
-if("${LIBSEDML_DEPENDENCY_DIR}" STREQUAL "")
-  set(LIBSEDML_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
-  "Directory containing libraries that libSEDML depends upon. (Particularly important on Windows.)" FORCE)
+set(LIBCOMBINE_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
+    "Directory containing libraries that libCombine depends upon. (Particularly important on Windows.)")
+if("${LIBCOMBINE_DEPENDENCY_DIR}" STREQUAL "")
+  set(LIBCOMBINE_DEPENDENCY_DIR ${CMAKE_SOURCE_DIR}/dependencies/ CACHE PATH
+  "Directory containing libraries that libCombine depends upon. (Particularly important on Windows.)" FORCE)
 endif()
 
 
@@ -182,10 +182,10 @@ endif()
 # If WITH_SWIG is selected, we need to find swig
 #
 
-set (LIBSEDML_USE_CPP_NAMESPACE 0)
+set (LIBCOMBINE_USE_CPP_NAMESPACE 0)
 if(WITH_CPP_NAMESPACE)
-    add_definitions(-DLIBSEDML_USE_CPP_NAMESPACE)
-    set (LIBSEDML_USE_CPP_NAMESPACE 1)
+    add_definitions(-DLIBCOMBINE_USE_CPP_NAMESPACE)
+    set (LIBCOMBINE_USE_CPP_NAMESPACE 1)
 endif()
 
 if(WITH_SWIG)
@@ -219,7 +219,7 @@ endif(WITH_SWIG)
 #
 find_library(LIBSBML_LIBRARY
     NAMES libsbml-static.lib sbml-static libsbml.lib sbml
-    PATHS ${LIBSEDML_DEPENDENCY_DIR}/lib
+    PATHS ${LIBCOMBINE_DEPENDENCY_DIR}/lib
     /usr/local/lib          
           /usr/lib 
     DOC "The file name of the sbml library."
@@ -228,7 +228,7 @@ find_library(LIBSBML_LIBRARY
 find_path(LIBSBML_INCLUDE_DIR
     NAMES sbml/SBase.h
     PATHS 
-          ${LIBSEDML_DEPENDENCY_DIR}/include
+          ${LIBCOMBINE_DEPENDENCY_DIR}/include
     /usr/local/include
           /usr/include 
     DOC "The directory containing the sbml include files."
@@ -251,31 +251,6 @@ file sbml/SBase.h, but it does not. Please specify the LIBSBML_INCLUDE_DIR varia
 endif()
 
 
-find_library(LIBNUML_LIBRARY
-     NAMES libnuml-static.lib numl-static libnuml.lib numl
-     PATHS ${LIBSEDML_DEPENDENCY_DIR}/lib
-     /usr/local/lib
-           /usr/lib
-     DOC "The file name of the numl library."
-)
-
-find_path(LIBNUML_INCLUDE_DIR
-    NAMES numl/NUMLBase.h
-    PATHS
-      ${LIBSEDML_DEPENDENCY_DIR}/include
-    /usr/local/include
-          /usr/include
-    DOC "The directory containing the numl include files."
-)
-
-set(LIBNUML_STATIC OFF CACHE BOOL "is libnuml statically compiled")
-if (WIN32 AND NOT CYGWIN)
-    if (LIBSBML_LIBRARY AND LIBSBML_LIBRARY MATCHES ".*-static*$")
-        set(LIBNUML_STATIC ON CACHE BOOL "is libnuml statically compiled")
-    else()
-        option(LIBNUML_STATIC "The LIBNUML library was statically compiled" ON)
-    endif()
-endif()
 
 
 ###############################################################################
@@ -297,7 +272,7 @@ set(ZLIB_INITIAL_VALUE)
 find_library(LIBZ_LIBRARY
     NAMES zdll.lib z zlib.lib
     PATHS /usr/lib /usr/local/lib
-          ${LIBSEDML_DEPENDENCY_DIR}/lib
+          ${LIBCOMBINE_DEPENDENCY_DIR}/lib
     DOC "The file name of the zip compression library."
     )
 
@@ -313,7 +288,7 @@ if(WITH_ZLIB)
     find_path(LIBZ_INCLUDE_DIR
         NAMES zlib.h zlib/zlib.h
         PATHS /usr/include /usr/local/include
-              ${LIBSEDML_DEPENDENCY_DIR}/include
+              ${LIBCOMBINE_DEPENDENCY_DIR}/include
         DOC "The directory containing the zlib include files."
               )
 
@@ -351,10 +326,10 @@ if(WITH_CSHARP)
     if(UNIX)
     else()
         if(CMAKE_SIZEOF_VOID_P EQUAL 4)
-            # mark libsedml library as x86
+            # mark libcombine library as x86
             set(CSHARP_EXTRA_ARGS -platform:x86 )
         elseif(CMAKE_SIZEOF_VOID_P EQUAL 8)
-            # mark libsedml library as x64
+            # mark libcombine library as x64
             set(CSHARP_EXTRA_ARGS -platform:x64 )
         endif()
     endif()
@@ -377,13 +352,13 @@ if(WITH_CHECK)
 
     find_library(LIBCHECK_LIBRARY
         NAMES check libcheck
-        PATHS /usr/lib /usr/local/lib ${LIBSEDML_DEPENDENCY_DIR}/lib
+        PATHS /usr/lib /usr/local/lib ${LIBCOMBINE_DEPENDENCY_DIR}/lib
         DOC "The file name of the libcheck library."
     )
 
     find_path(LIBCHECK_INCLUDE_DIR
         NAMES check.h
-        PATHS /usr/include /usr/local/include  ${LIBSEDML_DEPENDENCY_DIR}/include
+        PATHS /usr/include /usr/local/include  ${LIBCOMBINE_DEPENDENCY_DIR}/include
         DOC "The directory containing the libcheck include files."
               )
 
@@ -400,9 +375,9 @@ endif(WITH_CHECK)
 
 ###############################################################################
 #
-# Need some variables set up, such as the name for the libSEDML
+# Need some variables set up, such as the name for the libCombine
 # library and the Path and file separator characters. The
-# MISC_PREFIX variable will cause libsedml bindings, examples and
+# MISC_PREFIX variable will cause libcombine bindings, examples and
 # documentation to be installed in PREFIX/${MISC_PREFIX}.
 #
 
@@ -410,16 +385,16 @@ set( MISC_PREFIX )
 if(UNIX OR CYGWIN)
     set(PATH_SEP "/")
     set(FILE_SEP ":")
-    set( MISC_PREFIX "share/libsedml/" )
-    set(LIBSEDML_LIBRARY sedml)
+    set( MISC_PREFIX "share/libcombine/" )
+    set(LIBCOMBINE_LIBRARY combine)
 else()
     set( MISC_PREFIX "" )
     set(PATH_SEP "\\")
     set(FILE_SEP ";")
     if(MINGW)
-        set(LIBSEDML_LIBRARY sedml)
+        set(LIBCOMBINE_LIBRARY combine)
     else()
-        set(LIBSEDML_LIBRARY libsedml)
+        set(LIBCOMBINE_LIBRARY libcombine)
     endif()
 endif()
 
@@ -517,13 +492,6 @@ else(UNIX)
       set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DLIBSBML_EXPORTS -DLIBLAX_EXPORTS")
   endif()
 
-  if (LIBNUML_STATIC)
-      add_definitions(-DLIBNUML_STATIC)
-      set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DLIBNUML_STATIC")
-  else()
-      add_definitions(-DLIBNUML_EXPORTS)
-      set(BUILD_DEFINITIONS "${BUILD_DEFINITIONS} -DLIBNUML_EXPORTS")
-  endif()
   
     if(MSVC OR USING_INTEL)
       add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE)
@@ -559,9 +527,9 @@ else(UNIX)
         endforeach(flag_var)      
       endif()
         
-      file(GLOB WIN32_BINARIES ${LIBSEDML_DEPENDENCY_DIR}/bin/*.dll)
+      file(GLOB WIN32_BINARIES ${LIBCOMBINE_DEPENDENCY_DIR}/bin/*.dll)
       INSTALL(FILES ${WIN32_BINARIES} DESTINATION bin)
-      file(GLOB WIN32_DEPENDENCIES ${LIBSEDML_DEPENDENCY_DIR}/lib/*.lib)
+      file(GLOB WIN32_DEPENDENCIES ${LIBCOMBINE_DEPENDENCY_DIR}/lib/*.lib)
       install(FILES ${WIN32_DEPENDENCIES} DESTINATION lib)
       if(WITH_LIBXML AND WITH_STATIC_RUNTIME)
         if (EXTRA_LIBS STREQUAL "")
@@ -569,7 +537,7 @@ else(UNIX)
             find_library(LIBICONV_LIBRARY
                 NAMES libiconv.lib iconv.lib iconv
                 PATHS /usr/lib /usr/local/lib
-                      ${LIBSEDML_DEPENDENCY_DIR}/lib
+                      ${LIBCOMBINE_DEPENDENCY_DIR}/lib
                 DOC "The file name of the libiconv library."
                 )
         set(EXTRA_LIBS "WS2_32.lib;${LIBICONV_LIBRARY};${LIBZ_LIBRARY};" CACHE STRING "List of additional libraries to link against." FORCE)
@@ -594,24 +562,24 @@ endif(UNIX)
 #
 
 if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}" )
-    message(FATAL_ERROR "In-source builds of libSEDML are disabled. Please create a separate build directory.")
+    message(FATAL_ERROR "In-source builds of libCombine are disabled. Please create a separate build directory.")
 endif()
 
 
-if (LIBSEDML_PACKAGE_INCLUDES)
-  list(REMOVE_DUPLICATES LIBSEDML_PACKAGE_INCLUDES)
+if (LIBCOMBINE_PACKAGE_INCLUDES)
+  list(REMOVE_DUPLICATES LIBCOMBINE_PACKAGE_INCLUDES)
 endif()
 
 ###############################################################################
 #
-# Build the actual libSEDML library
+# Build the actual libCombine library
 #
 
 ###############################################################################
 #
-# Initialize SEDML sources
+# Initialize LIBCOMBINE sources
 #
-set(LIBSEDML_SOURCES)
+set(LIBCOMBINE_SOURCES)
 
 ###############################################################################
 #
@@ -650,7 +618,7 @@ endmacro(copy_if_different_and_remove)
 
 ###############################################################################
 #
-# create libsedml-config-common.h
+# create libcombine-config-common.h
 #
 include(CheckIncludeFiles)
 check_include_files (check.h HAVE_CHECK_H)
@@ -688,13 +656,14 @@ endif()
 #
 # create library
 # 
-add_subdirectory(src/sedml)
+add_subdirectory(src/omex)
 
 ##############################################################################
 #
 # create language bindings
 # 
 add_subdirectory(src/bindings)
+
 
 
 
@@ -741,16 +710,14 @@ endif()
 
 message(STATUS "
 ----------------------------------------------------------------------
-libSEDML version ${PACKAGE_VERSION}
+libCombine version ${PACKAGE_VERSION}
 ----------------------------------------------------------------------
 
    More information and the latest version are available online at
-   https://github.com/fbergmann/libSEDML/
 
    Please report problems using the issue tracker at
-   https://github.com/fbergmann/libSEDML/issues
 
-   To contact the developers directly, email fbergman@caltech.edu
+   To contact the developers directly, email sbml-team@caltech.edu
 
    Configured on host '${HOSTNAME}'
      host type                     = ${CMAKE_SYSTEM_NAME}
@@ -769,11 +736,8 @@ libSEDML version ${PACKAGE_VERSION}
      SBML library                  = ${LIBSBML_LIBRARY}
      SBML include                  = -I${LIBSBML_INCLUDE_DIR}
 
-   NUML library configuration:
-     NUML library                  = ${LIBNUML_LIBRARY}
-     NUML include                  = -I${LIBNUML_INCLUDE_DIR}
 
-  Other libSEDML configuration settings:
+  Other libCombine configuration settings:
      Installation $prefix          = ${CMAKE_INSTALL_PREFIX}")
 
 
@@ -826,9 +790,9 @@ message(STATUS "
 ")
 
 if(WITH_CPP_NAMESPACE)
-    message(STATUS "  Using C++ namespace for libSEDML (libsedml) = yes")
+    message(STATUS "  Using C++ namespace for libCombine (libcombine) = yes")
 else()
-    message(STATUS "  Using C++ namespace for libSEDML (libsedml) = no")
+    message(STATUS "  Using C++ namespace for libCombine (libcombine) = no")
 endif()
 
 if(APPLE)
@@ -903,8 +867,8 @@ endif(WITH_CHECK)
 #
 #include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 #
-#add_executable(libsedml_test test.cpp)
-#target_link_libraries(libsedml_test ${LIBSEDML_LIBRARY}-static)
+#add_executable(libcombine_test test.cpp)
+#target_link_libraries(libcombine_test ${LIBCOMBINE_LIBRARY}-static)
 #
 #endif()
 #
