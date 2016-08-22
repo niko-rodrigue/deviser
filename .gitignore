@@ -77,3 +77,11 @@ testOutput/
 .gitignore_BASE_21003
 .gitignore_LOCAL_21003
 .gitignore_REMOTE_21003
+
+# SBML packages
+generator/distrib/
+generator/dyn/
+generator/fbc/
+generator/groups/
+generator/qual/
+generator/spatial/
