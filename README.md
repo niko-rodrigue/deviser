@@ -24,12 +24,14 @@ There is command line version of the function that can be used to invoke the dev
     deviser.py [--generatejsbml][--latex] input-file.xml  
 
 
+
 ## Requirement for the fork
 Deviser requires javap for the java code generation at the current phase.
 Javap is available with the JDK and the following is required for Devisers' java code functionality. 
 
 [Java JDK is required for javap](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
 
+Also set up JAVA_HOME environment variable for your operating system, if you are working under Windows, here is a [good tutorial](https://www.mkyong.com/java/how-to-set-java_home-on-windows-10/) on how to set up. And for Linux: [Ubuntu/Debian](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04).
 
 ## Current State ##
 

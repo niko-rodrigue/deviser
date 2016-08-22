@@ -149,17 +149,14 @@ class SetGetFunctions():
             return self.write_get_array(index, const)
         # create comment parts
 
-        # TODO GSOC 2016 JSBML change
+        # if Id and Name then return None
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-            return None
+            return
 
+        code = []
         params = []
         return_lines = []
         additional = []
-        # title_line = '@return the value of the \"{0}\" {1} of this {2}.' \
-        #     .format(attribute['name'],
-        #             ('attribute' if is_attribute else 'element'),
-        #             (self.class_name if self.is_java_api else self.object_name))
         title_line = ''  # '@return the {0}'.format(attribute['name'])
 
         if not self.is_java_api:
@@ -221,18 +218,15 @@ class SetGetFunctions():
             else:
                 return_type = '{0}'.format(attribute['CType'])
 
-        # TODO detect if override or not
-        additional_add, class_key, functionArgs = jsbmlHelperFunctions. \
+        # detect if needs to  override
+        additional_add, class_key, function_args = jsbmlHelperFunctions. \
             determine_override_or_deprecated(self.jsbml_methods, function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
-                                                                             class_key, function, functionArgs)
+                                                                             class_key, function, function_args)
 
         arguments = []
-        if not self.is_java_api:
-            arguments.append('const {0} * {1}'
-                             .format(self.object_name, self.abbrev_parent))
 
         # GSOC 2016 modification
         # Need PackageName for Constants, such as QualConstants.initialLevel
@@ -314,10 +308,6 @@ class SetGetFunctions():
         params = []
         return_lines = []
         additional = []
-        # title_line = '@return the value of the \"{0}\" {1} of this {2}.' \
-        #     .format(attribute['name'],
-        #             ('attribute' if is_attribute else 'element'),
-        #             (self.class_name if self.is_java_api else self.object_name))
         title_line = '@return the {0}'.format(attribute['name'])
 
         if not self.is_java_api:
@@ -384,12 +374,12 @@ class SetGetFunctions():
         curr_att_type = attribute['attTypeCode']
 
         curr_att_type = attribute['JClassType']
-        oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-        currValue = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
+        old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+        curr_value = 'this.old{0}'.format(strFunctions.upper_first(attribute['name']))
 
         object = strFunctions.upper_first(attribute['name'])
 
-        implement_part1 = 'Model model = getModel()'.format(curr_att_type, oldValue, attribute['name'])
+        implement_part1 = 'Model model = getModel()'.format(curr_att_type, old_value, attribute['name'])
 
         implementation = ['model != null'.format(attribute['name'], attribute['name']),
                           'return model.get{0}(get{1}())'.format(object, object)]  # 3rd line
@@ -401,8 +391,8 @@ class SetGetFunctions():
 
         code = [self.create_code_block('if', implementation)]
 
-        implementationNext = ['return null']  # 1st line
-        code.append(self.create_code_block('line', implementationNext))
+        implementation_next = ['return null']  # 1st line
+        code.append(self.create_code_block('line', implementation_next))
 
         # return the parts
         return dict({'title_line': title_line,
@@ -614,6 +604,7 @@ class SetGetFunctions():
             return None
 
         # create comment parts
+        code = []
         params = []
         return_lines = []
         additional = []
@@ -647,13 +638,13 @@ class SetGetFunctions():
                                              attribute['capAttName'])
             return_type = 'int'
 
-        # TODO detect if override
-        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+        # detect if needs to  override
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods, function, attribute)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add,
-                                                                             class_key, function, functionArgs)
+                                                                             class_key, function, function_args)
 
         arguments = []
         if not self.is_java_api:
@@ -729,7 +720,7 @@ class SetGetFunctions():
         else:
             ob_type = 'element'
 
-        # TODO GSOC 2016 JSBML change
+        # For JSBML generally Id and Name are not used
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
@@ -767,11 +758,13 @@ class SetGetFunctions():
                                              attribute['capAttName'])
             return_type = 'int'
 
+
+        # Check if Instance methods needs to be written
         write_status = jsbmlHelperFunctions.find_instance_method(self.abstract_jsbml_methods, function)
-        if write_status == False:
+        if write_status is False:
             return
 
-        # TODO detect if override
+        # detect if needs to  override
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods, function, attribute)
         if additional_add is not None:
@@ -805,7 +798,7 @@ class SetGetFunctions():
                                   '{1})'.format(attribute['name'],
                                                 attribute['default'])]
                 code = [dict({'code_type': 'line', 'code': implementation})]
-            # TODO write_is_set_instance for isVector case
+            # TODO write_is_set_instance for isVector case is not implemented
             elif 'isVector' in attribute and attribute['isVector']:
                 implementation = []
                 comment_line = \
@@ -928,7 +921,7 @@ class SetGetFunctions():
                 return
             att_type = attribute['CType']
 
-        # TODO GSOC 2016 JSBML change
+        # Ignore 'Id' and 'Name' for JSBML
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
@@ -936,7 +929,6 @@ class SetGetFunctions():
         params = []
         return_lines = []
 
-        # TODO could this be used for overrides?
         additional = []
         title_line = 'Sets the value of the \"{0}\" {1} of this {2}.' \
             .format(attribute['name'], ob_type, self.object_name)
@@ -963,31 +955,24 @@ class SetGetFunctions():
         # create the function declaration
         if self.is_java_api:
             function = 'set{0}'.format(attribute['capAttName'])
-            return_type = 'int'
+            return_type = 'boolean'
         else:
             function = '{0}_set{1}'.format(self.class_name,
                                            attribute['capAttName'])
-            return_type = 'int'
-
-        # params = ['@param {0}'.format(attribute['name'])]
-        # # '       the {0} to set'.format(attribute['name'])]
+            return_type = 'boolean'
 
         params = ['Sets the value of {0}'.format(attribute['name'])]
         params.append(' ')
         params.append('@param {0} the value of {1} to be set.'.format(attribute['name'], attribute['name']))
-        # '       the {0} to set'.format(attribute['name'])]
 
-        # TODO write_set  implementation of return_type definition
-        return_type = 'boolean'
-
-        additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
+        additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods,
             function, attribute,
             return_type)
         if additional_add is not None:
             additional.append(additional_add)
             title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-                                                                             function, functionArgs)
+                                                                             function, function_args)
 
         arguments = []
         if self.is_java_api:
@@ -1031,10 +1016,11 @@ class SetGetFunctions():
                      'object_name': self.struct_name,
                      'implementation': code})
 
+    #  Get Number of similar attributes
     def get_similar_num_attributes(self):
         try:
             return len(self.duplicate_methods)
-        except Exception as e:
+        except Exception as error:
             return 0
 
     def write_similar_functions(self, is_attribute, att_index, duplic_index):
@@ -1056,7 +1042,6 @@ class SetGetFunctions():
         params = []
         return_lines = []
 
-        # TODO could this be used for overrides?
         additional = []
         arguments = []
         title_line = 'Sets the value of the \"{0}\" {1} of this {2}.' \
@@ -1066,6 +1051,7 @@ class SetGetFunctions():
             function = 'set{0}'.format(attribute['capAttName'])
             arg_name = attribute['name']
 
+        # get return type of the duplicate method
         return_type = dup_attribute[1]['returnType']
 
         # Get duplicate name function for non-javadoc documentation
@@ -1332,7 +1318,7 @@ class SetGetFunctions():
         else:
             ob_type = 'element'
 
-        # igrore Id and Name unset methods
+        # ignore Id and Name unset methods
         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
             return None
 
@@ -1371,7 +1357,7 @@ class SetGetFunctions():
             return_type = 'int'
             return_type = 'boolean'
 
-        # TODO override unset need to change this part
+        # detect if needs to  override
         additional_add, class_key, functionArgs = jsbmlHelperFunctions.determine_override_or_deprecated(
             self.jsbml_methods,
             function, attribute)
@@ -1567,6 +1553,8 @@ class SetGetFunctions():
         title_line = 'Creates a new {0} object, adds it to this {1} object ' \
                      'and returns the {0} object ' \
                      'created.'.format(att_name, self.object_name)
+
+        code = []
         params = []
         if not self.is_java_api:
             params.append('@param {0} the {1} structure '
@@ -1631,15 +1619,15 @@ class SetGetFunctions():
 
         if attribute['type'] == 'SId':
             curr_att_type = attribute['JClassType']
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.{0}'.format(attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.{0}'.format(attribute['name'])
 
-            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
             implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                       attribute['name'],
-                                                                                      oldValue,
-                                                                                      currValue)
+                                                                                      old_value,
+                                                                                      curr_value)
 
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1647,21 +1635,21 @@ class SetGetFunctions():
                               impl2, implement_part3, 'return true']  # 2nd line
             code = [self.create_code_block('if', implementation)]
 
-            implementationNext = ['return false']  # 1st line
-            code.append(self.create_code_block('line', implementationNext))
+            implementation_next = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementation_next))
             return_type = 'boolean'
 
         elif attribute['type'] == 'SIdRef':
             curr_att_type = attribute['JClassType']
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.{0}'.format(attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.{0}'.format(attribute['name'])
 
-            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
             implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                       attribute['name'],
-                                                                                      oldValue,
-                                                                                      currValue)
+                                                                                      old_value,
+                                                                                      curr_value)
 
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1669,21 +1657,21 @@ class SetGetFunctions():
                               impl2, implement_part3, 'return true']  # 2nd line
             code = [self.create_code_block('if', implementation)]
 
-            implementationNext = ['return false']  # 1st line
-            code.append(self.create_code_block('line', implementationNext))
+            implementation_next = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementation_next))
             return_type = 'boolean'
         elif attribute['type'] == 'UnitSId' \
                 or attribute['type'] == 'UnitSIdRef':  # TODO Spatial coordinatecomponent setUnit
             curr_att_type = attribute['JClassType']
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.{0}'.format(attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.{0}'.format(attribute['name'])
 
-            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
             implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                       attribute['name'],
-                                                                                      oldValue,
-                                                                                      currValue)
+                                                                                      old_value,
+                                                                                      curr_value)
 
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1691,8 +1679,8 @@ class SetGetFunctions():
                               impl2, implement_part3, 'return true']  # 2nd line
             code = [self.create_code_block('if', implementation)]
 
-            implementationNext = ['return false']  # 1st line
-            code.append(self.create_code_block('line', implementationNext))
+            implementation_next = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementation_next))
             return_type = 'boolean'
             # implementation = ['!(SyntaxChecker::isValidInternalUnitSId({0})'
             #                   ')'.format(name),
@@ -1702,15 +1690,15 @@ class SetGetFunctions():
             # code = [dict({'code_type': 'if_else', 'code': implementation})]
         elif attribute['type'] == 'string' or attribute['type'] == 'IDREF':
             curr_att_type = attribute['JClassType']
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.{0}'.format(attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.{0}'.format(attribute['name'])
 
-            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
             implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                       attribute['name'],
-                                                                                      oldValue,
-                                                                                      currValue)
+                                                                                      old_value,
+                                                                                      curr_value)
 
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1718,23 +1706,23 @@ class SetGetFunctions():
                               impl2, implement_part3, 'return true']  # 2nd line
             code = [self.create_code_block('if', implementation)]
 
-            implementationNext = ['return false']  # 1st line
-            code.append(self.create_code_block('line', implementationNext))
+            implementation_next = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementation_next))
             return_type = 'boolean'
             # implementation = ['{0} = {1}'.format(member, name),
             #                   'return {0}'.format(self.success)]
             # code = [dict({'code_type': 'line', 'code': implementation})]
         elif attribute['type'] == 'enum':  # TODO setType setOperation setSig
             curr_att_type = attribute['JClassType']
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.{0}'.format(attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.{0}'.format(attribute['name'])
 
-            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-            implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+            implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+            implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
             implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                       attribute['name'],
-                                                                                      oldValue,
-                                                                                      currValue)
+                                                                                      old_value,
+                                                                                      curr_value)
 
             impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
             implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1742,8 +1730,8 @@ class SetGetFunctions():
                               impl2, implement_part3, 'return true']  # 2nd line
             code = [self.create_code_block('if', implementation)]
 
-            implementationNext = ['return false']  # 1st line
-            code.append(self.create_code_block('line', implementationNext))
+            implementation_next = ['return false']  # 1st line
+            code.append(self.create_code_block('line', implementation_next))
             return_type = 'boolean'
         elif query.has_is_set_member(attribute):
             code = self.write_set_att_with_member(attribute, True)
@@ -1770,11 +1758,11 @@ class SetGetFunctions():
                     # clone = 'deepCopy'
 
                     curr_att_type = attribute['JClassType']
-                    oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-                    currValue = 'this.{0}'.format(attribute['name'])
+                    old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                    curr_value = 'this.{0}'.format(attribute['name'])
 
-                    implement_part1 = ['{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])]
-                    implement_part2 = ['{0} = {1}'.format(currValue, attribute['name'])]
+                    implement_part1 = ['{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])]
+                    implement_part2 = ['{0} = {1}'.format(curr_value, attribute['name'])]
 
                     code.append(self.create_code_block('line', implement_part1))
                     code.append(self.create_code_block('line', implement_part2))
@@ -1786,22 +1774,22 @@ class SetGetFunctions():
                     implementation = ['this.{0} != null'.format(attribute['name'])]
                     # implementation.append(['ASTNode.setParentSBMLObject({0}, this)'.format(attribute['name'])])
                     implementation.append('firePropertyChange(TreeNodeChangeEvent.{0}, {1}, {0})'. \
-                                          format(attribute['name'], oldValue, currValue))  # 2nd line
+                                          format(attribute['name'], old_value, curr_value))  # 2nd line
 
                     code.append(self.create_code_block('if', implementation))
                     code.append(self.create_code_block('blank', ''))
                     return_type = 'void'
                 else:
                     curr_att_type = attribute['JClassType']
-                    oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-                    currValue = 'this.{0}'.format(attribute['name'])
+                    old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                    curr_value = 'this.{0}'.format(attribute['name'])
 
-                    implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-                    implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+                    implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+                    implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
                     implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                               attribute['name'],
-                                                                                              oldValue,
-                                                                                              currValue)
+                                                                                              old_value,
+                                                                                              curr_value)
 
                     impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
                     implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1809,20 +1797,20 @@ class SetGetFunctions():
                                       impl2, implement_part3, 'return true']  # 2nd line
                     code = [self.create_code_block('if', implementation)]
 
-                    implementationNext = ['return false']  # 1st line
-                    code.append(self.create_code_block('line', implementationNext))
+                    implementation_next = ['return false']  # 1st line
+                    code.append(self.create_code_block('line', implementation_next))
                     return_type = 'boolean'
             else:
                 curr_att_type = attribute['JClassType']
-                oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-                currValue = 'this.{0}'.format(attribute['name'])
+                old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                curr_value = 'this.{0}'.format(attribute['name'])
 
-                implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, oldValue, attribute['name'])
-                implement_part2 = '{0} = {1}'.format(currValue, attribute['name'])
+                implement_part1 = '{0} {1}  = this.{2}'.format(curr_att_type, old_value, attribute['name'])
+                implement_part2 = '{0} = {1}'.format(curr_value, attribute['name'])
                 implement_part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                           attribute['name'],
-                                                                                          oldValue,
-                                                                                          currValue)
+                                                                                          old_value,
+                                                                                          curr_value)
 
                 impl2 = 'this.{0} = {1}'.format(attribute['name'], attribute['name'])  # 3rd line
                 implementation = ['{0} != this.{1}'.format(attribute['name'], attribute['name']),
@@ -1830,19 +1818,19 @@ class SetGetFunctions():
                                   impl2, implement_part3, 'return true']  # 2nd line
                 code = [self.create_code_block('if', implementation)]
 
-                implementationNext = ['return false']  # 1st line
-                code.append(self.create_code_block('line', implementationNext))
+                implementation_next = ['return false']  # 1st line
+                code.append(self.create_code_block('line', implementation_next))
                 return_type = 'boolean'
         else:
             curr_att_type = attribute['JClassType']
 
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                             attribute['name'],
-                                                                            oldValue,
+                                                                            old_value,
                                                                             attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
@@ -1856,9 +1844,8 @@ class SetGetFunctions():
             # code = [dict({'code_type': 'blank', 'code': []})]
         return code, return_type
 
+    # write_set controller
     def write_set_att_with_member(self, attribute, in_version):
-        # TODO in_version  what is it? how to deal with  GSOC 2016 write_set important
-
         # Here's the problem
 
         try:
@@ -1957,7 +1944,6 @@ class SetGetFunctions():
             curr_att_type = attribute['JClassType']
 
             old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            curr_value = 'this.old{0}'.format(attribute['name'])
             part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
@@ -2016,7 +2002,6 @@ class SetGetFunctions():
             curr_att_type = attribute['JClassType']
 
             old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            curr_value = 'this.old{0}'.format(attribute['name'])
             part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,

@@ -460,7 +460,7 @@ class ParserFunctions():
             java_type = 'Int'
         elif type == 'enum':
             java_type = java_type_data
-        else:  # TODO needs to be modified
+        else:
             java_type = java_type_data
 
         implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name)]
@@ -492,31 +492,13 @@ class ParserFunctions():
             if index < len(self.attributes) - 1:
                 implementation.append('else if')
         except Exception as e:
-            # print('Yolo ', e)
             pass
-        # implementation.append('else if')
 
-
-
-        # temp_code1 = self.create_code_block('line', implement1)
-        # temp_code = self.create_code_block('else_if', implementation)
-        # return temp_code
         return implementation
 
     def create_read_attribute_else(self):
-        # name = self.attributes[index]['capAttName']
-        # member_name = self.attributes[index]['name']
-        # java_type = self.attributes[index]['JClassType']
-
-        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
-
         implementation = ['else', 'isAttributeRead = false']  # 3rd line
-
-        # temp_code1 = self.create_code_block('line', implement1)
-        # temp_code = self.create_code_block('else_if', implementation)
-        # return temp_code
         return implementation
-
 
         # Functions for writing readAttributes
 
@@ -604,8 +586,7 @@ class ParserFunctions():
         params = ['@param rhs the {0} object whose values are to be used '
                   'as the basis of the assignment.'.format(self.object_name)]
         return_lines = []
-        additional = []
-        additional.append('Override')
+        additional = ['Override']
 
         return_type = 'SBasePlugin'
 
@@ -617,14 +598,6 @@ class ParserFunctions():
         clone = 'clone'
 
         code = [self.create_code_block('empty_line')]
-
-        # print('wahaha ', self.class_name)
-        # print('len ', len(self.attributes))
-
-        # line = self.create_code_block('empty_line', '')
-        # code.append(line)
-
-
 
         plugins = self.expanded_package['plugins']
 
