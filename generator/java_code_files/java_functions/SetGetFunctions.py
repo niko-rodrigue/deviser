@@ -1888,19 +1888,18 @@ class SetGetFunctions():
             print("write_set_att_with_member ", error)
             sys.exit(0)
 
-    # TODO
     def unset_java_attribute(self, attribute):
         code = []
         if attribute['attType'] == 'string':
             curr_att_type = attribute['JClassType']
 
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                             attribute['name'],
-                                                                            oldValue,
+                                                                            old_value,
                                                                             attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
@@ -1916,13 +1915,13 @@ class SetGetFunctions():
 
             curr_att_type = attribute['JClassType']
 
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                             attribute['name'],
-                                                                            oldValue,
+                                                                            old_value,
                                                                             attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
@@ -1937,13 +1936,13 @@ class SetGetFunctions():
         elif attribute['type'] == 'SIdRef':
             curr_att_type = attribute['JClassType']
 
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                             attribute['name'],
-                                                                            oldValue,
+                                                                            old_value,
                                                                             attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
@@ -1957,13 +1956,13 @@ class SetGetFunctions():
         elif query.has_is_set_member(attribute):
             curr_att_type = attribute['JClassType']
 
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                             attribute['name'],
-                                                                            oldValue,
+                                                                            old_value,
                                                                             attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,
@@ -1984,13 +1983,13 @@ class SetGetFunctions():
             else:
                 curr_att_type = attribute['JClassType']
 
-                oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-                currValue = 'this.old{0}'.format(attribute['name'])
-                part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+                old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+                curr_value = 'this.old{0}'.format(attribute['name'])
+                part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
                 part2 = '{0} = null'.format(attribute['name'])
                 part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                                 attribute['name'],
-                                                                                oldValue,
+                                                                                old_value,
                                                                                 attribute['name'])
                 implementation = ['isSet{0}()'.format(attribute['capAttName']),
                                   part1, part2, part3,
@@ -2016,13 +2015,13 @@ class SetGetFunctions():
 
             curr_att_type = attribute['JClassType']
 
-            oldValue = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
-            currValue = 'this.old{0}'.format(attribute['name'])
-            part1 = '{0} {1}  = {2}'.format(curr_att_type, oldValue, attribute['name'])
+            old_value = 'old{0}'.format(strFunctions.upper_first(attribute['name']))
+            curr_value = 'this.old{0}'.format(attribute['name'])
+            part1 = '{0} {1}  = {2}'.format(curr_att_type, old_value, attribute['name'])
             part2 = '{0} = null'.format(attribute['name'])
             part3 = 'firePropertyChange({0}Constants.{1}, {2}, {3})'.format(self.package,
                                                                             attribute['name'],
-                                                                            oldValue,
+                                                                            old_value,
                                                                             attribute['name'])
             implementation = ['isSet{0}()'.format(attribute['capAttName']),
                               part1, part2, part3,

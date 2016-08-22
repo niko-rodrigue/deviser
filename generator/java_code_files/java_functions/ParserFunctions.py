@@ -45,20 +45,20 @@ class ParserFunctions():
     """Class for general functions"""
 
     def __init__(self, language, is_java_api, expanded_package_object, jsbml_data_tree=None,
-                 jsbml_methods=None, prime_numbers = None, abstract_jsbml_methods = None, import_modules=None):
+                 jsbml_methods=None, prime_numbers=None, abstract_jsbml_methods=None, import_modules=None):
         self.language = language
         self.cap_language = language.upper()
         self.expanded_package = expanded_package_object
-        self.package =  expanded_package_object['original_name']
+        self.package = expanded_package_object['original_name']
         self.parser_name = expanded_package_object['name']
-        self.original_name =  expanded_package_object['original_name']
+        self.original_name = expanded_package_object['original_name']
         self.is_parser = True
         self.is_java_api = is_java_api
-
 
         # For tests
         self.run_tests = global_variables.running_tests
 
+        # Additional information for java code generation
         if jsbml_data_tree is not None:
             self.jsbml_data_tree = jsbml_data_tree
         if jsbml_methods is not None:
@@ -70,134 +70,32 @@ class ParserFunctions():
         if import_modules is not None:
             self.import_modules = import_modules
 
-
-        # self.has_std_base = expanded_package_object['has_std_base']
-        # self.base_class = expanded_package_object['baseClass']
-        # self.is_java_api = is_java_api
-        # self.is_list_of = is_list_of
-        # self.is_plugin = False
-        # if 'is_plugin' in expanded_package_object:
-        #     self.is_plugin = expanded_package_object['is_plugin']
-        # self.is_doc_plugin = False
-        # if 'is_doc_plugin' in expanded_package_object:
-        #     self.is_doc_plugin = expanded_package_object['is_doc_plugin']
-        # self.ext_class = ''
-        # if self.is_plugin:
-        #     self.ext_class = expanded_package_object['sbase']
-        # if is_list_of:
-        #     self.child_name = expanded_package_object['lo_child']
-        # else:
-        #     self.child_name = ''
         if is_java_api:
             self.object_name = self.parser_name
             # self.object_child_name = self.child_name
-        # else:
-        #     if is_list_of:
-        #         self.object_name = 'ListOf_t'
-        #     else:
-        #         self.object_name = self.class_name + '_t'
-        #     self.object_child_name = self.child_name + '_t'
-        # self.element_name = ''
-        # self.override_name = False
-        # if 'elementName' in expanded_package_object and not is_list_of:
-        #     self.element_name = expanded_package_object['elementName']
-        #     if self.element_name == '':
-        #         self.override_name = False
-        #     else:
-        #         self.override_name = not \
-        #             strFunctions.compare_no_case(self.element_name,
-        #                                          self.class_name)
-        # if not global_variables.is_package:
-        #     self.override_name = True
-        #     if is_list_of:
-        #         self.element_name = \
-        #             strFunctions.lower_list_of_name_no_prefix(expanded_package_object['elementName'])
-        #     else:
-        #         self.element_name = expanded_package_object['elementName']
-        #
-        #
-        # self.typecode = expanded_package_object['typecode']
-        # self.attributes = expanded_package_object['class_attributes']
-        # self.sid_refs = expanded_package_object['sid_refs']
-        # self.unit_sid_refs = expanded_package_object['unit_sid_refs']
-        # self.child_lo_elements = expanded_package_object['child_lo_elements']
-        # self.child_elements = expanded_package_object['child_elements']
-        # self.has_math = expanded_package_object['has_math']
-        # self.has_array = expanded_package_object['has_array']
-        # self.overwrites_children = expanded_package_object['overwrites_children']
-        # self.has_children = expanded_package_object['has_children']
-        # self.has_only_math = expanded_package_object['has_only_math']
-        # self.num_non_std_children = expanded_package_object['num_non_std_children']
-        # self.num_children = expanded_package_object['num_children']
-        # self.std_base = expanded_package_object['std_base']
-        #
-        # self.required = 'false'
-        # if 'is_doc_plugin' in expanded_package_object:
-        #     if expanded_package_object['reqd']:
-        #         self.required = 'true'
-        #
-        # self.document = False
-        # if 'document' in expanded_package_object:
-        #     self.document = expanded_package_object['document']
-        #
-        # # useful variables
-        # if not self.is_java_api and self.is_list_of:
-        #     self.struct_name = self.object_child_name
-        # else:
-        #     self.struct_name = self.object_name
-        # self.abbrev_parent = strFunctions.abbrev_name(self.object_name)
-        # if self.is_java_api is False:
-        #     self.true = '@c 1'
-        #     self.false = '@c 0'
-        # else:
-        #     self.true = '@c true'
-        #     self.false = '@c false'
-        #
-        # # status
-        # if self.is_java_api:
-        #     if self.is_list_of:
-        #         self.status = 'cpp_list'
-        #     else:
-        #         self.status = 'cpp_not_list'
-        # else:
-        #     if self.is_list_of:
-        #         self.status = 'c_list'
-        #     else:
-        #         self.status = 'c_not_list'
-        #
-        # # TODO GSOC 2016
-        #
-
 
         self.attributeName = 'attributeName'
         self.prefix = 'prefix'
         self.value = 'value'
 
-
         self.duplicate_methods = []
-
 
         # get parent-child elements
         self.data_to_write = self.expand_get_parent_child_elements()
         self.none_values = self.expand_get_sbase_type_parent_elements_from_object()
 
-
         self.lo_elements = self.get_all_lo_elements()
-
 
     ########################################################################
 
-
     # Get Parent lo_element with childs
     def expand_get_parent_child_elements(self):
-        baseElements = self.expanded_package['baseElements']
-        #
+        base_elements = self.expanded_package['baseElements']
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         # lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
         data_to_write = []
-        for element in baseElements:
+        for element in base_elements:
             implementation = []
-
             info_dict = {}
             info_dict['data'] = []
             if len(element['child_lo_elements']) > 0:
@@ -239,21 +137,8 @@ class ParserFunctions():
                     add = True
         return none_values
 
-
-
+    # Get all list of elements
     def get_all_lo_elements(self):
-        # baseElements = self.expanded_package['baseElements']
-        #
-        # child_lo_elements = []
-        # child_lo_elements_names  =[]
-        #
-        #
-        # for baseElement in baseElements:
-        #     for attribute in baseElement['attribs']:
-        #         if attribute['attType'] == 'lo_element':
-        #             if attribute['name'] not in child_lo_elements_names:
-        #                 child_lo_elements.append(attribute)
-        #                 child_lo_elements_names.append(attribute['name'])
         list_of_elements = []
 
         elements = self.expanded_package['elements']
@@ -261,12 +146,7 @@ class ParserFunctions():
             if element['isListOf'] is True:
                 list_of_elements.append(element)
 
-
         return list_of_elements
-
-
-
-        # TODO JSBML PARSER FUNCTIONS
 
     def write_get_short_label(self):
         # do not write for C API
@@ -278,11 +158,9 @@ class ParserFunctions():
         title_line = '(non-Javadoc)-- @see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
+        additional = ['Override']
 
         # create function decl
-
         return_type = 'String'
         arguments = []
         # create the function implementation
@@ -300,8 +178,6 @@ class ParserFunctions():
         #     additional.append(additional_add)
         # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
         #                                                                      function, function_args)
-
-
 
         temp = ['return {0}Constants.shortLabel'.format(strFunctions.upper_first(self.package))]
         code.append(self.create_code_block('line', temp))
@@ -329,8 +205,7 @@ class ParserFunctions():
         title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.AbstractReaderWriter#getNamespaceURI()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
+        additional = ['Override']
 
         # create function decl
 
@@ -340,19 +215,6 @@ class ParserFunctions():
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
 
         temp = ['return {0}Constants.namespaceURI'.format(strFunctions.upper_first(self.package))]
         code.append(self.create_code_block('line', temp))
@@ -369,7 +231,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
 
     def write_is_required(self):
         # do not write for C API
@@ -392,19 +253,6 @@ class ParserFunctions():
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
 
         temp = ['return false']
         code.append(self.create_code_block('line', temp))
@@ -443,22 +291,6 @@ class ParserFunctions():
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-
-
 
         temp = ['return {0}Constants.shortLabel'.format(strFunctions.upper_first(self.package))]
         code.append(self.create_code_block('line', temp))
@@ -475,7 +307,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
 
     def write_get_package_namespaces(self):
         # do not write for C API
@@ -498,22 +329,6 @@ class ParserFunctions():
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-
-
 
         temp = ['return getNamespaces()']
         code.append(self.create_code_block('line', temp))
@@ -530,7 +345,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
 
     def write_get_namespaces(self):
         # do not write for C API
@@ -553,22 +367,6 @@ class ParserFunctions():
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
-        clone = 'clone'
-
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-
-
 
         temp = ['return {0}Constants.namespaces'.format(strFunctions.upper_first(self.package))]
         code.append(self.create_code_block('line', temp))
@@ -585,7 +383,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
 
     def write_get_namespace_for(self):
         # do not write for C API
@@ -609,34 +406,19 @@ class ParserFunctions():
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
-        clone = 'clone'
 
-        # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-        #     self.jsbml_methods,
-        #     function=function,
-        #     return_type=return_type)
-        #
-        # if additional_add is not None:
-        #     additional.append(additional_add)
-        # title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-        #                                                                      function, function_args)
-
-
-
-
-        base_level =  self.expanded_package['base_level']
-        base_version =  self.expanded_package['base_version']
-        package_version =  self.expanded_package['pkg_version']
+        base_level = self.expanded_package['base_level']
+        base_version = self.expanded_package['base_version']
+        package_version = self.expanded_package['pkg_version']
         package_name = self.expanded_package['original_name']
 
-        implementation = ['level == {0} && version == {1} && packageVersion == {2}'.format(base_level, base_version,\
+        implementation = ['level == {0} && version == {1} && packageVersion == {2}'.format(base_level, base_version, \
                                                                                            package_version)]
 
         self.namespace_uri = 'namespaceURI_L{0}V{1}V{2}'.format(base_level, base_version, package_version)
-        implementation.append('return {0}Constants.{1}'.format(strFunctions.upper_first(self.package), self.namespace_uri))
+        implementation.append(
+            'return {0}Constants.{1}'.format(strFunctions.upper_first(self.package), self.namespace_uri))
         code.append(self.create_code_block('if', implementation))
-
-
 
         temp = ['return null']
         code.append(self.create_code_block('line', temp))
@@ -654,21 +436,15 @@ class ParserFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-
-
-
     def create_read_attribute_if(self, index):
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
         java_type = self.attributes[index]['JClassType']
         type = self.attributes[index]['attType']
 
-        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
-
         implement = ['{0}.equals({1}Constants.{2}'.format(self.attributeName, self.package, member_name),
                      'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)]  # 3rd line
 
-        # temp_code1 = self.create_code_block('line', implement1)
         temp_code = self.create_code_block('if', implement)
         return temp_code
 
@@ -683,18 +459,9 @@ class ParserFunctions():
         elif java_type_data == 'Integer':
             java_type = 'Int'
         elif type == 'enum':
-            # if java_type_data in self.jsbml_data_tree['Difference']:
-            #     data = self.jsbml_data_tree['Difference'][java_type_data]
-            # else:
-            #     data = None
-            # if data is not None:
-            #     java_type = data
-            # else:
             java_type = java_type_data
         else:  # TODO needs to be modified
             java_type = java_type_data
-
-        # implement1 = 'equals &= {0}.isSet{1}() == isSet{2}()'.format(self.equals_short, name, name)
 
         implementation = ['{0}.equals({1}Constants.{2})'.format(self.attributeName, self.package, member_name)]
 
@@ -708,7 +475,6 @@ class ParserFunctions():
             temp_implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
             temp_implementation.append('catch')
             temp_implementation.append('Exception e')
-            # temp_implementation.append('''throw new SBMLException("Could not recognized the value\'" + value + "\'for the attribute " + {0}Constants.{1} + " on the 'input' element.")'''.format(self.package, member_name))
             temp_implementation.append('throw new SBMLException("Could not recognized '
                                        'the value \'" +\
                                         value + "\' for the attribute " + \
@@ -782,18 +548,10 @@ class ParserFunctions():
 
         code = []
 
-
-
-
         implementation = ['logger.isDebugEnabled()',
                           '      logger.debug("getListOfSBMLElementsToWrite: " + sbase.getClass().getCanonicalName())']
         line = self.create_code_block('if', implementation)
         code.append(line)
-        # print('wahaha ', self.class_name)
-        # print('len ', len(self.attributes))
-
-        # line = self.create_code_block('empty_line', '')
-        # code.append(line)
 
         implementation = [' List<Object> listOfElementsToWrite = new ArrayList<Object>()']
         line = self.create_code_block('line', implementation)
@@ -810,97 +568,13 @@ class ParserFunctions():
             package_name = '{0}'.format(plugin['package'])
             lower_sbase = plugin['sbase']
             upper_sbase = strFunctions.upper_first(plugin['sbase'])
-            temp = '{0} {1}Plugin = ({0}) (({2}) sbase).getExtension({3}Constants.namespaceURI)'.format(\
+            temp = '{0} {1}Plugin = ({0}) (({2}) sbase).getExtension({3}Constants.namespaceURI)'.format( \
                 package_name, lower_sbase, upper_sbase, upper_original_name)
             implementation.append(temp)
-            code.append(self.create_code_block('if',implementation))
+            code.append(self.create_code_block('if', implementation))
 
-
-        # # TODO here is the bug what to do?
-        # implementation_else_if = []
-        # # each atribute has id and name, which are not a must for jsbml
-        # if len(self.attributes) > 2:
-        #     # if zone stuff
-        #     implementation = ['!isAttributeRead']
-        #
-        #     implement_inside = ['isAttributeRead = true']
-        #     line = self.create_code_block('line', implement_inside)
-        #     implementation.append(line)
-        #
-        #     for i in range(0, len(self.attributes)):
-        #         # print('i is ',i)s
-        #         attribute = self.attributes[i]
-        #         if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-        #             continue
-        #         else:  # Here lies a bug
-        #             temp_code = self.create_read_attribute_else_if(i)
-        #             implementation_else_if += temp_code
-        #             # else_if_index = i
-        #             # break
-        #             # code.append(temp_code[-1])
-        #
-        #     temp_code = self.create_read_attribute_else()
-        #     implementation_else_if += temp_code
-        #
-        #     if len(implementation_else_if) == 4:
-        #         temp_code = self.create_code_block('if_else', implementation_else_if)
-        #     else:
-        #         temp_code = self.create_code_block('else_if', implementation_else_if)
-        #
-        #     implementation.append(temp_code)
-        #     code.append(self.create_code_block('if', implementation))
-        #
-        #
-        #     # else:
-        #     #     temp = ['return isAttributeRead']
-        #     #     code.append(self.create_code_block('line', temp))
-        #
-        #     # print('yahoo ',implementation_else_if)
-        #
-        #     # try:
-        #     #     if len(self.attributes) > 1:
-        #     #         temp_code = self.create_read_attribute_else()
-        #     #         implementation_else_if += temp_code
-        #     #
-        #     #         temp_code = self.create_code_block('else_if', implementation_else_if)
-        #     #         implementation.append(temp_code)
-        #     #         code.append(self.create_code_block('if', implementation))
-        #     # except:
-        #     #     pass
-        #     # temp_code = self.create_code_block('else_if', implementation_else_if)
-        #     # implementation.append(temp_code)
-        #     # code.append(self.create_code_block('if', implementation))
-        # #         #code.append(temp_code)
-        # #         implementation.append(temp_code)
-        # #     # implementation.append('')
-        # #         code.append(self.create_code_block('if', implementation))
-        # # except Exception as e:
-        # #     print('Yolo test ', e)
-        #
-        #
         temp = ['return listOfElementsToWrite']
         code.append(self.create_code_block('line', temp))
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -967,11 +641,8 @@ class ParserFunctions():
             lower_sbase = strFunctions.lower_first(plugin['sbase'])
             upper_sbase = strFunctions.upper_first(plugin['sbase'])
 
-
-
             temp = 'return new {0}(({1}) sbase)'.format(package_name, upper_sbase)
             implementation_temp.append(temp)
-
 
             implementation.append(self.create_code_block('if', implementation_temp))
 
@@ -1050,13 +721,11 @@ class ParserFunctions():
 
         code = []
 
-
         temp = ['This package does not extend ASTNode']
         code.append(self.create_code_block('comment', temp))
 
         temp = ['return null']
         code.append(self.create_code_block('line', temp))
-
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1070,8 +739,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
-
-
 
     def write_process_attribute(self):
         # do not write for C API
@@ -1095,19 +762,16 @@ class ParserFunctions():
         return_type = 'void'
         arguments = ['String elementName', 'String attributeName',
                      'String value', 'String uri', 'String prefix',
-                     'boolean isLastAttribute',  'Object contextObject']  # , 'String prefix', 'String value']
-        arguments_no_defaults =  ['String elementName', 'String attributeName',
-                                  'String value', 'String uri', 'String prefix',
-                                  'boolean isLastAttribute',  'Object contextObject']
+                     'boolean isLastAttribute', 'Object contextObject']  # , 'String prefix', 'String value']
+        arguments_no_defaults = ['String elementName', 'String attributeName',
+                                 'String value', 'String uri', 'String prefix',
+                                 'boolean isLastAttribute', 'Object contextObject']
 
         # create the function implementation
         args = []  # ['&rhs != this'] + self.write_assignment_args(self)
         clone = 'clone'
 
         code = [self.create_code_block('empty_line')]
-
-
-
 
         implementation = ['logger.debug("processAttribute -> " + prefix + ":" + attributeName \
         + " = " + value + " (" + contextObject.getClass().getName() + ")")']
@@ -1134,16 +798,11 @@ class ParserFunctions():
             lower_sbase = strFunctions.lower_first(plugin['sbase'])
             upper_sbase = strFunctions.upper_first(plugin['sbase'])
 
-
-
-
-
             temp = '{0} {1} = ({0}) contextObject'.format(upper_sbase, lower_sbase)
             implementation.append(temp)
 
-
-            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format(\
-                package_name, lower_original_name, upper_sbase,lower_sbase, upper_original_name)
+            temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
+                package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
             implementation.append(temp)
 
             temp = 'contextObject = {0}{1}'.format(lower_original_name, upper_sbase)
@@ -1152,7 +811,8 @@ class ParserFunctions():
             code.append(self.create_code_block('if', implementation))
 
         code.append(self.create_code_block('empty_line'))
-        temp = ['super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
+        temp = [
+            'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
         code.append(self.create_code_block('line', temp))
 
         # for i in range(0, len(self.child_elements)):
@@ -1194,7 +854,6 @@ class ParserFunctions():
         if len(self.lo_elements) < 1:
             return
 
-
         if self.is_java_api is False:
             return
         # create doc string header
@@ -1217,7 +876,6 @@ class ParserFunctions():
                      'boolean isNested', 'Object contextObject']
         arguments_no_defaults = ['String elementName', 'String prefix',
                                  'boolean isNested', 'Object contextObject']
-
 
         # create the function implementation
         args = []  # ['&rhs != this'] + self.write_assignment_args(self)
@@ -1311,7 +969,6 @@ class ParserFunctions():
             code.append(self.create_code_block('if', implementation))
             code.append(self.create_code_block('empty_line'))
 
-
         temp = ['return true']
         code.append(self.create_code_block('line', temp))
 
@@ -1372,9 +1029,8 @@ class ParserFunctions():
 
         arguments = ['String elementName', 'String uri', 'String prefix',
                      'boolean hasAttributes', 'boolean hasNamespaces', 'Object contextObject']
-        arguments_no_defaults =['String elementName', 'String uri', 'String prefix',
-                                'boolean hasAttributes', 'boolean hasNamespaces', 'Object contextObject']
-
+        arguments_no_defaults = ['String elementName', 'String uri', 'String prefix',
+                                 'boolean hasAttributes', 'boolean hasNamespaces', 'Object contextObject']
 
         # create the function implementation
         args = []  # ['&rhs != this'] + self.write_assignment_args(self)
@@ -1383,27 +1039,15 @@ class ParserFunctions():
         code = [self.create_code_block('empty_line')]
         plugins = self.expanded_package['plugins']
 
-
         code = [self.create_code_block('empty_line')]
         plugins = self.expanded_package['plugins']
 
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
 
-
-
-
-        # implementation = []
-        # implementation.append('logger.isDebugEnabled()')
-        # implementation.append('logger.debug("{0}Parser: writeElement")'.format(upper_original_name))
-        #
-        # code.append(self.create_code_block('if', implementation))
-
-
         code.append(self.create_code_block('empty_line'))
 
-
-        # TODO level1, good example for else_if statements, still problematic
+        # TODO level1, good example for else_if statement
         nested_if_level1 = []
 
         plugin_length = len(plugins)
@@ -1413,7 +1057,6 @@ class ParserFunctions():
                     nested_if_level1.append('else if')
             except Exception as e:
                 print('Error is  ', e)
-
 
             temp = 'contextObject  instanceof {0}'.format(plugins[plugin_index]['sbase'])
             nested_if_level1.append(temp)
@@ -1428,20 +1071,15 @@ class ParserFunctions():
             temp = '{0} {1}{2} = ({0}) {3}.getPlugin({4}Constants.shortLabel)'.format( \
                 package_name, lower_original_name, upper_sbase, lower_sbase, upper_original_name)
 
-
             nested_if_level1.append(temp)
 
             nested_if_level1.append(self.create_code_block('empty_line'))
 
-
-
             # # # TODO level2
-            #
-            #
             lo_extensions = plugins[plugin_index]['lo_extension']
             #
             # Check if plugin has lo_children
-            if len(lo_extensions) >0:
+            if len(lo_extensions) > 0:
                 nested_if_level2 = []
                 for list_of_index in range(0, len(lo_extensions)):
                     temp_impl = []
@@ -1472,10 +1110,9 @@ class ParserFunctions():
 
                         temp3 = 'return {0}'.format(list_of_name)
                         temp_impl.append(temp3)
-                        #This part was giving a problem
+                        # This part was giving a problem
 
                         nested_if_level2 += temp_impl
-
 
                 # Level 2 End
                 # if else if in nested_level2 than create else_if block
@@ -1486,7 +1123,6 @@ class ParserFunctions():
                 # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
                 nested_if_level1.append(self.create_code_block('empty_line'))
 
-
             # # TODO level 1 continuation
             # Write parent lo_element for the plugin
             for data in self.data_to_write:
@@ -1495,7 +1131,6 @@ class ParserFunctions():
                         nested_if_level1.append('else if')
                         temp = 'contextObject instanceof {0}'.format(data['parent'])
                         nested_if_level1.append(temp)
-
 
                         object_name = strFunctions.lower_first(data['parent'])
                         temp = '{0} {1} = ({0}) contextObject'.format(data['parent'],
@@ -1506,7 +1141,7 @@ class ParserFunctions():
                         actual_list_of_data = data['data']
                         temp_impl = []
 
-                        # # # TODO level2
+                        # # # TODO level2 inside of level 1
                         #
                         # #
                         # Check if plugin has lo_children
@@ -1517,7 +1152,8 @@ class ParserFunctions():
                                     if list_of_index > 0 and list_of_index < len(actual_list_of_data):
                                         nested_if_level2.append('else if')
 
-                                    list_of_name = strFunctions.lower_first(actual_list_of_data[list_of_index]['listName'])
+                                    list_of_name = strFunctions.lower_first(
+                                        actual_list_of_data[list_of_index]['listName'])
                                     type = actual_list_of_data[list_of_index]['type']
                                     # temp_impl.append('else if')
 
@@ -1527,9 +1163,9 @@ class ParserFunctions():
                                     nested_if_level2.append(self.create_code_block('empty_line'))
 
                                     temp1 = 'ListOf<{0}> {1} = {2}.get{3}()'.format(type, list_of_name,
-                                                                                       object_name,
-                                                                                       strFunctions.upper_first(
-                                                                                           list_of_name))
+                                                                                    object_name,
+                                                                                    strFunctions.upper_first(
+                                                                                        list_of_name))
 
                                     nested_if_level2.append(temp1)
 
@@ -1549,9 +1185,7 @@ class ParserFunctions():
                             # nested_if_level4.append(self.create_code_block('else_if', nested_if_level5))
                             nested_if_level1.append(self.create_code_block('empty_line'))
 
-
-
-        #Continue level1 nested_if for ListOf<?>
+        # Continue level1 nested_if for ListOf<?>
         nested_if_level1.append('else if')
         temp = 'contextObject instanceof ListOf<?>'
         nested_if_level1.append(temp)
@@ -1560,26 +1194,20 @@ class ParserFunctions():
         nested_if_level1.append(temp)
         nested_if_level1.append(self.create_code_block('empty_line'))
 
-
-
-        # # TODO here is a problem
         nested_if_level2 = []
-        #Write plugin return list_of elements
+        # Write plugin return list_of elements
         for plugin_index in range(0, len(plugins)):
-            # if plugin_index > 0 and plugin_index < len(plugins):
-            #     nested_if_level2.append('else if')
 
-            #If plugin is not of type Model break
+            # If plugin is not of type Model break
             if 'Model' not in plugins[plugin_index]['name']:
                 break
 
             plugin_name = plugins[plugin_index]['name']
             plugin_attribs = plugins[plugin_index]['attribs']
-            #In some cases attribs has more than of type lo_elements
+            # In some cases attribs has more than of type lo_elements
             add_else_index = 0
 
             for plugin_attribs_index in range(0, len(plugin_attribs)):
-
 
                 if plugin_attribs[plugin_attribs_index]['type'] == 'lo_element':
                     try:
@@ -1587,7 +1215,6 @@ class ParserFunctions():
                             nested_if_level2.append('else if')
                     except Exception as e:
                         break
-
 
                     name = strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element'])
                     list_of_name = strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['name'])
@@ -1601,27 +1228,26 @@ class ParserFunctions():
                     temp = ' Model model = (Model) listOf.getParentSBMLObject()'
                     nested_if_level2.append(temp)
                     temp = '{0} extendedModel = ({0}) model.getExtension\
-                            ({1}Constants.shortLabel)'.format(plugin_name,upper_original_name)
+                            ({1}Constants.shortLabel)'.format(plugin_name, upper_original_name)
                     nested_if_level2.append(temp)
                     nested_if_level2.append(self.create_code_block('empty_line'))
 
-
                     temp = '{0} {1} = new {0}()'.format(plugin_attribs[plugin_attribs_index]['element'],
-                                            strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
+                                                        strFunctions.lower_first(
+                                                            plugin_attribs[plugin_attribs_index]['element']))
                     nested_if_level2.append(temp)
 
                     # TODO  change this part in Plugin generator so it's not plural
                     add_method_name = plugin_attribs[plugin_attribs_index]['element']
                     temp = 'extendedModel.add{0}({1})'.format(add_method_name,
-                                            strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
+                                                              strFunctions.lower_first(
+                                                                  plugin_attribs[plugin_attribs_index]['element']))
                     nested_if_level2.append(temp)
                     nested_if_level2.append(self.create_code_block('empty_line'))
 
-                    temp = 'return {0}'.format(strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
+                    temp = 'return {0}'.format(
+                        strFunctions.lower_first(plugin_attribs[plugin_attribs_index]['element']))
                     nested_if_level2.append(temp)
-
-
-
 
                     # # #TODO continue level2 write parent child
                     # # #Write parent lo_element for the plugin parent lo_element
@@ -1639,26 +1265,25 @@ class ParserFunctions():
                                         list_of_name = strFunctions.lower_first(
                                             actual_list_of_data[list_of_index]['listName'])
                                         type = actual_list_of_data[list_of_index]['type']
-                                        lower_name = strFunctions.lower_first(actual_list_of_data[list_of_index]['type'])
+                                        lower_name = strFunctions.lower_first(
+                                            actual_list_of_data[list_of_index]['type'])
                                         name = actual_list_of_data[list_of_index]['type']
                                         parent_name = data['parent']
                                         lower_parent_name = strFunctions.lower_first(data['parent'])
 
-                                        temp1 = 'elementName.equals({0}Constants.{1})'.format(upper_original_name, lower_name)
+                                        temp1 = 'elementName.equals({0}Constants.{1})'.format(upper_original_name,
+                                                                                              lower_name)
                                         temp2 = ' && '
                                         temp3 = 'groupList.equals({0}List.{1})'.format(upper_original_name,
                                                                                        list_of_name)
                                         temp_final = temp1 + temp2 + temp3
                                         nested_if_level2.append(temp_final)
 
-
                                         temp = '{0} {1} = ({0}) listOf.getParentSBMLObject()'.format(parent_name,
                                                                                                      lower_parent_name)
                                         nested_if_level2.append(temp)
 
                                         nested_if_level2.append(self.create_code_block('empty_line'))
-
-
 
                                         temp = '{0} {1} = new {0}()'.format(name, lower_name)
                                         nested_if_level2.append(temp)
@@ -1686,28 +1311,17 @@ class ParserFunctions():
             nested_if_level1.append(self.create_code_block('if', nested_if_level2))
         nested_if_level1.append(self.create_code_block('empty_line'))
 
-
-
         # if else if in nested list then create else_if block
         if 'else if' in nested_if_level1:
             code.append(self.create_code_block('else_if', nested_if_level1))
         else:
             code.append(self.create_code_block('if', nested_if_level1))
 
-
         code.append(self.create_code_block('empty_line'))
-
-
-
-
-
-
 
         # Write last return statement
         temp = ['return contextObject']
         code.append(self.create_code_block('line', temp))
-
-
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1757,7 +1371,6 @@ class ParserFunctions():
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
         lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
 
-
         implementation = []
         implementation.append('logger.isDebugEnabled()')
         implementation.append('logger.debug("{0}Parser: writeElement")'.format(upper_original_name))
@@ -1765,41 +1378,36 @@ class ParserFunctions():
         code.append(self.create_code_block('if', implementation))
         code.append(self.create_code_block('empty_line'))
 
-
-
-
-        #Start of level 1
+        # Start of level 1
         implementation = []
         implementation.append('sbmlElementToWrite instanceof SBase')
         implementation.append('SBase sbase = (SBase) sbmlElementToWrite')
         implementation.append(self.create_code_block('empty_line'))
 
-
-        #Level 2
+        # Level 2
         nested_if_level2 = []
         nested_if_level2.append('!xmlObject.isSetName()')
         nested_if_level2.append(self.create_code_block('empty_line'))
         # nested_if_level2.append('SBase sbase = (SBase) sbmlElementToWrite')
 
-        #Level 3
+        # Level 3
         nested_if_level3 = []
         nested_if_level3.append('sbase instanceof ListOf<?>')
         nested_if_level3.append('ListOf<?> listOf = (ListOf<?>) sbase')
         nested_if_level3.append(self.create_code_block('empty_line'))
 
-
-        # # TODO level4?
+        # Level4
         nested_if_level4 = []
         nested_if_level4.append('listOf.size() > 0')
         nested_if_level4.append(self.create_code_block('empty_line'))
         #
-        # TODO level5
+        # Level5
         if len(self.lo_elements) > 0:
             nested_if_level5 = []
 
             # Add lo_element for xmlObject
-            for lo_element_index in range(0,len(self.lo_elements)):
-                if lo_element_index>0 and lo_element_index < len(self.lo_elements):
+            for lo_element_index in range(0, len(self.lo_elements)):
+                if lo_element_index > 0 and lo_element_index < len(self.lo_elements):
                     nested_if_level5.append('else if')
 
                 name = self.lo_elements[lo_element_index]['name']
@@ -1807,7 +1415,6 @@ class ParserFunctions():
                 # In some cases doesn't work
                 # list_of_name = strFunctions.lower_first(self.lo_elements[lo_element_index]['listOfClassName'])
                 list_of_name = 'listOf' + strFunctions.plural(self.lo_elements[lo_element_index]['name'])
-
 
                 nested_if_level5.append('listOf.get(0) instanceof {0}'.format(name))
                 nested_if_level5.append('xmlObject.setName({0}List.{1}.toString())'.format(upper_original_name,
@@ -1830,11 +1437,9 @@ class ParserFunctions():
         nested_if_level3.append('xmlObject.setName(sbase.getElementName())')
         nested_if_level3.append(self.create_code_block('empty_line'))
 
-
-        #Level 2 End
+        # Level 2 End
         # nested_if_level2.append(self.create_code_block('empty_line'))
         nested_if_level2.append(self.create_code_block('if_else', nested_if_level3))
-
 
         # End of level 1
         implementation.append(self.create_code_block('empty_line'))
@@ -1843,7 +1448,6 @@ class ParserFunctions():
 
         code.append(self.create_code_block('if', implementation))
         code.append(self.create_code_block('empty_line'))
-
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -1857,9 +1461,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'args_no_defaults': arguments_no_defaults,
                      'implementation': code})
-
-
-
 
     def write_get_prefix(self):
         # do not write for C API
@@ -1911,8 +1512,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
-
 
     def write_get_parent(self):
         # do not write for C API
@@ -2015,23 +1614,6 @@ class ParserFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     # This look like it is not required
     def expand_methods_to_write(self):
         for class_name in self.jsbml_methods:
@@ -2042,13 +1624,12 @@ class ParserFunctions():
                     if function_name not in self.methods_to_write:
                         self.methods_to_write.append(function_name)
 
-        # print('self write ', self.methods_to_write)
-
+                        # print('self write ', self.methods_to_write)
 
     ########################################################################
 
 
-    #Function for writing get_child_at
+    # Function for writing get_child_at
     def create_nested_if_for_get_child_at(self, lo_element):
         name = lo_element['name']
         cap_name = lo_element['capAttName']
@@ -2104,7 +1685,6 @@ class ParserFunctions():
             temp_code = self.create_code_block('if', implementation)
         return temp_code
 
-
     def obtain_interface_abstract_methods(self):
         self.abstract_methods_to_write = []
         for interface_name in self.abstract_jsbml_methods:
@@ -2116,9 +1696,6 @@ class ParserFunctions():
         except:
             return_val = 0
         return return_val
-
-
-
 
     def write_interface_abstract_methods(self, index):
         if self.is_java_api is False:
@@ -2191,7 +1768,6 @@ class ParserFunctions():
 
         implementation = []
 
-
         temp = ['return null']
         code.append(self.create_code_block('line', temp))
 
@@ -2207,8 +1783,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
-
 
     def write_get_child_at(self):
         if len(self.child_lo_elements) == 0:
@@ -2239,19 +1813,16 @@ class ParserFunctions():
         code = []
         clone = 'clone'
 
-
         implementation = []
         implementation.append('index < 0')
-        implementation.append('throw new IndexOutOfBoundsException(MessageFormat.format('\
+        implementation.append('throw new IndexOutOfBoundsException(MessageFormat.format(' \
                               'resourceBundle.getString("IndexSurpassesBoundsException"), index, 0))')
         code.append(self.create_code_block('if', implementation))
-
 
         implementation = []
         if self.is_plugin is False:
             implementation.append('int count = super.getChildCount(), pos = 0')
             code.append(self.create_code_block('line', implementation))
-
 
             implementation = ['index < count']
             implementation.append('return super.getChildAt(index)')
@@ -2281,7 +1852,7 @@ class ParserFunctions():
         # temp = ['return hashCode']
         # code.append(self.create_code_block('line', temp))
 
-        implementation= ['throw new IndexOutOfBoundsException(MessageFormat.format(\
+        implementation = ['throw new IndexOutOfBoundsException(MessageFormat.format(\
                         resourceBundle.getString("IndexExceedsBoundsException"),\
                          index, Math.min(pos, 0)))']
 
@@ -2305,7 +1876,7 @@ class ParserFunctions():
 
     # Function for writing getChildCount
 
-    def create_if_for_get_child_count(self, lo_element, type = 'element'):
+    def create_if_for_get_child_count(self, lo_element, type='element'):
         name = lo_element['name']
         cap_name = lo_element['capAttName']
         implementation = []
@@ -2318,10 +1889,8 @@ class ParserFunctions():
             implementation.append('isSet{0}()'.format(cap_name))
         implementation.append('count++')
 
-
         temp_code = self.create_code_block('if', implementation)
         return temp_code
-
 
     def write_get_child_count_special(self):
         function = 'getChildCount'
@@ -2345,7 +1914,6 @@ class ParserFunctions():
 
         implementation = []
 
-
         temp = ['return 0']
         code.append(self.create_code_block('line', temp))
 
@@ -2361,9 +1929,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
-
-
 
     def write_get_child_count(self):
         if len(self.child_lo_elements) == 0:
@@ -2394,8 +1959,6 @@ class ParserFunctions():
         code = []
         clone = 'clone'
 
-
-
         implementation = []
 
         if self.is_plugin is True:
@@ -2404,9 +1967,6 @@ class ParserFunctions():
         else:
             implementation.append('int count = super.getChildCount()')
             code.append(self.create_code_block('line', implementation))
-
-
-
 
         # additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
         #     self.jsbml_methods,
@@ -2449,10 +2009,6 @@ class ParserFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-
-
-
-
     ########################################################################
 
     def write_get_allows_children_special(self):
@@ -2477,7 +2033,6 @@ class ParserFunctions():
 
         implementation = []
 
-
         temp = ['return false']
         code.append(self.create_code_block('line', temp))
 
@@ -2493,7 +2048,6 @@ class ParserFunctions():
                      'object_name': self.object_name,
                      'implementation': code,
                      'constructor_args': constructor_args})
-
 
     # function for writing get allows children
     def write_get_allows_children(self):
@@ -2525,7 +2079,6 @@ class ParserFunctions():
         code = []
         clone = 'clone'
 
-
         if self.has_children == True:
             code_to_add = 'true'
         else:
@@ -2547,191 +2100,14 @@ class ParserFunctions():
                      'implementation': code,
                      'constructor_args': constructor_args})
 
-
-
     ########################################################################
-
-
-
-
-
-    # Functions for writing renamesidref
-    # not StringBuilderApproach
-    # def  create_to_string(self):
-    #
-    #     text = ''
-    #     if len(self.attributes) >= 1:
-    #         for index in range(0, len(self.attributes)):
-    #             # print('i is ',i)s
-    #             attribute = self.attributes[index]
-    #             name = self.attributes[index]['capAttName']
-    #             member_name = self.attributes[index]['name']
-    #             type = self.attributes[index]['type']
-    #             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-    #                 continue
-    #             else:
-    #                 # Stop generating for math elements
-    #                 if index == len(self.attributes)-1 and len(self.child_elements) == 0\
-    #                         and len(self.child_lo_elements) == 0:
-    #                     text += '{0} = " + {1} '.format(member_name, member_name)
-    #                 else:
-    #                     text += '{0} = " + {1} + ", '.format(member_name, member_name)
-    #                 # else_if_index = i
-    #                 # break
-    #                 # code.append(temp_code[-1])
-    #
-    #
-    #     if len(self.child_elements) >= 1:
-    #         for index in range(0, len(self.child_elements)):
-    #             # print('i is ',i)s
-    #             attribute = self.child_elements[index]
-    #             name = self.child_elements[index]['capAttName']
-    #             member_name = self.child_elements[index]['name']
-    #             type = self.child_elements[index]['type']
-    #             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-    #                 continue
-    #             else:
-    #                 # Stop generating for math elements
-    #                 if index == len(self.child_elements)-1 and len(self.child_lo_elements) == 0:
-    #                     text += '{0} = " + {1}'.format(member_name, member_name)
-    #                 else:
-    #                     text += '{0} = " + {1} + ", '.format(member_name, member_name)
-    #
-    #                 # else_if_index = i
-    #                 # break
-    #                 # code.append(temp_code[-1])
-    #
-    #     if len(self.child_lo_elements) >= 1:
-    #         for index in range(0, len(self.child_lo_elements)):
-    #             # print('i is ',i)s
-    #             attribute = self.child_lo_elements[index]
-    #             name = self.child_lo_elements[index]['capAttName']
-    #             member_name = self.child_lo_elements[index]['name']
-    #             jsbml_name = self.child_lo_elements[index]['jsbmlName']
-    #             type = self.child_lo_elements[index]['type']
-    #             if attribute['capAttName'] == 'Id' or attribute['capAttName'] == 'Name':
-    #                 continue
-    #             else:
-    #                 # Stop generating for math elements
-    #                 if index == len(self.child_lo_elements)-1 :
-    #                     text += '{0} = " + {1}'.format(jsbml_name, jsbml_name)
-    #                 else:
-    #                     text += '{0} = " + {1} + ", '.format(jsbml_name, jsbml_name)
-    #                 # else_if_index = i
-    #                 # break
-    #                 # code.append(temp_code[-1])
-    #
-    #     return text
-    #
-    #
-    #
-    # def write_to_string(self):
-    #     # do not write for C API
-    #     if self.is_java_api is False:
-    #         return
-    #
-    #     # Check if method is required
-    #     function = 'toString'
-    #     if function not in self.methods_to_write:
-    #         return
-    #
-    #
-    #     # create doc string header
-    #     title_line = '(non-Javadoc)--see java.lang.Object#toString()'.format(self.object_name)
-    #     params = ['@param rhs the {0} object whose values are to be used '
-    #               'as the basis of the assignment.'.format(self.object_name)]
-    #     return_lines = []
-    #     additional = []
-    #     additional.append('Override')
-    #
-    #     return_type = 'String'
-    #     arguments = ['']  # , 'String prefix', 'String value']
-    #     arguments_no_defaults = ['']
-    #     # create the function implementation
-    #     args = []  # ['&rhs != this'] + self.write_assignment_args(self)
-    #     clone = 'clone'
-    #
-    #     code = []
-    #
-    #     additional_add, class_key, function_args = jsbmlHelperFunctions.determine_override_or_deprecated(
-    #         self.jsbml_methods,
-    #         function=function,
-    #         return_type=return_type)
-    #
-    #     if additional_add is not None:
-    #         additional.append(additional_add)
-    #         title_line = jsbmlHelperFunctions.get_javadoc_comments_and_state(additional_add, class_key,
-    #                                                                          function, function_args)
-    #
-    #
-    #     text = 'return "{0} ['.format(self.class_name)
-    #
-    #     text_rest = self.create_to_string()
-    #
-    #     # TODO here are the biggest problems
-    #     #For math element
-    #     try:
-    #         import_module = self.import_modules[0]
-    #     except:
-    #         import_module = None
-    #
-    #     if import_module in self.jsbml_data_tree:
-    #         if 'id' in self.jsbml_data_tree[import_module]['ignore'] or \
-    #                         'name' in self.jsbml_data_tree[import_module]['ignore']:
-    #             text += text_rest
-    #             text += '+ "isSetMath = " + isSetMath() + "]"'
-    #         else:
-    #             text += text_rest
-    #             result = jsbmlHelperFunctions.detect_ast_or_xml(self.child_elements)
-    #             if result == False:
-    #                 text += '+ "id = " + getId() + ", name = " + getName() + "]"'
-    #             else:
-    #                 text += '"]"'
-    #
-    #     temp = [text]
-    #     code.append(self.create_code_block('line', temp))
-    #
-    #     # for i in range(0, len(self.child_elements)):
-    #     #     element = self.child_elements[i]
-    #     #     member = element['memberName']
-    #     #     args += ['delete {0}'.format(member)]
-    #     #     if element['element'] == 'ASTNode':
-    #     #         clone = 'deepCopy'
-    #     #     implementation = ['rhs.{0} != NULL'.format(member),
-    #     #                       '{0} = rhs.{0}->{1}()'.format(member,
-    #     #                                                     clone),
-    #     #                       'else', '{0} = NULL'.format(member)]
-    #     #     args += [self.create_code_block('if_else', implementation)]
-    #     # implementation = args
-    #     # if self.has_children:
-    #     #     implementation.append('connectToChild()')
-    #     # if self.document:
-    #     #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-    #     #
-    #     # implementation2 = ['return *this']
-    #     # code = [dict({'code_type': 'if', 'code': implementation}),
-    #     #         dict({'code_type': 'line', 'code': implementation2})]
-    #
-    #     return dict({'title_line': title_line,
-    #                  'params': params,
-    #                  'return_lines': return_lines,
-    #                  'additional': additional,
-    #                  'function': function,
-    #                  'return_type': return_type,
-    #                  'arguments': arguments,
-    #                  'constant': False,
-    #                  'virtual': False,
-    #                  'object_name': self.object_name,
-    #                  'args_no_defaults': arguments_no_defaults,
-    #                  'implementation': code})
-
 
     # function to write rename_sid_ref
     def write_rename_sidrefs(self):
         # only write is not list of and has sidrefs
         if not self.status == 'cpp_not_list':
             return
-        elif len(self.sid_refs) == 0 and len(self.unit_sid_refs) == 0\
+        elif len(self.sid_refs) == 0 and len(self.unit_sid_refs) == 0 \
                 and not self.has_math:
             return
 
@@ -2793,8 +2169,8 @@ class ParserFunctions():
             name = self.element_name
         else:
             name = strFunctions.lower_first(self.object_name)
-        title_line = 'Returns the XML element name of this {0} object.'\
-            .format(self.object_name,)
+        title_line = 'Returns the XML element name of this {0} object.' \
+            .format(self.object_name, )
         params = ['For {0}, the XML element name is always @c '
                   '\"{1}\".'.format(self.object_name, name)]
         return_lines = ['@return the name of this element, i.e. @c \"{0}\"'
@@ -2832,7 +2208,7 @@ class ParserFunctions():
             return
 
         # create comment
-        title_line = 'Returns the lib{0} type code for this {1} object.'\
+        title_line = 'Returns the lib{0} type code for this {1} object.' \
             .format(self.cap_language, self.object_name)
         params = ['@copydetails doc_what_are_typecodes']
         return_lines = ['@return the {0} type code for this '
@@ -2938,7 +2314,7 @@ class ParserFunctions():
 
         # create comment parts
         title_line = 'Predicate returning {0} if all the required ' \
-                     'attributes for this {1} object have been set.'\
+                     'attributes for this {1} object have been set.' \
             .format(self.true, self.object_name)
         params = []
         if not self.is_java_api:
@@ -3014,7 +2390,7 @@ class ParserFunctions():
 
         # create comment parts
         title_line = 'Predicate returning {0} if all the required ' \
-                     'elements for this {1} object have been set.'\
+                     'elements for this {1} object have been set.' \
             .format(self.true, self.object_name)
         params = []
         if not self.is_java_api:
@@ -3103,7 +2479,7 @@ class ParserFunctions():
     # function to write writeElement
     def write_write_elements(self):
         if not self.status == 'cpp_not_list':
-            if not(self.status == 'cpp_list' and len(self.child_elements) > 0):
+            if not (self.status == 'cpp_list' and len(self.child_elements) > 0):
                 return
         elif self.is_doc_plugin:
             return
@@ -3570,8 +2946,8 @@ class ParserFunctions():
         if not self.overwrites_children:
             return
         # create comment parts
-        title_line = 'Sets the XML name of this {0} object.'\
-            .format(self.object_name,)
+        title_line = 'Sets the XML name of this {0} object.' \
+            .format(self.object_name, )
         params = []
         return_lines = []
         additional = []
@@ -3610,6 +2986,6 @@ class ParserFunctions():
 
 
     @staticmethod
-    def create_code_block(code_type, lines = ''):
+    def create_code_block(code_type, lines=''):
         code = dict({'code_type': code_type, 'code': lines})
         return code
