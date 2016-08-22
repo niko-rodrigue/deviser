@@ -47,7 +47,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
     def __init__(self, enum_package, original_package, custom_file=None):
 
         self.up_enum_package = strFunctions.upper_first(enum_package['name'])
-        # self.name = enum_package['name']
 
         # Get enums data
         self.enums_data = enum_package['values']
@@ -57,8 +56,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         if self.custom_file is None:
             self.filename = '{0}'.format(self.up_enum_package)
             self.name = '{0}'.format(self.up_enum_package)
-        # else:
-        #     self.name = '{0}Extension'.format(self.up_enum_package)
 
         self.brief_description = \
             'Implementation  of {0} Enum.'.format(self.name)
@@ -121,7 +118,6 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
         # TODO for writing imports
 
     def write_java_imports(self):
-        # TODO mockup function
         self.skip_line()
         java_modules = self.jsbml_class_header_and_import['javaModules']
         if len(java_modules) > 0:
@@ -137,20 +133,15 @@ class JavaEnumCodeFile(BaseJavaFile.BaseJavaFile):
                 self.write_jsbml_line_verbatim(jsbmlModuleLine)
             self.skip_line()
 
-    # TODO need to add import
     def write_file(self):
         BaseJavaFile.BaseJavaFile.write_file(self)
         self.write_package_include()
         # self.write_java_imports()
-        # self.write_general_includes()
         BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
         self.write_enum_header()
         self.write_jsbml_enums()
         self.close_enum_header()
-        # self.write_cpp_end()
-        # if not self.is_plugin:
-        #     self.write_c_code()
-        # self.write_cppns_end()
+
 
     def write_jsbml_list_enums(self):
         self.up_indent()

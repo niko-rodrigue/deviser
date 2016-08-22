@@ -652,10 +652,7 @@ class GeneralFunctions():
         title_line = '(non-Javadoc)--@see java.lang.Object#hashCode()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
+        additional = ['Override']
 
         return_type = 'int'
         arguments = []
@@ -738,7 +735,6 @@ class GeneralFunctions():
             temp_implementation.append('set{0}({1}.valueOf(value))'.format(name, java_type))
             temp_implementation.append('catch')
             temp_implementation.append('Exception e')
-            # temp_implementation.append('''throw new SBMLException("Could not recognized the value\'" + value + "\'for the attribute " + {0}Constants.{1} + " on the 'input' element.")'''.format(self.package, member_name))
             temp_implementation.append('throw new SBMLException("Could not recognized '
                                        'the value \'" +\
                                         value + "\' for the attribute " + \
@@ -849,6 +845,8 @@ class GeneralFunctions():
                 temp_code = self.create_code_block('empty_line')
 
             implementation.append(temp_code)
+
+            # This is for fixing '}   }'
             implementation.append(self.create_code_block('empty_line'))
             code.append(self.create_code_block('if', implementation))
 
@@ -974,8 +972,6 @@ class GeneralFunctions():
         code.append(line)
         # print('wahaha ', self.class_name)
         # print('len ', len(self.attributes))
-
-
 
         # TODO here is the bug what to do?
         implementation_else_if = []
@@ -1181,7 +1177,7 @@ class GeneralFunctions():
                      'implementation': code})
 
     ############################################################################
-    # TODO JSBML PLUGIN FUNCTION
+    # TODO JSBML PLUGIN FUNCTIONS
 
     def write_get_package_name(self):
         # do not write for C API

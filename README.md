@@ -4,7 +4,7 @@
 ## Google Summer of Code 2016
 
 
-*Fork Author*:      [Hovakim Grabski](https://github.com/hovo1990),
+*Fork Author*:      [Hovakim Grabski](https://github.com/hovo1990)
 
 *Fork Repository*:   [https://github.com/hovo1990/deviser](https://github.com/hovo1990/deviser)
 
@@ -19,7 +19,7 @@ The current fork extends Deviser's code generator to produce Java code that can 
 
 ## Using Deviser for Java Code Generation ##
 
-There is command line version of the function that can be used to invoke the deviser functionality on the XML file. This is the deviser.py file found in the generator directory.
+There is command line version of the function that can be used to invoke the deviser functionality for generating Java/JSBML code from the XML file. This is the deviser.py file found in the generator directory.
 
     deviser.py [--generatejsbml][--latex] input-file.xml  
 

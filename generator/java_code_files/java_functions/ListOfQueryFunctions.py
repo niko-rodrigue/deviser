@@ -297,8 +297,7 @@ class ListOfQueryFunctions():
         params.append('@param sid a string representing the identifier '
                       'of the {0} to retrieve.'.format(self.object_child_name))
         return_lines = ['@return the {0} {1} with the given id'
-                        ' or NULL if no such {0} exists.'
-                            .format(self.object_child_name, return_string)]
+                        ' or NULL if no such {0} exists.'.format(self.object_child_name, return_string)]
         additional = []
         if self.is_java_api:
             if self.is_list_of:

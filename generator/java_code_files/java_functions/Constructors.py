@@ -110,12 +110,8 @@ class Constructors():
 
     ########################################################################
 
-
     # TODO still need to think is it required or not
     def expand_constructors(self):
-        # print(self.jsbml_methods)
-        # print(self.import_modules)
-
         for import_module in self.import_modules:
             data = self.jsbml_methods[import_module]
             for single_elem in data:
@@ -165,6 +161,7 @@ class Constructors():
             function = '{0}_{1}'.format(self.class_name, create)
             return_type = '{0} *'.format(self.object_name)
 
+        implementation = []
         arguments = []
         arguments_no_defaults = []
         constructor_args = []
@@ -282,15 +279,18 @@ class Constructors():
                     import_module = self.import_modules[0]
                 except:
                     import_module = None
+
+                # detect if there is ast or xml in attributes
                 result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
-                if result == True:
-                    implementation = ['super(level, version)']
-                    implementation.append('initDefaults()')
+                if result is True:
+                    implementation = ['super(level, version)',
+                                      'initDefaults()']
                 elif import_module in self.jsbml_data_tree:
                     if 'id' in self.jsbml_data_tree[import_module]['ignore']:
+
                         try:
-                            implementation = ['super(level, version)']
-                            implementation.append('initDefaults()')
+                            implementation = ['super(level, version)',
+                                              'initDefaults()']
                         except:
                             return
         else:
@@ -348,7 +348,8 @@ class Constructors():
             import_module = self.import_modules[0]
         except:
             import_module = None
-        if import_module != None:
+
+        if import_module is not None:
             try:
                 if 'id' in self.jsbml_data_tree[import_module]['ignore']:
                     return
@@ -356,7 +357,7 @@ class Constructors():
                 pass
 
         result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
-        if result == True:
+        if result is True:
             return
 
         params = ['@param id']
@@ -507,9 +508,8 @@ class Constructors():
 
         # Stop generating this constructor
 
-
         result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
-        if result == True:
+        if result is True:
             return
 
         # create the function implementation
@@ -536,8 +536,8 @@ class Constructors():
                                 type_obj = self.jsbml_data_tree[import_module]['include'][0]
                                 arguments = ['{0} math'.format(type_obj), 'int level', 'int version']
                                 arguments_no_defaults = ['{0} math'.format(type_obj), 'int level', 'int version']
-                                implementation = ['super(math, level, version)']
-                                implementation.append('initDefaults()')
+                                implementation = ['super(math, level, version)',
+                                                  'initDefaults()']
                         except:
                             return
 
@@ -546,12 +546,6 @@ class Constructors():
                 implementation = ['set{0}NamespacesAndOwn(new {0}Namespaces('
                                   'level, '
                                   'version))'.format(global_variables.prefix)]
-                # if self.document:
-                #     implementation.append('setLevel(level)')
-                #     implementation.append('setVersion(version)')
-                #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-                # if self.has_children:
-                #     implementation.append('connectToChild()')
             else:
                 implementation = ['return new {0}(level, '
                                   'version)'.format(self.class_name)]
@@ -605,18 +599,12 @@ class Constructors():
             import_module = self.import_modules[0]
         except:
             import_module = None
-        if import_module != None:
+        if import_module is not None:
             try:
                 if 'id' in self.jsbml_data_tree[import_module]['ignore']:
                     return
             except:
                 pass
-
-        # if global_variables.is_package:
-        #     params.append('@param pkgVersion an unsigned int, the {0} {1} '
-        #                   'Version to assign to this {2}.'
-        #                   .format(self.cap_language, self.package,
-        #                           self.object_name))
 
         return_lines = ['@throws {0}Constructor'
                         'Exception'.format(self.cap_language),
@@ -627,9 +615,10 @@ class Constructors():
                                              global_variables.document_class),
                         '@copydetails doc_note_setting_lv']
         additional = ''
+        implementation = []
 
         result = jsbmlHelperFunctions.detect_ast_or_xml(self.attributes)
-        if result == True:
+        if result is True:
             return
 
         # create the function declaration
@@ -768,10 +757,8 @@ class Constructors():
 
         if global_variables.is_package:
             if self.is_java_api:
-                implementation = []
-
-                implementation.append('setPackageVersion(-1)')
-                implementation.append('packageName = {0}Constants.shortLabel'.format(self.package))
+                implementation = ['setPackageVersion(-1)',
+                                  'packageName = {0}Constants.shortLabel'.format(self.package)]
 
                 attributes = self.attributes
                 for attribute in attributes:
@@ -992,16 +979,12 @@ class Constructors():
                                                                 self.object_name)]
         return_lines = []
         additional = []
-        # create function decl
-
 
         # sbase_name = self.sb
         function = '{0}'.format(self.object_name)
         return_type = ''
         arguments = ['{0} {1}'.format(self.sbase_name_for_plugin, self.sbase_name_for_plugin_lower)]
         # create the function implementation
-
-
 
         constructor_args = []  # arguments #self.write_copy_constructor_args(self)
         code = []
@@ -1182,7 +1165,7 @@ class Constructors():
                 for y_code in temp_code:
                     implementation.append(y_code)
 
-        # To fix '}  }' case
+        # For  fixing '}  }' case
         line = self.create_code_block('empty_line')
         implementation.append(line)
 
