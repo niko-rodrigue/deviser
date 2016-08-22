@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 #
 # @file    ParserFunctions.py
-# @brief   class to create general functions
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   class to create parser functions for Google Summer of Code 2016
+# @author  Hovakim Grabski
+
 #
 # <!--------------------------------------------------------------------------
 #
@@ -91,8 +91,6 @@ class ParserFunctions():
     # Get Parent lo_element with childs
     def expand_get_parent_child_elements(self):
         base_elements = self.expanded_package['baseElements']
-        upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
-        # lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
         data_to_write = []
         for element in base_elements:
             implementation = []
@@ -127,7 +125,7 @@ class ParserFunctions():
                 for data in self.data_to_write:
                     if strFunctions.lower_first(element['listOfClassName']) in data['data']:
                         add = False
-                if add == True:
+                if add is True:
                     temp = {}
                     list_of_name = strFunctions.lower_first(element['listOfClassName'])
                     temp.update({'listOfName': list_of_name})
@@ -242,10 +240,7 @@ class ParserFunctions():
         title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.PackageParser#isRequired()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
+        additional = ['Override']
 
         return_type = 'boolean'
         arguments = []
@@ -280,8 +275,7 @@ class ParserFunctions():
         title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.PackageParser#getPackageName()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
+        additional = ['Override']
 
         # create function decl
 
@@ -318,10 +312,7 @@ class ParserFunctions():
         title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.PackageParser#getPackageNamespaces()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
+        additional = ['Override']
 
         return_type = 'List<String>'
         arguments = []
@@ -356,10 +347,7 @@ class ParserFunctions():
         title_line = '(non-Javadoc)--@see org.sbml.jsbml.xml.parsers.ReadingParser#getNamespaces()'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
+        additional = ['Override']
 
         return_type = 'List<String> '
         arguments = []
@@ -395,10 +383,7 @@ class ParserFunctions():
         (java.lang.String, java.lang.String, java.lang.String)'
         params = ['@param None']
         return_lines = []
-        additional = []
-        additional.append('Override')
-
-        # create function decl
+        additional = ['Override']
 
         return_type = 'String'
         arguments = ['int level', 'int version', 'int packageVersion']
@@ -410,14 +395,13 @@ class ParserFunctions():
         base_level = self.expanded_package['base_level']
         base_version = self.expanded_package['base_version']
         package_version = self.expanded_package['pkg_version']
-        package_name = self.expanded_package['original_name']
 
         implementation = ['level == {0} && version == {1} && packageVersion == {2}'.format(base_level, base_version, \
                                                                                            package_version)]
 
-        self.namespace_uri = 'namespaceURI_L{0}V{1}V{2}'.format(base_level, base_version, package_version)
+        namespace_uri = 'namespaceURI_L{0}V{1}V{2}'.format(base_level, base_version, package_version)
         implementation.append(
-            'return {0}Constants.{1}'.format(strFunctions.upper_first(self.package), self.namespace_uri))
+            'return {0}Constants.{1}'.format(strFunctions.upper_first(self.package), namespace_uri))
         code.append(self.create_code_block('if', implementation))
 
         temp = ['return null']
@@ -440,7 +424,6 @@ class ParserFunctions():
         name = self.attributes[index]['capAttName']
         member_name = self.attributes[index]['name']
         java_type = self.attributes[index]['JClassType']
-        type = self.attributes[index]['attType']
 
         implement = ['{0}.equals({1}Constants.{2}'.format(self.attributeName, self.package, member_name),
                      'set{0}(StringTools.parseSBML{1}({2}))'.format(name, java_type, self.value)]  # 3rd line
@@ -627,30 +610,6 @@ class ParserFunctions():
 
         temp = ['return null']
         code.append(self.create_code_block('line', temp))
-        # temp = [
-        #     'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
-        # code.append(self.create_code_block('line', temp))
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -750,13 +709,6 @@ class ParserFunctions():
         + " = " + value + " (" + contextObject.getClass().getName() + ")")']
         line = self.create_code_block('line', implementation)
         code.append(line)
-        # print('wahaha ', self.class_name)
-        # print('len ', len(self.attributes))
-
-        # line = self.create_code_block('empty_line', '')
-        # code.append(line)
-
-
 
         plugins = self.expanded_package['plugins']
 
@@ -787,27 +739,6 @@ class ParserFunctions():
         temp = [
             'super.processAttribute(elementName, attributeName, value, uri, prefix, isLastAttribute, contextObject)']
         code.append(self.create_code_block('line', temp))
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
@@ -856,61 +787,8 @@ class ParserFunctions():
 
         code = [self.create_code_block('empty_line')]
 
-        # print('wahaha ', self.class_name)
-        # print('len ', len(self.attributes))
-
-        # line = self.create_code_block('empty_line', '')
-        # code.append(line)
-
-
-
         baseElements = self.expanded_package['baseElements']
-        #
         upper_original_name = strFunctions.upper_first(self.expanded_package['original_name'])
-        # lower_original_name = strFunctions.lower_first(self.expanded_package['original_name'])
-        # data_to_write = []
-        # for element in baseElements:
-        #     implementation = []
-        #
-        #
-        #     info_dict = {}
-        #     info_dict['data'] = []
-        #     if len(element['child_lo_elements']) > 0:
-        #         for child_lo_element in element['child_lo_elements']:
-        #
-        #             if 'parent' in child_lo_element:
-        #                 parent = child_lo_element['parent']
-        #                 parent_name = parent['name']
-        #                 if parent_name not in info_dict:
-        #                     info_dict['parent'] = parent_name
-        #
-        #                 element_name = child_lo_element['jsbmlName']
-        #                 element_type = child_lo_element['capAttName']
-        #                 if element_name not in info_dict['data']:
-        #                     # info_dict['data'].append([element_name, element_type])
-        #                     info_dict['data'].append({'listName':element_name, 'type': element_type,
-        #                                               'original':child_lo_element})
-        #         data_to_write.append(info_dict)
-
-
-        # none_values = []
-        # elements = self.expanded_package['elements']
-        # add = True
-        # for element in elements:
-        #     if element['listOfClassName'] != '':
-        #         for data in data_to_write:
-        #             if strFunctions.lower_first(element['listOfClassName']) in data['data']:
-        #                 add = False
-        #         if add == True:
-        #             temp = {}
-        #             list_of_name = strFunctions.lower_first(element['listOfClassName'])
-        #             temp.update({'listOfName': list_of_name})
-        #             temp.update({'name': element['name']})
-        #             none_values.append(temp)
-        #         else:
-        #             add = True
-
-
 
         none_values = self.none_values
         data_to_write = self.data_to_write
@@ -944,27 +822,6 @@ class ParserFunctions():
 
         temp = ['return true']
         code.append(self.create_code_block('line', temp))
-
-        # for i in range(0, len(self.child_elements)):
-        #     element = self.child_elements[i]
-        #     member = element['memberName']
-        #     args += ['delete {0}'.format(member)]
-        #     if element['element'] == 'ASTNode':
-        #         clone = 'deepCopy'
-        #     implementation = ['rhs.{0} != NULL'.format(member),
-        #                       '{0} = rhs.{0}->{1}()'.format(member,
-        #                                                     clone),
-        #                       'else', '{0} = NULL'.format(member)]
-        #     args += [self.create_code_block('if_else', implementation)]
-        # implementation = args
-        # if self.has_children:
-        #     implementation.append('connectToChild()')
-        # if self.document:
-        #     implementation.append('set{0}Document(this)'.format(global_variables.prefix))
-        #
-        # implementation2 = ['return *this']
-        # code = [dict({'code_type': 'if', 'code': implementation}),
-        #         dict({'code_type': 'line', 'code': implementation2})]
 
         return dict({'title_line': title_line,
                      'params': params,
