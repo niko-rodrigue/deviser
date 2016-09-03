@@ -95,6 +95,10 @@ class Constructors():
         else:
             self.sbase_name_for_plugin = ''
 
+
+        # TODO this is for checking if object abstract
+        self.is_abstract = class_object['abstract']
+
         # This is important for copy constructor
         # if class then use orig, else
         # combine package name with sbase_name
@@ -126,6 +130,9 @@ class Constructors():
 
     # function to create  simple  constructor
     def write_simple_constructor(self, index=0):
+        # If class is abstract return
+        if self.is_abstract is True:
+            return
         if (len(self.concretes) == 0 and index == 0) or index == -1:
             ob_name = self.object_name
             create = 'create'

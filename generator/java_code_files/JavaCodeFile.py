@@ -593,8 +593,10 @@ class JavaCodeFile(BaseJavaFile.BaseJavaFile):
             # self.write_general_includes()
             BaseJavaFile.BaseJavaFile.write_jsbml_types_doc(self)
             self.write_jsbml_class_header()
-            self.write_jsbml_class_variables()
-            self.write_class()
+
+            if self.is_class_abstract is False:
+                self.write_jsbml_class_variables()
+                self.write_class()
             self.close_jsbml_class_header()
 
     def write_parser_functions(self):
