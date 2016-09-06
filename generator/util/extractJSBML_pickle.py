@@ -69,7 +69,7 @@ def save_JSBML_data_to_pickle():
             jsbml_parsed_data.update({module: data})
 
     # print(jsbml_parsed_data)
-    # just 400 kB can solve dependency problem
+    # just 400 kB can solve javap, ok technichally 800kB for py2 and py3 dependency problem
     python_version = sys.version_info
     print(python_version)
     if python_version[0] == 3:

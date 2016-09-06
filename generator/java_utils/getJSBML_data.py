@@ -45,11 +45,17 @@ except:
     import pickle
 file_path = os.path.dirname(os.path.abspath(__file__))
 
-jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
-
-curr_dir = os.getcwd()
-
+py2_pickle = 'jsbml_parsed_data_py2.pickle'
+py3_pickle = 'jsbml_parsed_data_py3.pickle'
 
 
+def extract_pickle_data():
+    python_version = sys.version_info
+    if python_version[0] == 3:
+        open_file = py3_pickle
+    elif python_version[0] == 2:
+        open_file = py2_pickle
 
-
+    file_to_open = file_path + os.sep + open_file
+    jsbml_parsed_data = pickle.load(open(file_to_open, "rb"))
+    return jsbml_parsed_data

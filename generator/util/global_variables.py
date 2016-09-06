@@ -40,6 +40,7 @@
 import os
 
 from java_utils import jsbmlHelperFunctions
+from java_utils import getJSBML_data
 
 global error_list
 error_list = []
@@ -110,6 +111,11 @@ global prime_numbers
 n = 10000000
 prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
 # print('prime ', len(prime_numbers))
+
+# TODO here's a bug
+#JSBML data class information from pickle file
+global jsbml_data_methods
+jsbml_data_methods = getJSBML_data.extract_pickle_data()
 
 ########################################################################################################################
 
