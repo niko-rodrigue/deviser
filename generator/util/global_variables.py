@@ -40,13 +40,14 @@
 import os
 import sys
 
-sep = os.sep
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + sep + '..' + sep + 'java_utils' + sep)
 
 try:
     from java_utils import jsbmlHelperFunctions
     from java_utils import getJSBML_data
 except:
+    sep = os.sep
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)) + sep + '..' + sep + 'java_utils' + sep)
+
     import jsbmlHelperFunctions, getJSBML_data
 
 global error_list
