@@ -200,7 +200,7 @@ def parse_output(output):
     return final_data  # output_data
 
 
-def get_class_information(class_name=None, individual_run=False):
+def get_class_information(class_name=None, individual_run=False, extract_data=False):
     if class_name == 'AbstractSBasePlugin':
         # class_name = 'org.sbml.jsbml.ext.{0}'.format(class_name)
         return
@@ -237,12 +237,17 @@ def get_class_information(class_name=None, individual_run=False):
             if 'Error: class not found:' in error_txt:
                 return
             else:
-                print('Check if Java SDK is installed, deviser requires javap')
-                sys.exit(0)
+                if extract_data is False:
+                    print('Check if Java SDK is installed, deviser requires javap')
+                    sys.exit(0)
+                else:
+                    return
     except Exception as error:
-        print('Error is ', error)
-        print('Check if Java SDK is installed, deviser requires javap')
-        sys.exit(0)
+        if extract_data is False:
+            print('Error is ', error)
+            print('Check if Java SDK is installed, deviser requires javap')
+            sys.exit(0)
+
 
 # For testing purposes
 
