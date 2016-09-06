@@ -35,12 +35,23 @@
 # or promote products derived from this software without specific prior
 # written permission.
 # ------------------------------------------------------------------------ -->
+import os
+import sys
+
+from util import query
+
+sep = os.sep
 
 try:
-    from util import query, strFunctions, global_variables
-    from java_utils import insideJSBML_parser
+    from util import strFunctions, global_variables
 except:
-    import query, strFunctions, global_variables, insideJSBML_parser
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)) + sep + '..' + sep + 'util')
+    import strFunctions, global_variables
+
+# from java_utils import insideJSBML_parser
+
+# except:
+#     import query, strFunctions, global_variables#, insideJSBML_parser
 
 import itertools
 import random

@@ -37,7 +37,10 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from . import strFunctions
+try:
+    from . import strFunctions
+except:
+    import strFunctions
 
 
 # return True is any of the attributes are of type SIdRef
