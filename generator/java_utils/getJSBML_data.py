@@ -36,15 +36,15 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-
 import os
 import sys
-import time
-import subprocess as sub
 
-
-
+try:
+    import cPickle as pickle
+except:
+    import pickle
 file_path = os.path.dirname(os.path.abspath(__file__))
+
 jsbml_jar = 'jsbml-1.1-with-dependencies.jar'
 
 curr_dir = os.getcwd()
@@ -52,68 +52,4 @@ curr_dir = os.getcwd()
 
 
 
-def get_class_information(class_name=None, individual_run=False):
-    if class_name == 'AbstractSBasePlugin':
-        # class_name = 'org.sbml.jsbml.ext.{0}'.format(class_name)
-        return
-    else:
-        class_name = 'org.sbml.jsbml.{0}'.format(class_name)
 
-    # Old version
-    # command = 'javap -cp {0}{1}{2} -package {3}'.format(file_path, os.sep, jsbml_jar, class_name)
-
-    # TODO inside JSBML parser debugging test
-    # comm1 = 'javap_wrong'
-
-    comm1 = 'javap'
-    comm2 = '-cp'
-    comm3 = '{0}{1}{2}'.format(file_path, os.sep, jsbml_jar)
-    comm4 = '-package'
-    comm5 = '{0}'.format(class_name)
-    total_command = [comm1, comm2, comm3, comm4, comm5]
-
-    try:
-        class_info = sub.Popen(total_command, stdout=sub.PIPE, stderr=sub.PIPE)
-        stdout, stderr = class_info.communicate()
-
-        if stdout:
-            # For debugging purposes
-            # print(stdout)
-            stdout_value = stdout.decode()  # decode("utf-8")
-            class_output = stdout_value.split('\n')
-            dict_data = parse_output(class_output)
-            return dict_data
-        elif stderr:
-            error_txt = stderr.decode()
-            # print('ERROR is', error_txt)
-            if 'Error: class not found:' in error_txt:
-                return
-            else:
-                print('Check if Java SDK is installed, deviser requires javap')
-                sys.exit(0)
-    except Exception as error:
-        print('Error is ', error)
-        print('Check if Java SDK is installed, deviser requires javap')
-        sys.exit(0)
-
-# For testing purposes
-
-# class_name = 'org.sbml.jsbml.AbstractNamedSBase'
-
-# class_name = 'CompartmentalizedSBase'
-
-# class_name = 'Compartment'
-# class_name = 'SBaseWithDerivedUnit'
-# class_name = 'NamedSBaseWithDerivedUnit'
-
-# class_name = 'UniqueNamedSBase'
-
-
-# TODO for individual tests of javap parser
-# #Exist but no data
-# class_name = 'AbstractSBasePlugin'
-# data = get_class_information(class_name, individual_run=True)
-# print(data)
-
-# data = get_class_information(class_name, individual_run=True)
-# print(data)
