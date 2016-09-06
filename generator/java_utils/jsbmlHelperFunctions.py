@@ -162,12 +162,29 @@ def detect_abstract_methods(jsbml_data_tree, jsbml_methods):
                 length = 0
             if length == 0:
                 # print('method name ', method_name)
-                temp = insideJSBML_parser.get_class_information(method_name)
+
+                # temp = insideJSBML_parser.get_class_information(method_name)
+
+                #New prototype using pickle
+                # Because AbstractSBasePlugin is not used
+                try:
+                    temp = global_variables.jsbml_data_methods[method_name]
+                except:
+                    temp = None
+
                 # print(temp)
                 new_length = len(temp['modules'])
                 while new_length == 0:
                     new_method = temp['extends']['extendsShort']
-                    temp = insideJSBML_parser.get_class_information(new_method)
+                    # temp = insideJSBML_parser.get_class_information(new_method)
+
+                    # New prototype using pickle
+                    # Because AbstractSBasePlugin is not used
+                    try:
+                        temp = global_variables.jsbml_data_methods[new_method]
+                    except:
+                        temp = None
+
                     new_length = len(temp['modules'])
                     if new_length > 0:
                         # print(temp)

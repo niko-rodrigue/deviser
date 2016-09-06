@@ -577,20 +577,44 @@ class BaseJavaFile(BaseFile.BaseFile):
         self.jsbml_methods = {}
         for module in self.extends_modules:
             if module in self.jsbml_data_tree:
-                data = insideJSBML_parser.get_class_information(module)
+                # data = insideJSBML_parser.get_class_information(module)
+
+                #New prototype using pickle
+                # Because AbstractSBasePlugin is not used
+                try:
+                    data = global_variables.jsbml_data_methods[module]
+                except:
+                    data = None
+
                 if data is not None:
                     self.jsbml_methods.update({module: data['modules']})
 
                     if self.jsbml_data_tree[module]['parentInterfaces'] != None and \
                                     len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
                         for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
-                            interface = insideJSBML_parser.get_class_information(interface_class)
+                            # interface = insideJSBML_parser.get_class_information(interface_class)
+
+                            # New prototype using pickle
+                            # Because AbstractSBasePlugin is not used
+                            try:
+                                interface = global_variables.jsbml_data_methods[interface_class]
+                            except:
+                                interface = None
+
                             if data is not None:
                                 self.jsbml_methods.update({interface_class: interface['modules']})
 
         for module in self.implements_modules:
             if module in self.jsbml_data_tree:
-                data = insideJSBML_parser.get_class_information(module)
+                # data = insideJSBML_parser.get_class_information(module)
+
+                #New prototype using pickle
+                # Because AbstractSBasePlugin is not used
+                try:
+                    data = global_variables.jsbml_data_methods[module]
+                except:
+                    data = None
+
                 if data is not None:
                     self.jsbml_methods.update({module: data['modules']})
 
@@ -599,7 +623,15 @@ class BaseJavaFile(BaseFile.BaseFile):
             if capname not in list(self.jsbml_data_tree.keys()):
                 continue
             else:
-                data = insideJSBML_parser.get_class_information(capname)
+                # data = insideJSBML_parser.get_class_information(capname)
+
+                #New prototype using pickle
+                # Because AbstractSBasePlugin is not used
+                try:
+                    data = global_variables.jsbml_data_methods[module]
+                except:
+                    data = None
+
                 if data is not None:
                     # print('yahoo ',data)
                     self.jsbml_methods.update({capname: data['modules']})
