@@ -37,7 +37,8 @@
 # ------------------------------------------------------------------------ -->
 
 try:
-    from . import query, strFunctions, global_variables, insideJSBML_parser
+    from util import query, strFunctions, global_variables
+    from java_utils import insideJSBML_parser
 except:
     import query, strFunctions, global_variables, insideJSBML_parser
 

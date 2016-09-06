@@ -36,8 +36,7 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, global_variables, jsbmlHelperFunctions
-import random
+from util import strFunctions, global_variables
 
 
 class ParserFunctions():

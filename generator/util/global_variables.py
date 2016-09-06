@@ -38,7 +38,8 @@
 # ------------------------------------------------------------------------ -->
 
 import os
-from util import jsbmlHelperFunctions
+
+from java_utils import jsbmlHelperFunctions
 
 global error_list
 error_list = []

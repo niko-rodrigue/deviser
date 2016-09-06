@@ -36,10 +36,6 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-import os
-from collections import defaultdict
-from util import insideJSBML_parser
-
 
 # Custom dict for support of older Python versions
 class MyDefaultDict(dict):

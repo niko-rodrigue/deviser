@@ -36,8 +36,8 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, global_variables, jsbmlHelperFunctions
-import random
+from java_utils import jsbmlHelperFunctions
+from util import strFunctions, global_variables
 
 
 class GeneralFunctions():

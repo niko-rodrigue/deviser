@@ -37,12 +37,16 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-import time
 import os
+import time
 
-from util.jsbml_data_tree import jsbml_data_tree
+from java_utils import jsbml_data_tree
+# from java_utils.jsbml_data_tree import jsbml_data_tree
+from util import strFunctions, query, global_variables
+
+# A new structure so java stuff does not get lost with C++
+from java_utils import insideJSBML_parser, jsbmlHelperFunctions
 from . import BaseFile
-from util import strFunctions, query, global_variables, jsbml_data_tree, insideJSBML_parser, jsbmlHelperFunctions
 
 
 class BaseJavaFile(BaseFile.BaseFile):

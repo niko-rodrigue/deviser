@@ -37,10 +37,10 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, query, global_variables, jsbmlHelperFunctions
 import sys
 
-from util.jsbml_data_tree import jsbml_data_tree
+from util import strFunctions, query, global_variables
+from java_utils import jsbmlHelperFunctions
 
 
 class SetGetFunctions():

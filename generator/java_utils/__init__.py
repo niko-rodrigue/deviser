@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 #
 # @file    __init__.py
-# @brief   init for util directory
-# @author  Frank Bergmann
-# @author  Sarah Keating
+# @brief   init for java_utils directory
+# @author  Hovakim Grabski
 #
 # <!--------------------------------------------------------------------------
 #

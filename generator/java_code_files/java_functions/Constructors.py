@@ -36,7 +36,8 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from util import strFunctions, query, global_variables, jsbmlHelperFunctions
+from java_utils import jsbmlHelperFunctions
+from util import strFunctions, query, global_variables
 
 
 class Constructors():
@@ -97,7 +98,10 @@ class Constructors():
 
 
         # TODO this is for checking if object abstract
-        self.is_abstract = class_object['abstract']
+        try:
+            self.is_abstract = class_object['abstract']
+        except:
+            self.is_abstract = False
 
         # This is important for copy constructor
         # if class then use orig, else
