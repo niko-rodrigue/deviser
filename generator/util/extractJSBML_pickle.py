@@ -41,10 +41,10 @@ import sys
 from java_utils import insideJSBML_parser
 from java_utils import jsbml_data_tree
 
-try:
-    import cPickle as pickle
-except:
-    import pickle
+# try:
+#     import cPickle as pickle
+# except:
+import pickle
 
 jsbml_data = jsbml_data_tree.jsbml_data_tree
 
