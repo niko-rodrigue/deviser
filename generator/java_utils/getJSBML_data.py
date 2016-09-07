@@ -43,10 +43,23 @@ try:
     import cPickle as pickle
 except:
     import pickle
+
+import json
+
 file_path = os.path.dirname(os.path.abspath(__file__))
 
 py2_pickle = 'jsbml_parsed_data_py2.pickle'
 py3_pickle = 'jsbml_parsed_data_py3.pickle'
+
+json_file = 'jsbml_parsed_data.json'
+
+
+def extract_json_data():
+    open_file = json_file
+
+    file_to_open = file_path + os.sep + open_file
+    jsbml_parsed_data = json.load(open(file_to_open, "r"))
+    return jsbml_parsed_data
 
 
 def extract_pickle_data():

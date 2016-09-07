@@ -123,7 +123,8 @@ prime_numbers = jsbmlHelperFunctions.generate_prime_numbers(n)
 # TODO here's a bug
 #JSBML data class information from pickle file
 global jsbml_data_methods
-jsbml_data_methods = getJSBML_data.extract_pickle_data()
+# jsbml_data_methods = getJSBML_data.extract_pickle_data()
+jsbml_data_methods = getJSBML_data.extract_json_data()
 
 ########################################################################################################################
 

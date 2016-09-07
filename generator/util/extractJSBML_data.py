@@ -45,6 +45,7 @@ from java_utils import jsbml_data_tree
 #     import cPickle as pickle
 # except:
 import pickle
+import json
 
 jsbml_data = jsbml_data_tree.jsbml_data_tree
 
@@ -80,4 +81,34 @@ def save_JSBML_data_to_pickle():
     pickle.dump(jsbml_parsed_data, open(file_path + "/{0}".format(file_name), "wb"))
 
 
-save_JSBML_data_to_pickle()
+
+
+def save_JSBML_data_to_json():
+    '''The purpose of this script is to save JSBML parsed data tree
+    from javap parser to json so that deviser would not depend on javap,
+    generally. If new JSBML version comes out simply use this script to save
+    pickle '''
+    # Run twice : python2 and python3
+    jsbml_parsed_data = {}
+    # insideJSBML_parser.get_class_information(module) to get module info
+    for module in jsbml_data:
+        # print(module)
+        data = insideJSBML_parser.get_class_information(module, extract_data=True)
+        # print(data)
+        if data is not None:
+            jsbml_parsed_data.update({module: data})
+
+    # print(jsbml_parsed_data)
+    # just 400 kB can solve javap, ok technichally 800kB for py2 and py3 dependency problem
+    # python_version = sys.version_info
+    # print(python_version)
+    # if python_version[0] == 3:
+    #     suffix = 'py3'
+    # elif python_version[0] == 2:
+    #     suffix = 'py2'
+    file_name = 'jsbml_parsed_data.json'
+    json.dump(jsbml_parsed_data, open(file_path + "/{0}".format(file_name), "w"), sort_keys=True, indent=4)
+
+
+# save_JSBML_data_to_pickle()
+save_JSBML_data_to_json()
