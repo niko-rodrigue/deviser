@@ -208,7 +208,7 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
       FunctionDefinition functionDefinition = (FunctionDefinition) contextObject;
       DistribFunctionDefinitionPlugin distribFunctionDefinition = (DistribFunctionDefinitionPlugin)
         functionDefinition.getPlugin(DistribConstants.shortLabel);
-    }    else if (contextObject instanceof DrawFromDistribution) {
+    } else if (contextObject instanceof DrawFromDistribution) {
       DrawFromDistribution drawFromDistribution = (DrawFromDistribution) contextObject;
 
       if (elementName.equals(DistribList.listOfDistribInputs.name())) {
@@ -217,10 +217,10 @@ public class DistribParser extends AbstractReaderWriter implements PackageParser
         groupList = DistribList.listOfDistribInputs;
         return listOfDistribInputs;
       }
-    }    else if (contextObject instanceof SBase) {
+    } else if (contextObject  instanceof SBase) {
       SBase sBase = (SBase) contextObject;
       DistribSBasePlugin distribSBase = (DistribSBasePlugin) sBase.getPlugin(DistribConstants.shortLabel);
-    }    else if (contextObject instanceof ListOf<?>) {
+    } else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
     }

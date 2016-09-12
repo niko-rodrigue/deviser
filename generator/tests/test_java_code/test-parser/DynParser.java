@@ -212,7 +212,7 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
     if (contextObject instanceof SBase) {
       SBase sBase = (SBase) contextObject;
       DynSBasePlugin dynSBase = (DynSBasePlugin) sBase.getPlugin(DynConstants.shortLabel);
-    }    else if (contextObject instanceof Event) {
+    } else if (contextObject  instanceof Event) {
       Event event = (Event) contextObject;
       DynEventPlugin dynEvent = (DynEventPlugin) event.getPlugin(DynConstants.shortLabel);
 
@@ -221,7 +221,7 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
         groupList = DynList.listOfDynElements;
         return listOfDynElements;
       }
-    }    else if (contextObject instanceof Compartment) {
+    } else if (contextObject  instanceof Compartment) {
       Compartment compartment = (Compartment) contextObject;
       DynCompartmentPlugin dynCompartment = (DynCompartmentPlugin) compartment.getPlugin(DynConstants.shortLabel);
 
@@ -230,7 +230,7 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
         groupList = DynList.listOfSpatialComponents;
         return listOfSpatialComponents;
       }
-    }    else if (contextObject instanceof ListOf<?>) {
+    } else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
     }
@@ -261,7 +261,7 @@ public class DynParser extends AbstractReaderWriter implements PackageParser {
 
             if (listOf.get(0) instanceof DynElement) {
               xmlObject.setName(DynList.listOfDynElements.toString());
-            }            else if (listOf.get(0) instanceof SpatialComponent) {
+            } else if (listOf.get(0) instanceof SpatialComponent) {
               xmlObject.setName(DynList.listOfSpatialComponents.toString());
             }
           }

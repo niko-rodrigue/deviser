@@ -507,7 +507,7 @@ public class QualitativeSpecies extends AbstractNamedSBase implements Compartmen
         setConstant(StringTools.parseSBMLBoolean(value));
         attributeName.equals(QualConstants.initialLevel);
         setInitialLevel(StringTools.parseSBMLInt(value));
-      }      else if (attributeName.equals(QualConstants.maxLevel)) {
+      } else if (attributeName.equals(QualConstants.maxLevel)) {
         setMaxLevel(StringTools.parseSBMLInt(value));
       } else {
         isAttributeRead = false;

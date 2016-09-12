@@ -200,7 +200,7 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
         groupList = GroupsList.listOfGroups;
         return listOfGroups;
       }
-    }    else if (contextObject instanceof Group) {
+    } else if (contextObject instanceof Group) {
       Group group = (Group) contextObject;
 
       if (elementName.equals(GroupsList.listOfMembers.name())) {
@@ -209,7 +209,7 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
         groupList = GroupsList.listOfMembers;
         return listOfMembers;
       }
-    }    else if (contextObject instanceof ListOf<?>) {
+    } else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
       if (elementName.equals(GroupsConstants.group) && groupList.equals(GroupsList.listOfGroups)) {
@@ -220,7 +220,7 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
         extendedModel.addGroup(group);
 
         return group;
-      }      else if (elementName.equals(GroupsConstants.member) && groupList.equals(GroupsList.listOfMembers)) {
+      } else if (elementName.equals(GroupsConstants.member) && groupList.equals(GroupsList.listOfMembers)) {
         Group group = (Group) listOf.getParentSBMLObject();
 
         Member member = new Member();
@@ -256,7 +256,7 @@ public class GroupsParser extends AbstractReaderWriter implements PackageParser 
 
             if (listOf.get(0) instanceof Group) {
               xmlObject.setName(GroupsList.listOfGroups.toString());
-            }            else if (listOf.get(0) instanceof Member) {
+            } else if (listOf.get(0) instanceof Member) {
               xmlObject.setName(GroupsList.listOfMembers.toString());
             }
           }

@@ -514,7 +514,7 @@ public class Input extends AbstractNamedSBase implements UniqueNamedSBase, Calla
           throw new SBMLException("Could not recognized the value '" + value + "' for the attribute " +
             QualConstants.transitionEffect + " on the 'Input' element.");
         }
-      }      else if (attributeName.equals(QualConstants.thresholdLevel)) {
+      } else if (attributeName.equals(QualConstants.thresholdLevel)) {
         setThresholdLevel(StringTools.parseSBMLInt(value));
       } else {
         isAttributeRead = false;

@@ -579,7 +579,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             if module in self.jsbml_data_tree:
                 # data = insideJSBML_parser.get_class_information(module)
 
-                #New prototype using pickle
+                # New prototype using pickle
                 # Because AbstractSBasePlugin is not used
                 try:
                     data = global_variables.jsbml_data_methods[module]
@@ -589,8 +589,8 @@ class BaseJavaFile(BaseFile.BaseFile):
                 if data is not None:
                     self.jsbml_methods.update({module: data['modules']})
 
-                    if self.jsbml_data_tree[module]['parentInterfaces'] != None and \
-                                    len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
+                    if self.jsbml_data_tree[module]['parentInterfaces'] is not None and \
+                        len(self.jsbml_data_tree[module]['parentInterfaces']) > 0:
                         for interface_class in self.jsbml_data_tree[module]['parentInterfaces']:
                             # interface = insideJSBML_parser.get_class_information(interface_class)
 
@@ -608,7 +608,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             if module in self.jsbml_data_tree:
                 # data = insideJSBML_parser.get_class_information(module)
 
-                #New prototype using pickle
+                # New prototype using pickle
                 # Because AbstractSBasePlugin is not used
                 try:
                     data = global_variables.jsbml_data_methods[module]
@@ -625,7 +625,7 @@ class BaseJavaFile(BaseFile.BaseFile):
             else:
                 # data = insideJSBML_parser.get_class_information(capname)
 
-                #New prototype using pickle
+                # New prototype using pickle
                 # Because AbstractSBasePlugin is not used
                 try:
                     data = global_variables.jsbml_data_methods[module]
@@ -1393,7 +1393,10 @@ class BaseJavaFile(BaseFile.BaseFile):
 
     def write_block(self, block_start, code, condition):
         if condition:
-            self.write_line_jsbml('{0} ({1})'.format(block_start, code[0]))
+            if block_start == 'else if':
+                self.write_line_jsbml_else_if('{0} ({1})'.format(block_start, code[0]))
+            else:
+                self.write_line_jsbml('{0} ({1})'.format(block_start, code[0]))
             self.write_nested_implementation(code[1:len(code)])
             if block_start == 'catch':
                 self.write_line_jsbml_block_end('}\n')
@@ -1408,6 +1411,11 @@ class BaseJavaFile(BaseFile.BaseFile):
                 self.write_line_jsbml_else(block_start)
                 self.write_nested_implementation(code)
                 self.write_line('}')
+
+    # Special case for writing else for java
+    def write_line_jsbml_else_if(self, line, space=0):
+        self.file_out.write(' {0} '.format(line))
+        self.file_out.write('{\n')
 
     # Special case for writing else for java
     def write_line_jsbml_else(self, line, space=0):

@@ -199,12 +199,12 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
         ListOf<QualitativeSpecies> listOfQualitativeSpecies = qualModel.getListOfQualitativeSpecies();
         groupList = QualList.listOfQualitativeSpecies;
         return listOfQualitativeSpecies;
-      }      else if (elementName.equals(QualList.listOfTransitions.name())) {
+      } else if (elementName.equals(QualList.listOfTransitions.name())) {
         ListOf<Transition> listOfTransitions = qualModel.getListOfTransitions();
         groupList = QualList.listOfTransitions;
         return listOfTransitions;
       }
-    }    else if (contextObject instanceof Transition) {
+    } else if (contextObject instanceof Transition) {
       Transition transition = (Transition) contextObject;
 
       if (elementName.equals(QualList.listOfInputs.name())) {
@@ -212,18 +212,18 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
         ListOf<Input> listOfInputs = transition.getListOfInputs();
         groupList = QualList.listOfInputs;
         return listOfInputs;
-      }      else if (elementName.equals(QualList.listOfOutputs.name())) {
+      } else if (elementName.equals(QualList.listOfOutputs.name())) {
 
         ListOf<Output> listOfOutputs = transition.getListOfOutputs();
         groupList = QualList.listOfOutputs;
         return listOfOutputs;
-      }      else if (elementName.equals(QualList.listOfFunctionTerms.name())) {
+      } else if (elementName.equals(QualList.listOfFunctionTerms.name())) {
 
         ListOf<FunctionTerm> listOfFunctionTerms = transition.getListOfFunctionTerms();
         groupList = QualList.listOfFunctionTerms;
         return listOfFunctionTerms;
       }
-    }    else if (contextObject instanceof ListOf<?>) {
+    } else if (contextObject instanceof ListOf<?>) {
       ListOf<SBase> listOf = (ListOf<SBase>) contextObject;
 
       if (elementName.equals(QualConstants.qualitativeSpecies) && groupList.equals(QualList.listOfQualitativeSpecies)) {
@@ -234,7 +234,7 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
         extendedModel.addQualitativeSpecies(qualitativeSpecies);
 
         return qualitativeSpecies;
-      }      else if (elementName.equals(QualConstants.transition) && groupList.equals(QualList.listOfTransitions)) {
+      } else if (elementName.equals(QualConstants.transition) && groupList.equals(QualList.listOfTransitions)) {
         Model model = (Model) listOf.getParentSBMLObject();
         QualModelPlugin extendedModel = (QualModelPlugin) model.getExtension (QualConstants.shortLabel);
 
@@ -242,21 +242,21 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
         extendedModel.addTransition(transition);
 
         return transition;
-      }      else if (elementName.equals(QualConstants.input) && groupList.equals(QualList.listOfInputs)) {
+      } else if (elementName.equals(QualConstants.input) && groupList.equals(QualList.listOfInputs)) {
         Transition transition = (Transition) listOf.getParentSBMLObject();
 
         Input input = new Input();
         transition.addInput(input);
 
         return input;
-      }      else if (elementName.equals(QualConstants.output) && groupList.equals(QualList.listOfOutputs)) {
+      } else if (elementName.equals(QualConstants.output) && groupList.equals(QualList.listOfOutputs)) {
         Transition transition = (Transition) listOf.getParentSBMLObject();
 
         Output output = new Output();
         transition.addOutput(output);
 
         return output;
-      }      else if (elementName.equals(QualConstants.functionTerm) && groupList.equals(QualList.listOfFunctionTerms)) {
+      } else if (elementName.equals(QualConstants.functionTerm) && groupList.equals(QualList.listOfFunctionTerms)) {
         Transition transition = (Transition) listOf.getParentSBMLObject();
 
         FunctionTerm functionTerm = new FunctionTerm();
@@ -292,13 +292,13 @@ public class QualParser extends AbstractReaderWriter implements PackageParser {
 
             if (listOf.get(0) instanceof QualitativeSpecies) {
               xmlObject.setName(QualList.listOfQualitativeSpecies.toString());
-            }            else if (listOf.get(0) instanceof Transition) {
+            } else if (listOf.get(0) instanceof Transition) {
               xmlObject.setName(QualList.listOfTransitions.toString());
-            }            else if (listOf.get(0) instanceof Input) {
+            } else if (listOf.get(0) instanceof Input) {
               xmlObject.setName(QualList.listOfInputs.toString());
-            }            else if (listOf.get(0) instanceof Output) {
+            } else if (listOf.get(0) instanceof Output) {
               xmlObject.setName(QualList.listOfOutputs.toString());
-            }            else if (listOf.get(0) instanceof FunctionTerm) {
+            } else if (listOf.get(0) instanceof FunctionTerm) {
               xmlObject.setName(QualList.listOfFunctionTerms.toString());
             }
           }
