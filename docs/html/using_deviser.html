@@ -1,0 +1,502 @@
+﻿
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4. Using Deviser &mdash; Deviser 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Deviser 1.0 documentation" href="index.html"/>
+        <link rel="next" title="5. Appendix A: Example package description" href="appendix_xml_example.html"/>
+        <link rel="prev" title="3. Defining an SBML Level 3 Package" href="defining_package.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="deviser.html" class="icon icon-home"> Deviser
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="background.html">1. Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defining_package.html">3. Defining an SBML Level 3 Package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. Using Deviser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#view-uml-diagrams">4.1. View UML diagrams.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generate-package-code-documentation">4.2. Generate package code/documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-basic-specification-documentation">4.2.1. Generate basic specification documentation.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-generate-latex-button">4.2.1.1. The <strong>Generate LaTeX</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-generate-latex-with-figures-button">4.2.1.2. The <strong>Generate LaTeX with Figures</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-compile-tex-button">4.2.1.3. The <strong>Compile TeX</strong> button</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#integrate-and-test-the-package-with-libsbml">4.2.2. Integrate and test the package with libSBML.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-compile-dependencies-button">4.2.2.1. The <strong>Compile Dependencies</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-add-code-to-source-dir-button">4.2.2.2. The <strong>Add Code to Source Dir</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-remove-code-to-source-dir-button">4.2.2.3. The <strong>Remove Code to Source Dir</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-compile-libsbml-with-package-button">4.2.2.4. The <strong>Compile libSBML with package</strong> button</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utility-functions-in-deviser-edit">4.3. Utility functions in Deviser Edit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-add-xyz-items">4.3.1. The <strong>Add XYZ</strong> items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-duplicate-item">4.3.2. The <strong>Duplicate</strong> item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-copy-xml-item">4.3.3. The <strong>Copy XML</strong> item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-copy-yuml-item">4.3.4. The <strong>Copy yUML</strong> item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-delete-selected-item">4.3.5. The <strong>Delete Selected</strong> item</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line">4.4. Command line</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_licensing.html">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="deviser.html">Deviser</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="deviser.html">Docs</a> &raquo;</li>
+        
+      <li>4. Using Deviser</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/using_deviser.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-deviser">
+<span id="using"></span><h1>4. Using Deviser<a class="headerlink" href="#using-deviser" title="Permalink to this headline">¶</a></h1>
+<p>The Deviser Edit tool allows you to specify the details of an SBML L3
+Package. In addition it can be used to perform a number of tasks
+directly. Some of these require additional software on your system and
+Deviser Edit needs to be given the information about where to find
+these. This is described in Section <a class="reference internal" href="getting_started.html#setup"><span class="std std-ref">Setting up the Deviser Edit tool</span></a>.</p>
+<div class="section" id="view-uml-diagrams">
+<h2>4.1. View UML diagrams.<a class="headerlink" href="#view-uml-diagrams" title="Permalink to this headline">¶</a></h2>
+<p>Once you have specified at least one class you can click on the <strong>Show
+UML</strong> button on the toolbar or select <strong>Show UML</strong> from the Tool menu.
+Remember that this uses the yUML webservice and so will only work if you
+have an internet connection.</p>
+<p>The UML output will appear (<a class="reference internal" href="#fig-yuml"><span class="std std-numref">Figure 4.1</span></a>). Note that each time this option
+is selected a new diagram is generated from the definition; the more
+complex the definition the longer it will take.</p>
+<div class="figure" id="id1">
+<span id="fig-yuml"></span><img alt="_images/deviser-yuml.png" src="_images/deviser-yuml.png" />
+<p class="caption"><span class="caption-number">Figure 4.1 </span><span class="caption-text">Figure 1: The UML window</span></p>
+</div>
+<p>You will note that not all inheritance is determined. Deviser does not
+try to infer inheritance of classes from outside this package
+definition. However these can be added using the <strong>Edit</strong> window (<a class="reference internal" href="#fig-yuml-edit"><span class="std std-numref">Figure 4.2</span></a>).</p>
+<div class="figure" id="id2">
+<span id="fig-yuml-edit"></span><img alt="_images/deviser-yuml-edit.png" src="_images/deviser-yuml-edit.png" />
+<p class="caption"><span class="caption-number">Figure 4.2 </span><span class="caption-text">Figure 2: The yUML text representation of the diagram</span></p>
+</div>
+<p>The <strong>Edit</strong> tab allows access to the text format of the diagram which
+can be edited and updated. Note the update applies to the UML diagram
+only, not the defined package.</p>
+<p>The <strong>Update</strong> button will update the diagram in line with any changes
+that have been made to the text description on the Edit panel.</p>
+<p>The <strong>SaveAs</strong> button allows the user to navigate to a location of their
+choice and save the diagram in a graphic format. PNG, JPG, PDF, SVG and
+yUML are all supported.</p>
+<p>There is a selection box and two check boxes that allow the user to
+change the format of the diagram. These are left for the user to
+experiment with.</p>
+</div>
+<div class="section" id="generate-package-code-documentation">
+<h2>4.2. Generate package code/documentation<a class="headerlink" href="#generate-package-code-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Click on the <strong>Generate</strong> button on the toolbar and the Generate window
+(<a class="reference internal" href="#fig-generate"><span class="std std-numref">Figure 4.3</span></a>) will appear. Prior to displaying the window
+the validation checks (see <a class="reference internal" href="defining_package.html#validate"><span class="std std-numref">Section 3.7.1.1</span></a>) are run and any problems reported
+to the user.</p>
+<div class="figure" id="id3">
+<span id="fig-generate"></span><img alt="_images/deviser-generate.png" src="_images/deviser-generate.png" />
+<p class="caption"><span class="caption-number">Figure 4.3 </span><span class="caption-text">Figure 3: The Generate window</span></p>
+</div>
+<p>The <strong>Output Dir</strong>, <strong>Package File</strong> and <strong>Package Name</strong> fields are all
+automatically populated using the information provided. It is recommended
+that you have saved to a file before attempting generation.</p>
+<p>The <strong>Generate Package Code</strong> button will then create the package code
+and put it in a directory named ‘foo’ (i.e. the name of the package) in
+the specified output directory. This code can then be archived and
+expanded over the libSBML source tree.</p>
+<p>The <strong>Open Output Dir</strong> button provides a shortcut to the output directory
+specified.</p>
+<p>Further options are available via the <strong>LaTeX Generation</strong> and
+<strong>Integration and Testing</strong> tabs. Functionality provided here will require
+access to further software as detailed in the <a class="reference internal" href="getting_started.html#prereq"><span class="std std-ref">Prerequisites</span></a> section.</p>
+<div class="section" id="generate-basic-specification-documentation">
+<h3>4.2.1. Generate basic specification documentation.<a class="headerlink" href="#generate-basic-specification-documentation" title="Permalink to this headline">¶</a></h3>
+<p>In the Generate window there is a <strong>LaTeX Generation</strong> tab with three
+further buttons (<a class="reference internal" href="#fig-generate"><span class="std std-numref">Figure 4.3</span></a>).</p>
+<div class="section" id="the-generate-latex-button">
+<h4>4.2.1.1. The <strong>Generate LaTeX</strong> button<a class="headerlink" href="#the-generate-latex-button" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Generate LaTeX</strong> button will generate three TeX files.</p>
+<ul class="simple">
+<li>body.tex describing each class and its attributes with their types
+and cardinalities.</li>
+<li>apdx-validation.tex listing the validation rules.</li>
+<li>macros.tex listing the classes and creating commands for
+cross-referencing</li>
+</ul>
+<p>These will be located in a directory named ‘foo-spec’ within the specified
+output directory.</p>
+</div>
+<div class="section" id="the-generate-latex-with-figures-button">
+<h4>4.2.1.2. The <strong>Generate LaTeX with Figures</strong> button<a class="headerlink" href="#the-generate-latex-with-figures-button" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Generate LaTeX with Figures</strong> button will call the yUML services to
+generate figures for each of the classes and plugins specified within the
+package description. It also creates an overall diagram of the whole package.
+These are placed in a subdirectory figures within the ‘foo-spec’ directory.</p>
+<p>The three TeX files are then generated</p>
+<ul class="simple">
+<li>body.tex describing each class and its attributes with their types
+and cardinalities and including the UML diagrams for each object.</li>
+<li>apdx-validation.tex listing the validation rules.</li>
+<li>macros.tex listing the classes and creating commands for
+cross-referencing</li>
+</ul>
+<p>These will be located in a directory named ‘foo-spec’ within the specified
+output directory.</p>
+</div>
+<div class="section" id="the-compile-tex-button">
+<h4>4.2.1.3. The <strong>Compile TeX</strong> button<a class="headerlink" href="#the-compile-tex-button" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Compile TeX</strong> button takes the generated TeX files, creates
+another main.tex based on the sbmlpkgspec requirements and generates a
+basic specification document as a pdf. This will be located within the
+‘foo-spec’ directory.</p>
+</div>
+</div>
+<div class="section" id="integrate-and-test-the-package-with-libsbml">
+<h3>4.2.2. Integrate and test the package with libSBML.<a class="headerlink" href="#integrate-and-test-the-package-with-libsbml" title="Permalink to this headline">¶</a></h3>
+<p>Click the <strong>Integration and Testing</strong> tab in the Generate window and a
+further set of buttons are revealed (<a class="reference internal" href="#fig-integrate"><span class="std std-numref">Figure 4.4</span></a>).</p>
+<div class="figure" id="id4">
+<span id="fig-integrate"></span><img alt="_images/deviser-integrate.png" src="_images/deviser-integrate.png" />
+<p class="caption"><span class="caption-number">Figure 4.4 </span><span class="caption-text">Figure 4: Integration and Testing tab selected on the Generate window.</span></p>
+</div>
+<div class="section" id="the-compile-dependencies-button">
+<h4>4.2.2.1. The <strong>Compile Dependencies</strong> button<a class="headerlink" href="#the-compile-dependencies-button" title="Permalink to this headline">¶</a></h4>
+<p><strong>Compile Dependencies</strong> compiles the dependencies with the specified
+C++ compiler to ensure that these are compatible with the libSBML build.
+Note that particularly on Windows OS it is necessary for the
+libSBML dependencies to be built with the same compiler as that to be
+used to build libSBML. If the user has specified the location of the source
+code for the dependencies and the C++ compiler (see <a class="reference internal" href="getting_started.html#settings"><span class="std std-numref">Section 2.3.1</span></a>) then
+this button will invoke a build of the dependencies.</p>
+</div>
+<div class="section" id="the-add-code-to-source-dir-button">
+<h4>4.2.2.2. The <strong>Add Code to Source Dir</strong> button<a class="headerlink" href="#the-add-code-to-source-dir-button" title="Permalink to this headline">¶</a></h4>
+<p><strong>Add Code to Source Dir</strong> places the code generated for package foo
+within the libSBML source tree. Note that this merely takes the output
+from the code generation step and places a copy of it within the source tree.
+Thus two copies of the code now exist. One in the Deviser <strong>Output Dir</strong> and one
+embedded within the specified libSBML source tree.  If the
+code is changed, either in the tree or by regenerating using Deviser, then
+the other ‘copy’ is NOT affected.</p>
+<p>This does mean that using this button more than once will overwrite files.
+Care need to be taken if code needs to be manually adjusted.</p>
+</div>
+<div class="section" id="the-remove-code-to-source-dir-button">
+<h4>4.2.2.3. The <strong>Remove Code to Source Dir</strong> button<a class="headerlink" href="#the-remove-code-to-source-dir-button" title="Permalink to this headline">¶</a></h4>
+<p><strong>Remove Code from Source Dir</strong> removes the code generated for package
+foo from the libSBML source tree. The removed code is merely deleted and not
+saved elsewhere. Thus any changes made to the code within the tree will be lost.</p>
+</div>
+<div class="section" id="the-compile-libsbml-with-package-button">
+<h4>4.2.2.4. The <strong>Compile libSBML with package</strong> button<a class="headerlink" href="#the-compile-libsbml-with-package-button" title="Permalink to this headline">¶</a></h4>
+<p><strong>Compile libSBML with package</strong> enables package foo within the libSBML
+build and runs the build.</p>
+</div>
+</div>
+</div>
+<div class="section" id="utility-functions-in-deviser-edit">
+<h2>4.3. Utility functions in Deviser Edit<a class="headerlink" href="#utility-functions-in-deviser-edit" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of functions to facilitate use of Deviser Edit and reporting
+of issues. Using the tree view on the left right clicking on an object reveals
+a menu as shown in <a class="reference internal" href="#deviser-util"><span class="std std-numref">Figure 4.5</span></a>.</p>
+<div class="figure" id="id5">
+<span id="deviser-util"></span><img alt="_images/deviser-util.png" src="_images/deviser-util.png" />
+<p class="caption"><span class="caption-number">Figure 4.5 </span><span class="caption-text">Figure 5: Utility menu.</span></p>
+</div>
+<div class="section" id="the-add-xyz-items">
+<h3>4.3.1. The <strong>Add XYZ</strong> items<a class="headerlink" href="#the-add-xyz-items" title="Permalink to this headline">¶</a></h3>
+<p>The various <strong>Add</strong> items will add the appropriate object to the Version selected.
+This will work from any object within the tree. So in <a class="reference internal" href="#deviser-util"><span class="std std-numref">Figure 4.5</span></a>
+highlighting <em>FooRate</em> and selecting <em>Add Enum</em> would add a new Enum to the list for
+Version 3,1,1.</p>
+</div>
+<div class="section" id="the-duplicate-item">
+<h3>4.3.2. The <strong>Duplicate</strong> item<a class="headerlink" href="#the-duplicate-item" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Duplicate</strong> item creates a copy of the selected item (where this makes sense).
+So it is possible to duplicate individual classes, plugins or enums but the headers
+<em>Mappings</em>, <em>Classes</em>, <em>Plugins</em> and <em>Enums</em> cannot be duplicated.
+It is also possible to duplicate the entire version, which creates a new version
+with identical elements as the one being copied. Section <a class="reference internal" href="defining_package.html#mult-vers"><span class="std std-ref">Defining multiple versions of a package</span></a> gives more details.</p>
+<p>In <a class="reference internal" href="#deviser-util"><span class="std std-numref">Figure 4.5</span></a>
+highlighting <em>FooRate</em> and selecting <em>Duplicate</em> would add a new class to the list for
+Version 3,1,1. This class would be identical to <em>FooRate</em> except it would have the name
+<em>FooRate_copy</em>.</p>
+</div>
+<div class="section" id="the-copy-xml-item">
+<h3>4.3.3. The <strong>Copy XML</strong> item<a class="headerlink" href="#the-copy-xml-item" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Copy XML</strong> item copies the Deviser XML description of the selected object
+to the clipboard; thus making it available for pasting elsewhere.
+Similarly to <strong>Duplicate</strong> this works for individual classes, plugins, enums
+and versions but not for the other headers.</p>
+<blockquote id="xml-model">
+<div>Example of text copied when highlighting <em>Model</em> from the <em>Plugins</em> and selecting <em>Copy XML</em></div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;plugin</span> <span class="na">extensionPoint=</span><span class="s">&quot;Model&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;attributes&gt;</span>
+    <span class="nt">&lt;attribute</span> <span class="na">name=</span><span class="s">&quot;useFoo&quot;</span> <span class="na">required=</span><span class="s">&quot;true&quot;</span> <span class="na">type=</span><span class="s">&quot;boolean&quot;</span> <span class="na">abstract=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;/attributes&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-copy-yuml-item">
+<h3>4.3.4. The <strong>Copy yUML</strong> item<a class="headerlink" href="#the-copy-yuml-item" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Copy yUML</strong> item copies the yUML text description of the selected object
+to the clipboard; thus making it available for pasting elsewhere.
+Similarly to <strong>Duplicate</strong> this works for individual classes, plugins, enums
+and versions but not for the other headers.</p>
+<blockquote id="yuml-sign">
+<div>Example of text copied when highlighting <em>Sign</em> from the <em>Enums</em> and selecting <em>Copy yUML</em></div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span>[«Enumeration»;Sign|SIGN_FOO_POSITIVE = positive;SIGN_FOO_NEGATIVE = negative;SIGN_FOO_NEUTRAL = neutral{bg:gold}]
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-delete-selected-item">
+<h3>4.3.5. The <strong>Delete Selected</strong> item<a class="headerlink" href="#the-delete-selected-item" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Delete Selected</strong> item removes the item from the description.
+Similarly to <strong>Duplicate</strong> this works for individual classes, plugins, enums
+and versions but not for the other headers.</p>
+</div>
+</div>
+<div class="section" id="command-line">
+<h2>4.4. Command line<a class="headerlink" href="#command-line" title="Permalink to this headline">¶</a></h2>
+<p>The command line function deviser.py can be invoked directly:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">deviser</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">--</span><span class="n">generate</span><span class="p">][</span><span class="o">--</span><span class="n">latex</span><span class="p">]</span> <span class="nb">input</span><span class="o">-</span><span class="n">file</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>This program takes as input a Deviser XML file and either</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">--generate</span></code> (<code class="docutils literal"><span class="pre">-g</span></code>) generates the libSBML code for the package</p>
+<blockquote>
+<div><p>This generates the complete src package that can be zipped and then
+unzipped over an existing libSBML src tree.</p>
+</div></blockquote>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">--latex</span></code> (<code class="docutils literal"><span class="pre">-l</span></code>) generates a LaTeX scaffold for its specification.</p>
+<blockquote>
+<div><p>This generates the adx-validation.tex, macros.tex and body.tex files
+which can then be integrated into a package pdf using the
+sbmlpkgspec files.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Generation of a pdf or integration with libSBML can then be done
+manually.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="appendix_xml_example.html" class="btn btn-neutral float-right" title="5. Appendix A: Example package description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="defining_package.html" class="btn btn-neutral" title="3. Defining an SBML Level 3 Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, SBML Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

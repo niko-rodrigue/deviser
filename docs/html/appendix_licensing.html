@@ -1,0 +1,303 @@
+﻿
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>8. Appendix D: Licensing the code produced &mdash; Deviser 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Deviser 1.0 documentation" href="index.html"/>
+        <link rel="prev" title="7. Appendix C: Validation" href="appendix_validation.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="deviser.html" class="icon icon-home"> Deviser
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="background.html">1. Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defining_package.html">3. Defining an SBML Level 3 Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_deviser.html">4. Using Deviser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="deviser.html">Deviser</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="deviser.html">Docs</a> &raquo;</li>
+        
+      <li>8. Appendix D: Licensing the code produced</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/appendix_licensing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="appendix-d-licensing-the-code-produced">
+<span id="licensing"></span><h1>8. Appendix D: Licensing the code produced<a class="headerlink" href="#appendix-d-licensing-the-code-produced" title="Permalink to this headline">¶</a></h1>
+<p>The Deviser and DeviserEdit code is released under the GNU LESSER GENERAL
+PUBLIC LICENSE (LGPL) Version 2.1. A copy of this is included with the
+deviser code and is available <a class="reference external" href="http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html">here</a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Code produced by Deviser must be released under the LGPL v2.1 license.</p>
+</div>
+<p>Currently the code produced will include mention of the LGPL license as well
+as the Copyright information for the current SBML Team. Deviser users may add
+their own Copyright information or indeed replace the existing Copyright
+providing a reference is made to Deviser.</p>
+<p>At present the way to change what is produced at the top of each file involves
+adjusting the Deviser source code directly. In the file BaseFile.py located at
+deviser/generator/base_files in the
+deviser source tree the function <strong>write_libsbml_licence(self)</strong> produces the
+license and copyright information.</p>
+<div class="highlight-Python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">write_libsbml_licence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_blank_comment_line</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;&lt;!-----------------------------------------&#39;</span>
+                            <span class="s1">&#39;---------------------------------&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;This file is part of libSBML.  Please visit &#39;</span>
+                            <span class="s1">&#39;http://sbml.org for more information about &#39;</span>
+                            <span class="s1">&#39;SBML, and the latest version of libSBML.&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_blank_comment_line</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;Copyright (C) 2013-2015 jointly by the &#39;</span>
+                            <span class="s1">&#39;following organizations:&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    1. California Institute of Technology, &#39;</span>
+                            <span class="s1">&#39;Pasadena, CA, USA&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    2. EMBL European Bioinformatics &#39;</span>
+                            <span class="s1">&#39;Institute (EMBL-EBI), Hinxton, UK&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    3. University of Heidelberg, Heidelberg, &#39;</span>
+                            <span class="s1">&#39;Germany&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_blank_comment_line</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;Copyright (C) 2009-2013 jointly by the &#39;</span>
+                            <span class="s1">&#39;following organizations:&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    1. California Institute of Technology, &#39;</span>
+                            <span class="s1">&#39;Pasadena, CA, USA&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    2. EMBL European Bioinformatics &#39;</span>
+                            <span class="s1">&#39;Institute (EMBL-EBI), Hinxton, UK&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_blank_comment_line</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;Copyright (C) 2006-2008 by the California &#39;</span>
+                            <span class="s1">&#39;Institute of Technology,&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    Pasadena, CA, USA &#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_blank_comment_line</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;Copyright (C) 2002-2005 jointly by the &#39;</span>
+                            <span class="s1">&#39;following organizations:&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    1. California Institute of Technology, &#39;</span>
+                            <span class="s1">&#39;Pasadena, CA, USA&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;    2. Japan Science and Technology Agency, &#39;</span>
+                            <span class="s1">&#39;Japan&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_blank_comment_line</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;This library is free software; you can &#39;</span>
+                            <span class="s1">&#39;redistribute it and/or modify it under the &#39;</span>
+                            <span class="s1">&#39;terms of the GNU Lesser General Public &#39;</span>
+                            <span class="s1">&#39;License as published by the Free Software &#39;</span>
+                            <span class="s1">&#39;Foundation.  A copy of the license agreement&#39;</span>
+                            <span class="s1">&#39; is provided in the file named &quot;LICENSE.txt&quot;&#39;</span>
+                            <span class="s1">&#39; included with this software distribution &#39;</span>
+                            <span class="s1">&#39;and also available online as http://sbml.org&#39;</span>
+                            <span class="s1">&#39;/software/libsbml/license.html&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">write_comment_line</span><span class="p">(</span><span class="s1">&#39;--------------------------------------------&#39;</span>
+                            <span class="s1">&#39;---------------------------- --&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Users should remove or replace the copyright text as appropriate.</p>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="appendix_validation.html" class="btn btn-neutral" title="7. Appendix C: Validation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, SBML Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

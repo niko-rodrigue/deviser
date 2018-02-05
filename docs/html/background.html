@@ -1,0 +1,292 @@
+﻿
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>1. Background &mdash; Deviser 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Deviser 1.0 documentation" href="index.html"/>
+        <link rel="next" title="2. Getting started" href="getting_started.html"/>
+        <link rel="prev" title="DEVISER" href="deviser.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="deviser.html" class="icon icon-home"> Deviser
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Background</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sbml-level-3-and-packages">1.1. SBML Level 3 and Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#libsbml">1.2. LibSBML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-of-l3-packages">1.3. Development of L3 Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defining_package.html">3. Defining an SBML Level 3 Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_deviser.html">4. Using Deviser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_licensing.html">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="deviser.html">Deviser</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="deviser.html">Docs</a> &raquo;</li>
+        
+      <li>1. Background</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/background.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="background">
+<h1>1. Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h1>
+<p>The Systems Biology Markup Language (SBML) provides a <em>lingua franca</em> for
+respresenting computational models in a machine readable format.  This faciliates
+both the exchange of models between different software platforms and the re-use
+of these models for subsequent research.</p>
+<div class="section" id="sbml-level-3-and-packages">
+<h2>1.1. SBML Level 3 and Packages<a class="headerlink" href="#sbml-level-3-and-packages" title="Permalink to this headline">¶</a></h2>
+<p>SBML Level 3 (L3) is being developed using a modular approach. A core specification
+(SBML L3 Core) captures the basics of a model, with optional additional packages providing
+extensions relevant to particular areas of modeling. There are several
+L3 packages at various stages of development encompassing such things as
+flux balance modeling and models involving spatial components. An up to date
+list of these packages can be found at the
+<a class="reference external" href="http://sbml.org/Documents/Specifications#SBML_Level_3_Packages">sbml.org website</a>.</p>
+</div>
+<div class="section" id="libsbml">
+<h2>1.2. LibSBML<a class="headerlink" href="#libsbml" title="Permalink to this headline">¶</a></h2>
+<p>LibSBML is a free open-source API library for working with SBML. Support for
+L3 packages in libSBML is also provided in a modular fashion using
+<a class="reference external" href="https://cmake.org/">CMake</a> (a system for managing the build process) to allow users to configure and build
+with options to enable/disable the various L3 packages.   A wide range of
+programming languages are supported by libSBML
+which uses <a class="reference external" href="http://www.swig.org/">SWIG</a> (an interface compiler)
+to create the different interfaces necessary. Options to configure and build
+these interfaces are also available using the CMake system.</p>
+<p>As a general note it is worth pointing out that a release of libSBML does
+include targeted installers for several
+languages and operating systems; although for users of Deviser these will not be
+relevant. Further information is available from
+the <a class="reference external" href="http://sbml.org/Software/libSBML">libSBML page</a>.</p>
+<p>A complete L3 package for libSBML includes
+the C++ and C code, as well as all the necessary SWIG and CMake files to allow
+the package to be integrated into an existing libSBML build and have all
+the language interfaces available.</p>
+</div>
+<div class="section" id="development-of-l3-packages">
+<h2>1.3. Development of L3 Packages<a class="headerlink" href="#development-of-l3-packages" title="Permalink to this headline">¶</a></h2>
+<p>Each SBML L3 Package that has been proposed goes through a period of development
+by a focussed group of people (known as the package working group or PWG)
+who are either interested and/or actively trying
+to use the additional functionality provided by the package.  This leads to a
+number of iterations of the package design as the PWG work towards a specification
+that is agreed upon and meets the requirements of the parties involved.</p>
+<p>Deviser has been developed to provide a fast, efficient means of changing both
+API code and specification documentation to facilitate the update of documentation
+and implementation necessary as the package itself evolves.</p>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getting_started.html" class="btn btn-neutral float-right" title="2. Getting started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="deviser.html" class="btn btn-neutral" title="DEVISER" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, SBML Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

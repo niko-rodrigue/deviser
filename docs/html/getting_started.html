@@ -1,0 +1,513 @@
+﻿
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. Getting started &mdash; Deviser 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Deviser 1.0 documentation" href="index.html"/>
+        <link rel="next" title="3. Defining an SBML Level 3 Package" href="defining_package.html"/>
+        <link rel="prev" title="1. Background" href="background.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="deviser.html" class="icon icon-home"> Deviser
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="background.html">1. Background</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#functionality">2.1. Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#using-command-line">2.1.1. Using command line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-deviser-edit">2.1.2. Using Deviser Edit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">2.2. Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#integration-and-testing">2.2.1. Integration and testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-documentation">2.2.2. Basic documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uml-diagrams">2.2.3. UML diagrams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#available-bundles">2.2.4. Available bundles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#useful-links">2.2.5. Useful links</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-the-deviser-edit-tool">2.3. Setting up the Deviser Edit tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deviser-settings">2.3.1. Deviser Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-defined-types">2.3.2. User Defined Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#misc">2.3.3. Misc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="defining_package.html">3. Defining an SBML Level 3 Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_deviser.html">4. Using Deviser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_licensing.html">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="deviser.html">Deviser</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="deviser.html">Docs</a> &raquo;</li>
+        
+      <li>2. Getting started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/getting_started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="getting-started">
+<h1>2. Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Deviser allows a user to define an SBML Level 3 (L3) package
+and produce libSBML
+code that can be integrated with the existing libSBML source tree to add
+libSBML support for the package.</p>
+<p>Deviser can also use the package description to create basic
+specification files for the package based on the LaTeX style SBMLPkgSpec
+for SBML Level 3 package documentation.</p>
+<p>The creation of both code and LaTeX files can be controlled via a
+command-line interface.</p>
+<p>The full Deviser package includes Deviser Edit; a graphical user interface (GUI)
+for defining the
+necessary details of the package being defined. The GUI also provides a
+convenient way of invoking the
+Deviser functionality to create code or LaTeX files. Other capabilities of
+Deviser Edit (view UML,
+create PDF, integrate and test code) further aid the process of defining an
+SBML L3 package and testing the code generated by Deviser.</p>
+<div class="section" id="functionality">
+<h2>2.1. Functionality<a class="headerlink" href="#functionality" title="Permalink to this headline">¶</a></h2>
+<p>The Deviser Edit tool outputs an XML definition of the SBML L3 package you have defined. This
+definition is then used by Deviser to generate either code or LaTeX files.
+Samples of definitions output by Deviser Edit are included in the <em>devisersamples</em>
+directory within the Deviser distribution, and the full text of the XML definition
+created by
+the examples used in this manual is given in <a class="reference internal" href="appendix_xml_example.html#descrip"><span class="std std-ref">Appendix A: Example package description</span></a>. Note it is not
+necessary to use Deviser Edit to produce this XML definition; the
+definition can be produced by hand but should match the format used
+in the samples provided.</p>
+<div class="section" id="using-command-line">
+<h3>2.1.1. Using command line<a class="headerlink" href="#using-command-line" title="Permalink to this headline">¶</a></h3>
+<p>A command line interface is available to produce code files and LaTeX files.
+This invokes the deviser.py function that is available in the <em>devisergenerator</em>
+directory of the Deviser distribution.</p>
+<p>This is invoked as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">deviser</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">--</span><span class="n">generate</span><span class="p">][</span><span class="o">--</span><span class="n">latex</span><span class="p">]</span> <span class="nb">input</span><span class="o">-</span><span class="n">file</span><span class="o">.</span><span class="n">xml</span>
+</pre></div>
+</div>
+<p>This program takes as input a Deviser XML file and either</p>
+<ul class="simple">
+<li>generates libSBML code for the package,
+when the comman-line argument is <code class="docutils literal"><span class="pre">--generate</span></code> or <code class="docutils literal"><span class="pre">-g</span></code></li>
+<li>generates the LaTeX files for the package specification,
+when the command-line argument is <code class="docutils literal"><span class="pre">--latex</span></code> or <code class="docutils literal"><span class="pre">-l</span></code></li>
+</ul>
+</div>
+<div class="section" id="using-deviser-edit">
+<h3>2.1.2. Using Deviser Edit<a class="headerlink" href="#using-deviser-edit" title="Permalink to this headline">¶</a></h3>
+<p>The basic Deviser Edit tool allows a user
+to define an SBML L3 package by filling in requested information.
+Once defined, the following functions are
+available:</p>
+<ol class="arabic simple">
+<li>Generate libSBML code for the package.</li>
+<li>Integrate and test the package code within libSBML.</li>
+<li>Generate LaTeX files for basic specification of the package.</li>
+<li>Generate a PDF of a basic specification document for the package.</li>
+<li>Create and view a UML diagram of the package specification.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="prerequisites">
+<span id="prereq"></span><h2>2.2. Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>The main functionality (generating code or LaTeX files) is
+invoked using a Python Interpreter (see <a class="reference internal" href="using_deviser.html#using"><span class="std std-numref">Section 4</span></a>). This release of Deviser has been
+tested with Python 2.6, 2.7, 3.3 and 3.4.
+Other functions provided by Deviser Edit may require further
+software. The prerequisites for each function are listed below.</p>
+<div class="section" id="integration-and-testing">
+<h3>2.2.1. Integration and testing<a class="headerlink" href="#integration-and-testing" title="Permalink to this headline">¶</a></h3>
+<p>Deviser Edit allows you to automatically integrate and test your
+newly created code with libSBML. In order to do this you will need to
+have the following additional software installed/available:</p>
+<ul class="simple">
+<li>CMake</li>
+<li>SWIG</li>
+<li>a C++ compiler</li>
+<li>libSBML source code</li>
+<li>libSBML dependencies source code</li>
+</ul>
+</div>
+<div class="section" id="basic-documentation">
+<h3>2.2.2. Basic documentation<a class="headerlink" href="#basic-documentation" title="Permalink to this headline">¶</a></h3>
+<p>In order to create a PDF document of the package specification
+it will be necessary to have the following installed/available:</p>
+<ul class="simple">
+<li>pdflatex</li>
+<li>SBMLPkgSpec (the LaTeX style for SBML L3 package documentation)</li>
+</ul>
+<p>Note that using pdflatex may involve installing other packages depending on the
+operating system.</p>
+<p>On Windows we successfully used MiKTEX (MiKTeX (pronounced mick-tech) is an
+up-to-date implementation of LaTeX/LaTeX and related programs for Windows) see
+<a class="reference internal" href="#links"><span class="std std-numref">Section 2.2.5</span></a>.</p>
+</div>
+<div class="section" id="uml-diagrams">
+<h3>2.2.3. UML diagrams<a class="headerlink" href="#uml-diagrams" title="Permalink to this headline">¶</a></h3>
+<p>Deviser allows you to create and view very basic UML diagrams based on
+the classes specified. Since it uses the free yUML (<a class="reference external" href="http://yuml.me/">http://yuml.me/</a>) web
+service, you will be necessary to be connected to the internet to
+create UML diagrams. The Deviser Edit tool requires the OpenSSL library
+(<a class="reference external" href="https://www.openssl.org/">https://www.openssl.org/</a>) to access yUML.</p>
+</div>
+<div class="section" id="available-bundles">
+<h3>2.2.4. Available bundles<a class="headerlink" href="#available-bundles" title="Permalink to this headline">¶</a></h3>
+<p>Installers and source code bundles are available from
+<a class="reference external" href="https://github.com/sbmlteam/deviser/releases">https://github.com/sbmlteam/deviser/releases</a> .</p>
+</div>
+<div class="section" id="useful-links">
+<span id="links"></span><h3>2.2.5. Useful links<a class="headerlink" href="#useful-links" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>libSBML source code (latest release):
+<a class="reference external" href="https://sourceforge.net/projects/sbml/files/libsbml/5.16.0/stable/libSBML-5.16.0-core-src.tar.gz/download">https://sourceforge.net/projects/sbml/files/libsbml/5.16.0/stable/libSBML-5.16.0-core-src.tar.gz/download</a>
+<strong>Note that there may be a later release available.</strong></li>
+<li>libSBML source code (latest code):
+<a class="reference external" href="https://sourceforge.net/p/sbml/code/HEAD/tree/trunk/libsbml/">https://sourceforge.net/p/sbml/code/HEAD/tree/trunk/libsbml/</a></li>
+<li>libSBML dependencies:
+<a class="reference external" href="https://github.com/sbmlteam/libSBML-dependencies">https://github.com/sbmlteam/libSBML-dependencies</a></li>
+<li>SBML package specification LaTeX template files:
+<a class="reference external" href="https://sourceforge.net/projects/sbml/files/specifications/tex/SBMLPkgSpec-1.6.0.tar.gz/download">https://sourceforge.net/projects/sbml/files/specifications/tex/SBMLPkgSpec-1.6.0.tar.gz/download</a></li>
+<li>CMake:
+<a class="reference external" href="http://www.cmake.org/">http://www.cmake.org/</a></li>
+<li>SWIG:
+<a class="reference external" href="http://www.swig.org/">http://www.swig.org/</a></li>
+<li>MiKTEX:
+<a class="reference external" href="http://miktex.org/">http://miktex.org/</a></li>
+</ol>
+</div>
+</div>
+<div class="section" id="setting-up-the-deviser-edit-tool">
+<span id="setup"></span><h2>2.3. Setting up the Deviser Edit tool<a class="headerlink" href="#setting-up-the-deviser-edit-tool" title="Permalink to this headline">¶</a></h2>
+<p>Before you can generate code/files/diagrams it is necessary to
+tell the Deviser Edit tool where it will find things on your system.
+You can also configure the Edit tool to set some other preferences.
+For example, data types not fully supported by Deviser can still be used as types for
+attributes by adding them via the Deviser Edit tool.
+Also, deviser Edit highlights required fields, and the settings provide the option to
+customize the color used for this highlighting.</p>
+<p>Setting these values is done by selecting the menu option <em>Edit Preferences</em>
+(on Mac OSX, it’s named <em>Preferences</em>) from the <em>Edit</em> menu,
+and choosing the <strong>Deviser Settings</strong>, the <strong>User Defined Types</strong> or
+the <strong>Misc</strong> tab.  (See Figure 2.1.) The settings will be saved and will persist between sessions.</p>
+<div class="figure" id="id1">
+<span id="fig-edit"></span><img alt="_images/deviser-edit-menu.png" src="_images/deviser-edit-menu.png" />
+<p class="caption"><span class="caption-number">Figure 2.1 </span><span class="caption-text">Figure 1: The <em>Edit</em> menu.</span></p>
+</div>
+<div class="section" id="deviser-settings">
+<span id="settings"></span><h3>2.3.1. Deviser Settings<a class="headerlink" href="#deviser-settings" title="Permalink to this headline">¶</a></h3>
+<p>It is not necessary to fill in all the fields if you do not
+intend to use all the functionality. With nothing entered by the user, Deviser
+Edit will save the XML description file
+and it would also be possible to generate UML diagrams.</p>
+<p>Enter or browse to the location of the files requested by each field.</p>
+<p>To generate code or LaTeX source the fields requested are:</p>
+<ul class="simple">
+<li><strong>Python Interpreter</strong>.
+This is the location of the Python executable, which is necessary to
+invoke any functionality of Deviser.</li>
+<li><strong>Deviser repository</strong>.
+This is the location of the directory containing the scripts used
+to generate code/LaTeX. If you installed Deviser/Deviser Edit using one of the
+installers provided this will be the <strong>deviser</strong> directory located in
+your installation path. This directory may also be obtained directly from our
+GitHub repository [<a class="reference external" href="https://github.com/sbmlteam/deviser">https://github.com/sbmlteam/deviser</a>].</li>
+<li><strong>Default output dir</strong>.
+The location where you want generated files to be written.</li>
+</ul>
+<p>To compile the LaTeX source the fields requested are:</p>
+<ul class="simple">
+<li><strong>SBMLPkgSpec dir</strong>.
+The location of the SBML documentation style files SBMLPkgSpec.</li>
+<li><strong>LaTeX Bin dir</strong>.
+The location of the LaTeX executables.</li>
+</ul>
+<p>To integrate and compile the code with libSBML the fields requested are:</p>
+<ul class="simple">
+<li><strong>Compiler</strong>.
+The location of the C++ compiler to be used when building libSBML to include
+the integrated package code.</li>
+<li><strong>libSBML Source dir</strong>.
+The location of the libSBML source tree (the top-level
+libSBML directory).</li>
+<li><strong>Dependencies Source dir</strong>.
+The location of the libSBML dependencies source code. Note that
+particularly on Windows it is necessary for the
+libSBML dependencies to be built with the same compiler used to build libSBML.
+Deviser Edit offers an option to
+build them if this should be necessary.</li>
+<li><strong>CMake executable</strong>.
+The location of the CMake executable, necessary if you want Deviser Edit to
+integrate your package code into an existing libSBML build.
+Note Deviser/Deviser Edit do not support any build system other than CMake.</li>
+<li><strong>SWIG executable</strong>.
+The location of the SWIG executable. When Deviser Edit invokes the
+compilation of libSBML with the newly integrated package it configures
+and builds the Python binding, in addition to the C++ library.
+SWIG is necessary for this. It is hoped in future to add a facility to
+directly test the build using a Python interface.</li>
+</ul>
+<div class="figure" id="id2">
+<span id="fig-preferences"></span><img alt="_images/deviser-preferences.png" src="_images/deviser-preferences.png" />
+<p class="caption"><span class="caption-number">Figure 2.2 </span><span class="caption-text">Figure 2: The Deviser Settings tab from the Preferences window; adding information about other required software.</span></p>
+</div>
+<p><a class="reference internal" href="#fig-preferences"><span class="std std-numref">Figure 2.2</span></a> illustrates
+a case
+where you want to be able to generate code and LaTeX files but do not want to generate a
+PDF or
+integrate the code automatically.</p>
+</div>
+<div class="section" id="user-defined-types">
+<span id="add-types"></span><h3>2.3.2. User Defined Types<a class="headerlink" href="#user-defined-types" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id3">
+<span id="fig-user-types"></span><img alt="_images/deviser-add-type.png" src="_images/deviser-add-type.png" />
+<p class="caption"><span class="caption-number">Figure 2.3 </span><span class="caption-text">Figure 3: The User Defined Types tab from the Preferences window; adding information about other data types.</span></p>
+</div>
+<p>To generate functionable code, all data types used in the package must be known
+to Deviser. Deviser has built-in support for the predefined types declared by
+SBML L3 Core (see <a class="reference internal" href="defining_package.html#typefield"><span class="std std-numref">Section 3.3.3.3</span></a>) but various SBML L3 packages may
+introduce unsupported types. To enable Deviser to handle these new types, the
+new types should be added using the <strong>User Defined Types</strong> tab on the
+<strong>Preferences</strong> window. Use the ‘+’ button to add a new type and then
+adjust the name as required. To remove a type, highlight it and press the ‘-‘
+button.  The new type will then appear in the dropdown list of Types available
+when you enter attribute
+information. (For example, <a class="reference internal" href="#fig-user-types"><span class="std std-numref">Figure 2.3</span></a> demonstrates adding a
+type called <em>PType</em>.)</p>
+<p>Note any C++ code produced will use the type ‘FIXME_[type]’ where [type]
+is the type name entered by the user (see <a class="reference internal" href="#code-for-ptype"><span class="std std-numref">Listing 2.1</span></a>).
+The resulting code will not compile and will need to be manually adjusted.</p>
+<blockquote>
+<div><div class="literal-block-wrapper docutils container" id="code-for-ptype">
+<div class="code-block-caption"><span class="caption-number">Listing 2.1 </span><span class="caption-text">Code generated for an attribute named ‘P’ of user defined type ‘PType’.</span><a class="headerlink" href="#code-for-ptype" title="Permalink to this code">¶</a></div>
+<div class="highlight-C++"><div class="highlight"><pre><span></span>     <span class="n">FIXME_PType</span> <span class="nf">getP</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+
+     <span class="kt">int</span> <span class="nf">setP</span><span class="p">(</span><span class="n">FIXME_PType</span> <span class="n">p</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="misc">
+<h3>2.3.3. Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id4">
+<span id="fig-color-highlight"></span><img alt="_images/deviser-missing-info.png" src="_images/deviser-missing-info.png" />
+<p class="caption"><span class="caption-number">Figure 2.4 </span><span class="caption-text">Figure 4: A window from Deviser Edit showing missing required information boxes highlighted.</span></p>
+</div>
+<p>When the information in a text box is required, Deviser Edit highlights the
+field that has missing information (see <a class="reference internal" href="#fig-color-highlight"><span class="std std-numref">Figure 2.4</span></a>). Users can customize the color
+used to highlight missing field using the <strong>Misc</strong> tab on the <strong>Preferences</strong> window.
+We leave experimenting with that to the user.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="defining_package.html" class="btn btn-neutral float-right" title="3. Defining an SBML Level 3 Package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="background.html" class="btn btn-neutral" title="1. Background" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, SBML Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

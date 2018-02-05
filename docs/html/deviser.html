@@ -1,0 +1,413 @@
+﻿
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DEVISER &mdash; Deviser 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Deviser 1.0 documentation" href="index.html"/>
+        <link rel="next" title="1. Background" href="background.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Deviser
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="background.html">1. Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">2. Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="defining_package.html">3. Defining an SBML Level 3 Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="using_deviser.html">4. Using Deviser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_licensing.html">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Deviser</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>DEVISER</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/deviser.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deviser">
+<h1>DEVISER<a class="headerlink" href="#deviser" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="background.html">1. Background</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="background.html#sbml-level-3-and-packages">1.1. SBML Level 3 and Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html#libsbml">1.2. LibSBML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="background.html#development-of-l3-packages">1.3. Development of L3 Packages</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">2. Getting started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#functionality">2.1. Functionality</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-command-line">2.1.1. Using command line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#using-deviser-edit">2.1.2. Using Deviser Edit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#prerequisites">2.2. Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#integration-and-testing">2.2.1. Integration and testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#basic-documentation">2.2.2. Basic documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#uml-diagrams">2.2.3. UML diagrams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#available-bundles">2.2.4. Available bundles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#useful-links">2.2.5. Useful links</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#setting-up-the-deviser-edit-tool">2.3. Setting up the Deviser Edit tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#deviser-settings">2.3.1. Deviser Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#user-defined-types">2.3.2. User Defined Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="getting_started.html#misc">2.3.3. Misc</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="defining_package.html">3. Defining an SBML Level 3 Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#define-the-general-package-information">3.1. Define the general package information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#the-package-name-field">3.1.1. The Package <strong>Name</strong> field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#the-package-full-name-field">3.1.2. The Package <strong>Full Name</strong> field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#the-package-required-checkbox">3.1.3. The Package <strong>required</strong> checkbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#the-package-requires-additional-code-checkbox">3.1.4. The Package <strong>requires additional code</strong> checkbox</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#custom-copyright">3.1.4.1. Custom copyright</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#the-package-number-field">3.1.5. The Package <strong>Number</strong> field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#the-package-offset-field">3.1.6. The Package <strong>Offset</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#add-the-version-number">3.2. Add the version number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#add-class-information">3.3. Add class information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#what-is-a-class">3.3.1. What is a class ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#general-class-information">3.3.2. General class information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-name-field">3.3.2.1. The Class <strong>Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-baseclass-field">3.3.2.2. The Class <strong>BaseClass</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-typecode-checkbox-and-field">3.3.2.3. The Class <strong>TypeCode</strong> checkbox and field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-xml-elementname-field">3.3.2.4. The Class <strong>XML ElementName</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-haslistof-checkbox">3.3.2.5. The Class <strong>hasListOf</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-isbaseclass-checkbox">3.3.2.6. The Class <strong>isBaseClass</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-requires-additional-code-checkbox">3.3.2.7. The Class <strong>requires additional code</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-class-attributes-and-child-elements-table">3.3.2.8. The <strong>Class attributes and child elements</strong> table</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#adding-attributes-and-child-elements">3.3.3. Adding attributes and child elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-attribute-element-required-checkbox">3.3.3.1. The attribute/element <strong>Required</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-attribute-element-name-field">3.3.3.2. The attribute/element <strong>Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-attribute-element-type-field">3.3.3.3. The attribute/element <strong>Type</strong> field</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#attribute-child-element-type-array">3.3.3.3.1. Attribute/child element type ‘array’</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#attribute-child-element-type-enum">3.3.3.3.2. Attribute/child element type ‘enum’</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#attribute-child-element-type-element">3.3.3.3.3. Attribute/child element type ‘element’</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#attribute-child-element-type-lo-element">3.3.3.3.4. Attribute/child element type ‘lo_element’</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#attribute-child-element-type-inline-lo-element">3.3.3.3.5. Attribute/child element type ‘inline_lo_element’</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#attribute-child-element-type-vector">3.3.3.3.6. Attribute/child element type ‘vector’</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-attribute-element-element-field">3.3.3.4. The attribute/element <strong>Element</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-attribute-element-isbaseclass-field">3.3.3.5. The attribute/element <strong>isBaseClass</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-attribute-element-xml-name-field">3.3.3.6. The attribute/element <strong>XML Name</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#adding-further-listof-information">3.3.4. Adding further ListOf information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-listof-listofclassname-field">3.3.4.1. The listof <strong>ListOfClassName</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-listof-xml-listofname-field">3.3.4.2. The listof <strong>XML ListOfName</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-listof-minimum-number-of-children-field">3.3.4.3. The listof <strong>Minimum number of children</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-listof-maximum-number-of-children-field">3.3.4.4. The listof <strong>Maximum number of children</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#adding-instantiations-information">3.3.5. Adding instantiations information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-instantiations-xml-name-field">3.3.5.1. The instantiations <strong>XML Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-instantiations-element-field">3.3.5.2. The instantiations <strong>Element</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-instantiations-min-no-children-field">3.3.5.3. The instantiations <strong>Min No. Children</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-instantiations-max-no-children-field">3.3.5.4. The instantiations <strong>Max No. Children</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#a-note-on-repeated-information">3.3.6. A note on repeated information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-1-adding-a-class-with-no-containing-listof">3.3.7. Example 1 - Adding a class with no containing ListOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-2-adding-a-class-with-a-containing-listof">3.3.8. Example 2 - Adding a class with a containing ListOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-3-adding-a-base-class-and-derived-classes">3.3.9. Example 3 – Adding a base class and derived classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#add-plugin-information">3.4. Add plugin information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#what-is-a-plugin">3.4.1. What is a plugin ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#general-plugin-information">3.4.2. General plugin information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-plugin-extensionpoint-field">3.4.2.1. The Plugin <strong>ExtensionPoint</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-plugin-element-from-core-checkbox">3.4.2.2. The Plugin <strong>element from core</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-plugin-hasattributes-checkbox">3.4.2.3. The Plugin <strong>hasAttributes</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-plugin-requires-additional-code-checkbox">3.4.2.4. The Plugin <strong>requires additional code</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-plugin-defined-classes-and-child-classes-boxes">3.4.2.5. The Plugin <strong>Defined Classes</strong> and <strong>Child Classes</strong> boxes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#adding-other-package-information">3.4.2.6. Adding other package information</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#the-plugin-package-field">3.4.2.6.1. The plugin <strong>Package</strong> field</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#the-plugin-typecode-field">3.4.2.6.2. The plugin <strong>TypeCode</strong> field</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-4-extending-a-core-element">3.4.3. Example 4 – Extending a core element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-5-extending-a-core-element-with-attributes-only">3.4.4. Example 5 – Extending a core element with attributes only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-6-extending-a-non-core-element">3.4.5. Example 6 – Extending a non-core element</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#add-enum-information">3.5. Add enum information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#general-enum-information">3.5.1. General enum information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-enum-name-field">3.5.1.1. The Enum <strong>Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-enum-name-value-table">3.5.1.2. The Enum <strong>Name/Value</strong> table</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#the-enum-table-name-field">3.5.1.2.1. The enum table <strong>Name</strong> field</a></li>
+<li class="toctree-l5"><a class="reference internal" href="defining_package.html#the-enum-table-value-field">3.5.1.2.2. The enum table <strong>Value</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-enum-quick-add-field">3.5.1.3. The Enum Quick Add field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#example-7-adding-an-enumeration">3.5.2. Example 7 – Adding an enumeration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#mappings">3.6. Mappings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#overview-of-a-defined-package">3.7. Overview of a defined package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="defining_package.html#validating-the-description">3.7.1. Validating the description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-validate-description-option">3.7.1.1. The <strong>Validate Description</strong> option</a></li>
+<li class="toctree-l4"><a class="reference internal" href="defining_package.html#the-fix-errors-option">3.7.1.2. The <strong>Fix Errors</strong> option</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="defining_package.html#defining-multiple-versions-of-a-package">3.8. Defining multiple versions of a package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_deviser.html">4. Using Deviser</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using_deviser.html#view-uml-diagrams">4.1. View UML diagrams.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using_deviser.html#generate-package-code-documentation">4.2. Generate package code/documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#generate-basic-specification-documentation">4.2.1. Generate basic specification documentation.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-generate-latex-button">4.2.1.1. The <strong>Generate LaTeX</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-generate-latex-with-figures-button">4.2.1.2. The <strong>Generate LaTeX with Figures</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-compile-tex-button">4.2.1.3. The <strong>Compile TeX</strong> button</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#integrate-and-test-the-package-with-libsbml">4.2.2. Integrate and test the package with libSBML.</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-compile-dependencies-button">4.2.2.1. The <strong>Compile Dependencies</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-add-code-to-source-dir-button">4.2.2.2. The <strong>Add Code to Source Dir</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-remove-code-to-source-dir-button">4.2.2.3. The <strong>Remove Code to Source Dir</strong> button</a></li>
+<li class="toctree-l4"><a class="reference internal" href="using_deviser.html#the-compile-libsbml-with-package-button">4.2.2.4. The <strong>Compile libSBML with package</strong> button</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="using_deviser.html#utility-functions-in-deviser-edit">4.3. Utility functions in Deviser Edit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#the-add-xyz-items">4.3.1. The <strong>Add XYZ</strong> items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#the-duplicate-item">4.3.2. The <strong>Duplicate</strong> item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#the-copy-xml-item">4.3.3. The <strong>Copy XML</strong> item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#the-copy-yuml-item">4.3.4. The <strong>Copy yUML</strong> item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="using_deviser.html#the-delete-selected-item">4.3.5. The <strong>Delete Selected</strong> item</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="using_deviser.html#command-line">4.4. Command line</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_licensing.html">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="background.html" class="btn btn-neutral float-right" title="1. Background" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, SBML Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

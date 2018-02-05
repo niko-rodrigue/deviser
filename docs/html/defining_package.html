@@ -1,0 +1,1546 @@
+﻿
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>3. Defining an SBML Level 3 Package &mdash; Deviser 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Deviser 1.0 documentation" href="index.html"/>
+        <link rel="next" title="4. Using Deviser" href="using_deviser.html"/>
+        <link rel="prev" title="2. Getting started" href="getting_started.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="deviser.html" class="icon icon-home"> Deviser
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="background.html">1. Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">2. Getting started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Defining an SBML Level 3 Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#define-the-general-package-information">3.1. Define the general package information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-name-field">3.1.1. The Package <strong>Name</strong> field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-full-name-field">3.1.2. The Package <strong>Full Name</strong> field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-required-checkbox">3.1.3. The Package <strong>required</strong> checkbox</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-requires-additional-code-checkbox">3.1.4. The Package <strong>requires additional code</strong> checkbox</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#custom-copyright">3.1.4.1. Custom copyright</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-number-field">3.1.5. The Package <strong>Number</strong> field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-package-offset-field">3.1.6. The Package <strong>Offset</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#add-the-version-number">3.2. Add the version number</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-class-information">3.3. Add class information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-a-class">3.3.1. What is a class ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-class-information">3.3.2. General class information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-name-field">3.3.2.1. The Class <strong>Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-baseclass-field">3.3.2.2. The Class <strong>BaseClass</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-typecode-checkbox-and-field">3.3.2.3. The Class <strong>TypeCode</strong> checkbox and field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-xml-elementname-field">3.3.2.4. The Class <strong>XML ElementName</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-haslistof-checkbox">3.3.2.5. The Class <strong>hasListOf</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-isbaseclass-checkbox">3.3.2.6. The Class <strong>isBaseClass</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-requires-additional-code-checkbox">3.3.2.7. The Class <strong>requires additional code</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-class-attributes-and-child-elements-table">3.3.2.8. The <strong>Class attributes and child elements</strong> table</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-attributes-and-child-elements">3.3.3. Adding attributes and child elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-attribute-element-required-checkbox">3.3.3.1. The attribute/element <strong>Required</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-attribute-element-name-field">3.3.3.2. The attribute/element <strong>Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-attribute-element-type-field">3.3.3.3. The attribute/element <strong>Type</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-attribute-element-element-field">3.3.3.4. The attribute/element <strong>Element</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-attribute-element-isbaseclass-field">3.3.3.5. The attribute/element <strong>isBaseClass</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-attribute-element-xml-name-field">3.3.3.6. The attribute/element <strong>XML Name</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-further-listof-information">3.3.4. Adding further ListOf information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-listof-listofclassname-field">3.3.4.1. The listof <strong>ListOfClassName</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-listof-xml-listofname-field">3.3.4.2. The listof <strong>XML ListOfName</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-listof-minimum-number-of-children-field">3.3.4.3. The listof <strong>Minimum number of children</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-listof-maximum-number-of-children-field">3.3.4.4. The listof <strong>Maximum number of children</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-instantiations-information">3.3.5. Adding instantiations information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-instantiations-xml-name-field">3.3.5.1. The instantiations <strong>XML Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-instantiations-element-field">3.3.5.2. The instantiations <strong>Element</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-instantiations-min-no-children-field">3.3.5.3. The instantiations <strong>Min No. Children</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-instantiations-max-no-children-field">3.3.5.4. The instantiations <strong>Max No. Children</strong> field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-note-on-repeated-information">3.3.6. A note on repeated information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-1-adding-a-class-with-no-containing-listof">3.3.7. Example 1 - Adding a class with no containing ListOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-2-adding-a-class-with-a-containing-listof">3.3.8. Example 2 - Adding a class with a containing ListOf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-3-adding-a-base-class-and-derived-classes">3.3.9. Example 3 – Adding a base class and derived classes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#add-plugin-information">3.4. Add plugin information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-a-plugin">3.4.1. What is a plugin ?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#general-plugin-information">3.4.2. General plugin information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-plugin-extensionpoint-field">3.4.2.1. The Plugin <strong>ExtensionPoint</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-plugin-element-from-core-checkbox">3.4.2.2. The Plugin <strong>element from core</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-plugin-hasattributes-checkbox">3.4.2.3. The Plugin <strong>hasAttributes</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-plugin-requires-additional-code-checkbox">3.4.2.4. The Plugin <strong>requires additional code</strong> checkbox</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-plugin-defined-classes-and-child-classes-boxes">3.4.2.5. The Plugin <strong>Defined Classes</strong> and <strong>Child Classes</strong> boxes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-other-package-information">3.4.2.6. Adding other package information</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-4-extending-a-core-element">3.4.3. Example 4 – Extending a core element</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-5-extending-a-core-element-with-attributes-only">3.4.4. Example 5 – Extending a core element with attributes only</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example-6-extending-a-non-core-element">3.4.5. Example 6 – Extending a non-core element</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#add-enum-information">3.5. Add enum information</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#general-enum-information">3.5.1. General enum information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-enum-name-field">3.5.1.1. The Enum <strong>Name</strong> field</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-enum-name-value-table">3.5.1.2. The Enum <strong>Name/Value</strong> table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-enum-quick-add-field">3.5.1.3. The Enum Quick Add field</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#example-7-adding-an-enumeration">3.5.2. Example 7 – Adding an enumeration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mappings">3.6. Mappings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-a-defined-package">3.7. Overview of a defined package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#validating-the-description">3.7.1. Validating the description</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-validate-description-option">3.7.1.1. The <strong>Validate Description</strong> option</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-fix-errors-option">3.7.1.2. The <strong>Fix Errors</strong> option</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-multiple-versions-of-a-package">3.8. Defining multiple versions of a package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using_deviser.html">4. Using Deviser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_xml_example.html">5. Appendix A: Example package description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_types.html">6. Appendix B: Data Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_validation.html">7. Appendix C: Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix_licensing.html">8. Appendix D: Licensing the code produced</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="deviser.html">Deviser</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="deviser.html">Docs</a> &raquo;</li>
+        
+      <li>3. Defining an SBML Level 3 Package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/defining_package.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="defining-an-sbml-level-3-package">
+<h1>3. Defining an SBML Level 3 Package<a class="headerlink" href="#defining-an-sbml-level-3-package" title="Permalink to this headline">¶</a></h1>
+<p>SBML Level 3&nbsp;is a modular
+language, with a core comprising a complete format that stands alone.
+Level&nbsp;3 packages&nbsp;may be added to this core to provide additional,
+optional features. Deviser provides a unique way of defining the package that
+facilitates the creation code for libSBML and text
+for specifications.</p>
+<p>It is necessary to define the structure of the SBML Level 3 package
+before invoking other functionality available within Deviser. A series
+of panels guide you through the process in what we hope is an intuitive
+manner. For the purpose of this manual we will work step by step through
+creating an imaginary package, ‘Foo’. Note the completed file is
+available as part of the Deviser code in the ‘samples’ folder and can be
+opened using the Deviser Edit tool.</p>
+<div class="section" id="define-the-general-package-information">
+<h2>3.1. Define the general package information<a class="headerlink" href="#define-the-general-package-information" title="Permalink to this headline">¶</a></h2>
+<p>Start the Deviser Edit tool and select ‘Package’ from the tree on the
+left hand side.</p>
+<div class="figure" id="id1">
+<span id="fig-begin"></span><img alt="_images/deviser-untitled.png" src="_images/deviser-untitled.png" />
+<p class="caption"><span class="caption-number">Figure 3.1 </span><span class="caption-text">Figure 1: The ‘Package’ panel with no information.</span></p>
+</div>
+<p>Fields colored red are mandatory and will remain red until a valid value has
+been entered.</p>
+<div class="figure" id="id2">
+<span id="fig-package"></span><img alt="_images/deviser-package.png" src="_images/deviser-package.png" />
+<p class="caption"><span class="caption-number">Figure 3.2 </span><span class="caption-text">Figure 2: The ‘Package’ panel - Illustrating the first step in defining the ‘foo’
+package.</span></p>
+</div>
+<div class="section" id="the-package-name-field">
+<span id="pkg-name"></span><h3>3.1.1. The Package <strong>Name</strong> field<a class="headerlink" href="#the-package-name-field" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Name</strong> field is the short name that will be used as a prefix for
+the package, e.g., ‘foo’. This is a required field.</p>
+</div>
+<div class="section" id="the-package-full-name-field">
+<span id="pkg-fullname"></span><h3>3.1.2. The Package <strong>Full Name</strong> field<a class="headerlink" href="#the-package-full-name-field" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Full Name</strong> field is the name that will be used to refer to the
+package in documentation, e.g., ‘Imaginary Package Foo’. This is a required field.</p>
+</div>
+<div class="section" id="the-package-required-checkbox">
+<h3>3.1.3. The Package <strong>required</strong> checkbox<a class="headerlink" href="#the-package-required-checkbox" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>required</strong> checkbox is used to indicate whether the package may
+change the mathematical interpretation of the core model and corresponds
+to the required attribute on the &lt;sbml&gt; element declaring this package
+(see <a class="reference internal" href="#xml-required"><span class="std std-numref">Listing 3.1</span></a>).</p>
+<div class="literal-block-wrapper docutils container" id="xml-required">
+<div class="code-block-caption"><span class="caption-number">Listing 3.1 </span><span class="caption-text">The &lt;sbml&gt; element showing the required attribute.’.</span><a class="headerlink" href="#xml-required" title="Permalink to this code">¶</a></div>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="nt">&lt;sbml</span> <span class="na">xmlns=</span><span class="s">http://www.sbml.org/sbml/level3/version1/core</span>
+      <span class="na">xmlns:foo=</span><span class="s">http://www.sbml.org/sbml/level3/version1/foo/version1</span>
+      <span class="na">level=</span><span class="s">&quot;3&quot;</span> <span class="na">version=</span><span class="s">&quot;1&quot;</span> <span class="na">foo:required=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-package-requires-additional-code-checkbox">
+<span id="pkg-number"></span><h3>3.1.4. The Package <strong>requires additional code</strong> checkbox<a class="headerlink" href="#the-package-requires-additional-code-checkbox" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>requires additional code</strong> checkbox can be used to indicate that
+there is additional code that will be required by the package that will
+not be generated by Deviser. Checking the ‘requires additional code’ box
+reveals further boxes that can be used to specify the location of the
+additional code files.</p>
+<div class="figure" id="id3">
+<span id="fig-add-code"></span><img alt="_images/deviser-add-code.png" src="_images/deviser-add-code.png" />
+<p class="caption"><span class="caption-number">Figure 3.3 </span><span class="caption-text">Figure 3: The ‘requires additional code’ check box.</span></p>
+</div>
+<p>Note this facility allows a user to include code for classes that are
+not defined in Deviser and perhaps do not follow the usual libSBML
+conventions for classes. When generating the code Deviser will merely
+copy files listed here into the sbml directory for the package.</p>
+<div class="section" id="custom-copyright">
+<h4>3.1.4.1. Custom copyright<a class="headerlink" href="#custom-copyright" title="Permalink to this headline">¶</a></h4>
+<p>The ‘Custom copyright’ field allows user to specify a text file containing
+a custom copyright that will be added to all files in addition to the SBML
+Team copyright. It is possible to completely replace the copyright with
+appropriate acknowledgement. See <a class="reference internal" href="appendix_licensing.html#licensing"><span class="std std-numref">Section 8</span></a> .</p>
+</div>
+</div>
+<div class="section" id="the-package-number-field">
+<h3>3.1.5. The Package <strong>Number</strong> field<a class="headerlink" href="#the-package-number-field" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Number</strong> field is the starting point for the enumeration of the
+typecodes for this package. This is a required field.</p>
+<p>Clicking the information button will generate a pop-up window
+with information regarding the Number and Offset values used by existing
+L3 packages (<a class="reference internal" href="#fig-offsets"><span class="std std-numref">Figure 3.4</span></a>).</p>
+</div>
+<div class="section" id="the-package-offset-field">
+<span id="pkg-offset"></span><h3>3.1.6. The Package <strong>Offset</strong> field<a class="headerlink" href="#the-package-offset-field" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>Offset</strong> field is the number added to the validation rules given
+in the specification to allow this to be identified uniquely in code.
+This is a required field.</p>
+<p>Clicking the information button will generate a pop-up window with information regarding
+the Number and Offset values used by existing L3 packages
+(<a class="reference internal" href="#fig-offsets"><span class="std std-numref">Figure 3.4</span></a>).</p>
+<div class="figure" id="id4">
+<span id="fig-offsets"></span><img alt="_images/deviser-numbers-offsets-1.png" src="_images/deviser-numbers-offsets-1.png" />
+<p class="caption"><span class="caption-number">Figure 3.4 </span><span class="caption-text">Figure 4: The Numbers and Offsets information box.</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="add-the-version-number">
+<h2>3.2. Add the version number<a class="headerlink" href="#add-the-version-number" title="Permalink to this headline">¶</a></h2>
+<p>Highlight ‘Version’ in the tree on the left hand side.</p>
+<p>Fill in the core level and version and package version numbers. These
+default to <strong>Core level</strong> ‘3’ and <strong>Core version</strong> ‘1’ as SBML L3V1 is the only official
+SBML Level 3 version at the time of writing. The package version (<strong>Pkg Version</strong>)
+defaults to ‘1’. Using Deviser to specify more than one version of a package
+is discussed in <a class="reference internal" href="#mult-vers"><span class="std std-numref">Section 3.8</span></a>.</p>
+<div class="figure" id="id5">
+<span id="fig-version"></span><img alt="_images/deviser-version.png" src="_images/deviser-version.png" />
+<p class="caption"><span class="caption-number">Figure 3.5 </span><span class="caption-text">Figure 5: The ‘Version’ panel.</span></p>
+</div>
+<p>Once classes have been specified they will appear on this panel
+(see <a class="reference internal" href="#fig-full-decsr"><span class="std std-numref">Figure 3.28</span></a>).  The order in which they’re listed
+dictates the order in which the generation code processes the classes.
+This list can be rearranged, which is helpful in ensuring documentation
+is written in a specific sequence.</p>
+<p>The tree in the left-hand panel shows the aspects of the package that
+can now be added i.e. Classes, Plugins and Enums. The Mappings panel
+will be automatically populated when the description is complete.</p>
+</div>
+<div class="section" id="add-class-information">
+<h2>3.3. Add class information<a class="headerlink" href="#add-class-information" title="Permalink to this headline">¶</a></h2>
+<p>This section describes how to specify a class. The first subsection
+gives a brief overview of what is meant by a ‘class’. The next two
+subsections give an overview of the information that needs to be
+provided and then we work through several examples.</p>
+<div class="section" id="what-is-a-class">
+<h3>3.3.1. What is a class ?<a class="headerlink" href="#what-is-a-class" title="Permalink to this headline">¶</a></h3>
+<p>In SBML XML elements are used to capture the information relating to
+particular objects by means of attributes to specify characteristics of
+the element and where necessary child elements to provide further
+information. SBML generally uses an enclosing listOf element to group
+elements of the same type together. The names of attributes and elements
+are chosen to be intuitive and libSBML mimics these names and structure
+in its class definitions and API. This is illustrated in the figures
+below. Deviser Edit uses ‘class’ to mean the description of an XML element. In
+object-oriented programming languages (such as C++ or Java), this is
+represented as a class object.</p>
+<blockquote id="sbml-snippet-reaction">
+<div>SBML snippet 1: A SBML Level 3 Core ListOfReactions element.</div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="nt">&lt;listOfReactions&gt;</span>
+    <span class="nt">&lt;reaction</span> <span class="na">id=</span><span class="s">&quot;reaction_1&quot;</span> <span class="na">reversible=</span><span class="s">&quot;false&quot;</span> <span class="na">fast=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;listOfReactants&gt;</span>
+            <span class="nt">&lt;speciesReference</span> <span class="na">species=</span><span class="s">&quot;X0&quot;</span> <span class="na">constant=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/listOfReactants&gt;</span>
+        <span class="nt">&lt;listOfProducts&gt;</span>
+            <span class="nt">&lt;speciesReference</span> <span class="na">species=</span><span class="s">&quot;S1&quot;</span> <span class="na">constant=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/listOfProducts&gt;</span>
+        <span class="nt">&lt;kineticLaw&gt;</span>
+            <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;apply&gt;</span>
+                    <span class="nt">&lt;times/&gt;</span>
+                    <span class="nt">&lt;ci&gt;</span> K0 <span class="nt">&lt;/ci&gt;</span>
+                    <span class="nt">&lt;ci&gt;</span> X0 <span class="nt">&lt;/ci&gt;</span>
+                <span class="nt">&lt;/apply&gt;</span>
+            <span class="nt">&lt;/math&gt;</span>
+        <span class="nt">&lt;/kineticLaw&gt;</span>
+    <span class="nt">&lt;/reaction&gt;</span>
+<span class="nt">&lt;/listOfReactions&gt;</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#fig-libsbml-class"><span class="std std-numref">Figure 3.6</span></a> shows a snapshot of libSBML class hierarchy
+corresponding to
+<a class="reference internal" href="#sbml-snippet-reaction"><span class="std std-ref">SBML snippet 1 above</span></a>. Note the correspondence of names and the getXYZ
+functions etc.</p>
+<div class="figure" id="id6">
+<span id="fig-libsbml-class"></span><img alt="_images/deviser-libsbml-class.png" src="_images/deviser-libsbml-class.png" />
+<p class="caption"><span class="caption-number">Figure 3.6 </span><span class="caption-text">Figure 6: Snapshot of part of libSBML class hierarchy. The ‘Reaction’ class has fields
+mFast, mId and mReversible which correspond to the attributes of the &lt;reaction&gt;
+element within the SBML. It has a child member of type ‘KineticLaw’ which
+itself has a child member of type ‘ASTNode’. These capture the information
+contained within the &lt;kineticLaw&gt; element and it’s subelement &lt;math&gt;. The
+list of Methods for the ‘Reaction’ class show the correspondance between the
+element/attribute names used in the SBML and the function names used by libSBML.</span></p>
+</div>
+</div>
+<div class="section" id="general-class-information">
+<h3>3.3.2. General class information<a class="headerlink" href="#general-class-information" title="Permalink to this headline">¶</a></h3>
+<p>We use class to mean the description of an XML element. You will need to
+specify the details for every new XML element that the package defines
+including classes that are abstract and/or used as base classes for
+other classes. You may find yourself repeating information but this is
+necessary to facilitate creating a valid definition that the
+auto-generation code can work with (see <a class="reference internal" href="#repeated-info"><span class="std std-numref">Section 3.3.6</span></a>).</p>
+<p>Select ‘Add Class’ from the toolbar or the ‘Edit’ menu.</p>
+<div class="figure" id="id7">
+<span id="fig-add-class"></span><img alt="_images/deviser-add-class.png" src="_images/deviser-add-class.png" />
+<p class="caption"><span class="caption-number">Figure 3.7 </span><span class="caption-text">Figure 7: The ‘Class’ panel</span></p>
+</div>
+<p>NOTE: Using the ‘wand’ button will populate the adjacent field with the
+value of the field that conforms most closely to SBML and libSBML
+conventions.</p>
+<p>Fields that are madatory will remain red until populated.</p>
+<div class="section" id="the-class-name-field">
+<h4>3.3.2.1. The Class <strong>Name</strong> field<a class="headerlink" href="#the-class-name-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Name</strong> field is the name of the class that will be used by the
+code generation (see <a class="reference internal" href="#xml-element-name"><span class="std std-numref">Section 3.3.2.4</span></a>). This field is required and
+must be populated.</p>
+</div>
+<div class="section" id="the-class-baseclass-field">
+<h4>3.3.2.2. The Class <strong>BaseClass</strong> field<a class="headerlink" href="#the-class-baseclass-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>BaseClass</strong> field gives a base class if this class derives from a
+base. Clicking the wand will populate the field with ‘SBase’, as this is
+the most common base class for libSBML classes. Code generated using Deviser
+assumes that
+all classes ultimately derive from SBase as it uses the generic SBase
+code for reading and writing to and from an XML document. Therefore, leaving
+the field empty
+implies that the base class is SBase.</p>
+</div>
+<div class="section" id="the-class-typecode-checkbox-and-field">
+<span id="typecode"></span><h4>3.3.2.3. The Class <strong>TypeCode</strong> checkbox and field<a class="headerlink" href="#the-class-typecode-checkbox-and-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>TypeCode</strong> is a value that will be used in an enumeration of
+the types for this package.  This is used in code to distinguish between
+SBase derived classes. Initially Deviser Edit displays a check box with
+the caption <strong>Use default type code</strong>. Leaving this checked implies that it is
+acceptable for Deviser to use a default typecode of SBML_PACKAGE_CLASS
+where PACKAGE is the short
+package name given and
+CLASS is the name field for this class.</p>
+<p>Unchecking the box will reveal a text box with the ‘wand’ icon. This field is
+mandatory. The user must enter a value. Note that using the ‘wand’ will populate the
+field with the default typecode
+SBML_PACKAGE_CLASS as above.</p>
+</div>
+<div class="section" id="the-class-xml-elementname-field">
+<span id="xml-element-name"></span><h4>3.3.2.4. The Class <strong>XML ElementName</strong> field<a class="headerlink" href="#the-class-xml-elementname-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>XML ElementName</strong> is an optional field that can be used to specify
+the name of the element as it will appear in the XML output. This
+defaults to the class name with a lowercase first letter. An example of
+where this might be different from the default is if two packages use
+the same class name and it is necessary to distinguish between these in
+code. The example in <a class="reference internal" href="#fig-foo-kl"><span class="std std-numref">Figure 3.13</span></a> shows a case where we have
+reused the
+class ‘KineticLaw’ within our package ‘foo’ and indicate that code should
+generate a class named FooKineticLaw but that text and the XML output
+should use ‘kineticLaw’ as the name of the element.</p>
+</div>
+<div class="section" id="the-class-haslistof-checkbox">
+<span id="listofbox"></span><h4>3.3.2.5. The Class <strong>hasListOf</strong> checkbox<a class="headerlink" href="#the-class-haslistof-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>hasListOf</strong> checkbox is used to indicate whether the element has a
+parent ListOf class. In SBML it is common for elements ‘bar’ to occur
+within a list of element ‘listOfBars’. However some elements may occur
+without a containing ListOf. If this checkbox is selected code will also
+be generated for a ListOfXYZ class corresponding to the class being
+described.</p>
+<p>When the <strong>hasListOf</strong> checkbox is selected further information is required
+and several additional fields appear. These are detailed
+in <a class="reference internal" href="#listof"><span class="std std-ref">a later section</span></a>.</p>
+<p>Note leaving this box unchecked means that the corresponding ListOf class
+has not been defined and any further references to such a ListOf class are invalid.</p>
+</div>
+<div class="section" id="the-class-isbaseclass-checkbox">
+<span id="isbase"></span><h4>3.3.2.6. The Class <strong>isBaseClass</strong> checkbox<a class="headerlink" href="#the-class-isbaseclass-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>isBaseClass</strong> checkbox is used to indicate that the class being
+defined is in fact a base class for other classes within the
+specification.</p>
+<p>When the <strong>isBaseClass</strong> checkbox is selected further information is required
+and an additional table appears. The information required is detailed
+in the <a class="reference internal" href="#instants"><span class="std std-ref">instantiations section</span></a>.</p>
+</div>
+<div class="section" id="the-class-requires-additional-code-checkbox">
+<span id="addcode"></span><h4>3.3.2.7. The Class <strong>requires additional code</strong> checkbox<a class="headerlink" href="#the-class-requires-additional-code-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>requires additional code</strong> checkbox can be used to indicate that
+there is additional code that will be required by this class, that will
+not be generated by Deviser. Checking the ‘requires additional code’ box
+reveals further boxes that can be used to specify the location of the
+additional code files. Deviser will incorporate this code ‘as-is’. The
+contents of the supplied header file supplied will be
+included at the end of the class declaration, with the contents of the supplied
+implementation
+file being included with the implementation file for this class.
+A case where this is useful is where the class
+may take data that might be compressed and the additional code files can
+be used to provide the functions to compress and decompress the data.</p>
+</div>
+<div class="section" id="the-class-attributes-and-child-elements-table">
+<h4>3.3.2.8. The <strong>Class attributes and child elements</strong> table<a class="headerlink" href="#the-class-attributes-and-child-elements-table" title="Permalink to this headline">¶</a></h4>
+<p>This table is used to specify
+each attribute and child element for the class. These are added and
+deleted using the ‘+’ and ‘-‘ buttons to the left of this table. The
+possible entries are explained in detail in the Section <a class="reference internal" href="#add-atts"><span class="std std-ref">Adding attributes and child elements</span></a>.</p>
+</div>
+</div>
+<div class="section" id="adding-attributes-and-child-elements">
+<span id="add-atts"></span><h3>3.3.3. Adding attributes and child elements<a class="headerlink" href="#adding-attributes-and-child-elements" title="Permalink to this headline">¶</a></h3>
+<p>Here we expand on the fields in the <strong>Class attributes and child
+elements</strong> table for a class as shown in <a class="reference internal" href="#fig-add-class"><span class="std std-numref">Figure 3.7</span></a>.
+These fields are identical to those in the <strong>ListOf attributes</strong> table
+that appears when the <strong>hasListOf</strong> checkbox is checked.</p>
+<div class="section" id="the-attribute-element-required-checkbox">
+<h4>3.3.3.1. The attribute/element <strong>Required</strong> checkbox<a class="headerlink" href="#the-attribute-element-required-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Required</strong> field indicates whether the attribute or child element
+is mandatory in terms of the SBML definition.</p>
+<p>On occasion SBML has conditional requirements e.g. you
+must set either StoichiometryMath or stoichiometry but you cannot have
+both. As yet Deviser does not deal with this situation. We recommend
+that if you need to facilitate this situation you mark both attributes
+as ‘unrequired’ and adjust the generated code accordingly.</p>
+</div>
+<div class="section" id="the-attribute-element-name-field">
+<span id="attributename"></span><h4>3.3.3.2. The attribute/element <strong>Name</strong> field<a class="headerlink" href="#the-attribute-element-name-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Name</strong> field gives the name of the attribute or child element. In
+the rare cases where this Name is not an exact match with the name that
+will appear in the XML the ‘XML name’ field can be used to override the
+Name supplied.</p>
+<p>Note to avoid compilation issues with libSBML SBase objects the following
+attribute/element names should not be used:</p>
+<blockquote>
+<div>annotation, attribute, column, cvterms, level, line, metaid,
+model, modelhistory, notes, packageversion, prefix, sboterm, uri, version</div></blockquote>
+</div>
+<div class="section" id="the-attribute-element-type-field">
+<span id="typefield"></span><h4>3.3.3.3. The attribute/element <strong>Type</strong> field<a class="headerlink" href="#the-attribute-element-type-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Type</strong> field gives the type of the attribute or child.  This is a
+drop-down list giving the types that are supported by Deviser.</p>
+<p>The recognized types for an attribute are the datatypes allowed by SBML.
+These are:</p>
+<blockquote>
+<div><p>string, boolean, double, integer, unsigned integer, positive
+integer,</p>
+<p>non-negative integer, ID, IDREF, SId, SIdRef, UnitSId, UnitSIdRef</p>
+</div></blockquote>
+<p>and additionally Deviser Edit uses:</p>
+<blockquote>
+<div>array, enum, element, lo_element, inline_lo_element, vector.</div></blockquote>
+<p><a class="reference internal" href="appendix_types.html#datatypes"><span class="std std-ref">Appendix B: Data Types</span></a> lists the SBML types with their corresponding
+C++ data type. The additional types accepted by Deviser are explained in
+detail in the sections below.</p>
+<p>It should be noted that the ‘Type’ used for each attribute/child element
+determines the code generated functions that will be produced. For
+attributes with one of the accepted SBML types the functions produced are
+shown below:</p>
+<div class="highlight-C++"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Type</span><span class="p">]</span>    <span class="n">get</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>     <span class="p">()</span>
+<span class="kt">bool</span>      <span class="n">isSet</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>   <span class="p">()</span>
+<span class="kt">int</span>       <span class="n">set</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>     <span class="p">([</span><span class="n">Type</span><span class="p">]</span> <span class="n">value</span><span class="p">)</span>
+<span class="kt">int</span>       <span class="n">unset</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>   <span class="p">()</span>
+
+       <span class="n">where</span>
+           <span class="p">[</span><span class="n">Type</span><span class="p">]</span>
+                 <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">appropriate</span> <span class="n">C</span><span class="o">++</span> <span class="n">type</span>
+           <span class="p">[</span><span class="n">Name</span><span class="p">]</span>
+                 <span class="n">is</span> <span class="n">a</span> <span class="n">placenolder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">attribute</span>
+</pre></div>
+</div>
+<p>Deviser Edit provides the ability to add types to the drop-down list which will
+facilitate using types that are not supported. Section <a class="reference internal" href="getting_started.html#add-types"><span class="std std-ref">User Defined Types</span></a> provides
+information on how to use this facility.</p>
+<div class="section" id="attribute-child-element-type-array">
+<h5>3.3.3.3.1. Attribute/child element type ‘array’<a class="headerlink" href="#attribute-child-element-type-array" title="Permalink to this headline">¶</a></h5>
+<p>The ‘array’ type refers to an XML element that may contain text that
+represents a list of numerical values of a particular type. For example
+the L3 Spatial Package uses a SampledField element that contains an
+‘array’ of integers (see below).</p>
+<blockquote id="sbml-snippet-array">
+<div>SBML snippet 2: An SBML Level 3 Spatial SampledField element.</div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="nt">&lt;spatial:sampledField</span> <span class="na">spatial:id=</span><span class="s">&quot;SegmentedImage&quot;</span><span class="nt">&gt;</span>
+              0 0 1
+<span class="nt">&lt;/spatial:sampledField&gt;</span>
+</pre></div>
+</div>
+<p>This information would be defined in the ‘Class attributes and child
+elements’ section of the Class description as an entry with the
+following field values:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">true/false as appropriate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Name:</th><td class="field-body">the name to be used by code to store and manipulate this information</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">array</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Element:</th><td class="field-body">integer (the numeric type of the data)</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="#fig-array-sampledfield"><span class="std std-numref">Figure 3.8</span></a> shows the Deviser Edit entry for the
+SampledField class. Note
+it also includes an attribute to record the length of the array. This proved
+useful when using this sort of construct.</p>
+<div class="figure" id="id8">
+<span id="fig-array-sampledfield"></span><img alt="_images/deviser-array-sampledfield.png" src="_images/deviser-array-sampledfield.png" />
+<p class="caption"><span class="caption-number">Figure 3.8 </span><span class="caption-text">Figure 8: Attributes of the SampledField class.</span></p>
+</div>
+<p>The code generator produces the following code for an attribute of type ‘array’:</p>
+<div class="highlight-C++"><div class="highlight"><pre><span></span><span class="kt">void</span>    <span class="n">get</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>    <span class="p">([</span><span class="n">Type</span><span class="p">]</span><span class="o">*</span> <span class="n">outArray</span><span class="p">)</span>
+<span class="kt">bool</span>    <span class="n">isSet</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>  <span class="p">()</span>
+<span class="kt">int</span>     <span class="n">set</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>    <span class="p">([</span><span class="n">Type</span><span class="p">]</span><span class="o">*</span> <span class="n">inArray</span><span class="p">,</span> <span class="kt">int</span> <span class="n">arrayLength</span><span class="p">)</span>
+<span class="kt">int</span>     <span class="n">unset</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>  <span class="p">()</span>
+
+      <span class="n">where</span>
+            <span class="p">[</span><span class="n">Type</span><span class="p">]</span>
+                   <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">appropriate</span> <span class="n">C</span><span class="o">++</span> <span class="n">type</span>
+            <span class="p">[</span><span class="n">Name</span><span class="p">]</span>
+                   <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">attribute</span> <span class="n">name</span>
+                   <span class="n">given</span> <span class="n">to</span> <span class="n">the</span> <span class="n">array</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="attribute-child-element-type-enum">
+<span id="enum"></span><h5>3.3.3.3.2. Attribute/child element type ‘enum’<a class="headerlink" href="#attribute-child-element-type-enum" title="Permalink to this headline">¶</a></h5>
+<p>An attribute can have a type corresponding to an enumeration type defined
+within the package. In this
+case the attribute has type ‘enum’ and would be defined as an entry with the
+following field values:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">true/false as appropriate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Name:</th><td class="field-body">the name to be used by code to store and manipulate this attribute</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">enum</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Element:</th><td class="field-body">the name of the enumeration</td>
+</tr>
+</tbody>
+</table>
+<p>The enumeration is declared fully by adding an
+enumeration to the package description (see <a class="reference internal" href="#add-enum"><span class="std std-numref">Section 3.5</span></a>).</p>
+<div class="figure" id="id9">
+<span id="fig-array-enum"></span><img alt="_images/deviser-array-enum.png" src="_images/deviser-array-enum.png" />
+<p class="caption"><span class="caption-number">Figure 3.9 </span><span class="caption-text">Figure 9: Attribute of type ‘enum’</span></p>
+</div>
+<p>The code generator produces the following code for an attribute of type ‘enum’:</p>
+<div class="highlight-C++"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">EnumType_t</span><span class="p">]</span>    <span class="n">get</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>          <span class="p">()</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span>    <span class="n">get</span><span class="p">{</span><span class="n">Name</span><span class="p">]</span><span class="n">AsString</span>  <span class="p">()</span>
+<span class="kt">bool</span>            <span class="n">isSet</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>        <span class="p">()</span>
+<span class="kt">int</span>             <span class="n">set</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>          <span class="p">([</span><span class="n">EnumType_t</span><span class="p">]</span> <span class="n">value</span><span class="p">)</span>
+<span class="kt">int</span>             <span class="n">set</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>          <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">value</span><span class="p">)</span>
+<span class="kt">int</span>             <span class="n">unset</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>        <span class="p">()</span>
+
+      <span class="n">where</span>
+            <span class="p">[</span><span class="n">EnumType_t</span><span class="p">]</span>
+                   <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">C</span><span class="o">++</span> <span class="n">type</span> <span class="n">of</span> <span class="n">the</span> <span class="n">enumeration</span>
+            <span class="p">[</span><span class="n">Name</span><span class="p">]</span>
+                   <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">attribute</span> <span class="n">name</span>
+</pre></div>
+</div>
+<p>It should be noted that libSBML convention uses an ‘_t’ for all enumeration types.
+This will be added by Deviser if necessary.</p>
+</div>
+<div class="section" id="attribute-child-element-type-element">
+<h5>3.3.3.3.3. Attribute/child element type ‘element’<a class="headerlink" href="#attribute-child-element-type-element" title="Permalink to this headline">¶</a></h5>
+<p>This type can be used to define a child element of the defining class. The
+type ‘element’ refers to a single instance
+of another class that is a child of the defining class.</p>
+<blockquote id="sbml-snippet-event">
+<div>SBML snippet 3: An SBML Level 3 Core Event element.</div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="nt">&lt;event</span> <span class="na">id=</span><span class="s">&quot;event1&quot;</span> <span class="na">name=</span><span class="s">&quot;event1&quot;</span> <span class="na">useValuesFromTriggerTime=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;trigger</span> <span class="na">initialValue=</span><span class="s">&quot;true&quot;</span> <span class="na">persistent=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;apply&gt;</span>
+                <span class="nt">&lt;lt/&gt;</span>
+                <span class="nt">&lt;ci&gt;</span> S1 <span class="nt">&lt;/ci&gt;</span>
+                <span class="nt">&lt;cn&gt;</span> 0.1 <span class="nt">&lt;/cn&gt;</span>
+            <span class="nt">&lt;/apply&gt;</span>
+        <span class="nt">&lt;/math&gt;</span>
+    <span class="nt">&lt;/trigger&gt;</span>
+    <span class="nt">&lt;listOfEventAssignments&gt;</span>
+        <span class="nt">&lt;eventAssignment</span> <span class="na">variable=</span><span class="s">&quot;S1&quot;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+               <span class="nt">&lt;cn</span> <span class="na">type=</span><span class="s">&quot;integer&quot;</span><span class="nt">&gt;</span> 1 <span class="nt">&lt;/cn&gt;</span>
+            <span class="nt">&lt;/math&gt;</span>
+        <span class="nt">&lt;/eventAssignment&gt;</span>
+    <span class="nt">&lt;/listOfEventAssignments&gt;</span>
+<span class="nt">&lt;/event&gt;</span>
+</pre></div>
+</div>
+<div class="figure" id="id10">
+<span id="fig-core-event"></span><img alt="_images/deviser-core-event.png" src="_images/deviser-core-event.png" />
+<p class="caption"><span class="caption-number">Figure 3.10 </span><span class="caption-text">Figure 10: Class with child elements of type ‘element’ and ‘lo_element’</span></p>
+</div>
+<p><a class="reference internal" href="#sbml-snippet-event"><span class="std std-ref">SBML snippet 3 above</span></a> shows an Event from SBML Level 3 Core
+which has a Trigger child element. The Deviser Edit entries in the Attributes
+and child element table for the Event class are shown
+in <a class="reference internal" href="#fig-core-event"><span class="std std-numref">Figure 3.10</span></a>.</p>
+<p><a class="reference internal" href="#table1"><span class="std std-ref">Table 1</span></a>
+gives examples of the expected XML and the functions produced for type ‘element’.</p>
+</div>
+<div class="section" id="attribute-child-element-type-lo-element">
+<h5>3.3.3.3.4. Attribute/child element type ‘lo_element’<a class="headerlink" href="#attribute-child-element-type-lo-element" title="Permalink to this headline">¶</a></h5>
+<p>This type is used to define a child that is an instance of a ‘ListOf’ class. In
+the <a class="reference internal" href="#sbml-snippet-event"><span class="std std-ref">SBML Event</span></a> shown the listOfEventAssignments is
+defined as a child of type ‘lo_element’ (see <a class="reference internal" href="#fig-core-event"><span class="std std-numref">Figure 3.10</span></a>). <a class="reference internal" href="#table1"><span class="std std-ref">Table 1</span></a>
+details the corresponding XML output and functions generated.</p>
+<blockquote id="table1">
+<div>Table 1: The XML output and generated functions for each of the Deviser
+child element types.</div></blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="32%" />
+<col width="42%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Type</strong></th>
+<th class="head"><strong>XML output</strong></th>
+<th class="head"><strong>Functions</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><strong>element</strong></td>
+<td><p class="first">&lt;container&gt;</p>
+<p>&lt;parameter attributes= …/&gt;</p>
+<p class="last">&lt;/container&gt;</p>
+</td>
+<td><p class="first">getParameter()</p>
+<p>isSetParameter()</p>
+<p>setParameter(Parameter*)</p>
+<p>unsetParameter()</p>
+<p class="last">createParameter()</p>
+</td>
+</tr>
+<tr class="row-odd"><td><strong>lo_element</strong></td>
+<td><p class="first">&lt;container&gt;</p>
+<p>&lt;listOfParameters&gt;</p>
+<p>&lt;parameter attributes= …/&gt;</p>
+<p>&lt;parameter attributes= …/&gt;</p>
+<p>…</p>
+<p>&lt;/listOfParameters&gt;</p>
+<p class="last">&lt;/container&gt;</p>
+</td>
+<td><p class="first">getListOfParameters()</p>
+<p>getParameter(index) getParameter(id)</p>
+<p>addParameter(Parameter*)</p>
+<p>getNumParameters()</p>
+<p>createParameter()</p>
+<p>removeParameter(index)</p>
+<p class="last">removeParameter(id)</p>
+</td>
+</tr>
+<tr class="row-even"><td><strong>inline_lo_element</strong></td>
+<td><p class="first">&lt;container&gt;</p>
+<p>&lt;parameter attributes= …/&gt;</p>
+<p>&lt;parameter attributes= …/&gt;</p>
+<p>…</p>
+<p class="last">&lt;/container&gt;</p>
+</td>
+<td><p class="first">getListOfParameters()</p>
+<p>getParameter(index) getParameter(id)</p>
+<p>addParameter(Parameter*)</p>
+<p>getNumParameters()</p>
+<p>createParameter()</p>
+<p>removeParameter(index)</p>
+<p class="last">removeParameter(id)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="attribute-child-element-type-inline-lo-element">
+<h5>3.3.3.3.5. Attribute/child element type ‘inline_lo_element’<a class="headerlink" href="#attribute-child-element-type-inline-lo-element" title="Permalink to this headline">¶</a></h5>
+<p>On occasion an element may contain multiple children of the same type
+which are not specified as being within a listOf element. From a code
+point of view it is easier to consider these children as being within a
+listOf element as this provides functionality to access and manipulate
+potentially variable numbers of child elements. The
+‘inline_lo_element’ type allows the user to specify that there are
+multiple instances of the same child element but that these do not occur
+within a specified ListOf element. <a class="reference internal" href="#table1"><span class="std std-ref">Table 1</span></a> gives examples of the
+expected XML and the functions produced.</p>
+</div>
+<div class="section" id="attribute-child-element-type-vector">
+<h5>3.3.3.3.6. Attribute/child element type ‘vector’<a class="headerlink" href="#attribute-child-element-type-vector" title="Permalink to this headline">¶</a></h5>
+<p>The ‘vector’ type refers to an XML element that may contain text that
+represents a list of values of a particular type. This is similar
+to the ‘array’ type but will use the C++ std::vector class as a type.</p>
+<p>This information would be defined in the ‘Class attributes and child
+elements’ section of the Class description as an entry with the
+following field values:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Required:</th><td class="field-body">true/false as appropriate</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Name:</th><td class="field-body">the name to be used by code to store and manipulate this information</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">vector</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Element:</th><td class="field-body">integer (the type of the data)</td>
+</tr>
+</tbody>
+</table>
+<p>The code generator produces the following code for an attribute of type ‘vector’:</p>
+<div class="highlight-C++"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="p">[</span><span class="n">Type</span><span class="p">]</span><span class="o">&gt;&amp;</span>  <span class="n">get</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>     <span class="p">()</span>
+<span class="kt">bool</span>                  <span class="n">has</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span><span class="n">s</span>    <span class="p">()</span>
+<span class="kt">unsigned</span> <span class="kt">int</span>          <span class="n">getNum</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span><span class="n">s</span> <span class="p">()</span>
+<span class="kt">int</span>                   <span class="n">set</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>     <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="p">[</span><span class="n">Type</span><span class="p">]</span><span class="o">&gt;&amp;</span> <span class="n">value</span><span class="p">)</span>
+<span class="kt">int</span>                   <span class="n">add</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span>     <span class="p">([</span><span class="n">Type</span><span class="p">]</span> <span class="n">value</span><span class="p">)</span>
+<span class="kt">int</span>                   <span class="n">clear</span><span class="p">[</span><span class="n">Name</span><span class="p">]</span><span class="n">s</span>  <span class="p">()</span>
+
+      <span class="n">where</span>
+            <span class="p">[</span><span class="n">Type</span><span class="p">]</span>
+                   <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">appropriate</span> <span class="n">C</span><span class="o">++</span> <span class="n">type</span>
+            <span class="p">[</span><span class="n">Name</span><span class="p">]</span>
+                   <span class="n">is</span> <span class="n">a</span> <span class="n">placeholder</span> <span class="k">for</span> <span class="n">the</span> <span class="n">attribute</span> <span class="n">name</span>
+                   <span class="n">given</span> <span class="n">to</span> <span class="n">the</span> <span class="n">vector</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-attribute-element-element-field">
+<span id="elementfield"></span><h4>3.3.3.4. The attribute/element <strong>Element</strong> field<a class="headerlink" href="#the-attribute-element-element-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Element</strong> field provides additional information depending on the
+type of the attribute/child element being described. <a class="reference internal" href="#table2"><span class="std std-ref">Table 2</span></a>
+describes how and when this field
+should be populated. Note the ‘name’ of an element or object refers to
+the ClassName of the appropriate object.</p>
+<blockquote id="table2">
+<div>Table 2: The expected entries in the ‘Element’ field depending on the ‘Type’.</div></blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="69%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><strong>Type</strong></th>
+<th class="head"><strong>Element field</strong></th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>array</td>
+<td>type of data within the array</td>
+</tr>
+<tr class="row-odd"><td>enum</td>
+<td>The name of the enumeration</td>
+</tr>
+<tr class="row-even"><td>element</td>
+<td>The class name of the element</td>
+</tr>
+<tr class="row-odd"><td>lo_element</td>
+<td>The class name of the element within the ListOf</td>
+</tr>
+<tr class="row-even"><td>inline_lo_element</td>
+<td>The class name of the element</td>
+</tr>
+<tr class="row-odd"><td>SIdRef</td>
+<td>Comma separated list of the class name of
+multiple objects that can be referenced</td>
+</tr>
+<tr class="row-even"><td>Any other</td>
+<td>blank</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div></div></blockquote>
+<p id="astnode">Note that Deviser does
+specifically recognize the elements ASTNode and XMLNode and treats them
+appropriately as elements that will contain either MathML or XML content
+respectively. Other class names that are listed are assumed to be parsed as
+classes
+belonging to libSBML; either those being defined by this package or ones
+defined in L3 core or other available L3 package code. Deviser Edit will
+prompt users for this information in the section on <a class="reference internal" href="#mappings">Mappings</a>.</p>
+</div>
+<div class="section" id="the-attribute-element-isbaseclass-field">
+<h4>3.3.3.5. The attribute/element <strong>isBaseClass</strong> field<a class="headerlink" href="#the-attribute-element-isbaseclass-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>isBaseClass</strong> field indicates that the child element is a base
+class and not instantiated directly. This is a situation that will not
+commonly occur but happens when there is multiple nesting of classes.
+The current ‘spatial’ package defines a CSGTransformation that inherits
+from CSGNode but also contains an element of that type
+(see <a class="reference internal" href="#fig-csgtransform-uml"><span class="std std-numref">Figure 3.11</span></a> and
+<a class="reference internal" href="#fig-csgtransform-deviser"><span class="std std-numref">Figure 3.12</span></a>).</p>
+<div class="figure" id="id11">
+<span id="fig-csgtransform-uml"></span><img alt="_images/CSGTransformation-uml.png" src="_images/CSGTransformation-uml.png" />
+<p class="caption"><span class="caption-number">Figure 3.11 </span><span class="caption-text">Figure 11: UML diagram of CSGTransformation from SBML L3 ‘spatial’ package specification</span></p>
+</div>
+<div class="figure" id="id12">
+<span id="fig-csgtransform-deviser"></span><img alt="_images/deviser-csgtransformation.png" src="_images/deviser-csgtransformation.png" />
+<p class="caption"><span class="caption-number">Figure 3.12 </span><span class="caption-text">Figure 12: Deviser Edit description of CSGTransformation</span></p>
+</div>
+<p>Note that the child element ‘csgNode’ has been marked as a base class.
+This tells Deviser to generate code relevant to the instantiations of
+the CSGNode class rather than for a concrete CSGNode child. For example,
+instead of getting a ‘createCSGNode()’ function, you would get create
+functions for all the instantiations of the base class:
+createCSGTransformation(); createCSGPrimitive() etc.</p>
+</div>
+<div class="section" id="the-attribute-element-xml-name-field">
+<h4>3.3.3.6. The attribute/element <strong>XML Name</strong> field<a class="headerlink" href="#the-attribute-element-xml-name-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>XML name</strong> field can be used to specify the name of the element as
+it will appear in the XML output where this may differ from the Name
+field. For attributes it is unlikely that the Name used will differ from
+the XML name; however if the object being listed is an element or listOf
+element there may be situations where they differ – as in
+<a class="reference internal" href="#example2"><span class="std std-ref">Example 2</span></a> below.</p>
+</div>
+</div>
+<div class="section" id="adding-further-listof-information">
+<span id="listof"></span><h3>3.3.4. Adding further ListOf information<a class="headerlink" href="#adding-further-listof-information" title="Permalink to this headline">¶</a></h3>
+<p>When the <strong>hasListOf</strong> checkbox is selected four other fields appear.</p>
+<div class="section" id="the-listof-listofclassname-field">
+<h4>3.3.4.1. The listof <strong>ListOfClassName</strong> field<a class="headerlink" href="#the-listof-listofclassname-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>ListOfClassName</strong> is the name used in code for the class
+representing the ListOf object. It need only be populated if the
+default of ‘ListOfBars’ is inappropriate.</p>
+</div>
+<div class="section" id="the-listof-xml-listofname-field">
+<h4>3.3.4.2. The listof <strong>XML ListOfName</strong> field<a class="headerlink" href="#the-listof-xml-listofname-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>XML ListOfName</strong> field is the XML name for the list of objects. It
+only needs to be populated if there is a difference in name between XML
+and code. It will default to ‘listOfBars’ where ‘Bar’ is the class name.</p>
+</div>
+<div class="section" id="the-listof-minimum-number-of-children-field">
+<h4>3.3.4.3. The listof <strong>Minimum number of children</strong> field<a class="headerlink" href="#the-listof-minimum-number-of-children-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Minimum number of children</strong> field is used to indicate the minimum
+number of child objects of type Bar a ListOfBars expects. In
+SBML L3V1 ListOf elements cannot be empty so code generation will treat the value
+as ‘1’. In SBML L3V2 a value of ‘0’ indicates that a ListOfBars object may
+have no Bar children and a value of ‘1’ indicates there must be at least
+one Bar child object present in the list.</p>
+</div>
+<div class="section" id="the-listof-maximum-number-of-children-field">
+<h4>3.3.4.4. The listof <strong>Maximum number of children</strong> field<a class="headerlink" href="#the-listof-maximum-number-of-children-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Maximum number of children</strong> field is used to indicate the maximum
+number of child objects a ListOf expects. Leaving this blank implies
+there is no stated maximum value for the number of children.</p>
+<p>At present these values do not impact on the code generated for the classes. In future
+versions they will be applied as validation rules.</p>
+<p>The <strong>ListOf attributes</strong> table (which has the same fields as the table
+for entering class attributes and child elements) allows you to add
+attributes to the ListOf class. This table could also be used in the very rare
+case where a listOf element contains a child that is not the same type as
+the expected children. For example the Qualitative Models Package defines
+a listOfFunctionTerms that must contain one instance of a defaultTerm in
+addition to the functionTerm children.</p>
+</div>
+</div>
+<div class="section" id="adding-instantiations-information">
+<span id="instants"></span><h3>3.3.5. Adding instantiations information<a class="headerlink" href="#adding-instantiations-information" title="Permalink to this headline">¶</a></h3>
+<p>When the isBaseClass checkbox is selected the
+<strong>Instantiations</strong> table then appears.</p>
+<p>The <strong>Instantiations</strong> table allows you to specify the class(es) that
+will be derived from this base class. Note Deviser Edit expects these to
+be listed here – even if the information could be determined elsewhere.
+Entries in this table do not define a class, the definition of the class
+should be created as a separate class entry. Only classes that directly
+inherit from this class need be listed; it may be that the classes
+listed are themselves base classes for further classes. These should be
+listed as the Instantiations on the relevant base class description.</p>
+<div class="section" id="the-instantiations-xml-name-field">
+<span id="inst-name"></span><h4>3.3.5.1. The instantiations <strong>XML Name</strong> field<a class="headerlink" href="#the-instantiations-xml-name-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>XML name</strong> field specifies the XML name of the object. This is a required
+field and must have a value.</p>
+</div>
+<div class="section" id="the-instantiations-element-field">
+<span id="inst-element"></span><h4>3.3.5.2. The instantiations <strong>Element</strong> field<a class="headerlink" href="#the-instantiations-element-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Element</strong> field specifies a class that will be derived from this
+base class. This is a required field and should be the name of a Class defined
+within the package.</p>
+</div>
+<div class="section" id="the-instantiations-min-no-children-field">
+<h4>3.3.5.3. The instantiations <strong>Min No. Children</strong> field<a class="headerlink" href="#the-instantiations-min-no-children-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Min No. Children</strong> field is used to specify a minimum number of
+children that this element may have.</p>
+</div>
+<div class="section" id="the-instantiations-max-no-children-field">
+<h4>3.3.5.4. The instantiations <strong>Max No. Children</strong> field<a class="headerlink" href="#the-instantiations-max-no-children-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Max No. Children</strong> field is used to specify the maximum number of
+children.</p>
+<p>Note that sometimes a specific instantiation adds further requirements.
+For example, where one class may contain children of the same base class
+there may be a requirement that it contains a certain number of children
+as with Associations in the FBC package an FBCAnd instantiation MUST
+have two children. Where there are no such requirements these fields
+should be left as ‘0’.</p>
+</div>
+</div>
+<div class="section" id="a-note-on-repeated-information">
+<span id="repeated-info"></span><h3>3.3.6. A note on repeated information<a class="headerlink" href="#a-note-on-repeated-information" title="Permalink to this headline">¶</a></h3>
+<p>Users may become aware of the fact that at times they are entering
+duplicate information. For example if a child element is used that does
+not have the default XML Name then this will be declared both when
+describing the Class for that element AND when listing the child element
+occurrence (see <a class="reference internal" href="#example2"><span class="std std-ref">Example 2</span></a>). Also, classes derived from a
+base class are
+listed as Instantiations of that class when it would be possible to work
+out this information from the BaseClass information given for each
+class.</p>
+<p>Deviser Edit <strong>does require this information to be duplicated</strong> as this
+facilitates the storing of unfinished definitions and allows the
+definition to be validated to some extent. It also means that each panel
+contains all the pertinent information for the Class being specified
+rather than this information being distributed across various panels in
+the GUI.</p>
+</div>
+<div class="section" id="example-1-adding-a-class-with-no-containing-listof">
+<span id="example1"></span><h3>3.3.7. Example 1 - Adding a class with no containing ListOf<a class="headerlink" href="#example-1-adding-a-class-with-no-containing-listof" title="Permalink to this headline">¶</a></h3>
+<p>Here we define the KineticLaw class for our imaginary package ‘foo’.</p>
+<div class="figure" id="id13">
+<span id="fig-foo-kl"></span><img alt="_images/deviser-foo-kl.png" src="_images/deviser-foo-kl.png" />
+<p class="caption"><span class="caption-number">Figure 3.13 </span><span class="caption-text">Figure 13: Defining the FooKineticLaw class.</span></p>
+</div>
+<p>We know that libSBML already contains a class KineticLaw and so we use a
+class name that reflects the package and class i.e. ‘FooKineticLaw’ and
+we specify that the XML ElementName will be ‘kineticLaw’. Thus the
+generated code will use a class ‘FooKineticLaw’ that will not conflict
+with existing libSBML classes but would output this in XML as an element
+&lt;foo:kineticLaw&gt;. This causes no conflict as XML Namespaces keep
+elements completely separate.</p>
+<p>Our class has three attributes/child elements.</p>
+<p>The first is a boolean attribute called ‘stochastic’, which is
+mandatory. So we add the name ‘stochastic, the type ‘boolean’ and change
+the required status to ‘true’.</p>
+<p>The second child is a ListOfParameters. Again we know that name will
+conflict with the class ListOfParameters so we add the name
+‘listOfFooParameters’, the type ‘lo_element’, the element
+‘FooParameter’ and state that the XML name is ‘listOfParameters’. Note
+that we will need to specify the class FooParameter later on; which we
+do in <a class="reference internal" href="#example2"><span class="std std-ref">Example 2</span></a>.</p>
+<p>The third child is a math element. So we add the name ‘math’, the type
+‘element’ and the element ‘ASTNode*’. <a class="reference internal" href="#astnode"><span class="std std-ref">As mentioned above</span></a>
+Deviser does
+specifically recognize the elements ASTNode and XMLNode.</p>
+</div>
+<div class="section" id="example-2-adding-a-class-with-a-containing-listof">
+<span id="example2"></span><h3>3.3.8. Example 2 - Adding a class with a containing ListOf<a class="headerlink" href="#example-2-adding-a-class-with-a-containing-listof" title="Permalink to this headline">¶</a></h3>
+<p>Here we specify the FooParameter class used by the FooKineticLaw that we
+specified in <a class="reference internal" href="#example1"><span class="std std-ref">Example 1</span></a>.</p>
+<div class="figure" id="id14">
+<span id="fig-foo-param"></span><img alt="_images/deviser-foo-param.png" src="_images/deviser-foo-param.png" />
+<p class="caption"><span class="caption-number">Figure 3.14 </span><span class="caption-text">Figure 14: Defining the FooParameter class.</span></p>
+</div>
+<p>The <strong>hasListOf</strong> checkbox has been selected the additional
+fields appear.</p>
+<p>In our example we have populated the <strong>ListOfClassName</strong> and  <strong>XML ListOfName</strong>
+fields as we have used a class
+name ‘FooParameter’ but want to have XML names of ‘parameter’ and
+‘listOfParameters’.</p>
+<p><a class="reference internal" href="#fig-uml-foo-kl"><span class="std std-numref">Figure 3.15</span></a> shows the UML diagram produced by Deviser Edit of the package
+‘foo’ as described so far in examples 1 and 2 while the corresponding
+SBML is shown in <a class="reference internal" href="#sbml-4"><span class="std std-ref">SBML snippet 4</span></a>.</p>
+<div class="figure" id="id15">
+<span id="fig-uml-foo-kl"></span><img alt="_images/deviser-uml-foo-kl.png" src="_images/deviser-uml-foo-kl.png" />
+<p class="caption"><span class="caption-number">Figure 3.15 </span><span class="caption-text">Figure 15: The UML diagram produced by Deviser Edit following the definition of package ‘Foo’ in Examples 1 and 2</span></p>
+</div>
+<blockquote id="sbml-4">
+<div>SBML Snippet 4: The ‘foo’ kineticLaw element as defined in Examples 1 and 2.</div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="nt">&lt;foo:kineticLaw</span> <span class="na">foo:stochastic=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;foo:listOfParameters</span> <span class="na">foo:local=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;foo:parameter</span> <span class="na">foo:id=</span><span class="s">&quot;p1&quot;</span> <span class="na">foo:constant=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/foo:listOfParameters&gt;</span>
+    <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+        ...
+    <span class="nt">&lt;/math&gt;</span>
+<span class="nt">&lt;/foo:kineticLaw&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-3-adding-a-base-class-and-derived-classes">
+<h3>3.3.9. Example 3 – Adding a base class and derived classes<a class="headerlink" href="#example-3-adding-a-base-class-and-derived-classes" title="Permalink to this headline">¶</a></h3>
+<p>Here we define a class that will be used as a base class for others (see
+<a class="reference internal" href="#fig-foo-rule"><span class="std std-numref">Figure 3.16</span></a>).</p>
+<div class="figure" id="id16">
+<span id="fig-foo-rule"></span><img alt="_images/deviser-foo-rule.png" src="_images/deviser-foo-rule.png" />
+<p class="caption"><span class="caption-number">Figure 3.16 </span><span class="caption-text">Figure 16: Defining the base class ‘FooRule’.</span></p>
+</div>
+<p>This class is named FooRule and has a corresponding ListOf element. Note
+we have not filled in any alternative names so we will expect to get an
+element called listOfFooRules in the XML.</p>
+<p>This class is a base class and we tick the isBaseClass checkbox. The
+<strong>Instantiations</strong> table then appears.</p>
+<p>Here we have specified that the ListOfFooRules may contain objects of
+type Assignment or Algebraic. We specify Algebraic as a new class in
+<a class="reference internal" href="#fig-foo-algebraic"><span class="std std-numref">Figure 3.17</span></a> and Assignment in <a class="reference internal" href="#fig-foo-assignment"><span class="std std-numref">Figure 3.18</span></a>.</p>
+<div class="figure" id="id17">
+<span id="fig-foo-algebraic"></span><img alt="_images/deviser-foo-algebraic.png" src="_images/deviser-foo-algebraic.png" />
+<p class="caption"><span class="caption-number">Figure 3.17 </span><span class="caption-text">Figure 17: Defining the Algebraic class</span></p>
+</div>
+<p>Note that we have changed the BaseClass field to FooRule.</p>
+<div class="figure" id="id18">
+<span id="fig-foo-assignment"></span><img alt="_images/deviser-foo-assignment.png" src="_images/deviser-foo-assignment.png" />
+<p class="caption"><span class="caption-number">Figure 3.18 </span><span class="caption-text">Figure 18: Defining the Assignment class.</span></p>
+</div>
+<p>The Assignment class illustrates a slightly more complex scenario. Here
+it derives from the baseClass FooRule and adds an attribute ‘variable’
+that is a reference to a FooParameter. It have also acts as a base class
+for two further classes FooRate and FooAssignment. <a class="reference internal" href="#fig-uml-foo-rules"><span class="std std-numref">Figure 3.19</span></a> shows the
+hierarchy and <a class="reference internal" href="#sbml-5"><span class="std std-ref">SBML snippet 5</span></a> the resulting XML.</p>
+<div class="figure" id="id19">
+<span id="fig-uml-foo-rules"></span><img alt="_images/deviser-uml-foo-rules.png" src="_images/deviser-uml-foo-rules.png" />
+<p class="caption"><span class="caption-number">Figure 3.19 </span><span class="caption-text">Figure 19: The UML diagram from Deviser Edit of the ListOfFooRules class</span></p>
+</div>
+<blockquote id="sbml-5">
+<div>SBML Snippet 5: The listOfFooRules element as defined in Example 3.</div></blockquote>
+<div class="highlight-XML"><div class="highlight"><pre><span></span><span class="nt">&lt;foo:listOfFooRules&gt;</span>
+    <span class="nt">&lt;foo:assignment</span> <span class="na">foo:variable=</span><span class="s">&quot;p&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+            ...
+        <span class="nt">&lt;/math&gt;</span>
+    <span class="nt">&lt;/foo:assignment&gt;</span>
+    <span class="nt">&lt;foo:rate</span> <span class="na">foo:variable=</span><span class="s">&quot;s&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+            ...
+        <span class="nt">&lt;/math&gt;</span>
+    <span class="nt">&lt;/foo:rate&gt;</span>
+    <span class="nt">&lt;foo:algebraic&gt;</span>
+        <span class="nt">&lt;math</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1998/Math/MathML&quot;</span><span class="nt">&gt;</span>
+            ...
+        <span class="nt">&lt;/math&gt;</span>
+    <span class="nt">&lt;/foo:algebraic&gt;</span>
+<span class="nt">&lt;/foo:listOfFooRules&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="add-plugin-information">
+<h2>3.4. Add plugin information<a class="headerlink" href="#add-plugin-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="what-is-a-plugin">
+<h3>3.4.1. What is a plugin ?<a class="headerlink" href="#what-is-a-plugin" title="Permalink to this headline">¶</a></h3>
+<p>In order to extend SBML Level 3 Core with a package not only is it
+necessary to define new classes, it is also necessary to attach these
+elements to an existing point in an SBML model. The simplest case would
+be that a new element is added to the containing &lt;sbml&gt; element but the
+point of extension may be much further embedded within the SBML. Here
+(and indeed within libSBML) we use the term ‘plugin’ to specify the
+necessary information that links the new package classes with other
+classes. Code for any given class in any relevant function then checks
+whether it has a plugin attached and passes control to the plugin if
+necessary. <a class="reference internal" href="#fig-libsbml-plugin"><span class="std std-numref">Figure 3.20</span></a> shows two plugins on the Model class, one by the
+‘qual’ package and the other by the ‘fbc’ package. Note the names
+reflect the package and the object being extended.</p>
+<div class="figure" id="id20">
+<span id="fig-libsbml-plugin"></span><img alt="_images/deviser-libsbml-plugin.png" src="_images/deviser-libsbml-plugin.png" />
+<p class="caption"><span class="caption-number">Figure 3.20 </span><span class="caption-text">Figure 20: libSBML class hierarchy showing ‘plugins’ to the Model class</span></p>
+</div>
+</div>
+<div class="section" id="general-plugin-information">
+<h3>3.4.2. General plugin information<a class="headerlink" href="#general-plugin-information" title="Permalink to this headline">¶</a></h3>
+<p>Plugin information describes the elements that are extended by the new
+classes defined within a package. The elements to be extended may come
+from SBML Level 3 Core or another SBML Level 3 package.</p>
+<p>Select ‘Add Plugin’ from the toolbar or the ‘Edit’ menu.</p>
+<div class="figure" id="id21">
+<span id="fig-add-plugin"></span><img alt="_images/deviser-add-plugin.png" src="_images/deviser-add-plugin.png" />
+<p class="caption"><span class="caption-number">Figure 3.21 </span><span class="caption-text">Figure 21: The ‘Plugin’ panel.</span></p>
+</div>
+<div class="section" id="the-plugin-extensionpoint-field">
+<h4>3.4.2.1. The Plugin <strong>ExtensionPoint</strong> field<a class="headerlink" href="#the-plugin-extensionpoint-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>ExtensionPoint</strong> field is used to specify the name of the element
+that is being extended. This will be the name of the class as used by
+libSBML.</p>
+</div>
+<div class="section" id="the-plugin-element-from-core-checkbox">
+<h4>3.4.2.2. The Plugin <strong>element from core</strong> checkbox<a class="headerlink" href="#the-plugin-element-from-core-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>element from core</strong> checkbox is used to specify whether the object
+being extended originates in SBML Core or another Level 3 package. It is checked
+by default as to date the majority of SBML L3 packages have only extended
+elements from SBML core. Unchecking the box reveals the <strong>Package</strong> and
+<strong>TypeCode</strong> fields discussed below.</p>
+</div>
+<div class="section" id="the-plugin-hasattributes-checkbox">
+<h4>3.4.2.3. The Plugin <strong>hasAttributes</strong> checkbox<a class="headerlink" href="#the-plugin-hasattributes-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>hasAttributes</strong> checkbox should be ticked if the package is going
+to extend an object with attributes rather than (or as well as)
+elements.</p>
+</div>
+<div class="section" id="the-plugin-requires-additional-code-checkbox">
+<h4>3.4.2.4. The Plugin <strong>requires additional code</strong> checkbox<a class="headerlink" href="#the-plugin-requires-additional-code-checkbox" title="Permalink to this headline">¶</a></h4>
+<p>As with the class panel <a class="reference internal" href="#addcode"><span class="std std-ref">The Class requires additional code checkbox</span></a> the <strong>requires additional code</strong> checkbox can be used
+to indicate that there is additional code that will be required by this
+plugin that will not be generated by Deviser. Checking the ‘requires
+additional code’ box reveals further boxes that can be used to specify
+the location of the additional code files. Deviser will incorporate this
+code ‘as-is’.</p>
+</div>
+<div class="section" id="the-plugin-defined-classes-and-child-classes-boxes">
+<h4>3.4.2.5. The Plugin <strong>Defined Classes</strong> and <strong>Child Classes</strong> boxes<a class="headerlink" href="#the-plugin-defined-classes-and-child-classes-boxes" title="Permalink to this headline">¶</a></h4>
+<p>The panel for adding a plugin lists the classes that have already been
+specified (<strong>Defined Classes</strong>) and are ‘available’ to extend an object.
+These can be selected and moved into the <strong>Child Classes</strong> column.</p>
+<p>The <strong>Up</strong> and <strong>Down</strong> buttons can be used to reorder the classes that have
+been added as extensions for the given extension point. This will impact the
+order in which Deviser deals with plugins and thus will affect typecode
+enumerations and the order in which plugin objects are documented.</p>
+</div>
+<div class="section" id="adding-other-package-information">
+<h4>3.4.2.6. Adding other package information<a class="headerlink" href="#adding-other-package-information" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="the-plugin-package-field">
+<h5>3.4.2.6.1. The plugin <strong>Package</strong> field<a class="headerlink" href="#the-plugin-package-field" title="Permalink to this headline">¶</a></h5>
+<p>In cases where the <strong>ExtensionPoint</strong> does not originate in SBML L3 Core
+Deviser needs to know in which L3 Package the class does originate.</p>
+</div>
+<div class="section" id="the-plugin-typecode-field">
+<h5>3.4.2.6.2. The plugin <strong>TypeCode</strong> field<a class="headerlink" href="#the-plugin-typecode-field" title="Permalink to this headline">¶</a></h5>
+<p>In cases where the <strong>ExtensionPoint</strong> does not originate in SBML L3 Core
+Deviser also needs to know the TypeCode that libSBML has used for the
+object being extended. It will be necessary for the user to consult libSBML
+documentation (or code) to determine this value.</p>
+</div>
+</div>
+</div>
+<div class="section" id="example-4-extending-a-core-element">
+<h3>3.4.3. Example 4 – Extending a core element<a class="headerlink" href="#example-4-extending-a-core-element" title="Permalink to this headline">¶</a></h3>
+<p>Here we are going to specify that the ‘foo’ package extends the SBML
+Level 3 Core Reaction with the new FooKineticLaw class.</p>
+<div class="figure" id="id22">
+<span id="fig-plugin-react"></span><img alt="_images/deviser-plugin-react.png" src="_images/deviser-plugin-react.png" />
+<p class="caption"><span class="caption-number">Figure 3.22 </span><span class="caption-text">Figure 22: Defining the extension of SBML Level 3 Core Reaction by package foo.</span></p>
+</div>
+<p>We fill in the <strong>ExtensionPoint</strong> with ‘Reaction’, tick the checkbox to
+note that the element is from core. Highlight FooKineticLaw in the
+<strong>Defined Classes</strong> column and use the arrows to move it to the <strong>Child
+Classes</strong> column. Essentially this is telling Deviser to generate the
+class FooReactionPlugin which will expect to have a data member of type
+FooKineticLaw class and the functions necessary to create and manipulate it
+(as shown below).</p>
+<div class="highlight-C++"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LIBSBML_EXTERN</span> <span class="nl">FooReactionPlugin</span> <span class="p">:</span> <span class="k">public</span> <span class="n">SBasePlugin</span>
+<span class="p">{</span>
+<span class="k">protected</span><span class="o">:</span>
+  <span class="n">FooKineticLaw</span><span class="o">*</span> <span class="n">mFooKineticLaw</span><span class="p">;</span>
+<span class="k">public</span><span class="o">:</span>
+  <span class="k">const</span> <span class="n">FooKineticLaw</span><span class="o">*</span> <span class="n">getFooKineticLaw</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+  <span class="kt">bool</span> <span class="nf">isSetFooKineticLaw</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="nf">setFooKineticLaw</span><span class="p">(</span><span class="k">const</span> <span class="n">FooKineticLaw</span><span class="o">*</span> <span class="n">fooKineticLaw</span><span class="p">);</span>
+  <span class="n">FooKineticLaw</span><span class="o">*</span> <span class="nf">createFooKineticLaw</span><span class="p">();</span>
+  <span class="kt">int</span> <span class="nf">unsetFooKineticLaw</span><span class="p">();</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="example-5-extending-a-core-element-with-attributes-only">
+<h3>3.4.4. Example 5 – Extending a core element with attributes only<a class="headerlink" href="#example-5-extending-a-core-element-with-attributes-only" title="Permalink to this headline">¶</a></h3>
+<p>Here we declare that the <strong>ExtensionPoint</strong> is Model from core and tick
+the <strong>hasAttributes</strong> checkbox.</p>
+<p>The table <strong>Child attributes and child elements</strong> appears. This is used
+for adding attributes and child elements as previously described. Here
+we specify that the Model will have a required boolean attribute
+‘useFoo’ from the foo package (<a class="reference internal" href="#fig-plugin-model"><span class="std std-numref">Figure 3.23</span></a>). Note that it is not necessary
+to specify child elements that originate in the package being defined
+as these that have already been listed as <strong>Child classes</strong>.</p>
+<div class="figure" id="id23">
+<span id="fig-plugin-model"></span><img alt="_images/deviser-plugin-model.png" src="_images/deviser-plugin-model.png" />
+<p class="caption"><span class="caption-number">Figure 3.23 </span><span class="caption-text">Figure 23: Defining the extension of SBML Level 3 Core Model by package foo.</span></p>
+</div>
+</div>
+<div class="section" id="example-6-extending-a-non-core-element">
+<h3>3.4.5. Example 6 – Extending a non-core element<a class="headerlink" href="#example-6-extending-a-non-core-element" title="Permalink to this headline">¶</a></h3>
+<p>Here we declare that the <strong>ExtensionPoint</strong> is Transition from the
+Qualitative Models (qual) Package. Unchecking the <strong>element from core</strong> checkbox
+reveals the <strong>Package</strong> and <strong>TypeCode</strong> fields which have been filled in as
+appropriate. The package ‘foo’ adds the
+ListOfFooRules object to the Transition object.</p>
+<div class="figure" id="id24">
+<span id="fig-plugin-trans"></span><img alt="_images/deviser-plugin-trans.png" src="_images/deviser-plugin-trans.png" />
+<p class="caption"><span class="caption-number">Figure 3.24 </span><span class="caption-text">Figure 24: Defining the extension of SBML Level 3 Qual Transition by package foo.</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="add-enum-information">
+<span id="add-enum"></span><h2>3.5. Add enum information<a class="headerlink" href="#add-enum-information" title="Permalink to this headline">¶</a></h2>
+<p>SBML allows users to define data types as enumerations of allowed
+values. Section <a class="reference internal" href="#enum"><span class="std std-ref">Attribute/child element type ‘enum’</span></a> describes using ‘enum’ as an attribute <strong>Type</strong>.
+Here we describe how to fully specify the enumeration.</p>
+<div class="section" id="general-enum-information">
+<h3>3.5.1. General enum information<a class="headerlink" href="#general-enum-information" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="the-enum-name-field">
+<h4>3.5.1.1. The Enum <strong>Name</strong> field<a class="headerlink" href="#the-enum-name-field" title="Permalink to this headline">¶</a></h4>
+<p>The <strong>Name</strong> field is used to declare the name of the enumeration, in
+this case Sign. Note that when generating code Deviser will append an
+‘_t’ to this name if it does not already have a name of the format Name_t.</p>
+</div>
+<div class="section" id="the-enum-name-value-table">
+<span id="enum-name"></span><h4>3.5.1.2. The Enum <strong>Name/Value</strong> table<a class="headerlink" href="#the-enum-name-value-table" title="Permalink to this headline">¶</a></h4>
+<p>The table is used to specify the individual allowed values of the
+enumeration.</p>
+<div class="section" id="the-enum-table-name-field">
+<h5>3.5.1.2.1. The enum table <strong>Name</strong> field<a class="headerlink" href="#the-enum-table-name-field" title="Permalink to this headline">¶</a></h5>
+<p>The <strong>Name</strong> field is the enumeration value that will appear in the
+enumeration itself.</p>
+</div>
+<div class="section" id="the-enum-table-value-field">
+<h5>3.5.1.2.2. The enum table <strong>Value</strong> field<a class="headerlink" href="#the-enum-table-value-field" title="Permalink to this headline">¶</a></h5>
+<p>The <strong>Value</strong> field gives the corresponding string value of that member
+of the enumeration.</p>
+<p>Each entry must have both a <strong>Name</strong> and a <strong>Value</strong>.</p>
+</div>
+</div>
+<div class="section" id="the-enum-quick-add-field">
+<h4>3.5.1.3. The Enum Quick Add field<a class="headerlink" href="#the-enum-quick-add-field" title="Permalink to this headline">¶</a></h4>
+<p>This field can be used to facilitate creating the enumeration Name-Value pairs.
+Enter the string value in this field and press the ‘wand’. The string will be
+added as an enumeration <strong>Value</strong> with a <strong>Name</strong> of PACKAGE_ENUM_VALUE.</p>
+</div>
+</div>
+<div class="section" id="example-7-adding-an-enumeration">
+<h3>3.5.2. Example 7 – Adding an enumeration<a class="headerlink" href="#example-7-adding-an-enumeration" title="Permalink to this headline">¶</a></h3>
+<div class="figure" id="id25">
+<span id="fig-foo-extra"></span><img alt="_images/deviser-foo-extra.png" src="_images/deviser-foo-extra.png" />
+<p class="caption"><span class="caption-number">Figure 3.25 </span><span class="caption-text">Figure 25: Defining the Extra class which has an attribute of type enum.</span></p>
+</div>
+<p>Assume we have an object ‘extra’ that has an attribute called ‘sign’
+which is of an enumeration type ‘Sign’. Firstly we define the class
+‘Extra’ and specify the attribute. In this case the <strong>Type</strong> of the
+attribute is ‘enum’ and the <strong>Element</strong> field gives the name of the
+enumeration type ‘Sign’ as shown in <a class="reference internal" href="#fig-foo-extra"><span class="std std-numref">Figure 3.25</span></a>.</p>
+<p>Then it is necessary to specify the enumeration itself. Use the <strong>Add
+Enum</strong> button from the toolbar or Edit menu.</p>
+<p>The <strong>Name</strong> filed is Sign (which corresponds to the <strong>Element</strong> field in
+the attribute table). <a class="reference internal" href="#fig-enum-sign"><span class="std std-numref">Figure 3.26</span></a> shows that we have specified
+that the enumeration sign has three
+possible values: ‘positive’, ‘negative’ and ‘neutral. Note we used the
+<strong>Quick Add</strong> field to enter ‘neutral’ which resulted in the enumeration
+FOO_SIGN_NEUTRAL.</p>
+<p>It is not necessary to add
+a default or “unknown” value –
+Deviser will do this when generating code.</p>
+<div class="figure" id="id26">
+<span id="fig-enum-sign"></span><img alt="_images/deviser-enum-sign-2.png" src="_images/deviser-enum-sign-2.png" />
+<p class="caption"><span class="caption-number">Figure 3.26 </span><span class="caption-text">Figure 26: Defining the Sign enumeration.</span></p>
+</div>
+</div>
+</div>
+<div class="section" id="mappings">
+<h2>3.6. Mappings<a class="headerlink" href="#mappings" title="Permalink to this headline">¶</a></h2>
+<p>Once the class and plugin descriptions are complete the Deviser Edit
+tool will determine if there are any classes present that do not
+originate from core or the package being described. Select ‘Mappings’
+from the tree in the panel on the left hand side. The tool will have
+prepopulated this with any relevant classes and all that remains is for
+the package information to be filled in.</p>
+<div class="figure" id="id27">
+<span id="fig-foo-mappings"></span><img alt="_images/deviser-foo-mappings.png" src="_images/deviser-foo-mappings.png" />
+<p class="caption"><span class="caption-number">Figure 3.27 </span><span class="caption-text">Figure 27: Identifying the origin of classes from other packages</span></p>
+</div>
+<p>The <strong>Package</strong> field is used to add the name of the package in which
+the class given in the <strong>Name</strong> field originates. In our example we have
+used the Transition and QualitativeSpecies classes both of which
+originate in the ‘qual’ package, so this information is added. Note on
+this panel only the <strong>Package</strong> column can be edited. The <strong>Name</strong>
+column is populated by the tool.</p>
+</div>
+<div class="section" id="overview-of-a-defined-package">
+<h2>3.7. Overview of a defined package<a class="headerlink" href="#overview-of-a-defined-package" title="Permalink to this headline">¶</a></h2>
+<p>Select ‘Version’ from the tree in the panel on the left hand side. Now
+that all the classes have been defined these are listed here
+(see <a class="reference internal" href="#fig-full-decsr"><span class="std std-numref">Figure 3.28</span></a>) and the ordering can be adjusted. The order will dictate the order
+of the relevant sections in the TeX documents.</p>
+<div class="figure" id="id28">
+<span id="fig-full-decsr"></span><img alt="_images/deviser-full-decsr.png" src="_images/deviser-full-decsr.png" />
+<p class="caption"><span class="caption-number">Figure 3.28 </span><span class="caption-text">Figure 28: The complete description of the foo package</span></p>
+</div>
+<p>The Deviser Edit tool creates an XML description from the definition
+that is used by other code to generate UML, TeX and libSBML code.</p>
+<p>Note this underlying XML file can be saved at any point and reopened
+using Deviser Edit or with any XML Editor. The full description of the
+Imaginary Foo Package used in the Examples can be seen in <a class="reference internal" href="appendix_xml_example.html#descrip"><span class="std std-ref">Appendix A: Example package description</span></a> or
+is available in the deviser/samples directory.</p>
+<div class="section" id="validating-the-description">
+<h3>3.7.1. Validating the description<a class="headerlink" href="#validating-the-description" title="Permalink to this headline">¶</a></h3>
+<p>There are two further options on the Edit menu that have not yet been
+discussed.</p>
+<div class="section" id="the-validate-description-option">
+<span id="validate"></span><h4>3.7.1.1. The <strong>Validate Description</strong> option<a class="headerlink" href="#the-validate-description-option" title="Permalink to this headline">¶</a></h4>
+<p><strong>Validate Description</strong> runs a series of internal checks on the
+information provided and produces a list of Errors and Warnings.
+When invoked a pop-up window (<a class="reference internal" href="#fig-validation"><span class="std std-numref">Figure 3.29</span></a>) will appear with
+either a list of errors and/or warnings or
+a confirmation that everything is consistent. The Copy button can be
+used to copy the contents of the report to the clipboard and thus makes
+them available for pasting elsewhere.</p>
+<div class="figure" id="id29">
+<span id="fig-validation"></span><img alt="_images/deviser-validation.png" src="_images/deviser-validation.png" />
+<p class="caption"><span class="caption-number">Figure 3.29 </span><span class="caption-text">Figure 29: Validating the package description</span></p>
+</div>
+<p><a class="reference internal" href="appendix_validation.html#validation"><span class="std std-ref">Appendix C: Validation</span></a> gives a list of the errors and warnings that may be issued
+by Deviser Edit with references to the relevant sections in the main text.</p>
+</div>
+<div class="section" id="the-fix-errors-option">
+<h4>3.7.1.2. The <strong>Fix Errors</strong> option<a class="headerlink" href="#the-fix-errors-option" title="Permalink to this headline">¶</a></h4>
+<p><strong>Fix Errors</strong> provides a direct way of validating and then correcting
+any inconsistencies. Deviser Edit will run the validation checks and then
+automatically correct any issues, where this is possible.
+It is advisable to use <strong>Validate Description</strong>
+following <strong>Fix Errors</strong> as some errors cannot be automatically fixed.</p>
+</div>
+</div>
+</div>
+<div class="section" id="defining-multiple-versions-of-a-package">
+<span id="mult-vers"></span><h2>3.8. Defining multiple versions of a package<a class="headerlink" href="#defining-multiple-versions-of-a-package" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Latex output generation does not, as yet, deal with multiple versions.</p>
+</div>
+<p>Deviser code generation neatly handles multiple versions of a package.</p>
+<p>Each version must be specified completely. Using the <strong>Add Version</strong> button
+from the menu or toolbar will create a second version that can be populated
+in the same way as described in this manual.</p>
+<p>Since new versions of a package are likely to resemble existing versions the
+entire version can be duplicated by right-clicking on the Version header in the
+tree view on the left panel and selecting <strong>Duplicate</strong> (see <a class="reference internal" href="#deviser-util1"><span class="std std-numref">Figure 3.30</span></a>).</p>
+<div class="figure" id="id30">
+<span id="deviser-util1"></span><img alt="_images/deviser-util1.png" src="_images/deviser-util1.png" />
+<p class="caption"><span class="caption-number">Figure 3.30 </span><span class="caption-text">Figure 30: Duplicating a version of a package.</span></p>
+</div>
+<p>This creates a complete copy of the previous package version and gives it the
+next package version number (see <a class="reference internal" href="#fig-foo-v2"><span class="std std-numref">Figure 3.31</span></a>). The individual
+objects can then be edited or removed as necessary and any additional objects
+added.</p>
+<div class="figure" id="id31">
+<span id="fig-foo-v2"></span><img alt="_images/deviser-foo-v2.png" src="_images/deviser-foo-v2.png" />
+<p class="caption"><span class="caption-number">Figure 3.31 </span><span class="caption-text">Figure 31: A second version of the ‘foo’ package duplicated from Version 1. Note how
+the classes listed reflect Version 1.</span></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="using_deviser.html" class="btn btn-neutral float-right" title="4. Using Deviser" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="getting_started.html" class="btn btn-neutral" title="2. Getting started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, SBML Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
