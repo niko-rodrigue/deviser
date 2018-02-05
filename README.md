@@ -55,7 +55,7 @@ This program will use a Deviser xml file, and generate either a C++
 libSBML extension for it, or generate a LaTeX scaffold for its 
 specification. 
 
-Full documentation is available in the [docs](deviser\docs) directory.
+Full documentation is available in the [docs](deviser\docs) directory. [here](https://raw.githubusercontent.com/sbmlteam/deviser/backup-for-sorting-repo/docs/html/deviser.html)
 
 
 ## Installation ##
