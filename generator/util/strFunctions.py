@@ -38,7 +38,10 @@
 # ------------------------------------------------------------------------ -->
 
 import re
-from util import global_variables
+try: 
+  from . import global_variables
+except: 
+  import global_variables
 
 
 def upper_first(word):
@@ -90,6 +93,13 @@ def list_of_name(name, addPrefix=True):
     if addPrefix and not global_variables.is_package:
         prefix = global_variables.prefix
     return prefix + 'ListOf' + plural_no_prefix(name)
+
+
+def jsbml_list_of_name(name, addPrefix=True):
+    prefix = ''
+    if addPrefix and not global_variables.is_package:
+        prefix = global_variables.prefix
+    return prefix + 'listOf' + plural_no_prefix(name)
 
 
 def lower_list_of_name_no_prefix(name):

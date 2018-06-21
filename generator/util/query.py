@@ -37,7 +37,10 @@
 # written permission.
 # ------------------------------------------------------------------------ -->
 
-from . import strFunctions
+try:
+    from . import strFunctions
+except:
+    import strFunctions
 
 
 # return True is any of the attributes are of type SIdRef
@@ -278,7 +281,7 @@ def has_vector(attributes):
 
 
 # return True is any of the attributes have another package
-# and a listt of packages
+# and a list of packages
 def has_other_packages(attributes):
     list_pkgs = []
     has_pack = False
@@ -287,6 +290,14 @@ def has_other_packages(attributes):
             has_pack = True
             list_pkgs.append(attribute['other_package'])
     return [has_pack, list_pkgs]
+
+
+# @author Hovakim Grabski GSoC 2016
+# return True is any of the attributes are of type vector
+def has_term(attributes):
+    if any(attribute['JClassType'] == 'Term' for attribute in attributes):
+        return True
+    return False
 
 
 # return True is the attribute is saved as a string

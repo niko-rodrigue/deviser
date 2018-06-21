@@ -58,4 +58,33 @@ target/
 
 #mine
 testOutput/
+
+# PyCharm IDE
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/deviser.iml
+.idea/misc.xml
+.idea/modules.xml
 .idea/
+
+.gitignore_BACKUP_21003
+.gitignore_BASE_21003
+.gitignore_LOCAL_21003
+.gitignore_REMOTE_21003
+
+# SBML packages
+generator/distrib/
+generator/dyn/
+generator/fbc/
+generator/groups/
+generator/qual/
+generator/spatial/
+
+# Eclipse files
+.project
+.pydevproject
+*~

@@ -43,15 +43,16 @@ import sys
 
 try:
     from util import generateLatex, generateCode, global_variables
-except:
+except Exception as e:
+    print('Error is ', e)
     from util import global_variables
     global_variables.code_returned = global_variables.return_codes['unknown error - please report']
 #from legacy import run
 
 
-def generatePackageFor(filename):
+def generatePackageFor(filename, language = 'sbml'):
     """This function generates a libSBML extension for the given filename"""
-    generateCode.generate_code_for(filename, True)
+    generateCode.generate_code_for(filename, language,True)
 
 
 #def generateLegacyPackageFor(filename):
@@ -89,7 +90,11 @@ def main(args):
 #        if operation == '--legacy' or operation == '-gl':
 #            generateLegacyPackageFor(filename)
         if operation == '--generate' or operation == '-g':
-            generatePackageFor(filename)
+            language = 'sbml'
+            generatePackageFor(filename,language)
+        elif operation == '--generatejsbml' or operation == '-gj':
+            language = 'jsbml'
+            generatePackageFor(filename,language)
         elif operation == '--latex' or operation == '-l':
             generateLaTeXFor(filename)
         else:

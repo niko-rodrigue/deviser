@@ -1,6 +1,86 @@
 # Deviser
 
 
+## Google Summer of Code 2016
+
+
+*Fork Author*:      [Hovakim Grabski](https://github.com/hovo1990)
+
+*Fork Repository*:   [https://github.com/hovo1990/deviser](https://github.com/hovo1990/deviser)
+
+## Fork Background ##
+
+Computation modeling has become a crucial aspect of biological research, and [SBML](http://sbml.org) (the Systems Biology Markup Language) has become the de facto standard open format for exchanging models between software tools in systems biology.
+
+Since SBML Level 3 is being developed as a modular format with optional SBML Level 3 packages are available to extend the focus of the core SBML representation. Deviser is a new code generation system developed to facilitate the development of SBML L3 packages by helping to automate the generation of specifications, UML diagrams and library code.
+
+The current fork extends Deviser's code generator to produce Java code that can be integrated into JSBML, the pure Java API library for SBML. This allows Deviser to target both libSBML and JSBML.At the current it generates the foundation of the packages, which facilitates the implementation of the packages.  The work was done for Google Summer of Code 2016.
+
+
+## Using Deviser for Java Code Generation ##
+
+There is command line version of the function that can be used to invoke the deviser functionality for generating Java/JSBML code from the XML file. This is the deviser.py file found in the generator directory.
+
+    deviser.py [--generatejsbml][--latex] input-file.xml  
+
+
+
+## Requirement for the fork
+Deviser requires javap for the java code generation at the current phase.
+Javap is available with the JDK and the following is required for Devisers' java code functionality. 
+
+[Java JDK is required for javap](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 
+
+Also set up JAVA_HOME environment variable for your operating system, if you are working under Windows, here is a [good tutorial](https://www.mkyong.com/java/how-to-set-java_home-on-windows-10/) on how to set up. And for Linux: [Ubuntu/Debian](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04).
+
+## Current State ##
+
+At the current state Deviser generates compilable templates, which serve as a foundation and facilitates the implementation of the following packages :
+
+
+1.	Qualitative Models package (qual, for short) allows species in a model to have non-quantitative or non-continuous levels.
+([Chaouiya et al., 2013](http://bmcsystbiol.biomedcentral.com/articles/10.1186/1752-0509-7-135))
+2.	Groups ([groups, Hucka and Smith, 2013](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/groups)) agglomerates SBML model elements and can be linked to annotations and SBO terms (Courtot et al., 2011) to contextualize sets of objects for other
+programmers and modelers.
+3.	Distributions ([distrib, Moodie and Smith, 2013](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/distrib)) encodes statistical distributions and their sampling.
+4.	Dynamic Structures ([dyn, Gomez et al., 2014](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/dyn)), which supports the definition of dynamical behaviors for model entities.
+
+
+
+## Future Plans ##
+
+Specific parts of the packages are left to be implemented.
+
+1.	Flux Balance Constraints ([fbc, Olivier and Bergmann, 2013](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/fbc)) encodes components for constraints based modeling (Lewis et al., 2012), which employs a class of models
+in which the canonical stoichiometric relations between reactions and metabolites are specified as constraints for mathematical optimization.
+2.	Spatial Processes ([spatial, Schaff et al., 2014](http://sbml.org/Documents/Specifications/SBML_Level_3/Packages/spatial))  specifies geometric descriptions of biochemical models’ components using a cellular coordinate system that can describe non-uniform molecular distributions, diffusive transport and spatially localized
+reactions.
+
+
+I would also like to optimize imports part, as well as find an alternative to javap, which is used extensively, so deviser
+does not have any dependency for Java/JSBML code generation.
+
+
+## Java Tests ##
+
+
+For running Java code generation tests, please head to  generator/tests/test_java_code and run
+
+    run_java_tests.py
+
+
+If there are any errors, it will also show the code differences.
+
+
+
+## Acknowledgments ##
+
+I am very grateful to my mentors Dr. Bergmann, Dr. Keating, Dr. Dräger and Dr. Rodriguez for the invaluable help and patience.
+
+
+
+## Original Information ##
+
 
 *Deviser* stands for *"Design Explorer and
 Viewer for Iterative SBML Enhancement of Representations"*. 

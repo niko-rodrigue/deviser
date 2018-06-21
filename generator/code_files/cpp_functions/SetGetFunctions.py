@@ -101,7 +101,7 @@ class SetGetFunctions():
             self.false = '@c false'
         self.plural = strFunctions.plural(self.child_name)
         self.indef_name = strFunctions.get_indefinite(self.object_child_name)
-        self.abbrev_parent = strFunctions.abbrev_name(self.object_name)
+        self.abbrev_parent = strFunctions.abbrev_name(self.object_name) #Whats the purpose?
         self.abbrev_child = strFunctions.abbrev_name(self.child_name)
         self.is_header = True
         if 'is_header' in class_object:

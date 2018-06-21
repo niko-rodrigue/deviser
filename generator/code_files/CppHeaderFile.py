@@ -96,7 +96,7 @@ class CppHeaderFile(BaseCppFile.BaseCppFile):
         if len(attributes) > 0 or self.overwrites_children:
             self.write_line('protected:')
             self.up_indent()
-            self.write_doxygen_start()
+            self.write_doxygen_start() #This part is tricky doxygen
             self.write_data_members(attributes)
             self.write_doxygen_end()
             self.down_indent()
@@ -154,7 +154,7 @@ class CppHeaderFile(BaseCppFile.BaseCppFile):
             self.write_line('class {0};'.format(element['element']))
         self.skip_line()
 
-    def write_common_includes(self):
+    def write_common_includes(self): #Includes part!!!
         self.write_line_verbatim('#include <{0}/common/'
                                  'extern.h>'.format(self.language))
         if not self.is_plugin:
@@ -171,9 +171,9 @@ class CppHeaderFile(BaseCppFile.BaseCppFile):
                                          'h>'.format(self.language,
                                                      self.package.lower()))
 
-    def write_general_includes(self):
+    def write_general_includes(self): #Absolute important for imports
         pkg = self.package.lower()
-        include_lines = []
+        include_lines = [] #All the includes are appended here
         skip = False
         if not self.is_plugin:
             self.write_line_verbatim('#include <string>')

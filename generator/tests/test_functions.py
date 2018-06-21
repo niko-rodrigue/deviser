@@ -6,11 +6,16 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/..')
 from util import global_variables
 
+# See string differences
+import difflib
+
+
 
 path_to_tests = ''
 function_table = {'binding': 'run_bindings_tests',
                   'cmake': 'run_cmake_tests',
                   'cpp': 'run_cpp_tests',
+                  'java': 'run_java_tests',
                   'exit': 'run_exit_tests',
                   'tex': 'run_tex_tests'}
 
@@ -50,6 +55,30 @@ def read_file(path):
     return contents
 
 
+def see_difference(data1, data2, show_data = False):
+    if show_data is False:
+        return
+    # differences = difflib.ndiff(data1, data2)
+    # for i, s in enumerate(differences):
+    #     print(i,s)
+    # d = difflib.Differ()
+    # diff = d.compare(data1, data2)
+    # print('\n'.join(diff))
+    # diff = difflib.unified_diff(data1, data2, lineterm='\n')
+    # # diff = difflib.SequenceMatcher(None, data1, data2)
+    # print('\n'.join(list(diff)))
+
+    # diff = difflib.ndiff(data1.splitlines(1), data2.splitlines(1))
+    # d = difflib.Differ()
+    # diff = d.compare(data1.splitlines(1), data2.splitlines(1))
+    # print('\n'.join(list(diff)))
+    print('---------------------Showing Differences---------------------')
+    diff = difflib.unified_diff(data1.splitlines(1), data2.splitlines(1))
+    print('\n'.join(list(diff)))
+    print('====================================================')
+    print('\n')
+
+
 # do a string comparison of the contents of two file
 def compare_files(infile, outfile, fails, not_tested):
     ret = 0
@@ -68,9 +97,13 @@ def compare_files(infile, outfile, fails, not_tested):
         print('{0} .... PASSED'.format(outfile))
     else:
         fails.append(infile)
+        see_difference(indata, out, show_data=True)
         print('{0}=================>> FAILED'.format(outfile))
         ret = 1
     return ret
+
+
+
 
 
 def compare_return_codes(name, flag, expected_return, fails):
@@ -100,6 +133,7 @@ def run_tests(test_name, name, fails):
     import test_binding_code
     import test_cmake_code
     import test_cpp_code
+    import test_java_code
     import test_exit_codes
     import test_tex_files
     fail = eval(module)

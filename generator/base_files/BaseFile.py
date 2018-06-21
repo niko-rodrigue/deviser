@@ -45,7 +45,7 @@ class BaseFile:
 
     def __init__(self, name, extension):
         self.name = name
-        self.extension = extension
+        self.extension = extension #For C++ example 'h'
 
         # derived members for file
         self.filename = name + '.' + extension
@@ -224,6 +224,12 @@ class BaseFile:
         for i in range(0, int(self.num_tabs)):
             tabs += '  '
         self.file_out.write('{0}{1}\n'.format(tabs, line))
+
+    def write_jsbml_line_verbatim(self, line):
+        tabs = ''
+        for i in range(0, int(self.num_tabs)):
+            tabs += '  '
+        self.file_out.write('{0}{1};\n'.format(tabs, line))
 
     # write line without worrying about size
     def copy_line_verbatim(self, line):

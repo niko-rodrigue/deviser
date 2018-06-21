@@ -64,7 +64,7 @@ class ExtensionHeaderFile(BaseCppFile.BaseCppFile):
                                          None)
 
         # members from object
-        self.package = package['name']
+        self.package = package['name'] #Looks like it's the whole package
         self.cap_package = package['name'].upper()
         self.baseClass = '{0}Extension'.format(self.cap_language)
         self.class_name = self.name
@@ -97,7 +97,7 @@ class ExtensionHeaderFile(BaseCppFile.BaseCppFile):
     def write_class(self, base_class, class_name):
         self.write_line('class {0}_EXTERN {1} : public {2}'
                         .format(self.library_name.upper(),
-                                class_name, base_class))
+                                class_name, base_class)) #Base_class VIP SBML extension
         self.write_line('{')
         self.write_line('public:')
         self.skip_line()
@@ -401,7 +401,7 @@ class ExtensionHeaderFile(BaseCppFile.BaseCppFile):
     ########################################################################
 
     # Functions for writing definition declaration
-
+    #Maybe  for imports?
     def write_defn_begin(self):
         self.skip_line(2)
         self.write_line('#ifndef {0}_H__'.format(self.name))

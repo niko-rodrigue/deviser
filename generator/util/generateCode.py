@@ -40,8 +40,20 @@
 import sys
 import os
 
+# from pandas.hashtable import na_sentinel
+
 from parseXML import ParseXML
 from code_files import ExtensionFiles, CppFiles, ValidationFiles, BaseClassFiles
+
+# JSBML imports --> need to fix this part
+
+from java_code_files import JavaExtensionFiles
+
+from java_code_files import JavaFiles
+from java_code_files import JavaEnumFiles
+# from java_code_files import ValidationFiles #Need to fix this part
+
+
 from bindings_files import BindingsFiles
 from cmake_files import CMakeFiles
 from base_files import BaseFile, BaseTemplateFile, BaseTxtFile
@@ -51,7 +63,7 @@ import shutil
 directories = []
 
 
-def generate_code_for(filename, overwrite=True):
+def generate_code_for(filename, language='sbml', overwrite=True):
     global_variables.running_tests = False
     parser = ParseXML.ParseXML(filename)
     ob = []
@@ -59,7 +71,7 @@ def generate_code_for(filename, overwrite=True):
             global_variables.return_codes['success']:
         # catch a problem in the parsing
         try:
-            ob = parser.parse_deviser_xml()
+            ob = parser.parse_deviser_xml()  # What to do with 'pkg_version' values?
         except:
             global_variables.code_returned \
                 = global_variables.return_codes['parsing error']
@@ -73,9 +85,9 @@ def generate_code_for(filename, overwrite=True):
             generate_package_code(name, language, overwrite, ob)
         else:
             generate_other_library_code(name, language, overwrite, ob)
-        # except:
-        #     global_variables.code_returned \
-        #         = global_variables.return_codes['unknown error - please report']
+            # except:
+            #     global_variables.code_returned \
+            #         = global_variables.return_codes['unknown error - please report']
 
 
 def generate_other_library_code(name, language, overwrite, ob):
@@ -114,11 +126,16 @@ def generate_package_code(name, language, overwrite, ob):
         print('Either delete what directory structure is there or')
         print('re run with overwrite=True')
         return False
-    global_variables.populate_error_list(ob)
-    generate_code_files(name, ob)
-    generate_bindings_files(name, ob)
-    generate_cmake_files(name, ob)
-    generate_example_files(name, ob)
+    if language == 'sbml':
+        global_variables.populate_error_list(ob)
+        generate_code_files(name, ob)
+        generate_bindings_files(name, ob)
+        generate_cmake_files(name, ob)
+        generate_example_files(name, ob)
+    elif language == 'jsbml':
+        print('JSBML not fully implemented yet')
+        print('In testing')
+        generate_jsbml_code_files(name, ob)
 
 def generate_example_files(name, ob):
     this_dir = os.getcwd()
@@ -277,14 +294,14 @@ def generate_code_files(name, ob):
     os.chdir(common_dir)
     ext = ExtensionFiles.ExtensionFiles(ob, 'types', True)
     ext.write_files()
-    ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True)
+    ext = ExtensionFiles.ExtensionFiles(ob, 'fwd', True)  # fwd? Type VIP
     ext.write_files()
     os.chdir(this_dir)
 
     os.chdir(extension_dir)
     ext = ExtensionFiles.ExtensionFiles(ob, '', True)
     ext.write_files()
-    for i in range(0, len(ob['plugins'])+1):
+    for i in range(0, len(ob['plugins']) + 1):
         ext.write_plugin_files(i)
     os.chdir(this_dir)
 
@@ -308,6 +325,46 @@ def generate_code_files(name, ob):
     for add_file in global_variables.add_declaration:
         shutil.copy(add_file, os.getcwd())
 
+    os.chdir(this_dir)
+
+
+def generate_jsbml_code_files(name, ob):
+    this_dir = os.getcwd()
+    language = global_variables.javaLanguage
+    extension_dir = '{0}{1}src{1}org{1}sbml{1}{2}{1}ext{1}{0}'.format(name, os.sep, language)
+
+    parser_dir = '{0}{1}src{1}org{1}sbml{1}{2}{1}xml{1}parsers'.format(name, os.sep,
+                                                                       language)
+
+    # print('extension_dir ', extension_dir)
+    # print('parser_dir ', parser_dir)
+
+    # #Write Extension
+    os.chdir(extension_dir)
+    # Initialize extension object
+    ext = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+
+    # Write Constants
+    ext.write_constants()
+
+    # Write enums
+    for i in range(0, len(ob['enums']) + 1):
+        ext.write_enums(i)
+
+    # Write baseElements
+    for working_class in ob['baseElements']:
+        all_files = JavaFiles.JavaFiles(working_class, True)
+        all_files.write_files()
+
+    # # Write plugins
+    for i in range(0, len(ob['plugins']) + 1):
+        ext.write_plugin_files(i)
+    os.chdir(this_dir)
+
+    # Write JSBML Parser
+    os.chdir(parser_dir)
+    parser_file = JavaExtensionFiles.JavaExtensionFiles(ob, '', True)
+    parser_file.write_parser_file()
     os.chdir(this_dir)
 
 
@@ -376,6 +433,41 @@ def populate_package_directories(name, lang):
                    'constraints'.format(name, sep, lang)]
 
 
+# Generate java JSBML package directories
+def populate_jsbml_package_directories(name, lang):
+    global directories
+    sep = os.sep
+    directories = ['{0}'.format(name),
+                   '{0}{1}lib'.format(name, sep),
+                   '{0}{1}doc'.format(name, sep),
+                   '{0}{1}doc{1}{2}'.format(name, sep, 'img'),
+                   '{0}{1}test'.format(name, sep),
+                   '{0}{1}resources'.format(name, sep),
+                   '{0}{1}resources{1}org'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources'.format(name, sep),
+                   '{0}{1}resources{1}org{1}sbml{1}jsbml{1}resources{1}cfg'.format(name, sep),
+                   '{0}{1}src'.format(name, sep),
+                   '{0}{1}src{1}org'.format(name, sep, lang),
+                   '{0}{1}src{1}org{1}sbml'.format(name, sep, lang),
+                   '{0}{1}src{1}org{1}sbml{1}{2}'.format(name, sep, lang),
+                   '{0}{1}src{1}org{1}sbml{1}{2}{1}ext'.format(name, sep, lang),
+                   '{0}{1}src{1}org{1}sbml{1}{2}{1}xml'.format(name, sep, lang),
+                   '{0}{1}src{1}org{1}sbml{1}{2}{1}ext{1}{0}'.format(name, sep, lang),
+                   '{0}{1}src{1}org{1}sbml{1}{2}{1}xml{1}parsers'.format(name, sep, lang),
+                   '{0}{1}test{1}org'.format(name, sep),
+                   '{0}{1}test{1}org{1}sbml'.format(name, sep),
+                   '{0}{1}test{1}org{1}sbml{1}{2}'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}ext'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}ext{1}{0}'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}ext{1}{0}{1}test'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}xml'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}xml{1}test'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}xml{1}test{1}data'.format(name, sep, lang),
+                   '{0}{1}test{1}org{1}sbml{1}{2}{1}xml{1}test{1}data{1}{0}'.format(name, sep, lang)]
+
+
 def populate_other_library_directories(name, lang):
     global directories
     sep = os.sep
@@ -398,7 +490,10 @@ def populate_other_library_directories(name, lang):
 
 def create_dir_structure(pkgname, lang, overwrite):
     if global_variables.is_package:
-        populate_package_directories(pkgname, lang)
+        if lang == 'sbml':
+            populate_package_directories(pkgname, lang)
+        elif lang == 'jsbml':
+            populate_jsbml_package_directories(pkgname, lang)
     else:
         populate_other_library_directories(pkgname, lang)
     print('creating directory structure for {0}'.format(pkgname))
@@ -448,7 +543,7 @@ def main(args):
     if len(args) != 2:
         global_variables.code_returned = \
             global_variables.return_codes['missing function argument']
-        print ('Usage: generateCode.py xmlfile')
+        print('Usage: generateCode.py xmlfile')
     else:
         generate_code_for(args[1])
     if global_variables.code_returned == \
@@ -458,6 +553,7 @@ def main(args):
         print('writing code failed')
 
     return global_variables.code_returned
+
 
 if __name__ == '__main__':
     main(sys.argv)
